@@ -17,4 +17,4 @@ const Screen = () => {
   return state === true ? <App /> : <Splash />;
 };
 
-AppRegistry.registerComponent(appName, Screen);
+AppRegistry.registerComponent(appName, () => Screen);

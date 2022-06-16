@@ -8,10 +8,12 @@ import App from './App';
 // import App from './src/navigation/RootNavigation';
 import Splash from './src/screens/Splash/Splash';
 import {name as appName} from './app.json';
+import RNBootSplash from 'react-native-bootsplash';
 
 const Screen = () => {
   const [state, setState] = useState(false);
   useEffect(() => {
+    RNBootSplash.hide();
     setTimeout(() => {
       setState(true);
     }, 3000);

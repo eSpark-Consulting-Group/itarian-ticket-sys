@@ -33,8 +33,8 @@ import {
   StopWatch,
   TimeSheets,
 } from '../screens';
+import {moderateScale} from 'react-native-size-matters';
 
-const {width, height} = Dimensions.get('window');
 const Drawer = createDrawerNavigator();
 
 const DrawerContent = (props: any) => {
@@ -82,6 +82,7 @@ const Draw = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Agenda"
+      useLegacyImplementation={true}
       drawerContent={props => <DrawerContent {...props} />}
       screenOptions={{drawerType: 'slide', headerTitleAlign: 'center'}}>
       <Drawer.Screen name="Agenda" component={Agenda} />
@@ -107,24 +108,24 @@ export default Draw;
 
 const styles = StyleSheet.create({
   header: {
-    flex: 0.1,
+    flex: 0.12,
     backgroundColor: 'hsl(344, 100%, 54%)',
     flexDirection: 'row',
   },
   avatarContainer: {
-    flex: 0.3,
+    flex: 0.35,
     backgroundColor: 'pink',
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatar: {
-    height: '100%',
-    width: '80%',
+    height: moderateScale(65, 0.5),
+    width: moderateScale(65, 0.5),
     backgroundColor: 'red',
-    borderRadius: 35,
+    borderRadius: 100,
   },
   content: {
-    flex: 0.65,
+    flex: 0.63,
     backgroundColor: 'hsl(35, 100%, 55%)',
   },
   footer: {

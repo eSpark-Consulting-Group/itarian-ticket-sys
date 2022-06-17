@@ -13,8 +13,12 @@ import {
   DrawerItemList,
   DrawerContentScrollView,
   DrawerItem,
+  DrawerHeaderProps,
 } from '@react-navigation/drawer';
-import {useTheme} from '@react-navigation/native';
+import {useTheme, DrawerActions} from '@react-navigation/native';
+import {Theme} from '../theme/colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FA from 'react-native-vector-icons/FontAwesome';
 
 import {
   Agenda,
@@ -78,12 +82,38 @@ const DrawerContent = (props: any) => {
   );
 };
 
-const Draw = () => {
+const Draw = ({navigation, route}: DrawerHeaderProps) => {
+  const {colors}: Theme = useTheme();
+
   return (
     <Drawer.Navigator
       initialRouteName="Agenda"
+      useLegacyImplementation={true}
       drawerContent={props => <DrawerContent {...props} />}
-      screenOptions={{drawerType: 'slide', headerTitleAlign: 'center'}}>
+      screenOptions={{
+        drawerType: 'slide',
+        headerTitleAlign: 'center',
+        headerStyle: {backgroundColor: colors.primary},
+        headerTitleStyle: {color: colors.background},
+        headerLeft: () => (
+          <Ionicons
+            size={30}
+            name="menu"
+            color="#fff"
+            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+            style={{left: 10}}
+          />
+        ),
+        headerRight: () => (
+          <FA
+            size={30}
+            name="user"
+            color="#fff"
+            onPress={() => console.log('Hello User')}
+            style={{right: 10}}
+          />
+        ),
+      }}>
       <Drawer.Screen name="Agenda" component={Agenda} />
       <Drawer.Screen name="Search" component={Search} />
       <Drawer.Screen name="Calendar" component={Calendar} />

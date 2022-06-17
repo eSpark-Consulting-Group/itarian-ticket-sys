@@ -24,7 +24,7 @@ const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
         <CstmButton
           title="Sign In"
           onPress={() => {
-            navigation.navigate('Agenda');
+            navigation.navigate('Draw');
           }}
         />
       </View>

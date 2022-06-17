@@ -2,14 +2,16 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Login, SignUp, Agenda} from '../screens/index';
+import {Login, SignUp} from '../screens/index';
+import {DarkTheme, LightTheme} from '../theme/colors';
+import Drawer from './Drawer';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={LightTheme}>
         <Stack.Navigator>
           <Stack.Screen
             name="Login"
@@ -22,9 +24,9 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Agenda"
-            component={Agenda}
-            options={{headerTitleAlign: 'center'}}
+            name="Draw"
+            component={Drawer}
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>

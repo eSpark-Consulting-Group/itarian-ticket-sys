@@ -5,7 +5,7 @@ import styles from './style';
 const AgendaScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>AgendaScreen</Text>
+      <Text>Agenda Screen</Text>
     </View>
   );
 };

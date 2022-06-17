@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './style';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import {CstmButton, CstmInput} from '../../../components';
+
 const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">

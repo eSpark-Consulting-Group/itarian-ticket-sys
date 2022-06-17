@@ -1,4 +1,19 @@
-export const LightTheme = {
+export type Theme = {
+  dark: boolean;
+  colors: Colors;
+};
+
+export type Colors = {
+  primary: string;
+  secondary: string;
+  background: string;
+  border: string;
+  text: string;
+  card: string;
+  notification: string;
+};
+
+export const LightTheme: Theme = {
   dark: false,
   colors: {
     primary: '#355973',
@@ -11,7 +26,7 @@ export const LightTheme = {
   },
 };
 
-export const DarkTheme = {
+export const DarkTheme: Theme = {
   dark: true,
   colors: {
     primary: '#ffffff',

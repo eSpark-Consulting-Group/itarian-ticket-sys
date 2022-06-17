@@ -1,12 +1,13 @@
 import {Dimensions, StyleSheet} from 'react-native';
+import {moderateVerticalScale} from 'react-native-size-matters';
 
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.08,
     flexDirection: 'row',
     marginVertical: 10,
+    height: moderateVerticalScale(60, 0),
   },
   input: {
     backgroundColor: 'transparent',

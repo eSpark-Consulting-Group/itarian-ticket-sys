@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {KeyboardAvoidingView, Text, View} from 'react-native';
 import React from 'react';
 import {TextInput} from 'react-native-paper';
 import PropTypes from 'prop-types';

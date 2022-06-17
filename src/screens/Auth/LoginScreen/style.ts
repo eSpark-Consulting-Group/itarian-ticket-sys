@@ -1,8 +1,19 @@
 import {StyleSheet} from 'react-native';
+import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    backgroundColor: '#F7F7F7',
+  },
+  imageContainer: {
+    height: moderateVerticalScale(50, 0),
+    width: '100%',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  headerImage: {
+    width: '50%',
+    height: '100%',
   },
 });
 

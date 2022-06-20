@@ -3,8 +3,11 @@ import React from 'react';
 import styles from './style';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import {CstmButton, CstmInput} from '../../../components';
+import {useTheme} from '@react-navigation/native';
+import {Theme} from '../../../theme/colors';
 
 const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
+  const {colors}: Theme = useTheme();
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.imageContainer}>

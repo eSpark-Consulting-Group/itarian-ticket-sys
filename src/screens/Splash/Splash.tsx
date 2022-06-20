@@ -9,7 +9,7 @@ const Splash: React.FC<{}> = () => {
 
   return (
     <View style={styles.container}>
-      <ActivityIndicator size={'large'} color={light.secondary} />
+      <ActivityIndicator size={'large'} color={light.card} />
       <Text style={styles.textStyle}>Loading...</Text>
     </View>
   );

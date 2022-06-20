@@ -4,6 +4,8 @@ import {TextInput} from 'react-native-paper';
 import PropTypes from 'prop-types';
 
 import styles from './style';
+import {useTheme} from '@react-navigation/native';
+import {Theme} from '../../theme/colors';
 
 const CstmInput = ({
   title,
@@ -12,6 +14,7 @@ const CstmInput = ({
   title: string;
   placeholder: string;
 }) => {
+  const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
       <View style={styles.adjuster} />

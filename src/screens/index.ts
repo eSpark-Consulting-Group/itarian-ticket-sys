@@ -14,6 +14,8 @@ import ServiceTickets from './ServiceTickets';
 import StopWatch from './StopWatch';
 import TimeSheets from './TimeSheets';
 import ExpenseReports from './ExpenseReports';
+import Settings from './Settings';
+import SendFeedback from './SendFeedback';
 
 export {
   Login,
@@ -33,4 +35,6 @@ export {
   StopWatch,
   TimeSheets,
   ExpenseReports,
+  Settings,
+  SendFeedback,
 };

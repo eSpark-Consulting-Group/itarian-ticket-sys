@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import {useTheme} from '@react-navigation/native';
 
 import styles from './style';
+import {Theme} from '../../theme/colors';
 
 const CstmButton = ({title, onPress}: {title: string; onPress: () => void}) => {
+  const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
       {/* <---- Adjuster from Left ---> */}

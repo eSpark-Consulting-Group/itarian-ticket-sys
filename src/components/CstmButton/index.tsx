@@ -14,7 +14,9 @@ const CstmButton = ({title, onPress}: {title: string; onPress: () => void}) => {
       <View style={styles.adjuster} />
 
       {/* <---- Center ---> */}
-      <TouchableOpacity onPress={onPress} style={styles.button}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={{...styles.button, backgroundColor: colors.primary}}>
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
 

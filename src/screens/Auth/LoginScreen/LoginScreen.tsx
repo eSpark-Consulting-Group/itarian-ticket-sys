@@ -1,4 +1,4 @@
-import {View, Text, Button, Image, KeyboardAvoidingView} from 'react-native';
+import {View, Image, KeyboardAvoidingView} from 'react-native';
 import React from 'react';
 import styles from './style';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';

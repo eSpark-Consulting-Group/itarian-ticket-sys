@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 0.8,
-    backgroundColor: 'purple',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,

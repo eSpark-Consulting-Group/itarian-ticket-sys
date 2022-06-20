@@ -19,7 +19,7 @@ const CstmInput = ({
     <View style={styles.container}>
       <View style={styles.adjuster} />
       <View style={styles.center}>
-        <Text style={{fontWeight: '700'}}>{title}</Text>
+        <Text style={{fontWeight: '700', color: colors.text}}>{title}</Text>
         <TextInput
           style={styles.input}
           placeholder={placeholder}

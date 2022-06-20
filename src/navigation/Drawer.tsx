@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Dimensions,
   View,
   SafeAreaView,
   Image,
@@ -11,15 +10,16 @@ import {
 import {
   createDrawerNavigator,
   DrawerItemList,
-  DrawerContentScrollView,
   DrawerItem,
   DrawerHeaderProps,
+  DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import {useTheme, DrawerActions} from '@react-navigation/native';
 import {Theme} from '../theme/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
-
+import {useState as useHookState, State} from '@hookstate/core';
+import {globalState} from '../utils/globalState';
 import {
   Agenda,
   Calendar,
@@ -36,12 +36,14 @@ import {
   ServiceTickets,
   StopWatch,
   TimeSheets,
+  Settings,
+  SendFeedback,
 } from '../screens';
 import {moderateScale} from 'react-native-size-matters';
 
 const Drawer = createDrawerNavigator();
 
-const DrawerContent = (props: any) => {
+const DrawerContent = (props: DrawerContentComponentProps) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.header}>
@@ -62,13 +64,13 @@ const DrawerContent = (props: any) => {
         <DrawerItem
           label={'Settings'}
           onPress={() => {
-            console.log('Settings');
+            props.navigation.navigate('Settings');
           }}
         />
         <DrawerItem
           label={'Send Feedback'}
           onPress={() => {
-            console.log('Send Feedback');
+            props.navigation.navigate('Feedback');
           }}
         />
         <DrawerItem
@@ -84,6 +86,11 @@ const DrawerContent = (props: any) => {
 
 const Draw = ({navigation, route}: DrawerHeaderProps) => {
   const {colors}: Theme = useTheme();
+  const themeValue: State<string> = useHookState(globalState.theme);
+
+  const noHeader = (): null => null;
+
+  console.log('What is the current value of State', themeValue.get());
 
   return (
     <Drawer.Navigator
@@ -127,8 +134,18 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       <Drawer.Screen name="In Out Board" component={InOutBoard} />
       <Drawer.Screen name="Expense Reports" component={ExpenseReports} />
       <Drawer.Screen name="Service Tickets" component={ServiceTickets} />
-      <Drawer.Screen name="Time Sheets" component={TimeSheets} />
-      <Drawer.Screen name="Stop Watch" component={StopWatch} />
+      <Drawer.Screen name="TimeSheets" component={TimeSheets} />
+      <Drawer.Screen name="StopWatch" component={StopWatch} />
+      <Drawer.Screen
+        name="Settings"
+        component={Settings}
+        options={{headerRight: noHeader, drawerItemStyle: {display: 'none'}}}
+      />
+      <Drawer.Screen
+        name="Feedback"
+        component={SendFeedback}
+        options={{headerRight: noHeader, drawerItemStyle: {display: 'none'}}}
+      />
     </Drawer.Navigator>
   );
 };

@@ -1,15 +1,31 @@
-import {View, Image, KeyboardAvoidingView} from 'react-native';
 import React from 'react';
-import styles from './style';
+import {
+  View,
+  Text,
+  Button,
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
+
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {CstmButton, CstmInput} from '../../../components';
 import {useTheme} from '@react-navigation/native';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+
+import styles from './style';
 import {Theme} from '../../../theme/colors';
+import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label('Email'),
+  password: Yup.string().required().min(6).label('Password'),
+});
 
 const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <>
       <View style={styles.imageContainer}>
         <Image
           source={require('../../../assets/Images/logo.png')}
@@ -17,21 +33,68 @@ const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
           style={styles.headerImage}
         />
       </View>
-      <View>
-        <CstmInput title={'Site'} placeholder={'Your site'} />
-        <CstmInput title={'Company'} placeholder={'Your company'} />
-        <CstmInput title={'Username'} placeholder={'Your email address'} />
-        <CstmInput title={'Password'} placeholder={'Your password'} />
-      </View>
-      <View style={{marginVertical: 10}}>
-        <CstmButton
-          title="Sign In"
-          onPress={() => {
-            navigation.navigate('Draw');
-          }}
-        />
-      </View>
-    </KeyboardAvoidingView>
+      <ScrollView>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            onSubmit={values => {
+              navigation.navigate('Draw');
+              console.log('HAHAH');
+            }}
+            validationSchema={validationSchema}>
+            {({
+              handleChange,
+              handleSubmit,
+              errors,
+              setFieldTouched,
+              touched,
+              values,
+            }) => (
+              <>
+                <View>
+                  <CstmInput title={'Site'} placeholder={'Your site'} />
+                  <CstmInput title={'Company'} placeholder={'Your company'} />
+                  <CstmInput
+                    title={'Username'}
+                    placeholder={'Your email address'}
+                    value={values.email}
+                    keyType={'email-address'}
+                    onChangeText={handleChange('email')}
+                    onChange={() => {}}
+                    onBlur={() => setFieldTouched('email')}
+                  />
+                  {touched.email && errors.email ? (
+                    <CstmErrorText errorMsg={errors.email} />
+                  ) : (
+                    <View style={{backgroundColor: 'pink'}} />
+                  )}
+                  <CstmInput
+                    title={'Password'}
+                    placeholder={'Your password'}
+                    value={values.password}
+                    textHidden
+                    onChangeText={handleChange('password')}
+                    onChange={() => {}}
+                    onBlur={() => setFieldTouched('password')}
+                  />
+                  {touched.password && errors.password ? (
+                    <CstmErrorText errorMsg={errors.password} />
+                  ) : (
+                    <View style={{backgroundColor: 'pink'}} />
+                  )}
+                </View>
+                <View style={{marginVertical: 10}}>
+                  <CstmButton title="Sign In" onPress={handleSubmit} />
+                </View>
+              </>
+            )}
+          </Formik>
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </>
   );
 };
 

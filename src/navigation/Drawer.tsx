@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Dimensions,
   View,
   SafeAreaView,
   Image,
@@ -11,7 +10,6 @@ import {
 import {
   createDrawerNavigator,
   DrawerItemList,
-  DrawerContentScrollView,
   DrawerItem,
   DrawerHeaderProps,
 } from '@react-navigation/drawer';

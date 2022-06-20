@@ -77,6 +77,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
           label={'Logout'}
           onPress={() => {
             console.log('Logout');
+            props.navigation.navigate('Login');
           }}
         />
       </View>

@@ -15,10 +15,13 @@ import {
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import {useTheme, DrawerActions} from '@react-navigation/native';
-import {Theme} from '../theme/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import {useState as useHookState, State} from '@hookstate/core';
+import {moderateScale} from 'react-native-size-matters';
+import {Avatar} from 'react-native-paper';
+
+import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
 import {
   Agenda,
@@ -39,19 +42,44 @@ import {
   Settings,
   SendFeedback,
 } from '../screens';
-import {moderateScale} from 'react-native-size-matters';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
+  const {colors}: Theme = useTheme();
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.header}>
         <View style={styles.avatarContainer}>
-          <View style={styles.avatar}>{/*Avatar Container */}</View>
+          <View style={styles.avatar}>
+            <Avatar.Image
+              size={moderateScale(65, 0.5)}
+              source={require('../assets/Images/avatar.png')}
+            />
+          </View>
         </View>
-        <View style={{flex: 0.7, backgroundColor: 'blue'}}>
-          {/*User Info */}
+        <View
+          style={{
+            flex: 0.7,
+          }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+            }}>
+            <Text style={{fontWeight: '700', color: colors.background}}>
+              Johnny Bravo
+            </Text>
+            <Text style={{fontWeight: '700', color: colors.background}}>
+              iTarian LLC
+            </Text>
+            <View>
+              <Text style={{fontWeight: '700', color: colors.background}}>
+                Out of Office
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
       <View style={styles.content}>
@@ -63,18 +91,24 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         {/* Footer Container */}
         <DrawerItem
           label={'Settings'}
+          inactiveTintColor={colors.background}
+          labelStyle={{opacity: 0.75}}
           onPress={() => {
             props.navigation.navigate('Settings');
           }}
         />
         <DrawerItem
           label={'Send Feedback'}
+          inactiveTintColor={colors.background}
+          labelStyle={{opacity: 0.75}}
           onPress={() => {
             props.navigation.navigate('Feedback');
           }}
         />
         <DrawerItem
           label={'Logout'}
+          inactiveTintColor={colors.background}
+          labelStyle={{opacity: 0.75}}
           onPress={() => {
             console.log('Logout');
             props.navigation.navigate('Login');
@@ -103,11 +137,15 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         headerTitleAlign: 'center',
         headerStyle: {backgroundColor: colors.primary},
         headerTitleStyle: {color: colors.background},
+        drawerActiveTintColor: colors.background,
+        drawerInactiveTintColor: colors.background,
+        drawerItemStyle: {opacity: 0.75},
+        drawerActiveBackgroundColor: 'transparent',
         headerLeft: () => (
           <Ionicons
             size={30}
             name="menu"
-            color="#fff"
+            color={colors.background}
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             style={{left: 10}}
           />
@@ -116,7 +154,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           <FA
             size={30}
             name="user"
-            color="#fff"
+            color={colors.background}
             onPress={() => console.log('Hello User')}
             style={{right: 10}}
           />
@@ -156,12 +194,20 @@ export default Draw;
 const styles = StyleSheet.create({
   header: {
     flex: 0.12,
-    backgroundColor: 'hsl(344, 100%, 54%)',
     flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
   avatarContainer: {
     flex: 0.35,
-    backgroundColor: 'pink',
+    // backgroundColor: 'pink',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -173,10 +219,26 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 0.63,
-    backgroundColor: 'hsl(35, 100%, 55%)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
   footer: {
     flex: 0.25,
-    backgroundColor: 'hsl(197, 93%, 29%)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
 });

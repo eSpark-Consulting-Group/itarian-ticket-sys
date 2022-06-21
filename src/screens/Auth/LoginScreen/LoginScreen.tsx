@@ -87,7 +87,13 @@ const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
                   )}
                 </View>
                 <View style={{marginVertical: 10}}>
-                  <CstmButton title="Sign In" onPress={handleSubmit} />
+                  <CstmButton
+                    title="Sign In"
+                    onPress={() => {
+                      // handleSubmit();
+                      navigation.navigate('Draw');
+                    }}
+                  />
                 </View>
               </>
             )}

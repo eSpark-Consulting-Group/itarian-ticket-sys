@@ -19,7 +19,7 @@ export const LightTheme: Theme = {
     background: '#F7F7F7',
     border: '#e78242',
     text: 'rgb(28, 28, 30)',
-    card: '#e78242',
+    card: '#355973',
     notification: '#ffffff',
   },
 };

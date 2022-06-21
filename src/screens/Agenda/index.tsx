@@ -4,7 +4,6 @@ import {View, Text} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useTheme} from '@react-navigation/native';
 
-import styles from './style';
 import {Theme} from '../../theme/colors';
 import ScheduledTab from './Scheduled';
 import UnscheduledTab from './Unscheduled';
@@ -16,8 +15,14 @@ const AgendaScreen = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelStyle: {fontSize: 12},
-        tabBarStyle: {backgroundColor: 'powderblue'},
+        tabBarLabelStyle: {
+          fontSize: 12,
+          color: colors.background,
+        },
+        tabBarStyle: {
+          backgroundColor: colors.primary,
+        },
+        tabBarIndicatorStyle: {backgroundColor: colors.background},
       }}>
       <Tab.Screen name="Scheduled" component={ScheduledTab} />
       <Tab.Screen name="Unscheduled" component={UnscheduledTab} />

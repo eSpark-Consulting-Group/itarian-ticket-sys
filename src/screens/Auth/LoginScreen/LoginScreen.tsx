@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -6,12 +7,14 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
+import {useTheme} from '@react-navigation/native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 import styles from './style';
+import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 
 const validationSchema = Yup.object().shape({
@@ -20,6 +23,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
+  const {colors}: Theme = useTheme();
   return (
     <>
       <View style={styles.imageContainer}>
@@ -37,6 +41,7 @@ const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
               password: '',
             }}
             onSubmit={values => {
+              navigation.navigate('Draw');
               console.log('HAHAH');
             }}
             validationSchema={validationSchema}>

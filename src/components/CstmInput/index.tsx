@@ -9,6 +9,8 @@ import {TextInput} from 'react-native-paper';
 import PropTypes from 'prop-types';
 
 import styles from './style';
+import {useTheme} from '@react-navigation/native';
+import {Theme} from '../../theme/colors';
 
 const CstmInput = ({
   title,
@@ -29,11 +31,12 @@ const CstmInput = ({
   keyType?: KeyboardTypeOptions | undefined;
   textHidden?: boolean;
 }) => {
+  const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
       <View style={styles.adjuster} />
       <View style={styles.center}>
-        <Text style={{fontWeight: '700'}}>{title}</Text>
+        <Text style={{fontWeight: '700', color: colors.text}}>{title}</Text>
         <TextInput
           value={value}
           style={styles.input}

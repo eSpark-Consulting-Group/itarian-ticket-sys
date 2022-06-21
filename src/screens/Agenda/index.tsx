@@ -20,7 +20,8 @@ const AgendaScreen = () => {
           color: colors.background,
         },
         tabBarStyle: {
-          backgroundColor: colors.primary,
+          // backgroundColor: '#fff',
+          // borderColor: 'blue',
         },
         tabBarIndicatorStyle: {backgroundColor: colors.background},
       }}>

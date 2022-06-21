@@ -59,7 +59,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
           <View style={styles.avatar}>
             <Avatar.Image
               size={moderateScale(65, 0.5)}
-              source={require('../assets/Images/avatar.png')}
+              source={require('../assets/images/avatar.png')}
             />
           </View>
         </View>
@@ -92,11 +92,14 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        {/* Footer Container */}
         <DrawerItem
           label={'Settings'}
           inactiveTintColor={colors.background}
-          labelStyle={{opacity: 0.75}}
+          labelStyle={{
+            opacity: 0.75,
+            position: 'absolute',
+            bottom: -8,
+          }}
           onPress={() => {
             props.navigation.navigate('Settings');
           }}
@@ -104,7 +107,11 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <DrawerItem
           label={'Send Feedback'}
           inactiveTintColor={colors.background}
-          labelStyle={{opacity: 0.75}}
+          labelStyle={{
+            opacity: 0.75,
+            position: 'absolute',
+            bottom: -8,
+          }}
           onPress={() => {
             props.navigation.navigate('Feedback');
           }}
@@ -112,12 +119,17 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <DrawerItem
           label={'Logout'}
           inactiveTintColor={colors.background}
-          labelStyle={{opacity: 0.75}}
+          labelStyle={{
+            opacity: 0.75,
+            position: 'absolute',
+            bottom: -8,
+          }}
           onPress={() => {
             console.log('Logout');
             props.navigation.navigate('Login');
           }}
         />
+        <Text>Build v0.31.1c</Text>
       </View>
     </SafeAreaView>
   );
@@ -139,11 +151,20 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       screenOptions={{
         drawerType: 'slide',
         headerTitleAlign: 'center',
-        headerStyle: {backgroundColor: colors.primary},
-        headerTitleStyle: {color: colors.background},
+        headerStyle: {
+          backgroundColor: colors.primary,
+          borderBottomWidth: 1,
+          borderBottomColor: '#ffffff66',
+          elevation: 0,
+        },
+        headerTitleStyle: {
+          color: colors.background,
+        },
         drawerActiveTintColor: colors.background,
         drawerInactiveTintColor: colors.background,
-        drawerItemStyle: {opacity: 0.75},
+        drawerItemStyle: {
+          opacity: 0.75,
+        },
         drawerActiveBackgroundColor: 'transparent',
         headerLeft: () => (
           <Ionicons
@@ -216,19 +237,11 @@ const styles = StyleSheet.create({
   header: {
     flex: 0.12,
     flexDirection: 'row',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
+    borderBottomWidth: 1,
+    borderColor: '#fff',
   },
   avatarContainer: {
     flex: 0.35,
-    // backgroundColor: 'pink',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -240,26 +253,10 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 0.63,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
   },
   footer: {
     flex: 0.25,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
+    borderTopWidth: 1,
+    borderColor: '#fff',
   },
 });

@@ -6,6 +6,7 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
@@ -16,16 +17,19 @@ import * as Yup from 'yup';
 import styles from './style';
 import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
+import {moderateVerticalScale} from 'react-native-size-matters';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
   password: Yup.string().required().min(6).label('Password'),
 });
 
+const {width, height} = Dimensions.get('window');
+
 const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
   return (
-    <>
+    <View style={{height: height}}>
       <View style={styles.imageContainer}>
         <Image
           source={require('../../../assets/images/logo.png')}
@@ -69,7 +73,7 @@ const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
                   {touched.email && errors.email ? (
                     <CstmErrorText errorMsg={errors.email} />
                   ) : (
-                    <View style={{backgroundColor: 'pink'}} />
+                    <View />
                   )}
                   <CstmInput
                     title={'Password'}
@@ -83,24 +87,24 @@ const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
                   {touched.password && errors.password ? (
                     <CstmErrorText errorMsg={errors.password} />
                   ) : (
-                    <View style={{backgroundColor: 'pink'}} />
+                    <View />
                   )}
-                </View>
-                <View style={{marginVertical: 10}}>
-                  <CstmButton
-                    title="Sign In"
-                    onPress={() => {
-                      // handleSubmit();
-                      navigation.navigate('Draw');
-                    }}
-                  />
+                  <View style={{marginVertical: 10}}>
+                    <CstmButton
+                      title="Sign In"
+                      onPress={() => {
+                        // handleSubmit();
+                        navigation.navigate('Draw');
+                      }}
+                    />
+                  </View>
                 </View>
               </>
             )}
           </Formik>
         </KeyboardAvoidingView>
       </ScrollView>
-    </>
+    </View>
   );
 };
 

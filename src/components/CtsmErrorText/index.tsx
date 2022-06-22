@@ -9,7 +9,7 @@ const CstmErrorText = ({errorMsg}: {errorMsg: string | undefined}) => {
     <View style={styles.container}>
       <View style={styles.adjuster} />
       <View style={styles.center}>
-        <Text style={{color: '#ff1453'}}>{errorMsg}</Text>
+        <Text style={{color: '#d80303'}}>{errorMsg}</Text>
       </View>
       <View style={styles.adjuster} />
     </View>

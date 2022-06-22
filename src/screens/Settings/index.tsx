@@ -37,18 +37,23 @@ const SettingsScreen = () => {
           titleStyle={{color: colors.text, opacity: 0.75}}
           right={() => (
             <View style={{flexDirection: 'row'}}>
-              <List.Icon icon="weather-sunny" color={colors.primary} />
+              <List.Icon
+                icon="weather-sunny"
+                color={colors.primary}
+                style={{opacity: 1}}
+              />
               <Switch
                 value={isSwitchOn}
                 onValueChange={onToggleSwitch}
                 thumbColor={colors.primary}
                 color={colors.primary}
+                trackColor={{true: '#5b57578f', false: '#5b57578f'}}
               />
               <List.Icon icon="weather-night" color={colors.primary} />
             </View>
           )}
         />
-        <Divider />
+        <Divider style={{backgroundColor: colors.text, opacity: 0.25}} />
       </List.Section>
     </View>
   );

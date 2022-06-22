@@ -8,7 +8,7 @@ const MyActivities = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>MyActivities Screen</Text>
+      <Text style={{color: colors.text}}>MyActivities Screen</Text>
     </View>
   );
 };

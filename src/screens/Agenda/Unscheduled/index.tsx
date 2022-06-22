@@ -10,7 +10,7 @@ const UnscheduledTab = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Unscheduled Tab</Text>
+      <Text style={{color: colors.text}}>Unscheduled Tab</Text>
     </View>
   );
 };

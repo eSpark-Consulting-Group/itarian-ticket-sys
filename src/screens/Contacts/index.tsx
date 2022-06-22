@@ -8,7 +8,7 @@ const Contacts = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Contacts Screen</Text>
+      <Text style={{color: colors.text}}>Contacts Screen</Text>
     </View>
   );
 };

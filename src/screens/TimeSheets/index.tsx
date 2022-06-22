@@ -8,7 +8,7 @@ const TimeSheetsScreen = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>TimeSheets Screen</Text>
+      <Text style={{color: colors.text}}>TimeSheets Screen</Text>
     </View>
   );
 };

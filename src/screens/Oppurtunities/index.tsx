@@ -8,7 +8,7 @@ const Oppurtunities = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Oppurtunities Screen</Text>
+      <Text style={{color: colors.text}}>Oppurtunities Screen</Text>
     </View>
   );
 };

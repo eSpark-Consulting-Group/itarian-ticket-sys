@@ -8,7 +8,7 @@ const ServiceTicketsScreen = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Service Tickets Screen</Text>
+      <Text style={{color: colors.text}}>Service Tickets Screen</Text>
     </View>
   );
 };

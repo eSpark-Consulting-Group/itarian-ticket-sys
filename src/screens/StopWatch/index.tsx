@@ -8,7 +8,7 @@ const StopWatchScreen = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>StopWatch Screen</Text>
+      <Text style={{color: colors.text}}>StopWatch Screen</Text>
     </View>
   );
 };

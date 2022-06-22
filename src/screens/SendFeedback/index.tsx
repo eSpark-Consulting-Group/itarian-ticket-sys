@@ -8,7 +8,7 @@ const SendFeedbackScreen = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>SendFeedback Screen</Text>
+      <Text style={{color: colors.text}}>SendFeedback Screen</Text>
     </View>
   );
 };

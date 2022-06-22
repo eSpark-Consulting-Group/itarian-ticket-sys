@@ -8,7 +8,7 @@ const InOutBoardScreen = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>In/Out Board Screen</Text>
+      <Text style={{color: colors.text}}>In/Out Board Screen</Text>
     </View>
   );
 };

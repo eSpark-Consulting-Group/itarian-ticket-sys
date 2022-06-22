@@ -8,7 +8,7 @@ const ServiceBoard = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>ServiceBoard Screen</Text>
+      <Text style={{color: colors.text}}>ServiceBoard Screen</Text>
     </View>
   );
 };

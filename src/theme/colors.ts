@@ -13,25 +13,36 @@ export type Colors = {
 };
 
 export const LightTheme: Theme = {
+  //Light Theme
   dark: false,
   colors: {
-    primary: '#355973',
+    primary: '#28648f',
     background: '#F7F7F7',
-    border: '#e78242',
+    card: '#28648f',
     text: 'rgb(28, 28, 30)',
-    card: '#355973',
+    border: '#28648f',
     notification: '#ffffff',
   },
 };
 
 export const DarkTheme: Theme = {
+  //Dark Theme
   dark: true,
   colors: {
-    primary: '#e78242',
-    background: '#355973',
-    border: '#e78242',
+    primary: '#28648f',
+    background: 'rgb(28, 28, 30)',
+    border: '#28648f',
     text: '#ffffff',
-    card: '#e78242',
-    notification: '#355973',
+    card: '#28648f',
+    notification: '#28648f',
   },
 };
+
+// colors: {
+//   primary: 'rgb(255, 45, 85)',
+//   background: 'rgb(242, 242, 242)',
+//   card: 'rgb(255, 255, 255)',
+//   text: 'rgb(28, 28, 30)',
+//   border: 'rgb(199, 199, 204)',
+//   notification: 'rgb(255, 69, 58)',
+// },

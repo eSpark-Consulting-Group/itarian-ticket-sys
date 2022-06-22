@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -13,6 +13,11 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const themeValue: State<string> = useState(globalState.theme);
+
+  useEffect(() => {
+    console.log('Theme State', themeValue.get());
+  }, [themeValue.get()]);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer

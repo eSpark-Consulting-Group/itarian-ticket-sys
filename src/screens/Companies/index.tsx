@@ -8,7 +8,7 @@ const Companies = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Companies Screen</Text>
+      <Text style={{color: colors.text}}>Companies Screen</Text>
     </View>
   );
 };

@@ -16,6 +16,7 @@ import TimeSheets from './TimeSheets';
 import ExpenseReports from './ExpenseReports';
 import Settings from './Settings';
 import SendFeedback from './SendFeedback';
+import Profile from './Profile';
 
 export {
   Login,
@@ -37,4 +38,5 @@ export {
   ExpenseReports,
   Settings,
   SendFeedback,
+  Profile,
 };

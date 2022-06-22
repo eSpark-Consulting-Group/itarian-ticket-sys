@@ -28,7 +28,7 @@ const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
     <>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/images/logo.png')}
+          source={require('../../../assets/Images/logo.png')}
           resizeMode={'contain'}
           style={styles.headerImage}
         />

@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {useState, State} from '@hookstate/core';
 
-import {Login, SignUp} from '../screens/index';
+import {Login, Profile, SignUp} from '../screens/index';
 import {DarkTheme, LightTheme} from '../theme/colors';
 import Drawer from './Drawer';
 import {globalState} from '../utils/globalState';

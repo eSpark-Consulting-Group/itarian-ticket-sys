@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -45,6 +46,7 @@ import {
   TimeSheets,
   Settings,
   SendFeedback,
+  Profile,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -55,12 +57,14 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.header}>
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => props.navigation.navigate('Profile')}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
             <Avatar.Image
               size={moderateScale(65, 0.5)}
-              source={require('../assets/images/avatar.png')}
+              source={require('../assets/Images/avatar.png')}
             />
           </View>
         </View>
@@ -82,7 +86,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={styles.content}>
         <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
           <DrawerItemList {...props} />
@@ -355,6 +359,23 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <Ionicons name="ios-stopwatch" size={size} color={color} />
           ),
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerRight: noHeader,
+          headerLeft: () => (
+            <Ionicons
+              size={30}
+              name="close"
+              color={colors.background}
+              onPress={() => navigation.navigate('Agenda')}
+              style={{left: 10}}
+            />
+          ),
+          drawerItemStyle: {display: 'none'},
         }}
       />
       <Drawer.Screen

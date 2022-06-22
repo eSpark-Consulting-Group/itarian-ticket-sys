@@ -10,7 +10,7 @@ const Profile = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <AvatarContainer source={require('../../assets/Images/avatar.png')} />
+      <AvatarContainer source={require('../../assets/images/avatar.png')} />
       <Text style={{fontWeight: 'bold', color: colors.text}}>Johnny Bravo</Text>
     </View>
   );

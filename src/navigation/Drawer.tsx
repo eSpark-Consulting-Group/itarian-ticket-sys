@@ -64,7 +64,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
           <View style={styles.avatar}>
             <Avatar.Image
               size={moderateScale(65, 0.5)}
-              source={require('../assets/Images/avatar.png')}
+              source={require('../assets/images/avatar.png')}
             />
           </View>
         </View>

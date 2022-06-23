@@ -1,10 +1,15 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
+
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+  },
+  header: {
+    height: moderateScale(height * 0.1),
   },
 });
 

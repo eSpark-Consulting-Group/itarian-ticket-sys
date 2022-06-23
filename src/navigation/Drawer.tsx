@@ -229,6 +229,15 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="Search"
         component={Search}
         options={{
+          headerRight: () => (
+            <Ionicons
+              size={30}
+              name="barcode-outline"
+              color={'#ffffff96'}
+              onPress={() => console.log('Hello User')}
+              style={{right: 10}}
+            />
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Search</Text>
           ),
@@ -417,7 +426,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       <Drawer.Screen
         name="MyStatus"
         component={MyStatus}
-        options={{headerShown: false}}
+        options={{headerShown: false, drawerItemStyle: {display: 'none'}}}
       />
       <Drawer.Screen
         name="Settings"

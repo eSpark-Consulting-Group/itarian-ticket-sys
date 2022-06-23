@@ -17,6 +17,10 @@ import {
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import {useTheme, DrawerActions} from '@react-navigation/native';
+import {
+  createNativeStackNavigator,
+  NativeStackHeaderProps,
+} from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -47,9 +51,12 @@ import {
   Settings,
   SendFeedback,
   Profile,
+  Status,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+
 const {width, height} = Dimensions.get('window');
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
@@ -139,6 +146,35 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <Text>Build v0.31.1c</Text>
       </View>
     </SafeAreaView>
+  );
+};
+
+const MyStatus = ({navigation}: NativeStackHeaderProps) => {
+  const {colors}: Theme = useTheme();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          color: colors.background,
+        },
+      }}>
+      <Stack.Screen
+        name="Status"
+        component={Status}
+        options={{
+          headerLeft: () => (
+            <Ionicons
+              size={30}
+              name="close"
+              color={colors.background}
+              onPress={() => navigation.navigate('Profile')}
+            />
+          ),
+          presentation: 'modal',
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 
@@ -377,6 +413,11 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           ),
           drawerItemStyle: {display: 'none'},
         }}
+      />
+      <Drawer.Screen
+        name="MyStatus"
+        component={MyStatus}
+        options={{headerShown: false}}
       />
       <Drawer.Screen
         name="Settings"

@@ -8,7 +8,7 @@ const Search = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Search Screen</Text>
+      <Text style={{color: colors.text}}>Search Screen</Text>
     </View>
   );
 };

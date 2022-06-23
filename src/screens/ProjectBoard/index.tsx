@@ -8,7 +8,7 @@ const ProjectBoard = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>ProjectBoard Screen</Text>
+      <Text style={{color: colors.text}}>ProjectBoard Screen</Text>
     </View>
   );
 };

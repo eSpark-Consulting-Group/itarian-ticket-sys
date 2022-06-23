@@ -17,13 +17,9 @@ const AgendaScreen = () => {
       screenOptions={{
         tabBarLabelStyle: {
           fontSize: 12,
-          color: colors.background,
+          color: '#ffffff',
         },
-        tabBarStyle: {
-          // backgroundColor: '#fff',
-          // borderColor: 'blue',
-        },
-        tabBarIndicatorStyle: {backgroundColor: colors.background},
+        tabBarIndicatorStyle: {backgroundColor: '#ffffff'},
       }}>
       <Tab.Screen name="Scheduled" component={ScheduledTab} />
       <Tab.Screen name="Unscheduled" component={UnscheduledTab} />

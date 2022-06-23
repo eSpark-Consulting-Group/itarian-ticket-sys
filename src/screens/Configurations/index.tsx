@@ -8,7 +8,7 @@ const Configurations = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Configurations Screen</Text>
+      <Text style={{color: colors.text}}>Configurations Screen</Text>
     </View>
   );
 };

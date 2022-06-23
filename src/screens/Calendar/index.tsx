@@ -8,7 +8,7 @@ const Calendar = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>Calendar Screen</Text>
+      <Text style={{color: colors.text}}>Calendar Screen</Text>
     </View>
   );
 };

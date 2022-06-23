@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import {
@@ -22,6 +23,9 @@ import {
 } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import AD from 'react-native-vector-icons/AntDesign';
+import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {useState as useHookState, State} from '@hookstate/core';
 import {moderateScale} from 'react-native-size-matters';
 import {Avatar} from 'react-native-paper';
@@ -53,6 +57,8 @@ import {
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
+const {width, height} = Dimensions.get('window');
+
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const {colors}: Theme = useTheme();
 
@@ -78,14 +84,10 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               flex: 1,
               justifyContent: 'center',
             }}>
-            <Text style={{fontWeight: '700', color: colors.background}}>
-              Johnny Bravo
-            </Text>
-            <Text style={{fontWeight: '700', color: colors.background}}>
-              iTarian LLC
-            </Text>
+            <Text style={{fontWeight: '700', color: '#fff'}}>Johnny Bravo</Text>
+            <Text style={{fontWeight: '700', color: '#fff'}}>iTarian LLC</Text>
             <View>
-              <Text style={{fontWeight: '700', color: colors.background}}>
+              <Text style={{fontWeight: '700', color: '#fff'}}>
                 Out of Office
               </Text>
             </View>
@@ -93,18 +95,20 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </View>
       </TouchableOpacity>
       <View style={styles.content}>
-        <ScrollView style={{flex: 1}}>
+        <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
           <DrawerItemList {...props} />
         </ScrollView>
       </View>
       <View style={styles.footer}>
         <DrawerItem
           label={'Settings'}
-          inactiveTintColor={colors.background}
+          inactiveTintColor={'#fff'}
+          icon={({color, size, focused}) => (
+            <Ionicons name="settings-outline" size={size} color={color} />
+          )}
           labelStyle={{
             opacity: 0.75,
-            position: 'absolute',
-            bottom: -8,
+            right: 20,
           }}
           onPress={() => {
             props.navigation.navigate('Settings');
@@ -112,24 +116,28 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         />
         <DrawerItem
           label={'Send Feedback'}
-          inactiveTintColor={colors.background}
+          inactiveTintColor={'#fff'}
           labelStyle={{
             opacity: 0.75,
-            position: 'absolute',
-            bottom: -8,
+            right: 20,
           }}
+          icon={({color, size, focused}) => (
+            <MCI name="message-text" size={size} color={color} />
+          )}
           onPress={() => {
             props.navigation.navigate('Feedback');
           }}
         />
         <DrawerItem
           label={'Logout'}
-          inactiveTintColor={colors.background}
+          inactiveTintColor={'#fff'}
           labelStyle={{
             opacity: 0.75,
-            position: 'absolute',
-            bottom: -8,
+            right: 20,
           }}
+          icon={({color, size, focused}) => (
+            <MCI name="logout" size={size} color={color} />
+          )}
           onPress={() => {
             console.log('Logout');
             props.navigation.navigate('Login');
@@ -172,11 +180,8 @@ const MyStatus = ({navigation}: NativeStackHeaderProps) => {
 
 const Draw = ({navigation, route}: DrawerHeaderProps) => {
   const {colors}: Theme = useTheme();
-  const themeValue: State<string> = useHookState(globalState.theme);
 
   const noHeader = (): null => null;
-
-  console.log('What is the current value of State', themeValue.get());
 
   return (
     <Drawer.Navigator
@@ -189,23 +194,23 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         headerStyle: {
           backgroundColor: colors.primary,
           borderBottomWidth: 1,
-          borderBottomColor: '#ffffff66',
-          elevation: 0,
+          // borderBottomColor: '#ffffff66',
+          elevation: 1,
         },
         headerTitleStyle: {
-          color: colors.background,
+          color: '#ffffff',
         },
-        drawerActiveTintColor: colors.background,
-        drawerInactiveTintColor: colors.background,
+        drawerActiveTintColor: '#fff',
+        drawerInactiveTintColor: '#fff',
         drawerItemStyle: {
-          opacity: 0.75,
+          opacity: 0.8,
         },
-        drawerActiveBackgroundColor: 'transparent',
+
         headerLeft: () => (
           <Ionicons
             size={30}
             name="menu"
-            color={colors.background}
+            color={'#fff'}
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             style={{left: 10}}
           />
@@ -214,27 +219,184 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           <FA
             size={30}
             name="user"
-            color={colors.background}
+            color={'#fff'}
             onPress={() => console.log('Hello User')}
             style={{right: 10}}
           />
         ),
       }}>
-      <Drawer.Screen name="Agenda" component={Agenda} />
-      <Drawer.Screen name="Search" component={Search} />
-      <Drawer.Screen name="Calendar" component={Calendar} />
-      <Drawer.Screen name="Companies" component={Companies} />
-      <Drawer.Screen name="Contacts" component={Contacts} />
-      <Drawer.Screen name="Configurations" component={Configurations} />
-      <Drawer.Screen name="Service Board" component={ServiceBoard} />
-      <Drawer.Screen name="Project Board" component={ProjectBoard} />
-      <Drawer.Screen name="My Activities" component={MyActivities} />
-      <Drawer.Screen name="Opportunities" component={Oppurtunities} />
-      <Drawer.Screen name="In Out Board" component={InOutBoard} />
-      <Drawer.Screen name="Expense Reports" component={ExpenseReports} />
-      <Drawer.Screen name="Service Tickets" component={ServiceTickets} />
-      <Drawer.Screen name="TimeSheets" component={TimeSheets} />
-      <Drawer.Screen name="StopWatch" component={StopWatch} />
+      <Drawer.Screen
+        name="Search"
+        component={Search}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Search</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <Ionicons name="search" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Agenda"
+        component={Agenda}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Agenda</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="calendar" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Calendar"
+        component={Calendar}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Calendar</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <Ionicons name="calendar" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Companies"
+        component={Companies}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Companies</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI
+              name="office-building-marker-outline"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Contacts"
+        component={Contacts}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Contacts</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <AD name="contacts" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Configurations"
+        component={Configurations}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Configurations</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="puzzle-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Service Board"
+        component={ServiceBoard}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Service Board</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="headset" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Project Board"
+        component={ProjectBoard}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Project Board</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <AD name="areachart" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="My Activities"
+        component={MyActivities}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>My Activities</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="clipboard-text-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Opportunities"
+        component={Oppurtunities}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Opportunities</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="briefcase-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="In Out Board"
+        component={InOutBoard}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>In/Out Board</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="checkbox-marked-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Expense Reports"
+        component={ExpenseReports}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Expense Reports</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <FA5 name="coins" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="TimeSheets"
+        component={TimeSheets}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Time Sheets</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="clipboard-clock-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="StopWatch"
+        component={StopWatch}
+        options={{
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Stopwatch</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <Ionicons name="ios-stopwatch" size={size} color={color} />
+          ),
+        }}
+      />
       <Drawer.Screen
         name="Profile"
         component={Profile}
@@ -260,12 +422,18 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       <Drawer.Screen
         name="Settings"
         component={Settings}
-        options={{headerRight: noHeader, drawerItemStyle: {display: 'none'}}}
+        options={{
+          headerRight: noHeader,
+          drawerItemStyle: {display: 'none'},
+        }}
       />
       <Drawer.Screen
         name="Feedback"
         component={SendFeedback}
-        options={{headerRight: noHeader, drawerItemStyle: {display: 'none'}}}
+        options={{
+          headerRight: noHeader,
+          drawerItemStyle: {display: 'none'},
+        }}
       />
     </Drawer.Navigator>
   );
@@ -275,10 +443,11 @@ export default Draw;
 
 const styles = StyleSheet.create({
   header: {
-    flex: 0.12,
+    // height: moderateScale(height * 0.2, 0.5),
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
+    paddingVertical: 5,
   },
   avatarContainer: {
     flex: 0.35,
@@ -288,14 +457,13 @@ const styles = StyleSheet.create({
   avatar: {
     height: moderateScale(65, 0.5),
     width: moderateScale(65, 0.5),
-    backgroundColor: 'red',
     borderRadius: 100,
   },
   content: {
-    flex: 0.63,
+    height: moderateScale(height * 0.5, 0.5),
   },
   footer: {
-    flex: 0.25,
+    height: moderateScale(height * 0.1, 0),
     borderTopWidth: 1,
     borderColor: '#fff',
   },

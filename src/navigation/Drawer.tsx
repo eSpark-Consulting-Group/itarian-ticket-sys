@@ -274,6 +274,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="Companies"
         component={Companies}
         options={{
+          headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Companies</Text>
           ),

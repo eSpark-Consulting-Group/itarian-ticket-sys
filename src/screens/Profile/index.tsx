@@ -13,7 +13,7 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.infoHolder}>
-        <AvatarContainer source={require('../../assets/images/avatar.png')} />
+        <AvatarContainer source={require('../../assets/Images/avatar.png')} />
         <Text style={{fontWeight: 'bold', color: colors.text}}>
           Johnny Bravo
         </Text>

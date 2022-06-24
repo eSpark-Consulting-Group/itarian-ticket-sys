@@ -22,7 +22,7 @@ const Search = () => {
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'powderblue',
+          backgroundColor: colors.background,
         }}>
         <Text
           style={{

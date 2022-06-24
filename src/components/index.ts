@@ -4,6 +4,7 @@ import CstmErrorText from './CtsmErrorText';
 import AvatarContainer from './AvatarContainer';
 import SearchBar from './SearchBar';
 import ModalForm from './ModalForm';
+import EmptyListMsg from './EmptyListMsg';
 
 export {
   CstmButton,
@@ -12,4 +13,5 @@ export {
   AvatarContainer,
   SearchBar,
   ModalForm,
+  EmptyListMsg,
 };

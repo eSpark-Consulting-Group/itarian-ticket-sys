@@ -17,7 +17,7 @@ export const LightTheme: Theme = {
   dark: false,
   colors: {
     primary: '#28648f',
-    background: '#F7F7F7',
+    background: '#F1F1F1',
     card: '#28648f',
     text: 'rgb(28, 28, 30)',
     border: '#28648f',

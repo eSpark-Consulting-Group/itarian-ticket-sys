@@ -53,6 +53,7 @@ import {
   Profile,
   Status,
 } from '../screens';
+import {TransitionPresets} from '@react-navigation/stack';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -149,7 +150,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 };
 
-const MyStatus = ({navigation}: NativeStackHeaderProps) => {
+const MyProfile = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
   return (
     <Stack.Navigator
@@ -159,21 +160,44 @@ const MyStatus = ({navigation}: NativeStackHeaderProps) => {
           color: colors.background,
         },
       }}>
-      <Stack.Screen
-        name="Status"
-        component={Status}
-        options={{
-          headerLeft: () => (
-            <Ionicons
-              size={30}
-              name="close"
-              color={colors.background}
-              onPress={() => navigation.navigate('Profile')}
-            />
-          ),
+      <Stack.Group>
+        <Stack.Screen
+          name="My Profile"
+          component={Profile}
+          options={{
+            headerLeft: () => (
+              <Ionicons
+                size={30}
+                name="close"
+                style={{right: 5}}
+                color={colors.background}
+                onPress={() => navigation.navigate('Agenda')}
+              />
+            ),
+          }}
+        />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
           presentation: 'modal',
-        }}
-      />
+        }}>
+        <Stack.Screen
+          name="My Status"
+          component={Status}
+          options={{
+            animation: 'slide_from_bottom',
+            headerLeft: () => (
+              <Ionicons
+                size={30}
+                name="close"
+                style={{right: 5}}
+                color={colors.background}
+                onPress={() => navigation.navigate('My Profile')}
+              />
+            ),
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
@@ -399,24 +423,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       />
       <Drawer.Screen
         name="Profile"
-        component={Profile}
-        options={{
-          headerRight: noHeader,
-          headerLeft: () => (
-            <Ionicons
-              size={30}
-              name="close"
-              color={colors.background}
-              onPress={() => navigation.navigate('Agenda')}
-              style={{left: 10}}
-            />
-          ),
-          drawerItemStyle: {display: 'none'},
-        }}
-      />
-      <Drawer.Screen
-        name="MyStatus"
-        component={MyStatus}
+        component={MyProfile}
         options={{headerShown: false}}
       />
       <Drawer.Screen

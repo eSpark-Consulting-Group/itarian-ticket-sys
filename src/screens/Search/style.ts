@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    height: moderateScale(60, 0),
+    elevation: 1,
+    width: width,
   },
 });
 

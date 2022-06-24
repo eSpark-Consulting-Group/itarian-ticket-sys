@@ -1,12 +1,12 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: '100%',
-    elevation: 2,
-    borderBottomWidth: 3,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
   },
   adjuster: {
     width: '2.5%',
@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   searchInputContainer: {
-    width: '80%',
-    padding: 8,
     height: '100%',
   },
   inputStyle: {

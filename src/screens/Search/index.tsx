@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import {SearchBar} from '../../components';
@@ -7,14 +7,16 @@ import styles from './style';
 import {Theme} from '../../theme/colors';
 import {moderateScale} from 'react-native-size-matters';
 
-const {width, height} = Dimensions.get('window');
-
 const Search = () => {
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <SearchBar />
+      <View
+        style={{
+          backgroundColor: dark ? '#000000' : '#ffffff',
+          ...styles.header,
+        }}>
+        <SearchBar withTag={true} placeholder={'Search Contacts'} />
       </View>
       <View
         style={{

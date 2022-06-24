@@ -12,6 +12,190 @@ import {Theme} from '../../theme/colors';
 import {moderateScale} from 'react-native-size-matters';
 import styles from './style';
 
+const SearchBar = ({
+  withTag = false,
+  placeholder = 'Search',
+}: {
+  withTag?: boolean;
+  placeholder?: string;
+}) => {
+  const {colors, dark}: Theme = useTheme();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [check, setCheckValue] = useState('tickets');
+
+  const onChangeSearch = (query: string): void => setSearchQuery(query);
+  const showMenu = (): void => setVisible(!visible);
+  const hideMenu = (): void => setVisible(false);
+
+  function setCheck(value: string): void {
+    switch (value) {
+      case 'tickets':
+        setCheckValue('tickets');
+        setVisible(false);
+        return;
+      case 'companies':
+        setCheckValue('companies');
+        setVisible(false);
+        return;
+      case 'contacts':
+        setCheckValue('contacts');
+        setVisible(false);
+        return;
+      case 'configurations':
+        setCheckValue('configurations');
+        setVisible(false);
+        return;
+      default:
+        return;
+    }
+  }
+
+  function renderTag(value: string): React.ReactNode {
+    switch (value) {
+      case 'tickets':
+        return (
+          <Ionicons name="pricetags-outline" color={colors.primary} size={22} />
+        );
+      case 'companies':
+        return (
+          <MCI name="office-building-marker" size={22} color={colors.primary} />
+        );
+      case 'contacts':
+        return <AD name="contacts" size={22} color={colors.primary} />;
+      case 'configurations':
+        return <MCI name="puzzle-outline" size={22} color={colors.primary} />;
+      default:
+        return (
+          <Ionicons name="pricetags-outline" color={colors.primary} size={22} />
+        );
+    }
+  }
+
+  function renderPh(value: string): string {
+    switch (value) {
+      case 'tickets':
+        return 'Search Tickets';
+      case 'companies':
+        return 'Search Companies';
+      case 'contacts':
+        return 'Search Contacts';
+      case 'configurations':
+        return 'Search Configurations';
+      default:
+        return 'Search Tickets';
+    }
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={{display: withTag ? 'flex' : 'none', ...styles.adjuster}} />
+      {withTag && (
+        <View
+          style={{display: withTag ? 'flex' : 'none', ...styles.tagContainer}}>
+          <Menu
+            visible={visible}
+            onDismiss={hideMenu}
+            contentStyle={{backgroundColor: dark ? '#000000' : '#ffffff'}}
+            anchor={
+              <View
+                style={{
+                  marginTop: moderateScale(9, 0),
+                  height: moderateScale(47, 0),
+                }}>
+                <TouchableOpacity
+                  style={{
+                    borderColor: colors.primary,
+                    ...styles.tagButtonStyle,
+                  }}
+                  onPress={showMenu}>
+                  {renderTag(check)}
+                  <FA name="chevron-down" color={colors.primary} size={12} />
+                </TouchableOpacity>
+              </View>
+            }>
+            <MenuItem
+              itemName="Tickets"
+              textColor={colors.text}
+              onPress={() => setCheck('tickets')}
+              leftIcon={
+                <Ionicons
+                  name="pricetags-outline"
+                  color={colors.primary}
+                  size={22}
+                />
+              }
+              checkVisible={check == 'tickets'}
+              rightIcon={
+                <Feather name="check" color={colors.primary} size={20} />
+              }
+            />
+            <MenuItem
+              itemName="Companies"
+              textColor={colors.text}
+              onPress={() => setCheck('companies')}
+              leftIcon={
+                <MCI
+                  name="office-building-marker"
+                  size={22}
+                  color={colors.primary}
+                />
+              }
+              checkVisible={check == 'companies'}
+              rightIcon={
+                <Feather name="check" color={colors.primary} size={20} />
+              }
+            />
+            <MenuItem
+              itemName="Contacts"
+              textColor={colors.text}
+              onPress={() => setCheck('contacts')}
+              leftIcon={<AD name="contacts" size={22} color={colors.primary} />}
+              checkVisible={check == 'contacts'}
+              rightIcon={
+                <Feather name="check" color={colors.primary} size={20} />
+              }
+            />
+            <MenuItem
+              itemName="Configurations"
+              textColor={colors.text}
+              onPress={() => setCheck('configurations')}
+              leftIcon={
+                <MCI name="puzzle-outline" size={22} color={colors.primary} />
+              }
+              checkVisible={check == 'configurations'}
+              rightIcon={
+                <Feather name="check" color={colors.primary} size={20} />
+              }
+            />
+          </Menu>
+        </View>
+      )}
+      <View style={{display: withTag ? 'flex' : 'none', ...styles.adjuster}} />
+      <View
+        style={{
+          width: withTag ? '80%' : '100%',
+          paddingHorizontal: withTag ? 8 : 10,
+          padding: 8,
+          ...styles.searchInputContainer,
+        }}>
+        <Search
+          placeholder={withTag ? renderPh(check) : placeholder}
+          value=""
+          selectionColor={colors.primary}
+          placeholderTextColor={dark ? '#ffffff8a' : '#0000008a'}
+          iconColor={dark ? '#ffffff8a' : '#0000008a'}
+          onChangeText={onChangeSearch}
+          inputStyle={{color: colors.text}}
+          style={styles.inputStyle}
+        />
+      </View>
+    </View>
+  );
+};
+
+//*---------- Helper Components
+
 const MenuItem = ({
   itemName,
   onPress,
@@ -36,129 +220,15 @@ const MenuItem = ({
             {itemName}
           </Text>
         </View>
-        <View style={{width: moderateScale(20)}}>
+        <View
+          style={{
+            width: moderateScale(30),
+            flexDirection: 'row-reverse',
+          }}>
           {checkVisible && rightIcon}
         </View>
       </View>
     </Pressable>
-  );
-};
-
-const SearchBar = () => {
-  const {colors, dark}: Theme = useTheme();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [visible, setVisible] = useState(false);
-
-  const onChangeSearch = (query: string): void => setSearchQuery(query);
-  const showMenu = (): void => setVisible(!visible);
-  const hideMenu = (): void => setVisible(false);
-
-  return (
-    <View style={{backgroundColor: colors.background, ...styles.container}}>
-      <View style={{backgroundColor: colors.background, ...styles.adjuster}} />
-      <View
-        style={{backgroundColor: colors.background, ...styles.tagContainer}}>
-        <Menu
-          visible={visible}
-          onDismiss={hideMenu}
-          contentStyle={{backgroundColor: colors.background}}
-          anchor={
-            <View
-              style={{
-                marginTop: moderateScale(9, 0),
-                height: moderateScale(47, 0),
-              }}>
-              <TouchableOpacity
-                style={{borderColor: colors.primary, ...styles.tagButtonStyle}}
-                onPress={showMenu}>
-                <Ionicons
-                  name="pricetags-outline"
-                  color={colors.primary}
-                  size={22}
-                />
-                <FA name="chevron-down" color={colors.primary} size={12} />
-              </TouchableOpacity>
-            </View>
-          }>
-          <MenuItem
-            itemName="Tickets"
-            textColor={colors.text}
-            onPress={() => console.log('Bakwas')}
-            leftIcon={
-              <Ionicons
-                name="pricetags-outline"
-                color={colors.primary}
-                size={22}
-              />
-            }
-            checkVisible={false}
-            rightIcon={
-              <Feather name="check" color={colors.primary} size={20} />
-            }
-          />
-          <MenuItem
-            itemName="Companies"
-            textColor={colors.text}
-            onPress={() => console.log('Hello')}
-            leftIcon={
-              <MCI
-                name="office-building-marker"
-                size={22}
-                color={colors.primary}
-              />
-            }
-            checkVisible={false}
-            rightIcon={
-              <Feather
-                name="check"
-                color={colors.primary}
-                style={{marginLeft: 10}}
-                size={20}
-              />
-            }
-          />
-          <MenuItem
-            itemName="Contacts"
-            textColor={colors.text}
-            onPress={() => console.log('Bakwas 2')}
-            leftIcon={<AD name="contacts" size={22} color={colors.primary} />}
-            checkVisible={false}
-            rightIcon={
-              <Feather name="check" color={colors.primary} size={20} />
-            }
-          />
-          <MenuItem
-            itemName="Configurations"
-            textColor={colors.text}
-            onPress={() => console.log('Bakwas 3')}
-            leftIcon={
-              <MCI name="puzzle-outline" size={22} color={colors.primary} />
-            }
-            checkVisible={false}
-            rightIcon={
-              <Feather name="check" color={colors.primary} size={20} />
-            }
-          />
-        </Menu>
-      </View>
-      <View style={styles.adjuster} />
-      <View
-        style={{
-          backgroundColor: colors.background,
-          ...styles.searchInputContainer,
-        }}>
-        <Search
-          placeholder="Search"
-          value=""
-          selectionColor={colors.primary}
-          placeholderTextColor={dark ? '#ffffff8a' : '#0000008a'}
-          iconColor={dark ? '#ffffff8a' : '#0000008a'}
-          onChangeText={onChangeSearch}
-          inputStyle={{color: colors.text}}
-          style={styles.inputStyle}
-        />
-      </View>
-    </View>
   );
 };
 

@@ -39,7 +39,10 @@ const CstmInput = ({
         <Text style={{fontWeight: '700', color: colors.text}}>{title}</Text>
         <TextInput
           value={value}
-          style={styles.input}
+          style={{
+            ...styles.input,
+          }}
+          theme={{colors: {text: colors.text}}}
           placeholder={placeholder}
           activeUnderlineColor="#bbb"
           placeholderTextColor={'#aaa'}

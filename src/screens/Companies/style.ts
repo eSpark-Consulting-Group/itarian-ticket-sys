@@ -1,9 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants/Dimensions';
-import {moderateScale} from 'react-native-size-matters';
-
-const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +9,7 @@ const styles = StyleSheet.create({
   },
   header: {
     elevation: 1,
-    width: width,
+    width: WINDOW_WIDTH,
   },
   content: {
     flex: 1,

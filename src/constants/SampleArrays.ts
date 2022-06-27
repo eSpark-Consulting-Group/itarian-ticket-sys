@@ -68,3 +68,61 @@ export const companiesList: Array<Companines> = [
     employees: 2000,
   },
 ];
+
+export type Contacts = {
+  name: string;
+  company_name: string;
+  phone_no?: string | undefined | null;
+  email_address?: string | undefined | null;
+};
+
+export const contactsList: Contacts[] = [
+  {
+    name: 'John Doe',
+    company_name: 'ACME Industries',
+    phone_no: '+555 555 5555',
+    email_address: null,
+  },
+  {
+    name: 'Blake',
+    company_name: 'Monsters INC',
+    phone_no: '+555 555 5555',
+    email_address: 'email@test.com',
+  },
+  {
+    name: 'Bob Kins',
+    company_name: 'Bethesda Studios',
+    phone_no: '+555 555 5555',
+    email_address: 'email@test.com',
+  },
+  {
+    name: 'Kevin Spacey',
+    company_name: 'Walt Disney',
+    phone_no: null,
+    email_address: 'email@test.com',
+  },
+  {
+    name: 'Brad Coops',
+    company_name: 'XYZ Company',
+    phone_no: '+555 555 5555',
+    email_address: 'email@test.com',
+  },
+  {
+    name: 'Jimmy Neutron',
+    company_name: 'Coca Cola Ltd',
+    phone_no: '+555 555 5555',
+    email_address: 'email@test.com',
+  },
+  {
+    name: 'Zeeshan Akram',
+    company_name: 'K-Electric Corp',
+    phone_no: null,
+    email_address: null,
+  },
+  {
+    name: 'Hardeep Vishnam',
+    company_name: 'Star Trek Enterprises',
+    phone_no: '+555 555 5555',
+    email_address: 'email@test.com',
+  },
+];

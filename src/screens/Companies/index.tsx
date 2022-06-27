@@ -1,21 +1,23 @@
 import {View, Text, FlatList, Pressable} from 'react-native';
 import React from 'react';
 import {useTheme} from '@react-navigation/native';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import {moderateScale} from 'react-native-size-matters';
+import {Divider} from 'react-native-paper';
 
 import {SearchBar} from '../../components';
 import styles from './style';
-import {Colors, Theme} from '../../theme/colors';
+import {Theme} from '../../theme/colors';
 import {EmptyListMsg} from '../../components';
-import {companiesList, Companines} from '../../constants/SampleArrays';
+import {
+  companiesList,
+  Companines as CompanyType,
+} from '../../constants/SampleArrays';
 import {WINDOW_WIDTH, WINDOW_HEIGHT} from '../../constants/Dimensions';
-import {moderateScale} from 'react-native-size-matters';
-import {Divider} from 'react-native-paper';
 
 const Companies = () => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: Companines; index: number}) => {
+  const renderList = ({item, index}: {item: CompanyType; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <Pressable
@@ -52,7 +54,7 @@ const Companies = () => {
         }}>
         <SearchBar withTag={false} placeholder={'Search Companies'} />
       </View>
-      {companiesList ? (
+      {companiesList.length !== 0 ? (
         <FlatList data={companiesList} renderItem={renderList} />
       ) : (
         <NotFound />

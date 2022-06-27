@@ -17,8 +17,16 @@ const ScheduledTab = () => {
     <View style={styles.container}>
       <FlatList
         data={[
-          {tNo: 'Ticket #4163', date: 'Monday, November 13'},
-          {tNo: 'Ticket #4163', date: 'Monday, November 14'},
+          {
+            tNo: 'Ticket #4163',
+            date: 'Monday, November 13',
+            task: 'New Server Installation',
+          },
+          {
+            tNo: 'Ticket #4164',
+            date: 'Monday, November 14',
+            task: 'Products for Exchange Server',
+          },
         ]}
         renderItem={({item}) => (
           <View
@@ -28,7 +36,7 @@ const ScheduledTab = () => {
               marginHorizontal: 20,
             }}>
             <DateSeparator text={item.date} />
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', marginVertical: 15}}>
               <View
                 style={{
                   height: 100,
@@ -37,13 +45,12 @@ const ScheduledTab = () => {
                 }}>
                 <View
                   style={{
-                    borderWidth: 1,
                     borderRadius: 1000,
                     alignItems: 'center',
                     justifyContent: 'center',
                     width: moderateScale(40, 0),
                     height: moderateScale(40, 0),
-                    backgroundColor: '#0000aa',
+                    backgroundColor: '#28648f',
                   }}>
                   <II
                     name="pricetag"
@@ -58,6 +65,9 @@ const ScheduledTab = () => {
                 }}>
                 <Text style={{fontWeight: 'bold', color: colors.text}}>
                   {item.tNo}
+                </Text>
+                <Text style={{fontWeight: 'bold', color: colors.text}}>
+                  {item.task}
                 </Text>
               </View>
             </View>

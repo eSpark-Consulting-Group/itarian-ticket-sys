@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants/Dimensions';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,12 +9,16 @@ const styles = StyleSheet.create({
   },
   header: {
     elevation: 1,
-    width: width,
+    width: WINDOW_WIDTH,
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  listContainer: {
+    flex: 1,
+    width: WINDOW_WIDTH,
   },
 });
 

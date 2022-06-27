@@ -54,6 +54,7 @@ import {
   Status,
 } from '../screens';
 import {TransitionPresets} from '@react-navigation/stack';
+import {ModalForm, ModalStack} from '../components';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -62,17 +63,18 @@ const {width, height} = Dimensions.get('window');
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const {colors}: Theme = useTheme();
+  const Modals = [{name: 'My Status'}, {name: 'Gone To'}];
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <TouchableOpacity
         style={styles.header}
-        onPress={() => props.navigation.navigate('Profile')}>
+        onPress={() => props.navigation.navigate('My Profile')}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
             <Avatar.Image
               size={moderateScale(65, 0.5)}
-              source={require('../assets/Images/avatar.png')}
+              source={require('../assets/images/avatar.png')}
             />
           </View>
         </View>
@@ -150,7 +152,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 };
 
-const MyProfile = ({navigation}: NativeStackHeaderProps) => {
+const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
   return (
     <Stack.Navigator
@@ -159,8 +161,10 @@ const MyProfile = ({navigation}: NativeStackHeaderProps) => {
         headerTitleStyle: {
           color: colors.background,
         },
+        animation: 'slide_from_bottom',
+        presentation: 'modal',
       }}>
-      <Stack.Group>
+      {/* <Stack.Group>
         <Stack.Screen
           name="My Profile"
           component={Profile}
@@ -176,14 +180,14 @@ const MyProfile = ({navigation}: NativeStackHeaderProps) => {
             ),
           }}
         />
-      </Stack.Group>
+      </Stack.Group> */}
       <Stack.Group
         screenOptions={{
           presentation: 'modal',
         }}>
         <Stack.Screen
           name="My Status"
-          component={Status}
+          component={ModalForm}
           options={{
             animation: 'slide_from_bottom',
             headerLeft: () => (
@@ -432,8 +436,22 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="Profile"
-        component={MyProfile}
+        name="My Profile"
+        component={Profile}
+        options={{
+          headerLeft: () => (
+            <Ionicons
+              size={30}
+              name="close"
+              color={colors.background}
+              onPress={() => navigation.navigate('Agenda')}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Forms"
+        component={FormScreen}
         options={{headerShown: false}}
       />
       <Drawer.Screen

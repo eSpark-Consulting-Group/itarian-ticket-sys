@@ -12,7 +12,7 @@ import ModalForm from '../ModalForm';
 
 const Stack = createNativeStackNavigator();
 
-const ModalStack = ({navigation}: NativeStackHeaderProps) => {
+const ModalStack = () => {
   const {colors}: Theme = useTheme();
 
   return (
@@ -27,7 +27,6 @@ const ModalStack = ({navigation}: NativeStackHeaderProps) => {
             name="close"
             style={{right: 5}}
             color={colors.background}
-            onPress={() => navigation.navigate('My Profile')}
           />
         ),
       }}

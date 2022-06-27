@@ -13,14 +13,14 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.infoHolder}>
-        <AvatarContainer source={require('../../assets/Images/avatar.png')} />
+        <AvatarContainer source={require('../../assets/images/avatar.png')} />
         <Text style={{fontWeight: 'bold', color: colors.text}}>
           Johnny Bravo
         </Text>
         <Text style={{color: colors.text}}>education_c</Text>
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('My Status')}
+        onPress={() => navigation.navigate('Forms')}
         style={styles.statusButton}>
         <Text style={{color: colors.text}}>My Status</Text>
         <Text style={{fontWeight: 'bold', color: colors.text}}>In Office</Text>

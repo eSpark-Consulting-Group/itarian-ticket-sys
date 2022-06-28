@@ -20,27 +20,20 @@ const Search = () => {
       </View>
       <View
         style={{
-          flex: 1,
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
           backgroundColor: colors.background,
+          ...styles.content,
         }}>
         <Text
           style={{
             color: colors.text,
-            fontWeight: 'bold',
-            fontSize: 17,
-            opacity: 0.6,
+            ...styles.emptySearchLabel,
           }}>
           What would you like to Search for?
         </Text>
         <Text
           style={{
             color: colors.text,
-            fontSize: 15,
-            opacity: 0.6,
-            textAlign: 'center',
+            ...styles.emptySearchCriteria,
           }}>
           {`Locate Companies, Contacts,\n Configurations, or Tickets.`}
         </Text>

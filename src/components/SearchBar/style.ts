@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   inputStyle: {
-    elevation: 0,
     backgroundColor: '#80808040',
     borderRadius: 15,
   },

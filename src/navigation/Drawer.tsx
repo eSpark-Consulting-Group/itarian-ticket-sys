@@ -53,6 +53,8 @@ import {
   Profile,
   Status,
 } from '../screens';
+import {TransitionPresets} from '@react-navigation/stack';
+import {ModalForm, ModalStack} from '../components';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -61,12 +63,13 @@ const {width, height} = Dimensions.get('window');
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const {colors}: Theme = useTheme();
+  const Modals = [{name: 'My Status'}, {name: 'Gone To'}];
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <TouchableOpacity
         style={styles.header}
-        onPress={() => props.navigation.navigate('Profile')}>
+        onPress={() => props.navigation.navigate('My Profile')}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
             <Avatar.Image
@@ -149,7 +152,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 };
 
-const MyStatus = ({navigation}: NativeStackHeaderProps) => {
+const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
   return (
     <Stack.Navigator
@@ -158,22 +161,47 @@ const MyStatus = ({navigation}: NativeStackHeaderProps) => {
         headerTitleStyle: {
           color: colors.background,
         },
+        animation: 'slide_from_bottom',
+        presentation: 'modal',
       }}>
-      <Stack.Screen
-        name="Status"
-        component={Status}
-        options={{
-          headerLeft: () => (
-            <Ionicons
-              size={30}
-              name="close"
-              color={colors.background}
-              onPress={() => navigation.navigate('Profile')}
-            />
-          ),
+      {/* <Stack.Group>
+        <Stack.Screen
+          name="My Profile"
+          component={Profile}
+          options={{
+            headerLeft: () => (
+              <Ionicons
+                size={30}
+                name="close"
+                style={{right: 5}}
+                color={colors.background}
+                onPress={() => navigation.navigate('Agenda')}
+              />
+            ),
+          }}
+        />
+      </Stack.Group> */}
+      <Stack.Group
+        screenOptions={{
           presentation: 'modal',
-        }}
-      />
+        }}>
+        <Stack.Screen
+          name="My Status"
+          component={ModalForm}
+          options={{
+            animation: 'slide_from_bottom',
+            headerLeft: () => (
+              <Ionicons
+                size={30}
+                name="close"
+                style={{right: 5}}
+                color={colors.background}
+                onPress={() => navigation.navigate('My Profile')}
+              />
+            ),
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
@@ -408,26 +436,23 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="Profile"
+        name="My Profile"
         component={Profile}
         options={{
-          headerRight: noHeader,
           headerLeft: () => (
             <Ionicons
               size={30}
               name="close"
               color={colors.background}
               onPress={() => navigation.navigate('Agenda')}
-              style={{left: 10}}
             />
           ),
-          drawerItemStyle: {display: 'none'},
         }}
       />
       <Drawer.Screen
-        name="MyStatus"
-        component={MyStatus}
-        options={{headerShown: false, drawerItemStyle: {display: 'none'}}}
+        name="Forms"
+        component={FormScreen}
+        options={{headerShown: false}}
       />
       <Drawer.Screen
         name="Settings"

@@ -20,13 +20,8 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
         <Text style={{color: colors.text}}>education_c</Text>
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('MyStatus')}
-        style={{
-          flex: 0.08,
-          backgroundColor: '#fff',
-          paddingHorizontal: 10,
-          justifyContent: 'center',
-        }}>
+        onPress={() => navigation.navigate('Forms')}
+        style={styles.statusButton}>
         <Text style={{color: colors.text}}>My Status</Text>
         <Text style={{fontWeight: 'bold', color: colors.text}}>In Office</Text>
       </TouchableOpacity>

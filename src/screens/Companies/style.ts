@@ -20,6 +20,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: WINDOW_WIDTH,
   },
+  dividerStyle: {
+    opacity: 0.2,
+    transform: [{scale: 2}],
+  },
 });
 
 export default styles;

@@ -62,7 +62,7 @@ const Stack = createNativeStackNavigator();
 const {width, height} = Dimensions.get('window');
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
   const Modals = [{name: 'My Status'}, {name: 'Gone To'}];
 
   return (
@@ -78,22 +78,11 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             />
           </View>
         </View>
-        <View
-          style={{
-            flex: 0.7,
-          }}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-            }}>
-            <Text style={{fontWeight: '700', color: '#fff'}}>Johnny Bravo</Text>
-            <Text style={{fontWeight: '700', color: '#fff'}}>iTarian LLC</Text>
-            <View>
-              <Text style={{fontWeight: '700', color: '#fff'}}>
-                Out of Office
-              </Text>
-            </View>
+        <View style={{flex: 0.7}}>
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <Text style={styles.drawerTitleStyle}>Johnny Bravo</Text>
+            <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
+            <Text style={styles.drawerTitleStyle}>Out of Office</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -109,10 +98,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
           icon={({color, size, focused}) => (
             <Ionicons name="settings-outline" size={size} color={color} />
           )}
-          labelStyle={{
-            opacity: 0.75,
-            right: 20,
-          }}
+          labelStyle={styles.footerDrawerStyle}
           onPress={() => {
             props.navigation.navigate('Settings');
           }}
@@ -120,10 +106,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <DrawerItem
           label={'Send Feedback'}
           inactiveTintColor={'#fff'}
-          labelStyle={{
-            opacity: 0.75,
-            right: 20,
-          }}
+          labelStyle={styles.footerDrawerStyle}
           icon={({color, size, focused}) => (
             <MCI name="message-text" size={size} color={color} />
           )}
@@ -134,10 +117,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <DrawerItem
           label={'Logout'}
           inactiveTintColor={'#fff'}
-          labelStyle={{
-            opacity: 0.75,
-            right: 20,
-          }}
+          labelStyle={styles.footerDrawerStyle}
           icon={({color, size, focused}) => (
             <MCI name="logout" size={size} color={color} />
           )}
@@ -222,7 +202,6 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         headerStyle: {
           backgroundColor: colors.primary,
           borderBottomWidth: 1,
-          // borderBottomColor: '#ffffff66',
           elevation: 1,
         },
         headerTitleStyle: {
@@ -325,12 +304,22 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <AD name="contacts" size={size} color={color} />
           ),
+          headerRight: noHeader,
         }}
       />
       <Drawer.Screen
         name="Configurations"
         component={Configurations}
         options={{
+          headerRight: () => (
+            <Ionicons
+              size={30}
+              name="barcode-outline"
+              color={'#ffffff'}
+              onPress={() => console.log('Hello User')}
+              style={{right: 10}}
+            />
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Configurations</Text>
           ),
@@ -367,6 +356,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="My Activities"
         component={MyActivities}
         options={{
+          headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>My Activities</Text>
           ),
@@ -447,12 +437,13 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
               onPress={() => navigation.navigate('Agenda')}
             />
           ),
+          drawerItemStyle: {display: 'none'},
         }}
       />
       <Drawer.Screen
         name="Forms"
         component={FormScreen}
-        options={{headerShown: false}}
+        options={{headerShown: false, drawerItemStyle: {display: 'none'}}}
       />
       <Drawer.Screen
         name="Settings"
@@ -478,7 +469,6 @@ export default Draw;
 
 const styles = StyleSheet.create({
   header: {
-    // height: moderateScale(height * 0.2, 0.5),
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -502,4 +492,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#fff',
   },
+  footerDrawerStyle: {
+    opacity: 0.75,
+    right: 20,
+  },
+  drawerTitleStyle: {fontWeight: '700', color: '#fff'},
 });

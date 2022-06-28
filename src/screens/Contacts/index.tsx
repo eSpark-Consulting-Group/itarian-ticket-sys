@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Pressable, FlatList} from 'react-native';
+import {View, Text, Pressable, FlatList, ToastAndroid} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
@@ -23,12 +23,7 @@ const Contacts = () => {
         <Pressable
           onPress={() => console.log('Hello')}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              padding: moderateScale(15),
-              justifyContent: 'space-between',
-            }}>
+          <View style={styles.listItemContainer}>
             <View>
               <Text
                 style={{
@@ -46,32 +41,28 @@ const Contacts = () => {
                 <Text
                   style={{
                     color: colors.text,
-                    fontSize: 10,
-                    opacity: 0.75,
-                    marginLeft: 3,
-                    textAlignVertical: 'bottom',
+                    ...styles.subtitleStyle,
                   }}>
                   {item.company_name}
                 </Text>
               </View>
             </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                width: moderateScale(80),
-                justifyContent: 'space-between',
-              }}>
+            <View style={styles.iconsContainer}>
               <View
                 style={{
-                  borderWidth: 1,
                   borderColor: colors.text,
-                  borderRadius: 100,
-                  padding: 5,
                   opacity: item.phone_no ? 1 : 0.5,
+                  ...styles.iconStyle,
                 }}>
                 <Pressable
-                  style={{zIndex: 1}}
-                  disabled={item.phone_no ? false : true}
+                  onPress={() => {
+                    item.phone_no
+                      ? console.log('calling')
+                      : ToastAndroid.show(
+                          'Phone No not avalaible',
+                          ToastAndroid.SHORT,
+                        );
+                  }}
                   android_ripple={{
                     color: dark ? '#ffffff1f' : '#0000000e',
                     borderless: true,
@@ -81,14 +72,19 @@ const Contacts = () => {
               </View>
               <View
                 style={{
-                  borderWidth: 1,
                   borderColor: colors.text,
-                  borderRadius: 100,
-                  padding: 5,
                   opacity: item.email_address ? 1 : 0.5,
+                  ...styles.iconStyle,
                 }}>
                 <Pressable
-                  disabled={item.email_address ? false : true}
+                  onPress={() => {
+                    item.phone_no
+                      ? console.log('mailing')
+                      : ToastAndroid.show(
+                          'Email Address not avalaible',
+                          ToastAndroid.SHORT,
+                        );
+                  }}
                   style={{borderRadius: 100}}
                   android_ripple={{
                     color: dark ? '#ffffff1f' : '#00000026',
@@ -104,8 +100,7 @@ const Contacts = () => {
           <Divider
             style={{
               backgroundColor: colors.text,
-              opacity: 0.2,
-              transform: [{scale: 2}],
+              ...styles.dividerStyle,
             }}
           />
         )}

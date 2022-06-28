@@ -5,7 +5,6 @@ const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     height: moderateVerticalScale(height, 0),
   },
   imageContainer: {

@@ -12,7 +12,6 @@ import {
   companiesList,
   Companines as CompanyType,
 } from '../../constants/SampleArrays';
-import {WINDOW_WIDTH, WINDOW_HEIGHT} from '../../constants/Dimensions';
 
 const Companies = () => {
   const {colors, dark}: Theme = useTheme();
@@ -34,11 +33,7 @@ const Companies = () => {
         </Pressable>
         {index !== companiesList.length - 1 && (
           <Divider
-            style={{
-              backgroundColor: colors.text,
-              opacity: 0.2,
-              transform: [{scale: 2}],
-            }}
+            style={{backgroundColor: colors.text, ...styles.dividerStyle}}
           />
         )}
       </View>

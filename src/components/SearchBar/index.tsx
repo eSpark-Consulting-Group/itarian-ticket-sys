@@ -171,10 +171,10 @@ const SearchBar = ({
           </Menu>
         </View>
       )}
-      <View style={{display: withTag ? 'flex' : 'none', ...styles.adjuster}} />
+      <View style={{display: withTag ? 'flex' : 'none', width: 0}} />
       <View
         style={{
-          width: withTag ? '80%' : '100%',
+          width: withTag ? '83%' : '100%',
           paddingHorizontal: withTag ? 8 : 10,
           padding: 8,
           ...styles.searchInputContainer,
@@ -186,8 +186,14 @@ const SearchBar = ({
           placeholderTextColor={dark ? '#ffffff8a' : '#0000008a'}
           iconColor={dark ? '#ffffff8a' : '#0000008a'}
           onChangeText={onChangeSearch}
-          inputStyle={{color: colors.text}}
+          inputStyle={{
+            color: colors.text,
+            fontSize: 13,
+          }}
           style={styles.inputStyle}
+          elevation={0}
+          icon={() => <Ionicons name="search" size={17} />}
+          clearIcon={() => <MCI name="close" size={17} />}
         />
       </View>
     </View>

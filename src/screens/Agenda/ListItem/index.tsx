@@ -10,10 +10,10 @@ import {DateSeparator} from '../../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-const ListItem = ({item, keys}: any) => {
+const ListItem = ({item}: any) => {
   const {colors}: Theme = useTheme();
   return (
-    <View key={keys} style={styles.itemContainer}>
+    <View style={styles.itemContainer}>
       <DateSeparator text={item.date} />
       {item.data.map((item2: any, ind: number) => (
         <>

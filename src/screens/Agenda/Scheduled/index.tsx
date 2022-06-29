@@ -77,7 +77,7 @@ const ScheduledTab = () => {
             ],
           },
         ]}
-        renderItem={({item, index}) => <ListItem item={item} keys={index} />}
+        renderItem={({item, index}) => <ListItem item={item} />}
       />
     </View>
   );

@@ -141,6 +141,12 @@ export const contactsList: Contacts[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
   },
+  {
+    name: 'Carl Johnson',
+    company_name: 'Star Trek Enterprises',
+    phone_no: '+555 555 5555',
+    email_address: 'email@test.com',
+  },
 ];
 
 export const configurationsList: Configurations[] = [

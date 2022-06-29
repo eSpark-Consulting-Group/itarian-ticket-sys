@@ -381,6 +381,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="In Out Board"
         component={InOutBoard}
         options={{
+          headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>In/Out Board</Text>
           ),

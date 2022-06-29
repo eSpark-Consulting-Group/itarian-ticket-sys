@@ -15,9 +15,11 @@ import styles from './style';
 const SearchBar = ({
   withTag = false,
   placeholder = 'Search',
+  fontSize,
 }: {
   withTag?: boolean;
   placeholder?: string;
+  fontSize?: 'small' | 'medium' | 'large';
 }) => {
   const {colors, dark}: Theme = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
@@ -84,6 +86,19 @@ const SearchBar = ({
         return 'Search Configurations';
       default:
         return 'Search Tickets';
+    }
+  }
+
+  function getSize(val: string | undefined) {
+    switch (val) {
+      case 'small':
+        return 13;
+      case 'medium':
+        return 14;
+      case 'large':
+        return 15;
+      default:
+        return 13;
     }
   }
 
@@ -188,7 +203,7 @@ const SearchBar = ({
           onChangeText={onChangeSearch}
           inputStyle={{
             color: colors.text,
-            fontSize: 13,
+            fontSize: getSize(fontSize),
           }}
           style={styles.inputStyle}
           elevation={0}

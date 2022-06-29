@@ -16,7 +16,11 @@ const Search = () => {
           backgroundColor: dark ? '#000000' : '#ffffff',
           ...styles.header,
         }}>
-        <SearchBar withTag={true} placeholder={'Search Contacts'} />
+        <SearchBar
+          withTag={true}
+          placeholder={'Search Contacts'}
+          fontSize={'large'}
+        />
       </View>
       <View
         style={{

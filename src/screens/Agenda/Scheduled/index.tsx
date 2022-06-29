@@ -9,8 +9,8 @@ import {Theme} from '../../../theme/colors';
 import {DateSeparator} from '../../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
-
-const {width} = Dimensions.get('window');
+import {WINDOW_WIDTH} from '../../../constants/Dimensions';
+import ListItem from '../ListItem';
 
 const ScheduledTab = () => {
   const {colors}: Theme = useTheme();
@@ -24,6 +24,14 @@ const ScheduledTab = () => {
               {
                 tNo: 'Ticket #4163',
                 task: 'New Server Installation',
+                schedule: '10:00AM - 11:30AM',
+                dur: '1.5h',
+                company: 'Acme IT Solutions',
+                locate: 'Remote',
+              },
+              {
+                tNo: 'Ticket #4164',
+                task: 'New Server Installation',
                 schedule: '10:00AM - 10:30AM',
                 dur: '0.5h',
                 company: 'Acme IT Solutions',
@@ -32,7 +40,7 @@ const ScheduledTab = () => {
               {
                 tNo: 'Ticket #4164',
                 task: 'New Server Installation',
-                schedule: '10:00AM - 10:30AM',
+                // schedule: '10:00AM - 10:30AM',
                 dur: '0.5h',
                 company: 'Acme IT Solutions',
                 locate: 'Remote',
@@ -58,90 +66,18 @@ const ScheduledTab = () => {
                 company: 'Acme IT Solutions',
                 locate: 'Remote',
               },
+              {
+                tNo: 'Ticket #5270',
+                task: 'Products for Exchange Server',
+                schedule: '10:00AM - 12:30PM',
+                dur: '2.5h',
+                company: 'Acme IT Solutions',
+                locate: 'Remote',
+              },
             ],
           },
         ]}
-        renderItem={({item}) => (
-          <View
-            style={{
-              width: width,
-              marginVertical: 10,
-              marginHorizontal: 20,
-            }}>
-            <DateSeparator text={item.date} />
-            {item.data.map((item2, ind) => (
-              <>
-                <View style={{flexDirection: 'row', marginVertical: 15}}>
-                  <View
-                    style={{
-                      height: 100,
-                      width: '10%',
-                      marginRight: 10,
-                    }}>
-                    <View
-                      style={{
-                        borderRadius: 1000,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: moderateScale(40, 0),
-                        height: moderateScale(40, 0),
-                        backgroundColor: '#28648f',
-                      }}>
-                      <II
-                        name="pricetag"
-                        size={moderateScale(25, 0)}
-                        color="#fff"
-                      />
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      height: 100,
-                    }}>
-                    <Text style={{fontWeight: 'bold', color: colors.text}}>
-                      {item2.tNo}
-                    </Text>
-                    <Text style={{fontWeight: 'bold', color: colors.text}}>
-                      {item2.task}
-                    </Text>
-                    <View style={{marginTop: 5}}>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}>
-                        <II name="calendar-outline" style={{marginRight: 5}} />
-                        <Text style={{marginRight: 5}}>{item2.schedule}</Text>
-                        <Text
-                          style={{
-                            backgroundColor: 'black',
-                            color: 'white',
-                            borderRadius: 1000,
-                            paddingHorizontal: 5,
-                          }}>
-                          {item2.dur}
-                        </Text>
-                      </View>
-                      <View
-                        style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <II name="business" style={{marginRight: 5}} />
-                        <Text>{item2.company}</Text>
-                      </View>
-                      <View
-                        style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <II name="location-outline" style={{marginRight: 5}} />
-                        <Text>{item2.locate}</Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-                {item.data.length === ind + 1 ? null : (
-                  <Divider style={{width: width, transform: [{scaleY: 4}]}} />
-                )}
-              </>
-            ))}
-          </View>
-        )}
+        renderItem={({item, index}) => <ListItem item={item} keys={index} />}
       />
     </View>
   );

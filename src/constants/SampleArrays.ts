@@ -1,3 +1,5 @@
+import {ViewStyle} from 'react-native';
+
 export type Companines = {
   name: string;
   address: string;
@@ -25,6 +27,57 @@ export type Activity = {
   date: string;
   start_time: string;
   end_time: string;
+};
+
+export type Scheduled_Data = {
+  id: number;
+  ticket_no: string;
+  task: string;
+  schedule_time: string;
+  time_dur: string;
+  company_name: string;
+  location: string;
+};
+
+export type Unscheduled_Data = {
+  id: number;
+  ticket_no: string;
+  task: string;
+  company_name: string;
+  location: string;
+};
+
+export type ScheduledList = {
+  id: number;
+  date: string;
+  data: Array<Scheduled_Data>;
+};
+
+export type UnscheduledList = {
+  id: number;
+  date: string;
+  data: Array<Unscheduled_Data>;
+};
+
+export type FloatButtons = {
+  icon: string;
+  onPress?: () => void | undefined;
+  style?: ViewStyle;
+  AdditionalButtons: any;
+};
+
+export type AdditionalButtons = {
+  icon: string;
+  label: string;
+  color: string;
+  style: any;
+  labelStyle: object;
+  onPress: () => void;
+};
+
+export const AdditionalButtonStyle = {
+  backgroundColor: '#28648f',
+  borderRadius: 1000,
 };
 
 export const companiesList: Array<Companines> = [
@@ -196,5 +249,184 @@ export const activitiesList: Array<Activity> = [
     date: 'Dec 20, 2020',
     start_time: '10:00 AM',
     end_time: '11:45 AM',
+  },
+];
+
+export const scheduledList: Array<ScheduledList> = [
+  {
+    id: 1,
+    date: 'Monday, November 13',
+    data: [
+      {
+        id: 1,
+        ticket_no: 'Ticket #4163',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 11:30AM',
+        time_dur: '1.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 2,
+        ticket_no: 'Ticket #4164',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 3,
+        ticket_no: 'Ticket #4166',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+    ],
+  },
+  {
+    id: 2,
+    date: 'Monday, November 14',
+    data: [
+      {
+        id: 4,
+        ticket_no: 'Ticket #5264',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 5,
+        ticket_no: 'Ticket #5267',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 6,
+        ticket_no: 'Ticket #5270',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 12:30PM',
+        time_dur: '2.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+    ],
+  },
+];
+
+export const unscheduledList: Array<UnscheduledList> = [
+  {
+    id: 3,
+    date: 'Monday, November 13',
+    data: [
+      {
+        id: 7,
+        ticket_no: 'Ticket #4163',
+        task: 'New Server Installation',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 8,
+        ticket_no: 'Ticket #4164',
+        task: 'New Server Installation',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 9,
+        ticket_no: 'Ticket #4177',
+        task: 'New Server Installation',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+    ],
+  },
+  {
+    id: 4,
+    date: 'Monday, November 14',
+    data: [
+      {
+        id: 10,
+        ticket_no: 'Ticket #5264',
+        task: 'Products for Exchange Server',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 11,
+        ticket_no: 'Ticket #5267',
+        task: 'Products for Exchange Server',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 12,
+        ticket_no: 'Ticket #5270',
+        task: 'Products for Exchange Server',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+    ],
+  },
+];
+export const SchAdditionalButtons: Array<AdditionalButtons> = [
+  {
+    icon: 'clipboard-plus-outline',
+    label: 'Add Activity',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'calendar-plus',
+    label: 'Add Misc Schedule',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed email'),
+  },
+  {
+    icon: 'tag-plus-outline',
+    label: 'Add Ticket',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed notifications'),
+  },
+];
+
+export const UnschAdditionalButtons: Array<AdditionalButtons> = [
+  {
+    icon: 'clipboard-plus',
+    label: 'Add Activity',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'calendar-plus',
+    label: 'Add Misc Schedule',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed email'),
+  },
+  {
+    icon: 'tag-plus-outline',
+    label: 'Add Ticket',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed notifications'),
   },
 ];

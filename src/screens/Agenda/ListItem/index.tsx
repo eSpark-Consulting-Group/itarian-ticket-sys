@@ -12,7 +12,6 @@ import {Divider} from 'react-native-paper';
 
 const ListItem = ({item, id}: {item: any; id: number}) => {
   const {colors}: Theme = useTheme();
-  console.log('KEY KIYA AYA', id);
 
   return (
     <View key={id} style={styles.itemContainer}>

@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FAB, Portal} from 'react-native-paper';
+import {FAB} from 'react-native-paper';
 
 import styles from './style';
-import {ViewStyle} from 'react-native';
-import {FloatButtons} from '../../constants/SampleArrays';
 
 const FloatButton = ({AdditionalButtons}: {AdditionalButtons: any}) => {
   const [showBtns, setShowBtns] = useState(false);

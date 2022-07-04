@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   },
   itemContentContainer: {flexDirection: 'row', marginVertical: 15},
   itemContentIconContainer: {
-    height: 100,
     width: '10%',
     marginRight: 10,
   },
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
     paddingHorizontal: 5,
   },
-  divider: {width: WINDOW_WIDTH, transform: [{scaleY: 4}]},
+  divider: {width: WINDOW_WIDTH, transform: [{scaleY: 4}], marginVertical: 5},
 });
 
 export default styles;

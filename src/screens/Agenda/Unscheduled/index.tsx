@@ -1,16 +1,26 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 
 import {useTheme} from '@react-navigation/native';
 
 import styles from './style';
 import {Theme} from '../../../theme/colors';
+import ListItem from '../ListItem';
+import {
+  UnschAdditionalButtons,
+  unscheduledList,
+} from '../../../constants/SampleArrays';
+import {FloatButton} from '../../../components';
 
 const UnscheduledTab = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text style={{color: colors.text}}>Unscheduled Tab</Text>
+      <FlatList
+        data={unscheduledList}
+        renderItem={({item}) => <ListItem id={item.id} item={item} />}
+      />
+      <FloatButton AdditionalButtons={UnschAdditionalButtons} />
     </View>
   );
 };

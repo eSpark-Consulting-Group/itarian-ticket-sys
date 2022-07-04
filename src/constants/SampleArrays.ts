@@ -27,6 +27,8 @@ export type Activity = {
   end_time: string;
 };
 
+export type Agenda = {};
+
 export const companiesList: Array<Companines> = [
   {
     name: 'Lorem Ipsum Company Ltd',

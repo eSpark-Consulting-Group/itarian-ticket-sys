@@ -8,6 +8,7 @@ import ModalStack from './ModalStack';
 import EmptyListMsg from './EmptyListMsg';
 import DateSeparator from './DateSeparator';
 import CstmSwitchSelector from './CstmSwitchSelector';
+import FloatButton from './FloatButton';
 
 export {
   CstmButton,
@@ -20,4 +21,5 @@ export {
   EmptyListMsg,
   DateSeparator,
   CstmSwitchSelector,
+  FloatButton,
 };

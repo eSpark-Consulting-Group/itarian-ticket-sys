@@ -15,7 +15,7 @@ const DateSeperator = ({text}: any) => {
   return (
     <View style={styles.container}>
       <Divider style={styles.divider_1} />
-      <Text style={{paddingHorizontal: 10}}>{text}</Text>
+      <Text style={{paddingHorizontal: 10, color: colors.text}}>{text}</Text>
       <Divider style={styles.divider_2} />
     </View>
   );

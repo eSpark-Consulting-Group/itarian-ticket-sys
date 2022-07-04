@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
   container: {
     height: 44,
     width: 215,
-    backgroundColor: 'white',
     borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'center',

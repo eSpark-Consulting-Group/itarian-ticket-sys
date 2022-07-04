@@ -28,7 +28,7 @@ import AD from 'react-native-vector-icons/AntDesign';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {useState as useHookState, State} from '@hookstate/core';
 import {moderateScale} from 'react-native-size-matters';
-import {Avatar} from 'react-native-paper';
+import {Avatar, Badge} from 'react-native-paper';
 
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -369,6 +369,28 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="Opportunities"
         component={Oppurtunities}
         options={{
+          headerRight: () => (
+            <View style={{flexDirection: 'row', right: 10}}>
+              <AD
+                size={30}
+                name="filter"
+                color={'#ffffff'}
+                onPress={() => console.log('Filter')}
+              />
+              <Badge
+                size={15}
+                style={{
+                  position: 'absolute',
+                  zIndex: 1,
+                  right: -5,
+                  top: -5,
+                  backgroundColor: '#dc1e1e',
+                  fontWeight: 'bold',
+                }}>
+                99
+              </Badge>
+            </View>
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Opportunities</Text>
           ),

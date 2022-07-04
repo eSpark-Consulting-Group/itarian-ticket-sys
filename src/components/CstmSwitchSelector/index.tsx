@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import {useTheme} from '@react-navigation/native';
+
 import styles from './style';
 
 const CstmSwitchSelector = ({
@@ -18,6 +20,7 @@ const CstmSwitchSelector = ({
   selectionColor: string;
 }) => {
   const [getSelectionMode, setSelectionMode] = useState(selectionMode);
+  const {colors, dark} = useTheme();
 
   const updatedSwitchData = (val: number) => {
     setSelectionMode(val);
@@ -30,13 +33,15 @@ const CstmSwitchSelector = ({
         style={{
           borderRadius: roundCorner ? 5 : 0,
           borderColor: selectionColor,
+          backgroundColor: colors.background,
           ...styles.container,
         }}>
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => updatedSwitchData(1)}
           style={{
-            backgroundColor: getSelectionMode == 1 ? selectionColor : 'white',
+            backgroundColor:
+              getSelectionMode == 1 ? selectionColor : colors.background,
             borderRadius: roundCorner ? 5 : 0,
             ...styles.option,
           }}>
@@ -51,7 +56,8 @@ const CstmSwitchSelector = ({
           activeOpacity={1}
           onPress={() => updatedSwitchData(2)}
           style={{
-            backgroundColor: getSelectionMode == 2 ? selectionColor : 'white',
+            backgroundColor:
+              getSelectionMode == 2 ? selectionColor : colors.background,
             borderRadius: roundCorner ? 5 : 0,
             ...styles.option,
           }}>

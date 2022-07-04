@@ -77,6 +77,17 @@ export type AdditionalButtons = {
   onPress: () => void;
 };
 
+export type Opportunities = {
+  name: string;
+  contact: string;
+  contant_phone?: string;
+  priority: 'normal' | 'low' | 'high' | 'critical';
+  sales_Rep: string;
+  company: string;
+  status: string;
+  close_date: string;
+};
+
 export const AdditionalButtonStyle = {
   backgroundColor: '#28648f',
   borderRadius: 1000,
@@ -379,6 +390,7 @@ export const unscheduledList: Array<UnscheduledList> = [
     ],
   },
 ];
+
 export const SchAdditionalButtons: Array<AdditionalButtons> = [
   {
     icon: 'clipboard-plus-outline',
@@ -430,5 +442,48 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
     style: AdditionalButtonStyle,
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed notifications'),
+  },
+];
+
+export const opportunitiesList: Opportunities[] = [
+  {
+    name: 'New Site Wiring',
+    contact: 'Tim Smith',
+    contant_phone: '+1 555 5555',
+    priority: 'high',
+    sales_Rep: 'Mark Hamill',
+    company: 'Acme IT Solutions',
+    status: 'Customer Approved',
+    close_date: '30 Dec 2021',
+  },
+  {
+    name: 'Treasure Hunting',
+    contact: 'Nathan Drake',
+    // contant_phone: '+1 555 5555',
+    priority: 'critical',
+    sales_Rep: 'Victor Sullivan',
+    company: 'Acme IT Solutions',
+    status: 'Customer Approved',
+    close_date: '24 Apr 2009',
+  },
+  {
+    name: 'Purchasing Tools',
+    contact: 'Chloe Frazer',
+    contant_phone: '+1 555 5555',
+    priority: 'low',
+    sales_Rep: 'Nadine Ross',
+    company: 'Acme IT Solutions',
+    status: 'Customer Approved',
+    close_date: '11 Nov 2017',
+  },
+  {
+    name: 'Re-arranging Items',
+    contact: 'Rafe Adler',
+    contant_phone: '+1 555 5555',
+    priority: 'normal',
+    sales_Rep: 'Jim Barns',
+    company: 'Acme IT Solutions',
+    status: 'Customer Approved',
+    close_date: '22 Jul 2018',
   },
 ];

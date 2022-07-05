@@ -9,6 +9,7 @@ import EmptyListMsg from './EmptyListMsg';
 import DateSeparator from './DateSeparator';
 import CstmSwitchSelector from './CstmSwitchSelector';
 import FloatButton from './FloatButton';
+import SimpleLoader from './SimpleLoader';
 
 export {
   CstmButton,
@@ -22,4 +23,5 @@ export {
   DateSeparator,
   CstmSwitchSelector,
   FloatButton,
+  SimpleLoader,
 };

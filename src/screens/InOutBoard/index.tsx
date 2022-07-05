@@ -4,7 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-import {SearchBar} from '../../components';
+import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
 import {Theme} from '../../theme/colors';
 import {EmptyListMsg, CstmSwitchSelector} from '../../components';
@@ -16,6 +16,7 @@ import {
 const InOutBoardScreen = () => {
   const {colors, dark}: Theme = useTheme();
   const [selection, setSelection] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const [members, setMembers] = useState(Array<ContactsType>);
 
   const handleSwitch = () => {
@@ -35,6 +36,7 @@ const InOutBoardScreen = () => {
   useEffect(() => {
     let news = [...contactsList].filter(item => item.inOffice);
     setMembers(news);
+    setIsLoading(false);
   }, [])
 
   useEffect(() => {
@@ -93,11 +95,14 @@ const InOutBoardScreen = () => {
           />
         </View>
       </View>
-      {contactsList.length !== 0 ? (
-        <FlatList data={members} renderItem={renderList} />
-      ) : (
-        <NotFound />
-      )}
+      { isLoading ?
+        <SimpleLoader/> :
+        contactsList.length !== 0 ? (
+          <FlatList data={members} renderItem={renderList} />
+          ) : (
+            <NotFound />
+            )
+          }
     </View>
   );
 };

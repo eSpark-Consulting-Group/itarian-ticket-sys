@@ -1,5 +1,7 @@
 import {ViewStyle} from 'react-native';
 
+let currentStatus = false;
+
 export type Companines = {
   name: string;
   address: string;
@@ -73,6 +75,25 @@ export type AdditionalButtons = {
   style: any;
   labelStyle: object;
   onPress: () => void;
+};
+
+export type ModalFormDataArrayType = {
+  icon?: string;
+  content_1?: string;
+  content_2?: string;
+  onPress?: () => void;
+  switch_val?: boolean;
+};
+
+export type ModalFormArrayType = {
+  type:
+    | 'inline'
+    | 'inline-icon'
+    | 'inline-switch'
+    | 'block'
+    | 'iconBlock'
+    | 'multiline';
+  data: ModalFormDataArrayType;
 };
 
 export const AdditionalButtonStyle = {
@@ -428,5 +449,28 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
     style: AdditionalButtonStyle,
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed notifications'),
+  },
+];
+
+export const StatusFormArray: Array<ModalFormArrayType> = [
+  {
+    type: 'inline-switch',
+    data: {
+      content_1: 'Are you out of the office?',
+    },
+  },
+  {
+    type: 'block',
+    data: {
+      content_1: 'Gone To',
+      content_2: 'Please Select',
+    },
+  },
+
+  {
+    type: 'multiline',
+    data: {
+      content_1: 'Additional Info',
+    },
   },
 ];

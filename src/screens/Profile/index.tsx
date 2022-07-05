@@ -6,9 +6,12 @@ import {Theme} from '../../theme/colors';
 import {AvatarContainer} from '../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack/lib/typescript/src/types';
+import {State, useState as hookState} from '@hookstate/core';
+import {globalState} from '../../utils/globalState';
 
 const Profile = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
+  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
 
   return (
     <View style={styles.container}>
@@ -23,7 +26,9 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
         onPress={() => navigation.navigate('Forms')}
         style={styles.statusButton}>
         <Text style={{color: colors.text}}>My Status</Text>
-        <Text style={{fontWeight: 'bold', color: colors.text}}>In Office</Text>
+        <Text style={{fontWeight: 'bold', color: colors.text}}>
+          {switchValue.get() ? 'In Office' : 'Out of the Office'}
+        </Text>
       </TouchableOpacity>
     </View>
   );

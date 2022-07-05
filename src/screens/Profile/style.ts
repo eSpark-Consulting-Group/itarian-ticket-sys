@@ -12,9 +12,10 @@ const styles = StyleSheet.create({
   },
   statusButton: {
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingVertical: 10,
     justifyContent: 'center',
+    marginTop: 2,
   },
 });
 

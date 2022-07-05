@@ -19,7 +19,7 @@ const Search = () => {
         <SearchBar
           withTag={true}
           placeholder={'Search Contacts'}
-          fontSize={'large'}
+          fontSize={'small'}
         />
       </View>
       <View

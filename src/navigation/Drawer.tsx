@@ -63,10 +63,11 @@ const Stack = createNativeStackNavigator();
 const {width, height} = Dimensions.get('window');
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
+  const currStatus: State<boolean> = hookState(globalState.currentStatus);
+  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+
   const {colors, dark}: Theme = useTheme();
   const Modals = [{name: 'My Status'}, {name: 'Gone To'}];
-  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
-  const currStatus: State<boolean> = hookState(globalState.currentStatus);
 
   return (
     <SafeAreaView style={{flex: 1}}>

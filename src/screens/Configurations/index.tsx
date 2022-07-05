@@ -124,7 +124,11 @@ const Configurations = () => {
           backgroundColor: dark ? '#000000' : '#ffffff',
           ...styles.header,
         }}>
-        <SearchBar withTag={false} placeholder={'Search Configurations'} />
+        <SearchBar
+          withTag={false}
+          placeholder={'Search Configurations'}
+          fontSize={'large'}
+        />
       </View>
       {configurationsList.length !== 0 ? (
         <FlatList data={configurationsList} renderItem={renderList} />

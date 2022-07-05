@@ -115,7 +115,11 @@ const Contacts = () => {
           backgroundColor: dark ? '#000000' : '#ffffff',
           ...styles.header,
         }}>
-        <SearchBar withTag={false} placeholder={'Search Contacts'} />
+        <SearchBar
+          withTag={false}
+          placeholder={'Search Contacts'}
+          fontSize={'large'}
+        />
       </View>
       {contactsList.length !== 0 ? (
         <FlatList data={contactsList} renderItem={renderList} />

@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, ViewProps, FlatList} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Switch, TextInput} from 'react-native-paper';
@@ -7,24 +7,16 @@ import {moderateScale} from 'react-native-size-matters';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import II from 'react-native-vector-icons/Ionicons';
 import {Theme} from '../../theme/colors';
+import {State, useState as hookState} from '@hookstate/core';
+import {globalState} from '../../utils/globalState';
+import {ModalFormArrayType} from '../../constants/SampleArrays';
 
-const ModalForm = () => {
+const ModalForm = ({fieldsArray}: any) => {
   const {colors}: Theme = useTheme();
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+  const [isSwitchOn, setIsSwitchOn] = useState(switchValue.get());
+
   const componentData = [
-    {
-      type: 'inline',
-      data: {
-        content_1: 'Amount',
-        content_2: '0.00',
-      },
-    },
-    {
-      type: 'inline-icon',
-      data: {
-        content_1: 'Add Resource',
-      },
-    },
     {
       type: 'inline-switch',
       data: {
@@ -33,33 +25,25 @@ const ModalForm = () => {
     },
     {
       type: 'block',
+      visible: isSwitchOn,
       data: {
-        content_1: 'Agile Financial',
-        content_2: 'ABC Street, USA',
+        content_1: 'Gone To',
+        content_2: 'Please Select',
       },
     },
-    {
-      type: 'iconBlock',
-      data: {
-        icon: 'business',
-        content_1: 'Agile Financial',
-        content_2: 'ABC Street, USA',
-      },
-    },
-    {
-      type: 'iconBlock',
-      data: {
-        icon: 'person',
-        content_1: 'Johnny Bravo',
-      },
-    },
+
     {
       type: 'multiline',
+      visible: isSwitchOn,
       data: {
         content_1: 'Additional Info',
       },
     },
   ];
+
+  useEffect(() => {
+    isSwitchOn ? switchValue.set(true) : switchValue.set(false);
+  }, [isSwitchOn]);
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
@@ -69,13 +53,13 @@ const ModalForm = () => {
     return <View {...props}>{props.children}</View>;
   };
 
-  const checkType = (type: any) => {
+  const checkType = (type: any, visible: any) => {
     let containerStyle = {};
-    const getBlock = () => {
-      containerStyle = styles.blockDisplay;
-    };
     const getInline = () => {
       containerStyle = styles.inllineDisplay;
+    };
+    const getBlock = () => {
+      containerStyle = styles.blockDisplay;
     };
     const getMultiline = () => {
       containerStyle = styles.multilineDisplay;
@@ -83,22 +67,22 @@ const ModalForm = () => {
 
     switch (type) {
       case 'inline':
-        getBlock();
+        visible && getInline();
         break;
       case 'inline-icon':
-        getBlock();
+        visible && getInline();
         break;
       case 'inline-switch':
-        getBlock();
+        getInline();
         break;
       case 'block':
-        getInline();
+        visible && getBlock();
         break;
       case 'iconBlock':
-        getInline();
+        visible && getBlock();
         break;
       case 'multiline':
-        getMultiline();
+        visible && getMultiline();
         break;
 
       default:
@@ -107,10 +91,10 @@ const ModalForm = () => {
     return containerStyle;
   };
 
-  const checkContentType = (type: any, data: any) => {
+  const checkContentType = (type: any, data: any, visible: any) => {
     let contentType;
 
-    const getBlockContent = () => {
+    const getInlineContent = () => {
       contentType = (
         <>
           <Text style={{color: colors.text}}>{data.content_1}</Text>
@@ -122,7 +106,7 @@ const ModalForm = () => {
       );
     };
 
-    const getBlockIconContent = () => {
+    const getIconInlineContent = () => {
       contentType = (
         <>
           <Text style={{color: colors.text}}>{data.content_1}</Text>
@@ -130,7 +114,6 @@ const ModalForm = () => {
             style={{
               borderRadius: 1000,
               borderWidth: 1,
-
               width: moderateScale(40, 0),
               height: moderateScale(40, 0),
               marginRight: 10,
@@ -143,14 +126,14 @@ const ModalForm = () => {
       );
     };
 
-    const getBlockSwitchContent = () => {
+    const getInlineSwitchContent = () => {
       contentType = (
         <>
           <Text style={{color: colors.text, fontWeight: 'bold'}}>
             {data.content_1}
           </Text>
           <Switch
-            value={isSwitchOn}
+            value={switchValue.get()}
             style={{marginRight: 5}}
             color={colors.primary}
             thumbColor={colors.primary}
@@ -161,18 +144,18 @@ const ModalForm = () => {
       );
     };
 
-    const getInlineContent = () => {
+    const getBlockContent = () => {
       contentType = (
-        <>
+        <TouchableOpacity>
           <Text style={{color: colors.text}}>{data.content_1}</Text>
           <Text style={{color: colors.text, fontWeight: 'bold'}}>
             {data.content_2}
           </Text>
-        </>
+        </TouchableOpacity>
       );
     };
 
-    const getIconInlineContent = () => {
+    const getBlockIconContent = () => {
       contentType = (
         <>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -207,22 +190,22 @@ const ModalForm = () => {
 
     switch (type) {
       case 'inline':
-        getBlockContent();
+        visible && getInlineContent();
         break;
       case 'inline-icon':
-        getBlockIconContent();
+        visible && getIconInlineContent();
         break;
       case 'inline-switch':
-        getBlockSwitchContent();
+        getInlineSwitchContent();
         break;
       case 'block':
-        getInlineContent();
+        visible && getBlockContent();
         break;
       case 'iconBlock':
-        getIconInlineContent();
+        visible && getBlockIconContent();
         break;
       case 'multiline':
-        getMultilineContent();
+        visible && getMultilineContent();
         break;
 
       default:
@@ -234,11 +217,11 @@ const ModalForm = () => {
 
   return (
     <FlatList
-      data={componentData}
+      data={fieldsArray}
       renderItem={({item}) => {
         return (
-          <ParallelContainer style={checkType(item.type)}>
-            {checkContentType(item.type, item.data)}
+          <ParallelContainer style={checkType(item.type, item.visible)}>
+            {checkContentType(item.type, item.data, item.visible)}
           </ParallelContainer>
         );
       }}

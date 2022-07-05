@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 10,
   },
-  blockDisplay: {
+  inllineDisplay: {
     backgroundColor: '#fff',
     flex: 1,
     height: moderateVerticalScale(50, 0),
@@ -20,14 +20,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    elevation: 2,
   },
-  inllineDisplay: {
+  blockDisplay: {
     backgroundColor: '#fff',
     flex: 1,
     height: moderateVerticalScale(50, 0),
     paddingHorizontal: 15,
     marginBottom: 10,
     justifyContent: 'center',
+    elevation: 2,
   },
   multilineDisplay: {
     backgroundColor: '#fff',
@@ -35,6 +37,7 @@ const styles = StyleSheet.create({
     height: moderateVerticalScale(120, 0),
     paddingHorizontal: 15,
     marginBottom: 10,
+    elevation: 2,
   },
 });
 

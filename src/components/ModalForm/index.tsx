@@ -9,44 +9,13 @@ import II from 'react-native-vector-icons/Ionicons';
 import {Theme} from '../../theme/colors';
 import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
-import {ModalFormArrayType} from '../../constants/SampleArrays';
 
 const ModalForm = ({fieldsArray}: any) => {
   const {colors}: Theme = useTheme();
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
-  const [isSwitchOn, setIsSwitchOn] = useState(switchValue.get());
-
-  const componentData = [
-    {
-      type: 'inline-switch',
-      data: {
-        content_1: 'Are you out of the office?',
-      },
-    },
-    {
-      type: 'block',
-      visible: isSwitchOn,
-      data: {
-        content_1: 'Gone To',
-        content_2: 'Please Select',
-      },
-    },
-
-    {
-      type: 'multiline',
-      visible: isSwitchOn,
-      data: {
-        content_1: 'Additional Info',
-      },
-    },
-  ];
-
-  useEffect(() => {
-    isSwitchOn ? switchValue.set(true) : switchValue.set(false);
-  }, [isSwitchOn]);
 
   const onToggleSwitch = () => {
-    setIsSwitchOn(!isSwitchOn);
+    switchValue.set(!switchValue.get());
   };
 
   const ParallelContainer = (props: ViewProps) => {

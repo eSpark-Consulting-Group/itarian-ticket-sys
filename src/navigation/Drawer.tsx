@@ -138,49 +138,8 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 };
 
-const ReuseModal = ({
-  modalName,
-  navigation,
-  fields,
-}: {
-  modalName: string;
-  navigation?: NativeStackHeaderProps;
-  fields: Array<ModalFormArrayType>;
-}) => {
-  const {colors}: Theme = useTheme();
-  return (
-    <Stack.Screen
-      name={modalName}
-      component={() => <ModalForm fieldsArray={fields} />}
-      options={{
-        animation: 'slide_from_bottom',
-        headerLeft: () => (
-          <Ionicons
-            size={30}
-            name="close"
-            style={{right: 6}}
-            color={colors.background}
-            // onPress={() => navigation.navigate('My Profile')}
-          />
-        ),
-        headerRight: () => (
-          <FA
-            size={27}
-            name="save"
-            color={'#fff'}
-            onPress={() => console.log('Hello User')}
-            style={{right: 10}}
-          />
-        ),
-      }}
-    />
-  );
-};
-
 const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
-  const [changeSave, setChangeSave] = useState(false);
-  const [changeBack, setChangeBack] = useState(false);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
 
@@ -200,11 +159,12 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
     if (currStatus.get() == false && switchValue.get() == false) {
       switchValue.set(true);
       navigation.navigate('My Profile');
-    } else {
+    } else if (currStatus.get() == true && switchValue.get() == true) {
       switchValue.set(false);
       navigation.navigate('My Profile');
+    } else {
+      navigation.navigate('My Profile');
     }
-    // navigation.navigate('My Profile');
   };
 
   return (

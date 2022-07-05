@@ -10,14 +10,13 @@ const styles = StyleSheet.create({
   header: {
     elevation: 1,
     width: WINDOW_WIDTH,
-    borderBottomWidth: 0.175,
   },
   subHeader: {
     elevation: 1,
     width: WINDOW_WIDTH,
-    marginBottom: 10,
-    borderBottomWidth: 0.1,
-    borderTopWidth: 0.175,
+    borderBottomWidth: 0.25,
+    borderTopWidth: 0.25,
+    borderColor: '#ffffff42',
   },
   content: {
     flex: 1,

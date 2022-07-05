@@ -11,8 +11,8 @@ import {globalState} from '../../utils/globalState';
 
 const Profile = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
-  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
-
+  const currStatus: State<boolean> = hookState(globalState.currentStatus);
+  console.log('Current Status', currStatus.get());
   return (
     <View style={styles.container}>
       <View style={styles.infoHolder}>
@@ -27,7 +27,7 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
         style={styles.statusButton}>
         <Text style={{color: colors.text}}>My Status</Text>
         <Text style={{fontWeight: 'bold', color: colors.text}}>
-          {switchValue.get() ? 'In Office' : 'Out of the Office'}
+          {currStatus.get() == true ? 'In Office' : 'Out of the Office'}
         </Text>
       </TouchableOpacity>
     </View>

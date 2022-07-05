@@ -11,10 +11,10 @@ import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
 import {ModalFormArrayType} from '../../constants/SampleArrays';
 
-const ModalForm = (fieldsArray: any) => {
+const ModalForm = ({fieldsArray}: any) => {
   const {colors}: Theme = useTheme();
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+  const [isSwitchOn, setIsSwitchOn] = useState(switchValue.get());
 
   const componentData = [
     {
@@ -40,8 +40,9 @@ const ModalForm = (fieldsArray: any) => {
       },
     },
   ];
+
   useEffect(() => {
-    isSwitchOn ? switchValue.set(false) : switchValue.set(true);
+    isSwitchOn ? switchValue.set(true) : switchValue.set(false);
   }, [isSwitchOn]);
 
   const onToggleSwitch = () => {
@@ -132,7 +133,7 @@ const ModalForm = (fieldsArray: any) => {
             {data.content_1}
           </Text>
           <Switch
-            value={isSwitchOn}
+            value={switchValue.get()}
             style={{marginRight: 5}}
             color={colors.primary}
             thumbColor={colors.primary}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -26,9 +26,9 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
-import {State, useState} from '@hookstate/core';
+import {State, useState as hookState} from '@hookstate/core';
 import {moderateScale} from 'react-native-size-matters';
-import {Avatar} from 'react-native-paper';
+import {Avatar, Badge} from 'react-native-paper';
 
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -65,7 +65,8 @@ const {width, height} = Dimensions.get('window');
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const {colors, dark}: Theme = useTheme();
   const Modals = [{name: 'My Status'}, {name: 'Gone To'}];
-  const switchValue: State<boolean> = useState(globalState.statusSwitch);
+  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+  const currStatus: State<boolean> = hookState(globalState.currentStatus);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -85,7 +86,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             <Text style={styles.drawerTitleStyle}>Johnny Bravo</Text>
             <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
-              {switchValue.get() ? 'In Office' : 'Out of the Office'}
+              {currStatus.get() ? 'In Office' : 'Out of the Office'}
             </Text>
           </View>
         </View>
@@ -177,6 +178,34 @@ const ReuseModal = ({
 
 const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
+  const [changeSave, setChangeSave] = useState(false);
+  const [changeBack, setChangeBack] = useState(false);
+  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+  const currStatus: State<boolean> = hookState(globalState.currentStatus);
+
+  const saveStatus = () => {
+    console.log('Save Status', switchValue.get(), currStatus.get());
+    if (switchValue.get() == true) {
+      currStatus.set(false);
+      navigation.navigate('My Profile');
+    } else {
+      currStatus.set(true);
+      navigation.navigate('My Profile');
+    }
+  };
+
+  const backStatus = () => {
+    console.log('Back Status', currStatus.get(), switchValue.get());
+    if (currStatus.get() == false && switchValue.get() == false) {
+      switchValue.set(true);
+      navigation.navigate('My Profile');
+    } else {
+      switchValue.set(false);
+      navigation.navigate('My Profile');
+    }
+    // navigation.navigate('My Profile');
+  };
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -191,7 +220,32 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
         screenOptions={{
           presentation: 'modal',
         }}>
-        <ReuseModal modalName={'My Status'} fields={StatusFormArray} />
+        <Stack.Screen
+          name={'My Status'}
+          options={{
+            animation: 'slide_from_bottom',
+            headerLeft: () => (
+              <Ionicons
+                size={30}
+                name="close"
+                style={{right: 6}}
+                color={colors.background}
+                onPress={backStatus}
+              />
+            ),
+            headerRight: () => (
+              <FA
+                size={27}
+                name="save"
+                color={'#fff'}
+                onPress={saveStatus}
+                // style={{right: 10}}
+              />
+            ),
+          }}>
+          {() => <ModalForm fieldsArray={StatusFormArray} />}
+        </Stack.Screen>
+        {/* <ReuseModal modalName={'My Status'} fields={StatusFormArray} /> */}
         {/* <ReuseModal modalName={'My Status'} />
         <ReuseModal modalName={'My Status'} />
         <ReuseModal modalName={'My Status'} />
@@ -386,6 +440,28 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="Opportunities"
         component={Oppurtunities}
         options={{
+          headerRight: () => (
+            <View style={{flexDirection: 'row', right: 10}}>
+              <AD
+                size={30}
+                name="filter"
+                color={'#ffffff'}
+                onPress={() => console.log('Filter')}
+              />
+              <Badge
+                size={15}
+                style={{
+                  position: 'absolute',
+                  zIndex: 1,
+                  right: -5,
+                  top: -5,
+                  backgroundColor: '#dc1e1e',
+                  fontWeight: 'bold',
+                }}>
+                99
+              </Badge>
+            </View>
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Opportunities</Text>
           ),

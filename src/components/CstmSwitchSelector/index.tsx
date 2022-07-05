@@ -24,7 +24,10 @@ const CstmSwitchSelector = ({
 
   const updatedSwitchData = (val: number) => {
     setSelectionMode(val);
-    onSelectSwitch(val);
+    if (selectionMode !== val) {
+      onSelectSwitch(val);
+      console.log('val', val);
+    }
   };
 
   return (

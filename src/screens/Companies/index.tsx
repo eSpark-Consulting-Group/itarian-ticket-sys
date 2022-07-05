@@ -47,7 +47,11 @@ const Companies = () => {
           backgroundColor: dark ? '#000000' : '#ffffff',
           ...styles.header,
         }}>
-        <SearchBar withTag={false} placeholder={'Search Companies'} />
+        <SearchBar
+          withTag={false}
+          placeholder={'Search Companies'}
+          fontSize={'large'}
+        />
       </View>
       {companiesList.length !== 0 ? (
         <FlatList data={companiesList} renderItem={renderList} />

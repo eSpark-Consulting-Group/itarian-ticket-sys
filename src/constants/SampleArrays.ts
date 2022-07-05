@@ -11,6 +11,7 @@ export type Contacts = {
   company_name: string;
   phone_no?: string | undefined | null;
   email_address?: string | undefined | null;
+  inOffice?: boolean;
 };
 
 export type Configurations = {
@@ -164,18 +165,21 @@ export const contactsList: Contacts[] = [
     company_name: 'ACME Industries',
     phone_no: '+555 555 5555',
     email_address: null,
+    inOffice: true,
   },
   {
     name: 'Blake',
     company_name: 'Monsters INC',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
+    inOffice: true,
   },
   {
     name: 'Bob Kins',
     company_name: 'Bethesda Studios',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
+    inOffice: true,
   },
   {
     name: 'Kevin Spacey',
@@ -188,18 +192,21 @@ export const contactsList: Contacts[] = [
     company_name: 'XYZ Company',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
+    inOffice: true,
   },
   {
     name: 'Jimmy Neutron',
     company_name: 'Coca Cola Ltd',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
+    inOffice: false,
   },
   {
     name: 'Zeeshan Akram',
     company_name: 'K-Electric Corp',
     phone_no: null,
     email_address: null,
+    inOffice: false,
   },
   {
     name: 'Hardeep Vishnam',
@@ -212,6 +219,7 @@ export const contactsList: Contacts[] = [
     company_name: 'Star Trek Enterprises',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
+    inOffice: false,
   },
 ];
 

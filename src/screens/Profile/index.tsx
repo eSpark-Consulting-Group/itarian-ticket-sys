@@ -6,10 +6,13 @@ import {Theme} from '../../theme/colors';
 import {AvatarContainer} from '../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack/lib/typescript/src/types';
+import {State, useState as hookState} from '@hookstate/core';
+import {globalState} from '../../utils/globalState';
 
 const Profile = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
-
+  const currStatus: State<boolean> = hookState(globalState.currentStatus);
+  console.log('Current Status', currStatus.get());
   return (
     <View style={styles.container}>
       <View style={styles.infoHolder}>
@@ -23,7 +26,9 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
         onPress={() => navigation.navigate('Forms')}
         style={styles.statusButton}>
         <Text style={{color: colors.text}}>My Status</Text>
-        <Text style={{fontWeight: 'bold', color: colors.text}}>In Office</Text>
+        <Text style={{fontWeight: 'bold', color: colors.text}}>
+          {currStatus.get() == true ? 'In Office' : 'Out of the Office'}
+        </Text>
       </TouchableOpacity>
     </View>
   );

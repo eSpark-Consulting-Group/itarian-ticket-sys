@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH,
     borderBottomWidth: 0.25,
     borderTopWidth: 0.25,
-    borderColor: '#ffffff42',
   },
   content: {
     flex: 1,

@@ -33,7 +33,12 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
     paddingHorizontal: 5,
   },
-  divider: {width: WINDOW_WIDTH, transform: [{scaleY: 4}], marginVertical: 5},
+  divider: {
+    width: WINDOW_WIDTH,
+    transform: [{scaleY: 2}],
+    marginVertical: 5,
+    opacity: 0.5,
+  },
 });
 
 export default styles;

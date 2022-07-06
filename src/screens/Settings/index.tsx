@@ -7,19 +7,23 @@ import {useState as useHookState, State} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
 import {Theme} from '../../theme/colors';
 import styles from './style';
+import {useUpdateEffect} from '../../utils/hooks';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookState(globalState.theme);
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(
+    themeValue.get() == 'light' ? false : true,
+  );
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     // watch the swtich state for theme change
     if (isSwitchOn) {
       themeValue.set('dark');
+      console.log('chala');
     } else {
       themeValue.set('light');
     }

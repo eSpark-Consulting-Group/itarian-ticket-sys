@@ -132,7 +132,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             props.navigation.navigate('Login');
           }}
         />
-        <Text>Build v0.31.1c</Text>
+        <Text>Build v0.01.0</Text>
       </View>
     </SafeAreaView>
   );

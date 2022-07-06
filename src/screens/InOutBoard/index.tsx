@@ -76,6 +76,7 @@ const InOutBoardScreen = () => {
       </View>
       <View
         style={{
+          borderColor: '#ffffff80',
           backgroundColor: dark ? '#000000' : '#ffffff',
           ...styles.subHeader,
         }}>

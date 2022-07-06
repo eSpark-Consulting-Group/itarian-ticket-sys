@@ -51,7 +51,6 @@ import {
   Settings,
   SendFeedback,
   Profile,
-  Status,
 } from '../screens';
 import {TransitionPresets} from '@react-navigation/stack';
 import {ModalForm, ModalStack} from '../components';
@@ -172,7 +171,7 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
       screenOptions={{
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: colors.background,
+          color: '#fff',
         },
         animation: 'slide_from_bottom',
         presentation: 'modal',
@@ -190,7 +189,7 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
                 size={30}
                 name="close"
                 style={{right: 6}}
-                color={colors.background}
+                color={'#fff'}
                 onPress={backStatus}
               />
             ),
@@ -206,13 +205,6 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
           }}>
           {() => <ModalForm fieldsArray={StatusFormArray} />}
         </Stack.Screen>
-        {/* <ReuseModal modalName={'My Status'} fields={StatusFormArray} /> */}
-        {/* <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} /> */}
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -489,7 +481,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
             <Ionicons
               size={30}
               name="close"
-              color={colors.background}
+              color={'#fff'}
               onPress={() => navigation.navigate('Agenda')}
               style={{left: 10}}
             />

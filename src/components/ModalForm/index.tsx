@@ -11,7 +11,7 @@ import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
 
 const ModalForm = ({fieldsArray}: any) => {
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
 
   const onToggleSwitch = () => {
@@ -79,16 +79,7 @@ const ModalForm = ({fieldsArray}: any) => {
       contentType = (
         <>
           <Text style={{color: colors.text}}>{data.content_1}</Text>
-          <TouchableOpacity
-            style={{
-              borderRadius: 1000,
-              borderWidth: 1,
-              width: moderateScale(40, 0),
-              height: moderateScale(40, 0),
-              marginRight: 10,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+          <TouchableOpacity style={styles.inlineIconBtn}>
             <MCI name="table-large-plus" size={moderateScale(20, 0)} />
           </TouchableOpacity>
         </>
@@ -187,9 +178,14 @@ const ModalForm = ({fieldsArray}: any) => {
   return (
     <FlatList
       data={fieldsArray}
+      style={{backgroundColor: dark ? '#0000008a' : '#ffffff8a'}}
       renderItem={({item}) => {
         return (
-          <ParallelContainer style={checkType(item.type, item.visible)}>
+          <ParallelContainer
+            style={{
+              ...checkType(item.type, item.visible),
+              backgroundColor: colors.background,
+            }}>
             {checkContentType(item.type, item.data, item.visible)}
           </ParallelContainer>
         );

@@ -17,7 +17,6 @@ import ExpenseReports from './ExpenseReports';
 import Settings from './Settings';
 import SendFeedback from './SendFeedback';
 import Profile from './Profile';
-import Status from './Profile/Status';
 
 export {
   Login,
@@ -40,5 +39,4 @@ export {
   Settings,
   SendFeedback,
   Profile,
-  Status,
 };

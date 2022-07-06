@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ViewProps} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';

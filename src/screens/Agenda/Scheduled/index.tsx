@@ -1,5 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {View, Text, FlatList, Dimensions, Animated} from 'react-native';
+import React from 'react';
+import {View, FlatList} from 'react-native';
 
 import {useTheme} from '@react-navigation/native';
 

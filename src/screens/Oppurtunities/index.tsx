@@ -125,15 +125,15 @@ const Oppurtunities = () => {
               }}>
               <Pressable
                 onPress={() => {
-                  item.contant_phone
-                    ? console.log('calling')
-                    : ToastAndroid.show(
-                        'Phone No not avalaible',
-                        ToastAndroid.SHORT,
-                      );
+                  item.contant_phone ? console.log('calling') : null;
                 }}
+                android_disableSound
                 android_ripple={{
-                  color: dark ? '#ffffff1f' : '#0000000e',
+                  color: item.contant_phone
+                    ? dark
+                      ? '#ffffff1f'
+                      : '#0000000e'
+                    : 'transparent',
                   borderless: true,
                 }}>
                 <MCI name="phone" size={22} color={colors.text} />

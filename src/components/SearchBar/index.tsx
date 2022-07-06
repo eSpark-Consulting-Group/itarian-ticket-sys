@@ -116,7 +116,7 @@ const SearchBar = ({
               <View
                 style={{
                   marginTop: moderateScale(9, 0),
-                  height: moderateScale(47, 0),
+                  height: moderateScale(50, 0),
                 }}>
                 <TouchableOpacity
                   style={{
@@ -207,8 +207,22 @@ const SearchBar = ({
           }}
           style={styles.inputStyle}
           elevation={0}
-          icon={() => <Ionicons name="search" size={17} />}
-          clearIcon={() => <MCI name="close" size={17} />}
+          icon={() => (
+            <Ionicons
+              name="search"
+              size={17}
+              color={colors.text}
+              style={{opacity: 0.45}}
+            />
+          )}
+          clearIcon={() => (
+            <MCI
+              name="close"
+              size={17}
+              color={colors.text}
+              style={{opacity: 0.45}}
+            />
+          )}
         />
       </View>
     </View>

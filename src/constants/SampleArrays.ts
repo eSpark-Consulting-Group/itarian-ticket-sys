@@ -189,7 +189,7 @@ export const contactsList: Contacts[] = [
     inOffice: true,
   },
   {
-    name: 'Blake',
+    name: 'Blake Wesker',
     company_name: 'Monsters INC',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',

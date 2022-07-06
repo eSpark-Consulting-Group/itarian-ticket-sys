@@ -56,15 +56,15 @@ const Contacts = () => {
                 }}>
                 <Pressable
                   onPress={() => {
-                    item.phone_no
-                      ? console.log('calling')
-                      : ToastAndroid.show(
-                          'Phone No not avalaible',
-                          ToastAndroid.SHORT,
-                        );
+                    item.phone_no ? console.log('calling') : null;
                   }}
+                  android_disableSound
                   android_ripple={{
-                    color: dark ? '#ffffff1f' : '#0000000e',
+                    color: item.phone_no
+                      ? dark
+                        ? '#ffffff1f'
+                        : '#0000000e'
+                      : 'transparent',
                     borderless: true,
                   }}>
                   <MCI name="phone" size={22} color={colors.text} />
@@ -78,16 +78,16 @@ const Contacts = () => {
                 }}>
                 <Pressable
                   onPress={() => {
-                    item.phone_no
-                      ? console.log('mailing')
-                      : ToastAndroid.show(
-                          'Email Address not avalaible',
-                          ToastAndroid.SHORT,
-                        );
+                    item.email_address ? console.log('mailing') : null;
                   }}
                   style={{borderRadius: 100}}
+                  android_disableSound
                   android_ripple={{
-                    color: dark ? '#ffffff1f' : '#00000026',
+                    color: item.email_address
+                      ? dark
+                        ? '#ffffff1f'
+                        : '#0000000e'
+                      : 'transparent',
                     borderless: true,
                   }}>
                   <MCI name="email-outline" size={22} color={colors.text} />

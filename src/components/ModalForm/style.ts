@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {moderateVerticalScale} from 'react-native-size-matters';
+import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +38,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 10,
     elevation: 2,
+  },
+  inlineIconBtn: {
+    borderRadius: 1000,
+    borderWidth: 1,
+    width: moderateScale(40, 0),
+    height: moderateScale(40, 0),
+    marginRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

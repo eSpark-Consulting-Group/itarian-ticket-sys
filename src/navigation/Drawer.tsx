@@ -51,7 +51,6 @@ import {
   Settings,
   SendFeedback,
   Profile,
-  Status,
 } from '../screens';
 import {TransitionPresets} from '@react-navigation/stack';
 import {ModalForm, ModalStack} from '../components';
@@ -138,49 +137,8 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 };
 
-const ReuseModal = ({
-  modalName,
-  navigation,
-  fields,
-}: {
-  modalName: string;
-  navigation?: NativeStackHeaderProps;
-  fields: Array<ModalFormArrayType>;
-}) => {
-  const {colors}: Theme = useTheme();
-  return (
-    <Stack.Screen
-      name={modalName}
-      component={() => <ModalForm fieldsArray={fields} />}
-      options={{
-        animation: 'slide_from_bottom',
-        headerLeft: () => (
-          <Ionicons
-            size={30}
-            name="close"
-            style={{right: 6}}
-            color={colors.background}
-            // onPress={() => navigation.navigate('My Profile')}
-          />
-        ),
-        headerRight: () => (
-          <FA
-            size={27}
-            name="save"
-            color={'#fff'}
-            onPress={() => console.log('Hello User')}
-            style={{right: 10}}
-          />
-        ),
-      }}
-    />
-  );
-};
-
 const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
-  const [changeSave, setChangeSave] = useState(false);
-  const [changeBack, setChangeBack] = useState(false);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
 
@@ -200,11 +158,12 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
     if (currStatus.get() == false && switchValue.get() == false) {
       switchValue.set(true);
       navigation.navigate('My Profile');
-    } else {
+    } else if (currStatus.get() == true && switchValue.get() == true) {
       switchValue.set(false);
       navigation.navigate('My Profile');
+    } else {
+      navigation.navigate('My Profile');
     }
-    // navigation.navigate('My Profile');
   };
 
   return (
@@ -212,7 +171,7 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
       screenOptions={{
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: colors.background,
+          color: '#fff',
         },
         animation: 'slide_from_bottom',
         presentation: 'modal',
@@ -230,7 +189,7 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
                 size={30}
                 name="close"
                 style={{right: 6}}
-                color={colors.background}
+                color={'#fff'}
                 onPress={backStatus}
               />
             ),
@@ -246,13 +205,6 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
           }}>
           {() => <ModalForm fieldsArray={StatusFormArray} />}
         </Stack.Screen>
-        {/* <ReuseModal modalName={'My Status'} fields={StatusFormArray} /> */}
-        {/* <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} />
-        <ReuseModal modalName={'My Status'} /> */}
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -529,7 +481,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
             <Ionicons
               size={30}
               name="close"
-              color={colors.background}
+              color={'#fff'}
               onPress={() => navigation.navigate('Agenda')}
               style={{left: 10}}
             />

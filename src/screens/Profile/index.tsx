@@ -10,12 +10,16 @@ import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
 
 const Profile = ({navigation}: NativeStackHeaderProps) => {
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   console.log('Current Status', currStatus.get());
   return (
-    <View style={styles.container}>
-      <View style={styles.infoHolder}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+      }}>
+      <View style={{...styles.infoHolder, backgroundColor: colors.background}}>
         <AvatarContainer source={require('../../assets/images/avatar.png')} />
         <Text style={{fontWeight: 'bold', color: colors.text}}>
           Johnny Bravo
@@ -24,7 +28,7 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
       </View>
       <TouchableOpacity
         onPress={() => navigation.navigate('Forms')}
-        style={styles.statusButton}>
+        style={{...styles.statusButton, backgroundColor: colors.background}}>
         <Text style={{color: colors.text}}>My Status</Text>
         <Text style={{fontWeight: 'bold', color: colors.text}}>
           {currStatus.get() == true ? 'In Office' : 'Out of the Office'}

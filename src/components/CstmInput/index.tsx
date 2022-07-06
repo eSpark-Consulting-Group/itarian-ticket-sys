@@ -44,10 +44,11 @@ const CstmInput = ({
           }}
           theme={{colors: {text: colors.text}}}
           placeholder={placeholder}
-          activeUnderlineColor="#bbb"
+          activeUnderlineColor={'#bbb'}
           placeholderTextColor={'#aaa'}
           secureTextEntry={textHidden}
-          underlineColorAndroid={'transparent'}
+          underlineColor={colors.text}
+          underlineColorAndroid={'#F00'}
           keyboardType={keyType}
           dense
           onChangeText={onChangeText}

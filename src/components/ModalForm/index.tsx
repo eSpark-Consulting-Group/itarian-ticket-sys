@@ -2,17 +2,40 @@ import {View, Text, TouchableOpacity, ViewProps, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
-import {Switch, TextInput} from 'react-native-paper';
+import {Checkbox, Switch, TextInput} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import II from 'react-native-vector-icons/Ionicons';
 import {Theme} from '../../theme/colors';
 import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
 
-const ModalForm = ({fieldsArray}: any) => {
+const ModalForm = ({fieldsArray, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
+  const [fieldsData, setFieldsData] = useState(fieldsArray);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+  const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
+  const goneToValue: State<string> = hookState(globalState.currentGoneTo);
+
+  useEffect(() => {
+    let data = [...fieldsArray];
+    if (data[0]?.formName == 'My Status') {
+      data.map((i, index) => {
+        if (i.data.headingLeft == 'Gone To') {
+          // console.log('Index', data[index].data.subHeadingLeft);x
+          console.log('oldGoneToValue', oldGoneToValue.get());
+          data[index].data.subHeadingLeft =
+            oldGoneToValue.get() == '' ? 'Please Select' : oldGoneToValue.get();
+          setFieldsData(data);
+        }
+        // else if (switchValue.get() == true) {
+        //   console.log('switchValue', switchValue.get());
+        //   data[index].data.visible = true;
+        // } else if (switchValue.get() == false) {
+        //   data[index].data.visible = false;
+        // }
+      });
+    }
+  }, [oldGoneToValue.get(), switchValue.get()]);
 
   const onToggleSwitch = () => {
     switchValue.set(!switchValue.get());
@@ -22,7 +45,7 @@ const ModalForm = ({fieldsArray}: any) => {
     return <View {...props}>{props.children}</View>;
   };
 
-  const checkType = (type: any, visible: any) => {
+  const checkType = (type: any) => {
     let containerStyle = {};
     const getInline = () => {
       containerStyle = styles.inllineDisplay;
@@ -35,23 +58,26 @@ const ModalForm = ({fieldsArray}: any) => {
     };
 
     switch (type) {
+      case 'inlined':
+        getInline();
+        break;
       case 'inline':
-        visible && getInline();
+        getInline();
         break;
       case 'inline-icon':
-        visible && getInline();
+        getInline();
         break;
       case 'inline-switch':
         getInline();
         break;
       case 'block':
-        visible && getBlock();
+        getBlock();
         break;
       case 'iconBlock':
-        visible && getBlock();
+        getBlock();
         break;
       case 'multiline':
-        visible && getMultiline();
+        getMultiline();
         break;
 
       default:
@@ -60,76 +86,103 @@ const ModalForm = ({fieldsArray}: any) => {
     return containerStyle;
   };
 
-  const checkContentType = (type: any, data: any, visible: any) => {
+  const checkContentType = (type: any, data: any, index: any) => {
     let contentType;
 
-    const getInlineContent = () => {
+    const renderFormItem = () => {
       contentType = (
         <>
-          <Text style={{color: colors.text}}>{data.content_1}</Text>
-          <Text
-            style={{color: colors.text, fontWeight: 'bold', marginRight: 20}}>
-            {data.content_2}
-          </Text>
-        </>
-      );
-    };
-
-    const getIconInlineContent = () => {
-      contentType = (
-        <>
-          <Text style={{color: colors.text}}>{data.content_1}</Text>
-          <TouchableOpacity style={styles.inlineIconBtn}>
-            <MCI name="table-large-plus" size={moderateScale(20, 0)} />
+          <TouchableOpacity
+            disabled={!data.pressEnable}
+            onPress={
+              data.navigateTo
+                ? () => navigation.navigate('Gone To')
+                : data.onPress
+            }>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {data.iconLeft && (
+                <II name={data.iconLeft} color={colors.text} size={15} />
+              )}
+              {data.headingLeft && (
+                <Text
+                  style={{
+                    color: colors.text,
+                    fontWeight: 'bold',
+                    marginLeft: data.iconLeft ? 10 : 0,
+                  }}>
+                  {data.headingLeft}
+                </Text>
+              )}
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {data.subIconLeft && (
+                <II name={data.subIconLeft} color={colors.text} size={15} />
+              )}
+              {data.subHeadingLeft && (
+                <Text
+                  style={{
+                    color: colors.text,
+                    marginLeft: data.iconLeft ? 25 : data.subIconLeft ? 5 : 0,
+                  }}>
+                  {data.subHeadingLeft}
+                </Text>
+              )}
+            </View>
           </TouchableOpacity>
-        </>
-      );
-    };
-
-    const getInlineSwitchContent = () => {
-      contentType = (
-        <>
-          <Text style={{color: colors.text, fontWeight: 'bold'}}>
-            {data.content_1}
-          </Text>
-          <Switch
-            value={switchValue.get()}
-            style={{marginRight: 5}}
-            color={colors.primary}
-            thumbColor={colors.primary}
-            onValueChange={onToggleSwitch}
-            trackColor={{true: '#5b57578f', false: '#5b57578f'}}
-          />
-        </>
-      );
-    };
-
-    const getBlockContent = () => {
-      contentType = (
-        <TouchableOpacity>
-          <Text style={{color: colors.text}}>{data.content_1}</Text>
-          <Text style={{color: colors.text, fontWeight: 'bold'}}>
-            {data.content_2}
-          </Text>
-        </TouchableOpacity>
-      );
-    };
-
-    const getBlockIconContent = () => {
-      contentType = (
-        <>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <II name={data.icon} size={15} />
-            <Text
-              style={{color: colors.text, fontWeight: 'bold', marginLeft: 10}}>
-              {data.content_1}
-            </Text>
-          </View>
-          {data.content_2 && (
-            <Text style={{color: colors.text, marginLeft: 25}}>
-              {data.content_2}
-            </Text>
-          )}
+          <TouchableOpacity
+            disabled={!data.pressEnableRight}
+            onPress={data.onPressRight}>
+            {data.headingRight && (
+              <Text style={{color: colors.text, fontWeight: 'bold'}}>
+                {data.headingRight}
+              </Text>
+            )}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {data.subIconRight && (
+                <II name={data.subIconRight} color={colors.text} size={15} />
+              )}
+              {data.subHeadingRight && (
+                <Text
+                  style={{
+                    color: colors.text,
+                    marginLeft: data.subIconRight ? 5 : 0,
+                  }}>
+                  {data.subHeadingRight}
+                </Text>
+              )}
+            </View>
+            {data.switchRight && (
+              <Switch
+                value={switchValue.get()}
+                style={{marginRight: 5}}
+                color={colors.primary}
+                thumbColor={colors.primary}
+                onValueChange={onToggleSwitch}
+                trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+              />
+            )}
+            {data.checkBoxRight && (
+              <View>
+                <Checkbox
+                  status={
+                    goneToValue.get() == data.headingLeft
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  onPress={() => goneToValue.set(data.headingLeft)}
+                />
+              </View>
+            )}
+            {data.iconRight && (
+              <TouchableOpacity style={styles.inlineIconBtn}>
+                <II
+                  name={data.iconRight}
+                  color={colors.text}
+                  size={moderateScale(20, 0)}
+                />
+              </TouchableOpacity>
+            )}
+          </TouchableOpacity>
         </>
       );
     };
@@ -137,11 +190,13 @@ const ModalForm = ({fieldsArray}: any) => {
     const getMultilineContent = () => {
       contentType = (
         <>
-          <Text>{data.content_1}</Text>
+          <Text style={{marginTop: 5, color: colors.text}}>
+            {data.headingLeft}
+          </Text>
           <TextInput
             mode="outlined"
             multiline
-            style={{flex: 0.9}}
+            style={{flex: 0.9, backgroundColor: colors.background}}
             theme={{colors: {primary: colors.primary}}}
           />
         </>
@@ -149,23 +204,14 @@ const ModalForm = ({fieldsArray}: any) => {
     };
 
     switch (type) {
-      case 'inline':
-        visible && getInlineContent();
-        break;
-      case 'inline-icon':
-        visible && getIconInlineContent();
-        break;
-      case 'inline-switch':
-        getInlineSwitchContent();
-        break;
-      case 'block':
-        visible && getBlockContent();
-        break;
-      case 'iconBlock':
-        visible && getBlockIconContent();
+      case 'inlined':
+        // data.permanentVisible
+        //   ? renderFormItem()
+        //   : data.visible &&
+        renderFormItem();
         break;
       case 'multiline':
-        visible && getMultilineContent();
+        data.visible && getMultilineContent();
         break;
 
       default:
@@ -177,16 +223,16 @@ const ModalForm = ({fieldsArray}: any) => {
 
   return (
     <FlatList
-      data={fieldsArray}
-      style={{backgroundColor: dark ? '#0000008a' : '#ffffff8a'}}
-      renderItem={({item}) => {
+      data={fieldsData}
+      style={{backgroundColor: colors.background}}
+      renderItem={({item, index}) => {
         return (
           <ParallelContainer
             style={{
-              ...checkType(item.type, item.visible),
-              backgroundColor: colors.background,
+              ...checkType(item.type),
+              backgroundColor: dark ? '#0000008a' : '#ffffff8a',
             }}>
-            {checkContentType(item.type, item.data, item.visible)}
+            {checkContentType(item.type, item.data, index)}
           </ParallelContainer>
         );
       }}

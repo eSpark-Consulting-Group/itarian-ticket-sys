@@ -4,7 +4,7 @@ import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Theme} from '../../theme/colors';
 import {AvatarContainer} from '../../components';
-import {moderateScale} from 'react-native-size-matters';
+import II from 'react-native-vector-icons/Ionicons';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
@@ -17,9 +17,13 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
     <View
       style={{
         ...styles.container,
-        backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+        backgroundColor: colors.background,
       }}>
-      <View style={{...styles.infoHolder, backgroundColor: colors.background}}>
+      <View
+        style={{
+          ...styles.infoHolder,
+          backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+        }}>
         <AvatarContainer source={require('../../assets/images/avatar.png')} />
         <Text style={{fontWeight: 'bold', color: colors.text}}>
           Johnny Bravo
@@ -28,11 +32,17 @@ const Profile = ({navigation}: NativeStackHeaderProps) => {
       </View>
       <TouchableOpacity
         onPress={() => navigation.navigate('Forms')}
-        style={{...styles.statusButton, backgroundColor: colors.background}}>
-        <Text style={{color: colors.text}}>My Status</Text>
-        <Text style={{fontWeight: 'bold', color: colors.text}}>
-          {currStatus.get() == true ? 'In Office' : 'Out of the Office'}
-        </Text>
+        style={{
+          ...styles.statusButton,
+          backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+        }}>
+        <View>
+          <Text style={{color: colors.text}}>My Status</Text>
+          <Text style={{fontWeight: 'bold', color: colors.text}}>
+            {currStatus.get() == true ? 'In Office' : 'Out of the Office'}
+          </Text>
+        </View>
+        <II name="chevron-forward" color={colors.text} size={20} />
       </TouchableOpacity>
     </View>
   );

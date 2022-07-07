@@ -170,9 +170,7 @@ const MyActivities = () => {
                 setRange('All');
               }}
             />
-            <Divider
-              style={{backgroundColor: colors.text, transform: [{scaleY: 1.5}]}}
-            />
+            <Divider style={{backgroundColor: colors.text, opacity: 0.2}} />
             <MenuItem
               itemName="Last 30 Days"
               textColor={colors.text}

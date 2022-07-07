@@ -10,6 +10,7 @@ import DateSeparator from './DateSeparator';
 import CstmSwitchSelector from './CstmSwitchSelector';
 import FloatButton from './FloatButton';
 import SimpleLoader from './SimpleLoader';
+import OutlineBtn from './OutlineBtn';
 
 export {
   CstmButton,
@@ -24,4 +25,5 @@ export {
   CstmSwitchSelector,
   FloatButton,
   SimpleLoader,
+  OutlineBtn,
 };

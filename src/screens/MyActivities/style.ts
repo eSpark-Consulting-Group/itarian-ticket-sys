@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
     opacity: 0.2,
     transform: [{scale: 2}],
   },
+  menuItemButtonStyle: {
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'space-between',
+  },
 });
 
 export default styles;

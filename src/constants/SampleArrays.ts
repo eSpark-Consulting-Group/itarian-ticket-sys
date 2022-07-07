@@ -30,9 +30,8 @@ export type Activity = {
   date: string;
   start_time: string;
   end_time: string;
+  company_contact?: string;
 };
-
-export type Agenda = {};
 
 export type Scheduled_Data = {
   id: number;
@@ -277,20 +276,23 @@ export const activitiesList: Array<Activity> = [
     date: 'Nov 17, 2020',
     start_time: '10:30 AM',
     end_time: '11:00 AM',
+    company_contact: '+555 5555 555',
   },
   {
     name: 'B2B Reports',
-    company_name: 'XYZ Company Incorporated',
+    company_name: 'Zoom Electronics',
     date: 'Dec 17, 2020',
     start_time: '09:30 PM',
     end_time: '11:00 PM',
+    company_contact: '+555 5555 555',
   },
   {
     name: 'Inspection',
-    company_name: 'XYZ Company Incorporated',
+    company_name: 'Coca Cola Limited',
     date: 'Dec 20, 2020',
     start_time: '10:00 AM',
     end_time: '11:45 AM',
+    company_contact: '+555 5555 555',
   },
 ];
 

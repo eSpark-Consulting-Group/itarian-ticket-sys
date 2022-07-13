@@ -6,4 +6,6 @@ export const globalState = createState({
   currentStatus: true,
   prevGoneTo: '',
   currentGoneTo: '',
+  oldAddInputVal: '',
+  additionalInputVal: '',
 });

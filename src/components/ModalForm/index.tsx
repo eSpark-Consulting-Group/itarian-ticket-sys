@@ -1,41 +1,49 @@
 import {View, Text, TouchableOpacity, ViewProps, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Checkbox, Switch, TextInput} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
 import II from 'react-native-vector-icons/Ionicons';
-import {Theme} from '../../theme/colors';
 import {State, useState as hookState} from '@hookstate/core';
+
+import {Theme} from '../../theme/colors';
 import {globalState} from '../../utils/globalState';
+import styles from './style';
 
 const ModalForm = ({fieldsArray, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [fieldsData, setFieldsData] = useState(fieldsArray);
+  // const [inputVal, setInputVal] = useState('');
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
   const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
   const goneToValue: State<string> = hookState(globalState.currentGoneTo);
+  const inputVal: State<string> = hookState(globalState.additionalInputVal);
 
   useEffect(() => {
     let data = [...fieldsArray];
     if (data[0]?.formName == 'My Status') {
-      data.map((i, index) => {
-        if (i.data.headingLeft == 'Gone To') {
-          // console.log('Index', data[index].data.subHeadingLeft);x
-          console.log('oldGoneToValue', oldGoneToValue.get());
-          data[index].data.subHeadingLeft =
-            oldGoneToValue.get() == '' ? 'Please Select' : oldGoneToValue.get();
+      myStatus(data);
+    }
+  }, [oldGoneToValue.get(), switchValue.get(), inputVal.get()]);
+
+  const myStatus = (data: any) => {
+    data.map((i: any) => {
+      if (i.data.visible != undefined) {
+        if (switchValue.get() == true) {
+          i.data.visible = true;
+          setFieldsData(data);
+        } else if (switchValue.get() == false) {
+          i.data.visible = false;
           setFieldsData(data);
         }
-        // else if (switchValue.get() == true) {
-        //   console.log('switchValue', switchValue.get());
-        //   data[index].data.visible = true;
-        // } else if (switchValue.get() == false) {
-        //   data[index].data.visible = false;
-        // }
-      });
-    }
-  }, [oldGoneToValue.get(), switchValue.get()]);
+      }
+      if (i.data.headingLeft == 'Gone To') {
+        i.data.subHeadingLeft =
+          oldGoneToValue.get() == '' ? 'Please Select' : oldGoneToValue.get();
+        setFieldsData(data);
+      }
+    });
+  };
 
   const onToggleSwitch = () => {
     switchValue.set(!switchValue.get());
@@ -45,39 +53,25 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
     return <View {...props}>{props.children}</View>;
   };
 
-  const checkType = (type: any) => {
+  const checkType = (type: any, data: any) => {
     let containerStyle = {};
     const getInline = () => {
       containerStyle = styles.inllineDisplay;
     };
-    const getBlock = () => {
-      containerStyle = styles.blockDisplay;
-    };
+
     const getMultiline = () => {
       containerStyle = styles.multilineDisplay;
     };
 
     switch (type) {
       case 'inlined':
-        getInline();
+        data.visible != undefined ? data.visible && getInline() : getInline();
         break;
-      case 'inline':
-        getInline();
-        break;
-      case 'inline-icon':
-        getInline();
-        break;
-      case 'inline-switch':
-        getInline();
-        break;
-      case 'block':
-        getBlock();
-        break;
-      case 'iconBlock':
-        getBlock();
-        break;
+
       case 'multiline':
-        getMultiline();
+        data.visible != undefined
+          ? data.visible && getMultiline()
+          : getMultiline();
         break;
 
       default:
@@ -86,7 +80,7 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
     return containerStyle;
   };
 
-  const checkContentType = (type: any, data: any, index: any) => {
+  const checkContentType = (type: any, data: any) => {
     let contentType;
 
     const renderFormItem = () => {
@@ -196,8 +190,10 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
           <TextInput
             mode="outlined"
             multiline
+            value={inputVal.get()}
             style={{flex: 0.9, backgroundColor: colors.background}}
             theme={{colors: {primary: colors.primary}}}
+            onChangeText={txt => inputVal.set(txt)}
           />
         </>
       );
@@ -205,13 +201,14 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
 
     switch (type) {
       case 'inlined':
-        // data.permanentVisible
-        //   ? renderFormItem()
-        //   : data.visible &&
-        renderFormItem();
+        data.visible != undefined
+          ? data.visible && renderFormItem()
+          : renderFormItem();
         break;
       case 'multiline':
-        data.visible && getMultilineContent();
+        data.visible != undefined
+          ? data.visible && getMultilineContent()
+          : getMultilineContent();
         break;
 
       default:
@@ -229,10 +226,10 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
         return (
           <ParallelContainer
             style={{
-              ...checkType(item.type),
+              ...checkType(item.type, item.data),
               backgroundColor: dark ? '#0000008a' : '#ffffff8a',
             }}>
-            {checkContentType(item.type, item.data, index)}
+            {checkContentType(item.type, item.data)}
           </ParallelContainer>
         );
       }}

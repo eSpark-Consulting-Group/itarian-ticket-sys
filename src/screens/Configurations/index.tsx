@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Pressable, FlatList, ToastAndroid} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
@@ -16,6 +16,34 @@ import {
 import styles from './style';
 
 const Configurations = () => {
+  const {colors, dark}: Theme = useTheme();
+  const [searchValue, setSearchValue] = useState('');
+
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          backgroundColor: dark ? '#000000' : '#ffffff',
+          ...styles.header,
+        }}>
+        <SearchBar
+          withTag={false}
+          placeholder={'Search Configurations'}
+          fontSize={'large'}
+          value={searchValue}
+          setChangeText={value => setSearchValue(value)}
+        />
+      </View>
+      <RenderConfigurations />
+    </View>
+  );
+};
+
+export const RenderConfigurations = ({
+  listData = configurationsList,
+}: {
+  listData?: ConfigurationsType[];
+}) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({
@@ -58,7 +86,7 @@ const Configurations = () => {
                     color: colors.text,
                     ...styles.subtitle,
                   }}>
-                  No model
+                  {item.model ? item.model : 'No model'}
                 </Text>
                 <Divider
                   style={{
@@ -71,7 +99,7 @@ const Configurations = () => {
                     color: colors.text,
                     ...styles.subtitle,
                   }}>
-                  No Tag
+                  {item.tag ? item.tag : 'No Tag'}
                 </Text>
                 <Divider
                   style={{
@@ -84,7 +112,7 @@ const Configurations = () => {
                     color: colors.text,
                     ...styles.subtitle,
                   }}>
-                  No Serial
+                  {item.serial ? item.serial : 'No Serial'}
                 </Text>
               </View>
               <View style={{flexDirection: 'row'}}>
@@ -105,7 +133,7 @@ const Configurations = () => {
             </View>
           </View>
         </Pressable>
-        {index !== configurationsList.length - 1 && (
+        {index !== listData.length - 1 && (
           <Divider
             style={{
               backgroundColor: colors.text,
@@ -118,31 +146,20 @@ const Configurations = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          backgroundColor: dark ? '#000000' : '#ffffff',
-          ...styles.header,
-        }}>
-        <SearchBar
-          withTag={false}
-          placeholder={'Search Configurations'}
-          fontSize={'large'}
-        />
-      </View>
-      {configurationsList.length !== 0 ? (
-        <FlatList data={configurationsList} renderItem={renderList} />
+    <>
+      {listData.length !== 0 ? (
+        <FlatList data={listData} renderItem={renderList} />
       ) : (
         <NotFound />
       )}
-    </View>
+    </>
   );
 };
 
 const NotFound = (): JSX.Element => {
   return (
     <View style={styles.content}>
-      <EmptyListMsg label="Contacts" />
+      <EmptyListMsg label="Configurations" />
     </View>
   );
 };

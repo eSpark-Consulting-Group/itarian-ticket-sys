@@ -7,4 +7,6 @@ export const globalState = createState({
   prevGoneTo: '',
   currentGoneTo: '',
   searchTag: 'tickets',
+  oldAddInputVal: '',
+  additionalInputVal: '',
 });

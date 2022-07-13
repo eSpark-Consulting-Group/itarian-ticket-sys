@@ -97,7 +97,7 @@ export type ModalFormDataArrayType = {
   checkBox_Val?: string;
   navigateTo?: string;
   visible?: boolean;
-  permanentVisible?: boolean;
+  input_Val?: string;
 };
 
 export type ModalFormArrayType = {
@@ -534,7 +534,6 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
     data: {
       headingLeft: 'Are you out of the office?',
       switchRight: true,
-      permanentVisible: true,
     },
   },
   {
@@ -570,6 +569,7 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
       pressEnable: true,
       pressEnableRight: true,
       visible: false,
+      input_Val: '',
     },
   },
 ];

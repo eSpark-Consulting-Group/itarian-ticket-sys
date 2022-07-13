@@ -6,7 +6,7 @@ import {Divider} from 'react-native-paper';
 
 import {SearchBar} from '../../components';
 import styles from './style';
-import {Theme} from '../../theme/colors';
+import {Colors, Theme} from '../../theme/colors';
 import {EmptyListMsg} from '../../components';
 import {
   companiesList,
@@ -14,6 +14,33 @@ import {
 } from '../../constants/SampleArrays';
 
 const Companies = () => {
+  const {colors, dark}: Theme = useTheme();
+
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          backgroundColor: dark ? '#000000' : '#ffffff',
+          ...styles.header,
+        }}>
+        <SearchBar
+          withTag={false}
+          placeholder={'Search Companies'}
+          fontSize={'large'}
+          value={''}
+          setChangeText={value => console.log('what', value)}
+        />
+      </View>
+      <RenderCompanies />
+    </View>
+  );
+};
+
+export const RenderCompanies = ({
+  listData = companiesList,
+}: {
+  listData?: CompanyType[];
+}) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({item, index}: {item: CompanyType; index: number}) => {
@@ -31,7 +58,7 @@ const Companies = () => {
             </Text>
           </View>
         </Pressable>
-        {index !== companiesList.length - 1 && (
+        {index !== listData.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}
           />
@@ -39,26 +66,14 @@ const Companies = () => {
       </View>
     );
   };
-
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          backgroundColor: dark ? '#000000' : '#ffffff',
-          ...styles.header,
-        }}>
-        <SearchBar
-          withTag={false}
-          placeholder={'Search Companies'}
-          fontSize={'large'}
-        />
-      </View>
-      {companiesList.length !== 0 ? (
-        <FlatList data={companiesList} renderItem={renderList} />
+    <>
+      {listData.length !== 0 ? (
+        <FlatList data={listData} renderItem={renderList} />
       ) : (
         <NotFound />
       )}
-    </View>
+    </>
   );
 };
 

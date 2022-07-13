@@ -6,4 +6,5 @@ export const globalState = createState({
   currentStatus: true,
   prevGoneTo: '',
   currentGoneTo: '',
+  searchTag: 'tickets',
 });

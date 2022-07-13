@@ -1,6 +1,7 @@
 import {ViewStyle} from 'react-native';
 
 export type Companines = {
+  id: string;
   name: string;
   address: string;
   employees?: number | null;
@@ -130,63 +131,75 @@ export const AdditionalButtonStyle = {
 
 export const companiesList: Array<Companines> = [
   {
+    id: 'C01',
     name: 'Lorem Ipsum Company Ltd',
     address: 'Street no 23, State California, USA',
     employees: 25,
   },
   {
+    id: 'C02',
     name: 'ACME Company',
     address: 'In incididunt occaecat adipisicing est velit deserunt',
     employees: 5,
   },
   {
+    id: 'C03',
     name: "Steeler's Incorporated",
     address: 'Nulla aute laborum reprehenderit cupidatat ad minim',
     employees: null,
   },
   {
+    id: 'C04',
     name: 'eSpark Consulting Group',
     address: 'Occaecat consequat aute ipsum aliquip nostrud reprehenderit',
     employees: 50,
   },
   {
+    id: 'C05',
     name: 'Ezlo Innovation',
     address: 'Adipisicing occaecat id eiusmod occaecat fugiat sint',
     employees: 200,
   },
   {
+    id: 'C06',
     name: 'Google LLC',
     address:
       'Cupidatat sint ea ullamco cillum ea ipsum voluptate fugiat est incididunt',
     employees: 10_000,
   },
   {
+    id: 'C07',
     name: '2K Industries',
     address: 'Occaecat culpa deserunt officia consequat ipsum',
     employees: 5000,
   },
   {
+    id: 'C08',
     name: 'Oscorp Industries',
     address:
       'Cupidatat sint ea ullamco cillum ea ipsum voluptate fugiat est incididunt',
     employees: 10_000_000,
   },
   {
+    id: 'C09',
     name: 'Fauji Fertilizers',
     address: 'Dolor dolore nostrud anim ea eu velit voluptate',
     employees: 2500,
   },
   {
+    id: 'C10',
     name: 'Tesla LLC',
     address: 'Cupidatat tempor nulla sunt nostrud sit voluptate sunt pariatur',
     employees: 50_000,
   },
   {
+    id: 'C11',
     name: 'Walt Disney Productions',
     address: 'Dolore consequat esse aute Lorem sint elit',
     employees: 25_000,
   },
   {
+    id: 'C12',
     name: 'Besthesda Studios',
     address: 'Consequat adipisicing aliqua ut officia ipsum nisi dolor',
     employees: 2000,
@@ -261,19 +274,43 @@ export const configurationsList: Configurations[] = [
   {
     name: '#90234',
     company_name: 'ACE Chemicals',
-    tag: 'urgent',
-    model: '2013',
-    serial: 'S/N129446',
+    tag: 'T24',
+    model: '2020',
+    serial: 'S/N129455',
   },
-  {name: '550-212', company_name: 'iTarian LLC'},
-  {name: '05211', company_name: 'Ezlo Innovation'},
-  {name: '1101', company_name: 'Hammer Technologies'},
-  {name: '#23', company_name: 'Stark Industries'},
-  {name: '253/23', company_name: 'Lorem Ipsum Inc'},
-  {name: 'testA12', company_name: 'XYZ Comapany'},
+  {
+    name: '550-212',
+    company_name: 'iTarian LLC',
+    tag: 'T2',
+    model: '2011',
+    serial: 'S/N129444',
+  },
+  {
+    name: '05211',
+    company_name: 'Ezlo Innovation',
+    tag: 'T1',
+    model: '2009',
+    serial: 'S/N129412',
+  },
+  {
+    name: '1101',
+    company_name: 'Hammer Technologies',
+    tag: 'T64',
+    model: '2007',
+    serial: 'S/N129416',
+  },
+  {
+    name: '#23',
+    company_name: 'Stark Industries',
+    tag: 'T33',
+    model: '2017',
+    serial: 'S/N129546',
+  },
+  {name: '253/23', company_name: 'Lorem Ipsum Inc', model: '2019'},
+  {name: 'testA12', company_name: 'XYZ Comapany', serial: 'S/N121232'},
   {name: 'Mach-5', company_name: 'Racer Motor Company'},
   {name: 'JF-17', company_name: 'Pakistan Air Force'},
-  {name: 'F-25', company_name: 'US Air Force'},
+  {name: 'F-25', company_name: 'US Air Force', tag: 'T90'},
 ];
 
 export const activitiesList: Array<Activity> = [

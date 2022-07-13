@@ -17,6 +17,35 @@ import {
 const Contacts = () => {
   const {colors, dark}: Theme = useTheme();
 
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          backgroundColor: dark ? '#000000' : '#ffffff',
+          ...styles.header,
+        }}>
+        <SearchBar
+          withTag={false}
+          placeholder={'Search Contacts'}
+          fontSize={'large'}
+          setChangeText={value => {
+            console.log('what is', value);
+          }}
+          value={''}
+        />
+      </View>
+      <RenderContacts />
+    </View>
+  );
+};
+
+export const RenderContacts = ({
+  listData = contactsList,
+}: {
+  listData?: ContactsType[];
+}) => {
+  const {colors, dark}: Theme = useTheme();
+
   const renderList = ({item, index}: {item: ContactsType; index: number}) => {
     return (
       <View style={styles.listContainer}>
@@ -96,7 +125,7 @@ const Contacts = () => {
             </View>
           </View>
         </Pressable>
-        {index !== contactsList.length - 1 && (
+        {index !== listData.length - 1 && (
           <Divider
             style={{
               backgroundColor: colors.text,
@@ -109,24 +138,13 @@ const Contacts = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          backgroundColor: dark ? '#000000' : '#ffffff',
-          ...styles.header,
-        }}>
-        <SearchBar
-          withTag={false}
-          placeholder={'Search Contacts'}
-          fontSize={'large'}
-        />
-      </View>
-      {contactsList.length !== 0 ? (
-        <FlatList data={contactsList} renderItem={renderList} />
+    <>
+      {listData.length !== 0 ? (
+        <FlatList data={listData} renderItem={renderList} />
       ) : (
         <NotFound />
       )}
-    </View>
+    </>
   );
 };
 

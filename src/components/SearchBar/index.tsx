@@ -7,26 +7,37 @@ import Feather from 'react-native-vector-icons/Feather';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {moderateScale} from 'react-native-size-matters';
+import {useState as useHookState, State} from '@hookstate/core';
 
 import {Theme} from '../../theme/colors';
-import {moderateScale} from 'react-native-size-matters';
 import styles from './style';
+import {globalState} from '../../utils/globalState';
 
 const SearchBar = ({
   withTag = false,
   placeholder = 'Search',
   fontSize,
+  value,
+  setChangeText,
+  onSubmit,
+  onClear,
 }: {
   withTag?: boolean;
   placeholder?: string;
   fontSize?: 'small' | 'medium' | 'large';
+  value: string;
+  setChangeText: (val: string) => void;
+  onSubmit?: () => void;
+  onClear?: () => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
-  const [searchQuery, setSearchQuery] = useState('');
   const [visible, setVisible] = useState(false);
   const [check, setCheckValue] = useState('tickets');
 
-  const onChangeSearch = (query: string): void => setSearchQuery(query);
+  const searchTagValue: State<string> = useHookState(globalState.searchTag);
+
+  const onChangeSearch = (query: string): void => setChangeText(query);
   const showMenu = (): void => setVisible(!visible);
   const hideMenu = (): void => setVisible(false);
 
@@ -35,18 +46,22 @@ const SearchBar = ({
       case 'tickets':
         setCheckValue('tickets');
         setVisible(false);
+        searchTagValue.set('tickets');
         return;
       case 'companies':
         setCheckValue('companies');
         setVisible(false);
+        searchTagValue.set('companies');
         return;
       case 'contacts':
         setCheckValue('contacts');
         setVisible(false);
+        searchTagValue.set('contacts');
         return;
       case 'configurations':
         setCheckValue('configurations');
         setVisible(false);
+        searchTagValue.set('configurations');
         return;
       default:
         return;
@@ -89,7 +104,7 @@ const SearchBar = ({
     }
   }
 
-  function getSize(val: string | undefined) {
+  function getSize(val: string | undefined): number {
     switch (val) {
       case 'small':
         return 13;
@@ -196,11 +211,13 @@ const SearchBar = ({
         }}>
         <Search
           placeholder={withTag ? renderPh(check) : placeholder}
-          value=""
+          value={value}
           selectionColor={colors.primary}
           placeholderTextColor={dark ? '#ffffff8a' : '#0000008a'}
           iconColor={dark ? '#ffffff8a' : '#0000008a'}
           onChangeText={onChangeSearch}
+          onTouchCancel={() => console.log('chala')}
+          onSubmitEditing={onSubmit}
           inputStyle={{
             color: colors.text,
             fontSize: getSize(fontSize),
@@ -221,6 +238,9 @@ const SearchBar = ({
               size={17}
               color={colors.text}
               style={{opacity: 0.45}}
+              onPress={() => {
+                value != '' ? onClear?.() : null;
+              }}
             />
           )}
         />

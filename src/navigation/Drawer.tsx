@@ -147,11 +147,14 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
   const goneToValue: State<string> = hookState(globalState.currentGoneTo);
+  const oldInputVal: State<string> = hookState(globalState.oldAddInputVal);
+  const inputVal: State<string> = hookState(globalState.additionalInputVal);
 
   const saveStatus = () => {
-    console.log('Save Status', switchValue.get(), currStatus.get());
+    console.log('Save Value', oldInputVal.get(), inputVal.get());
     if (switchValue.get() == true) {
       currStatus.set(false);
+      oldInputVal.set(inputVal.get());
       navigation.navigate('My Profile');
     } else {
       currStatus.set(true);
@@ -160,14 +163,17 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   };
 
   const backStatus = () => {
-    console.log('Back Status', currStatus.get(), switchValue.get());
+    console.log('Back Value', oldInputVal.get(), inputVal.get());
     if (currStatus.get() == false && switchValue.get() == false) {
+      inputVal.set(oldInputVal.get());
       switchValue.set(true);
       navigation.navigate('My Profile');
     } else if (currStatus.get() == true && switchValue.get() == true) {
+      inputVal.set(oldInputVal.get());
       switchValue.set(false);
       navigation.navigate('My Profile');
     } else {
+      inputVal.set(oldInputVal.get());
       navigation.navigate('My Profile');
     }
   };

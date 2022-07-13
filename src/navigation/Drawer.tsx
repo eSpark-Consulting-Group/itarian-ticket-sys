@@ -54,7 +54,11 @@ import {
 } from '../screens';
 import {TransitionPresets} from '@react-navigation/stack';
 import {ModalForm, ModalStack} from '../components';
-import {ModalFormArrayType, StatusFormArray} from '../constants/SampleArrays';
+import {
+  GoneToFormArray,
+  ModalFormArrayType,
+  StatusFormArray,
+} from '../constants/SampleArrays';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -141,6 +145,8 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
+  const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
+  const goneToValue: State<string> = hookState(globalState.currentGoneTo);
 
   const saveStatus = () => {
     console.log('Save Status', switchValue.get(), currStatus.get());
@@ -164,6 +170,18 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
     } else {
       navigation.navigate('My Profile');
     }
+  };
+
+  const saveGoneTo = () => {
+    console.log('Save Status', goneToValue.get(), oldGoneToValue.get());
+    oldGoneToValue.set(goneToValue.get());
+    navigation.navigate('My Status');
+  };
+
+  const backGoneTo = () => {
+    console.log('Back Status', goneToValue.get(), oldGoneToValue.get());
+    goneToValue.set(oldGoneToValue.get());
+    navigation.navigate('My Status');
   };
 
   return (
@@ -203,7 +221,34 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
               />
             ),
           }}>
-          {() => <ModalForm fieldsArray={StatusFormArray} />}
+          {() => (
+            <ModalForm fieldsArray={StatusFormArray} navigation={navigation} />
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name={'Gone To'}
+          options={{
+            animation: 'slide_from_bottom',
+            headerLeft: () => (
+              <Ionicons
+                size={30}
+                name="close"
+                style={{right: 6}}
+                color={'#fff'}
+                onPress={backGoneTo}
+              />
+            ),
+            headerRight: () => (
+              <FA
+                size={27}
+                name="check"
+                color={'#fff'}
+                onPress={saveGoneTo}
+                // style={{right: 10}}
+              />
+            ),
+          }}>
+          {() => <ModalForm fieldsArray={GoneToFormArray} />}
         </Stack.Screen>
       </Stack.Group>
     </Stack.Navigator>
@@ -219,6 +264,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
     <Drawer.Navigator
       initialRouteName="Agenda"
       useLegacyImplementation={true}
+      backBehavior="history"
       drawerContent={props => <DrawerContent {...props} />}
       screenOptions={{
         drawerType: 'slide',
@@ -482,10 +528,11 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
               size={30}
               name="close"
               color={'#fff'}
-              onPress={() => navigation.navigate('Agenda')}
+              onPress={() => navigation.goBack()}
               style={{left: 10}}
             />
           ),
+          headerRight: noHeader,
           drawerItemStyle: {display: 'none'},
         }}
       />

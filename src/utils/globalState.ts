@@ -4,4 +4,6 @@ export const globalState = createState({
   theme: 'light',
   statusSwitch: false,
   currentStatus: true,
+  prevGoneTo: '',
+  currentGoneTo: '',
 });

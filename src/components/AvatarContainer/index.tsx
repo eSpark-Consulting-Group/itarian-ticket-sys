@@ -23,6 +23,7 @@ const AvatarContainer = ({source, size}: {source: any; size: any}) => {
           ...styles.AvatarImage,
           width: size ? size : moderateScale(70, 0.5),
           height: size ? size : moderateScale(70, 0.5),
+          borderColor: colors.primary,
         }}
       />
     </View>

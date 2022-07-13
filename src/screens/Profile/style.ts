@@ -9,13 +9,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+    elevation: 1,
   },
   statusButton: {
     backgroundColor: '#fff',
+    flexDirection: 'row',
     paddingHorizontal: 15,
     paddingVertical: 10,
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 5,
+    elevation: 1,
   },
 });
 

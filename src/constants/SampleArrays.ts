@@ -1,7 +1,5 @@
 import {ViewStyle} from 'react-native';
 
-let currentStatus = false;
-
 export type Companines = {
   name: string;
   address: string;
@@ -80,15 +78,30 @@ export type AdditionalButtons = {
 };
 
 export type ModalFormDataArrayType = {
-  icon?: string;
-  content_1?: string;
-  content_2?: string;
-  onPress?: () => void;
+  headingRight?: string;
+  subHeadingRight?: string;
+  headingLeft?: string;
+  subHeadingLeft?: string;
+  iconRight?: string;
+  switchRight?: boolean;
   switch_val?: boolean;
+  iconLeft?: string;
+  pressEnable?: boolean;
+  onPress?: () => void;
+  pressEnableRight?: boolean;
+  onPressRight?: () => void;
+  subIconLeft?: string;
+  subIconRight?: string;
+  checkBoxRight?: boolean;
+  checkBox_Val?: string;
+  navigateTo?: string;
+  visible?: boolean;
+  permanentVisible?: boolean;
 };
 
 export type ModalFormArrayType = {
   type:
+    | 'inlined'
     | 'inline'
     | 'inline-icon'
     | 'inline-switch'
@@ -96,6 +109,7 @@ export type ModalFormArrayType = {
     | 'iconBlock'
     | 'multiline';
   data: ModalFormDataArrayType;
+  formName?: string;
 };
 
 export type Opportunities = {
@@ -478,23 +492,106 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
 
 export const StatusFormArray: Array<ModalFormArrayType> = [
   {
-    type: 'inline-switch',
+    formName: 'My Status',
+    type: 'inlined',
     data: {
-      content_1: 'Are you out of the office?',
+      headingLeft: 'Are you out of the office?',
+      switchRight: true,
+      permanentVisible: true,
     },
   },
   {
-    type: 'block',
+    formName: 'My Status',
+    type: 'inlined',
     data: {
-      content_1: 'Gone To',
-      content_2: 'Please Select',
+      pressEnable: true,
+      visible: false,
+      headingLeft: 'Gone To',
+      subHeadingLeft: 'Please Select',
+      navigateTo: 'Gone To',
+      onPress: () => console.log('Inlined Pressed'),
     },
   },
-
   {
+    formName: 'My Status',
     type: 'multiline',
     data: {
-      content_1: 'Additional Info',
+      headingLeft: 'Additional Info',
+      visible: false,
+    },
+  },
+  {
+    formName: 'My Status',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Date Back',
+      subHeadingLeft: '--',
+      headingRight: 'Time Back',
+      subHeadingRight: '--',
+      subIconRight: 'timer-outline',
+      subIconLeft: 'calendar-outline',
+      pressEnable: true,
+      pressEnableRight: true,
+      visible: false,
+    },
+  },
+];
+
+export const GoneToFormArray: Array<ModalFormArrayType> = [
+  {
+    formName: 'Gone To',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Appointment',
+      checkBoxRight: true,
+    },
+  },
+  {
+    formName: 'Gone To',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Client',
+      checkBoxRight: true,
+    },
+  },
+  {
+    formName: 'Gone To',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Gone for the day',
+      checkBoxRight: true,
+    },
+  },
+  {
+    formName: 'Gone To',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Lunch',
+      checkBoxRight: true,
+    },
+  },
+  {
+    formName: 'Gone To',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Other',
+      checkBoxRight: true,
+    },
+  },
+  {
+    formName: 'Gone To',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Sick',
+      checkBoxRight: true,
+    },
+  },
+  {
+    formName: 'Gone To',
+    type: 'inlined',
+    data: {
+      headingLeft: 'Vacation',
+      checkBoxRight: true,
     },
   },
 ];

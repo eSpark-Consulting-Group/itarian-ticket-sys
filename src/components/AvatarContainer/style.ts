@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
     width: moderateScale(70, 0.5),
     height: moderateScale(70, 0.5),
+    borderWidth: 2,
   },
 });
 

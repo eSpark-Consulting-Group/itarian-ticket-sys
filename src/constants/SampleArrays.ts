@@ -113,6 +113,16 @@ export type ModalFormArrayType = {
   formName?: string;
 };
 
+export type Tickets = {
+  ticket_no: number;
+  age: number;
+  ticket_summary: string;
+  contact?: string;
+  company: string;
+  status: 'New' | 'Off Board' | 'Scheduled';
+  priority: 'DNR' | 'P1' | 'P2' | 'P3';
+};
+
 export type Opportunities = {
   name: string;
   contact: string;
@@ -673,5 +683,60 @@ export const opportunitiesList: Opportunities[] = [
     company: 'Acme IT Solutions',
     status: 'Customer Approved',
     close_date: '22 Jul 2018',
+  },
+];
+
+export const ticketsList: Tickets[] = [
+  {
+    ticket_no: 15222,
+    age: 4.6,
+    company: 'ACME Corporation',
+    contact: 'Mills Davidson',
+    ticket_summary: 'Need urgent Repairs, and Fixes',
+    status: 'New',
+    priority: 'P3',
+  },
+  {
+    ticket_no: 15299,
+    age: 6.5,
+    company: 'Coca Cola Industries',
+    contact: 'Joe Burns',
+    ticket_summary: 'Re-supply',
+    status: 'Scheduled',
+    priority: 'DNR',
+  },
+  {
+    ticket_no: 15351,
+    age: 2.2,
+    company: 'Business INC',
+    contact: 'Emiko Matsuzaka',
+    ticket_summary: 'Recruitment',
+    status: 'Scheduled',
+    priority: 'P1',
+  },
+  {
+    ticket_no: 15779,
+    age: 1.0,
+    company: 'Infusions Tech',
+    ticket_summary: 'Dispose of Waste',
+    status: 'Scheduled',
+    priority: 'DNR',
+  },
+  {
+    ticket_no: 16831,
+    age: 6.3,
+    company: 'Miners Co & Sons',
+    contact: 'Jim Evans',
+    ticket_summary: 'Gather Minerals',
+    status: 'New',
+    priority: 'P2',
+  },
+  {
+    ticket_no: 15529,
+    age: 14.5,
+    company: 'Fusion Tech',
+    ticket_summary: 'Purchasing new Instruments',
+    status: 'Scheduled',
+    priority: 'P3',
   },
 ];

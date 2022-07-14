@@ -1,30 +1,43 @@
 import {View, Text, TouchableOpacity, ViewProps, FlatList} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {Children, ReactChildren, useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import {Checkbox, Switch, TextInput} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
 import II from 'react-native-vector-icons/Ionicons';
 import {State, useState as hookState} from '@hookstate/core';
+// import DatePicker from 'react-native-modern-datepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {Theme} from '../../theme/colors';
 import {globalState} from '../../utils/globalState';
 import styles from './style';
 
-const ModalForm = ({fieldsArray, navigation}: any) => {
+const ModalForm = ({
+  fieldsArray,
+  navigation,
+  children,
+}: {
+  fieldsArray: any;
+  navigation: any;
+  children: ReactChildren;
+}) => {
   const {colors, dark}: Theme = useTheme();
   const [fieldsData, setFieldsData] = useState(fieldsArray);
-  // const [inputVal, setInputVal] = useState('');
+  const [showTime, setShowTime] = useState(false);
+  const [showDate, setShowDate] = useState(false);
+  const [currDate, setCurrDate] = useState(new Date());
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
   const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
   const goneToValue: State<string> = hookState(globalState.currentGoneTo);
   const inputVal: State<string> = hookState(globalState.additionalInputVal);
+  const oldDate: State<string> = hookState(globalState.oldStatusDate);
 
   useEffect(() => {
     let data = [...fieldsArray];
     if (data[0]?.formName == 'My Status') {
       myStatus(data);
     }
-  }, [oldGoneToValue.get(), switchValue.get(), inputVal.get()]);
+  }, [oldGoneToValue.get(), switchValue.get(), inputVal.get(), oldDate.get()]);
 
   const myStatus = (data: any) => {
     data.map((i: any) => {
@@ -42,7 +55,28 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
           oldGoneToValue.get() == '' ? 'Please Select' : oldGoneToValue.get();
         setFieldsData(data);
       }
+      // if (i.data.headingLeft == 'Date Back' && showDate == true) {
+      //   console.log('Date String', currDate.toDateString());
+      //   i.data.subHeadingLeft = currDate.toDateString();
+      // }
+      console.log('i.select_Date showDate', i.data.select_Date, showDate);
     });
+  };
+
+  const openDatePicker = () => {
+    console.log('Pressed Date');
+    setShowDate(true);
+  };
+
+  const closeDatePicker = (event: any, date: any) => {
+    console.log('Pressed Date', event, date.toString());
+    setCurrDate(date);
+    setShowDate(false);
+  };
+
+  const openTimePicker = () => {
+    console.log('Pressed Date');
+    setShowTime(true);
   };
 
   const onToggleSwitch = () => {
@@ -86,11 +120,27 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
     const renderFormItem = () => {
       contentType = (
         <>
+          {showTime && (
+            <DateTimePicker
+              mode="time"
+              value={new Date()}
+              onChange={() => console.log('Time changed..!')}
+            />
+          )}
+          {showDate && (
+            <DateTimePicker
+              mode="date"
+              value={currDate}
+              onChange={closeDatePicker}
+            />
+          )}
           <TouchableOpacity
             disabled={!data.pressEnable}
             onPress={
               data.navigateTo
-                ? () => navigation.navigate('Gone To')
+                ? () => navigation.navigate(data.navigateTo)
+                : data.select_Date != undefined
+                ? openDatePicker
                 : data.onPress
             }>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -219,21 +269,25 @@ const ModalForm = ({fieldsArray, navigation}: any) => {
   };
 
   return (
-    <FlatList
-      data={fieldsData}
-      style={{backgroundColor: colors.background}}
-      renderItem={({item, index}) => {
-        return (
-          <ParallelContainer
-            style={{
-              ...checkType(item.type, item.data),
-              backgroundColor: dark ? '#0000008a' : '#ffffff8a',
-            }}>
-            {checkContentType(item.type, item.data)}
-          </ParallelContainer>
-        );
-      }}
-    />
+    <>
+      <Text>Modal Screen</Text>
+      {children}
+      {/* <FlatList
+        data={fieldsData}
+        style={{backgroundColor: colors.background}}
+        renderItem={({item, index}) => {
+          return (
+            <ParallelContainer
+              style={{
+                ...checkType(item.type, item.data),
+                backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+              }}>
+              {checkContentType(item.type, item.data)}
+            </ParallelContainer>
+          );
+        }}
+      /> */}
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import CstmErrorText from './CtsmErrorText';
 import AvatarContainer from './AvatarContainer';
 import SearchBar from './SearchBar';
 import ModalForm from './ModalForm';
-import ModalStack from './ModalStack';
+import ModalField from './ModalField';
 import EmptyListMsg from './EmptyListMsg';
 import DateSeparator from './DateSeparator';
 import CstmSwitchSelector from './CstmSwitchSelector';
@@ -19,7 +19,7 @@ export {
   AvatarContainer,
   SearchBar,
   ModalForm,
-  ModalStack,
+  ModalField,
   EmptyListMsg,
   DateSeparator,
   CstmSwitchSelector,

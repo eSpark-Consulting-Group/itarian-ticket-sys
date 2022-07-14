@@ -53,7 +53,7 @@ import {
   Profile,
 } from '../screens';
 import {TransitionPresets} from '@react-navigation/stack';
-import {ModalForm, ModalStack} from '../components';
+import {ModalField, ModalForm} from '../components';
 import {
   GoneToFormArray,
   ModalFormArrayType,
@@ -228,7 +228,13 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
             ),
           }}>
           {() => (
-            <ModalForm fieldsArray={StatusFormArray} navigation={navigation} />
+            <ModalForm fieldsArray={StatusFormArray} navigation={navigation}>
+              <ModalField
+                mode="inlined"
+                headingLeft="Are you out of office"
+                switchRight={true}
+              />
+            </ModalForm>
           )}
         </Stack.Screen>
         <Stack.Screen

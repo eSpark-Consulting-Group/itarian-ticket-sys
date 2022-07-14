@@ -234,6 +234,25 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
                 headingLeft="Are you out of office"
                 switchRight={true}
               />
+              <ModalField
+                mode="inlined"
+                headingLeft="Gone To"
+                subHeadingLeft="Please Select"
+                onPress={() => navigation.navigate('Gone To')}
+                pressEnable={true}
+              />
+              <ModalField mode="multiline" headingLeft="Additional Info" />
+              <ModalField
+                mode="inlined"
+                headingLeft="Date Back"
+                subHeadingLeft="--"
+                subIconLeft="calendar-outline"
+                pressEnable
+                headingRight="Time Back"
+                subHeadingRight="--"
+                subIconRight="timer-outline"
+                pressEnableRight
+              />
             </ModalForm>
           )}
         </Stack.Screen>

@@ -10,7 +10,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {Theme} from '../../theme/colors';
 import ModalForm from '../ModalForm';
-import {Checkbox, Switch} from 'react-native-paper';
+import {Checkbox, Switch, TextInput} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
 import styles from './style';
 
@@ -66,11 +66,10 @@ const ModalField = ({
   const {colors}: Theme = useTheme();
 
   return (
-    <View
-      style={
-        mode == 'inlined' ? styles.inllineDisplay : styles.multilineDisplay
-      }>
-      {/* {showTime && (
+    <>
+      {mode == 'inlined' && (
+        <View style={styles.inllineDisplay}>
+          {/* {showTime && (
         <DateTimePicker
           mode="time"
           value={new Date()}
@@ -84,96 +83,111 @@ const ModalField = ({
           onChange={closeDatePicker}
         />
       )} */}
-      <TouchableOpacity
-        disabled={!pressEnable}
-        onPress={
-          // navigateTo
-          //   ? () => navigation.navigate(navigateTo)
-          //   : select_Date != undefined
-          //   ? openDatePicker
-          //   :
-          onPress
-        }>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {iconLeft && <II name={iconLeft} color={colors.text} size={15} />}
-          {headingLeft && (
-            <Text
-              style={{
-                color: colors.text,
-                fontWeight: 'bold',
-                marginLeft: iconLeft ? 10 : 0,
-              }}>
-              {headingLeft}
-            </Text>
-          )}
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {subIconLeft && (
-            <II name={subIconLeft} color={colors.text} size={15} />
-          )}
-          {subHeadingLeft && (
-            <Text
-              style={{
-                color: colors.text,
-                marginLeft: iconLeft ? 25 : subIconLeft ? 5 : 0,
-              }}>
-              {subHeadingLeft}
-            </Text>
-          )}
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity disabled={!pressEnableRight} onPress={onPressRight}>
-        {headingRight && (
-          <Text style={{color: colors.text, fontWeight: 'bold'}}>
-            {headingRight}
-          </Text>
-        )}
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {subIconRight && (
-            <II name={subIconRight} color={colors.text} size={15} />
-          )}
-          {subHeadingRight && (
-            <Text
-              style={{
-                color: colors.text,
-                marginLeft: subIconRight ? 5 : 0,
-              }}>
-              {subHeadingRight}
-            </Text>
-          )}
-        </View>
-        {switchRight && (
-          <Switch
-            // value={switchValue.get()}
-            // style={{marginRight: 5}}
-            // color={colors.primary}
-            // thumbColor={colors.primary}
-            // onValueChange={onToggleSwitch}
-            trackColor={{true: '#5b57578f', false: '#5b57578f'}}
-          />
-        )}
-        {checkBoxRight && (
-          <View>
-            <Checkbox
-              status="checked"
-              // status={
-              //   goneToValue.get() == headingLeft ? 'checked' : 'unchecked'
-              // }
-              // onPress={() => goneToValue.set(headingLeft)}
-            />
-          </View>
-        )}
-        {iconRight && (
-          <TouchableOpacity style={styles.inlineIconBtn}>
-            <II
-              name={iconRight}
-              color={colors.text}
-              size={moderateScale(20, 0)}
-            />
+          <TouchableOpacity
+            disabled={!pressEnable}
+            onPress={
+              // navigateTo
+              //   ? () => navigation.navigate(navigateTo)
+              //   : select_Date != undefined
+              //   ? openDatePicker
+              //   :
+              onPress
+            }>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {iconLeft && <II name={iconLeft} color={colors.text} size={15} />}
+              {headingLeft && (
+                <Text
+                  style={{
+                    color: colors.text,
+                    fontWeight: 'bold',
+                    marginLeft: iconLeft ? 10 : 0,
+                  }}>
+                  {headingLeft}
+                </Text>
+              )}
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {subIconLeft && (
+                <II name={subIconLeft} color={colors.text} size={15} />
+              )}
+              {subHeadingLeft && (
+                <Text
+                  style={{
+                    color: colors.text,
+                    marginLeft: iconLeft ? 25 : subIconLeft ? 5 : 0,
+                  }}>
+                  {subHeadingLeft}
+                </Text>
+              )}
+            </View>
           </TouchableOpacity>
-        )}
-      </TouchableOpacity>
-    </View>
+          <TouchableOpacity disabled={!pressEnableRight} onPress={onPressRight}>
+            {headingRight && (
+              <Text style={{color: colors.text, fontWeight: 'bold'}}>
+                {headingRight}
+              </Text>
+            )}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {subIconRight && (
+                <II name={subIconRight} color={colors.text} size={15} />
+              )}
+              {subHeadingRight && (
+                <Text
+                  style={{
+                    color: colors.text,
+                    marginLeft: subIconRight ? 5 : 0,
+                  }}>
+                  {subHeadingRight}
+                </Text>
+              )}
+            </View>
+            {switchRight && (
+              <Switch
+                // value={switchValue.get()}
+                // style={{marginRight: 5}}
+                // color={colors.primary}
+                // thumbColor={colors.primary}
+                // onValueChange={onToggleSwitch}
+                trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+              />
+            )}
+            {checkBoxRight && (
+              <View>
+                <Checkbox
+                  status="checked"
+                  // status={
+                  //   goneToValue.get() == headingLeft ? 'checked' : 'unchecked'
+                  // }
+                  // onPress={() => goneToValue.set(headingLeft)}
+                />
+              </View>
+            )}
+            {iconRight && (
+              <TouchableOpacity style={styles.inlineIconBtn}>
+                <II
+                  name={iconRight}
+                  color={colors.text}
+                  size={moderateScale(20, 0)}
+                />
+              </TouchableOpacity>
+            )}
+          </TouchableOpacity>
+        </View>
+      )}
+      {mode == 'multiline' && (
+        <View style={styles.multilineDisplay}>
+          <Text style={{marginTop: 5, color: colors.text}}>{headingLeft}</Text>
+          <TextInput
+            mode="outlined"
+            multiline
+            // value={inputVal.get()}
+            style={{flex: 0.9, backgroundColor: colors.background}}
+            theme={{colors: {primary: colors.primary}}}
+            // onChangeText={txt => inputVal.set(txt)}
+          />
+        </View>
+      )}
+    </>
   );
 };
 

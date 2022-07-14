@@ -13,18 +13,16 @@ const styles = StyleSheet.create({
   },
   inllineDisplay: {
     backgroundColor: '#fff',
-    flex: 1,
     height: moderateVerticalScale(50, 0),
     paddingHorizontal: 15,
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 1,
+    elevation: 5,
   },
   blockDisplay: {
     backgroundColor: '#fff',
-    flex: 1,
     height: moderateVerticalScale(50, 0),
     paddingHorizontal: 15,
     marginBottom: 10,
@@ -33,11 +31,10 @@ const styles = StyleSheet.create({
   },
   multilineDisplay: {
     backgroundColor: '#fff',
-    flex: 1,
     height: moderateVerticalScale(120, 0),
     paddingHorizontal: 15,
     marginBottom: 10,
-    elevation: 1,
+    elevation: 5,
   },
   inlineIconBtn: {
     borderRadius: 1000,

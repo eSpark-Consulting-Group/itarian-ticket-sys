@@ -17,9 +17,9 @@ const ModalForm = ({
   navigation,
   children,
 }: {
-  fieldsArray: any;
-  navigation: any;
-  children: ReactChildren;
+  fieldsArray?: any;
+  navigation?: any;
+  children?: ReactChildren;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const [fieldsData, setFieldsData] = useState(fieldsArray);
@@ -269,8 +269,12 @@ const ModalForm = ({
   };
 
   return (
-    <>
-      <Text>Modal Screen</Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'flex-start',
+        backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+      }}>
       {children}
       {/* <FlatList
         data={fieldsData}
@@ -287,7 +291,7 @@ const ModalForm = ({
           );
         }}
       /> */}
-    </>
+    </View>
   );
 };
 

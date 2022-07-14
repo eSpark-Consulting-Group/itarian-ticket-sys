@@ -98,7 +98,7 @@ const Oppurtunities = () => {
                     name="wrench"
                     color={colors.text}
                     size={12}
-                    style={{opacity: 0.5, alignSelf: 'center', paddingRight: 5}}
+                    style={{opacity: 0.5, alignSelf: 'center', paddingRight: 7}}
                   />
                   <Text style={{...styles.subTitle, color: colors.text}}>
                     {item.status}

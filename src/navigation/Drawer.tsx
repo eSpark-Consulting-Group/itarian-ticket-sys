@@ -52,13 +52,9 @@ import {
   SendFeedback,
   Profile,
 } from '../screens';
-import {TransitionPresets} from '@react-navigation/stack';
-import {ModalForm, ModalStack} from '../components';
-import {
-  GoneToFormArray,
-  ModalFormArrayType,
-  StatusFormArray,
-} from '../constants/SampleArrays';
+import {ModalField, ModalForm} from '../components';
+import {GoneToFormArray, StatusFormArray} from '../constants/SampleArrays';
+import Stacks from './Stacks';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -229,7 +225,32 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
             ),
           }}>
           {() => (
-            <ModalForm fieldsArray={StatusFormArray} navigation={navigation} />
+            <ModalForm fieldsArray={StatusFormArray} navigation={navigation}>
+              <ModalField
+                mode="inlined"
+                headingLeft="Are you out of office"
+                switchRight={true}
+              />
+              <ModalField
+                mode="inlined"
+                headingLeft="Gone To"
+                subHeadingLeft="Please Select"
+                onPressLeft={() => navigation.navigate('Gone To')}
+                pressEnableLeft
+              />
+              <ModalField mode="multiline" headingLeft="Additional Info" />
+              <ModalField
+                mode="inlined"
+                headingLeft="Date Back"
+                subHeadingLeft="--"
+                subIconLeft="calendar-outline"
+                pressEnableLeft
+                headingRight="Time Back"
+                subHeadingRight="--"
+                subIconRight="timer-outline"
+                pressEnableRight
+              />
+            </ModalForm>
           )}
         </Stack.Screen>
         <Stack.Screen
@@ -582,7 +603,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       />
       <Drawer.Screen
         name="Forms"
-        component={FormScreen}
+        component={Stacks}
         options={{
           headerShown: false,
           drawerItemStyle: {display: 'none'},

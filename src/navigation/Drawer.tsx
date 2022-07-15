@@ -52,13 +52,9 @@ import {
   SendFeedback,
   Profile,
 } from '../screens';
-import {TransitionPresets} from '@react-navigation/stack';
 import {ModalField, ModalForm} from '../components';
-import {
-  GoneToFormArray,
-  ModalFormArrayType,
-  StatusFormArray,
-} from '../constants/SampleArrays';
+import {GoneToFormArray, StatusFormArray} from '../constants/SampleArrays';
+import Stacks from './Stacks';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -238,8 +234,8 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
                 mode="inlined"
                 headingLeft="Gone To"
                 subHeadingLeft="Please Select"
-                onPress={() => navigation.navigate('Gone To')}
-                pressEnable={true}
+                onPressLeft={() => navigation.navigate('Gone To')}
+                pressEnableLeft
               />
               <ModalField mode="multiline" headingLeft="Additional Info" />
               <ModalField
@@ -247,7 +243,7 @@ const FormScreen = ({navigation}: NativeStackHeaderProps) => {
                 headingLeft="Date Back"
                 subHeadingLeft="--"
                 subIconLeft="calendar-outline"
-                pressEnable
+                pressEnableLeft
                 headingRight="Time Back"
                 subHeadingRight="--"
                 subIconRight="timer-outline"
@@ -569,7 +565,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       />
       <Drawer.Screen
         name="Forms"
-        component={FormScreen}
+        component={Stacks}
         options={{
           headerShown: false,
           drawerItemStyle: {display: 'none'},

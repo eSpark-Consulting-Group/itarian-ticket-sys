@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, ViewProps, FlatList} from 'react-native';
-import React, {Children, ReactChildren, useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import {Checkbox, Switch, TextInput} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
@@ -19,7 +19,7 @@ const ModalForm = ({
 }: {
   fieldsArray?: any;
   navigation?: any;
-  children?: ReactChildren;
+  children?: ReactNode;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const [fieldsData, setFieldsData] = useState(fieldsArray);
@@ -63,211 +63,6 @@ const ModalForm = ({
     });
   };
 
-  const openDatePicker = () => {
-    console.log('Pressed Date');
-    setShowDate(true);
-  };
-
-  const closeDatePicker = (event: any, date: any) => {
-    console.log('Pressed Date', event, date.toString());
-    setCurrDate(date);
-    setShowDate(false);
-  };
-
-  const openTimePicker = () => {
-    console.log('Pressed Date');
-    setShowTime(true);
-  };
-
-  const onToggleSwitch = () => {
-    switchValue.set(!switchValue.get());
-  };
-
-  const ParallelContainer = (props: ViewProps) => {
-    return <View {...props}>{props.children}</View>;
-  };
-
-  const checkType = (type: any, data: any) => {
-    let containerStyle = {};
-    const getInline = () => {
-      containerStyle = styles.inllineDisplay;
-    };
-
-    const getMultiline = () => {
-      containerStyle = styles.multilineDisplay;
-    };
-
-    switch (type) {
-      case 'inlined':
-        data.visible != undefined ? data.visible && getInline() : getInline();
-        break;
-
-      case 'multiline':
-        data.visible != undefined
-          ? data.visible && getMultiline()
-          : getMultiline();
-        break;
-
-      default:
-        break;
-    }
-    return containerStyle;
-  };
-
-  const checkContentType = (type: any, data: any) => {
-    let contentType;
-
-    const renderFormItem = () => {
-      contentType = (
-        <>
-          {showTime && (
-            <DateTimePicker
-              mode="time"
-              value={new Date()}
-              onChange={() => console.log('Time changed..!')}
-            />
-          )}
-          {showDate && (
-            <DateTimePicker
-              mode="date"
-              value={currDate}
-              onChange={closeDatePicker}
-            />
-          )}
-          <TouchableOpacity
-            disabled={!data.pressEnable}
-            onPress={
-              data.navigateTo
-                ? () => navigation.navigate(data.navigateTo)
-                : data.select_Date != undefined
-                ? openDatePicker
-                : data.onPress
-            }>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              {data.iconLeft && (
-                <II name={data.iconLeft} color={colors.text} size={15} />
-              )}
-              {data.headingLeft && (
-                <Text
-                  style={{
-                    color: colors.text,
-                    fontWeight: 'bold',
-                    marginLeft: data.iconLeft ? 10 : 0,
-                  }}>
-                  {data.headingLeft}
-                </Text>
-              )}
-            </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              {data.subIconLeft && (
-                <II name={data.subIconLeft} color={colors.text} size={15} />
-              )}
-              {data.subHeadingLeft && (
-                <Text
-                  style={{
-                    color: colors.text,
-                    marginLeft: data.iconLeft ? 25 : data.subIconLeft ? 5 : 0,
-                  }}>
-                  {data.subHeadingLeft}
-                </Text>
-              )}
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={!data.pressEnableRight}
-            onPress={data.onPressRight}>
-            {data.headingRight && (
-              <Text style={{color: colors.text, fontWeight: 'bold'}}>
-                {data.headingRight}
-              </Text>
-            )}
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              {data.subIconRight && (
-                <II name={data.subIconRight} color={colors.text} size={15} />
-              )}
-              {data.subHeadingRight && (
-                <Text
-                  style={{
-                    color: colors.text,
-                    marginLeft: data.subIconRight ? 5 : 0,
-                  }}>
-                  {data.subHeadingRight}
-                </Text>
-              )}
-            </View>
-            {data.switchRight && (
-              <Switch
-                value={switchValue.get()}
-                style={{marginRight: 5}}
-                color={colors.primary}
-                thumbColor={colors.primary}
-                onValueChange={onToggleSwitch}
-                trackColor={{true: '#5b57578f', false: '#5b57578f'}}
-              />
-            )}
-            {data.checkBoxRight && (
-              <View>
-                <Checkbox
-                  status={
-                    goneToValue.get() == data.headingLeft
-                      ? 'checked'
-                      : 'unchecked'
-                  }
-                  onPress={() => goneToValue.set(data.headingLeft)}
-                />
-              </View>
-            )}
-            {data.iconRight && (
-              <TouchableOpacity style={styles.inlineIconBtn}>
-                <II
-                  name={data.iconRight}
-                  color={colors.text}
-                  size={moderateScale(20, 0)}
-                />
-              </TouchableOpacity>
-            )}
-          </TouchableOpacity>
-        </>
-      );
-    };
-
-    const getMultilineContent = () => {
-      contentType = (
-        <>
-          <Text style={{marginTop: 5, color: colors.text}}>
-            {data.headingLeft}
-          </Text>
-          <TextInput
-            mode="outlined"
-            multiline
-            value={inputVal.get()}
-            style={{flex: 0.9, backgroundColor: colors.background}}
-            theme={{colors: {primary: colors.primary}}}
-            onChangeText={txt => inputVal.set(txt)}
-          />
-        </>
-      );
-    };
-
-    switch (type) {
-      case 'inlined':
-        data.visible != undefined
-          ? data.visible && renderFormItem()
-          : renderFormItem();
-        break;
-      case 'multiline':
-        data.visible != undefined
-          ? data.visible && getMultilineContent()
-          : getMultilineContent();
-        break;
-
-      default:
-        break;
-    }
-
-    return contentType;
-  };
-
   return (
     <View
       style={{
@@ -276,21 +71,6 @@ const ModalForm = ({
         backgroundColor: dark ? '#0000008a' : '#ffffff8a',
       }}>
       {children}
-      {/* <FlatList
-        data={fieldsData}
-        style={{backgroundColor: colors.background}}
-        renderItem={({item, index}) => {
-          return (
-            <ParallelContainer
-              style={{
-                ...checkType(item.type, item.data),
-                backgroundColor: dark ? '#0000008a' : '#ffffff8a',
-              }}>
-              {checkContentType(item.type, item.data)}
-            </ParallelContainer>
-          );
-        }}
-      /> */}
     </View>
   );
 };

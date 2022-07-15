@@ -26,14 +26,16 @@ const ModalField = ({
   switchRight,
   switch_val,
   iconLeft,
-  pressEnable,
-  onPress,
+  pressEnableLeft,
+  onPressLeft,
   pressEnableRight,
   onPressRight,
   subIconLeft,
   subIconRight,
   checkBoxRight,
+  onToggleSwitch,
   checkBox_Val,
+  onCheckPress,
   navigateTo,
   visible,
   input_Val,
@@ -48,15 +50,17 @@ const ModalField = ({
   iconRight?: string;
   switchRight?: boolean;
   switch_val?: boolean;
+  onToggleSwitch?: () => void;
   iconLeft?: string;
-  pressEnable?: boolean;
-  onPress?: () => void;
+  pressEnableLeft?: boolean;
+  onPressLeft?: () => void;
   pressEnableRight?: boolean;
   onPressRight?: () => void;
   subIconLeft?: string;
   subIconRight?: string;
   checkBoxRight?: boolean;
-  checkBox_Val?: string;
+  checkBox_Val?: 'checked' | 'unchecked';
+  onCheckPress?: () => void;
   navigateTo?: string;
   visible?: boolean;
   input_Val?: string;
@@ -69,30 +73,7 @@ const ModalField = ({
     <>
       {mode == 'inlined' && (
         <View style={styles.inllineDisplay}>
-          {/* {showTime && (
-        <DateTimePicker
-          mode="time"
-          value={new Date()}
-          onChange={() => console.log('Time changed..!')}
-        />
-      )}
-      {showDate && (
-        <DateTimePicker
-          mode="date"
-          value={currDate}
-          onChange={closeDatePicker}
-        />
-      )} */}
-          <TouchableOpacity
-            disabled={!pressEnable}
-            onPress={
-              // navigateTo
-              //   ? () => navigation.navigate(navigateTo)
-              //   : select_Date != undefined
-              //   ? openDatePicker
-              //   :
-              onPress
-            }>
+          <TouchableOpacity disabled={!pressEnableLeft} onPress={onPressLeft}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               {iconLeft && <II name={iconLeft} color={colors.text} size={15} />}
               {headingLeft && (
@@ -143,22 +124,19 @@ const ModalField = ({
             </View>
             {switchRight && (
               <Switch
-                // value={switchValue.get()}
+                value={switch_val}
                 // style={{marginRight: 5}}
                 // color={colors.primary}
                 // thumbColor={colors.primary}
-                // onValueChange={onToggleSwitch}
+                onValueChange={onToggleSwitch}
                 trackColor={{true: '#5b57578f', false: '#5b57578f'}}
               />
             )}
             {checkBoxRight && (
               <View>
                 <Checkbox
-                  status="checked"
-                  // status={
-                  //   goneToValue.get() == headingLeft ? 'checked' : 'unchecked'
-                  // }
-                  // onPress={() => goneToValue.set(headingLeft)}
+                  status={checkBox_Val ? checkBox_Val : 'unchecked'}
+                  onPress={onCheckPress}
                 />
               </View>
             )}

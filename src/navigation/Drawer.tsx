@@ -139,6 +139,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 
 const FormScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
+
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
@@ -429,6 +430,43 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="Service Board"
         component={ServiceBoard}
         options={{
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 20,
+                  fontFamily: 'sans-serif-medium',
+                }}>
+                Service Board
+              </Text>
+              <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
+                My Services
+              </Text>
+            </View>
+          ),
+          headerRight: () => (
+            <View style={{flexDirection: 'row', right: 10}}>
+              <AD
+                size={30}
+                name="filter"
+                color={'#ffffff'}
+                onPress={() => console.log('Filter')}
+              />
+              <Badge
+                size={15}
+                style={{
+                  position: 'absolute',
+                  zIndex: 1,
+                  right: -5,
+                  top: -5,
+                  backgroundColor: '#dc1e1e',
+                  fontWeight: 'bold',
+                }}>
+                99
+              </Badge>
+            </View>
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Service Board</Text>
           ),

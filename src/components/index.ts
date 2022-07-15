@@ -12,6 +12,7 @@ import FloatButton from './FloatButton';
 import SimpleLoader from './SimpleLoader';
 import OutlineBtn from './OutlineBtn';
 import CstmDropDown from './CstmDropDown';
+import CstmMultiLine from './CstmMultiLineInput';
 
 export {
   CstmButton,
@@ -28,4 +29,5 @@ export {
   SimpleLoader,
   OutlineBtn,
   CstmDropDown,
+  CstmMultiLine,
 };

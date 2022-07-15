@@ -9,4 +9,6 @@ export const globalState = createState({
   searchTag: 'tickets',
   oldAddInputVal: '',
   additionalInputVal: '',
+  oldStatusDate: '',
+  statusDate: '',
 });

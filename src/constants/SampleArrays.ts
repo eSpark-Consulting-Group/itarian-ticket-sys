@@ -98,6 +98,8 @@ export type ModalFormDataArrayType = {
   navigateTo?: string;
   visible?: boolean;
   input_Val?: string;
+  select_Date?: boolean;
+  select_Time?: boolean;
 };
 
 export type ModalFormArrayType = {
@@ -580,6 +582,8 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
       pressEnableRight: true,
       visible: false,
       input_Val: '',
+      select_Date: false,
+      select_Time: false,
     },
   },
 ];

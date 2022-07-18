@@ -23,11 +23,11 @@ const SendFeedbackScreen = () => {
   useEffect(() => {
     let show = Keyboard.addListener('keyboardDidShow', () => {
       iskeyboardShown.current = true;
-      forceUpdate();
+      // forceUpdate();
     });
     let hide = Keyboard.addListener('keyboardDidHide', () => {
       iskeyboardShown.current = false;
-      forceUpdate();
+      // forceUpdate();
     });
 
     return () => {
@@ -91,7 +91,10 @@ const SendFeedbackScreen = () => {
 
   return (
     <View
-      style={{bottom: iskeyboardShown.current ? 100 : 0, ...styles.container}}>
+      style={{
+        // bottom: iskeyboardShown.current ? 100 : 0,
+        ...styles.container,
+      }}>
       <CstmDropDown
         dataSource={ideaData}
         handleLabel={handleLabel}

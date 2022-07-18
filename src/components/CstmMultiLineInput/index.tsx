@@ -9,7 +9,7 @@ const CstmMultiLine = ({title}: {title?: string}) => {
   const {colors, dark}: Theme = useTheme();
 
   return (
-    <View style={{flex: 0.8}}>
+    <View style={{flex: 0}}>
       {title && (
         <Text
           style={{

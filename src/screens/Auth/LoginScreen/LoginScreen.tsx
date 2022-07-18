@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 
 const {width, height} = Dimensions.get('window');
 
-const LoginScreen = ({navigation, route}: NativeStackHeaderProps) => {
+const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
   return (
     <View style={{height: height}}>

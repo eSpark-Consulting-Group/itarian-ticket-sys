@@ -1,3 +1,4 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ViewStyle} from 'react-native';
 
 export type Companines = {
@@ -744,3 +745,26 @@ export const ticketsList: Tickets[] = [
     priority: 'P3',
   },
 ];
+
+export type ParamList = {
+  Agenda: undefined;
+  Search: undefined;
+  Profile: {
+    status: boolean;
+  };
+  Forms: undefined;
+  Calendar: undefined;
+  Companies: undefined;
+  Contacts: undefined;
+  Configurations: undefined;
+  SBoard: undefined;
+  PBoard: undefined;
+  MyActivities: undefined;
+  Opportunities: undefined;
+  IOBoard: undefined;
+  ExpReports: undefined;
+  TimeSheets: undefined;
+  StopWatch: undefined;
+  Settings: undefined;
+  Feedback: undefined;
+};

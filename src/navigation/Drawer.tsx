@@ -16,7 +16,12 @@ import {
   DrawerHeaderProps,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
-import {useTheme, DrawerActions} from '@react-navigation/native';
+import {
+  useTheme,
+  DrawerActions,
+  RouteProp,
+  useNavigationState,
+} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
@@ -53,10 +58,14 @@ import {
   Profile,
 } from '../screens';
 import {ModalField, ModalForm} from '../components';
-import {GoneToFormArray, StatusFormArray} from '../constants/SampleArrays';
+import {
+  GoneToFormArray,
+  ParamList,
+  StatusFormArray,
+} from '../constants/SampleArrays';
 import Stacks from './Stacks';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<ParamList>();
 const Stack = createNativeStackNavigator();
 
 const {width, height} = Dimensions.get('window');
@@ -65,14 +74,16 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
 
-  const {colors, dark}: Theme = useTheme();
-  const Modals = [{name: 'My Status'}, {name: 'Gone To'}];
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <TouchableOpacity
         style={styles.header}
-        onPress={() => props.navigation.navigate('My Profile')}>
+        onPress={() =>
+          props.navigation.navigate({
+            name: 'Profile',
+            params: {prevScreen: 'Agenda'},
+          })
+        }>
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
             <Avatar.Image
@@ -137,156 +148,12 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 };
 
-const FormScreen = ({navigation}: NativeStackHeaderProps) => {
-  const {colors}: Theme = useTheme();
-
-  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
-  const currStatus: State<boolean> = hookState(globalState.currentStatus);
-  const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
-  const goneToValue: State<string> = hookState(globalState.currentGoneTo);
-  const oldInputVal: State<string> = hookState(globalState.oldAddInputVal);
-  const inputVal: State<string> = hookState(globalState.additionalInputVal);
-
-  const saveStatus = () => {
-    console.log('Save Value', oldInputVal.get(), inputVal.get());
-    if (switchValue.get() == true) {
-      currStatus.set(false);
-      oldInputVal.set(inputVal.get());
-      navigation.navigate('My Profile');
-    } else {
-      currStatus.set(true);
-      navigation.navigate('My Profile');
-    }
-  };
-
-  const backStatus = () => {
-    console.log('Back Value', oldInputVal.get(), inputVal.get());
-    if (currStatus.get() == false && switchValue.get() == false) {
-      inputVal.set(oldInputVal.get());
-      switchValue.set(true);
-      navigation.navigate('My Profile');
-    } else if (currStatus.get() == true && switchValue.get() == true) {
-      inputVal.set(oldInputVal.get());
-      switchValue.set(false);
-      navigation.navigate('My Profile');
-    } else {
-      inputVal.set(oldInputVal.get());
-      navigation.navigate('My Profile');
-    }
-  };
-
-  const saveGoneTo = () => {
-    console.log('Save Status', goneToValue.get(), oldGoneToValue.get());
-    oldGoneToValue.set(goneToValue.get());
-    navigation.navigate('My Status');
-  };
-
-  const backGoneTo = () => {
-    console.log('Back Status', goneToValue.get(), oldGoneToValue.get());
-    goneToValue.set(oldGoneToValue.get());
-    navigation.navigate('My Status');
-  };
-
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerTitleAlign: 'center',
-        headerTitleStyle: {
-          color: '#fff',
-        },
-        animation: 'slide_from_bottom',
-        presentation: 'modal',
-      }}>
-      <Stack.Group
-        screenOptions={{
-          presentation: 'modal',
-        }}>
-        <Stack.Screen
-          name={'My Status'}
-          options={{
-            animation: 'slide_from_bottom',
-            headerLeft: () => (
-              <Ionicons
-                size={30}
-                name="close"
-                style={{right: 6}}
-                color={'#fff'}
-                onPress={backStatus}
-              />
-            ),
-            headerRight: () => (
-              <FA
-                size={27}
-                name="save"
-                color={'#fff'}
-                onPress={saveStatus}
-                // style={{right: 10}}
-              />
-            ),
-          }}>
-          {() => (
-            <ModalForm fieldsArray={StatusFormArray} navigation={navigation}>
-              <ModalField
-                mode="inlined"
-                headingLeft="Are you out of office"
-                switchRight={true}
-              />
-              <ModalField
-                mode="inlined"
-                headingLeft="Gone To"
-                subHeadingLeft="Please Select"
-                onPressLeft={() => navigation.navigate('Gone To')}
-                pressEnableLeft
-              />
-              <ModalField mode="multiline" headingLeft="Additional Info" />
-              <ModalField
-                mode="inlined"
-                headingLeft="Date Back"
-                subHeadingLeft="--"
-                subIconLeft="calendar-outline"
-                pressEnableLeft
-                headingRight="Time Back"
-                subHeadingRight="--"
-                subIconRight="timer-outline"
-                pressEnableRight
-              />
-            </ModalForm>
-          )}
-        </Stack.Screen>
-        <Stack.Screen
-          name={'Gone To'}
-          options={{
-            animation: 'slide_from_bottom',
-            headerLeft: () => (
-              <Ionicons
-                size={30}
-                name="close"
-                style={{right: 6}}
-                color={'#fff'}
-                onPress={backGoneTo}
-              />
-            ),
-            headerRight: () => (
-              <FA
-                size={27}
-                name="check"
-                color={'#fff'}
-                onPress={saveGoneTo}
-                // style={{right: 10}}
-              />
-            ),
-          }}>
-          {() => <ModalForm fieldsArray={GoneToFormArray} />}
-        </Stack.Screen>
-      </Stack.Group>
-    </Stack.Navigator>
-  );
-};
-
 const Draw = ({navigation, route}: DrawerHeaderProps) => {
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
+  // const history = useNavigationState(state => state);
+  // console.log('HIstory', history);
 
   return (
     <Drawer.Navigator
@@ -427,7 +294,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="Service Board"
+        name="SBoard"
         component={ServiceBoard}
         options={{
           headerTitle: () => (
@@ -476,7 +343,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="Project Board"
+        name="PBoard"
         component={ProjectBoard}
         options={{
           drawerLabel: ({color, focused}) => (
@@ -488,7 +355,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="My Activities"
+        name="MyActivities"
         component={MyActivities}
         options={{
           headerRight: noHeader,
@@ -535,7 +402,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="In Out Board"
+        name="IOBoard"
         component={InOutBoard}
         options={{
           headerRight: noHeader,
@@ -548,7 +415,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="Expense Reports"
+        name="ExpReports"
         component={ExpenseReports}
         options={{
           drawerLabel: ({color, focused}) => (
@@ -584,8 +451,9 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="My Profile"
+        name="Profile"
         component={Profile}
+        initialParams={{status: false}}
         options={{
           swipeEnabled: false,
           headerLeft: () => (

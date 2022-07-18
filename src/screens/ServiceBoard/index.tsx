@@ -1,13 +1,10 @@
 import React from 'react';
 import {View, Text, Pressable, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fthr from 'react-native-vector-icons/Feather';
-import MI from 'react-native-vector-icons/MaterialIcons';
 import FD from 'react-native-vector-icons/Foundation';
 
 import styles from './style';
@@ -55,39 +52,29 @@ const ServiceBoard = () => {
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View
             style={{
-              padding: moderateScale(15),
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
+              ...styles.listInner,
             }}>
             <View style={{flexDirection: 'row'}}>
               <View
                 style={{
                   backgroundColor: renderColor(),
-                  width: 20,
-                  height: 20,
-                  borderWidth: 1,
+                  ...styles.priorityContainer,
                 }}
               />
               <View
                 style={{
-                  flex: 1,
-                  paddingHorizontal: 10,
+                  ...styles.listItemContainer,
                 }}>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    ...styles.horizontalItemStyles,
                   }}>
                   <Text style={{...styles.title, color: colors.text}}>
                     Ticket #{item.ticket_no}
                   </Text>
                   <View
                     style={{
-                      backgroundColor: '#000',
-                      paddingHorizontal: 8,
-                      justifyContent: 'center',
-                      borderRadius: 50,
+                      ...styles.ageContainer,
                     }}>
                     <Text style={{color: '#fff', fontSize: 12}}>
                       {item.age.toFixed(1)}
@@ -106,8 +93,7 @@ const ServiceBoard = () => {
                       color={colors.text}
                       size={12}
                       style={{
-                        alignSelf: 'center',
-                        paddingRight: 5,
+                        ...styles.iconStyle,
                       }}
                     />
                     <Text style={{...styles.subTitle, color: colors.text}}>
@@ -121,8 +107,7 @@ const ServiceBoard = () => {
                     color={colors.text}
                     size={12}
                     style={{
-                      alignSelf: 'center',
-                      paddingRight: 5,
+                      ...styles.iconStyle,
                     }}
                   />
                   <Text style={{...styles.subTitle, color: colors.text}}>
@@ -131,8 +116,7 @@ const ServiceBoard = () => {
                 </View>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    ...styles.horizontalItemStyles,
                   }}>
                   <View style={{flexDirection: 'row'}}>
                     <FD
@@ -140,7 +124,7 @@ const ServiceBoard = () => {
                       color={colors.text}
                       size={12}
                       style={{
-                        alignSelf: 'center',
+                        ...styles.iconStyle,
                         paddingRight: 8,
                       }}
                     />
@@ -153,8 +137,7 @@ const ServiceBoard = () => {
                       style={{
                         ...styles.subTitle,
                         color: colors.text,
-                        opacity: 1,
-                        fontWeight: 'bold',
+                        ...styles.highlight,
                       }}>
                       {renderPriorityText(item.priority)}
                     </Text>

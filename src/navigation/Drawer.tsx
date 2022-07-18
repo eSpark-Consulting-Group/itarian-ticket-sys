@@ -32,7 +32,7 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {State, useState as hookState} from '@hookstate/core';
-import {moderateScale} from 'react-native-size-matters';
+import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar, Badge} from 'react-native-paper';
 
 import {Theme} from '../theme/colors';
@@ -142,7 +142,12 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             props.navigation.navigate('Login');
           }}
         />
-        <Text>Build v0.01.0</Text>
+        <View style={{}}>
+          <Text
+            style={{fontSize: height * 0.02, fontFamily: 'sans-serif-medium'}}>
+            Build version (0.02.4)
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -502,6 +507,8 @@ export default Draw;
 
 const styles = StyleSheet.create({
   header: {
+    // flex: 0.5,
+    height: moderateVerticalScale(80, 0.5),
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -518,16 +525,21 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   content: {
-    height: moderateScale(height * 0.5, 0.5),
+    // flex: 2.5,
+    height: moderateVerticalScale(396, 1.62),
   },
   footer: {
-    height: moderateScale(height * 0.1, 0),
+    // flex: 3.5,
+    height: moderateVerticalScale(180, 0),
+    justifyContent: 'flex-end',
+    // backgroundColor: 'teal',
     borderTopWidth: 1,
     borderColor: '#fff',
   },
   footerDrawerStyle: {
     opacity: 0.75,
     right: 20,
+    // fontSize: height * 0.02,
   },
   drawerTitleStyle: {fontWeight: '700', color: '#fff'},
 });

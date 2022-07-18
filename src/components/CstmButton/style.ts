@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     height: moderateVerticalScale(50, 0),
     flexDirection: 'row',
     marginVertical: 10,
-    backgroundColor: 'teal',
     // height: '50%',
     // width: '100%',
   },

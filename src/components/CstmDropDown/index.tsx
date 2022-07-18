@@ -26,49 +26,44 @@ const CstmDropDown = ({
   const {colors, dark}: Theme = useTheme();
 
   useUpdateEffect(() => {
-    handleLabel?.(label, type);
-  }, [toggleValue]);
+    handleLabel?.(label, type); //? to Send the Selected Label to parent
+  }, [label]);
 
   const renderList = ({item, index}: {item: string; index: number}) => {
     return (
       <TouchableOpacity
         style={{backgroundColor: colors.primary}}
         onPress={() => {
-          setLabel(item);
+          setLabel(item); //? to Change the Label of the Dropdown
+          handleToggle?.(type); //? to Toggle the Dropdown
         }}>
-        <View style={{flex: 1, padding: 8, backgroundColor: colors.background}}>
-          <Text>{item}</Text>
+        <View
+          style={{backgroundColor: colors.background, ...styles.itemContainer}}>
+          <Text style={{color: colors.text, ...styles.itemText}}>{item}</Text>
         </View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text
         style={{
           color: colors.text,
-          opacity: 0.7,
-          fontSize: 14,
-          fontFamily: 'sans-serif-medium',
-          height: 25,
+          ...styles.labelText,
         }}>
         {title}
       </Text>
       <TouchableOpacity onPress={() => handleToggle?.(type)}>
         <View
           style={{
-            borderWidth: 2,
-            borderRadius: 2,
-            borderColor: '#00000080',
+            borderColor: dark ? '#ffffff80' : '#00000080',
+            ...styles.dropdownLabelContainer,
           }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 8,
-            }}>
-            <Text>{label == '' ? 'Select an Item...' : label}</Text>
+          <View style={styles.dropdownLabelInner}>
+            <Text style={{color: colors.text, ...styles.dropDownText}}>
+              {label == '' ? 'Select an Item...' : label}
+            </Text>
             {toggleValue ? (
               <MI name="arrow-drop-up" color={colors.text} size={22} />
             ) : (
@@ -80,11 +75,8 @@ const CstmDropDown = ({
       {toggleValue && (
         <View
           style={{
-            height: 130,
-            borderRightWidth: 2,
-            borderBottomWidth: 2,
-            borderLeftWidth: 2,
-            borderColor: '#00000080',
+            ...styles.dropDownContainer,
+            borderColor: dark ? '#ffffff80' : '#00000080',
           }}>
           <FlatList data={dataSource} renderItem={renderList} />
         </View>

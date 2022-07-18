@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
 
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants/Dimensions';
 
@@ -6,10 +7,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-  },
-  header: {
-    elevation: 1,
-    width: WINDOW_WIDTH,
   },
   content: {
     flex: 1,
@@ -32,10 +29,38 @@ const styles = StyleSheet.create({
     fontSize: 12,
     opacity: 0.5,
   },
-  iconStyle: {
+  listInner: {
+    padding: moderateScale(15),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  priorityContainer: {
+    width: 20,
+    height: 20,
     borderWidth: 1,
-    borderRadius: 100,
-    padding: 5,
+  },
+  listItemContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  ageContainer: {
+    backgroundColor: '#000',
+    paddingHorizontal: 8,
+    justifyContent: 'center',
+    borderRadius: 50,
+  },
+  horizontalItemStyles: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  iconStyle: {
+    alignSelf: 'center',
+    paddingRight: 5,
+  },
+  highlight: {
+    opacity: 1,
+    fontWeight: 'bold',
   },
 });
 

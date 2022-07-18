@@ -130,9 +130,9 @@ const ModalField = ({
             {switchRight && (
               <Switch
                 value={switch_val}
-                // style={{marginRight: 5}}
-                // color={colors.primary}
-                // thumbColor={colors.primary}
+                style={{marginRight: 5}}
+                color={colors.primary}
+                thumbColor={colors.primary}
                 onValueChange={onToggleSwitch}
                 trackColor={{true: '#5b57578f', false: '#5b57578f'}}
               />
@@ -141,6 +141,7 @@ const ModalField = ({
               <View>
                 <Checkbox
                   status={checkBox_Val ? checkBox_Val : 'unchecked'}
+                  color={colors.primary}
                   onPress={onCheckPress}
                 />
               </View>

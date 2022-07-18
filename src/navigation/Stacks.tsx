@@ -74,6 +74,7 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
 
   const backStatus = () => {
     setSwitchVal(prevVal);
+    currStatusVal.set(prevVal);
     navigation.navigate({
       name: 'Profile',
       params: {status: prevVal},

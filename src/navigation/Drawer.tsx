@@ -97,7 +97,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             <Text style={styles.drawerTitleStyle}>Johnny Bravo</Text>
             <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
-              {currStatus.get() ? 'In Office' : 'Out of the Office'}
+              {currStatus.get() ? 'Out of the Office' : 'In Office'}
             </Text>
           </View>
         </View>
@@ -460,7 +460,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         component={Profile}
         initialParams={{status: false}}
         options={{
-          swipeEnabled: false,
+          // swipeEnabled: false,
           headerLeft: () => (
             <Ionicons
               size={30}

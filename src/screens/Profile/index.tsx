@@ -55,7 +55,8 @@ const Profile = ({
           <Text style={{color: colors.text}}>My Status</Text>
           <Text style={{fontWeight: 'bold', color: colors.text}}>
             {/* {route.params.status} */}
-            {route.params.status == false ? 'In Office' : 'Out of the Office'}
+            {/* {route.params.status == false ? 'In Office' : 'Out of the Office'} */}
+            {currStatus.get() ? 'Out of the Office' : 'In Office'}
           </Text>
         </View>
         <II name="chevron-forward" color={colors.text} size={20} />

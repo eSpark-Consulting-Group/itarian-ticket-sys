@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    // backgroundColor: 'teal',
   },
   adjuster: {
     width: '2.5%',

@@ -70,6 +70,12 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
       params: {status: switchVal},
       merge: true,
     });
+    if (switchVal == false) {
+      setCheckedIndex(null);
+      setCurrChkInd(null);
+      setTimeDur('--');
+      setDateDur('--');
+    }
   };
 
   const backStatus = () => {
@@ -80,6 +86,12 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
       params: {status: prevVal},
       merge: true,
     });
+    if (prevVal == false) {
+      setCheckedIndex(null);
+      setCurrChkInd(null);
+      setTimeDur('--');
+      setDateDur('--');
+    }
   };
 
   const saveGoneTo = () => {
@@ -100,7 +112,9 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
     hours = hours % 12 || 12;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     console.log('Pressed Date', event, hours + ':' + minutes + ' ' + ampm);
-    setTimeDur(hours + ':' + minutes + ' ' + ampm);
+    if (event.type == 'set') {
+      setTimeDur(hours + ':' + minutes + ' ' + ampm);
+    }
     setCurrTime(time);
   };
 
@@ -110,7 +124,9 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
     let dat = date.getDate();
     let year = date.getFullYear();
     console.log('Pressed Date', event, month + ' ' + dat + ',' + year);
-    setDateDur(month + ' ' + dat + ', ' + year);
+    if (event.type == 'set') {
+      setDateDur(month + ' ' + dat + ', ' + year);
+    }
     setCurrDate(date);
   };
 
@@ -173,7 +189,6 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
                     onPressLeft={() => navigation.navigate('Gone To')}
                     pressEnableLeft={true}
                   />
-                  {/* <CstmMultiLine title="Additional Info" /> */}
                   <ModalField mode="multiline" headingLeft="Additional Info" />
                   <ModalField
                     mode="inlined"

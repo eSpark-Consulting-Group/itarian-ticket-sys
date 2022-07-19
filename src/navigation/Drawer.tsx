@@ -466,7 +466,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
               size={30}
               name="close"
               color={'#fff'}
-              onPress={() => navigation.goBack()}
+              onPress={() => navigation.navigate('Agenda')}
               style={{left: 10}}
             />
           ),

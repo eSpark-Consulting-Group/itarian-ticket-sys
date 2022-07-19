@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, Pressable, FlatList, ToastAndroid} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Pressable, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
@@ -7,15 +7,62 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {SearchBar} from '../../components';
+import {SearchBar, SimpleLoader} from '../../components';
 import {EmptyListMsg} from '../../components';
 import {
   contactsList,
   Contacts as ContactsType,
 } from '../../constants/SampleArrays';
+import {useUpdateEffect} from '../../utils/hooks';
 
 const Contacts = () => {
   const {colors, dark}: Theme = useTheme();
+  const [searchValue, setSearchValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [clear, setClear] = useState(false);
+
+  const [filteredContacts, setFilteredContacts] = useState(contactsList);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    searchFilterFunction(searchValue);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  };
+
+  const searchFilterFunction = (text: string) => {
+    console.log('kia ha search query', text);
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = contactsList.filter(item => {
+        const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredContacts(newData);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredContacts(contactsList);
+    }
+  };
+
+  const handleClear = () => {
+    setSearchValue('');
+    setClear(true);
+  };
+
+  useUpdateEffect(() => {
+    if (clear) {
+      console.log('done');
+      handleSubmit();
+      setClear(false);
+    }
+  }, [clear]);
 
   return (
     <View style={styles.container}>
@@ -28,13 +75,17 @@ const Contacts = () => {
           withTag={false}
           placeholder={'Search Contacts'}
           fontSize={'large'}
-          setChangeText={value => {
-            console.log('what is', value);
-          }}
-          value={''}
+          value={searchValue}
+          setChangeText={value => setSearchValue(value)}
+          onSubmit={handleSubmit}
+          onClear={handleClear}
         />
       </View>
-      <RenderContacts />
+      {loading ? (
+        <SimpleLoader />
+      ) : (
+        <RenderContacts listData={filteredContacts} />
+      )}
     </View>
   );
 };

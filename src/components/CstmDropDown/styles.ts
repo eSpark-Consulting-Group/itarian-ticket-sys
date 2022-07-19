@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {moderateVerticalScale} from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   labelText: {
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   dropDownContainer: {
-    height: 130,
+    height: moderateVerticalScale(150),
     borderRightWidth: 2,
     borderBottomWidth: 2,
     borderLeftWidth: 2,

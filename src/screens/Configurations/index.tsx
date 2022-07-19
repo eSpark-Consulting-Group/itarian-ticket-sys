@@ -1,23 +1,76 @@
-import React, {useState} from 'react';
-import {View, Text, Pressable, FlatList, ToastAndroid} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Pressable, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Theme} from '../../theme/colors';
-import {SearchBar} from '../../components';
-import {EmptyListMsg} from '../../components';
+import {SearchBar, EmptyListMsg, SimpleLoader} from '../../components';
 import {
   configurationsList,
   Configurations as ConfigurationsType,
 } from '../../constants/SampleArrays';
+import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
 
 const Configurations = () => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [clear, setClear] = useState(false);
+
+  const [filteredConfigurations, setFilteredConfigurations] =
+    useState(configurationsList);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    searchFilterFunction(searchValue);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  };
+
+  const searchFilterFunction = (text: string) => {
+    console.log('kia ha search query', text);
+
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = configurationsList.filter(item => {
+        const itemData = `
+              ${item.name.toUpperCase()} 
+              ${item.company_name.toUpperCase()} 
+              ${item.model?.toUpperCase()} 
+              ${item.serial?.toUpperCase()} 
+              ${item.tag?.toUpperCase()}
+            `;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredConfigurations(newData);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredConfigurations(configurationsList);
+    }
+  };
+
+  const handleClear = () => {
+    setSearchValue('');
+    setClear(true);
+  };
+
+  useUpdateEffect(() => {
+    if (clear) {
+      console.log('done');
+      handleSubmit();
+      setClear(false);
+    }
+  }, [clear]);
 
   return (
     <View style={styles.container}>
@@ -32,9 +85,15 @@ const Configurations = () => {
           fontSize={'large'}
           value={searchValue}
           setChangeText={value => setSearchValue(value)}
+          onSubmit={handleSubmit}
+          onClear={handleClear}
         />
       </View>
-      <RenderConfigurations />
+      {loading ? (
+        <SimpleLoader />
+      ) : (
+        <RenderConfigurations listData={filteredConfigurations} />
+      )}
     </View>
   );
 };

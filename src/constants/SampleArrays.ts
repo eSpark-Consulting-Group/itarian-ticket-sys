@@ -1,4 +1,5 @@
 import {ViewStyle} from 'react-native';
+import {project} from '../../react-native.config';
 
 export type Companines = {
   id: string;
@@ -123,6 +124,8 @@ export type Tickets = {
   company: string;
   status: 'New' | 'Off Board' | 'Scheduled';
   priority: 'DNR' | 'P1' | 'P2' | 'P3';
+  phase?: string;
+  project?: string;
 };
 
 export type Opportunities = {
@@ -699,6 +702,8 @@ export const ticketsList: Tickets[] = [
     ticket_summary: 'Need urgent Repairs, and Fixes',
     status: 'New',
     priority: 'P3',
+    phase: 'Tech Prep',
+    project: 'Server Migration',
   },
   {
     ticket_no: 15299,
@@ -708,6 +713,8 @@ export const ticketsList: Tickets[] = [
     ticket_summary: 'Re-supply',
     status: 'Scheduled',
     priority: 'DNR',
+    phase: 'Tech Prep',
+    project: 'Server Migration',
   },
   {
     ticket_no: 15351,
@@ -717,6 +724,8 @@ export const ticketsList: Tickets[] = [
     ticket_summary: 'Recruitment',
     status: 'Scheduled',
     priority: 'P1',
+    phase: 'Tech Prep',
+    project: 'Server Migration',
   },
   {
     ticket_no: 15779,
@@ -725,6 +734,8 @@ export const ticketsList: Tickets[] = [
     ticket_summary: 'Dispose of Waste',
     status: 'Scheduled',
     priority: 'DNR',
+    phase: 'New',
+    project: 'Server Migration',
   },
   {
     ticket_no: 16831,
@@ -734,6 +745,8 @@ export const ticketsList: Tickets[] = [
     ticket_summary: 'Gather Minerals',
     status: 'New',
     priority: 'P2',
+    phase: 'New',
+    project: 'Server Migration',
   },
   {
     ticket_no: 15529,
@@ -742,5 +755,7 @@ export const ticketsList: Tickets[] = [
     ticket_summary: 'Purchasing new Instruments',
     status: 'Scheduled',
     priority: 'P3',
+    phase: 'New',
+    project: 'Server Migration',
   },
 ];

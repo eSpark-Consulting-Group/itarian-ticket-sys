@@ -11,10 +11,12 @@ const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 0.08,
+    // flex: 0.25,
     height: moderateVerticalScale(50, 0),
     flexDirection: 'row',
     marginVertical: 10,
+    overflow: 'hidden',
+
     // height: '50%',
     // width: '100%',
   },

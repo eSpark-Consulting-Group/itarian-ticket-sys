@@ -12,16 +12,51 @@ import {
   contactsList,
   Contacts as ContactsType,
 } from '../../constants/SampleArrays';
+import {useUpdateEffect} from '../../utils/hooks';
 
 const InOutBoardScreen = () => {
   const {colors, dark}: Theme = useTheme();
+  const [searchValue, setSearchValue] = useState('');
   const [selection, setSelection] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [members, setMembers] = useState(Array<ContactsType>);
+  const [clear, setClear] = useState(false);
+
+  const [members, setMembers] = useState<ContactsType[]>();
+
+  const handleSubmit = () => {
+    setIsLoading(true);
+    searchFilterFunction(searchValue);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  };
+
+  const searchFilterFunction = (text: string) => {
+    console.log('kia ha search query', text);
+
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      // console.log('aya filtered memebers', members);
+      const newData = members?.filter(item => {
+        const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setMembers(newData);
+    } else {
+      let membersList = [...contactsList].filter(item => item.inOffice);
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setMembers(membersList);
+    }
+  };
 
   const handleSwitch = () => {
     if (selection == 1) {
-      let news = [...contactsList].filter((item) => !item.inOffice);
+      let news = [...contactsList].filter(item => !item.inOffice);
       setMembers(news);
       setSelection(2);
     } else if (selection == 2) {
@@ -29,15 +64,28 @@ const InOutBoardScreen = () => {
       setMembers(news);
       setSelection(1);
     } else {
-      return
+      return;
     }
   };
 
+  const handleClear = () => {
+    setSearchValue('');
+    setClear(true);
+  };
+
+  useUpdateEffect(() => {
+    if (clear) {
+      console.log('done');
+      handleSubmit();
+      setClear(false);
+    }
+  }, [clear]);
+
   useEffect(() => {
-    let news = [...contactsList].filter(item => item.inOffice);
-    setMembers(news);
+    let membersList = [...contactsList].filter(item => item.inOffice);
+    setMembers(membersList);
     setIsLoading(false);
-  }, [])
+  }, []);
 
   useEffect(() => {
     console.log('Current Selection', selection);
@@ -50,7 +98,9 @@ const InOutBoardScreen = () => {
           <Text
             style={{
               color: colors.text,
-            }}>{item.name}</Text>
+            }}>
+            {item.name}
+          </Text>
         </View>
         {index !== contactsList.length - 1 && (
           <Divider
@@ -72,6 +122,10 @@ const InOutBoardScreen = () => {
           withTag={false}
           placeholder={'Search Members...'}
           fontSize={'large'}
+          value={searchValue}
+          setChangeText={value => setSearchValue(value)}
+          onSubmit={handleSubmit}
+          onClear={handleClear}
         />
       </View>
       <View
@@ -96,14 +150,13 @@ const InOutBoardScreen = () => {
           />
         </View>
       </View>
-      { isLoading ?
-        <SimpleLoader/> :
-        contactsList.length !== 0 ? (
-          <FlatList data={members} renderItem={renderList} />
-          ) : (
-            <NotFound />
-            )
-          }
+      {isLoading ? (
+        <SimpleLoader />
+      ) : members?.length !== 0 ? (
+        <FlatList data={members} renderItem={renderList} />
+      ) : (
+        <NotFound />
+      )}
     </View>
   );
 };

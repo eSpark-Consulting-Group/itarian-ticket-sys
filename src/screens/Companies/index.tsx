@@ -1,10 +1,10 @@
+import React, {useState} from 'react';
 import {View, Text, FlatList, Pressable} from 'react-native';
-import React from 'react';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-import {SearchBar} from '../../components';
+import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
 import {Colors, Theme} from '../../theme/colors';
 import {EmptyListMsg} from '../../components';
@@ -12,9 +12,56 @@ import {
   companiesList,
   Companines as CompanyType,
 } from '../../constants/SampleArrays';
+import {useUpdateEffect} from '../../utils/hooks';
 
 const Companies = () => {
   const {colors, dark}: Theme = useTheme();
+  const [searchValue, setSearchValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [clear, setClear] = useState(false);
+
+  const [filteredCompanies, setFilteredCompanies] = useState(companiesList);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    searchFilterFunction(searchValue);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  };
+
+  const searchFilterFunction = (text: string) => {
+    console.log('kia ha search query', text);
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = companiesList.filter(item => {
+        const itemData = `${item.name.toUpperCase()} ${item.id.toUpperCase()}`;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredCompanies(newData);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredCompanies(companiesList);
+    }
+  };
+
+  const handleClear = () => {
+    setSearchValue('');
+    setClear(true);
+  };
+
+  useUpdateEffect(() => {
+    if (clear) {
+      console.log('done');
+      handleSubmit();
+      setClear(false);
+    }
+  }, [clear]);
 
   return (
     <View style={styles.container}>
@@ -27,11 +74,17 @@ const Companies = () => {
           withTag={false}
           placeholder={'Search Companies'}
           fontSize={'large'}
-          value={''}
-          setChangeText={value => console.log('what', value)}
+          value={searchValue}
+          setChangeText={value => setSearchValue(value)}
+          onSubmit={handleSubmit}
+          onClear={handleClear}
         />
       </View>
-      <RenderCompanies />
+      {loading ? (
+        <SimpleLoader />
+      ) : (
+        <RenderCompanies listData={filteredCompanies} />
+      )}
     </View>
   );
 };

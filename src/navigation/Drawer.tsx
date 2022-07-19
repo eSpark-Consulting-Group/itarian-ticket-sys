@@ -142,12 +142,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             props.navigation.navigate('Login');
           }}
         />
-        <View style={{}}>
-          <Text
-            style={{fontSize: height * 0.02, fontFamily: 'sans-serif-medium'}}>
-            Build version (0.02.4)
-          </Text>
-        </View>
+        <Text style={{fontSize: 12, fontFamily: 'sans-serif-medium'}}>
+          Build version (0.02.6)
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -351,6 +348,28 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="PBoard"
         component={ProjectBoard}
         options={{
+          headerRight: () => (
+            <View style={{flexDirection: 'row', right: 10}}>
+              <AD
+                size={30}
+                name="filter"
+                color={'#ffffff'}
+                onPress={() => console.log('Filter')}
+              />
+              <Badge
+                size={15}
+                style={{
+                  position: 'absolute',
+                  zIndex: 1,
+                  right: -5,
+                  top: -5,
+                  backgroundColor: '#dc1e1e',
+                  fontWeight: 'bold',
+                }}>
+                33
+              </Badge>
+            </View>
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Project Board</Text>
           ),
@@ -526,20 +545,21 @@ const styles = StyleSheet.create({
   },
   content: {
     // flex: 2.5,
-    height: moderateVerticalScale(396, 1.62),
+    height: moderateVerticalScale(390, 1.55),
   },
   footer: {
     // flex: 3.5,
-    height: moderateVerticalScale(180, 0),
+    height: moderateVerticalScale(185, 0.2),
     justifyContent: 'flex-end',
-    // backgroundColor: 'teal',
     borderTopWidth: 1,
     borderColor: '#fff',
   },
   footerDrawerStyle: {
     opacity: 0.75,
     right: 20,
-    // fontSize: height * 0.02,
   },
-  drawerTitleStyle: {fontWeight: '700', color: '#fff'},
+  drawerTitleStyle: {
+    fontWeight: '700',
+    color: '#fff',
+  },
 });

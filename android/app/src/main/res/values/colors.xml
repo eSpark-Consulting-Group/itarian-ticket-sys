@@ -2,4 +2,5 @@
 <resources>
     <color name="bootsplash_background">#F7F7F7</color>
     <color name="app_bg">#F7F7F7</color>
+    <color name="itarian_blue">#28648f</color>
 </resources>

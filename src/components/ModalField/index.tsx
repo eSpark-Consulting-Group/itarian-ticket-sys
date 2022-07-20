@@ -26,6 +26,8 @@ const ModalField = ({
   iconRight,
   switchRight,
   switch_val,
+  pressEnable,
+  onPress,
   iconLeft,
   pressEnableLeft,
   onPressLeft,
@@ -52,6 +54,8 @@ const ModalField = ({
   switchRight?: boolean;
   switch_val?: boolean;
   onToggleSwitch?: () => void;
+  pressEnable?: boolean;
+  onPress?: () => void;
   iconLeft?: string;
   pressEnableLeft?: boolean;
   onPressLeft?: () => void;
@@ -73,7 +77,9 @@ const ModalField = ({
   return (
     <>
       {mode == 'inlined' && (
-        <View
+        <TouchableOpacity
+          disabled={!pressEnable}
+          onPress={onPress}
           style={{
             ...styles.inllineDisplay,
             backgroundColor: dark ? '#0000008a' : '#ffffff8a',
@@ -156,7 +162,10 @@ const ModalField = ({
               </TouchableOpacity>
             )}
           </TouchableOpacity>
-        </View>
+          {pressEnable && (
+            <II name="chevron-forward" color={colors.text} size={20} />
+          )}
+        </TouchableOpacity>
       )}
       {mode == 'multiline' && (
         <View

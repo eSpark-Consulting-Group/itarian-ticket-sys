@@ -76,6 +76,7 @@ export type AdditionalButtons = {
   label: string;
   color: string;
   style: any;
+  labelTextColor?: string;
   labelStyle: object;
   onPress: () => void;
 };
@@ -495,6 +496,7 @@ export const SchAdditionalButtons: Array<AdditionalButtons> = [
     label: 'Add Activity',
     color: '#FFF',
     style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed star'),
   },
@@ -503,7 +505,8 @@ export const SchAdditionalButtons: Array<AdditionalButtons> = [
     label: 'Add Misc Schedule',
     color: '#FFF',
     style: AdditionalButtonStyle,
-    labelStyle: {backgroundColor: '#fff'},
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff', color: '#000'},
     onPress: () => console.log('Pressed email'),
   },
   {
@@ -511,7 +514,8 @@ export const SchAdditionalButtons: Array<AdditionalButtons> = [
     label: 'Add Ticket',
     color: '#FFF',
     style: AdditionalButtonStyle,
-    labelStyle: {backgroundColor: '#fff'},
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff', color: '#000'},
     onPress: () => console.log('Pressed notifications'),
   },
 ];
@@ -522,6 +526,7 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
     label: 'Add Activity',
     color: '#FFF',
     style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed star'),
   },
@@ -530,6 +535,7 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
     label: 'Add Misc Schedule',
     color: '#FFF',
     style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed email'),
   },
@@ -538,6 +544,7 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
     label: 'Add Ticket',
     color: '#FFF',
     style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed notifications'),
   },

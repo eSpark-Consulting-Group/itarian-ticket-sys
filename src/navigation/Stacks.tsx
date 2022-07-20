@@ -186,8 +186,8 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
                         ? goneToArray[checkedIndex].name
                         : 'Please Select'
                     }
-                    onPressLeft={() => navigation.navigate('Gone To')}
-                    pressEnableLeft={true}
+                    onPress={() => navigation.navigate('Gone To')}
+                    pressEnable={true}
                   />
                   <ModalField mode="multiline" headingLeft="Additional Info" />
                   <ModalField
@@ -207,6 +207,7 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
               )}
               {showTime && (
                 <DateTimePicker
+                  accentColor={colors.primary}
                   mode="time"
                   value={currTime}
                   onChange={closeTImePicker}

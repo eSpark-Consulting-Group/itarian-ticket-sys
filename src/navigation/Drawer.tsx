@@ -87,7 +87,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
             <Avatar.Image
-              size={moderateScale(65, 0.5)}
+              size={moderateVerticalScale(65, 0.5)}
               source={require('../assets/images/avatar.png')}
             />
           </View>
@@ -527,7 +527,7 @@ export default Draw;
 const styles = StyleSheet.create({
   header: {
     // flex: 0.5,
-    height: moderateVerticalScale(80, 0.5),
+    // height: moderateVerticalScale(80, 0.5),
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -539,17 +539,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   avatar: {
-    height: moderateScale(65, 0.5),
-    width: moderateScale(65, 0.5),
+    height: moderateVerticalScale(65, 0.5),
+    width: moderateVerticalScale(65, 0.5),
     borderRadius: 100,
   },
   content: {
     // flex: 2.5,
-    height: moderateVerticalScale(390, 1.55),
+    height: moderateVerticalScale(400, 1.63),
   },
   footer: {
     // flex: 3.5,
-    height: moderateVerticalScale(185, 0.2),
+    height: moderateVerticalScale(180, 0),
     justifyContent: 'flex-end',
     borderTopWidth: 1,
     borderColor: '#fff',

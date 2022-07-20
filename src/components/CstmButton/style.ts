@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 10,
     overflow: 'hidden',
-
     // height: '50%',
     // width: '100%',
   },

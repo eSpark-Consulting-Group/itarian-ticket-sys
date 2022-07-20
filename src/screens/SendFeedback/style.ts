@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // paddingVertical: 8,
     paddingHorizontal: 14,
+    marginTop: 10,
     // backgroundColor: 'teal',
     overflow: 'hidden',
   },

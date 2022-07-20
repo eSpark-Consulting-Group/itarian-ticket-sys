@@ -68,7 +68,7 @@ const ModalForm = ({
       style={{
         flex: 1,
         justifyContent: 'flex-start',
-        backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+        backgroundColor: colors.background,
       }}>
       {children}
     </View>

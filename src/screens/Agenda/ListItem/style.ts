@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     width: WINDOW_WIDTH,
     marginVertical: 10,
-    marginHorizontal: 20,
+    marginLeft: 20,
   },
   itemContentContainer: {flexDirection: 'row', marginVertical: 15},
   itemContentIconContainer: {

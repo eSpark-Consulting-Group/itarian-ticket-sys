@@ -9,7 +9,7 @@ import {Theme} from '../../theme/colors';
 const CstmButton = ({title, onPress}: {title: string; onPress: () => void}) => {
   const {colors}: Theme = useTheme();
   return (
-    <View style={{flex: 0.5, overflow: 'hidden'}}>
+    <View>
       <View style={styles.container}>
         {/* <---- Adjuster from Left ---> */}
         <View style={styles.adjuster} />

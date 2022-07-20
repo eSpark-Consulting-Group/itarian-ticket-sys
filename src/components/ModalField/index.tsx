@@ -13,6 +13,7 @@ import ModalForm from '../ModalForm';
 import {Checkbox, Switch, TextInput} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
 import styles from './style';
+import CstmMultiLine from '../CstmMultiLineInput';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,12 +68,16 @@ const ModalField = ({
   select_Date?: boolean;
   select_Time?: boolean;
 }) => {
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
 
   return (
     <>
       {mode == 'inlined' && (
-        <View style={styles.inllineDisplay}>
+        <View
+          style={{
+            ...styles.inllineDisplay,
+            backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+          }}>
           <TouchableOpacity disabled={!pressEnableLeft} onPress={onPressLeft}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               {iconLeft && <II name={iconLeft} color={colors.text} size={15} />}
@@ -125,9 +130,9 @@ const ModalField = ({
             {switchRight && (
               <Switch
                 value={switch_val}
-                // style={{marginRight: 5}}
-                // color={colors.primary}
-                // thumbColor={colors.primary}
+                style={{marginRight: 5}}
+                color={colors.primary}
+                thumbColor={colors.primary}
                 onValueChange={onToggleSwitch}
                 trackColor={{true: '#5b57578f', false: '#5b57578f'}}
               />
@@ -136,6 +141,7 @@ const ModalField = ({
               <View>
                 <Checkbox
                   status={checkBox_Val ? checkBox_Val : 'unchecked'}
+                  color={colors.primary}
                   onPress={onCheckPress}
                 />
               </View>
@@ -153,8 +159,13 @@ const ModalField = ({
         </View>
       )}
       {mode == 'multiline' && (
-        <View style={styles.multilineDisplay}>
-          <Text style={{marginTop: 5, color: colors.text}}>{headingLeft}</Text>
+        <View
+          style={{
+            ...styles.multilineDisplay,
+            backgroundColor: dark ? '#0000008a' : '#ffffff8a',
+          }}>
+          <CstmMultiLine title={headingLeft} />
+          {/* <Text style={{marginTop: 5, color: colors.text}}>{headingLeft}</Text>
           <TextInput
             mode="outlined"
             multiline
@@ -162,7 +173,7 @@ const ModalField = ({
             style={{flex: 0.9, backgroundColor: colors.background}}
             theme={{colors: {primary: colors.primary}}}
             // onChangeText={txt => inputVal.set(txt)}
-          />
+          /> */}
         </View>
       )}
     </>

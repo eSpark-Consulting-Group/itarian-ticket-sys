@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 5,
+    elevation: 1,
   },
   blockDisplay: {
     backgroundColor: '#fff',
@@ -31,10 +31,11 @@ const styles = StyleSheet.create({
   },
   multilineDisplay: {
     backgroundColor: '#fff',
-    height: moderateVerticalScale(120, 0),
+    // height: moderateVerticalScale(120, 0),
     paddingHorizontal: 15,
+    paddingVertical: 5,
     marginBottom: 10,
-    elevation: 5,
+    elevation: 1,
   },
   inlineIconBtn: {
     borderRadius: 1000,

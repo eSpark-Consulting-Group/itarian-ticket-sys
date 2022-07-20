@@ -15,12 +15,12 @@ import {globalState} from '../utils/globalState';
 
 import {ModalField, ModalForm} from '../components';
 import {GoneToFormArray, StatusFormArray} from '../constants/SampleArrays';
-import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
 const Stack = createNativeStackNavigator();
 
 const Stacks = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
+  const [prevVal, setPrevVal] = useState(false);
   const [switchVal, setSwitchVal] = useState(false);
   const [showTime, setShowTime] = useState(false);
   const [showDate, setShowDate] = useState(false);
@@ -28,6 +28,7 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
   const [timeDur, setTimeDur] = useState('--');
   const [dateDur, setDateDur] = useState('--');
   const [currDate, setCurrDate] = useState(new Date());
+  const [currChkInd, setCurrChkInd] = useState<number | null>(null);
   const [checkedIndex, setCheckedIndex] = useState<number | null>(null);
   const [goneToArray, setGoneToArray] = useState([
     {
@@ -59,50 +60,47 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
       check: 'unchecked',
     },
   ]);
-  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
-  const currStatus: State<boolean> = hookState(globalState.currentStatus);
-  const oldGoneToValue: State<string> = hookState(globalState.prevGoneTo);
-  const goneToValue: State<string> = hookState(globalState.currentGoneTo);
-  const oldInputVal: State<string> = hookState(globalState.oldAddInputVal);
-  const inputVal: State<string> = hookState(globalState.additionalInputVal);
+  const currStatusVal: State<boolean> = hookState(globalState.currentStatus);
 
   const saveStatus = () => {
-    console.log('Save Value', oldInputVal.get(), inputVal.get());
-    if (switchValue.get() == true) {
-      currStatus.set(false);
-      oldInputVal.set(inputVal.get());
-      navigation.navigate('My Profile');
-    } else {
-      currStatus.set(true);
-      navigation.navigate('My Profile');
+    setPrevVal(switchVal);
+    currStatusVal.set(switchVal);
+    navigation.navigate({
+      name: 'Profile',
+      params: {status: switchVal},
+      merge: true,
+    });
+    if (switchVal == false) {
+      setCheckedIndex(null);
+      setCurrChkInd(null);
+      setTimeDur('--');
+      setDateDur('--');
     }
   };
 
   const backStatus = () => {
-    console.log('Back Value', oldInputVal.get(), inputVal.get());
-    if (currStatus.get() == false && switchValue.get() == false) {
-      inputVal.set(oldInputVal.get());
-      switchValue.set(true);
-      navigation.navigate('My Profile');
-    } else if (currStatus.get() == true && switchValue.get() == true) {
-      inputVal.set(oldInputVal.get());
-      switchValue.set(false);
-      navigation.navigate('My Profile');
-    } else {
-      inputVal.set(oldInputVal.get());
-      navigation.navigate('My Profile');
+    setSwitchVal(prevVal);
+    currStatusVal.set(prevVal);
+    navigation.navigate({
+      name: 'Profile',
+      params: {status: prevVal},
+      merge: true,
+    });
+    if (prevVal == false) {
+      setCheckedIndex(null);
+      setCurrChkInd(null);
+      setTimeDur('--');
+      setDateDur('--');
     }
   };
 
   const saveGoneTo = () => {
-    console.log('Save Status', goneToValue.get(), oldGoneToValue.get());
-    oldGoneToValue.set(goneToValue.get());
+    setCheckedIndex(currChkInd);
     navigation.navigate('My Status');
   };
 
   const backGoneTo = () => {
-    console.log('Back Status', goneToValue.get(), oldGoneToValue.get());
-    goneToValue.set(oldGoneToValue.get());
+    setCurrChkInd(checkedIndex);
     navigation.navigate('My Status');
   };
 
@@ -114,16 +112,21 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
     hours = hours % 12 || 12;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     console.log('Pressed Date', event, hours + ':' + minutes + ' ' + ampm);
-    setTimeDur(hours + ':' + minutes + ' ' + ampm);
+    if (event.type == 'set') {
+      setTimeDur(hours + ':' + minutes + ' ' + ampm);
+    }
     setCurrTime(time);
   };
+
   const closeDatePicker = (event: any, date: any) => {
     setShowDate(false);
     let month = date.toString().slice(4, 7);
     let dat = date.getDate();
     let year = date.getFullYear();
     console.log('Pressed Date', event, month + ' ' + dat + ',' + year);
-    setDateDur(month + ' ' + dat + ', ' + year);
+    if (event.type == 'set') {
+      setDateDur(month + ' ' + dat + ', ' + year);
+    }
     setCurrDate(date);
   };
 
@@ -178,7 +181,11 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
                   <ModalField
                     mode="inlined"
                     headingLeft="Gone To"
-                    subHeadingLeft="Please Select"
+                    subHeadingLeft={
+                      checkedIndex != null
+                        ? goneToArray[checkedIndex].name
+                        : 'Please Select'
+                    }
                     onPressLeft={() => navigation.navigate('Gone To')}
                     pressEnableLeft={true}
                   />
@@ -240,8 +247,8 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
                   mode="inlined"
                   headingLeft={item.name}
                   checkBoxRight
-                  checkBox_Val={checkedIndex == index ? 'checked' : 'unchecked'}
-                  onCheckPress={() => setCheckedIndex(index)}
+                  checkBox_Val={currChkInd == index ? 'checked' : 'unchecked'}
+                  onCheckPress={() => setCurrChkInd(index)}
                 />
               ))}
             </ModalForm>

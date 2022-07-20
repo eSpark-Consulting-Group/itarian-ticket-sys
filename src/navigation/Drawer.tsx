@@ -142,7 +142,12 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             props.navigation.navigate('Login');
           }}
         />
-        <Text style={{fontSize: 12, fontFamily: 'sans-serif-medium'}}>
+        <Text
+          style={{
+            fontSize: 12,
+            fontFamily: 'sans-serif-medium',
+            color: '#ffffff',
+          }}>
           Build version (0.02.6)
         </Text>
       </View>

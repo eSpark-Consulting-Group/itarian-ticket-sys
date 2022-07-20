@@ -26,6 +26,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import App2 from './src/navigation/RootNavigation';
 
 const Section: React.FC<{
   title: string;
@@ -112,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default App2;

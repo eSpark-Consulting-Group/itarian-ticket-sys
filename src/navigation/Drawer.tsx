@@ -353,6 +353,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="PBoard"
         component={ProjectBoard}
         options={{
+          title: 'Project Board',
           headerRight: () => (
             <View style={{flexDirection: 'row', right: 10}}>
               <AD
@@ -387,6 +388,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="MyActivities"
         component={MyActivities}
         options={{
+          title: 'My Activities',
           headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>My Activities</Text>
@@ -434,6 +436,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="IOBoard"
         component={InOutBoard}
         options={{
+          title: 'In/Out Board',
           headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>In/Out Board</Text>
@@ -447,6 +450,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="ExpReports"
         component={ExpenseReports}
         options={{
+          title: 'Expense Reports',
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Expense Reports</Text>
           ),
@@ -459,6 +463,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="TimeSheets"
         component={TimeSheets}
         options={{
+          title: 'Time Sheets',
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Time Sheets</Text>
           ),

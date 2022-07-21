@@ -482,6 +482,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <Ionicons name="ios-stopwatch" size={size} color={color} />
           ),
+          headerRight: noHeader,
         }}
       />
       <Drawer.Screen

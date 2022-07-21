@@ -6,9 +6,11 @@ const styles = StyleSheet.create({
   itemContainer: {
     width: WINDOW_WIDTH,
     marginVertical: 10,
-    marginLeft: 20,
   },
-  itemContentContainer: {flexDirection: 'row', marginVertical: 15},
+  itemContentContainer: {
+    flexDirection: 'row',
+    marginVertical: 15,
+  },
   itemContentIconContainer: {
     width: '10%',
     marginRight: 10,
@@ -35,9 +37,10 @@ const styles = StyleSheet.create({
   },
   divider: {
     width: WINDOW_WIDTH,
-    transform: [{scaleY: 2}],
-    marginVertical: 5,
+    transform: [{scaleY: 1}],
+    // marginVertical: 5,
     opacity: 0.5,
+    backgroundColor: '#999',
   },
 });
 

@@ -1,6 +1,9 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ViewStyle} from 'react-native';
-import {project} from '../../react-native.config';
+
+/*
+//* Types for all list Data (will be moved to another file in the Future)
+*/
 
 export type Companines = {
   id: string;
@@ -140,6 +143,43 @@ export type Opportunities = {
   status: string;
   close_date: string;
 };
+
+export type ParamList = {
+  Agenda: undefined;
+  Search: undefined;
+  Profile: {
+    status: boolean;
+  };
+  Forms: undefined;
+  Calendar: undefined;
+  Companies: undefined;
+  Contacts: undefined;
+  Configurations: undefined;
+  SBoard: undefined;
+  PBoard: undefined;
+  MyActivities: undefined;
+  Opportunities: undefined;
+  IOBoard: undefined;
+  ExpReports: undefined;
+  TimeSheets: undefined;
+  StopWatch: undefined;
+  Settings: undefined;
+  Feedback: undefined;
+};
+
+export type Stopwatch = {
+  ticket_no: string;
+  ticket_summary: string;
+  created_at: string;
+  timer: string;
+  isPlaying?: boolean;
+};
+
+//! ---------------------------------------
+
+/*
+//* Sample Array List Disposable in the Future
+*/
 
 export const AdditionalButtonStyle = {
   backgroundColor: '#28648f',
@@ -768,25 +808,19 @@ export const ticketsList: Tickets[] = [
   },
 ];
 
-export type ParamList = {
-  Agenda: undefined;
-  Search: undefined;
-  Profile: {
-    status: boolean;
-  };
-  Forms: undefined;
-  Calendar: undefined;
-  Companies: undefined;
-  Contacts: undefined;
-  Configurations: undefined;
-  SBoard: undefined;
-  PBoard: undefined;
-  MyActivities: undefined;
-  Opportunities: undefined;
-  IOBoard: undefined;
-  ExpReports: undefined;
-  TimeSheets: undefined;
-  StopWatch: undefined;
-  Settings: undefined;
-  Feedback: undefined;
-};
+export const stopWatchList: Stopwatch[] = [
+  {
+    ticket_no: '12348',
+    ticket_summary: 'Checking for Mantaince',
+    created_at: '20, June 2021',
+    timer: '00:13:42',
+    isPlaying: false,
+  },
+  {
+    ticket_no: '56231',
+    ticket_summary: 'Team Prep Authorization',
+    created_at: '26, August 2019',
+    timer: '00:08:10',
+    isPlaying: false,
+  },
+];

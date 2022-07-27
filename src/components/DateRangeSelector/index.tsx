@@ -2,14 +2,27 @@ import {View, Text, Pressable} from 'react-native';
 import React, {useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import FA from 'react-native-vector-icons/FontAwesome';
-
-import {Theme} from '../../theme/colors';
-
 import DatePicker from '@react-native-community/datetimepicker';
 
-const DateRangeSelector = ({fetchData}: {fetchData: (date: any) => void}) => {
+import {Theme} from '../../theme/colors';
+import styles from './style';
+
+const DateRangeSelector = ({
+  fetchData,
+  total,
+}: {
+  fetchData: (date1: Date, date2: Date) => void;
+  total?: string | number;
+}) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
+  const [currDate, setCurrDate] = useState(new Date());
+  const [maxDate, setMaxDate] = useState(
+    new Date(currDate.setDate(currDate.getDate() + 30)),
+  );
+  const [minDate, setMinDate] = useState(
+    new Date(currDate.setDate(currDate.getDate() - 60)),
+  );
   const [startDate, setStartDate] = useState<undefined | Date>();
   const [startDateVal, setStartDateVal] = useState('--');
   const [endDateVal, setEndDateVal] = useState('--');
@@ -34,7 +47,7 @@ const DateRangeSelector = ({fetchData}: {fetchData: (date: any) => void}) => {
       if (startDate) {
         console.log('got Start Date');
         setEndDateVal(month + ' ' + dat);
-        fetchData(date);
+        fetchData(startDate, date);
       } else {
         setImmediate(() => {
           console.log('Dobara Chala kia');
@@ -52,7 +65,8 @@ const DateRangeSelector = ({fetchData}: {fetchData: (date: any) => void}) => {
         <DatePicker
           mode="date"
           value={startDate ? startDate : new Date()}
-          minimumDate={startDate}
+          minimumDate={startDate ? startDate : minDate}
+          maximumDate={maxDate}
           onChange={closeDatePicker}
           positiveButtonLabel={
             startDate ? 'Confirm End Date' : 'Confirm Start Date'
@@ -62,16 +76,7 @@ const DateRangeSelector = ({fetchData}: {fetchData: (date: any) => void}) => {
       <Pressable
         onPress={openDatePicker}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}
-        style={{
-          height: '10%',
-          width: '100%',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          backgroundColor: '#f5f5f5',
-          elevation: 2,
-          paddingHorizontal: 20,
-        }}>
+        style={styles.container}>
         <View>
           <Text style={{color: colors.text}}>
             {startDate
@@ -79,7 +84,7 @@ const DateRangeSelector = ({fetchData}: {fetchData: (date: any) => void}) => {
               : 'Select Date Range'}
           </Text>
           <Text style={{color: '#28648f', fontWeight: 'bold'}}>
-            {startDate ? '1846.00' : '0.00'}
+            {total ? total : '0.00'}
           </Text>
         </View>
         <FA color={colors.text} name="chevron-down" size={15} />

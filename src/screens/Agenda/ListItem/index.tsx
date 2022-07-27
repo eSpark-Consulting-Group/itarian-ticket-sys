@@ -10,7 +10,19 @@ import {DateSeparator} from '../../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-const ListItem = ({item, id}: {item: any; id: number}) => {
+export type dates = {
+  date: Date;
+};
+
+const ListItem = ({
+  item,
+  id,
+  dateRange,
+}: {
+  item: any;
+  id: number;
+  dateRange?: Array<dates>;
+}) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderData = (item2: any, ind: number) => {
@@ -93,11 +105,26 @@ const ListItem = ({item, id}: {item: any; id: number}) => {
 
   return (
     <View key={id} style={styles.itemContainer}>
-      <DateSeparator text={item.date} />
-      <FlatList
-        data={item.data}
-        renderItem={({item, index}) => renderData(item, index)}
-      />
+      {dateRange ? (
+        item.date > dateRange[0].date &&
+        item.date < dateRange[1].date && (
+          <>
+            <DateSeparator text={item.date.toString()} />
+            <FlatList
+              data={item.data}
+              renderItem={({item, index}) => renderData(item, index)}
+            />
+          </>
+        )
+      ) : (
+        <>
+          <DateSeparator text={item.date.toString()} />
+          <FlatList
+            data={item.data}
+            renderItem={({item, index}) => renderData(item, index)}
+          />
+        </>
+      )}
     </View>
   );
 };

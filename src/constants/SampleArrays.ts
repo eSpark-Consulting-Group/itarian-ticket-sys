@@ -159,6 +159,7 @@ export type Opportunities = {
 };
 
 export type ParamList = {
+  FSLoader: undefined;
   Agenda: undefined;
   Search: undefined;
   Profile: {

@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
-  Button,
   Image,
   KeyboardAvoidingView,
   ScrollView,
@@ -17,7 +15,6 @@ import * as Yup from 'yup';
 import styles from './style';
 import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
-import {moderateVerticalScale} from 'react-native-size-matters';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   textStyle: {
     margin: 10,
     fontSize: 20,
-    color: 'rgb(231, 110, 80)',
+    color: '#28648f',
   },
 });
 

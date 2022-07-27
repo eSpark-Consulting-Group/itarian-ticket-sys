@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,6 +8,8 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
+  Linking,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -34,6 +36,7 @@ import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {State, useState as hookState} from '@hookstate/core';
 import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar, Badge} from 'react-native-paper';
+import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -159,12 +162,24 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
-  // const history = useNavigationState(state => state);
-  // console.log('HIstory', history);
+
+  const handleColdBoot = (data: ShortcutItem) => {
+    const {userInfo} = data;
+    console.log('chala coldboot', userInfo?.url);
+    Linking.openURL(userInfo?.url);
+  };
+
+  useEffect(() => {
+    QuickActions.popInitialAction()
+      .then(data => {
+        if (data != null) handleColdBoot(data);
+      })
+      .catch(err => console.log('err', err));
+  }, []);
 
   return (
     <Drawer.Navigator
-      initialRouteName="Agenda"
+      initialRouteName={'Agenda'}
       useLegacyImplementation={true}
       backBehavior="history"
       drawerContent={props => <DrawerContent {...props} />}
@@ -204,6 +219,13 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           />
         ),
       }}>
+      <Drawer.Screen
+        name="FSLoader"
+        component={FSLoader}
+        options={{
+          drawerItemStyle: {display: 'none'},
+        }}
+      />
       <Drawer.Screen
         name="Search"
         component={Search}
@@ -533,6 +555,15 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
   );
 };
 
+const FSLoader = () => {
+  const {dark, colors} = useTheme();
+  return (
+    <View style={{backgroundColor: colors.background, ...styles.loading}}>
+      <ActivityIndicator size="large" color={colors.primary} />
+    </View>
+  );
+};
+
 export default Draw;
 
 const styles = StyleSheet.create({
@@ -572,5 +603,14 @@ const styles = StyleSheet.create({
   drawerTitleStyle: {
     fontWeight: '700',
     color: '#fff',
+  },
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

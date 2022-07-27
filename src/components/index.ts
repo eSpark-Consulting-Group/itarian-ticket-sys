@@ -13,6 +13,7 @@ import SimpleLoader from './SimpleLoader';
 import OutlineBtn from './OutlineBtn';
 import CstmDropDown from './CstmDropDown';
 import CstmMultiLine from './CstmMultiLineInput';
+import DateRangeSelector from './DateRangeSelector';
 
 export {
   CstmButton,
@@ -30,4 +31,5 @@ export {
   OutlineBtn,
   CstmDropDown,
   CstmMultiLine,
+  DateRangeSelector
 };

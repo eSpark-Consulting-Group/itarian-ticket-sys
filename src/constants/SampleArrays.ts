@@ -55,6 +55,14 @@ export type Unscheduled_Data = {
   location: string;
 };
 
+export type ExpRprt_Data = {
+  id: number;
+  ticket_no: string;
+  task: string;
+  totExp: string;
+  expType: string;
+};
+
 export type ScheduledList = {
   id: number;
   date: string;
@@ -65,6 +73,12 @@ export type UnscheduledList = {
   id: number;
   date: string;
   data: Array<Unscheduled_Data>;
+};
+
+export type ExpReportList = {
+  id: number;
+  date: string;
+  data: Array<ExpRprt_Data>;
 };
 
 export type FloatButtons = {
@@ -401,6 +415,49 @@ export const activitiesList: Array<Activity> = [
     start_time: '10:00 AM',
     end_time: '11:45 AM',
     company_contact: '+555 5555 555',
+  },
+];
+
+export const expReportList: Array<ExpReportList> = [
+  {
+    id: 1,
+    date: 'Monday, November 13',
+    data: [
+      {
+        id: 1,
+        ticket_no: 'Ticket #15340',
+        task: 'Config Service History # 2',
+        totExp: '$119.00',
+        expType: 'Parts ',
+      },
+      {
+        id: 2,
+        ticket_no: 'Ticket #15346',
+        task: 'Weekly Team Meeting',
+        totExp: '$456.00',
+        expType: 'Miscellaneous',
+      },
+      {
+        id: 3,
+        ticket_no: 'Ticket #16357',
+        task: 'New Server Installation',
+        totExp: '$148.00',
+        expType: 'Equipments',
+      },
+    ],
+  },
+  {
+    id: 2,
+    date: 'Monday, November 16',
+    data: [
+      {
+        id: 4,
+        ticket_no: 'Ticket #18464',
+        task: 'Products for Exchange Server',
+        totExp: '$1123.00',
+        expType: 'Products',
+      },
+    ],
   },
 ];
 

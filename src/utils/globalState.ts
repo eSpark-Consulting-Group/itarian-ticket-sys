@@ -4,7 +4,7 @@ import {Stopwatch} from '../constants/SampleArrays';
 export const globalState = createState({
   theme: 'light',
   statusSwitch: false,
-  currentStatus: true,
+  currentStatus: false,
   prevGoneTo: '',
   currentGoneTo: '',
   searchTag: 'tickets',

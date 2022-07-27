@@ -32,37 +32,6 @@ const ModalForm = ({
   const inputVal: State<string> = hookState(globalState.additionalInputVal);
   const oldDate: State<string> = hookState(globalState.oldStatusDate);
 
-  useEffect(() => {
-    let data = [...fieldsArray];
-    if (data[0]?.formName == 'My Status') {
-      myStatus(data);
-    }
-  }, [oldGoneToValue.get(), switchValue.get(), inputVal.get(), oldDate.get()]);
-
-  const myStatus = (data: any) => {
-    data.map((i: any) => {
-      if (i.data.visible != undefined) {
-        if (switchValue.get() == true) {
-          i.data.visible = true;
-          setFieldsData(data);
-        } else if (switchValue.get() == false) {
-          i.data.visible = false;
-          setFieldsData(data);
-        }
-      }
-      if (i.data.headingLeft == 'Gone To') {
-        i.data.subHeadingLeft =
-          oldGoneToValue.get() == '' ? 'Please Select' : oldGoneToValue.get();
-        setFieldsData(data);
-      }
-      // if (i.data.headingLeft == 'Date Back' && showDate == true) {
-      //   console.log('Date String', currDate.toDateString());
-      //   i.data.subHeadingLeft = currDate.toDateString();
-      // }
-      console.log('i.select_Date showDate', i.data.select_Date, showDate);
-    });
-  };
-
   return (
     <View
       style={{

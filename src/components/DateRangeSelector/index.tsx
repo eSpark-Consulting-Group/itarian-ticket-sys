@@ -76,7 +76,7 @@ const DateRangeSelector = ({
       <Pressable
         onPress={openDatePicker}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}
-        style={styles.container}>
+        style={{...styles.container, backgroundColor: colors.card}}>
         <View>
           <Text style={{color: colors.text}}>
             {startDate

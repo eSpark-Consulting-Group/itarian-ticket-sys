@@ -35,7 +35,11 @@ const styles = StyleSheet.create({
   iconStyle: {
     borderWidth: 1,
     borderRadius: 100,
-    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    padding: 8,
   },
 });
 

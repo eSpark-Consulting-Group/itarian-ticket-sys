@@ -34,7 +34,7 @@ const ListItem = ({
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>
             <View style={styles.itemContentIcon}>
-              <II name="pricetag" size={moderateScale(25, 0)} color="#fff" />
+              <II name="pricetag" size={22} color="#fff" />
             </View>
           </View>
           <View style={{width: '75%'}}>

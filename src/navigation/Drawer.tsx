@@ -485,6 +485,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <FA5 name="coins" size={size} color={color} />
           ),
+          headerRight: noHeader,
         }}
       />
       <Drawer.Screen
@@ -498,6 +499,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <MCI name="clipboard-clock-outline" size={size} color={color} />
           ),
+          headerRight: noHeader,
         }}
       />
       <Drawer.Screen

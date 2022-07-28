@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Linking,
+  PixelRatio,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -67,6 +68,7 @@ import {
   StatusFormArray,
 } from '../constants/SampleArrays';
 import Stacks from './Stacks';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../constants/Dimensions';
 
 const Drawer = createDrawerNavigator<ParamList>();
 const Stack = createNativeStackNavigator();
@@ -76,9 +78,11 @@ const {width, height} = Dimensions.get('window');
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+  const {colors}: Theme = useTheme();
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView
+      style={{...styles.container, backgroundColor: colors.primary}}>
       <TouchableOpacity
         style={styles.header}
         onPress={() =>
@@ -111,47 +115,49 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        <DrawerItem
-          label={'Settings'}
-          inactiveTintColor={'#fff'}
-          icon={({color, size, focused}) => (
-            <Ionicons name="settings-outline" size={size} color={color} />
-          )}
-          labelStyle={styles.footerDrawerStyle}
-          onPress={() => {
-            props.navigation.navigate('Settings');
-          }}
-        />
-        <DrawerItem
-          label={'Send Feedback'}
-          inactiveTintColor={'#fff'}
-          labelStyle={styles.footerDrawerStyle}
-          icon={({color, size, focused}) => (
-            <MCI name="message-text" size={size} color={color} />
-          )}
-          onPress={() => {
-            props.navigation.navigate('Feedback');
-          }}
-        />
-        <DrawerItem
-          label={'Logout'}
-          inactiveTintColor={'#fff'}
-          labelStyle={styles.footerDrawerStyle}
-          icon={({color, size, focused}) => (
-            <MCI name="logout" size={size} color={color} />
-          )}
-          onPress={() => {
-            console.log('Logout');
-            props.navigation.navigate('Login');
-          }}
-        />
+        <View>
+          <DrawerItem
+            label={'Settings'}
+            inactiveTintColor={'#fff'}
+            icon={({color, size, focused}) => (
+              <Ionicons name="settings-outline" size={size} color={color} />
+            )}
+            labelStyle={styles.footerDrawerStyle}
+            onPress={() => {
+              props.navigation.navigate('Settings');
+            }}
+          />
+          <DrawerItem
+            label={'Send Feedback'}
+            inactiveTintColor={'#fff'}
+            labelStyle={styles.footerDrawerStyle}
+            icon={({color, size, focused}) => (
+              <MCI name="message-text" size={size} color={color} />
+            )}
+            onPress={() => {
+              props.navigation.navigate('Feedback');
+            }}
+          />
+          <DrawerItem
+            label={'Logout'}
+            inactiveTintColor={'#fff'}
+            labelStyle={styles.footerDrawerStyle}
+            icon={({color, size, focused}) => (
+              <MCI name="logout" size={size} color={color} />
+            )}
+            onPress={() => {
+              console.log('Logout');
+              props.navigation.navigate('Login');
+            }}
+          />
+        </View>
         <Text
           style={{
             fontSize: 12,
             fontFamily: 'sans-serif-medium',
             color: '#ffffff',
           }}>
-          Build version (0.02.6)
+          Build version (0.03.23)
         </Text>
       </View>
     </SafeAreaView>
@@ -567,32 +573,44 @@ const FSLoader = () => {
 export default Draw;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
-    // flex: 0.5,
-    // height: moderateVerticalScale(80, 0.5),
+    // flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
     paddingVertical: 5,
-  },
-  avatarContainer: {
-    flex: 0.35,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // height: PixelRatio.roundToNearestPixel((SCREEN_HEIGHT * 20) / 100),
   },
   avatar: {
     height: moderateVerticalScale(65, 0.5),
     width: moderateVerticalScale(65, 0.5),
     borderRadius: 100,
   },
+  avatarContainer: {
+    flex: 0.35,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   content: {
-    // flex: 2.5,
-    height: moderateVerticalScale(400, 1.63),
+    // flex: 6,
+    height: moderateVerticalScale(
+      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 55) / 100),
+      0.55,
+    ),
+    // height: moderateVerticalScale(410, 1.65),
   },
   footer: {
-    // flex: 3.5,
-    height: moderateVerticalScale(180, 0),
-    justifyContent: 'flex-end',
+    flex: 1,
+    height: moderateVerticalScale(
+      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 20) / 100),
+      0,
+    ),
+    // height: moderateVerticalScale(180, 0.2)
+    // backgroundColor: 'pink',
+    justifyContent: 'space-between',
     borderTopWidth: 1,
     borderColor: '#fff',
   },

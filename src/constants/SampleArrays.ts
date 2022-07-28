@@ -77,8 +77,9 @@ export type UnscheduledList = {
 
 export type ExpReportList = {
   id: number;
-  date: string;
+  date: Date;
   data: Array<ExpRprt_Data>;
+  totExp: number;
 };
 
 export type FloatButtons = {
@@ -422,7 +423,9 @@ export const activitiesList: Array<Activity> = [
 export const expReportList: Array<ExpReportList> = [
   {
     id: 1,
-    date: 'Monday, November 13',
+    date: new Date(2022, 7, 1),
+    // date: 'Monday, November 13',
+    totExp: 723,
     data: [
       {
         id: 1,
@@ -449,7 +452,9 @@ export const expReportList: Array<ExpReportList> = [
   },
   {
     id: 2,
-    date: 'Monday, November 16',
+    date: new Date(2022, 7, 5),
+    // date: 'Monday, November 16',
+    totExp: 1123,
     data: [
       {
         id: 4,

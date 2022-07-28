@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   itemContentIconContainer: {
-    width: '10%',
     marginRight: 10,
   },
   itemContentIcon: {

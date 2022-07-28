@@ -58,7 +58,7 @@ const ExpenseReportsScreen = () => {
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center'}}>
-          <Text>Please Select Date Range</Text>
+          <Text style={{color: colors.text}}>Please Select Date Range</Text>
         </View>
       )}
       <FloatButton AdditionalButtons={SchAdditionalButtons} />

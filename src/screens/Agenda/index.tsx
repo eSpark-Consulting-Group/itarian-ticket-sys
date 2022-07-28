@@ -19,6 +19,9 @@ const AgendaScreen = () => {
           fontSize: 12,
           color: '#ffffff',
         },
+        tabBarStyle: {
+          backgroundColor: colors.primary,
+        },
         tabBarIndicatorStyle: {backgroundColor: '#ffffff'},
       }}>
       <Tab.Screen name="Scheduled" component={ScheduledTab} />

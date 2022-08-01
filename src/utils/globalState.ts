@@ -13,4 +13,5 @@ export const globalState = createState({
   oldStatusDate: '',
   statusDate: '',
   stopwatch: [],
+  defaultScreenId: 'Agenda',
 });

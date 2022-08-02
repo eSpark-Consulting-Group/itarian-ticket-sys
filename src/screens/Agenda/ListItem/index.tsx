@@ -50,12 +50,10 @@ const ListItem = ({
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    width: '100%',
+                    width: '110%',
                   }}>
                   <Text style={{color: colors.text}}>{item2.expType}</Text>
-                  <Text style={{...styles.schedule_dur, color: '#fff'}}>
-                    {item2.totExp}
-                  </Text>
+                  <Text style={{...styles.schedule_dur}}>{item2.totExp}</Text>
                 </View>
               )}
               {item2.schedule_time && (
@@ -105,26 +103,11 @@ const ListItem = ({
 
   return (
     <View key={id} style={styles.itemContainer}>
-      {dateRange ? (
-        item.date > dateRange[0].date &&
-        item.date < dateRange[1].date && (
-          <>
-            <DateSeparator text={item.date.toString()} />
-            <FlatList
-              data={item.data}
-              renderItem={({item, index}) => renderData(item, index)}
-            />
-          </>
-        )
-      ) : (
-        <>
-          <DateSeparator text={item.date.toString()} />
-          <FlatList
-            data={item.data}
-            renderItem={({item, index}) => renderData(item, index)}
-          />
-        </>
-      )}
+      <DateSeparator text={item.date.toString().slice(0, 10)} />
+      <FlatList
+        data={item.data}
+        renderItem={({item, index}) => renderData(item, index)}
+      />
     </View>
   );
 };

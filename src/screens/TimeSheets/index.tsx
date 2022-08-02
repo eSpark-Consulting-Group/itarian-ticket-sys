@@ -3,11 +3,12 @@ import React, {useState} from 'react';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Theme} from '../../theme/colors';
-import {DateRangeSelector, FloatButton} from '../../components';
+import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {
   expReportList,
   SchAdditionalButtons,
   scheduledList,
+  TimeSheetList,
   timeSheetList,
 } from '../../constants/SampleArrays';
 import ListItem from '../Agenda/ListItem';
@@ -20,6 +21,7 @@ const TimeSheetsScreen = () => {
     {date: new Date()},
     {date: new Date()},
   ]);
+  const [sheetData, setSheetData] = useState<TimeSheetList[]>([]);
 
   const getDate = (date1: Date, date2: Date) => {
     let datArr = [...dateArr];
@@ -31,6 +33,15 @@ const TimeSheetsScreen = () => {
       i.date >= date1 && i.date <= date2
         ? (Expense = Expense + i.totHrs)
         : null;
+    });
+    const data = timeSheetList.filter(
+      i => i.date >= dateArr[0].date && i.date <= dateArr[1].date,
+    );
+    setImmediate(() => {
+      setSheetData(data);
+      setImmediate(() => {
+        setIsDate(true);
+      });
     });
     setTotHrs(Expense);
     setIsDate(true);
@@ -50,22 +61,30 @@ const TimeSheetsScreen = () => {
         totalType={'hrs'}
       />
       {isDate ? (
-        <FlatList
-          data={timeSheetList}
-          renderItem={({item}) => (
-            <>
-              {item.date >= dateArr[0].date && item.date <= dateArr[1].date && (
-                <ListItem id={item.id} item={item} dateRange={dateArr} />
-              )}
-            </>
-          )}
-        />
+        sheetData.length > 0 ? (
+          <FlatList
+            data={sheetData}
+            renderItem={({item}) => (
+              <ListItem id={item.id} item={item} dateRange={dateArr} />
+            )}
+          />
+        ) : (
+          <NotFound />
+        )
       ) : (
         <View style={{flex: 1, justifyContent: 'center'}}>
           <Text style={{color: colors.text}}>Please Select Date Range</Text>
         </View>
       )}
       <FloatButton AdditionalButtons={SchAdditionalButtons} />
+    </View>
+  );
+};
+
+const NotFound = (): JSX.Element => {
+  return (
+    <View style={styles.content}>
+      <EmptyListMsg label="Data" />
     </View>
   );
 };

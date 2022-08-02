@@ -8,41 +8,56 @@ import {
   expReportList,
   SchAdditionalButtons,
   scheduledList,
+  timeSheetList,
 } from '../../constants/SampleArrays';
 import ListItem from '../Agenda/ListItem';
 
 const TimeSheetsScreen = () => {
   const {colors}: Theme = useTheme();
   const [isDate, setIsDate] = useState(false);
+  const [totHrs, setTotHrs] = useState(0);
   const [dateArr, setDateArr] = useState([
     {date: new Date()},
     {date: new Date()},
   ]);
 
   const getDate = (date1: Date, date2: Date) => {
-    let now = new Date();
-    const d1 = new Date(now.setDate(now.getDate() - 30));
-    const d2 = new Date(2022, 7, 5);
     let datArr = [...dateArr];
     datArr[0].date = date1;
     datArr[1].date = date2;
     setDateArr(datArr);
-    console.log('datArr------>', datArr);
-    console.log('currdat------>', d1);
+    let Expense = 0;
+    timeSheetList.map(i => {
+      i.date >= date1 && i.date <= date2
+        ? (Expense = Expense + i.totHrs)
+        : null;
+    });
+    setTotHrs(Expense);
     setIsDate(true);
+  };
+
+  const clearTotal = () => {
+    setTotHrs(0);
+    setIsDate(false);
   };
 
   return (
     <View style={styles.container}>
       <DateRangeSelector
         fetchData={(date1: Date, date2: Date) => getDate(date1, date2)}
-        total={'4.00'}
+        clearDate={clearTotal}
+        total={totHrs.toFixed(2)}
+        totalType={'hrs'}
       />
       {isDate ? (
         <FlatList
-          data={expReportList}
+          data={timeSheetList}
           renderItem={({item}) => (
-            <ListItem id={item.id} item={item} dateRange={dateArr} />
+            <>
+              {item.date >= dateArr[0].date && item.date <= dateArr[1].date && (
+                <ListItem id={item.id} item={item} dateRange={dateArr} />
+              )}
+            </>
           )}
         />
       ) : (

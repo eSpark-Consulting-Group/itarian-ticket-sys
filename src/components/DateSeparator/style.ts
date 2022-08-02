@@ -15,9 +15,12 @@ const styles = StyleSheet.create({
     width: moderateScale(40, 0),
     transform: [{scaleY: 6}],
   },
-  centerContent: {paddingHorizontal: 10},
+  centerContent: {
+    width: width * 0.25,
+    textAlign: 'center',
+  },
   divider_2: {
-    width: moderateScale(160, 0),
+    width: moderateScale(225, 0),
     transform: [{scaleY: 6}],
   },
 });

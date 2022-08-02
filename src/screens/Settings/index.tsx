@@ -14,11 +14,12 @@ import styles from './style';
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookState(globalState.theme);
   const dScreen: State<string> = useHookState(globalState.defaultScreenId);
+  const dSName: State<string> = useHookState(globalState.defaultScreenName);
   const [isSwitchOn, setIsSwitchOn] = useState(
     themeValue.get() == 'light' ? false : true,
   );
   const [visible, setVisible] = useState(false);
-  const [defaultScreen, setdefaultScreen] = useState('Agenda');
+  const [defaultScreen, setdefaultScreen] = useState(dSName.get());
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
@@ -36,6 +37,7 @@ const SettingsScreen = () => {
 
   const handleDefaultSwitch = (id: string, name: string) => {
     dScreen.set(id);
+    dSName.set(name);
     setdefaultScreen(name);
   };
   const hideMenu = () => {
@@ -45,7 +47,7 @@ const SettingsScreen = () => {
     setVisible(true);
   };
 
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
   return (
     <View>
       <List.Section>
@@ -105,6 +107,7 @@ const SettingsScreen = () => {
                         <MenuItem
                           itemName={item.name}
                           textColor={colors.text}
+                          dark={dark}
                           onPress={() => {
                             hideMenu();
                             handleDefaultSwitch(item.id, item.name);
@@ -133,6 +136,7 @@ const MenuItem = ({
   rightIcon,
   textColor = '#000',
   checkVisible,
+  dark,
 }: {
   itemName: string;
   onPress: () => void;
@@ -140,9 +144,12 @@ const MenuItem = ({
   rightIcon?: React.ReactNode;
   textColor?: string;
   checkVisible?: boolean;
+  dark?: boolean;
 }) => {
   return (
-    <Pressable onPress={onPress} android_ripple={{color: '#635a5a5c'}}>
+    <Pressable
+      onPress={onPress}
+      android_ripple={{color: dark ? '#ffffff1a' : '#0000000e'}}>
       <View
         style={{
           flexDirection: 'row',

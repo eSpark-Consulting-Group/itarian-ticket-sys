@@ -19,6 +19,8 @@ const MyActivities = () => {
   const [visible, setVisible] = useState(false);
   const [range, setRange] = useState('Last 30 Days');
 
+  const solidColor = dark ? '#000000' : '#ffffff';
+
   const showMenu = (): void => setVisible(!visible);
   const hideMenu = (): void => setVisible(false);
 
@@ -32,14 +34,7 @@ const MyActivities = () => {
         <Pressable
           onPress={() => console.log('Hello')}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
-          <View
-            style={{
-              padding: moderateScale(10),
-              paddingHorizontal: moderateScale(15),
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-            }}>
+          <View style={styles.listInnerContainer}>
             <View style={{flexDirection: 'row'}}>
               <View>
                 <View style={{flexDirection: 'row'}}>
@@ -52,7 +47,7 @@ const MyActivities = () => {
                     name="date-range"
                     color={colors.text}
                     size={12}
-                    style={{opacity: 0.5, alignSelf: 'center', paddingRight: 5}}
+                    style={styles.dimIconStyles}
                   />
                   <Text style={{...styles.subTitle, color: colors.text}}>
                     {item.date} | {item.start_time} - {item.end_time}
@@ -63,7 +58,7 @@ const MyActivities = () => {
                     name="office-building-marker-outline"
                     color={colors.text}
                     size={12}
-                    style={{opacity: 0.5, alignSelf: 'center', paddingRight: 5}}
+                    style={styles.dimIconStyles}
                   />
                   <Text style={{...styles.subTitle, color: colors.text}}>
                     {item.company_name}
@@ -91,7 +86,12 @@ const MyActivities = () => {
                     : 'transparent',
                   borderless: true,
                 }}>
-                <MCI name="phone" size={22} color={colors.text} />
+                <MCI
+                  name="phone"
+                  size={22}
+                  color={colors.text}
+                  style={{padding: 8}}
+                />
               </Pressable>
             </View>
           </View>
@@ -128,7 +128,7 @@ const MyActivities = () => {
             visible={visible}
             onDismiss={hideMenu}
             style={{width: moderateScale(170)}}
-            contentStyle={{backgroundColor: colors.background}}
+            contentStyle={{backgroundColor: solidColor}}
             anchor={
               <OutlineBtn
                 text={range}
@@ -140,12 +140,7 @@ const MyActivities = () => {
                     style={{
                       flexDirection: 'row',
                     }}>
-                    <View
-                      style={{
-                        padding: 4,
-                        backgroundColor: '#fff',
-                        borderRadius: 100,
-                      }}>
+                    <View style={styles.dropDown}>
                       <MCI name="calendar" size={14} color={colors.primary} />
                     </View>
                     <View style={styles.adjuster} />
@@ -162,53 +157,27 @@ const MyActivities = () => {
                 onPress={showMenu}
               />
             }>
-            <MenuItem
-              itemName="All"
-              textColor={colors.text}
-              onPress={() => {
-                hideMenu();
-                setRange('All');
-              }}
-            />
-            <Divider style={{backgroundColor: colors.text, opacity: 0.2}} />
-            <MenuItem
-              itemName="Last 30 Days"
-              textColor={colors.text}
-              onPress={() => {
-                hideMenu();
-                setRange('Last 30 Days');
-              }}
-            />
-            <MenuItem
-              itemName="Today"
-              textColor={colors.text}
-              onPress={() => {
-                hideMenu();
-                setRange('Today');
-              }}
-            />
-            <MenuItem
-              itemName="Tomorrow"
-              textColor={colors.text}
-              onPress={() => {
-                hideMenu();
-                setRange('Tomorrow');
-              }}
-            />
-            <MenuItem
-              itemName="This Week"
-              textColor={colors.text}
-              onPress={() => {
-                hideMenu();
-                setRange('This Week');
-              }}
-            />
-            <MenuItem
-              itemName="Next 30 Days"
-              textColor={colors.text}
-              onPress={() => {
-                hideMenu();
-                setRange('Next 30 Days');
+            <FlatList
+              data={menuItems}
+              renderItem={({item, index}) => {
+                return (
+                  <>
+                    <MenuItem
+                      itemName={item}
+                      textColor={colors.text}
+                      dark={dark}
+                      onPress={() => {
+                        hideMenu();
+                        setRange(item);
+                      }}
+                    />
+                    {index == 0 && (
+                      <Divider
+                        style={{backgroundColor: colors.text, opacity: 0.2}}
+                      />
+                    )}
+                  </>
+                );
               }}
             />
           </Menu>
@@ -235,6 +204,15 @@ const NotFound = (): JSX.Element => {
 
 //*---------- Helper Components
 
+const menuItems = [
+  'All',
+  'Last 30 Days',
+  'Today',
+  'Tomorrow',
+  'This Week',
+  'Next 30 Days',
+];
+
 const MenuItem = ({
   itemName,
   onPress,
@@ -242,6 +220,7 @@ const MenuItem = ({
   rightIcon,
   textColor = '#000',
   checkVisible,
+  dark,
 }: {
   itemName: string;
   onPress: () => void;
@@ -249,9 +228,12 @@ const MenuItem = ({
   rightIcon?: React.ReactNode;
   textColor?: string;
   checkVisible?: boolean;
+  dark?: boolean;
 }) => {
   return (
-    <Pressable onPress={onPress} android_ripple={{color: '#635a5a5c'}}>
+    <Pressable
+      onPress={onPress}
+      android_ripple={{color: dark ? '#ffffff1a' : '#0000000e'}}>
       <View style={styles.menuItemButtonStyle}>
         <View style={{flexDirection: 'row'}}>
           {leftIcon}
@@ -259,11 +241,7 @@ const MenuItem = ({
             {itemName}
           </Text>
         </View>
-        <View
-          style={{
-            width: moderateScale(30),
-            flexDirection: 'row-reverse',
-          }}>
+        <View style={styles.menuIconContainer}>
           {checkVisible && rightIcon}
         </View>
       </View>

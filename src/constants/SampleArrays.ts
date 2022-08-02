@@ -198,6 +198,11 @@ export type Stopwatch = {
   isPlaying?: boolean;
 };
 
+export type ScreenItems = {
+  id: string;
+  name: string;
+};
+
 //! ---------------------------------------
 
 /*
@@ -963,5 +968,64 @@ export const stopWatchList: Stopwatch[] = [
     created_at: '26, August 2019',
     timer: '00:08:10',
     isPlaying: false,
+  },
+];
+
+export const screenItemList: ScreenItems[] = [
+  {
+    id: 'Agenda',
+    name: 'Agenda',
+  },
+  {
+    id: 'Search',
+    name: 'Search',
+  },
+  {
+    id: 'Calendar',
+    name: 'Calendar',
+  },
+  {
+    id: 'Companies',
+    name: 'Companies',
+  },
+  {
+    id: 'Contacts',
+    name: 'Contacts',
+  },
+  {
+    id: 'Configurations',
+    name: 'Configurations',
+  },
+  {
+    id: 'SBoard',
+    name: 'Service Board',
+  },
+  {
+    id: 'PBoard',
+    name: 'Project Board',
+  },
+  {
+    id: 'Opportunities',
+    name: 'Opportunities',
+  },
+  {
+    id: 'MyActivities',
+    name: 'My Activities',
+  },
+  {
+    id: 'IOBoard',
+    name: 'In/Out Board',
+  },
+  {
+    id: 'ExpReports',
+    name: 'Expense Reports',
+  },
+  {
+    id: 'TimeSheets',
+    name: 'Time Sheets',
+  },
+  {
+    id: 'StopWatch',
+    name: 'StopWatch',
   },
 ];

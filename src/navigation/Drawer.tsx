@@ -78,6 +78,7 @@ const {width, height} = Dimensions.get('window');
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
+
   const {colors}: Theme = useTheme();
 
   return (
@@ -165,6 +166,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 };
 
 const Draw = ({navigation, route}: DrawerHeaderProps) => {
+  const dScreen: State<any> = hookState(globalState.defaultScreenId);
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
@@ -185,7 +187,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
 
   return (
     <Drawer.Navigator
-      initialRouteName={'Agenda'}
+      initialRouteName={dScreen.get()}
       useLegacyImplementation={true}
       backBehavior="history"
       drawerContent={props => <DrawerContent {...props} />}
@@ -364,6 +366,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   top: -5,
                   backgroundColor: '#dc1e1e',
                   fontWeight: 'bold',
+                  color: '#ffffff',
                 }}>
                 99
               </Badge>
@@ -399,6 +402,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   top: -5,
                   backgroundColor: '#dc1e1e',
                   fontWeight: 'bold',
+                  color: '#ffffff',
                 }}>
                 33
               </Badge>
@@ -447,6 +451,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   top: -5,
                   backgroundColor: '#dc1e1e',
                   fontWeight: 'bold',
+                  color: '#ffffff',
                 }}>
                 99
               </Badge>

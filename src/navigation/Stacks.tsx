@@ -148,6 +148,7 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
           name={'My Status'}
           options={{
             animation: 'slide_from_bottom',
+            headerStyle: {backgroundColor: colors.primary},
             headerLeft: () => (
               <Ionicons
                 size={30}
@@ -227,6 +228,7 @@ const Stacks = ({navigation}: NativeStackHeaderProps) => {
           name={'Gone To'}
           options={{
             animation: 'slide_from_bottom',
+            headerStyle: {backgroundColor: colors.primary},
             headerLeft: () => (
               <Ionicons
                 size={30}

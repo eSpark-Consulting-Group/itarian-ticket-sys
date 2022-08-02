@@ -1,9 +1,10 @@
 import {createState} from '@hookstate/core';
+import {Stopwatch} from '../constants/SampleArrays';
 
 export const globalState = createState({
   theme: 'light',
   statusSwitch: false,
-  currentStatus: true,
+  currentStatus: false,
   prevGoneTo: '',
   currentGoneTo: '',
   searchTag: 'tickets',
@@ -11,4 +12,7 @@ export const globalState = createState({
   additionalInputVal: '',
   oldStatusDate: '',
   statusDate: '',
+  stopwatch: [],
+  defaultScreenId: 'Agenda',
+  defaultScreenName: 'Agenda',
 });

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
 
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants/Dimensions';
 
@@ -22,6 +23,18 @@ const styles = StyleSheet.create({
     flex: 1,
     width: WINDOW_WIDTH,
   },
+  listInnerContainer: {
+    padding: moderateScale(10),
+    paddingHorizontal: moderateScale(15),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  menuIconContainer: {
+    width: moderateScale(30),
+    flexDirection: 'row-reverse',
+  },
+  dimIconStyles: {opacity: 0.5, alignSelf: 'center', paddingRight: 5},
   adjuster: {
     width: 8,
   },
@@ -36,7 +49,6 @@ const styles = StyleSheet.create({
   iconStyle: {
     borderWidth: 1,
     borderRadius: 100,
-    padding: 5,
   },
   dividerStyle: {
     opacity: 0.2,
@@ -46,6 +58,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     justifyContent: 'space-between',
+  },
+  dropDown: {
+    padding: 4,
+    backgroundColor: '#fff',
+    borderRadius: 100,
   },
 });
 

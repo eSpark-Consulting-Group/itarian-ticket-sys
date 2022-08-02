@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {useState, State} from '@hookstate/core';
+import {useState as useHookState, State} from '@hookstate/core';
 
 import {Login, Profile, SignUp} from '../screens/index';
 import {DarkTheme, LightTheme} from '../theme/colors';
@@ -11,8 +11,24 @@ import {globalState} from '../utils/globalState';
 
 const Stack = createNativeStackNavigator();
 
+const config: any = {
+  screens: {
+    Draw: {
+      screens: {
+        SBoard: 'D/SB',
+        TimeSheets: 'D/TS',
+        ExpReports: 'D/ER',
+      },
+    },
+  },
+};
+
 const App = () => {
-  const themeValue: State<string> = useState(globalState.theme);
+  const themeValue: State<string> = useHookState(globalState.theme);
+
+  //! ----------------------------------------------------
+
+  //! ---------------------------------------------------
 
   useEffect(() => {
     console.log('Theme State', themeValue.get());
@@ -21,6 +37,10 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer
+        linking={{
+          prefixes: ['app://'],
+          config,
+        }}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
         <Stack.Navigator>
           <Stack.Screen

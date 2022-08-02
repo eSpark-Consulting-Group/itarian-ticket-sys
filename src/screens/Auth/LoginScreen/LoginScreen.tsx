@@ -1,12 +1,11 @@
 import React from 'react';
 import {
   View,
-  Text,
-  Button,
   Image,
   KeyboardAvoidingView,
   ScrollView,
   Dimensions,
+  Linking,
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
@@ -17,7 +16,7 @@ import * as Yup from 'yup';
 import styles from './style';
 import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
-import {moderateVerticalScale} from 'react-native-size-matters';
+import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -28,6 +27,19 @@ const {width, height} = Dimensions.get('window');
 
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
+
+  const handleColdBoot = (data: ShortcutItem) => {
+    const {userInfo} = data;
+    console.log('chala coldboot', userInfo?.url);
+    Linking.openURL(userInfo?.url);
+  };
+
+  QuickActions.popInitialAction()
+    .then(data => {
+      if (data != null) handleColdBoot(data);
+    })
+    .catch(err => console.log('err', err));
+
   return (
     <View style={{height: height}}>
       <View style={styles.imageContainer}>

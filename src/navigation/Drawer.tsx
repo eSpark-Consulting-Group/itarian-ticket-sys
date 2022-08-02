@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,6 +8,9 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
+  Linking,
+  PixelRatio,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -34,6 +37,7 @@ import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {State, useState as hookState} from '@hookstate/core';
 import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar, Badge} from 'react-native-paper';
+import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -64,6 +68,7 @@ import {
   StatusFormArray,
 } from '../constants/SampleArrays';
 import Stacks from './Stacks';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../constants/Dimensions';
 
 const Drawer = createDrawerNavigator<ParamList>();
 const Stack = createNativeStackNavigator();
@@ -74,8 +79,11 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   const switchValue: State<boolean> = hookState(globalState.statusSwitch);
 
+  const {colors}: Theme = useTheme();
+
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView
+      style={{...styles.container, backgroundColor: colors.primary}}>
       <TouchableOpacity
         style={styles.header}
         onPress={() =>
@@ -108,47 +116,49 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        <DrawerItem
-          label={'Settings'}
-          inactiveTintColor={'#fff'}
-          icon={({color, size, focused}) => (
-            <Ionicons name="settings-outline" size={size} color={color} />
-          )}
-          labelStyle={styles.footerDrawerStyle}
-          onPress={() => {
-            props.navigation.navigate('Settings');
-          }}
-        />
-        <DrawerItem
-          label={'Send Feedback'}
-          inactiveTintColor={'#fff'}
-          labelStyle={styles.footerDrawerStyle}
-          icon={({color, size, focused}) => (
-            <MCI name="message-text" size={size} color={color} />
-          )}
-          onPress={() => {
-            props.navigation.navigate('Feedback');
-          }}
-        />
-        <DrawerItem
-          label={'Logout'}
-          inactiveTintColor={'#fff'}
-          labelStyle={styles.footerDrawerStyle}
-          icon={({color, size, focused}) => (
-            <MCI name="logout" size={size} color={color} />
-          )}
-          onPress={() => {
-            console.log('Logout');
-            props.navigation.navigate('Login');
-          }}
-        />
+        <View>
+          <DrawerItem
+            label={'Settings'}
+            inactiveTintColor={'#fff'}
+            icon={({color, size, focused}) => (
+              <Ionicons name="settings-outline" size={size} color={color} />
+            )}
+            labelStyle={styles.footerDrawerStyle}
+            onPress={() => {
+              props.navigation.navigate('Settings');
+            }}
+          />
+          <DrawerItem
+            label={'Send Feedback'}
+            inactiveTintColor={'#fff'}
+            labelStyle={styles.footerDrawerStyle}
+            icon={({color, size, focused}) => (
+              <MCI name="message-text" size={size} color={color} />
+            )}
+            onPress={() => {
+              props.navigation.navigate('Feedback');
+            }}
+          />
+          <DrawerItem
+            label={'Logout'}
+            inactiveTintColor={'#fff'}
+            labelStyle={styles.footerDrawerStyle}
+            icon={({color, size, focused}) => (
+              <MCI name="logout" size={size} color={color} />
+            )}
+            onPress={() => {
+              console.log('Logout');
+              props.navigation.navigate('Login');
+            }}
+          />
+        </View>
         <Text
           style={{
             fontSize: 12,
             fontFamily: 'sans-serif-medium',
             color: '#ffffff',
           }}>
-          Build version (0.02.6)
+          Build version (0.03.23)
         </Text>
       </View>
     </SafeAreaView>
@@ -156,15 +166,14 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 };
 
 const Draw = ({navigation, route}: DrawerHeaderProps) => {
+  const dScreen: State<any> = hookState(globalState.defaultScreenId);
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
-  // const history = useNavigationState(state => state);
-  // console.log('HIstory', history);
 
   return (
     <Drawer.Navigator
-      initialRouteName="Agenda"
+      initialRouteName={dScreen.get()}
       useLegacyImplementation={true}
       backBehavior="history"
       drawerContent={props => <DrawerContent {...props} />}
@@ -204,6 +213,13 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           />
         ),
       }}>
+      <Drawer.Screen
+        name="FSLoader"
+        component={FSLoader}
+        options={{
+          drawerItemStyle: {display: 'none'},
+        }}
+      />
       <Drawer.Screen
         name="Search"
         component={Search}
@@ -336,6 +352,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   top: -5,
                   backgroundColor: '#dc1e1e',
                   fontWeight: 'bold',
+                  color: '#ffffff',
                 }}>
                 99
               </Badge>
@@ -353,6 +370,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="PBoard"
         component={ProjectBoard}
         options={{
+          title: 'Project Board',
           headerRight: () => (
             <View style={{flexDirection: 'row', right: 10}}>
               <AD
@@ -370,6 +388,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   top: -5,
                   backgroundColor: '#dc1e1e',
                   fontWeight: 'bold',
+                  color: '#ffffff',
                 }}>
                 33
               </Badge>
@@ -387,6 +406,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="MyActivities"
         component={MyActivities}
         options={{
+          title: 'My Activities',
           headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>My Activities</Text>
@@ -417,6 +437,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   top: -5,
                   backgroundColor: '#dc1e1e',
                   fontWeight: 'bold',
+                  color: '#ffffff',
                 }}>
                 99
               </Badge>
@@ -434,6 +455,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="IOBoard"
         component={InOutBoard}
         options={{
+          title: 'In/Out Board',
           headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>In/Out Board</Text>
@@ -447,24 +469,28 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="ExpReports"
         component={ExpenseReports}
         options={{
+          title: 'Expense Reports',
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Expense Reports</Text>
           ),
           drawerIcon: ({color, size, focused}) => (
             <FA5 name="coins" size={size} color={color} />
           ),
+          headerRight: noHeader,
         }}
       />
       <Drawer.Screen
         name="TimeSheets"
         component={TimeSheets}
         options={{
+          title: 'Time Sheets',
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Time Sheets</Text>
           ),
           drawerIcon: ({color, size, focused}) => (
             <MCI name="clipboard-clock-outline" size={size} color={color} />
           ),
+          headerRight: noHeader,
         }}
       />
       <Drawer.Screen
@@ -477,6 +503,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <Ionicons name="ios-stopwatch" size={size} color={color} />
           ),
+          headerRight: noHeader,
         }}
       />
       <Drawer.Screen
@@ -527,35 +554,56 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
   );
 };
 
+const FSLoader = () => {
+  const {dark, colors} = useTheme();
+  return (
+    <View style={{backgroundColor: colors.background, ...styles.loading}}>
+      <ActivityIndicator size="large" color={colors.primary} />
+    </View>
+  );
+};
+
 export default Draw;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
-    // flex: 0.5,
-    // height: moderateVerticalScale(80, 0.5),
+    // flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
     paddingVertical: 5,
-  },
-  avatarContainer: {
-    flex: 0.35,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // height: PixelRatio.roundToNearestPixel((SCREEN_HEIGHT * 20) / 100),
   },
   avatar: {
     height: moderateVerticalScale(65, 0.5),
     width: moderateVerticalScale(65, 0.5),
     borderRadius: 100,
   },
+  avatarContainer: {
+    flex: 0.35,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   content: {
-    // flex: 2.5,
-    height: moderateVerticalScale(400, 1.63),
+    // flex: 6,
+    height: moderateVerticalScale(
+      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 55) / 100),
+      0.55,
+    ),
+    // height: moderateVerticalScale(410, 1.65),
   },
   footer: {
-    // flex: 3.5,
-    height: moderateVerticalScale(180, 0),
-    justifyContent: 'flex-end',
+    flex: 1,
+    height: moderateVerticalScale(
+      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 20) / 100),
+      0,
+    ),
+    // height: moderateVerticalScale(180, 0.2)
+    // backgroundColor: 'pink',
+    justifyContent: 'space-between',
     borderTopWidth: 1,
     borderColor: '#fff',
   },
@@ -566,5 +614,14 @@ const styles = StyleSheet.create({
   drawerTitleStyle: {
     fontWeight: '700',
     color: '#fff',
+  },
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

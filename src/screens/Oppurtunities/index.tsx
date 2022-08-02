@@ -136,7 +136,12 @@ const Oppurtunities = () => {
                     : 'transparent',
                   borderless: true,
                 }}>
-                <MCI name="phone" size={22} color={colors.text} />
+                <MCI
+                  name="phone"
+                  size={22}
+                  color={colors.text}
+                  style={styles.icon}
+                />
               </Pressable>
             </View>
           </View>

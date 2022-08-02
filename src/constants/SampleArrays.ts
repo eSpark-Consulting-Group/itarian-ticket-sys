@@ -1,6 +1,9 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ViewStyle} from 'react-native';
-import {project} from '../../react-native.config';
+
+/*
+//* Types for all list Data (will be moved to another file in the Future)
+*/
 
 export type Companines = {
   id: string;
@@ -52,6 +55,14 @@ export type Unscheduled_Data = {
   location: string;
 };
 
+export type ExpRprt_Data = {
+  id: number;
+  ticket_no: string;
+  task: string;
+  totExp: string;
+  expType: string;
+};
+
 export type ScheduledList = {
   id: number;
   date: string;
@@ -62,6 +73,20 @@ export type UnscheduledList = {
   id: number;
   date: string;
   data: Array<Unscheduled_Data>;
+};
+
+export type ExpReportList = {
+  id: number;
+  date: Date;
+  data: Array<ExpRprt_Data>;
+  totExp: number;
+};
+
+export type TimeSheetList = {
+  id: number;
+  date: Date;
+  data: Array<Scheduled_Data>;
+  totHrs: number;
 };
 
 export type FloatButtons = {
@@ -140,6 +165,49 @@ export type Opportunities = {
   status: string;
   close_date: string;
 };
+
+export type ParamList = {
+  FSLoader: undefined;
+  Agenda: undefined;
+  Search: undefined;
+  Profile: {
+    status: boolean;
+  };
+  Forms: undefined;
+  Calendar: undefined;
+  Companies: undefined;
+  Contacts: undefined;
+  Configurations: undefined;
+  SBoard: undefined;
+  PBoard: undefined;
+  MyActivities: undefined;
+  Opportunities: undefined;
+  IOBoard: undefined;
+  ExpReports: undefined;
+  TimeSheets: undefined;
+  StopWatch: undefined;
+  Settings: undefined;
+  Feedback: undefined;
+};
+
+export type Stopwatch = {
+  ticket_no: string;
+  ticket_summary: string;
+  created_at: string;
+  timer: string;
+  isPlaying?: boolean;
+};
+
+export type ScreenItems = {
+  id: string;
+  name: string;
+};
+
+//! ---------------------------------------
+
+/*
+//* Sample Array List Disposable in the Future
+*/
 
 export const AdditionalButtonStyle = {
   backgroundColor: '#28648f',
@@ -361,6 +429,124 @@ export const activitiesList: Array<Activity> = [
     start_time: '10:00 AM',
     end_time: '11:45 AM',
     company_contact: '+555 5555 555',
+  },
+];
+
+export const expReportList: Array<ExpReportList> = [
+  {
+    id: 1,
+    date: new Date(2022, 7, 1),
+    // date: 'Monday, November 13',
+    totExp: 723,
+    data: [
+      {
+        id: 1,
+        ticket_no: 'Ticket #15340',
+        task: 'Config Service History # 2',
+        totExp: '$119.00',
+        expType: 'Parts ',
+      },
+      {
+        id: 2,
+        ticket_no: 'Ticket #15346',
+        task: 'Weekly Team Meeting',
+        totExp: '$456.00',
+        expType: 'Miscellaneous',
+      },
+      {
+        id: 3,
+        ticket_no: 'Ticket #16357',
+        task: 'New Server Installation',
+        totExp: '$148.00',
+        expType: 'Equipments',
+      },
+    ],
+  },
+  {
+    id: 2,
+    date: new Date(2022, 7, 5),
+    // date: 'Monday, November 16',
+    totExp: 1123,
+    data: [
+      {
+        id: 4,
+        ticket_no: 'Ticket #18464',
+        task: 'Products for Exchange Server',
+        totExp: '$1123.00',
+        expType: 'Products',
+      },
+    ],
+  },
+];
+
+export const timeSheetList: Array<TimeSheetList> = [
+  {
+    id: 1,
+    date: new Date(2022, 7, 9),
+    totHrs: 2.5,
+    data: [
+      {
+        id: 1,
+        ticket_no: 'Ticket #4163',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 11:30AM',
+        time_dur: '1.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 2,
+        ticket_no: 'Ticket #4164',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 3,
+        ticket_no: 'Ticket #4166',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+    ],
+  },
+  {
+    id: 2,
+    date: new Date(2022, 7, 14),
+    totHrs: 3.5,
+    data: [
+      {
+        id: 4,
+        ticket_no: 'Ticket #5264',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 5,
+        ticket_no: 'Ticket #5267',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 6,
+        ticket_no: 'Ticket #5270',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 12:30PM',
+        time_dur: '2.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+    ],
   },
 ];
 
@@ -768,25 +954,78 @@ export const ticketsList: Tickets[] = [
   },
 ];
 
-export type ParamList = {
-  Agenda: undefined;
-  Search: undefined;
-  Profile: {
-    status: boolean;
-  };
-  Forms: undefined;
-  Calendar: undefined;
-  Companies: undefined;
-  Contacts: undefined;
-  Configurations: undefined;
-  SBoard: undefined;
-  PBoard: undefined;
-  MyActivities: undefined;
-  Opportunities: undefined;
-  IOBoard: undefined;
-  ExpReports: undefined;
-  TimeSheets: undefined;
-  StopWatch: undefined;
-  Settings: undefined;
-  Feedback: undefined;
-};
+export const stopWatchList: Stopwatch[] = [
+  {
+    ticket_no: '12348',
+    ticket_summary: 'Checking for Mantaince',
+    created_at: '20, June 2021',
+    timer: '00:13:42',
+    isPlaying: false,
+  },
+  {
+    ticket_no: '56231',
+    ticket_summary: 'Team Prep Authorization',
+    created_at: '26, August 2019',
+    timer: '00:08:10',
+    isPlaying: false,
+  },
+];
+
+export const screenItemList: ScreenItems[] = [
+  {
+    id: 'Agenda',
+    name: 'Agenda',
+  },
+  {
+    id: 'Search',
+    name: 'Search',
+  },
+  {
+    id: 'Calendar',
+    name: 'Calendar',
+  },
+  {
+    id: 'Companies',
+    name: 'Companies',
+  },
+  {
+    id: 'Contacts',
+    name: 'Contacts',
+  },
+  {
+    id: 'Configurations',
+    name: 'Configurations',
+  },
+  {
+    id: 'SBoard',
+    name: 'Service Board',
+  },
+  {
+    id: 'PBoard',
+    name: 'Project Board',
+  },
+  {
+    id: 'Opportunities',
+    name: 'Opportunities',
+  },
+  {
+    id: 'MyActivities',
+    name: 'My Activities',
+  },
+  {
+    id: 'IOBoard',
+    name: 'In/Out Board',
+  },
+  {
+    id: 'ExpReports',
+    name: 'Expense Reports',
+  },
+  {
+    id: 'TimeSheets',
+    name: 'Time Sheets',
+  },
+  {
+    id: 'StopWatch',
+    name: 'StopWatch',
+  },
+];

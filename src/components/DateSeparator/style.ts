@@ -1,4 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
 
 const {width} = Dimensions.get('window');
 
@@ -8,15 +9,18 @@ const styles = StyleSheet.create({
     width: width * 0.95,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingRight: 20,
+    paddingHorizontal: 20,
   },
   divider_1: {
-    flex: 0.2,
+    width: moderateScale(40, 0),
     transform: [{scaleY: 6}],
   },
-  centerContent: {paddingHorizontal: 10},
+  centerContent: {
+    width: width * 0.25,
+    textAlign: 'center',
+  },
   divider_2: {
-    flex: 0.8,
+    width: moderateScale(225, 0),
     transform: [{scaleY: 6}],
   },
 });

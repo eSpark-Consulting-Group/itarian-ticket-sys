@@ -3,12 +3,13 @@ import {View, Text, TouchableOpacity, Pressable, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useState as useHookState, State} from '@hookstate/core';
+import {moderateScale} from 'react-native-size-matters';
 
 import {globalState} from '../../utils/globalState';
 import {Theme} from '../../theme/colors';
-import styles from './style';
 import {useUpdateEffect} from '../../utils/hooks';
-import {moderateScale} from 'react-native-size-matters';
+import {screenItemList} from '../../constants/SampleArrays';
+import styles from './style';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookState(globalState.theme);
@@ -98,7 +99,7 @@ const SettingsScreen = () => {
                     />
                   }>
                   <FlatList
-                    data={menuItems}
+                    data={screenItemList}
                     renderItem={({item, index}) => {
                       return (
                         <MenuItem
@@ -165,64 +166,5 @@ const MenuItem = ({
     </Pressable>
   );
 };
-
-const menuItems = [
-  {
-    id: 'Agenda',
-    name: 'Agenda',
-  },
-  {
-    id: 'Search',
-    name: 'Search',
-  },
-  {
-    id: 'Calendar',
-    name: 'Calendar',
-  },
-  {
-    id: 'Companies',
-    name: 'Companies',
-  },
-  {
-    id: 'Contacts',
-    name: 'Contacts',
-  },
-  {
-    id: 'Configurations',
-    name: 'Configurations',
-  },
-  {
-    id: 'SBoard',
-    name: 'Service Board',
-  },
-  {
-    id: 'PBoard',
-    name: 'Project Board',
-  },
-  {
-    id: 'Opportunities',
-    name: 'Opportunities',
-  },
-  {
-    id: 'MyActivities',
-    name: 'My Activities',
-  },
-  {
-    id: 'IOBoard',
-    name: 'In/Out Board',
-  },
-  {
-    id: 'ExpReports',
-    name: 'Expense Reports',
-  },
-  {
-    id: 'TimeSheets',
-    name: 'Time Sheets',
-  },
-  {
-    id: 'StopWatch',
-    name: 'StopWatch',
-  },
-];
 
 export default SettingsScreen;

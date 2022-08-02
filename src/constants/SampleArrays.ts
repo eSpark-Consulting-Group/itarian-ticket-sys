@@ -82,6 +82,13 @@ export type ExpReportList = {
   totExp: number;
 };
 
+export type TimeSheetList = {
+  id: number;
+  date: Date;
+  data: Array<Scheduled_Data>;
+  totHrs: number;
+};
+
 export type FloatButtons = {
   icon: string;
   onPress?: () => void | undefined;
@@ -467,6 +474,77 @@ export const expReportList: Array<ExpReportList> = [
         task: 'Products for Exchange Server',
         totExp: '$1123.00',
         expType: 'Products',
+      },
+    ],
+  },
+];
+
+export const timeSheetList: Array<TimeSheetList> = [
+  {
+    id: 1,
+    date: new Date(2022, 7, 9),
+    totHrs: 2.5,
+    data: [
+      {
+        id: 1,
+        ticket_no: 'Ticket #4163',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 11:30AM',
+        time_dur: '1.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 2,
+        ticket_no: 'Ticket #4164',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 3,
+        ticket_no: 'Ticket #4166',
+        task: 'New Server Installation',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+    ],
+  },
+  {
+    id: 2,
+    date: new Date(2022, 7, 14),
+    totHrs: 3.5,
+    data: [
+      {
+        id: 4,
+        ticket_no: 'Ticket #5264',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 5,
+        ticket_no: 'Ticket #5267',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 10:30AM',
+        time_dur: '0.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
+      },
+      {
+        id: 6,
+        ticket_no: 'Ticket #5270',
+        task: 'Products for Exchange Server',
+        schedule_time: '10:00AM - 12:30PM',
+        time_dur: '2.5h',
+        company_name: 'Acme IT Solutions',
+        location: 'Remote',
       },
     ],
   },

@@ -1,5 +1,5 @@
 import {View, Text, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import FA from 'react-native-vector-icons/FontAwesome';
 import DatePicker from '@react-native-community/datetimepicker';
@@ -9,10 +9,14 @@ import styles from './style';
 
 const DateRangeSelector = ({
   fetchData,
+  clearDate,
   total,
+  totalType,
 }: {
   fetchData: (date1: Date, date2: Date) => void;
+  clearDate: () => void;
   total?: string | number;
+  totalType?: string;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
@@ -40,23 +44,34 @@ const DateRangeSelector = ({
 
   const closeDatePicker = (event: any, date: any) => {
     setShowDate(false);
-    let month = date.toString().slice(4, 7);
-    let dat = date.getDate();
-    console.log('event', event);
+    let D1 = date.setHours(0, 0, 0, 0);
+    let D2 = date.setHours(23, 59, 0, 0);
+    let strtDate = new Date(D1);
+    let endDate = new Date(D2);
+    console.log('event', strtDate, endDate);
+    let month = strtDate.toLocaleString().slice(4, 7);
+    let dat = strtDate.getDate();
     if (event.type == 'set') {
       if (startDate) {
         console.log('got Start Date');
         setEndDateVal(month + ' ' + dat);
-        fetchData(startDate, date);
+        fetchData(startDate, endDate);
       } else {
         setImmediate(() => {
           console.log('Dobara Chala kia');
           setShowDate(true);
         });
-        setStartDate(date);
+        setStartDate(strtDate);
         setStartDateVal(month + ' ' + dat);
       }
+    } else {
+      onCancelDate();
+      setStartDate(undefined);
     }
+  };
+
+  const onCancelDate = () => {
+    clearDate();
   };
 
   return (
@@ -84,7 +99,7 @@ const DateRangeSelector = ({
               : 'Select Date Range'}
           </Text>
           <Text style={{color: '#28648f', fontWeight: 'bold'}}>
-            {total ? total : '0.00'}
+            {total ? total : '0.00'} {totalType}
           </Text>
         </View>
         <FA color={colors.text} name="chevron-down" size={15} />

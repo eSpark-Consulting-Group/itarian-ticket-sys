@@ -31,5 +31,5 @@ export {
   OutlineBtn,
   CstmDropDown,
   CstmMultiLine,
-  DateRangeSelector
+  DateRangeSelector,
 };

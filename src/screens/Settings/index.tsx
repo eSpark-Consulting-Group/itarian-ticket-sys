@@ -3,21 +3,23 @@ import {View, Text, TouchableOpacity, Pressable, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useState as useHookState, State} from '@hookstate/core';
+import {moderateScale} from 'react-native-size-matters';
 
 import {globalState} from '../../utils/globalState';
 import {Theme} from '../../theme/colors';
-import styles from './style';
 import {useUpdateEffect} from '../../utils/hooks';
-import {moderateScale} from 'react-native-size-matters';
+import {screenItemList} from '../../constants/SampleArrays';
+import styles from './style';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookState(globalState.theme);
   const dScreen: State<string> = useHookState(globalState.defaultScreenId);
+  const dSName: State<string> = useHookState(globalState.defaultScreenName);
   const [isSwitchOn, setIsSwitchOn] = useState(
     themeValue.get() == 'light' ? false : true,
   );
   const [visible, setVisible] = useState(false);
-  const [defaultScreen, setdefaultScreen] = useState('Agenda');
+  const [defaultScreen, setdefaultScreen] = useState(dSName.get());
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
@@ -35,6 +37,7 @@ const SettingsScreen = () => {
 
   const handleDefaultSwitch = (id: string, name: string) => {
     dScreen.set(id);
+    dSName.set(name);
     setdefaultScreen(name);
   };
   const hideMenu = () => {
@@ -44,7 +47,7 @@ const SettingsScreen = () => {
     setVisible(true);
   };
 
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
   return (
     <View>
       <List.Section>
@@ -98,12 +101,13 @@ const SettingsScreen = () => {
                     />
                   }>
                   <FlatList
-                    data={menuItems}
+                    data={screenItemList}
                     renderItem={({item, index}) => {
                       return (
                         <MenuItem
                           itemName={item.name}
                           textColor={colors.text}
+                          dark={dark}
                           onPress={() => {
                             hideMenu();
                             handleDefaultSwitch(item.id, item.name);
@@ -132,6 +136,7 @@ const MenuItem = ({
   rightIcon,
   textColor = '#000',
   checkVisible,
+  dark,
 }: {
   itemName: string;
   onPress: () => void;
@@ -139,9 +144,12 @@ const MenuItem = ({
   rightIcon?: React.ReactNode;
   textColor?: string;
   checkVisible?: boolean;
+  dark?: boolean;
 }) => {
   return (
-    <Pressable onPress={onPress} android_ripple={{color: '#635a5a5c'}}>
+    <Pressable
+      onPress={onPress}
+      android_ripple={{color: dark ? '#ffffff1a' : '#0000000e'}}>
       <View
         style={{
           flexDirection: 'row',
@@ -165,64 +173,5 @@ const MenuItem = ({
     </Pressable>
   );
 };
-
-const menuItems = [
-  {
-    id: 'Agenda',
-    name: 'Agenda',
-  },
-  {
-    id: 'Search',
-    name: 'Search',
-  },
-  {
-    id: 'Calendar',
-    name: 'Calendar',
-  },
-  {
-    id: 'Companies',
-    name: 'Companies',
-  },
-  {
-    id: 'Contacts',
-    name: 'Contacts',
-  },
-  {
-    id: 'Configurations',
-    name: 'Configurations',
-  },
-  {
-    id: 'SBoard',
-    name: 'Service Board',
-  },
-  {
-    id: 'PBoard',
-    name: 'Project Board',
-  },
-  {
-    id: 'Opportunities',
-    name: 'Opportunities',
-  },
-  {
-    id: 'MyActivities',
-    name: 'My Activities',
-  },
-  {
-    id: 'IOBoard',
-    name: 'In/Out Board',
-  },
-  {
-    id: 'ExpReports',
-    name: 'Expense Reports',
-  },
-  {
-    id: 'TimeSheets',
-    name: 'Time Sheets',
-  },
-  {
-    id: 'StopWatch',
-    name: 'StopWatch',
-  },
-];
 
 export default SettingsScreen;

@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useState, useEffect, useReducer, useCallback} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useTheme, useFocusEffect} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import AD from 'react-native-vector-icons/AntDesign';
 import FD from 'react-native-vector-icons/Foundation';
@@ -11,32 +11,37 @@ import {State, useState as useHookState} from '@hookstate/core';
 import styles from './style';
 import {Theme} from '../../theme/colors';
 import {Stopwatch, stopWatchList} from '../../constants/SampleArrays';
-import {EmptyListMsg} from '../../components';
+import {EmptyListMsg, SimpleLoader} from '../../components';
 import {globalState} from '../../utils/globalState';
 import {useUpdateEffect} from '../../utils/hooks';
 
 const StopWatchScreen = () => {
   const {colors, dark}: Theme = useTheme();
 
+  const [isLoading, setIsLoading] = useState(true);
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
   const stopWatchDataList: State<any> = useHookState(globalState.stopwatch);
   const solidColor = dark ? '#000000' : '#ffffff';
 
-  useEffect(() => {
-    stopWatchDataList.set(stopWatchList);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      stopWatchDataList.set(stopWatchList);
+      setImmediate(() => {
+        setIsLoading(false);
+      });
+      return () => setIsLoading(true);
+    }, []),
+  );
 
   const renderList = ({item, index}: {item: Stopwatch; index: number}) => {
     const handlePlayPause = (value: boolean | undefined, index: number) => {
-      // console.log('qqwww', value, index);
-
       if (value === true) {
-        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
+        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get())); //* Force Copy Method
         temp[index].isPlaying = false;
         stopWatchDataList.set(temp);
         forceUpdate();
       } else if (value === false) {
-        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
+        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get())); //* Force Copy Method
         temp[index].isPlaying = true;
         stopWatchDataList.set(temp);
         forceUpdate();
@@ -167,7 +172,9 @@ const StopWatchScreen = () => {
 
   return (
     <View style={{...styles.container, backgroundColor: colors.background}}>
-      {stopWatchDataList.get()?.length !== 0 ? (
+      {isLoading ? (
+        <SimpleLoader />
+      ) : stopWatchDataList.get()?.length !== 0 ? (
         <FlatList data={stopWatchDataList.get()} renderItem={renderList} />
       ) : (
         <NotFound />

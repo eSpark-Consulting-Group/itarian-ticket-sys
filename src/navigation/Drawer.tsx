@@ -171,20 +171,6 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
 
   const noHeader = (): null => null;
 
-  const handleColdBoot = (data: ShortcutItem) => {
-    const {userInfo} = data;
-    console.log('chala coldboot', userInfo?.url);
-    Linking.openURL(userInfo?.url);
-  };
-
-  useEffect(() => {
-    QuickActions.popInitialAction()
-      .then(data => {
-        if (data != null) handleColdBoot(data);
-      })
-      .catch(err => console.log('err', err));
-  }, []);
-
   return (
     <Drawer.Navigator
       initialRouteName={dScreen.get()}

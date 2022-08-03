@@ -30,6 +30,11 @@ const styles = StyleSheet.create({
     opacity: 0.2,
     transform: [{scale: 2}],
   },
+  switchContainer: {
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default styles;

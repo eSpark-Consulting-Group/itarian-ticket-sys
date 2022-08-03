@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
 
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants/Dimensions';
 
@@ -19,6 +20,12 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: WINDOW_WIDTH,
+  },
+  listInner: {
+    padding: moderateScale(15),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   dividerStyle: {
     opacity: 0.2,

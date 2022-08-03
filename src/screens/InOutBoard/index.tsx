@@ -134,12 +134,7 @@ const InOutBoardScreen = () => {
           backgroundColor: dark ? '#000000' : '#ffffff',
           ...styles.subHeader,
         }}>
-        <View
-          style={{
-            padding: 8,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+        <View style={styles.switchContainer}>
           <CstmSwitchSelector
             selectionMode={selection}
             roundCorner={true}

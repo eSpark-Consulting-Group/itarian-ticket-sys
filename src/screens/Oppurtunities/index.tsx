@@ -46,13 +46,7 @@ const Oppurtunities = () => {
         <Pressable
           onPress={() => console.log('Hello')}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
-          <View
-            style={{
-              padding: moderateScale(15),
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-            }}>
+          <View style={styles.listInner}>
             <View style={{flexDirection: 'row'}}>
               <FA name="exclamation-circle" color={renderColor()} size={44} />
               <View style={{paddingHorizontal: 10}}>

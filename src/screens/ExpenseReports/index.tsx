@@ -4,8 +4,9 @@ import {useTheme} from '@react-navigation/native';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {DateRangeSelector, FloatButton} from '../../components';
+import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {
+  ExpReportList,
   expReportList,
   SchAdditionalButtons,
   scheduledList,
@@ -20,6 +21,7 @@ const ExpenseReportsScreen = () => {
     {date: new Date()},
     {date: new Date()},
   ]);
+  const [expData, setExpData] = useState<ExpReportList[]>([]);
 
   const getDate = (date1: Date, date2: Date) => {
     let datArr = [...dateArr];
@@ -32,8 +34,19 @@ const ExpenseReportsScreen = () => {
         ? (Expense = Expense + i.totExp)
         : null;
     });
+    const data = expReportList.filter(
+      i => i.date >= dateArr[0].date && i.date <= dateArr[1].date,
+    );
+    console.log('DATA', data);
+    setImmediate(() => {
+      setExpData(data);
+      console.log('fgf');
+      setImmediate(() => {
+        setIsDate(true);
+        console.log('qwe');
+      });
+    });
     setTotExp(Expense);
-    setIsDate(true);
   };
 
   const clearTotal = () => {
@@ -50,16 +63,16 @@ const ExpenseReportsScreen = () => {
       />
 
       {isDate ? (
-        <FlatList
-          data={expReportList}
-          renderItem={({item}) => (
-            <>
-              {item.date >= dateArr[0].date && item.date <= dateArr[1].date && (
-                <ListItem id={item.id} item={item} dateRange={dateArr} />
-              )}
-            </>
-          )}
-        />
+        expData.length > 0 ? (
+          <FlatList
+            data={expData}
+            renderItem={({item}) => {
+              return <ListItem id={item.id} item={item} dateRange={dateArr} />;
+            }}
+          />
+        ) : (
+          <NotFound />
+        )
       ) : (
         <View style={{flex: 1, justifyContent: 'center'}}>
           <Text style={{color: colors.text}}>Please Select Date Range</Text>
@@ -67,6 +80,14 @@ const ExpenseReportsScreen = () => {
       )}
 
       <FloatButton AdditionalButtons={SchAdditionalButtons} />
+    </View>
+  );
+};
+
+const NotFound = (): JSX.Element => {
+  return (
+    <View style={styles.content}>
+      <EmptyListMsg label="Data" />
     </View>
   );
 };

@@ -6,10 +6,16 @@ import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Theme} from '../../theme/colors';
-import {SearchBar, EmptyListMsg, SimpleLoader} from '../../components';
+import {
+  SearchBar,
+  EmptyListMsg,
+  SimpleLoader,
+  FloatButton,
+} from '../../components';
 import {
   configurationsList,
   Configurations as ConfigurationsType,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
 import {useUpdateEffect} from '../../utils/hooks';
 
@@ -211,6 +217,7 @@ export const RenderConfigurations = ({
       ) : (
         <NotFound />
       )}
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </>
   );
 };

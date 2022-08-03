@@ -15,8 +15,9 @@ import {Theme} from '../../theme/colors';
 import {
   Opportunities as OpportunityType,
   opportunitiesList,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
-import {EmptyListMsg} from '../../components';
+import {EmptyListMsg, FloatButton} from '../../components';
 
 const Oppurtunities = () => {
   const {colors, dark}: Theme = useTheme();
@@ -162,6 +163,7 @@ const Oppurtunities = () => {
       ) : (
         <NotFound />
       )}
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </View>
   );
 };

@@ -8,10 +8,11 @@ import MI from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {EmptyListMsg, OutlineBtn} from '../../components';
+import {EmptyListMsg, FloatButton, OutlineBtn} from '../../components';
 import {
   activitiesList,
   Activity as ActivityType,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
 
 const MyActivities = () => {
@@ -190,6 +191,7 @@ const MyActivities = () => {
           <NotFound />
         )}
       </View>
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
@@ -8,73 +8,66 @@ import {WINDOW_WIDTH} from '../../constants/Dimensions';
 // @ts-ignore
 import EventCalendar from 'react-native-events-calendar';
 
+import {SchAdditionalButtons} from '../../constants/SampleArrays';
+import {FloatButton} from '../../components';
+
 const Calendar = () => {
   const {colors}: Theme = useTheme();
 
   const events = [
     {
-      start: '2022-07-07 00:30:00',
-      end: '2022-07-07 01:30:00',
+      start: '2022-07-07 10:00:00',
+      end: '2022-07-07 12:00:00',
       title: 'Ticket #15378',
       summary: 'The System is down',
     },
     {
-      start: '2022-07-07 01:30:00',
-      end: '2022-07-07 02:20:00',
+      start: '2022-07-07 12:30:00',
+      end: '2022-07-07 13:30:00',
       title: 'Lunch',
     },
     {
-      start: '2022-07-07 04:10:00',
-      end: '2022-07-07 04:40:00',
+      start: '2022-07-07 16:10:00',
+      end: '2022-07-07 16:40:00',
       title: 'Ticket #15490',
       summary: 'Printer not working',
     },
     {
       start: '2022-07-07 14:30:00',
-      end: '2022-07-07 16:30:00',
+      end: '2022-07-07 16:00:00',
       title: 'Ticket #15490',
       summary: 'Reception workstation install',
     },
+
     {
-      start: '2022-07-08 01:20:00',
-      end: '2022-07-08 02:20:00',
-      title: 'Dr. Mariana Joseph',
+      start: '2022-07-08 16:10:00',
+      end: '2022-07-08 16:40:00',
+      title: 'Ticket #14645',
       summary: '3412 Piedmont Rd NE, GA 3032',
     },
     {
-      start: '2022-07-08 04:10:00',
-      end: '2022-07-08 04:40:00',
-      title: 'Dr. Mariana Joseph',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-    },
-    {
-      start: '2022-07-08 00:45:00',
-      end: '2022-07-08 01:45:00',
-      title: 'Dr. Mariana Joseph',
+      start: '2022-07-08 12:45:00',
+      end: '2022-07-08 13:45:00',
+      title: 'Ticket #12420',
       summary: '3412 Piedmont Rd NE, GA 3032',
     },
     {
       start: '2022-07-08 11:30:00',
       end: '2022-07-08 12:30:00',
-      title: 'Dr. Mariana Joseph',
+      title: 'Ticket #16456',
+      summary: '3412 Piedmont Rd NE, GA 3032',
+    },
+
+    {
+      start: '2022-07-09 15:10:00',
+      end: '2022-07-09 15:40:00',
+      title: 'Ticket #13675',
       summary: '3412 Piedmont Rd NE, GA 3032',
     },
     {
-      start: '2022-07-09 01:30:00',
-      end: '2022-07-09 02:00:00',
-      title: 'Dr. Mariana Joseph',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-    },
-    {
-      start: '2022-07-09 03:10:00',
-      end: '2022-07-09 03:40:00',
-      title: 'Dr. Mariana Joseph',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-    },
-    {
-      start: '2022-07-09 00:10:00',
-      end: '2022-07-09 01:45:00',
-      title: 'Dr. Mariana Joseph',
+      start: '2022-07-09 13:10:00',
+      end: '2022-07-09 14:45:00',
+      title: 'Ticket #15673',
       summary: '3412 Piedmont Rd NE, GA 3032',
     },
   ];
@@ -88,6 +81,7 @@ const Calendar = () => {
         width={WINDOW_WIDTH}
         initDate={'2022-07-07'}
       />
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </View>
   );
 };

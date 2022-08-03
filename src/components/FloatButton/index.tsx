@@ -4,7 +4,7 @@ import {FAB} from 'react-native-paper';
 
 import styles from './style';
 
-const FloatButton = ({AdditionalButtons}: {AdditionalButtons: any}) => {
+const FloatButton = ({AdditionalButtons}: {AdditionalButtons?: any}) => {
   const [showBtns, setShowBtns] = useState(false);
   const ShowMoreBtns = () => {
     setShowBtns(!showBtns);

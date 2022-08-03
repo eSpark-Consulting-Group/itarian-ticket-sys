@@ -4,13 +4,14 @@ import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-import {SearchBar, SimpleLoader} from '../../components';
+import {FloatButton, SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
 import {Colors, Theme} from '../../theme/colors';
 import {EmptyListMsg} from '../../components';
 import {
   companiesList,
   Companines as CompanyType,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
 import {useUpdateEffect} from '../../utils/hooks';
 
@@ -126,6 +127,7 @@ export const RenderCompanies = ({
       ) : (
         <NotFound />
       )}
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </>
   );
 };

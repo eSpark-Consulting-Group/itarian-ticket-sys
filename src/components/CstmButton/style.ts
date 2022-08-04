@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   scale,
   verticalScale,
@@ -6,8 +6,6 @@ import {
   ScaledSheet,
   moderateVerticalScale,
 } from 'react-native-size-matters';
-
-const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {

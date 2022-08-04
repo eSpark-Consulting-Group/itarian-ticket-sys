@@ -11,9 +11,9 @@ import {Theme} from '../../theme/colors';
 import {EmptyListMsg, FloatButton, OutlineBtn} from '../../components';
 import {
   activitiesList,
-  Activity as ActivityType,
   SchAdditionalButtons,
 } from '../../constants/SampleArrays';
+import {Activity} from '../../types';
 
 const MyActivities = () => {
   const {colors, dark}: Theme = useTheme();
@@ -25,7 +25,7 @@ const MyActivities = () => {
   const showMenu = (): void => setVisible(!visible);
   const hideMenu = (): void => setVisible(false);
 
-  const renderList = ({item, index}: {item: ActivityType; index: number}) => {
+  const renderList = ({item, index}: {item: Activity; index: number}) => {
     return (
       <View
         style={{

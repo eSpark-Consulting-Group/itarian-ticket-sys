@@ -13,22 +13,16 @@ import FD from 'react-native-vector-icons/Foundation';
 import styles from './style';
 import {Theme} from '../../theme/colors';
 import {
-  Opportunities as OpportunityType,
   opportunitiesList,
   SchAdditionalButtons,
 } from '../../constants/SampleArrays';
+import {Opportunity} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
 
 const Oppurtunities = () => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({
-    item,
-    index,
-  }: {
-    item: OpportunityType;
-    index: number;
-  }) => {
+  const renderList = ({item, index}: {item: Opportunity; index: number}) => {
     const renderColor = () => {
       switch (item.priority) {
         case 'low':

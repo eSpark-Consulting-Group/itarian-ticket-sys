@@ -8,6 +8,8 @@ import {Login, Profile, SignUp} from '../screens/index';
 import {DarkTheme, LightTheme} from '../theme/colors';
 import Drawer from './Drawer';
 import {globalState} from '../utils/globalState';
+import StackLvl1 from './StackLvl1';
+import StackLvl2 from './StackLvl2';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,11 +55,27 @@ const App = () => {
             component={SignUp}
             options={{headerShown: false}}
           />
-          <Stack.Screen
-            name="Draw"
-            component={Drawer}
-            options={{headerShown: false}}
-          />
+          <Stack.Group
+            screenOptions={{
+              presentation: 'modal',
+              animation: 'slide_from_bottom',
+            }}>
+            <Stack.Screen
+              name="Stack1"
+              component={StackLvl1}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Stack2"
+              component={StackLvl2}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Draw"
+              component={Drawer}
+              options={{headerShown: false}}
+            />
+          </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

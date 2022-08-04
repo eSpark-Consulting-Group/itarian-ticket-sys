@@ -1,12 +1,11 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-
-const {width} = Dimensions.get('window');
+import {WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: width * 0.95,
+    width: WINDOW_WIDTH * 0.95,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
     transform: [{scaleY: 6}],
   },
   centerContent: {
-    width: width * 0.25,
+    width: WINDOW_WIDTH * 0.25,
     textAlign: 'center',
   },
   divider_2: {

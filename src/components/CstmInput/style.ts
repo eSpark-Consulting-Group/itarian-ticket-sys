@@ -1,7 +1,6 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {moderateVerticalScale} from 'react-native-size-matters';
-
-const {width, height} = Dimensions.get('window');
+import {WINDOW_HEIGHT} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +13,7 @@ const styles = StyleSheet.create({
   },
   center: {flex: 0.8},
   adjuster: {flex: 0.1},
-  text: {color: '#F7F7F7', fontWeight: '800', fontSize: height * 0.025},
+  text: {color: '#F7F7F7', fontWeight: '800', fontSize: WINDOW_HEIGHT * 0.025},
 });
 
 export default styles;

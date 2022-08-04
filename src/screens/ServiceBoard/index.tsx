@@ -9,17 +9,14 @@ import FD from 'react-native-vector-icons/Foundation';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {
-  SchAdditionalButtons,
-  Tickets as TicketsType,
-  ticketsList,
-} from '../../constants/SampleArrays';
+import {SchAdditionalButtons, ticketsList} from '../../constants/SampleArrays';
+import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
 
 const ServiceBoard = () => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: TicketsType; index: number}) => {
+  const renderList = ({item, index}: {item: Ticket; index: number}) => {
     const renderColor = () => {
       switch (item.priority) {
         case 'DNR':

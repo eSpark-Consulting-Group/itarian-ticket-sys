@@ -1,209 +1,25 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {ViewStyle} from 'react-native';
-
-/*
-//* Types for all list Data (will be moved to another file in the Future)
-*/
-
-export type Companines = {
-  id: string;
-  name: string;
-  address: string;
-  employees?: number | null;
-};
-
-export type Contacts = {
-  name: string;
-  company_name: string;
-  phone_no?: string | undefined | null;
-  email_address?: string | undefined | null;
-  inOffice?: boolean;
-};
-
-export type Configurations = {
-  name: string;
-  company_name: string;
-  tag?: string | null | undefined;
-  model?: string | null | undefined;
-  serial?: string | null | undefined;
-};
-
-export type Activity = {
-  name: string;
-  company_name: string;
-  date: string;
-  start_time: string;
-  end_time: string;
-  company_contact?: string;
-};
-
-export type Scheduled_Data = {
-  id: number;
-  ticket_no: string;
-  task: string;
-  schedule_time: string;
-  time_dur: string;
-  company_name: string;
-  location: string;
-};
-
-export type Unscheduled_Data = {
-  id: number;
-  ticket_no: string;
-  task: string;
-  company_name: string;
-  location: string;
-};
-
-export type ExpRprt_Data = {
-  id: number;
-  ticket_no: string;
-  task: string;
-  totExp: string;
-  expType: string;
-};
-
-export type ScheduledList = {
-  id: number;
-  date: string;
-  data: Array<Scheduled_Data>;
-};
-
-export type UnscheduledList = {
-  id: number;
-  date: string;
-  data: Array<Unscheduled_Data>;
-};
-
-export type ExpReportList = {
-  id: number;
-  date: Date;
-  data: Array<ExpRprt_Data>;
-  totExp: number;
-};
-
-export type TimeSheetList = {
-  id: number;
-  date: Date;
-  data: Array<Scheduled_Data>;
-  totHrs: number;
-};
-
-export type FloatButtons = {
-  icon: string;
-  onPress?: () => void | undefined;
-  style?: ViewStyle;
-  AdditionalButtons: any;
-};
-
-export type AdditionalButtons = {
-  icon: string;
-  label: string;
-  color: string;
-  style: any;
-  labelTextColor?: string;
-  labelStyle: object;
-  onPress: () => void;
-};
-
-export type ModalFormDataArrayType = {
-  headingRight?: string;
-  subHeadingRight?: string;
-  headingLeft?: string;
-  subHeadingLeft?: string;
-  iconRight?: string;
-  switchRight?: boolean;
-  switch_val?: boolean;
-  iconLeft?: string;
-  pressEnable?: boolean;
-  onPress?: () => void;
-  pressEnableRight?: boolean;
-  onPressRight?: () => void;
-  subIconLeft?: string;
-  subIconRight?: string;
-  checkBoxRight?: boolean;
-  checkBox_Val?: string;
-  navigateTo?: string;
-  visible?: boolean;
-  input_Val?: string;
-  select_Date?: boolean;
-  select_Time?: boolean;
-};
-
-export type ModalFormArrayType = {
-  type:
-    | 'inlined'
-    | 'inline'
-    | 'inline-icon'
-    | 'inline-switch'
-    | 'block'
-    | 'iconBlock'
-    | 'multiline';
-  data: ModalFormDataArrayType;
-  formName?: string;
-};
-
-export type Tickets = {
-  ticket_no: number;
-  age: number;
-  ticket_summary: string;
-  contact?: string;
-  company: string;
-  status: 'New' | 'Off Board' | 'Scheduled';
-  priority: 'DNR' | 'P1' | 'P2' | 'P3';
-  phase?: string;
-  project?: string;
-};
-
-export type Opportunities = {
-  name: string;
-  contact: string;
-  contant_phone?: string;
-  priority: 'normal' | 'low' | 'high' | 'critical';
-  sales_Rep: string;
-  company: string;
-  status: string;
-  close_date: string;
-};
-
-export type ParamList = {
-  FSLoader: undefined;
-  Agenda: undefined;
-  Search: undefined;
-  Profile: {
-    status: boolean;
-  };
-  Forms: undefined;
-  Calendar: undefined;
-  Companies: undefined;
-  Contacts: undefined;
-  Configurations: undefined;
-  SBoard: undefined;
-  PBoard: undefined;
-  MyActivities: undefined;
-  Opportunities: undefined;
-  IOBoard: undefined;
-  ExpReports: undefined;
-  TimeSheets: undefined;
-  StopWatch: undefined;
-  Settings: undefined;
-  Feedback: undefined;
-};
-
-export type Stopwatch = {
-  ticket_no: string;
-  ticket_summary: string;
-  created_at: string;
-  timer: string;
-  isPlaying?: boolean;
-};
-
-export type ScreenItems = {
-  id: string;
-  name: string;
-};
-
-//! ---------------------------------------
+import {
+  Activity,
+  AdditionalButtons,
+  Company,
+  Configuration,
+  Contact,
+  ExpReportList,
+  ExpRprt_Data,
+  FloatButtons,
+  ModalFormArrayType,
+  ModalFormDataArrayType,
+  Opportunity,
+  ParamList,
+  ScheduledList,
+  Scheduled_Data,
+  ScreenItems,
+  Stopwatch,
+  Ticket,
+  TimeSheet,
+  UnscheduledList,
+  Unscheduled_Data,
+} from '../types';
 
 /*
 //* Sample Array List Disposable in the Future
@@ -214,7 +30,7 @@ export const AdditionalButtonStyle = {
   borderRadius: 1000,
 };
 
-export const companiesList: Array<Companines> = [
+export const companiesList: Array<Company> = [
   {
     id: 'C01',
     name: 'Lorem Ipsum Company Ltd',
@@ -291,7 +107,7 @@ export const companiesList: Array<Companines> = [
   },
 ];
 
-export const contactsList: Contacts[] = [
+export const contactsList: Contact[] = [
   {
     name: 'John Doe',
     company_name: 'ACME Industries',
@@ -355,7 +171,7 @@ export const contactsList: Contacts[] = [
   },
 ];
 
-export const configurationsList: Configurations[] = [
+export const configurationsList: Configuration[] = [
   {
     name: '#90234',
     company_name: 'ACE Chemicals',
@@ -477,7 +293,7 @@ export const expReportList: Array<ExpReportList> = [
   },
 ];
 
-export const timeSheetList: Array<TimeSheetList> = [
+export const timeSheetList: Array<TimeSheet> = [
   {
     id: 1,
     date: new Date(2022, 7, 9),
@@ -842,7 +658,7 @@ export const GoneToFormArray: Array<ModalFormArrayType> = [
   },
 ];
 
-export const opportunitiesList: Opportunities[] = [
+export const opportunitiesList: Opportunity[] = [
   {
     name: 'New Site Wiring',
     contact: 'Tim Smith',
@@ -885,7 +701,7 @@ export const opportunitiesList: Opportunities[] = [
   },
 ];
 
-export const ticketsList: Tickets[] = [
+export const ticketsList: Ticket[] = [
   {
     ticket_no: 15222,
     age: 4.6,

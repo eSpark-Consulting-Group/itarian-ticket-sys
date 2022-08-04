@@ -8,10 +8,8 @@ import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
 import {Theme} from '../../theme/colors';
 import {EmptyListMsg, CstmSwitchSelector} from '../../components';
-import {
-  contactsList,
-  Contacts as ContactsType,
-} from '../../constants/SampleArrays';
+import {contactsList} from '../../constants/SampleArrays';
+import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 const InOutBoardScreen = () => {
@@ -21,7 +19,7 @@ const InOutBoardScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [clear, setClear] = useState(false);
 
-  const [members, setMembers] = useState<ContactsType[]>();
+  const [members, setMembers] = useState<Contact[]>();
 
   const handleSubmit = () => {
     setIsLoading(true);
@@ -91,7 +89,7 @@ const InOutBoardScreen = () => {
     console.log('Current Selection', selection);
   }, [selection]);
 
-  const renderList = ({item, index}: {item: ContactsType; index: number}) => {
+  const renderList = ({item, index}: {item: Contact; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <View style={{padding: moderateScale(15)}}>

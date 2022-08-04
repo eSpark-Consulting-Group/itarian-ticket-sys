@@ -4,7 +4,6 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
-  Dimensions,
   Linking,
 } from 'react-native';
 
@@ -17,13 +16,12 @@ import styles from './style';
 import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
+import {WINDOW_HEIGHT} from '../../../constants';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
   password: Yup.string().required().min(6).label('Password'),
 });
-
-const {width, height} = Dimensions.get('window');
 
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
@@ -41,7 +39,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     .catch(err => console.log('err', err));
 
   return (
-    <View style={{height: height}}>
+    <View style={{height: WINDOW_HEIGHT}}>
       <View style={styles.imageContainer}>
         <Image
           source={require('../../../assets/images/logo.png')}

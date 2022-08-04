@@ -10,10 +10,11 @@ import FD from 'react-native-vector-icons/Foundation';
 import styles from './style';
 import {Theme} from '../../theme/colors';
 import {
+  SchAdditionalButtons,
   Tickets as TicketsType,
   ticketsList,
 } from '../../constants/SampleArrays';
-import {EmptyListMsg} from '../../components';
+import {EmptyListMsg, FloatButton} from '../../components';
 
 const ServiceBoard = () => {
   const {colors, dark}: Theme = useTheme();
@@ -163,6 +164,7 @@ const ServiceBoard = () => {
       ) : (
         <NotFound />
       )}
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </View>
   );
 };

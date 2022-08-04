@@ -8,9 +8,9 @@ import {
   expReportList,
   SchAdditionalButtons,
   scheduledList,
-  TimeSheetList,
   timeSheetList,
 } from '../../constants/SampleArrays';
+import {TimeSheet} from '../../types';
 import ListItem from '../Agenda/ListItem';
 
 const TimeSheetsScreen = () => {
@@ -21,7 +21,7 @@ const TimeSheetsScreen = () => {
     {date: new Date()},
     {date: new Date()},
   ]);
-  const [sheetData, setSheetData] = useState<TimeSheetList[]>([]);
+  const [sheetData, setSheetData] = useState<TimeSheet[]>([]);
 
   const getDate = (date1: Date, date2: Date) => {
     let datArr = [...dateArr];

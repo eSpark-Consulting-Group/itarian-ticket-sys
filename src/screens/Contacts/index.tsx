@@ -9,10 +9,8 @@ import styles from './style';
 import {Theme} from '../../theme/colors';
 import {SearchBar, SimpleLoader} from '../../components';
 import {EmptyListMsg} from '../../components';
-import {
-  contactsList,
-  Contacts as ContactsType,
-} from '../../constants/SampleArrays';
+import {contactsList} from '../../constants/SampleArrays';
+import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 const Contacts = () => {
@@ -93,11 +91,11 @@ const Contacts = () => {
 export const RenderContacts = ({
   listData = contactsList,
 }: {
-  listData?: ContactsType[];
+  listData?: Contact[];
 }) => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: ContactsType; index: number}) => {
+  const renderList = ({item, index}: {item: Contact; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <Pressable

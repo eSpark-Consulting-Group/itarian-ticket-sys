@@ -10,7 +10,8 @@ import {State, useState as useHookState} from '@hookstate/core';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {Stopwatch, stopWatchList} from '../../constants/SampleArrays';
+import {stopWatchList} from '../../constants/SampleArrays';
+import {Stopwatch} from '../../types';
 import {EmptyListMsg, SimpleLoader} from '../../components';
 import {globalState} from '../../utils/globalState';
 import {useUpdateEffect} from '../../utils/hooks';

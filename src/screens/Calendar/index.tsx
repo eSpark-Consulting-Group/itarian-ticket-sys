@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Theme} from '../../theme/colors';
-import {WINDOW_WIDTH} from '../../constants/Dimensions';
+import {WINDOW_WIDTH} from '../../constants';
 
 // @ts-ignore
 import EventCalendar from 'react-native-events-calendar';

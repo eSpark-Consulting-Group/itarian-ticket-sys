@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 
-import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants/Dimensions';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {

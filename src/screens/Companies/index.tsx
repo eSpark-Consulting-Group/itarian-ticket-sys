@@ -10,9 +10,9 @@ import {Colors, Theme} from '../../theme/colors';
 import {EmptyListMsg} from '../../components';
 import {
   companiesList,
-  Companines as CompanyType,
   SchAdditionalButtons,
 } from '../../constants/SampleArrays';
+import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 const Companies = () => {
@@ -93,11 +93,11 @@ const Companies = () => {
 export const RenderCompanies = ({
   listData = companiesList,
 }: {
-  listData?: CompanyType[];
+  listData?: Company[];
 }) => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: CompanyType; index: number}) => {
+  const renderList = ({item, index}: {item: Company; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <Pressable

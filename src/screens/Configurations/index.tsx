@@ -14,9 +14,9 @@ import {
 } from '../../components';
 import {
   configurationsList,
-  Configurations as ConfigurationsType,
   SchAdditionalButtons,
 } from '../../constants/SampleArrays';
+import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
@@ -107,17 +107,11 @@ const Configurations = () => {
 export const RenderConfigurations = ({
   listData = configurationsList,
 }: {
-  listData?: ConfigurationsType[];
+  listData?: Configuration[];
 }) => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({
-    item,
-    index,
-  }: {
-    item: ConfigurationsType;
-    index: number;
-  }) => {
+  const renderList = ({item, index}: {item: Configuration; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <Pressable

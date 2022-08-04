@@ -18,10 +18,12 @@ const ListItem = ({
   item,
   id,
   dateRange,
+  onPress,
 }: {
   item: any;
   id: number;
-  dateRange?: Array<dates>;
+  dateRange?: dates[];
+  onPress?: (item: any) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -30,6 +32,7 @@ const ListItem = ({
       <Pressable
         style={{paddingHorizontal: 20}}
         key={item2.id}
+        onPress={() => onPress?.(item2)}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>

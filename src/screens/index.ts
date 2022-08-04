@@ -10,7 +10,6 @@ import ProjectBoard from './ProjectBoard';
 import ServiceBoard from './ServiceBoard';
 import MyActivities from './MyActivities';
 import InOutBoard from './InOutBoard';
-import ServiceTickets from './ServiceTickets';
 import StopWatch from './StopWatch';
 import TimeSheets from './TimeSheets';
 import ExpenseReports from './ExpenseReports';
@@ -32,7 +31,6 @@ export {
   ServiceBoard,
   MyActivities,
   InOutBoard,
-  ServiceTickets,
   StopWatch,
   TimeSheets,
   ExpenseReports,

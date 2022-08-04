@@ -1,7 +1,7 @@
 import {ViewStyle} from 'react-native';
 
 /*
-//* Types for all list Data (will be moved to another file in the Future)
+//* Types for all list Data
 */
 
 export type Company = {
@@ -201,5 +201,3 @@ export type ScreenItems = {
   id: string;
   name: string;
 };
-
-//! ---------------------------------------

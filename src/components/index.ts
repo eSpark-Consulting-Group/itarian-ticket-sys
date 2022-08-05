@@ -16,6 +16,7 @@ import CstmMultiLine from './CstmMultiLineInput';
 import DateRangeSelector from './DateRangeSelector';
 import ModalHeader from './ModalHeader';
 import RoundedIcon from './roundedIcon';
+import CstmTabBar from './CstmTabBar';
 
 export {
   CstmButton,
@@ -36,4 +37,5 @@ export {
   DateRangeSelector,
   ModalHeader,
   RoundedIcon,
+  CstmTabBar,
 };

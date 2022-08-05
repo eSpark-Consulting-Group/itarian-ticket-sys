@@ -14,6 +14,14 @@ export type dates = {
   date: Date;
 };
 
+export type Item = {
+  company_name: string;
+  id: number;
+  location: 'Remote' | 'On-Site' | 'In-House';
+  task: string;
+  ticket_no: string;
+};
+
 const ListItem = ({
   item,
   id,
@@ -23,7 +31,7 @@ const ListItem = ({
   item: any;
   id: number;
   dateRange?: dates[];
-  onPress?: (item: any) => void;
+  onPress?: (item: Item) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -42,7 +50,7 @@ const ListItem = ({
           </View>
           <View style={{width: '75%'}}>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
-              {item2.ticket_no}
+              Ticket {item2.ticket_no}
             </Text>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
               {item2.task}

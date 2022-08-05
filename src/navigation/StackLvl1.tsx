@@ -15,12 +15,13 @@ import STickets from '../forms/ServiceTickets';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
-  MyStatus: undefined;
+  MyStatus: {status: boolean};
   STickets: {title: string};
 };
 
-const StackLvl1 = ({navigation}: any) => {
+const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
+  console.log('route Props', route);
 
   return (
     <Stack.Navigator
@@ -35,11 +36,12 @@ const StackLvl1 = ({navigation}: any) => {
         name="MyStatus"
         component={MyStatus}
         initialParams={{status: false}}
-        options={{
+        options={({route}) => ({
           title: 'My Status',
           headerStyle: {backgroundColor: colors.primary},
-          headerLeft: props => {
-            console.log('Stack Props', props);
+          headerLeft: () => {
+            console.log('Options Props', route.params);
+
             return (
               <II
                 size={30}
@@ -55,10 +57,10 @@ const StackLvl1 = ({navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => saveStatus(navigation)}
+              onPress={() => saveStatus(navigation, route)}
             />
           ),
-        }}
+        })}
       />
       <Stack.Screen
         name="STickets"

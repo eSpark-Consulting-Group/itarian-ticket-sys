@@ -1,8 +1,5 @@
 //Function for My Status screen header's left button
 
-import {State, useState} from '@hookstate/core';
-import {globalState} from '../../utils/globalState';
-
 const backStatus = (navigation: any) => {
   // navigation.navigate({
   //   name: 'Profile',
@@ -14,7 +11,7 @@ const backStatus = (navigation: any) => {
 
 //Function for My Status screen header's right button
 
-const saveStatus = (navigation: any) => {
+const saveStatus = (navigation: any, route: any) => {
   // setPrevVal(switchVal);
   // currStatusVal.set(switchVal);
   // navigation.navigate({
@@ -28,7 +25,13 @@ const saveStatus = (navigation: any) => {
   //   setTimeDur('--');
   //   setDateDur('--');
   // }
-  navigation.goBack();
+  // console.log('Profile', route.params.status);
+
+  navigation.navigate({
+    name: 'Profile',
+    params: {status: route.params.status},
+    merge: true,
+  });
 };
 
 //Function for Gone To Screen header's right button

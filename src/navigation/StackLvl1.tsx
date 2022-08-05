@@ -2,8 +2,6 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
-
-import MyStatus from '../forms/MyStatus';
 import {Theme, useTheme} from '@react-navigation/native';
 import {
   backStatus,
@@ -11,7 +9,15 @@ import {
   saveStatus,
 } from '../forms/utils/headerFunctions';
 
-const Stack = createNativeStackNavigator();
+import MyStatus from '../forms/MyStatus';
+import STickets from '../forms/ServiceTickets';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export type RootStackParamList = {
+  MyStatus: undefined;
+  STickets: {title: string};
+};
 
 const StackLvl1 = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
@@ -53,6 +59,18 @@ const StackLvl1 = ({navigation}: any) => {
             />
           ),
         }}
+      />
+      <Stack.Screen
+        name="STickets"
+        component={STickets}
+        options={({route}) => ({
+          title: route?.params?.title,
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II size={30} name="close" style={{right: 6}} color={'#fff'} />
+          ),
+          headerRight: () => <FA size={27} name="save" color={'#fff'} />,
+        })}
       />
     </Stack.Navigator>
   );

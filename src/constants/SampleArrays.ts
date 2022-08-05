@@ -371,7 +371,7 @@ export const scheduledList: Array<ScheduledList> = [
     data: [
       {
         id: 1,
-        ticket_no: 'Ticket #4163',
+        ticket_no: '#4163',
         task: 'New Server Installation',
         schedule_time: '10:00AM - 11:30AM',
         time_dur: '1.5h',
@@ -380,7 +380,7 @@ export const scheduledList: Array<ScheduledList> = [
       },
       {
         id: 2,
-        ticket_no: 'Ticket #4164',
+        ticket_no: '#4164',
         task: 'New Server Installation',
         schedule_time: '10:00AM - 10:30AM',
         time_dur: '0.5h',
@@ -389,7 +389,7 @@ export const scheduledList: Array<ScheduledList> = [
       },
       {
         id: 3,
-        ticket_no: 'Ticket #4166',
+        ticket_no: '#4166',
         task: 'New Server Installation',
         schedule_time: '10:00AM - 10:30AM',
         time_dur: '0.5h',
@@ -404,7 +404,7 @@ export const scheduledList: Array<ScheduledList> = [
     data: [
       {
         id: 4,
-        ticket_no: 'Ticket #5264',
+        ticket_no: '#5264',
         task: 'Products for Exchange Server',
         schedule_time: '10:00AM - 10:30AM',
         time_dur: '0.5h',
@@ -413,7 +413,7 @@ export const scheduledList: Array<ScheduledList> = [
       },
       {
         id: 5,
-        ticket_no: 'Ticket #5267',
+        ticket_no: '#5267',
         task: 'Products for Exchange Server',
         schedule_time: '10:00AM - 10:30AM',
         time_dur: '0.5h',
@@ -422,7 +422,7 @@ export const scheduledList: Array<ScheduledList> = [
       },
       {
         id: 6,
-        ticket_no: 'Ticket #5270',
+        ticket_no: '#5270',
         task: 'Products for Exchange Server',
         schedule_time: '10:00AM - 12:30PM',
         time_dur: '2.5h',
@@ -440,21 +440,21 @@ export const unscheduledList: Array<UnscheduledList> = [
     data: [
       {
         id: 7,
-        ticket_no: 'Ticket #4163',
+        ticket_no: '#4163',
         task: 'New Server Installation',
         company_name: 'Acme IT Solutions',
         location: 'Remote',
       },
       {
         id: 8,
-        ticket_no: 'Ticket #4164',
+        ticket_no: '#4164',
         task: 'New Server Installation',
         company_name: 'Acme IT Solutions',
         location: 'Remote',
       },
       {
         id: 9,
-        ticket_no: 'Ticket #4177',
+        ticket_no: '#4177',
         task: 'New Server Installation',
         company_name: 'Acme IT Solutions',
         location: 'Remote',
@@ -467,21 +467,21 @@ export const unscheduledList: Array<UnscheduledList> = [
     data: [
       {
         id: 10,
-        ticket_no: 'Ticket #5264',
+        ticket_no: '#5264',
         task: 'Products for Exchange Server',
         company_name: 'Acme IT Solutions',
         location: 'Remote',
       },
       {
         id: 11,
-        ticket_no: 'Ticket #5267',
+        ticket_no: '#5267',
         task: 'Products for Exchange Server',
         company_name: 'Acme IT Solutions',
         location: 'Remote',
       },
       {
         id: 12,
-        ticket_no: 'Ticket #5270',
+        ticket_no: '#5270',
         task: 'Products for Exchange Server',
         company_name: 'Acme IT Solutions',
         location: 'Remote',

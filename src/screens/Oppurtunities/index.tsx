@@ -17,7 +17,8 @@ import {
   SchAdditionalButtons,
 } from '../../constants/SampleArrays';
 import {Opportunity} from '../../types';
-import {EmptyListMsg, FloatButton} from '../../components';
+import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
+import _ from 'lodash';
 
 const Oppurtunities = () => {
   const {colors, dark}: Theme = useTheme();
@@ -106,33 +107,13 @@ const Oppurtunities = () => {
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                borderColor: colors.text,
-                opacity: item.contant_phone ? 1 : 0.5,
-                ...styles.iconStyle,
-              }}>
-              <Pressable
-                onPress={() => {
-                  item.contant_phone ? console.log('calling') : null;
-                }}
-                android_disableSound
-                android_ripple={{
-                  color: item.contant_phone
-                    ? dark
-                      ? '#ffffff1f'
-                      : '#0000000e'
-                    : 'transparent',
-                  borderless: true,
-                }}>
-                <MCI
-                  name="phone"
-                  size={22}
-                  color={colors.text}
-                  style={styles.icon}
-                />
-              </Pressable>
-            </View>
+            <RoundedIcon
+              enable={!_.isUndefined(item.contant_phone)}
+              icon="phone"
+              onPress={() => {
+                console.log('Press Phone');
+              }}
+            />
           </View>
         </Pressable>
         {index !== opportunitiesList.length - 1 && (

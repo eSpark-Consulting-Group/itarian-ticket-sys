@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
   },
   iconsContainer: {
     flexDirection: 'row',
-    width: moderateScale(80),
     justifyContent: 'space-between',
   },
+  horizontalAdjuster: {width: 14},
   iconStyle: {
     borderWidth: 1,
     borderRadius: 100,

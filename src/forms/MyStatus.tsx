@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTheme} from '@react-navigation/native';
 
-import {ModalField, ModalForm} from '../components';
+import {ModalField, ModalView} from '../components';
 import {StatusFormArray} from '../constants/SampleArrays';
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -57,7 +57,7 @@ const MyStatus = ({route, navigation}: any) => {
   };
 
   return (
-    <ModalForm fieldsArray={StatusFormArray} navigation={navigation}>
+    <ModalView>
       <ModalField
         mode="inlined"
         headingLeft="Are you out of office"
@@ -111,7 +111,7 @@ const MyStatus = ({route, navigation}: any) => {
           onChange={closeDatePicker}
         />
       )}
-    </ModalForm>
+    </ModalView>
   );
 };
 

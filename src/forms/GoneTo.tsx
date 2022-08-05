@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-import {ModalField, ModalForm} from '../components';
+import {ModalField, ModalView} from '../components';
 import {GoneToFormArray} from '../constants/SampleArrays';
 import {Theme} from '../theme/colors';
 import {GONE_TO_ARRAY} from '../constants';
@@ -12,7 +12,7 @@ const GoneTo = ({navigation}: any) => {
   const [currChkInd, setCurrChkInd] = useState<number | null>(null);
 
   return (
-    <ModalForm fieldsArray={GoneToFormArray}>
+    <ModalView>
       {GONE_TO_ARRAY.map((item, index) => (
         <ModalField
           key={item.name}
@@ -23,7 +23,7 @@ const GoneTo = ({navigation}: any) => {
           onCheckPress={() => setCurrChkInd(index)}
         />
       ))}
-    </ModalForm>
+    </ModalView>
   );
 };
 

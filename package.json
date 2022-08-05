@@ -29,6 +29,7 @@
     "react-native-calendars": "^1.1286.0",
     "react-native-events-calendar": "^1.0.8",
     "react-native-gesture-handler": "^2.4.2",
+    "react-native-gradle-plugin": "^0.70.1",
     "react-native-pager-view": "^5.4.24",
     "react-native-paper": "^5.0.0-rc.0",
     "react-native-quick-actions": "^0.3.13",

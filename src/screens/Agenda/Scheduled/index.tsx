@@ -12,14 +12,27 @@ import {
   scheduledList,
 } from '../../../constants/SampleArrays';
 
-const ScheduledTab = () => {
+const ScheduledTab = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
 
   return (
     <View style={styles.container}>
       <FlatList
         data={scheduledList}
-        renderItem={({item}) => <ListItem id={item.id} item={item} />}
+        renderItem={({item}) => {
+          return (
+            <ListItem
+              id={item.id}
+              item={item}
+              onPress={iValue => {
+                navigation.navigate('Stack1', {
+                  screen: 'STickets',
+                  params: {title: iValue.ticket_no},
+                });
+              }}
+            />
+          );
+        }}
       />
       <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </View>

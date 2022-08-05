@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
@@ -7,11 +7,10 @@ import {
 import {useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {moderateScale} from 'react-native-size-matters';
+import {Checkbox, Switch, TextInput} from 'react-native-paper';
 
 import {Theme} from '../../theme/colors';
-import ModalForm from '../ModalForm';
-import {Checkbox, Switch, TextInput} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
 import styles from './style';
 import CstmMultiLine from '../CstmMultiLineInput';
 
@@ -39,11 +38,6 @@ const ModalField = ({
   onToggleSwitch,
   checkBox_Val,
   onCheckPress,
-  navigateTo,
-  visible,
-  input_Val,
-  select_Date,
-  select_Time,
 }: {
   mode: 'inlined' | 'multiline';
   headingRight?: string;
@@ -66,11 +60,6 @@ const ModalField = ({
   checkBoxRight?: boolean;
   checkBox_Val?: 'checked' | 'unchecked';
   onCheckPress?: () => void;
-  navigateTo?: string;
-  visible?: boolean;
-  input_Val?: string;
-  select_Date?: boolean;
-  select_Time?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -174,15 +163,6 @@ const ModalField = ({
             backgroundColor: dark ? '#0000008a' : '#ffffff8a',
           }}>
           <CstmMultiLine title={headingLeft} />
-          {/* <Text style={{marginTop: 5, color: colors.text}}>{headingLeft}</Text>
-          <TextInput
-            mode="outlined"
-            multiline
-            // value={inputVal.get()}
-            style={{flex: 0.9, backgroundColor: colors.background}}
-            theme={{colors: {primary: colors.primary}}}
-            // onChangeText={txt => inputVal.set(txt)}
-          /> */}
         </View>
       )}
     </>

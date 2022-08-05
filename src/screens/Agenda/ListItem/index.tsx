@@ -14,14 +14,24 @@ export type dates = {
   date: Date;
 };
 
+export type Item = {
+  company_name: string;
+  id: number;
+  location: 'Remote' | 'On-Site' | 'In-House';
+  task: string;
+  ticket_no: string;
+};
+
 const ListItem = ({
   item,
   id,
   dateRange,
+  onPress,
 }: {
   item: any;
   id: number;
-  dateRange?: Array<dates>;
+  dateRange?: dates[];
+  onPress?: (item: Item) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -30,6 +40,7 @@ const ListItem = ({
       <Pressable
         style={{paddingHorizontal: 20}}
         key={item2.id}
+        onPress={() => onPress?.(item2)}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>
@@ -39,7 +50,7 @@ const ListItem = ({
           </View>
           <View style={{width: '75%'}}>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
-              {item2.ticket_no}
+              Ticket {item2.ticket_no}
             </Text>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
               {item2.task}

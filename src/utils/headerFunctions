@@ -1,6 +1,0 @@
-const saveGoneTo = ({navigation}: any) => {
-  navigation.navigate('My Status');
-  console.log('Svae Gone to');
-};
-
-export {saveGoneTo};

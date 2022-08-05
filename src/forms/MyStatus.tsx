@@ -6,10 +6,15 @@ import {useTheme} from '@react-navigation/native';
 import {ModalField, ModalForm} from '../components';
 import {StatusFormArray} from '../constants/SampleArrays';
 import {Theme} from '../theme/colors';
+import {globalState} from '../utils/globalState';
+import {State, useState as hookState} from '@hookstate/core';
 
-const MyStatus = ({navigation}: any) => {
+const MyStatus = ({route, navigation}: any) => {
+  console.log('Route', route);
+  const {status: OutStatus} = route.params;
+  const switchVal: State<boolean> = hookState(globalState.statusSwitch);
   const {colors}: Theme = useTheme();
-  const [switchVal, setSwitchVal] = useState(false);
+  // const [switchVal, setSwitchVal] = useState(false);
   const [showTime, setShowTime] = useState(false);
   const [showDate, setShowDate] = useState(false);
   const [currTime, setCurrTime] = useState(new Date());
@@ -43,16 +48,25 @@ const MyStatus = ({navigation}: any) => {
     setCurrDate(date);
   };
 
+  const changeSwitch = () => {
+    const {setParams} = navigation;
+    setParams({
+      status: !OutStatus,
+    });
+    switchVal.set(!switchVal.get());
+  };
+
   return (
     <ModalForm fieldsArray={StatusFormArray} navigation={navigation}>
       <ModalField
         mode="inlined"
         headingLeft="Are you out of office"
         switchRight={true}
-        switch_val={switchVal}
-        onToggleSwitch={() => setSwitchVal(!switchVal)}
+        switch_val={switchVal.get()}
+        onToggleSwitch={changeSwitch}
+        // onToggleSwitch={() => setSwitchVal(!switchVal)}
       />
-      {switchVal && (
+      {switchVal.get() && (
         <>
           <ModalField
             mode="inlined"

@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
+import {WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
   },
   multilineDisplay: {
     backgroundColor: '#fff',
-    // height: moderateVerticalScale(120, 0),
     paddingHorizontal: 15,
     paddingVertical: 5,
     marginBottom: 10,
@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  emptyFieldStyle: {
+    width: WINDOW_WIDTH,
+    paddingHorizontal: 15,
+    elevation: 2,
   },
 });
 

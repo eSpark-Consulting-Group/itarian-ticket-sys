@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {ReactNode} from 'react';
+import {View, Text, TouchableOpacity, Pressable} from 'react-native';
 import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
@@ -25,7 +25,7 @@ const ModalField = ({
   iconRight,
   switchRight,
   switch_val,
-  pressEnable,
+  pressEnable = true,
   onPress,
   iconLeft,
   pressEnableLeft,
@@ -38,8 +38,10 @@ const ModalField = ({
   onToggleSwitch,
   checkBox_Val,
   onCheckPress,
+  children,
+  fieldPadding = 8,
 }: {
-  mode: 'inlined' | 'multiline';
+  mode: 'inlined' | 'multiline' | 'none';
   headingRight?: string;
   subHeadingRight?: string;
   headingLeft?: string;
@@ -60,8 +62,11 @@ const ModalField = ({
   checkBoxRight?: boolean;
   checkBox_Val?: 'checked' | 'unchecked';
   onCheckPress?: () => void;
+  children?: ReactNode;
+  fieldPadding?: number;
 }) => {
   const {colors, dark}: Theme = useTheme();
+  const pressColor = dark ? '#ffffff1a' : '#0000001a';
 
   return (
     <>
@@ -164,6 +169,23 @@ const ModalField = ({
           }}>
           <CstmMultiLine title={headingLeft} />
         </View>
+      )}
+      {mode == 'none' && (
+        <>
+          <View style={{height: 10}} />
+          <View
+            style={{
+              backgroundColor: dark ? '#000000' : '#ffffff',
+            }}>
+            <Pressable
+              android_ripple={{color: pressColor}}
+              disabled={!pressEnable}
+              style={{...styles.emptyFieldStyle, padding: fieldPadding}}
+              onPress={onPress}>
+              {children}
+            </Pressable>
+          </View>
+        </>
       )}
     </>
   );

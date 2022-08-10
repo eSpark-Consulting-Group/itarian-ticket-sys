@@ -16,6 +16,9 @@ import CstmMultiLine from './CstmMultiLineInput';
 import DateRangeSelector from './DateRangeSelector';
 import ModalHeader from './ModalHeader';
 import RoundedIcon from './roundedIcon';
+import CstmTabBar from './CstmTabBar';
+import GapView from './GapView';
+import {PriorityField, SingleLineField} from './FormFields';
 
 export {
   CstmButton,
@@ -36,4 +39,8 @@ export {
   DateRangeSelector,
   ModalHeader,
   RoundedIcon,
+  CstmTabBar,
+  GapView,
+  PriorityField,
+  SingleLineField,
 };

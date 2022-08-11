@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   itemStyle: {
-    width: moderateScale(110),
+    width: moderateScale(100, 1),
     alignItems: 'center',
     justifyContent: 'center',
     padding: 8,

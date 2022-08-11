@@ -1,7 +1,9 @@
 import React from 'react';
+import {View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
+import MI from 'react-native-vector-icons/MaterialIcons';
 import {Theme, useTheme} from '@react-navigation/native';
 import {
   backStatus,
@@ -69,9 +71,20 @@ const StackLvl1 = ({route, navigation}: any) => {
           title: route?.params?.title,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
-            <II size={30} name="close" style={{right: 6}} color={'#fff'} />
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+            />
           ),
-          headerRight: () => <FA size={27} name="save" color={'#fff'} />,
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <II size={30} name="stopwatch-outline" color={'#fff'} />
+              <View style={{width: 15}} />
+              <MI size={30} name="edit" color={'#fff'} />
+            </View>
+          ),
         })}
       />
     </Stack.Navigator>

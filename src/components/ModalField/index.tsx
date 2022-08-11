@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {View, Text, TouchableOpacity, Pressable} from 'react-native';
+import {View, Text, TouchableOpacity, Pressable, ViewStyle} from 'react-native';
 import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
@@ -40,6 +40,7 @@ const ModalField = ({
   onCheckPress,
   children,
   fieldPadding = 8,
+  contentStyle,
 }: {
   mode: 'inlined' | 'multiline' | 'none';
   headingRight?: string;
@@ -64,6 +65,7 @@ const ModalField = ({
   onCheckPress?: () => void;
   children?: ReactNode;
   fieldPadding?: number;
+  contentStyle?: ViewStyle;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const pressColor = dark ? '#ffffff1a' : '#0000001a';
@@ -180,7 +182,11 @@ const ModalField = ({
             <Pressable
               android_ripple={{color: pressColor}}
               disabled={!pressEnable}
-              style={{...styles.emptyFieldStyle, padding: fieldPadding}}
+              style={{
+                ...styles.emptyFieldStyle,
+                padding: fieldPadding,
+                ...contentStyle,
+              }}
               onPress={onPress}>
               {children}
             </Pressable>

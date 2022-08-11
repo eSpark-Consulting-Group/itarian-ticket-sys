@@ -31,19 +31,19 @@ const StackLvl1 = () => {
       <Stack.Screen
         name="MyStatus"
         component={MyStatus}
-        options={{
+        options={({navigation, route}) => ({
           title: 'My Status',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II size={30} name="close" style={{right: 6}} color={'#fff'} />
           ),
           headerRight: () => <FA size={27} name="save" color={'#fff'} />,
-        }}
+        })}
       />
       <Stack.Screen
         name="STickets"
         component={STickets}
-        options={({route}) => ({
+        options={({route, navigation}) => ({
           title: route?.params?.title,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -52,6 +52,7 @@ const StackLvl1 = () => {
               name="chevron-back"
               style={{right: 6}}
               color={'#fff'}
+              onPress={() => navigation.goBack()}
             />
           ),
           headerRight: () => (

@@ -14,6 +14,7 @@ const SingleLineField = ({
   enable = true,
   onPress,
   titleWidth,
+  gap = true,
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -22,6 +23,7 @@ const SingleLineField = ({
   enable?: boolean;
   onPress?: () => void;
   titleWidth?: number;
+  gap?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -29,6 +31,7 @@ const SingleLineField = ({
       mode="none"
       pressEnable={enable}
       onPress={onPress}
+      gap={gap}
       fieldPadding={20}>
       <View
         style={{

@@ -13,6 +13,7 @@ import {Checkbox, Switch, TextInput} from 'react-native-paper';
 import {Theme} from '../../theme/colors';
 import styles from './style';
 import CstmMultiLine from '../CstmMultiLineInput';
+import GapView from '../GapView';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ const ModalField = ({
   children,
   fieldPadding = 8,
   contentStyle,
+  gap = true,
 }: {
   mode: 'inlined' | 'multiline' | 'none';
   headingRight?: string;
@@ -66,6 +68,7 @@ const ModalField = ({
   children?: ReactNode;
   fieldPadding?: number;
   contentStyle?: ViewStyle;
+  gap?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const pressColor = dark ? '#ffffff1a' : '#0000001a';
@@ -174,7 +177,7 @@ const ModalField = ({
       )}
       {mode == 'none' && (
         <>
-          <View style={{height: 10}} />
+          {gap && <GapView />}
           <View
             style={{
               backgroundColor: dark ? '#000000' : '#ffffff',

@@ -13,6 +13,7 @@ const SingleLineField = ({
   rightIcon,
   enable = true,
   onPress,
+  titleWidth,
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -20,6 +21,7 @@ const SingleLineField = ({
   rightIcon?: string;
   enable?: boolean;
   onPress?: () => void;
+  titleWidth?: number;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -35,7 +37,11 @@ const SingleLineField = ({
           justifyContent: 'space-between',
         }}>
         <View>
-          {subTitle && <Text style={{...styles.subTitle}}>{subTitle}</Text>}
+          {subTitle && (
+            <Text style={{...styles.subTitle, color: colors.text}}>
+              {subTitle}
+            </Text>
+          )}
           <View
             style={{
               flexDirection: 'row',
@@ -60,7 +66,7 @@ const SingleLineField = ({
                 style={{
                   color: colors.text,
                   ...styles.title,
-                  width: moderateScale(130),
+                  width: titleWidth,
                 }}>
                 {title}
               </Text>

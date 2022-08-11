@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import {PriorityField, SingleLineField} from '../../components';
+import {moderateScale} from 'react-native-size-matters';
 
 const Overview = () => {
   const {colors}: Theme = useTheme();
@@ -19,6 +20,7 @@ const Overview = () => {
       <SingleLineField title="Main" subTitle="Site" rightIcon="chevron-right" />
       <SingleLineField
         title="123 Elm Street Tampa, Fl 32364 United States"
+        titleWidth={moderateScale(130)}
         subTitle="Address"
         rightIcon="chevron-right"
       />

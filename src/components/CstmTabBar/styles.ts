@@ -4,7 +4,6 @@ import {moderateScale} from 'react-native-size-matters';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: '#EEEEEE',
     alignItems: 'center',
     alignSelf: 'center',
     justifyContent: 'space-between',
@@ -20,6 +19,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontWeight: 'bold',
+    opacity: 0.8,
   },
   dividerStyle: {
     width: 2,

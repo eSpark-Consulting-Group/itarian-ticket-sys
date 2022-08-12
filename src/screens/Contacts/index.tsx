@@ -14,7 +14,7 @@ import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import _ from 'lodash';
 
-const Contacts = () => {
+const Contacts = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -83,7 +83,7 @@ const Contacts = () => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderContacts listData={filteredContacts} />
+        <RenderContacts listData={filteredContacts} navigation={navigation} />
       )}
     </View>
   );
@@ -91,8 +91,10 @@ const Contacts = () => {
 
 export const RenderContacts = ({
   listData = contactsList,
+  navigation,
 }: {
   listData?: Contact[];
+  navigation: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -100,7 +102,11 @@ export const RenderContacts = ({
     return (
       <View style={styles.listContainer}>
         <Pressable
-          onPress={() => console.log('Hello')}
+          onPress={() =>
+            navigation.navigate('Stack1', {
+              screen: 'Contact1',
+            })
+          }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={styles.listItemContainer}>
             <View>

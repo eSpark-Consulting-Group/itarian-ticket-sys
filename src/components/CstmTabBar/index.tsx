@@ -14,6 +14,7 @@ import _ from 'lodash';
 
 import styles from './styles';
 import {ModalField, ModalView} from '..';
+import {WINDOW_WIDTH} from '../../constants';
 
 type Item = {key: string; title: string};
 
@@ -43,10 +44,16 @@ export default function CstmTabBar(props: any) {
       }
     };
 
+    const handleWidth =
+      routes?.length < 3 ? (WINDOW_WIDTH * 4) / 10 : (WINDOW_WIDTH * 3) / 10;
+
     return (
       <View
         key={item?.key}
-        style={{flexDirection: 'row', backgroundColor: colors.background}}>
+        style={{
+          flexDirection: 'row',
+          backgroundColor: colors.background,
+        }}>
         <Pressable
           onPress={() => {
             // LayoutAnimation.configureNext(
@@ -58,6 +65,7 @@ export default function CstmTabBar(props: any) {
           android_ripple={{color: pressColor}}>
           <View
             style={{
+              width: handleWidth,
               ...styles.itemStyle,
               backgroundColor: highlight,
               elevation,

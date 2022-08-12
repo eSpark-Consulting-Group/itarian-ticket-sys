@@ -6,72 +6,74 @@ import AD from 'react-native-vector-icons/AntDesign';
 
 import {GapView, ModalField} from '../../components';
 import {Divider} from 'react-native-paper';
-import {WINDOW_HEIGHT} from '../../constants';
 import {moderateScale} from 'react-native-size-matters';
 
 const dataSource: Item[] = [
   {
     id: 1,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 1',
     time: '12:19 AM',
     date: '11 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
   },
   {
     id: 2,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 2',
     time: '12:19 AM',
     date: '15 Nov, 2021',
   },
   {
     id: 3,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 3',
     time: '12:19 AM',
     date: '19 Nov, 2021',
   },
   {
     id: 4,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 4',
     time: '12:19 AM',
     date: '19 Nov, 2021',
-    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut.',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
   },
   {
     id: 5,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 5',
     time: '12:19 AM',
     date: '19 Nov, 2021',
   },
   {
     id: 6,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 6',
     time: '12:19 AM',
     date: '19 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
   },
   {
     id: 7,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 7',
     time: '12:19 AM',
     date: '19 Nov, 2021',
   },
   {
     id: 8,
-    img: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 8',
     time: '12:19 AM',
     date: '19 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
   },
 ];
 
 interface Item {
   id: number;
-  img?: string;
+  img?: any;
   title: string;
   time: string;
   date: string;
@@ -83,31 +85,35 @@ const Notes = () => {
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
     return (
-      <View style={{flexDirection: 'row', padding: 8}}>
-        <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
-          <Image source={{uri: item.img}} style={styles.imageStyle} />
-          <View style={styles.avatarContainer} />
-        </View>
-        <GapView mode="horizontal" />
-        <View style={{justifyContent: 'center'}}>
-          <Text style={{color: colors.text, ...styles.titleStyle}}>
-            {item.title}
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{color: colors.text, ...styles.subText}}>
-              {item.time}
+      <View>
+        <View style={{flexDirection: 'row', padding: 8}}>
+          <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
+            <Image source={item.img} style={styles.imageStyle} />
+          </View>
+          <GapView mode="horizontal" />
+          <View style={{justifyContent: 'center'}}>
+            <Text style={{color: colors.text, ...styles.titleStyle}}>
+              {item.title}
             </Text>
-            <View
-              style={{
-                backgroundColor: dark ? '#ffffff' : '#000000',
-                ...styles.divider,
-              }}
-            />
-            <Text style={{color: colors.text, ...styles.subText}}>
-              {item.date}
-            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{color: colors.text, ...styles.subText}}>
+                {item.time}
+              </Text>
+              <View
+                style={{
+                  backgroundColor: dark ? '#ffffff' : '#000000',
+                  ...styles.divider,
+                }}
+              />
+              <Text style={{color: colors.text, ...styles.subText}}>
+                {item.date}
+              </Text>
+            </View>
           </View>
         </View>
+        {item.note && (
+          <Text style={{color: colors.text, padding: 8}}>{item.note}</Text>
+        )}
       </View>
     );
   };
@@ -178,15 +184,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  avatarContainer: {
-    backgroundColor: '#AEB4B7',
-    width: 32,
-    height: 12,
-    bottom: 0.45,
-    borderBottomStartRadius: 12,
-    borderBottomEndRadius: 12,
-    position: 'absolute',
   },
   divider: {
     width: 2,

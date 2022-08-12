@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
@@ -13,6 +13,8 @@ const SingleLineField = ({
   rightIcon,
   enable = true,
   onPress,
+  titleWidth,
+  rightChild,
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -20,6 +22,8 @@ const SingleLineField = ({
   rightIcon?: string;
   enable?: boolean;
   onPress?: () => void;
+  titleWidth?: number;
+  rightChild?: ReactNode;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -35,7 +39,11 @@ const SingleLineField = ({
           justifyContent: 'space-between',
         }}>
         <View>
-          {subTitle && <Text style={{...styles.subTitle}}>{subTitle}</Text>}
+          {subTitle && (
+            <Text style={{...styles.subTitle, color: colors.text}}>
+              {subTitle}
+            </Text>
+          )}
           <View
             style={{
               flexDirection: 'row',
@@ -60,7 +68,7 @@ const SingleLineField = ({
                 style={{
                   color: colors.text,
                   ...styles.title,
-                  width: moderateScale(130),
+                  width: titleWidth,
                 }}>
                 {title}
               </Text>
@@ -75,6 +83,7 @@ const SingleLineField = ({
             style={{...styles.subTitle}}
           />
         )}
+        {rightChild && rightChild}
       </View>
     </ModalField>
   );

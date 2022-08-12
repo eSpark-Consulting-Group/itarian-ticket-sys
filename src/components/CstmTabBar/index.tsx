@@ -24,8 +24,10 @@ export default function CstmTabBar(props: any) {
   console.log('kia ha props', props.navigationState);
 
   const renderList = (item: Item, index: number) => {
-    const highlight = index == routeIndex ? '#FFFFFF' : 'transparent';
+    const highlight =
+      index == routeIndex ? (dark ? '#000000' : '#FFFFFF') : 'transparent';
     const elevation = index == routeIndex ? 2 : 0;
+    // const elevation = 0;
     const pressColor = dark ? '#ffffff0e' : '#0000000e';
 
     const handleTabNavigation = (hitIndex: number) => {
@@ -43,7 +45,9 @@ export default function CstmTabBar(props: any) {
     };
 
     return (
-      <View key={item?.key} style={{flexDirection: 'row'}}>
+      <View
+        key={item?.key}
+        style={{flexDirection: 'row', backgroundColor: colors.background}}>
         <Pressable
           onPress={() => {
             // LayoutAnimation.configureNext(
@@ -59,7 +63,9 @@ export default function CstmTabBar(props: any) {
               backgroundColor: highlight,
               elevation,
             }}>
-            <Text style={styles.textStyle}>{item.title}</Text>
+            <Text style={{...styles.textStyle, color: colors.text}}>
+              {item.title}
+            </Text>
           </View>
         </Pressable>
         {index !== routes?.length - 1 && <View style={styles.dividerStyle} />}
@@ -69,7 +75,11 @@ export default function CstmTabBar(props: any) {
 
   return (
     <ModalField mode="none" pressEnable={false}>
-      <View style={styles.container}>
+      <View
+        style={{
+          ...styles.container,
+          backgroundColor: dark ? colors.background : '#EEEEEE',
+        }}>
         {!_.isUndefined(routes) && routes?.map(renderList)}
       </View>
     </ModalField>

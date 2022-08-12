@@ -3,9 +3,10 @@ import {StyleSheet, Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTheme} from '@react-navigation/native';
 
-import {ModalField, ModalView} from '../components';
+import {ModalField, ModalView, SingleLineField} from '../components';
 import {StatusFormArray} from '../constants/SampleArrays';
 import {Theme} from '../theme/colors';
+import {Switch} from 'react-native-paper';
 
 const MyStatus = ({route, navigation}: any) => {
   console.log('Route', route);
@@ -54,27 +55,27 @@ const MyStatus = ({route, navigation}: any) => {
 
   return (
     <ModalView>
-      <ModalField
-        mode="inlined"
-        headingLeft="Are you out of office"
-        switchRight={true}
-        switch_val={OutStatus}
-        onToggleSwitch={changeSwitch}
-        // onToggleSwitch={() => setSwitchVal(!switchVal)}
+      <SingleLineField
+        title="Are you out of office"
+        enable={false}
+        rightChild={
+          <Switch
+            value={OutStatus}
+            style={{marginRight: 5}}
+            color={colors.primary}
+            thumbColor={colors.primary}
+            onValueChange={changeSwitch}
+            trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+          />
+        }
       />
       {OutStatus && (
         <>
-          <ModalField
-            mode="inlined"
-            headingLeft="Gone To"
-            // subHeadingLeft={
-            //   checkedIndex != null
-            //     ? goneToArray[checkedIndex].name
-            //     : 'Please Select'
-            // }
+          <SingleLineField
+            title="Please Select"
             onPress={() => navigation.navigate('Stack2', {screen: 'GoneTo'})}
-            // onPress={() => console.log('Navigation', props.navigation.navigate())}
-            pressEnable={true}
+            rightIcon="chevron-right"
+            subTitle="Gone To"
           />
           <ModalField mode="multiline" headingLeft="Additional Info" />
           <ModalField

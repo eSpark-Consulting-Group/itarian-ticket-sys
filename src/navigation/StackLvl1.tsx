@@ -13,12 +13,16 @@ import {
 
 import MyStatus from '../forms/MyStatus';
 import STickets from '../forms/ServiceTickets';
+import Company from '../forms/Company';
+import NewCompany from '../forms/NewCompany';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
   MyStatus: {status: boolean};
   STickets: {title: string};
+  Company: {title: string};
+  NewCompany: {title: string};
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -38,7 +42,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="MyStatus"
         component={MyStatus}
         initialParams={{status: false}}
-        options={({route}) => ({
+        options={({navigation, route}) => ({
           title: 'My Status',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => {
@@ -67,7 +71,7 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="STickets"
         component={STickets}
-        options={({route}) => ({
+        options={({route, navigation}) => ({
           title: route?.params?.title,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -76,6 +80,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               name="chevron-back"
               style={{right: 6}}
               color={'#fff'}
+              onPress={() => navigation.goBack()}
             />
           ),
           headerRight: () => (
@@ -84,6 +89,40 @@ const StackLvl1 = ({route, navigation}: any) => {
               <View style={{width: 15}} />
               <MI size={30} name="edit" color={'#fff'} />
             </View>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Company"
+        component={Company}
+        options={({route, navigation}) => ({
+          title: 'Company',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewCompany"
+        component={NewCompany}
+        options={({route, navigation}) => ({
+          title: 'New Company',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
           ),
         })}
       />

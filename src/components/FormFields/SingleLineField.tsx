@@ -15,6 +15,7 @@ const SingleLineField = ({
   onPress,
   titleWidth,
   rightChild,
+  gap = true,
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -23,6 +24,7 @@ const SingleLineField = ({
   enable?: boolean;
   onPress?: () => void;
   titleWidth?: number;
+  gap?: boolean;
   rightChild?: ReactNode;
 }) => {
   const {colors, dark}: Theme = useTheme();
@@ -31,6 +33,7 @@ const SingleLineField = ({
       mode="none"
       pressEnable={enable}
       onPress={onPress}
+      gap={gap}
       fieldPadding={20}>
       <View
         style={{

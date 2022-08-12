@@ -11,10 +11,10 @@ import {
   saveStatus,
 } from '../forms/utils/headerFunctions';
 
-import MyStatus from '../forms/MyStatus';
 import STickets from '../forms/ServiceTickets';
 import Company from '../forms/Company';
 import NewCompany from '../forms/NewCompany';
+import MyStatus from '../forms/Profile/MyStatus';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -120,6 +120,14 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={30}
               name="chevron-back"
               style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />

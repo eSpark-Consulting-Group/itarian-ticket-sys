@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {useTheme} from '@react-navigation/native';
+import {useTheme, Theme} from '@react-navigation/native';
 
-import {ModalField, ModalView, SingleLineField} from '../components';
-import {StatusFormArray} from '../constants/SampleArrays';
-import {Theme} from '../theme/colors';
 import {Switch} from 'react-native-paper';
+import {ModalField, ModalView, SingleLineField} from '../../components';
 
 const MyStatus = ({route, navigation}: any) => {
   console.log('Route', route);

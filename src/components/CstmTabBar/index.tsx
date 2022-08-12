@@ -27,7 +27,6 @@ export default function CstmTabBar(props: any) {
     const highlight =
       index == routeIndex ? (dark ? '#000000' : '#FFFFFF') : 'transparent';
     const elevation = index == routeIndex ? 2 : 0;
-    // const elevation = 0;
     const pressColor = dark ? '#ffffff0e' : '#0000000e';
 
     const handleTabNavigation = (hitIndex: number) => {

@@ -8,12 +8,14 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import MyStatus from '../forms/MyStatus';
 import STickets from '../forms/ServiceTickets';
+import Contact1 from '../forms/Contacts';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
   MyStatus: undefined;
   STickets: {title: string};
+  Contact1: undefined;
 };
 
 const StackLvl1 = () => {
@@ -62,6 +64,24 @@ const StackLvl1 = () => {
               <MI size={30} name="edit" color={'#fff'} />
             </View>
           ),
+        })}
+      />
+      <Stack.Screen
+        name="Contact1"
+        component={Contact1}
+        options={({route, navigation}) => ({
+          title: 'Contact',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => null,
         })}
       />
     </Stack.Navigator>

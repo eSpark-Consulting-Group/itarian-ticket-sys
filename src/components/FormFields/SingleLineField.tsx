@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {GapView, ModalField} from '..';
+import {GapView, ModalField, RoundedIcon} from '..';
 
 const SingleLineField = ({
   leftIcon,
   subTitle,
   title,
   rightIcon,
+  rightIconRound,
   enable = true,
   onPress,
   titleWidth,
@@ -20,6 +20,7 @@ const SingleLineField = ({
   subTitle?: string;
   title: string;
   rightIcon?: string;
+  rightIconRound?: string;
   enable?: boolean;
   onPress?: () => void;
   titleWidth?: number;
@@ -57,7 +58,7 @@ const SingleLineField = ({
               {leftIcon && (
                 <>
                   <MCI
-                    name={leftIcon} // "clipboard-list-outline"
+                    name={leftIcon}
                     size={20}
                     color={colors.text}
                     style={{...styles.subTitle}}
@@ -78,12 +79,13 @@ const SingleLineField = ({
         </View>
         {rightIcon && (
           <MCI
-            name={rightIcon} // "chevron-right"
+            name={rightIcon}
             size={30}
             color={colors.text}
             style={{...styles.subTitle}}
           />
         )}
+        {rightIconRound && <RoundedIcon enable={false} icon={rightIconRound} />}
       </View>
     </ModalField>
   );

@@ -13,6 +13,7 @@ import {
 
 import STickets from '../forms/ServiceTickets';
 import Contact1 from '../forms/Contacts';
+import Configuration1 from '../forms/Configuration';
 import Company from '../forms/Company';
 import NewCompany from '../forms/NewCompany';
 import MyStatus from '../forms/Profile/MyStatus';
@@ -25,6 +26,7 @@ export type RootStackParamList = {
   Company: {title: string};
   NewCompany: {title: string};
   Contact1: undefined;
+  Configure1: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -152,6 +154,24 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
           headerRight: () => null,
+        })}
+      />
+      <Stack.Screen
+        name="Configure1"
+        component={Configuration1}
+        options={({route, navigation}) => ({
+          title: 'Configuration',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => <FA size={30} name="save" color={'#fff'} />,
         })}
       />
     </Stack.Navigator>

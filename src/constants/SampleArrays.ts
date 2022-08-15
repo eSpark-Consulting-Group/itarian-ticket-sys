@@ -367,7 +367,7 @@ export const timeSheetList: Array<TimeSheet> = [
 export const scheduledList: Array<ScheduledList> = [
   {
     id: 1,
-    date: 'Monday, November 13',
+    date: new Date(2022, 10, 12),
     data: [
       {
         id: 1,
@@ -400,7 +400,7 @@ export const scheduledList: Array<ScheduledList> = [
   },
   {
     id: 2,
-    date: 'Monday, November 14',
+    date: new Date(2022, 10, 14),
     data: [
       {
         id: 4,
@@ -436,7 +436,7 @@ export const scheduledList: Array<ScheduledList> = [
 export const unscheduledList: Array<UnscheduledList> = [
   {
     id: 3,
-    date: 'Monday, November 13',
+    date: new Date(2022, 10, 13),
     data: [
       {
         id: 7,
@@ -463,7 +463,7 @@ export const unscheduledList: Array<UnscheduledList> = [
   },
   {
     id: 4,
-    date: 'Monday, November 14',
+    date: new Date(2022, 10, 15),
     data: [
       {
         id: 10,

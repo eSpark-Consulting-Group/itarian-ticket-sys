@@ -21,7 +21,7 @@ import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
 
-const Configurations = () => {
+const Configurations = ({navigation}: {navigation: any}) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -98,7 +98,10 @@ const Configurations = () => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderConfigurations listData={filteredConfigurations} />
+        <RenderConfigurations
+          listData={filteredConfigurations}
+          navigation={navigation}
+        />
       )}
     </View>
   );
@@ -106,8 +109,10 @@ const Configurations = () => {
 
 export const RenderConfigurations = ({
   listData = configurationsList,
+  navigation,
 }: {
   listData?: Configuration[];
+  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -115,7 +120,11 @@ export const RenderConfigurations = ({
     return (
       <View style={styles.listContainer}>
         <Pressable
-          onPress={() => console.log('Hello')}
+          onPress={() =>
+            navigation.navigate('Stack1', {
+              screen: 'Configure1',
+            })
+          }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={styles.listItemContainer}>
             <View style={styles.iconContainer}>

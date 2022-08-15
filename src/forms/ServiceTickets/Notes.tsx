@@ -6,7 +6,6 @@ import AD from 'react-native-vector-icons/AntDesign';
 
 import {GapView, ModalField} from '../../components';
 import {Divider} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
 
 const dataSource: Item[] = [
   {
@@ -130,7 +129,9 @@ const Notes = () => {
       </ModalField>
       <ModalField
         mode="none"
-        contentStyle={{marginBottom: 60}}
+        contentStyle={{
+          marginBottom: 60,
+        }}
         pressEnable={false}>
         <FlatList
           data={dataSource}

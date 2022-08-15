@@ -1,5 +1,6 @@
 import React, {ReactNode} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, View, TextInput, PixelRatio} from 'react-native';
+import {Switch} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -19,6 +20,11 @@ const SingleLineField = ({
   gap = true,
   inputable = false,
   onChangeText,
+  showRightSwitch,
+  rightSwitchVal,
+  onChangeSwitch,
+  roundedIconEnable,
+  onRoundedIconPress,
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -29,9 +35,14 @@ const SingleLineField = ({
   onPress?: () => void;
   titleWidth?: number;
   gap?: boolean;
-  rightChild?: ReactNode;
   inputable?: boolean;
   onChangeText?: (text: string) => void;
+  showRightSwitch?: boolean;
+  rightSwitchVal?: boolean;
+  onChangeSwitch?: (value: boolean) => void;
+  roundedIconEnable?: boolean;
+  onRoundedIconPress?: () => void;
+  rightChild?: ReactNode;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -40,7 +51,7 @@ const SingleLineField = ({
       pressEnable={enable}
       onPress={onPress}
       gap={gap}
-      fieldPadding={15}>
+      fieldPadding={20}>
       <View
         style={{
           flexDirection: 'row',
@@ -96,7 +107,20 @@ const SingleLineField = ({
             style={{...styles.subTitle}}
           />
         )}
-        {rightIconRound && <RoundedIcon enable={false} icon={rightIconRound} />}
+        {showRightSwitch && (
+          <Switch
+            value={rightSwitchVal}
+            onValueChange={onChangeSwitch}
+            color={colors.primary}
+          />
+        )}
+        {rightIconRound && (
+          <RoundedIcon
+            enable={roundedIconEnable ?? false}
+            onPress={onRoundedIconPress}
+            icon={rightIconRound}
+          />
+        )}
         {rightChild && rightChild}
       </View>
     </ModalField>
@@ -113,7 +137,7 @@ function InputField({
   const {colors, dark}: Theme = useTheme();
 
   return (
-    <View>
+    <View style={{width: '100%'}}>
       <GapView mode="vertical" />
       <TextInput
         value={title}
@@ -151,10 +175,10 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   input: {
-    borderWidth: 2,
-    borderRadius: 5,
     height: 40,
+    borderWidth: 2,
+    borderRadius: 6,
     padding: 10,
-    width: SCREEN_WIDTH * 0.9,
+    width: '100%',
   },
 });

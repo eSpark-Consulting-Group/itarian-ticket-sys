@@ -64,13 +64,13 @@ export type ExpRprt_Data = {
 
 export type ScheduledList = {
   id: number;
-  date: string;
+  date: Date;
   data: Array<Scheduled_Data>;
 };
 
 export type UnscheduledList = {
   id: number;
-  date: string;
+  date: Date;
   data: Array<Unscheduled_Data>;
 };
 

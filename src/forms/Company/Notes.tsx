@@ -4,9 +4,8 @@ import {useTheme, Theme} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
-import {GapView, ModalField, SingleLineField} from '../../components';
+import {GapView, ModalField} from '../../components';
 import {Divider} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
 
 const dataSource: Item[] = [
   {

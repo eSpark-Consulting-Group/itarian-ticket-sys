@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
   emptyFieldStyle: {
     width: WINDOW_WIDTH,
     paddingHorizontal: 15,
-    elevation: 1,
   },
 });
 

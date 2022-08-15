@@ -1,5 +1,12 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  PixelRatio,
+} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
@@ -7,6 +14,7 @@ import AD from 'react-native-vector-icons/AntDesign';
 import {GapView, ModalField} from '../../components';
 import {Divider} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
+import {WINDOW_HEIGHT} from '../../constants';
 
 const dataSource: Item[] = [
   {
@@ -130,7 +138,9 @@ const Notes = () => {
       </ModalField>
       <ModalField
         mode="none"
-        contentStyle={{maxHeight: moderateScale(300, 1.9)}}
+        contentStyle={{
+          height: PixelRatio.roundToNearestPixel(WINDOW_HEIGHT * 0.45),
+        }}
         pressEnable={false}>
         <FlatList
           data={dataSource}

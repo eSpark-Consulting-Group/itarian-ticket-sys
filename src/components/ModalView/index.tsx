@@ -4,7 +4,13 @@ import {useTheme} from '@react-navigation/native';
 
 import {Theme} from '../../theme/colors';
 
-const ModalView = ({children}: {children?: ReactNode}) => {
+const ModalView = ({
+  children,
+  bgColor,
+}: {
+  children?: ReactNode;
+  bgColor?: string;
+}) => {
   const {colors, dark}: Theme = useTheme();
 
   return (
@@ -12,7 +18,7 @@ const ModalView = ({children}: {children?: ReactNode}) => {
       style={{
         flex: 1,
         justifyContent: 'flex-start',
-        backgroundColor: colors.background,
+        backgroundColor: bgColor ?? colors.background,
       }}>
       {children}
     </View>

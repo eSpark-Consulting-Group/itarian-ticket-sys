@@ -13,6 +13,7 @@ import SimpleLoader from './SimpleLoader';
 import OutlineBtn from './OutlineBtn';
 import CstmDropDown from './CstmDropDown';
 import CstmMultiLine from './CstmMultiLineInput';
+import CstmTitleInput from './CstmTitleInput';
 import DateRangeSelector from './DateRangeSelector';
 import ModalHeader from './ModalHeader';
 import RoundedIcon from './roundedIcon';
@@ -43,4 +44,5 @@ export {
   GapView,
   PriorityField,
   SingleLineField,
+  CstmTitleInput,
 };

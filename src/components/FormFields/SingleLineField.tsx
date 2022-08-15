@@ -1,31 +1,37 @@
 import React, {ReactNode} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {GapView, ModalField} from '..';
+import {GapView, ModalField, RoundedIcon} from '..';
+import {SCREEN_WIDTH} from '../../constants';
 
 const SingleLineField = ({
   leftIcon,
   subTitle,
   title,
   rightIcon,
+  rightIconRound,
   enable = true,
   onPress,
   titleWidth,
   rightChild,
   gap = true,
+  inputable = false,
+  onChangeText,
 }: {
   leftIcon?: string;
   subTitle?: string;
   title: string;
   rightIcon?: string;
+  rightIconRound?: string;
   enable?: boolean;
   onPress?: () => void;
   titleWidth?: number;
   gap?: boolean;
   rightChild?: ReactNode;
+  inputable?: boolean;
+  onChangeText?: (text: string) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -34,7 +40,7 @@ const SingleLineField = ({
       pressEnable={enable}
       onPress={onPress}
       gap={gap}
-      fieldPadding={20}>
+      fieldPadding={15}>
       <View
         style={{
           flexDirection: 'row',
@@ -59,7 +65,7 @@ const SingleLineField = ({
               {leftIcon && (
                 <>
                   <MCI
-                    name={leftIcon} // "clipboard-list-outline"
+                    name={leftIcon}
                     size={20}
                     color={colors.text}
                     style={{...styles.subTitle}}
@@ -67,30 +73,62 @@ const SingleLineField = ({
                   <GapView mode="horizontal" />
                 </>
               )}
-              <Text
-                style={{
-                  color: colors.text,
-                  ...styles.title,
-                  width: titleWidth,
-                }}>
-                {title}
-              </Text>
+              {inputable ? (
+                <InputField title={title} onChangeText={onChangeText} />
+              ) : (
+                <Text
+                  style={{
+                    color: colors.text,
+                    ...styles.title,
+                    width: titleWidth,
+                  }}>
+                  {title}
+                </Text>
+              )}
             </View>
           </View>
         </View>
         {rightIcon && (
           <MCI
-            name={rightIcon} // "chevron-right"
+            name={rightIcon}
             size={30}
             color={colors.text}
             style={{...styles.subTitle}}
           />
         )}
+        {rightIconRound && <RoundedIcon enable={false} icon={rightIconRound} />}
         {rightChild && rightChild}
       </View>
     </ModalField>
   );
 };
+
+function InputField({
+  title,
+  onChangeText,
+}: {
+  title: string;
+  onChangeText?: (text: string) => void;
+}) {
+  const {colors, dark}: Theme = useTheme();
+
+  return (
+    <View>
+      <GapView mode="vertical" />
+      <TextInput
+        value={title}
+        style={{
+          ...styles.input,
+          color: colors.text,
+          borderColor: colors.text + '73',
+        }}
+        onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
+        selectionColor={colors.primary}
+      />
+    </View>
+  );
+}
 
 export default SingleLineField;
 
@@ -111,5 +149,12 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     opacity: 0.6,
+  },
+  input: {
+    borderWidth: 2,
+    borderRadius: 5,
+    height: 40,
+    padding: 10,
+    width: SCREEN_WIDTH * 0.9,
   },
 });

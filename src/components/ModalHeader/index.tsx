@@ -10,11 +10,13 @@ const ModalHeader = ({
   title,
   subTitle,
   icon,
+  subIcon,
 }: {
   icon?: string;
   right?: ReactNode;
   title: string;
   subTitle?: string;
+  subIcon?: string;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -28,19 +30,31 @@ const ModalHeader = ({
             flexDirection: 'row',
             alignItems: 'flex-start',
           }}>
-          <MCI
-            name={icon as string}
-            size={16}
-            color={colors.text}
-            style={{paddingTop: 6}}
-          />
+          {icon && (
+            <MCI
+              name={icon as string}
+              size={16}
+              color={colors.text}
+              style={{paddingTop: 6}}
+            />
+          )}
           <View>
             <Text style={{...styles.title, color: colors.text}}>{title}</Text>
-            {subTitle && (
-              <Text style={{...styles.subTitle, color: colors.text}}>
-                {subTitle}
-              </Text>
-            )}
+            <View style={{flexDirection: 'row'}}>
+              {subIcon && (
+                <MCI
+                  name={subIcon as string}
+                  size={14}
+                  color={colors.text}
+                  style={{paddingTop: 6, opacity: 0.5}}
+                />
+              )}
+              {subTitle && (
+                <Text style={{...styles.subTitle, color: colors.text}}>
+                  {subTitle}
+                </Text>
+              )}
+            </View>
           </View>
         </View>
       </View>

@@ -181,6 +181,7 @@ const ModalField = ({
           <View
             style={{
               backgroundColor: dark ? '#000000' : '#ffffff',
+              elevation: 2,
             }}>
             <Pressable
               android_ripple={{color: pressColor}}

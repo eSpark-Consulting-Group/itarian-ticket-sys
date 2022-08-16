@@ -8,11 +8,18 @@ import MI from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {EmptyListMsg, OutlineBtn} from '../../components';
+import {
+  EmptyListMsg,
+  FloatButton,
+  OutlineBtn,
+  RoundedIcon,
+} from '../../components';
 import {
   activitiesList,
-  Activity as ActivityType,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
+import {Activity} from '../../types';
+import _ from 'lodash';
 
 const MyActivities = () => {
   const {colors, dark}: Theme = useTheme();
@@ -24,7 +31,7 @@ const MyActivities = () => {
   const showMenu = (): void => setVisible(!visible);
   const hideMenu = (): void => setVisible(false);
 
-  const renderList = ({item, index}: {item: ActivityType; index: number}) => {
+  const renderList = ({item, index}: {item: Activity; index: number}) => {
     return (
       <View
         style={{
@@ -66,34 +73,11 @@ const MyActivities = () => {
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                borderColor: colors.text,
-                opacity: item.company_contact ? 1 : 0.5,
-                ...styles.iconStyle,
-                alignSelf: 'center',
-              }}>
-              <Pressable
-                onPress={() => {
-                  item.company_contact ? console.log('calling') : null;
-                }}
-                android_disableSound
-                android_ripple={{
-                  color: item.company_contact
-                    ? dark
-                      ? '#ffffff1f'
-                      : '#0000000e'
-                    : 'transparent',
-                  borderless: true,
-                }}>
-                <MCI
-                  name="phone"
-                  size={22}
-                  color={colors.text}
-                  style={{padding: 8}}
-                />
-              </Pressable>
-            </View>
+            <RoundedIcon
+              enable={!_.isUndefined(item.company_contact)}
+              icon="phone"
+              onPress={() => console.log('Phone Pressed')}
+            />
           </View>
         </Pressable>
         {index !== activitiesList.length - 1 && (
@@ -190,6 +174,7 @@ const MyActivities = () => {
           <NotFound />
         )}
       </View>
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </>
   );
 };

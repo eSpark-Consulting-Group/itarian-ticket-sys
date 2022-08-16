@@ -3,7 +3,7 @@ import CstmInput from './CstmInput';
 import CstmErrorText from './CtsmErrorText';
 import AvatarContainer from './AvatarContainer';
 import SearchBar from './SearchBar';
-import ModalForm from './ModalForm';
+import ModalView from './ModalView';
 import ModalField from './ModalField';
 import EmptyListMsg from './EmptyListMsg';
 import DateSeparator from './DateSeparator';
@@ -13,7 +13,13 @@ import SimpleLoader from './SimpleLoader';
 import OutlineBtn from './OutlineBtn';
 import CstmDropDown from './CstmDropDown';
 import CstmMultiLine from './CstmMultiLineInput';
+import CstmTitleInput from './CstmTitleInput';
 import DateRangeSelector from './DateRangeSelector';
+import ModalHeader from './ModalHeader';
+import RoundedIcon from './roundedIcon';
+import CstmTabBar from './CstmTabBar';
+import GapView from './GapView';
+import {PriorityField, SingleLineField} from './FormFields';
 
 export {
   CstmButton,
@@ -21,7 +27,7 @@ export {
   CstmErrorText,
   AvatarContainer,
   SearchBar,
-  ModalForm,
+  ModalView,
   ModalField,
   EmptyListMsg,
   DateSeparator,
@@ -32,4 +38,11 @@ export {
   CstmDropDown,
   CstmMultiLine,
   DateRangeSelector,
+  ModalHeader,
+  RoundedIcon,
+  CstmTabBar,
+  GapView,
+  PriorityField,
+  SingleLineField,
+  CstmTitleInput,
 };

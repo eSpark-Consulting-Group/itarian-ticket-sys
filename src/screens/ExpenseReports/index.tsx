@@ -6,11 +6,11 @@ import styles from './style';
 import {Theme} from '../../theme/colors';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {
-  ExpReportList,
   expReportList,
   SchAdditionalButtons,
   scheduledList,
 } from '../../constants/SampleArrays';
+import {ExpReportList} from '../../types';
 import ListItem from '../Agenda/ListItem';
 
 const ExpenseReportsScreen = () => {

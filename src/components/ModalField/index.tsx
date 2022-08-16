@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {ReactNode} from 'react';
+import {View, Text, TouchableOpacity, Pressable, ViewStyle} from 'react-native';
 import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
@@ -7,13 +7,13 @@ import {
 import {useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {moderateScale} from 'react-native-size-matters';
+import {Checkbox, Switch, TextInput} from 'react-native-paper';
 
 import {Theme} from '../../theme/colors';
-import ModalForm from '../ModalForm';
-import {Checkbox, Switch, TextInput} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
 import styles from './style';
 import CstmMultiLine from '../CstmMultiLineInput';
+import GapView from '../GapView';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +26,7 @@ const ModalField = ({
   iconRight,
   switchRight,
   switch_val,
-  pressEnable,
+  pressEnable = true,
   onPress,
   iconLeft,
   pressEnableLeft,
@@ -39,13 +39,13 @@ const ModalField = ({
   onToggleSwitch,
   checkBox_Val,
   onCheckPress,
-  navigateTo,
-  visible,
-  input_Val,
-  select_Date,
-  select_Time,
+  children,
+  fieldPadding = 8,
+  contentStyle,
+  gap = true,
+  border = false,
 }: {
-  mode: 'inlined' | 'multiline';
+  mode: 'inlined' | 'multiline' | 'none';
   headingRight?: string;
   subHeadingRight?: string;
   headingLeft?: string;
@@ -66,13 +66,14 @@ const ModalField = ({
   checkBoxRight?: boolean;
   checkBox_Val?: 'checked' | 'unchecked';
   onCheckPress?: () => void;
-  navigateTo?: string;
-  visible?: boolean;
-  input_Val?: string;
-  select_Date?: boolean;
-  select_Time?: boolean;
+  children?: ReactNode;
+  fieldPadding?: number;
+  contentStyle?: ViewStyle;
+  gap?: boolean;
+  border?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
+  const pressColor = dark ? '#ffffff1a' : '#0000001a';
 
   return (
     <>
@@ -168,22 +169,42 @@ const ModalField = ({
         </TouchableOpacity>
       )}
       {mode == 'multiline' && (
-        <View
-          style={{
-            ...styles.multilineDisplay,
-            backgroundColor: dark ? '#0000008a' : '#ffffff8a',
-          }}>
-          <CstmMultiLine title={headingLeft} />
-          {/* <Text style={{marginTop: 5, color: colors.text}}>{headingLeft}</Text>
-          <TextInput
-            mode="outlined"
-            multiline
-            // value={inputVal.get()}
-            style={{flex: 0.9, backgroundColor: colors.background}}
-            theme={{colors: {primary: colors.primary}}}
-            // onChangeText={txt => inputVal.set(txt)}
-          /> */}
-        </View>
+        <>
+          <GapView />
+          <View
+            style={{
+              ...styles.multilineDisplay,
+              backgroundColor: dark ? '#000000' : '#ffffff',
+            }}>
+            <CstmMultiLine title={headingLeft} />
+          </View>
+        </>
+      )}
+      {mode == 'none' && (
+        <>
+          {gap && <GapView />}
+          <View
+            style={{
+              backgroundColor: dark ? '#000000' : '#ffffff',
+              elevation: 2,
+              borderTopWidth: 1,
+              borderBottomWidth: border ? 1 : 0,
+              borderColor: border ? '#7575754a' : 'transparent',
+              borderRadius: border ? 5 : 0,
+            }}>
+            <Pressable
+              android_ripple={{color: pressColor}}
+              disabled={!pressEnable}
+              style={{
+                ...styles.emptyFieldStyle,
+                padding: fieldPadding,
+                ...contentStyle,
+              }}
+              onPress={onPress}>
+              {children}
+            </Pressable>
+          </View>
+        </>
       )}
     </>
   );

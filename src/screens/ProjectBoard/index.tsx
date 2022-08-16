@@ -10,16 +10,14 @@ import AD from 'react-native-vector-icons/AntDesign';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {
-  Tickets as TicketsType,
-  ticketsList,
-} from '../../constants/SampleArrays';
+import {ticketsList} from '../../constants/SampleArrays';
+import {Ticket} from '../../types';
 import {EmptyListMsg} from '../../components';
 
 const ProjectBoard = () => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: TicketsType; index: number}) => {
+  const renderList = ({item, index}: {item: Ticket; index: number}) => {
     const renderPriorityText = (value: string) => {
       switch (value) {
         case 'DNR':

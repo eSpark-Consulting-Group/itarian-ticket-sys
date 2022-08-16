@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 
-import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants/Dimensions';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
   },
   iconsContainer: {
     flexDirection: 'row',
-    width: moderateScale(80),
     justifyContent: 'space-between',
   },
+  horizontalAdjuster: {width: 14},
   iconStyle: {
     borderWidth: 1,
     borderRadius: 100,

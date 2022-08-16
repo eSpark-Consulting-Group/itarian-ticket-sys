@@ -9,7 +9,6 @@ import {globalState} from '../../utils/globalState';
 import {Theme} from '../../theme/colors';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
-import styles from './style';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookState(globalState.theme);

@@ -13,21 +13,17 @@ import FD from 'react-native-vector-icons/Foundation';
 import styles from './style';
 import {Theme} from '../../theme/colors';
 import {
-  Opportunities as OpportunityType,
   opportunitiesList,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
-import {EmptyListMsg} from '../../components';
+import {Opportunity} from '../../types';
+import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
+import _ from 'lodash';
 
 const Oppurtunities = () => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({
-    item,
-    index,
-  }: {
-    item: OpportunityType;
-    index: number;
-  }) => {
+  const renderList = ({item, index}: {item: Opportunity; index: number}) => {
     const renderColor = () => {
       switch (item.priority) {
         case 'low':
@@ -111,33 +107,13 @@ const Oppurtunities = () => {
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                borderColor: colors.text,
-                opacity: item.contant_phone ? 1 : 0.5,
-                ...styles.iconStyle,
-              }}>
-              <Pressable
-                onPress={() => {
-                  item.contant_phone ? console.log('calling') : null;
-                }}
-                android_disableSound
-                android_ripple={{
-                  color: item.contant_phone
-                    ? dark
-                      ? '#ffffff1f'
-                      : '#0000000e'
-                    : 'transparent',
-                  borderless: true,
-                }}>
-                <MCI
-                  name="phone"
-                  size={22}
-                  color={colors.text}
-                  style={styles.icon}
-                />
-              </Pressable>
-            </View>
+            <RoundedIcon
+              enable={!_.isUndefined(item.contant_phone)}
+              icon="phone"
+              onPress={() => {
+                console.log('Press Phone');
+              }}
+            />
           </View>
         </Pressable>
         {index !== opportunitiesList.length - 1 && (
@@ -156,6 +132,7 @@ const Oppurtunities = () => {
       ) : (
         <NotFound />
       )}
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </View>
   );
 };

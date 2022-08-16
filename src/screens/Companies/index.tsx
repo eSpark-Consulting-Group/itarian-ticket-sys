@@ -4,17 +4,18 @@ import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-import {SearchBar, SimpleLoader} from '../../components';
+import {FloatButton, SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
 import {Colors, Theme} from '../../theme/colors';
 import {EmptyListMsg} from '../../components';
 import {
   companiesList,
-  Companines as CompanyType,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
+import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
-const Companies = () => {
+const Companies = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -83,7 +84,7 @@ const Companies = () => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderCompanies listData={filteredCompanies} />
+        <RenderCompanies navigation={navigation} listData={filteredCompanies} />
       )}
     </View>
   );
@@ -91,16 +92,18 @@ const Companies = () => {
 
 export const RenderCompanies = ({
   listData = companiesList,
+  navigation,
 }: {
-  listData?: CompanyType[];
+  listData?: Company[];
+  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: CompanyType; index: number}) => {
+  const renderList = ({item, index}: {item: Company; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <Pressable
-          onPress={() => console.log('Hello')}
+          onPress={() => navigation.navigate('Stack1', {screen: 'Company'})}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={{padding: moderateScale(15)}}>
             <Text
@@ -126,6 +129,9 @@ export const RenderCompanies = ({
       ) : (
         <NotFound />
       )}
+      <FloatButton
+        onPress={() => navigation.navigate('Stack1', {screen: 'NewCompany'})}
+      />
     </>
   );
 };

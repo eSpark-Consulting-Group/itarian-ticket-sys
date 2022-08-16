@@ -7,15 +7,14 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {SearchBar, SimpleLoader} from '../../components';
+import {RoundedIcon, SearchBar, SimpleLoader} from '../../components';
 import {EmptyListMsg} from '../../components';
-import {
-  contactsList,
-  Contacts as ContactsType,
-} from '../../constants/SampleArrays';
+import {contactsList} from '../../constants/SampleArrays';
+import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
+import _ from 'lodash';
 
-const Contacts = () => {
+const Contacts = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -84,7 +83,7 @@ const Contacts = () => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderContacts listData={filteredContacts} />
+        <RenderContacts listData={filteredContacts} navigation={navigation} />
       )}
     </View>
   );
@@ -92,16 +91,22 @@ const Contacts = () => {
 
 export const RenderContacts = ({
   listData = contactsList,
+  navigation,
 }: {
-  listData?: ContactsType[];
+  listData?: Contact[];
+  navigation: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: ContactsType; index: number}) => {
+  const renderList = ({item, index}: {item: Contact; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <Pressable
-          onPress={() => console.log('Hello')}
+          onPress={() =>
+            navigation.navigate('Stack1', {
+              screen: 'Contact1',
+            })
+          }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={styles.listItemContainer}>
             <View>
@@ -128,61 +133,17 @@ export const RenderContacts = ({
               </View>
             </View>
             <View style={styles.iconsContainer}>
-              <View
-                style={{
-                  borderColor: colors.text,
-                  opacity: item.phone_no ? 1 : 0.5,
-                  ...styles.iconStyle,
-                }}>
-                <Pressable
-                  onPress={() => {
-                    item.phone_no ? console.log('calling') : null;
-                  }}
-                  android_disableSound
-                  android_ripple={{
-                    color: item.phone_no
-                      ? dark
-                        ? '#ffffff1f'
-                        : '#0000000e'
-                      : 'transparent',
-                    borderless: true,
-                  }}>
-                  <MCI
-                    name="phone"
-                    size={22}
-                    color={colors.text}
-                    style={styles.icon}
-                  />
-                </Pressable>
-              </View>
-              <View
-                style={{
-                  borderColor: colors.text,
-                  opacity: item.email_address ? 1 : 0.5,
-                  ...styles.iconStyle,
-                }}>
-                <Pressable
-                  onPress={() => {
-                    item.email_address ? console.log('mailing') : null;
-                  }}
-                  style={{borderRadius: 100}}
-                  android_disableSound
-                  android_ripple={{
-                    color: item.email_address
-                      ? dark
-                        ? '#ffffff1f'
-                        : '#0000000e'
-                      : 'transparent',
-                    borderless: true,
-                  }}>
-                  <MCI
-                    name="email-outline"
-                    size={22}
-                    color={colors.text}
-                    style={styles.icon}
-                  />
-                </Pressable>
-              </View>
+              <RoundedIcon
+                enable={!_.isNull(item.phone_no)}
+                icon={'phone'}
+                onPress={() => console.log('Press Phone')}
+              />
+              <View style={styles.horizontalAdjuster} />
+              <RoundedIcon
+                enable={!_.isNull(item.email_address)}
+                icon={'email-outline'}
+                onPress={() => console.log('Press Email')}
+              />
             </View>
           </View>
         </Pressable>

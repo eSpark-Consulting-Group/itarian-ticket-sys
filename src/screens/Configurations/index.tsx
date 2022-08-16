@@ -6,16 +6,22 @@ import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Theme} from '../../theme/colors';
-import {SearchBar, EmptyListMsg, SimpleLoader} from '../../components';
+import {
+  SearchBar,
+  EmptyListMsg,
+  SimpleLoader,
+  FloatButton,
+} from '../../components';
 import {
   configurationsList,
-  Configurations as ConfigurationsType,
+  SchAdditionalButtons,
 } from '../../constants/SampleArrays';
+import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
 
-const Configurations = () => {
+const Configurations = ({navigation}: {navigation: any}) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -92,7 +98,10 @@ const Configurations = () => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderConfigurations listData={filteredConfigurations} />
+        <RenderConfigurations
+          listData={filteredConfigurations}
+          navigation={navigation}
+        />
       )}
     </View>
   );
@@ -100,22 +109,22 @@ const Configurations = () => {
 
 export const RenderConfigurations = ({
   listData = configurationsList,
+  navigation,
 }: {
-  listData?: ConfigurationsType[];
+  listData?: Configuration[];
+  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
-  const renderList = ({
-    item,
-    index,
-  }: {
-    item: ConfigurationsType;
-    index: number;
-  }) => {
+  const renderList = ({item, index}: {item: Configuration; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <Pressable
-          onPress={() => console.log('Hello')}
+          onPress={() =>
+            navigation.navigate('Stack1', {
+              screen: 'Configure1',
+            })
+          }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={styles.listItemContainer}>
             <View style={styles.iconContainer}>
@@ -211,6 +220,7 @@ export const RenderConfigurations = ({
       ) : (
         <NotFound />
       )}
+      <FloatButton AdditionalButtons={SchAdditionalButtons} />
     </>
   );
 };

@@ -12,13 +12,24 @@ import {
 } from '../../../constants/SampleArrays';
 import {FloatButton} from '../../../components';
 
-const UnscheduledTab = () => {
+const UnscheduledTab = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
       <FlatList
         data={unscheduledList}
-        renderItem={({item}) => <ListItem id={item.id} item={item} />}
+        renderItem={({item}) => (
+          <ListItem
+            id={item.id}
+            item={item}
+            onPress={iValue =>
+              navigation.navigate('Stack1', {
+                screen: 'STickets',
+                params: {title: iValue.ticket_no},
+              })
+            }
+          />
+        )}
       />
       <FloatButton AdditionalButtons={UnschAdditionalButtons} />
     </View>

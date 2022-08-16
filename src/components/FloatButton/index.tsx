@@ -4,32 +4,44 @@ import {FAB} from 'react-native-paper';
 
 import styles from './style';
 
-const FloatButton = ({AdditionalButtons}: {AdditionalButtons: any}) => {
+const FloatButton = ({
+  AdditionalButtons,
+  onPress,
+}: {
+  AdditionalButtons?: any;
+  onPress?: any;
+}) => {
   const [showBtns, setShowBtns] = useState(false);
   const ShowMoreBtns = () => {
     setShowBtns(!showBtns);
   };
 
   return (
-    <FAB.Group
-      theme={{colors: {background: '#111'}}}
-      fabStyle={styles.floatButton}
-      open={showBtns}
-      icon={showBtns ? 'close' : 'plus'}
-      color="#fff"
-      actions={AdditionalButtons}
-      onStateChange={() => ShowMoreBtns()}
-      visible={true}
-      onPress={() => ShowMoreBtns()}
-    />
+    <>
+      {AdditionalButtons ? (
+        <FAB.Group
+          theme={{colors: {background: '#111'}}}
+          fabStyle={styles.floatGroup}
+          open={showBtns}
+          icon={showBtns ? 'close' : 'plus'}
+          color="#fff"
+          actions={AdditionalButtons}
+          onStateChange={() => ShowMoreBtns()}
+          visible={true}
+          onPress={() => ShowMoreBtns()}
+        />
+      ) : (
+        <FAB
+          theme={{colors: {background: '#111'}}}
+          style={styles.floatButton}
+          icon={'plus'}
+          color="#fff"
+          visible={true}
+          onPress={onPress}
+        />
+      )}
+    </>
   );
-};
-
-FloatButton.propTypes = {
-  icon: PropTypes.string,
-  onPress: PropTypes.func,
-  style: PropTypes.object,
-  moreBtns: PropTypes.array,
 };
 
 export default FloatButton;

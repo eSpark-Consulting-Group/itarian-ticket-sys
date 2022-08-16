@@ -1,15 +1,12 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React from 'react';
 import {
   View,
   SafeAreaView,
-  Image,
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   TouchableOpacity,
   ActivityIndicator,
-  Linking,
   PixelRatio,
 } from 'react-native';
 import {
@@ -19,25 +16,15 @@ import {
   DrawerHeaderProps,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
-import {
-  useTheme,
-  DrawerActions,
-  RouteProp,
-  useNavigationState,
-} from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackHeaderProps,
-} from '@react-navigation/native-stack';
+import {useTheme, DrawerActions} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {State, useState as hookState} from '@hookstate/core';
-import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
+import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar, Badge} from 'react-native-paper';
-import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -54,30 +41,19 @@ import {
   ProjectBoard,
   Search,
   ServiceBoard,
-  ServiceTickets,
   StopWatch,
   TimeSheets,
   Settings,
   SendFeedback,
   Profile,
 } from '../screens';
-import {ModalField, ModalForm} from '../components';
-import {
-  GoneToFormArray,
-  ParamList,
-  StatusFormArray,
-} from '../constants/SampleArrays';
-import Stacks from './Stacks';
-import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../constants/Dimensions';
+import {ParamList} from '../types';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT, BUILD_VERSION} from '../constants';
 
 const Drawer = createDrawerNavigator<ParamList>();
-const Stack = createNativeStackNavigator();
-
-const {width, height} = Dimensions.get('window');
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
-  const switchValue: State<boolean> = hookState(globalState.statusSwitch);
 
   const {colors}: Theme = useTheme();
 
@@ -158,7 +134,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             fontFamily: 'sans-serif-medium',
             color: '#ffffff',
           }}>
-          Build version (0.03.23)
+          Build version ({BUILD_VERSION})
         </Text>
       </View>
     </SafeAreaView>
@@ -526,15 +502,6 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         }}
       />
       <Drawer.Screen
-        name="Forms"
-        component={Stacks}
-        options={{
-          headerShown: false,
-          drawerItemStyle: {display: 'none'},
-          swipeEnabled: false,
-        }}
-      />
-      <Drawer.Screen
         name="Settings"
         component={Settings}
         options={{
@@ -555,7 +522,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
 };
 
 const FSLoader = () => {
-  const {dark, colors} = useTheme();
+  const {colors} = useTheme();
   return (
     <View style={{backgroundColor: colors.background, ...styles.loading}}>
       <ActivityIndicator size="large" color={colors.primary} />
@@ -570,12 +537,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    // flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
     paddingVertical: 5,
-    // height: PixelRatio.roundToNearestPixel((SCREEN_HEIGHT * 20) / 100),
   },
   avatar: {
     height: moderateVerticalScale(65, 0.5),
@@ -588,12 +553,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   content: {
-    // flex: 6,
     height: moderateVerticalScale(
       PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 55) / 100),
       0.55,
     ),
-    // height: moderateVerticalScale(410, 1.65),
   },
   footer: {
     flex: 1,
@@ -601,8 +564,6 @@ const styles = StyleSheet.create({
       PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 20) / 100),
       0,
     ),
-    // height: moderateVerticalScale(180, 0.2)
-    // backgroundColor: 'pink',
     justifyContent: 'space-between',
     borderTopWidth: 1,
     borderColor: '#fff',

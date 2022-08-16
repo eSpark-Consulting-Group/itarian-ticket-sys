@@ -127,13 +127,12 @@ const Notes = () => {
         }}>
         <SubHeader />
       </ModalField>
-      <ModalField
-        mode="none"
-        contentStyle={{marginBottom: 60}}
-        pressEnable={false}>
+      <ModalField mode="none" pressEnable={false} fieldPadding={0}>
         <FlatList
           data={dataSource}
           renderItem={renderList}
+          ListFooterComponent={<View />}
+          ListFooterComponentStyle={{height: 60}}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => (
             <Divider

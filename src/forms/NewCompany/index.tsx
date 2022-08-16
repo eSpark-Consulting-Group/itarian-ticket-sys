@@ -1,6 +1,11 @@
 import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import React from 'react';
-import {CstmTitleInput, ModalView, SingleLineField} from '../../components';
+import {
+  CstmTitleInput,
+  GapView,
+  ModalView,
+  SingleLineField,
+} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 
 const NewCompany = () => {
@@ -31,16 +36,16 @@ const NewCompany = () => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView>
-        <FlatList
-          data={dataSource}
+      <ScrollView style={{flex: 1}}>
+        <View
           style={{
-            width: '100%',
-            paddingHorizontal: 15,
+            flex: 1,
             elevation: 2,
-          }}
-          renderItem={({item}) => (
+            paddingHorizontal: 15,
+          }}>
+          {dataSource.map((item, index) => (
             <View
+              key={item.id}
               style={{
                 flexDirection: item.subItem ? 'row' : 'column',
                 justifyContent: 'space-between',
@@ -60,9 +65,10 @@ const NewCompany = () => {
                 />
               )}
             </View>
-          )}
-        />
-        <View>
+          ))}
+          <GapView />
+        </View>
+        <View style={{backgroundColor: colors.background}}>
           <SingleLineField
             title="Please Select"
             subTitle="State"

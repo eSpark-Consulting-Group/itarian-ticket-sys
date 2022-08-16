@@ -5,7 +5,10 @@ import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
 import {GapView, ModalField} from '../../components';
-import {Divider} from 'react-native-paper';
+import {Divider, Modal} from 'react-native-paper';
+import {moderateScale} from 'react-native-size-matters';
+import {WINDOW_HEIGHT} from '../../constants';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const dataSource: Item[] = [
   {
@@ -64,6 +67,14 @@ const dataSource: Item[] = [
     id: 8,
     img: require('../../assets/images/avatar_holder.webp'),
     title: 'Template 8',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
+  },
+  {
+    id: 9,
+    img: require('../../assets/images/avatar_holder.webp'),
+    title: 'Template 9',
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
@@ -127,16 +138,13 @@ const Notes = () => {
         }}>
         <SubHeader />
       </ModalField>
-      <ModalField
-        mode="none"
-        contentStyle={{
-          marginBottom: 60,
-        }}
-        pressEnable={false}>
+      <ModalField mode="none" pressEnable={false} fieldPadding={0}>
         <FlatList
           data={dataSource}
           renderItem={renderList}
           showsVerticalScrollIndicator={false}
+          ListFooterComponent={<View />}
+          ListFooterComponentStyle={{height: 120}}
           ItemSeparatorComponent={() => (
             <Divider
               style={{backgroundColor: colors.background, height: 1.2}}
@@ -178,8 +186,8 @@ export default Notes;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    // flex: 1,
+    // alignItems: 'center',
   },
   subHeader: {
     flexDirection: 'row',

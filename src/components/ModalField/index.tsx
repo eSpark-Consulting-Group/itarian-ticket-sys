@@ -43,6 +43,7 @@ const ModalField = ({
   fieldPadding = 8,
   contentStyle,
   gap = true,
+  border = false,
 }: {
   mode: 'inlined' | 'multiline' | 'none';
   headingRight?: string;
@@ -69,6 +70,7 @@ const ModalField = ({
   fieldPadding?: number;
   contentStyle?: ViewStyle;
   gap?: boolean;
+  border?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const pressColor = dark ? '#ffffff1a' : '#0000001a';
@@ -185,6 +187,10 @@ const ModalField = ({
             style={{
               backgroundColor: dark ? '#000000' : '#ffffff',
               elevation: 2,
+              borderTopWidth: 1,
+              borderBottomWidth: border ? 1 : 0,
+              borderColor: border ? '#7575754a' : 'transparent',
+              borderRadius: border ? 5 : 0,
             }}>
             <Pressable
               android_ripple={{color: pressColor}}

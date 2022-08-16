@@ -4,8 +4,7 @@ import {Switch} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {GapView, ModalField, RoundedIcon} from '..';
-import {SCREEN_WIDTH} from '../../constants';
+import {CstmTitleInput, GapView, ModalField, RoundedIcon} from '..';
 
 const SingleLineField = ({
   leftIcon,
@@ -25,6 +24,7 @@ const SingleLineField = ({
   onChangeSwitch,
   roundedIconEnable,
   onRoundedIconPress,
+  border = false,
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -43,6 +43,7 @@ const SingleLineField = ({
   roundedIconEnable?: boolean;
   onRoundedIconPress?: () => void;
   rightChild?: ReactNode;
+  border?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -51,6 +52,7 @@ const SingleLineField = ({
       pressEnable={enable}
       onPress={onPress}
       gap={gap}
+      border={border}
       fieldPadding={20}>
       <View
         style={{
@@ -85,7 +87,7 @@ const SingleLineField = ({
                 </>
               )}
               {inputable ? (
-                <InputField title={title} onChangeText={onChangeText} />
+                <CstmTitleInput value={title} onChangeText={onChangeText} />
               ) : (
                 <Text
                   style={{
@@ -126,33 +128,6 @@ const SingleLineField = ({
     </ModalField>
   );
 };
-
-function InputField({
-  title,
-  onChangeText,
-}: {
-  title: string;
-  onChangeText?: (text: string) => void;
-}) {
-  const {colors, dark}: Theme = useTheme();
-
-  return (
-    <View style={{width: '100%'}}>
-      <GapView mode="vertical" />
-      <TextInput
-        value={title}
-        style={{
-          ...styles.input,
-          color: colors.text,
-          borderColor: colors.text + '73',
-        }}
-        onChangeText={onChangeText}
-        underlineColorAndroid="transparent"
-        selectionColor={colors.primary}
-      />
-    </View>
-  );
-}
 
 export default SingleLineField;
 

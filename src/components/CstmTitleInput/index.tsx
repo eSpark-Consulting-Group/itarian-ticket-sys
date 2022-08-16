@@ -9,9 +9,9 @@ const CstmTitleInput = ({
   title,
   value,
   onChangeText,
-  width,
+  width = '100%',
 }: {
-  title: string;
+  title?: string;
   value?: string;
   onChangeText?: (text: string) => void;
   width?: string;
@@ -20,8 +20,12 @@ const CstmTitleInput = ({
 
   return (
     <View style={{width: width}}>
-      <GapView mode="vertical" />
-      <Text>{title}</Text>
+      {title && (
+        <>
+          <GapView mode="vertical" />
+          <Text style={{color: colors.text, opacity: 0.8}}>{title}</Text>
+        </>
+      )}
       <GapView mode="vertical" />
       <TextInput
         value={value}

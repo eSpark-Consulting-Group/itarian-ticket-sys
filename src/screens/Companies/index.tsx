@@ -15,7 +15,7 @@ import {
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
-const Companies = () => {
+const Companies = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -84,7 +84,7 @@ const Companies = () => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderCompanies listData={filteredCompanies} />
+        <RenderCompanies navigation={navigation} listData={filteredCompanies} />
       )}
     </View>
   );
@@ -92,8 +92,10 @@ const Companies = () => {
 
 export const RenderCompanies = ({
   listData = companiesList,
+  navigation,
 }: {
   listData?: Company[];
+  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -101,7 +103,7 @@ export const RenderCompanies = ({
     return (
       <View style={styles.listContainer}>
         <Pressable
-          onPress={() => console.log('Hello')}
+          onPress={() => navigation.navigate('Stack1', {screen: 'Company'})}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={{padding: moderateScale(15)}}>
             <Text
@@ -127,7 +129,9 @@ export const RenderCompanies = ({
       ) : (
         <NotFound />
       )}
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton
+        onPress={() => navigation.navigate('Stack1', {screen: 'NewCompany'})}
+      />
     </>
   );
 };

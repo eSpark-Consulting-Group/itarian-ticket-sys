@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  PixelRatio,
-} from 'react-native';
+import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';

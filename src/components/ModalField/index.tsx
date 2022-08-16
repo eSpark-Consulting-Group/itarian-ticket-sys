@@ -167,13 +167,16 @@ const ModalField = ({
         </TouchableOpacity>
       )}
       {mode == 'multiline' && (
-        <View
-          style={{
-            ...styles.multilineDisplay,
-            backgroundColor: dark ? '#0000008a' : '#ffffff8a',
-          }}>
-          <CstmMultiLine title={headingLeft} />
-        </View>
+        <>
+          <GapView />
+          <View
+            style={{
+              ...styles.multilineDisplay,
+              backgroundColor: dark ? '#000000' : '#ffffff',
+            }}>
+            <CstmMultiLine title={headingLeft} />
+          </View>
+        </>
       )}
       {mode == 'none' && (
         <>

@@ -9,7 +9,7 @@ import II from 'react-native-vector-icons/Ionicons';
 import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
 
-const Profile = ({navigation}: any) => {
+const Profile = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   return (
@@ -39,8 +39,8 @@ const Profile = ({navigation}: any) => {
           <Text style={{color: colors.text}}>My Status</Text>
           <Text style={{fontWeight: 'bold', color: colors.text}}>
             {/* {route.params.status} */}
-            {/* {route.params.status == false ? 'In Office' : 'Out of the Office'} */}
-            {currStatus.get() ? 'Out of the Office' : 'In Office'}
+            {route.params.status == false ? 'In Office' : 'Out of the Office'}
+            {/* {currStatus.get() ? 'Out of the Office' : 'In Office'} */}
           </Text>
         </View>
         <II name="chevron-forward" color={colors.text} size={20} />

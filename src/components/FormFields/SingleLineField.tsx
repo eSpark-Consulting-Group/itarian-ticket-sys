@@ -5,6 +5,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {GapView, ModalField, RoundedIcon} from '..';
+import {SCREEN_WIDTH} from '../../constants';
 
 const SingleLineField = ({
   leftIcon,
@@ -15,6 +16,7 @@ const SingleLineField = ({
   enable = true,
   onPress,
   titleWidth,
+  rightChild,
   gap = true,
   inputable = false,
   onChangeText,
@@ -40,6 +42,7 @@ const SingleLineField = ({
   onChangeSwitch?: (value: boolean) => void;
   roundedIconEnable?: boolean;
   onRoundedIconPress?: () => void;
+  rightChild?: ReactNode;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -118,6 +121,7 @@ const SingleLineField = ({
             icon={rightIconRound}
           />
         )}
+        {rightChild && rightChild}
       </View>
     </ModalField>
   );

@@ -50,7 +50,8 @@ const Details = () => {
       <FlatList
         data={dataSource}
         renderItem={renderList}
-        style={{maxHeight: WINDOW_HEIGHT * 0.655}}
+        ListFooterComponent={<View />}
+        ListFooterComponentStyle={{height: 8}}
         ItemSeparatorComponent={() => (
           <Divider style={{backgroundColor: colors.background, height: 1.5}} />
         )}

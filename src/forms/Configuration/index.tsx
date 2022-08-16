@@ -21,11 +21,6 @@ if (
 export default function App() {
   return (
     <ModalView>
-      {/* <ModalHeader
-        title="John Doe"
-        subTitle="Acme Company Ltd"
-        subIcon="office-building-marker-outline"
-      /> */}
       <TabComp />
     </ModalView>
   );

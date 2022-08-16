@@ -17,7 +17,6 @@ import {
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import {useTheme, DrawerActions} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -49,7 +48,7 @@ import {
   Profile,
 } from '../screens';
 import {ParamList} from '../types';
-import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../constants';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT, BUILD_VERSION} from '../constants';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -135,7 +134,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             fontFamily: 'sans-serif-medium',
             color: '#ffffff',
           }}>
-          Build version (0.03.23)
+          Build version ({BUILD_VERSION})
         </Text>
       </View>
     </SafeAreaView>

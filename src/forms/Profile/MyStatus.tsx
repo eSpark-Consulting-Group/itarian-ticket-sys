@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {useTheme} from '@react-navigation/native';
+import {useTheme, Theme} from '@react-navigation/native';
 
-import {ModalField, ModalView} from '../components';
-import {StatusFormArray} from '../constants/SampleArrays';
-import {Theme} from '../theme/colors';
+import {Switch} from 'react-native-paper';
+import {ModalField, ModalView, SingleLineField} from '../../components';
 
-const MyStatus = ({navigation}: any) => {
+const MyStatus = ({route, navigation}: any) => {
+  console.log('Route', route);
+  const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();
   const [switchVal, setSwitchVal] = useState(false);
   const [showTime, setShowTime] = useState(false);
@@ -43,28 +44,36 @@ const MyStatus = ({navigation}: any) => {
     setCurrDate(date);
   };
 
+  const changeSwitch = () => {
+    const {setParams} = navigation;
+    setParams({
+      status: !OutStatus,
+    });
+  };
+
   return (
     <ModalView>
-      <ModalField
-        mode="inlined"
-        headingLeft="Are you out of office"
-        switchRight={true}
-        switch_val={switchVal}
-        onToggleSwitch={() => setSwitchVal(!switchVal)}
+      <SingleLineField
+        title="Are you out of office"
+        enable={false}
+        rightChild={
+          <Switch
+            value={OutStatus}
+            style={{marginRight: 5}}
+            color={colors.primary}
+            thumbColor={colors.primary}
+            onValueChange={changeSwitch}
+            trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+          />
+        }
       />
-      {switchVal && (
+      {OutStatus && (
         <>
-          <ModalField
-            mode="inlined"
-            headingLeft="Gone To"
-            // subHeadingLeft={
-            //   checkedIndex != null
-            //     ? goneToArray[checkedIndex].name
-            //     : 'Please Select'
-            // }
+          <SingleLineField
+            title="Please Select"
             onPress={() => navigation.navigate('Stack2', {screen: 'GoneTo'})}
-            // onPress={() => console.log('Navigation', props.navigation.navigate())}
-            pressEnable={true}
+            rightIcon="chevron-right"
+            subTitle="Gone To"
           />
           <ModalField mode="multiline" headingLeft="Additional Info" />
           <ModalField

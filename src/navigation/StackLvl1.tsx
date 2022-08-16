@@ -5,23 +5,33 @@ import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MI from 'react-native-vector-icons/MaterialIcons';
 import {Theme, useTheme} from '@react-navigation/native';
+import {
+  backStatus,
+  saveGoneTo,
+  saveStatus,
+} from '../forms/utils/headerFunctions';
 
-import MyStatus from '../forms/MyStatus';
 import STickets from '../forms/ServiceTickets';
 import Contact1 from '../forms/Contacts';
 import Configuration1 from '../forms/Configuration';
+import Company from '../forms/Company';
+import NewCompany from '../forms/NewCompany';
+import MyStatus from '../forms/Profile/MyStatus';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
-  MyStatus: undefined;
+  MyStatus: {status: boolean};
   STickets: {title: string};
+  Company: {title: string};
+  NewCompany: {title: string};
   Contact1: undefined;
   Configure1: undefined;
 };
 
-const StackLvl1 = () => {
+const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
+  console.log('route Props', route);
 
   return (
     <Stack.Navigator
@@ -35,13 +45,31 @@ const StackLvl1 = () => {
       <Stack.Screen
         name="MyStatus"
         component={MyStatus}
+        initialParams={{status: false}}
         options={({navigation, route}) => ({
           title: 'My Status',
           headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II size={30} name="close" style={{right: 6}} color={'#fff'} />
+          headerLeft: () => {
+            console.log('Options Props', route.params);
+
+            return (
+              <II
+                size={30}
+                name="close"
+                style={{right: 6}}
+                color={'#fff'}
+                onPress={() => backStatus(navigation)}
+              />
+            );
+          },
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => saveStatus(navigation, route)}
+            />
           ),
-          headerRight: () => <FA size={27} name="save" color={'#fff'} />,
         })}
       />
       <Stack.Screen
@@ -65,6 +93,48 @@ const StackLvl1 = () => {
               <View style={{width: 15}} />
               <MI size={30} name="edit" color={'#fff'} />
             </View>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Company"
+        component={Company}
+        options={({route, navigation}) => ({
+          title: 'Company',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewCompany"
+        component={NewCompany}
+        options={({route, navigation}) => ({
+          title: 'New Company',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
           ),
         })}
       />

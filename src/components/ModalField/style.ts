@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 5,
     marginBottom: 10,
-    elevation: 1,
+    elevation: 2,
   },
   inlineIconBtn: {
     borderRadius: 1000,

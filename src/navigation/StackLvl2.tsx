@@ -4,11 +4,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 
-import GoneTo from '../forms/GoneTo';
+import GoneTo from '../forms/Profile/GoneTo';
+import {backGoneTo, saveGoneTo} from '../forms/utils/headerFunctions';
 
 const Stack = createNativeStackNavigator();
 
-const StackLvl2 = () => {
+const StackLvl2 = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
 
   return (
@@ -27,9 +28,22 @@ const StackLvl2 = () => {
           title: 'Gone To',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
-            <II size={30} name="close" style={{right: 6}} color={'#fff'} />
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => backGoneTo(navigation)}
+            />
           ),
-          headerRight: () => <FA size={27} name="check" color={'#fff'} />,
+          headerRight: () => (
+            <FA
+              size={27}
+              name="check"
+              color={'#fff'}
+              onPress={() => saveGoneTo(navigation)}
+            />
+          ),
         }}
       />
     </Stack.Navigator>

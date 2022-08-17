@@ -17,6 +17,7 @@ import Configuration1 from '../forms/Configuration';
 import Company from '../forms/Company';
 import NewCompany from '../forms/NewCompany';
 import MyStatus from '../forms/Profile/MyStatus';
+import NewConfiguration from '../forms/Configuration/CreateConfigurations';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +28,7 @@ export type RootStackParamList = {
   NewCompany: {title: string};
   Contact1: undefined;
   Configure1: undefined;
+  NewConfigure: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -161,6 +163,24 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={Configuration1}
         options={({route, navigation}) => ({
           title: 'Configuration',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => <FA size={30} name="save" color={'#fff'} />,
+        })}
+      />
+      <Stack.Screen
+        name="NewConfigure"
+        component={NewConfiguration}
+        options={({route, navigation}) => ({
+          title: 'Create New Configuration',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

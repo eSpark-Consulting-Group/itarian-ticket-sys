@@ -180,7 +180,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="NewConfigure"
         component={NewConfiguration}
         options={({route, navigation}) => ({
-          title: 'Create New Configuration',
+          title: 'New Configuration',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

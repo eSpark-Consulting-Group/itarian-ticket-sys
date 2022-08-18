@@ -25,7 +25,6 @@ const SingleLineField = ({
   roundedIconEnable,
   onRoundedIconPress,
   border = false,
-  inputWidth,
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -45,7 +44,6 @@ const SingleLineField = ({
   onRoundedIconPress?: () => void;
   rightChild?: ReactNode;
   border?: boolean;
-  inputWidth?: string | number;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -61,8 +59,6 @@ const SingleLineField = ({
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          width: inputWidth,
-          backgroundColor: 'red',
         }}>
         <View>
           {subTitle && (

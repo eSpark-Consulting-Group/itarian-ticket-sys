@@ -7,6 +7,7 @@ import {
   SingleLineField,
 } from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
+import {MultiLineField} from '../../components/FormFields';
 
 interface Item {
   title: string;
@@ -27,13 +28,11 @@ const NewConfiguration = () => {
   const [titleText, setTitleText] = useState('');
   const [billCustomer, setBillCustomer] = useState(false);
   const [needsRenewal, setNeedsRenewal] = useState(false);
-
-  const dataSource: Item[] = [
+  const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: titleText,
+      title: '',
       subTitle: 'Configuration Name',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
     {
@@ -57,31 +56,27 @@ const NewConfiguration = () => {
       rightIcon: 'chevron-right',
     },
     {
-      title: titleText,
+      title: '',
       subTitle: 'Mfg Part Number',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
     {
-      title: titleText,
+      title: '',
       subTitle: 'Model Number',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
     {
-      title: titleText,
+      title: '',
       subTitle: 'Serial Number',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
     {
-      title: titleText,
+      title: '',
       subTitle: 'Tag Number',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
     {
@@ -139,55 +134,39 @@ const NewConfiguration = () => {
       title: 'Tap to View Vendor Notes',
       rightIcon: 'chevron-right',
     },
-  ];
+  ]);
+
+  const updateInput = (e: string, index: number) => {
+    console.log('Text Index', e, index);
+    let newData = [...dataSource];
+    newData[index].title = e;
+    console.log('New Data', newData);
+    setDataSource(newData);
+  };
 
   return (
     <ModalView bgColor={colors.card}>
       <ScrollView>
-        <View>
-          {/* <View
-            style={{
-              width: '100%',
-              paddingHorizontal: 15,
-            }}>
-            <CstmTitleInput title={'Configuration Name'} value={''} />
-            <GapView />
-          </View> */}
-          <View style={{backgroundColor: colors.background}}>
-            {dataSource.map((item, index) => (
-              <SingleLineField
-                key={index}
-                subTitle={item.subTitle}
-                title={item.title}
-                inputable={item.inputable}
-                onChangeText={item.onChangeText}
-                enable={item.enable}
-                rightIconRound={item.rightIconRound}
-                titleWidth={item.titleWidth}
-                rightIcon={item.rightIcon}
-                showRightSwitch={item.showRightSwitch}
-                rightSwitchVal={item.rightSwitchVal}
-                onChangeSwitch={item.onChangeSwitch}
-              />
-            ))}
-          </View>
-          {/* <View
-            style={{
-              width: '100%',
-              paddingHorizontal: 15,
-            }}>
-            <CstmTitleInput title={'Mfg Part Number'} value={''} />
-            <GapView />
-            <CstmTitleInput title={'Model Number'} value={''} />
-            <GapView />
-            <CstmTitleInput title={'Serial Number'} value={''} />
-            <GapView />
-            <CstmTitleInput title={'Tag Number'} value={''} />
-            <GapView />
-            <CstmTitleInput title={'Serial Number'} value={''} />
-            <GapView />
-          </View> */}
+        <View style={{backgroundColor: colors.background}}>
+          {dataSource.map((item, index) => (
+            <SingleLineField
+              key={index}
+              subTitle={item.subTitle}
+              title={item.title}
+              inputable={item.inputable}
+              onChangeText={e => updateInput(e, index)}
+              enable={item.enable}
+              rightIconRound={item.rightIconRound}
+              titleWidth={item.titleWidth}
+              rightIcon={item.rightIcon}
+              showRightSwitch={item.showRightSwitch}
+              rightSwitchVal={item.rightSwitchVal}
+              onChangeSwitch={item.onChangeSwitch}
+            />
+          ))}
         </View>
+        <MultiLineField title="Notes" />
+        <MultiLineField title="Vendor Notes" />
       </ScrollView>
     </ModalView>
   );

@@ -1,5 +1,4 @@
 import {createState} from '@hookstate/core';
-import {Stopwatch} from '../constants/SampleArrays';
 
 export const globalState = createState({
   theme: 'light',

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, FlatList, Pressable} from 'react-native';
 
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import {Divider} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
@@ -130,11 +130,21 @@ const ListItem = ({
 };
 
 export const RenderTickets = ({listData}: {listData: Ticket[]}) => {
+  const navigation: any = useNavigation();
   return (
     <>
       {listData.length !== 0 ? (
         <View style={styles.renderListContainer}>
-          <ListItem dataSource={listData} renderDate={false} />
+          <ListItem
+            dataSource={listData}
+            renderDate={false}
+            onPress={iValue =>
+              navigation.navigate('Stack1', {
+                screen: 'STickets',
+                params: {title: iValue.ticket_no.toString()},
+              })
+            }
+          />
         </View>
       ) : (
         <NotFound />

@@ -159,6 +159,13 @@ const NewConfiguration = () => {
     setDataSource(newData);
   };
 
+  const updateSwitch = (index: number) => {
+    let newData = [...dataSource];
+    newData[index].rightSwitchVal = !newData[index].rightSwitchVal;
+    console.log('New Data', newData[index]);
+    setDataSource(newData);
+  };
+
   return (
     <ModalView bgColor={colors.card}>
       <ScrollView>
@@ -177,7 +184,7 @@ const NewConfiguration = () => {
               rightIcon={item.rightIcon}
               showRightSwitch={item.showRightSwitch}
               rightSwitchVal={item.rightSwitchVal}
-              onChangeSwitch={item.onChangeSwitch}
+              onChangeSwitch={() => updateSwitch(index)}
             />
           ))}
         </View>

@@ -301,7 +301,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       <Drawer.Screen
         name="SBoard"
         component={ServiceBoard}
-        options={{
+        options={({navigation, route}) => ({
           headerTitle: () => (
             <View>
               <Text
@@ -323,7 +323,9 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                 size={30}
                 name="filter"
                 color={'#ffffff'}
-                onPress={() => console.log('Filter')}
+                onPress={() =>
+                  navigation.navigate('Stack1', {screen: 'Filters'})
+                }
               />
               <Badge
                 size={15}
@@ -346,7 +348,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <MCI name="headset" size={size} color={color} />
           ),
-        }}
+        })}
       />
       <Drawer.Screen
         name="PBoard"

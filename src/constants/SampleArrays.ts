@@ -6,6 +6,7 @@ import {
   Contact,
   ExpReportList,
   ExpRprt_Data,
+  Filter,
   FloatButtons,
   ModalFormArrayType,
   ModalFormDataArrayType,
@@ -709,5 +710,78 @@ export const screenItemList: ScreenItems[] = [
   {
     id: 'StopWatch',
     name: 'StopWatch',
+  },
+];
+
+export const sBoardFiterList: Filter[] = [
+  {
+    title: 'My Tickets Only',
+    showRightSwitch: true,
+    enable: false,
+    rightSwitchVal: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Service Board',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Service Board',
+    enable: false,
+  },
+  {
+    title: 'Please Select',
+    subTitle: 'Priority',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'Please Select',
+    subTitle: 'Company',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'Please Select',
+    subTitle: 'Site',
+    enable: false,
+  },
+  {
+    title: 'Contact',
+    subTitle: 'Please Select',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Type',
+    enable: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Subtype',
+    enable: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Item',
+    enable: false,
+  },
+];
+
+export const pBoardFilterList: Filter[] = [
+  {
+    title: 'My Tickets Only',
+    showRightSwitch: true,
+    enable: false,
+    rightSwitchVal: false,
+  },
+  {
+    title: 'Service Projects',
+    subTitle: 'Project Board',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Status',
+    rightIcon: 'chevron-right',
   },
 ];

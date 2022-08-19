@@ -45,63 +45,50 @@ const ServiceBoard = () => {
 
     return (
       <View style={styles.listContainer}>
-        <Pressable
+        {/* <Pressable
           onPress={() => console.log('Hello')}
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
-          <View
-            style={{
-              ...styles.listInner,
-            }}>
-            <View style={{flexDirection: 'row'}}>
+          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}
+          > */}
+        <View
+          style={{
+            ...styles.listInner,
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            <View
+              style={{
+                backgroundColor: renderColor(),
+                ...styles.priorityContainer,
+              }}
+            />
+            <View
+              style={{
+                ...styles.listItemContainer,
+              }}>
               <View
                 style={{
-                  backgroundColor: renderColor(),
-                  ...styles.priorityContainer,
-                }}
-              />
-              <View
-                style={{
-                  ...styles.listItemContainer,
+                  ...styles.horizontalItemStyles,
                 }}>
+                <Text style={{...styles.title, color: colors.text}}>
+                  Ticket #{item.ticket_no}
+                </Text>
                 <View
                   style={{
-                    ...styles.horizontalItemStyles,
+                    ...styles.ageContainer,
                   }}>
-                  <Text style={{...styles.title, color: colors.text}}>
-                    Ticket #{item.ticket_no}
-                  </Text>
-                  <View
-                    style={{
-                      ...styles.ageContainer,
-                    }}>
-                    <Text style={{color: '#fff', fontSize: 12}}>
-                      {item.age.toFixed(1)}
-                    </Text>
-                  </View>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{...styles.title, color: colors.text}}>
-                    {item.ticket_summary}
+                  <Text style={{color: '#fff', fontSize: 12}}>
+                    {item.age.toFixed(1)}
                   </Text>
                 </View>
-                {item.contact && (
-                  <View style={{flexDirection: 'row'}}>
-                    <Fthr
-                      name="user"
-                      color={colors.text}
-                      size={12}
-                      style={{
-                        ...styles.iconStyle,
-                      }}
-                    />
-                    <Text style={{...styles.subTitle, color: colors.text}}>
-                      {item.contact}
-                    </Text>
-                  </View>
-                )}
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{...styles.title, color: colors.text}}>
+                  {item.ticket_summary}
+                </Text>
+              </View>
+              {item.contact && (
                 <View style={{flexDirection: 'row'}}>
-                  <MCI
-                    name="office-building-marker-outline"
+                  <Fthr
+                    name="user"
                     color={colors.text}
                     size={12}
                     style={{
@@ -109,42 +96,56 @@ const ServiceBoard = () => {
                     }}
                   />
                   <Text style={{...styles.subTitle, color: colors.text}}>
-                    {item.company}
+                    {item.contact}
                   </Text>
                 </View>
-                <View
+              )}
+              <View style={{flexDirection: 'row'}}>
+                <MCI
+                  name="office-building-marker-outline"
+                  color={colors.text}
+                  size={12}
                   style={{
-                    ...styles.horizontalItemStyles,
-                  }}>
-                  <View style={{flexDirection: 'row'}}>
-                    <FD
-                      name="wrench"
-                      color={colors.text}
-                      size={12}
-                      style={{
-                        ...styles.iconStyle,
-                        paddingRight: 8,
-                      }}
-                    />
-                    <Text style={{...styles.subTitle, color: colors.text}}>
-                      {item.status}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        ...styles.subTitle,
-                        color: colors.text,
-                        ...styles.highlight,
-                      }}>
-                      {renderPriorityText(item.priority)}
-                    </Text>
-                  </View>
+                    ...styles.iconStyle,
+                  }}
+                />
+                <Text style={{...styles.subTitle, color: colors.text}}>
+                  {item.company}
+                </Text>
+              </View>
+              <View
+                style={{
+                  ...styles.horizontalItemStyles,
+                }}>
+                <View style={{flexDirection: 'row'}}>
+                  <FD
+                    name="wrench"
+                    color={colors.text}
+                    size={12}
+                    style={{
+                      ...styles.iconStyle,
+                      paddingRight: 8,
+                    }}
+                  />
+                  <Text style={{...styles.subTitle, color: colors.text}}>
+                    {item.status}
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      ...styles.subTitle,
+                      color: colors.text,
+                      ...styles.highlight,
+                    }}>
+                    {renderPriorityText(item.priority)}
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
-        </Pressable>
+        </View>
+        {/* </Pressable> */}
         {index !== ticketsList.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}

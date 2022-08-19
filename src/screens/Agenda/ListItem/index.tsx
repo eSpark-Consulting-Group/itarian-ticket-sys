@@ -39,7 +39,9 @@ const ListItem = ({
       <Pressable
         style={{paddingHorizontal: 20}}
         key={item2.id}
-        onPress={() => onPress?.(item2)}
+        onPress={() => {
+          onPress?.(item2);
+        }}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>

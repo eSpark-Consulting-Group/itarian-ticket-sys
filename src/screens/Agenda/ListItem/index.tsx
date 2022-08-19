@@ -4,14 +4,10 @@ import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import {Divider} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
 
 import styles from './style';
 import {Theme} from '../../../theme/colors';
-import {DateSeparator} from '../../../components';
-import {moderateScale} from 'react-native-size-matters';
-import {Divider} from 'react-native-paper';
-import { CstmPressable } from '../../../components/CstmPressable/indes';
+import {CstmPressable} from '../../../components/CstmPressable/indes';
 import {DateSeparator, EmptyListMsg, GapView} from '../../../components';
 import {Ticket} from '../../../types';
 
@@ -43,7 +39,9 @@ const ListItem = ({
       <CstmPressable
         style={{paddingHorizontal: 20}}
         key={item2.id}
-        onPress={() => onPress?.(item2)}
+        onPress={() => {
+          onPress?.(item2);
+        }}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>

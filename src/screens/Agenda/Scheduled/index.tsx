@@ -26,7 +26,7 @@ const ScheduledTab = ({navigation}: any) => {
               onPress={iValue => {
                 navigation.navigate('Stack1', {
                   screen: 'STickets',
-                  params: {title: iValue.ticket_no},
+                  params: {title: iValue.ticket_no.toString()},
                 });
               }}
             />

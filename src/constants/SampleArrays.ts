@@ -6,6 +6,7 @@ import {
   Contact,
   ExpReportList,
   ExpRprt_Data,
+  Filter,
   FloatButtons,
   ModalFormArrayType,
   ModalFormDataArrayType,
@@ -713,275 +714,348 @@ export const screenItemList: ScreenItems[] = [
   },
 ];
 
+export const sBoardFiterList: Filter[] = [
+  {
+    title: 'My Tickets Only',
+    showRightSwitch: true,
+    enable: false,
+    rightSwitchVal: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Service Board',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Service Board',
+    enable: false,
+  },
+  {
+    title: 'Please Select',
+    subTitle: 'Priority',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'Please Select',
+    subTitle: 'Company',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'Please Select',
+    subTitle: 'Site',
+    enable: false,
+  },
+  {
+    title: 'Contact',
+    subTitle: 'Please Select',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Type',
+    enable: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Subtype',
+    enable: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Item',
+    enable: false,
+  },
+];
+
+export const pBoardFilterList: Filter[] = [
+  {
+    title: 'My Tickets Only',
+    showRightSwitch: true,
+    enable: false,
+    rightSwitchVal: false,
+  },
+  {
+    title: 'Service Projects',
+    subTitle: 'Project Board',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Status',
+    rightIcon: 'chevron-right',
+  },
+];
+
 export const customFeildList: SelectFeilds[] = [
   {
     id: 1,
-    name: "Custom 1"
+    name: 'Custom 1',
   },
   {
     id: 2,
-    name: "Custom 2"
+    name: 'Custom 2',
   },
   {
     id: 3,
-    name: "Custom 3"
+    name: 'Custom 3',
   },
   {
     id: 4,
-    name: "Custom 4"
+    name: 'Custom 4',
   },
   {
     id: 5,
-    name: "Custom 5"
+    name: 'Custom 5',
   },
   {
     id: 6,
-    name: "Custom 6"
+    name: 'Custom 6',
   },
   {
     id: 7,
-    name: "Custom 7"
+    name: 'Custom 7',
   },
   {
     id: 8,
-    name: "Custom 8"
+    name: 'Custom 8',
   },
   {
     id: 9,
-    name: "Custom 9"
+    name: 'Custom 9',
   },
-]
+];
 
 export const siteList: SelectFeilds[] = [
   {
     id: 1,
-    name: "Site 1"
+    name: 'Site 1',
   },
   {
     id: 2,
-    name: "Site 2"
+    name: 'Site 2',
   },
   {
     id: 3,
-    name: "Site 3"
+    name: 'Site 3',
   },
   {
     id: 4,
-    name: "Site 4"
+    name: 'Site 4',
   },
   {
     id: 5,
-    name: "Site 5"
+    name: 'Site 5',
   },
   {
     id: 6,
-    name: "Site 6"
+    name: 'Site 6',
   },
   {
     id: 7,
-    name: "Site 7"
+    name: 'Site 7',
   },
   {
     id: 8,
-    name: "Site 8"
+    name: 'Site 8',
   },
   {
     id: 9,
-    name: "Site 9"
+    name: 'Site 9',
   },
-]
+];
 
 export const boardList: SelectFeilds[] = [
   {
     id: 1,
-    name: "Board 1"
+    name: 'Board 1',
   },
   {
     id: 2,
-    name: "Board 2"
+    name: 'Board 2',
   },
   {
     id: 3,
-    name: "Board 3"
+    name: 'Board 3',
   },
   {
     id: 4,
-    name: "Board 4"
+    name: 'Board 4',
   },
   {
     id: 5,
-    name: "Board 5"
+    name: 'Board 5',
   },
   {
     id: 6,
-    name: "Board 6"
+    name: 'Board 6',
   },
   {
     id: 7,
-    name: "Board 7"
+    name: 'Board 7',
   },
   {
     id: 8,
-    name: "Board 8"
+    name: 'Board 8',
   },
   {
     id: 9,
-    name: "Board 9"
+    name: 'Board 9',
   },
-]
+];
 
 export const statusList: SelectFeilds[] = [
   {
     id: 1,
-    name: "Status 1"
+    name: 'Status 1',
   },
   {
     id: 2,
-    name: "Status 2"
+    name: 'Status 2',
   },
   {
     id: 3,
-    name: "Status 3"
+    name: 'Status 3',
   },
   {
     id: 4,
-    name: "Status 4"
+    name: 'Status 4',
   },
   {
     id: 5,
-    name: "Status 5"
+    name: 'Status 5',
   },
   {
     id: 6,
-    name: "Status 6"
+    name: 'Status 6',
   },
   {
     id: 7,
-    name: "Status 7"
+    name: 'Status 7',
   },
   {
     id: 8,
-    name: "Status 8"
+    name: 'Status 8',
   },
   {
     id: 9,
-    name: "Status 9"
+    name: 'Status 9',
   },
-]
+];
 
 export const typesList: SelectFeilds[] = [
   {
     id: 1,
-    name: "Type 1"
+    name: 'Type 1',
   },
   {
     id: 2,
-    name: "Type 2"
+    name: 'Type 2',
   },
   {
     id: 3,
-    name: "Type 3"
+    name: 'Type 3',
   },
   {
     id: 4,
-    name: "Type 4"
+    name: 'Type 4',
   },
   {
     id: 5,
-    name: "Type 5"
+    name: 'Type 5',
   },
   {
     id: 6,
-    name: "Type 6"
+    name: 'Type 6',
   },
   {
     id: 7,
-    name: "Type 7"
+    name: 'Type 7',
   },
   {
     id: 8,
-    name: "Type 8"
+    name: 'Type 8',
   },
   {
     id: 9,
-    name: "Type 9"
+    name: 'Type 9',
   },
-]
+];
 
 export const subTypesList: SelectFeilds[] = [
   {
     id: 1,
-    name: "Subtype 1"
+    name: 'Subtype 1',
   },
   {
     id: 2,
-    name: "Subtype 2"
+    name: 'Subtype 2',
   },
   {
     id: 3,
-    name: "Subtype 3"
+    name: 'Subtype 3',
   },
   {
     id: 4,
-    name: "Subtype 4"
+    name: 'Subtype 4',
   },
   {
     id: 5,
-    name: "Subtype 5"
+    name: 'Subtype 5',
   },
   {
     id: 6,
-    name: "Subtype 6"
+    name: 'Subtype 6',
   },
   {
     id: 7,
-    name: "Subtype 7"
+    name: 'Subtype 7',
   },
   {
     id: 8,
-    name: "Subtype 8"
+    name: 'Subtype 8',
   },
   {
     id: 9,
-    name: "Subtype 9"
+    name: 'Subtype 9',
   },
-]
+];
 
 export const itemList: SelectFeilds[] = [
   {
     id: 1,
-    name: "Item 1"
+    name: 'Item 1',
   },
   {
     id: 2,
-    name: "Item 2"
+    name: 'Item 2',
   },
   {
     id: 3,
-    name: "Item 3"
+    name: 'Item 3',
   },
   {
     id: 4,
-    name: "Item 4"
+    name: 'Item 4',
   },
   {
     id: 5,
-    name: "Item 5"
+    name: 'Item 5',
   },
   {
     id: 6,
-    name: "Item 6"
+    name: 'Item 6',
   },
   {
     id: 7,
-    name: "Item 7"
+    name: 'Item 7',
   },
   {
     id: 8,
-    name: "Item 8"
+    name: 'Item 8',
   },
   {
     id: 9,
-    name: "Item 9"
+    name: 'Item 9',
   },
-]
+];

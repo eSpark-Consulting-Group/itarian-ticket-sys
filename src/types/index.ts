@@ -210,3 +210,15 @@ export type SelectFeilds = {
   id: number;
   name: string;
 };
+
+export type Filter = {
+  title: string;
+  subTitle?: string;
+  inputable?: boolean;
+  enable?: boolean;
+  rightIcon?: string;
+  rightIconRound?: string;
+  titleWidth?: number;
+  showRightSwitch?: boolean;
+  rightSwitchVal?: boolean;
+};

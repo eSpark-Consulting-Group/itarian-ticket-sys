@@ -5,7 +5,6 @@ import {WINDOW_WIDTH} from '../../../constants';
 const styles = StyleSheet.create({
   itemContainer: {
     width: WINDOW_WIDTH,
-    marginVertical: 10,
   },
   itemContentContainer: {
     flexDirection: 'row',
@@ -37,9 +36,17 @@ const styles = StyleSheet.create({
   divider: {
     width: WINDOW_WIDTH,
     transform: [{scaleY: 1}],
-    // marginVertical: 5,
     opacity: 0.5,
     backgroundColor: '#999',
+  },
+  renderListContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  renderNotFound: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

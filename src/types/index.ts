@@ -39,19 +39,19 @@ export type Activity = {
 export type Scheduled_Data = {
   id: number;
   ticket_no: string;
-  task: string;
+  ticket_summary: string;
   schedule_time: string;
   time_dur: string;
-  company_name: string;
-  location: string;
+  company: string;
+  site: string;
 };
 
 export type Unscheduled_Data = {
   id: number;
   ticket_no: string;
-  task: string;
-  company_name: string;
-  location: string;
+  ticket_summary: string;
+  company: string;
+  site: string;
 };
 
 export type ExpRprt_Data = {
@@ -65,13 +65,13 @@ export type ExpRprt_Data = {
 export type ScheduledList = {
   id: number;
   date: Date;
-  data: Array<Scheduled_Data>;
+  data: Array<Ticket>;
 };
 
 export type UnscheduledList = {
   id: number;
   date: Date;
-  data: Array<Unscheduled_Data>;
+  data: Array<Ticket>;
 };
 
 export type ExpReportList = {
@@ -84,7 +84,7 @@ export type ExpReportList = {
 export type TimeSheet = {
   id: number;
   date: Date;
-  data: Array<Scheduled_Data>;
+  data: Array<Ticket>;
   totHrs: number;
 };
 
@@ -143,6 +143,7 @@ export type ModalFormArrayType = {
 };
 
 export type Ticket = {
+  id: number;
   ticket_no: number;
   age: number;
   ticket_summary: string;
@@ -152,6 +153,9 @@ export type Ticket = {
   priority: 'DNR' | 'P1' | 'P2' | 'P3';
   phase?: string;
   project?: string;
+  schedule_time?: string;
+  time_dur?: string;
+  site?: 'Remote' | 'On-Site' | 'In-House';
 };
 
 export type Opportunity = {

@@ -95,7 +95,7 @@ export const RenderContacts = ({
   navigation,
 }: {
   listData?: Contact[];
-  navigation: any;
+  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
 

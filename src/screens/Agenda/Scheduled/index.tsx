@@ -22,8 +22,7 @@ const ScheduledTab = ({navigation}: any) => {
         renderItem={({item}) => {
           return (
             <ListItem
-              id={item.id}
-              item={item}
+              dataSource={item}
               onPress={iValue => {
                 navigation.navigate('Stack1', {
                   screen: 'STickets',

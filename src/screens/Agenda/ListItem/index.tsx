@@ -3,6 +3,8 @@ import {View, Text, FlatList} from 'react-native';
 
 import {useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
+import {Divider} from 'react-native-paper';
+import {moderateScale} from 'react-native-size-matters';
 
 import styles from './style';
 import {Theme} from '../../../theme/colors';
@@ -10,6 +12,8 @@ import {DateSeparator} from '../../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 import { CstmPressable } from '../../../components/CstmPressable/indes';
+import {DateSeparator, EmptyListMsg, GapView} from '../../../components';
+import {Ticket} from '../../../types';
 
 export type dates = {
   date: Date;
@@ -24,15 +28,13 @@ export type Item = {
 };
 
 const ListItem = ({
-  item,
-  id,
-  dateRange,
+  dataSource,
+  renderDate = true,
   onPress,
 }: {
-  item: any;
-  id: number;
-  dateRange?: dates[];
-  onPress?: (item: Item) => void;
+  dataSource: any;
+  renderDate?: boolean;
+  onPress?: (item: Ticket) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -51,10 +53,10 @@ const ListItem = ({
           </View>
           <View style={{width: '75%'}}>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
-              Ticket {item2.ticket_no}
+              Ticket #{item2.ticket_no}
             </Text>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
-              {item2.task}
+              {item2.ticket_summary}
             </Text>
             <View style={styles.descContentContainer}>
               {item2.expType && (
@@ -83,30 +85,34 @@ const ListItem = ({
                   </Text>
                 </View>
               )}
-              {item2.company_name && (
+              {item2.company && (
                 <View style={styles.rowContainer}>
                   <II
                     name="business"
                     color={colors.text}
                     style={styles.margin_5}
                   />
-                  <Text style={{color: colors.text}}>{item2.company_name}</Text>
+                  <Text style={{color: colors.text}}>{item2.company}</Text>
                 </View>
               )}
-              {item2.location && (
+              {item2.site && (
                 <View style={styles.rowContainer}>
                   <II
                     name="location-outline"
                     color={colors.text}
                     style={styles.margin_5}
                   />
-                  <Text style={{color: colors.text}}>{item2.location}</Text>
+                  <Text style={{color: colors.text}}>{item2.site}</Text>
                 </View>
               )}
             </View>
           </View>
         </View>
-        {item.data.length === ind + 1 ? null : (
+        {renderDate ? (
+          dataSource.data.length === ind + 1 ? null : (
+            <Divider style={styles.divider} />
+          )
+        ) : dataSource.length === ind + 1 ? null : (
           <Divider style={styles.divider} />
         )}
       </CstmPressable>
@@ -114,12 +120,37 @@ const ListItem = ({
   };
 
   return (
-    <View key={id} style={styles.itemContainer}>
-      <DateSeparator text={item.date.toString().slice(0, 10)} />
+    <View style={styles.itemContainer}>
+      <GapView />
+      {renderDate && (
+        <DateSeparator text={dataSource.date.toString().slice(0, 10)} />
+      )}
       <FlatList
-        data={item.data}
+        data={renderDate ? dataSource.data : dataSource}
         renderItem={({item, index}) => renderData(item, index)}
       />
+    </View>
+  );
+};
+
+export const RenderTickets = ({listData}: {listData: Ticket[]}) => {
+  return (
+    <>
+      {listData.length !== 0 ? (
+        <View style={styles.renderListContainer}>
+          <ListItem dataSource={listData} renderDate={false} />
+        </View>
+      ) : (
+        <NotFound />
+      )}
+    </>
+  );
+};
+
+const NotFound = (): JSX.Element => {
+  return (
+    <View style={styles.renderNotFound}>
+      <EmptyListMsg label="Tickets" />
     </View>
   );
 };

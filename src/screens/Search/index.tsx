@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useState as useHookState, State} from '@hookstate/core';
-import {moderateScale} from 'react-native-size-matters';
 
 import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
@@ -12,11 +11,13 @@ import {globalState} from '../../utils/globalState';
 import {RenderContacts} from '../Contacts';
 import {RenderCompanies} from '../Companies';
 import {RenderConfigurations} from '../Configurations';
+import {RenderTickets} from '../Agenda/ListItem';
 
 import {
   companiesList,
   contactsList,
   configurationsList,
+  ticketsList,
 } from '../../constants/SampleArrays';
 import {useUpdateEffect} from '../../utils/hooks';
 
@@ -31,6 +32,7 @@ const Search = () => {
   const [filteredContacts, setFilteredContacts] = useState(contactsList);
   const [filteredConfigurations, setFilteredConfigurations] =
     useState(configurationsList);
+  const [filteredTickets, setFilteredTickets] = useState(ticketsList);
 
   const searchTagValue: State<string> = useHookState(globalState.searchTag);
 
@@ -47,24 +49,24 @@ const Search = () => {
     console.log('kia ha search query', text);
     switch (domain) {
       case 'tickets':
-      // Check if searched text is not blank
-      // if (text) {
-      //   // Inserted text is not blank
-      //   // Filter the masterDataSource
-      //   // Update FilteredDataSource
-      //   const newData = contactsList.filter(function (item) {
-      //     const itemData = item.name
-      //       ? item.name.toUpperCase()
-      //       : ''.toUpperCase();
-      //     const textData = text.toUpperCase();
-      //     return itemData.indexOf(textData) > -1;
-      //   });
-      //   setFilteredContacts(newData);
-      // } else {
-      //   // Inserted text is blank
-      //   // Update FilteredDataSource with masterDataSource
-      //   setFilteredContacts(contactsList);
-      // }
+        // Check if searched text is not blank
+        if (text) {
+          // Inserted text is not blank
+          // Filter the masterDataSource
+          // Update FilteredDataSource
+          const newData = ticketsList.filter(item => {
+            const itemData = `${
+              item.ticket_no
+            } ${item.ticket_summary.toUpperCase()} ${item.contact?.toUpperCase()} ${item.company.toUpperCase()} ${item.project?.toUpperCase()}`;
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+          });
+          setFilteredTickets(newData);
+        } else {
+          // Inserted text is blank
+          // Update FilteredDataSource with masterDataSource
+          setFilteredTickets(ticketsList);
+        }
       case 'contacts':
         // Check if searched text is not blank
         if (text) {
@@ -167,7 +169,7 @@ const Search = () => {
   const handleRenderList = () => {
     switch (searchTagValue.get()) {
       case 'tickets':
-        return <View></View>;
+        return <RenderTickets listData={filteredTickets} />;
       case 'contacts':
         return <RenderContacts listData={filteredContacts} />;
       case 'companies':

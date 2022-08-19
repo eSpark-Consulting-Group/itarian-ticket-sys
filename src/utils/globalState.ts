@@ -14,4 +14,6 @@ export const globalState = createState({
   stopwatch: [],
   defaultScreenId: 'Agenda',
   defaultScreenName: 'Agenda',
+  shortCutScreen: null,
+  user: false
 });

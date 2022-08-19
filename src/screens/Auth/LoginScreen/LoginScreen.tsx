@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Image,
   KeyboardAvoidingView,
   ScrollView,
   Linking,
+  Keyboard
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
@@ -17,14 +18,33 @@ import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
-
+import {useState as useHookState, State} from '@hookstate/core';
+import {globalState} from '../../../utils/globalState';
+// @ts-ignore
+import store from 'react-native-simple-store';
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
   password: Yup.string().required().min(6).label('Password'),
 });
 
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
+  const user: State<any> = useHookState(globalState.user);
+  const [keyboardStatus, setKeyboardStatus] = useState(false);
   const {colors}: Theme = useTheme();
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardStatus(true);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardStatus(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   const handleColdBoot = (data: ShortcutItem) => {
     const {userInfo} = data;
@@ -42,13 +62,13 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     <View style={{height: WINDOW_HEIGHT}}>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/images/logo.png')}
+          source={require('../../../assets/images/ITarian_Logo_Clear.png')}
           resizeMode={'contain'}
           style={styles.headerImage}
         />
       </View>
       <ScrollView>
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <KeyboardAvoidingView style={keyboardStatus ? styles.container : {}} behavior="padding">
           <Formik
             initialValues={{
               email: '',
@@ -104,7 +124,12 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                       title="Sign In"
                       onPress={() => {
                         // handleSubmit();
-                        navigation.navigate('Draw');
+                        user.set({
+                          user: true
+                        })
+                        store.update('user', {
+                          user: true
+                        })
                       }}
                     />
                   </View>

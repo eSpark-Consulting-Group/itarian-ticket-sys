@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import {PriorityField, SingleLineField} from '../../components';
 import {MultiLineField} from '../../components/FormFields';
@@ -188,19 +188,5 @@ export default Overview;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  priorityBox: {
-    backgroundColor: 'yellow',
-    borderWidth: 1,
-    height: 10,
-    width: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    opacity: 0.8,
-  },
-  subTitle: {
-    opacity: 0.6,
   },
 });

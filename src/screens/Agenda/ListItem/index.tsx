@@ -4,14 +4,10 @@ import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import {Divider} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
 
 import styles from './style';
 import {Theme} from '../../../theme/colors';
-import {DateSeparator} from '../../../components';
-import {moderateScale} from 'react-native-size-matters';
-import {Divider} from 'react-native-paper';
-import { CstmPressable } from '../../../components/CstmPressable/indes';
+import {CstmPressable} from '../../../components/CstmPressable/indes';
 import {DateSeparator, EmptyListMsg, GapView} from '../../../components';
 import {Ticket} from '../../../types';
 

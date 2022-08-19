@@ -4,7 +4,13 @@ import {Switch} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {CstmTitleInput, GapView, ModalField, RoundedIcon} from '..';
+import {
+  CstmTitleInput,
+  GapView,
+  ModalField,
+  RoundedIcon,
+  CstmMultiLine,
+} from '..';
 
 const SingleLineField = ({
   leftIcon,
@@ -26,6 +32,7 @@ const SingleLineField = ({
   roundedIconEnable,
   onRoundedIconPress,
   border = false,
+  mode = 'none',
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -46,6 +53,7 @@ const SingleLineField = ({
   rightChild?: ReactNode;
   leftChild?: ReactNode;
   border?: boolean;
+  mode?: 'none' | 'multiline';
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -89,7 +97,11 @@ const SingleLineField = ({
                 </>
               )}
               {inputable ? (
-                <CstmTitleInput value={title} onChangeText={onChangeText} />
+                mode == 'none' ? (
+                  <CstmTitleInput value={title} onChangeText={onChangeText} />
+                ) : (
+                  <CstmMultiLine value={title} onChangeText={onChangeText} />
+                )
               ) : (
                 <>
                   {leftChild && leftChild}

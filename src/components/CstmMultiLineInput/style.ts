@@ -16,11 +16,9 @@ const styles = StyleSheet.create({
   multilineDisplay: {
     height: moderateVerticalScale(105, 0),
     textAlignVertical: 'top',
-    borderRadius: 5,
     borderWidth: 2,
-    borderColor: '#00000066',
-    elevation: 1,
-    padding: 8,
+    borderRadius: 5,
+    padding: 10,
   },
 });
 

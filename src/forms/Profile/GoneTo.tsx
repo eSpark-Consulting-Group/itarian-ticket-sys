@@ -19,7 +19,7 @@ const GoneTo = ({navigation}: any) => {
           key={item.name}
           title={item.name}
           onPress={() => setCurrChkInd(index)}
-          rightChild={
+          leftChild={
             <Checkbox
               status={currChkInd == index ? 'checked' : 'unchecked'}
               color={colors.primary}

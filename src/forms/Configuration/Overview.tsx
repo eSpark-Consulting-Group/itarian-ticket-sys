@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
-import {SingleLineField} from '../../components';
+import {PriorityField, SingleLineField} from '../../components';
+import {MultiLineField} from '../../components/FormFields';
 
 interface Item {
   title: string;
@@ -155,26 +156,30 @@ const Overview = () => {
   ];
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{alignItems: 'center'}}>
-      {dataSource.map((item: Item, index: number) => (
-        <SingleLineField
-          key={index}
-          subTitle={item.subTitle}
-          title={item.title}
-          inputable={item.inputable}
-          onChangeText={item.onChangeText}
-          enable={item.enable}
-          rightIconRound={item.rightIconRound}
-          titleWidth={item.titleWidth}
-          rightIcon={item.rightIcon}
-          showRightSwitch={item.showRightSwitch}
-          rightSwitchVal={item.rightSwitchVal}
-          onChangeSwitch={item.onChangeSwitch}
-        />
-      ))}
-    </ScrollView>
+    <>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{alignItems: 'center'}}>
+        {dataSource.map((item: Item, index: number) => (
+          <SingleLineField
+            key={index}
+            subTitle={item.subTitle}
+            title={item.title}
+            inputable={item.inputable}
+            onChangeText={item.onChangeText}
+            enable={item.enable}
+            rightIconRound={item.rightIconRound}
+            titleWidth={item.titleWidth}
+            rightIcon={item.rightIcon}
+            showRightSwitch={item.showRightSwitch}
+            rightSwitchVal={item.rightSwitchVal}
+            onChangeSwitch={item.onChangeSwitch}
+          />
+        ))}
+      </ScrollView>
+      <MultiLineField title="Notes" />
+      <MultiLineField title="Vendor Notes" />
+    </>
   );
 };
 

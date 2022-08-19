@@ -80,7 +80,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="STickets"
         component={STickets}
         options={({route, navigation}) => ({
-          title: route?.params?.title,
+          title: '#' + route?.params?.title,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -200,7 +200,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="NewConfigure"
         component={NewConfiguration}
         options={({route, navigation}) => ({
-          title: 'Create New Configuration',
+          title: 'New Configuration',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

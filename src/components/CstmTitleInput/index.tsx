@@ -1,5 +1,5 @@
 import {View, Text, TextInput} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import GapView from '../GapView';
 import {Theme, useTheme} from '@react-navigation/native';
 import styles from './style';
@@ -14,9 +14,10 @@ const CstmTitleInput = ({
   title?: string;
   value?: string;
   onChangeText?: (text: string) => void;
-  width?: string;
+  width?: string | number;
 }) => {
   const {colors, dark}: Theme = useTheme();
+  const [val, setVal] = useState();
 
   return (
     <View style={{width: width}}>
@@ -28,7 +29,7 @@ const CstmTitleInput = ({
       )}
       <GapView mode="vertical" />
       <TextInput
-        value={value}
+        value={val ?? value}
         style={{
           ...styles.input,
           width: '100%',

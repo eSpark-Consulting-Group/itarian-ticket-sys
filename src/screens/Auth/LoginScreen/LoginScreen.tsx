@@ -42,7 +42,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     <View style={{height: WINDOW_HEIGHT}}>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/images/logo.png')}
+          source={require('../../../assets/images/ITarian_Logo_Clear.png')}
           resizeMode={'contain'}
           style={styles.headerImage}
         />

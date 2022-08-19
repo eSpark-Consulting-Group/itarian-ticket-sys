@@ -13,7 +13,7 @@ import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 
 QuickActions.setShortcutItems([
   {
-    type: 'TS', // Required
+    type: 'TimeSheets', // Required
     title: 'Time Sheet', // Optional, if empty, `type` will be used instead
     subtitle: 'Go to Time Sheet Screen',
     icon: 'ic_file_clock', // Icons instructions below
@@ -22,7 +22,7 @@ QuickActions.setShortcutItems([
     },
   },
   {
-    type: 'SB', // Required
+    type: 'SBoard', // Required
     title: 'Service Board', // Optional, if empty, `type` will be used instead
     subtitle: 'Go to Service Board Screen',
     icon: 'ic_support', // Icons instructions below
@@ -31,7 +31,7 @@ QuickActions.setShortcutItems([
     },
   },
   {
-    type: 'ER', // Required
+    type: 'ExpReports', // Required
     title: 'Expense Report', // Optional, if empty, `type` will be used instead
     subtitle: 'Go to Expense Report Screen',
     icon: 'ic_coins', // Icons instructions below

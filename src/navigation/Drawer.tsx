@@ -25,6 +25,8 @@ import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {State, useState as hookState} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar, Badge} from 'react-native-paper';
+// @ts-ignore
+import store from 'react-native-simple-store'; 
 
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -54,6 +56,8 @@ const Drawer = createDrawerNavigator<ParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
+  const user: State<boolean> = hookState(globalState.user);
+
 
   const {colors}: Theme = useTheme();
 
@@ -124,7 +128,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             )}
             onPress={() => {
               console.log('Logout');
-              props.navigation.navigate('Login');
+              user.set(false)
+              store.delete("user")
+              // props.navigation.navigate('Login');
             }}
           />
         </View>
@@ -143,13 +149,13 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 
 const Draw = ({navigation, route}: DrawerHeaderProps) => {
   const dScreen: State<any> = hookState(globalState.defaultScreenId);
+  const shortCutScreen: State<any> = hookState(globalState.shortCutScreen);
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
-
   return (
     <Drawer.Navigator
-      initialRouteName={dScreen.get()}
+      initialRouteName={shortCutScreen?.get() || dScreen.get()}
       useLegacyImplementation={true}
       backBehavior="history"
       drawerContent={props => <DrawerContent {...props} />}

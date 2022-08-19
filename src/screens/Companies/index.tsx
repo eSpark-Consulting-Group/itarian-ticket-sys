@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList, Pressable} from 'react-native';
+import {View, Text, FlatList,} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
@@ -14,6 +14,7 @@ import {
 } from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
+import { CstmPressable } from '../../components/CstmPressable/indes';
 
 const Companies = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -102,7 +103,7 @@ export const RenderCompanies = ({
   const renderList = ({item, index}: {item: Company; index: number}) => {
     return (
       <View style={styles.listContainer}>
-        <Pressable
+        <CstmPressable
           onPress={() => navigation.navigate('Stack1', {screen: 'Company'})}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={{padding: moderateScale(15)}}>
@@ -113,7 +114,7 @@ export const RenderCompanies = ({
               {item.name}
             </Text>
           </View>
-        </Pressable>
+        </CstmPressable>
         {index !== listData.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}

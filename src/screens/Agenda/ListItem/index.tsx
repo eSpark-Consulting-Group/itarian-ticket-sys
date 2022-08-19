@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, Text, FlatList, Pressable} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 
 import {useNavigation, useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import {Divider} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
 
 import styles from './style';
 import {Theme} from '../../../theme/colors';
+import {CstmPressable} from '../../../components/CstmPressable/indes';
 import {DateSeparator, EmptyListMsg, GapView} from '../../../components';
 import {Ticket} from '../../../types';
 
@@ -36,10 +36,12 @@ const ListItem = ({
 
   const renderData = (item2: any, ind: number) => {
     return (
-      <Pressable
+      <CstmPressable
         style={{paddingHorizontal: 20}}
         key={item2.id}
-        onPress={() => onPress?.(item2)}
+        onPress={() => {
+          onPress?.(item2);
+        }}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>
@@ -111,7 +113,7 @@ const ListItem = ({
         ) : dataSource.length === ind + 1 ? null : (
           <Divider style={styles.divider} />
         )}
-      </Pressable>
+      </CstmPressable>
     );
   };
 

@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {View, Text, TouchableOpacity, Pressable, ViewStyle} from 'react-native';
+import {View, Text, TouchableOpacity, ViewStyle} from 'react-native';
 import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
@@ -14,6 +14,7 @@ import {Theme} from '../../theme/colors';
 import styles from './style';
 import CstmMultiLine from '../CstmMultiLineInput';
 import GapView from '../GapView';
+import { CstmPressable } from '../CstmPressable/indes';
 
 const Stack = createNativeStackNavigator();
 
@@ -180,7 +181,7 @@ const ModalField = ({
               borderColor: border ? '#7575754a' : 'transparent',
               borderRadius: border ? 5 : 0,
             }}>
-            <Pressable
+            <CstmPressable
               android_ripple={{color: pressColor}}
               disabled={!pressEnable}
               style={{
@@ -190,7 +191,7 @@ const ModalField = ({
               }}
               onPress={onPress}>
               {children}
-            </Pressable>
+            </CstmPressable>
           </View>
         </>
       )}

@@ -26,7 +26,7 @@ import {State, useState as hookState} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar, Badge} from 'react-native-paper';
 // @ts-ignore
-import store from 'react-native-simple-store'; 
+import store from 'react-native-simple-store';
 
 import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
@@ -51,13 +51,13 @@ import {
 } from '../screens';
 import {ParamList} from '../types';
 import {SCREEN_HEIGHT, WINDOW_HEIGHT, BUILD_VERSION} from '../constants';
+import {pBoardFilterList, sBoardFiterList} from '../constants/SampleArrays';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
   const user: State<boolean> = hookState(globalState.user);
-
 
   const {colors}: Theme = useTheme();
 
@@ -128,8 +128,8 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             )}
             onPress={() => {
               console.log('Logout');
-              user.set(false)
-              store.delete("user")
+              user.set(false);
+              store.delete('user');
               // props.navigation.navigate('Login');
             }}
           />
@@ -301,7 +301,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       <Drawer.Screen
         name="SBoard"
         component={ServiceBoard}
-        options={({navigation, route}) => ({
+        options={{
           headerTitle: () => (
             <View>
               <Text
@@ -324,7 +324,10 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                 name="filter"
                 color={'#ffffff'}
                 onPress={() =>
-                  navigation.navigate('Stack1', {screen: 'Filters'})
+                  navigation.navigate('Stack1', {
+                    screen: 'Filters',
+                    params: {dataSource: sBoardFiterList},
+                  })
                 }
               />
               <Badge
@@ -348,12 +351,12 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <MCI name="headset" size={size} color={color} />
           ),
-        })}
+        }}
       />
       <Drawer.Screen
         name="PBoard"
         component={ProjectBoard}
-        options={{
+        options={({route, navigation}) => ({
           title: 'Project Board',
           headerRight: () => (
             <View style={{flexDirection: 'row', right: 10}}>
@@ -361,7 +364,14 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                 size={30}
                 name="filter"
                 color={'#ffffff'}
-                onPress={() => console.log('Filter')}
+                onPress={() =>
+                  navigation.navigate('Stack1', {
+                    screen: 'Filters',
+                    params: {
+                      dataSource: pBoardFilterList,
+                    },
+                  })
+                }
               />
               <Badge
                 size={15}
@@ -384,7 +394,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <AD name="areachart" size={size} color={color} />
           ),
-        }}
+        })}
       />
       <Drawer.Screen
         name="MyActivities"

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Pressable, FlatList} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
@@ -13,6 +13,7 @@ import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import _ from 'lodash';
+import { CstmPressable } from '../../components/CstmPressable/indes';
 
 const Contacts = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -101,7 +102,7 @@ export const RenderContacts = ({
   const renderList = ({item, index}: {item: Contact; index: number}) => {
     return (
       <View style={styles.listContainer}>
-        <Pressable
+        <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'Contact1',
@@ -146,7 +147,7 @@ export const RenderContacts = ({
               />
             </View>
           </View>
-        </Pressable>
+        </CstmPressable>
         {index !== listData.length - 1 && (
           <Divider
             style={{

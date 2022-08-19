@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Pressable, FlatList, ToastAndroid} from 'react-native';
+import {View, Text, FlatList, ToastAndroid} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
@@ -19,6 +19,7 @@ import {
 import {Opportunity} from '../../types';
 import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
 import _ from 'lodash';
+import { CstmPressable } from '../../components/CstmPressable/indes';
 
 const Oppurtunities = () => {
   const {colors, dark}: Theme = useTheme();
@@ -39,7 +40,7 @@ const Oppurtunities = () => {
 
     return (
       <View style={styles.listContainer}>
-        <Pressable
+        <CstmPressable
           onPress={() => console.log('Hello')}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={styles.listInner}>
@@ -115,7 +116,7 @@ const Oppurtunities = () => {
               }}
             />
           </View>
-        </Pressable>
+        </CstmPressable>
         {index !== opportunitiesList.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}

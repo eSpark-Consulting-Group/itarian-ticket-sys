@@ -18,6 +18,7 @@ import Company from '../forms/Company';
 import NewCompany from '../forms/NewCompany';
 import MyStatus from '../forms/Profile/MyStatus';
 import Filters from '../forms/Filters';
+import NewConfiguration from '../forms/Configuration/CreateConfigurations';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,6 +30,7 @@ export type RootStackParamList = {
   Contact1: undefined;
   Configure1: undefined;
   Filters: undefined;
+  NewConfigure: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -192,6 +194,24 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
           headerRight: () => <II size={30} name="checkmark" color={'#fff'} />,
+        })}
+      />
+      <Stack.Screen
+        name="NewConfigure"
+        component={NewConfiguration}
+        options={({route, navigation}) => ({
+          title: 'Create New Configuration',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => <FA size={30} name="save" color={'#fff'} />,
         })}
       />
     </Stack.Navigator>

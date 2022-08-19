@@ -3,6 +3,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {useState as useHookState, State} from '@hookstate/core';
+import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
+
+//@ts-ignore
+import store from 'react-native-simple-store';
 
 import {Login, Profile, SignUp} from '../screens/index';
 import {DarkTheme, LightTheme} from '../theme/colors';
@@ -27,14 +31,32 @@ const config: any = {
 
 const App = () => {
   const themeValue: State<string> = useHookState(globalState.theme);
+  const user: State<boolean> = useHookState(globalState.user);
+  const shortCutScreen: State<any> = useHookState(globalState.shortCutScreen);
 
   //! ----------------------------------------------------
 
   //! ---------------------------------------------------
 
   useEffect(() => {
+    store.get('user')
+    .then((res: any) => {
+        if(res) user.set(res) 
+    })
     console.log('Theme State', themeValue.get());
   }, [themeValue.get()]);
+
+  const handleColdBoot = (data: ShortcutItem) => {
+    const {userInfo} = data;
+    shortCutScreen.set(data.type)
+    console.log('chala coldboot', userInfo?.url, data.type);
+  };
+
+  QuickActions.popInitialAction()
+    .then(data => {
+      if (data != null) handleColdBoot(data);
+    })
+    .catch(err => console.log('err', err));
 
   return (
     <SafeAreaProvider>
@@ -44,22 +66,30 @@ const App = () => {
           config,
         }}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{headerShown: false}}
-          />
+        <Stack.Navigator >
+          {!user.get() ? <>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{headerShown: false}}
+            />
+          </>
+          :
           <Stack.Group
             screenOptions={{
               presentation: 'modal',
               animation: 'slide_from_bottom',
             }}>
+            <Stack.Screen
+              name="Draw"
+              component={Drawer}
+              options={{headerShown: false}}
+            />
             <Stack.Screen
               name="Stack1"
               component={StackLvl1}
@@ -70,12 +100,7 @@ const App = () => {
               component={StackLvl2}
               options={{headerShown: false}}
             />
-            <Stack.Screen
-              name="Draw"
-              component={Drawer}
-              options={{headerShown: false}}
-            />
-          </Stack.Group>
+          </Stack.Group>}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

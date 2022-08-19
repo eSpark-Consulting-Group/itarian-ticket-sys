@@ -43,7 +43,7 @@ const NewCompany = () => {
             elevation: 2,
             paddingHorizontal: 15,
           }}>
-          {dataSource.map((item, index) => (
+          {dataSource.map(item => (
             <View
               key={item.id}
               style={{

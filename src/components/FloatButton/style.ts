@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#28648f',
     borderRadius: 1000,
     position: 'absolute',
-    bottom: 20,
-    right: 20,
+    bottom: 15,
+    right: 15,
   },
   floatGroup: {
     zIndex: 1,

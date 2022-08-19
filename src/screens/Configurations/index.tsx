@@ -220,7 +220,9 @@ export const RenderConfigurations = ({
       ) : (
         <NotFound />
       )}
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton
+        onPress={() => navigation.navigate('Stack1', {screen: 'NewConfigure'})}
+      />
     </>
   );
 };

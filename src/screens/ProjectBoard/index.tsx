@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Pressable, FlatList} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
@@ -13,6 +13,7 @@ import {Theme} from '../../theme/colors';
 import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg} from '../../components';
+import {CstmPressable} from '../../components/CstmPressable/indes';
 
 const ProjectBoard = () => {
   const {colors, dark}: Theme = useTheme();

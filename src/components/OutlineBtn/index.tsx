@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import styles from './style';
 
 import {Theme} from '../../theme/colors';
 import {moderateScale} from 'react-native-size-matters';
+import { CstmPressable } from '../CstmPressable/indes';
 
 const OutlineBtn = ({
   text,
@@ -44,7 +45,7 @@ const OutlineBtn = ({
         },
         border ? withBorder : null,
       ]}>
-      <Pressable
+      <CstmPressable
         onPress={onPress}
         android_disableSound
         android_ripple={
@@ -69,7 +70,7 @@ const OutlineBtn = ({
           </View>
           {rightIcon}
         </View>
-      </Pressable>
+      </CstmPressable>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Pressable, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useState as useHookState, State} from '@hookstate/core';
@@ -9,6 +9,7 @@ import {globalState} from '../../utils/globalState';
 import {Theme} from '../../theme/colors';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
+import { CstmPressable } from '../../components/CstmPressable/indes';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookState(globalState.theme);
@@ -146,7 +147,7 @@ const MenuItem = ({
   dark?: boolean;
 }) => {
   return (
-    <Pressable
+    <CstmPressable
       onPress={onPress}
       android_ripple={{color: dark ? '#ffffff1a' : '#0000000e'}}>
       <View
@@ -169,7 +170,7 @@ const MenuItem = ({
           {checkVisible && rightIcon}
         </View>
       </View>
-    </Pressable>
+    </CstmPressable>
   );
 };
 

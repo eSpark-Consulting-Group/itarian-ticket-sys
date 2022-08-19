@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, View, Pressable} from 'react-native';
+import {StyleSheet, View,} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CstmPressable } from '../CstmPressable/indes';
 
 export default function RoundedIcon({
   enable = true,
@@ -20,7 +21,7 @@ export default function RoundedIcon({
         opacity: enable ? 1 : 0.5,
         ...styles.iconStyle,
       }}>
-      <Pressable
+      <CstmPressable
         onPress={() => {
           enable ? onPress : null;
         }}
@@ -30,7 +31,7 @@ export default function RoundedIcon({
           borderless: true,
         }}>
         <MCI name={icon!} size={22} color={colors.text} style={styles.icon} />
-      </Pressable>
+      </CstmPressable>
     </View>
   );
 }

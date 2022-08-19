@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList, Pressable} from 'react-native';
+import {View, Text, FlatList,} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider, Menu} from 'react-native-paper';
@@ -20,6 +20,7 @@ import {
 } from '../../constants/SampleArrays';
 import {Activity} from '../../types';
 import _ from 'lodash';
+import { CstmPressable } from '../../components/CstmPressable/indes';
 
 const MyActivities = () => {
   const {colors, dark}: Theme = useTheme();
@@ -38,9 +39,9 @@ const MyActivities = () => {
           backgroundColor: dark ? '#000' : '#fff',
           ...styles.listContainer,
         }}>
-        <Pressable
+        <CstmPressable
           onPress={() => console.log('Hello')}
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          >
           <View style={styles.listInnerContainer}>
             <View style={{flexDirection: 'row'}}>
               <View>
@@ -79,7 +80,7 @@ const MyActivities = () => {
               onPress={() => console.log('Phone Pressed')}
             />
           </View>
-        </Pressable>
+        </CstmPressable>
         {index !== activitiesList.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}
@@ -216,9 +217,9 @@ const MenuItem = ({
   dark?: boolean;
 }) => {
   return (
-    <Pressable
+    <CstmPressable
       onPress={onPress}
-      android_ripple={{color: dark ? '#ffffff1a' : '#0000000e'}}>
+      android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
       <View style={styles.menuItemButtonStyle}>
         <View style={{flexDirection: 'row'}}>
           {leftIcon}
@@ -230,7 +231,7 @@ const MenuItem = ({
           {checkVisible && rightIcon}
         </View>
       </View>
-    </Pressable>
+    </CstmPressable>
   );
 };
 

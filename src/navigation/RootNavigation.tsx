@@ -14,6 +14,7 @@ import Drawer from './Drawer';
 import {globalState} from '../utils/globalState';
 import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
+import Splash from '../screens/Splash/Splash';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,7 @@ const App = () => {
           prefixes: ['app://'],
           config,
         }}
+        fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
         <Stack.Navigator >
           {!user.get() ? <>

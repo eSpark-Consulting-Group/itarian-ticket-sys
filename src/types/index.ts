@@ -206,6 +206,11 @@ export type ScreenItems = {
   name: string;
 };
 
+export type SelectFeilds = {
+  id: number;
+  name: string;
+};
+
 export type Filter = {
   title: string;
   subTitle?: string;

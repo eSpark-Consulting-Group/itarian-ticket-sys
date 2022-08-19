@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
   Platform,
   UIManager,
   LayoutAnimation,
@@ -15,6 +14,7 @@ import _ from 'lodash';
 import styles from './styles';
 import {ModalField, ModalView} from '..';
 import {WINDOW_WIDTH} from '../../constants';
+import { CstmPressable } from '../CstmPressable/indes';
 
 type Item = {key: string; title: string};
 
@@ -54,7 +54,7 @@ export default function CstmTabBar(props: any) {
           flexDirection: 'row',
           backgroundColor: colors.background,
         }}>
-        <Pressable
+        <CstmPressable
           onPress={() => {
             // LayoutAnimation.configureNext(
             //   LayoutAnimation.Presets.easeInEaseOut,
@@ -74,7 +74,7 @@ export default function CstmTabBar(props: any) {
               {item.title}
             </Text>
           </View>
-        </Pressable>
+        </CstmPressable>
         {index !== routes?.length - 1 && <View style={styles.dividerStyle} />}
       </View>
     );

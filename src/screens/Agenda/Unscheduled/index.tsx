@@ -20,8 +20,7 @@ const UnscheduledTab = ({navigation}: any) => {
         data={unscheduledList}
         renderItem={({item}) => (
           <ListItem
-            id={item.id}
-            item={item}
+            dataSource={item}
             onPress={iValue =>
               navigation.navigate('Stack1', {
                 screen: 'STickets',

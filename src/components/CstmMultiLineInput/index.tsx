@@ -43,6 +43,7 @@ const CstmMultiLine = ({
         onChangeText={onChangeText}
         returnKeyType="send"
         autoCorrect={false}
+        maxLength={100}
         // onChangeText={txt => inputVal.set(txt)}
       />
     </View>

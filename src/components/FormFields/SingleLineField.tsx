@@ -22,6 +22,7 @@ const SingleLineField = ({
   onPress,
   titleWidth,
   rightChild,
+  leftChild,
   gap = true,
   inputable = false,
   onChangeText,
@@ -50,6 +51,7 @@ const SingleLineField = ({
   roundedIconEnable?: boolean;
   onRoundedIconPress?: () => void;
   rightChild?: ReactNode;
+  leftChild?: ReactNode;
   border?: boolean;
   mode?: 'none' | 'multiline';
 }) => {
@@ -101,14 +103,17 @@ const SingleLineField = ({
                   <CstmMultiLine value={title} onChangeText={onChangeText} />
                 )
               ) : (
-                <Text
-                  style={{
-                    color: colors.text,
-                    ...styles.title,
-                    width: titleWidth,
-                  }}>
-                  {title}
-                </Text>
+                <>
+                  {leftChild && leftChild}
+                  <Text
+                    style={{
+                      color: colors.text,
+                      ...styles.title,
+                      width: titleWidth,
+                    }}>
+                    {title}
+                  </Text>
+                </>
               )}
             </View>
           </View>

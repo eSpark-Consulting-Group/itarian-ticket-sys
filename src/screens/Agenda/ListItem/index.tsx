@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList, Pressable} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 
 import {useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,7 @@ import {Theme} from '../../../theme/colors';
 import {DateSeparator} from '../../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
+import { CstmPressable } from '../../../components/CstmPressable/indes';
 
 export type dates = {
   date: Date;
@@ -37,7 +38,7 @@ const ListItem = ({
 
   const renderData = (item2: any, ind: number) => {
     return (
-      <Pressable
+      <CstmPressable
         style={{paddingHorizontal: 20}}
         key={item2.id}
         onPress={() => onPress?.(item2)}
@@ -108,7 +109,7 @@ const ListItem = ({
         {item.data.length === ind + 1 ? null : (
           <Divider style={styles.divider} />
         )}
-      </Pressable>
+      </CstmPressable>
     );
   };
 

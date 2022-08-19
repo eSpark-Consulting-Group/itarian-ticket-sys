@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Pressable} from 'react-native';
+import React, {useState} from 'react'
+import {View, Text, TouchableOpacity,} from 'react-native';
 import {Searchbar as Search, Menu} from 'react-native-paper';
 import {useTheme} from '@react-navigation/native';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -13,6 +13,7 @@ import {useState as useHookState, State} from '@hookstate/core';
 import {Theme} from '../../theme/colors';
 import styles from './style';
 import {globalState} from '../../utils/globalState';
+import { CstmPressable } from '../CstmPressable/indes';
 
 const SearchBar = ({
   withTag = false,
@@ -267,7 +268,7 @@ const MenuItem = ({
   checkVisible?: boolean;
 }) => {
   return (
-    <Pressable onPress={onPress} android_ripple={{color: '#635a5a5c'}}>
+    <CstmPressable onPress={onPress} android_ripple={{color: '#635a5a5c'}}>
       <View style={styles.menuItemButtonStyle}>
         <View style={{flexDirection: 'row'}}>
           {leftIcon}
@@ -283,7 +284,7 @@ const MenuItem = ({
           {checkVisible && rightIcon}
         </View>
       </View>
-    </Pressable>
+    </CstmPressable>
   );
 };
 

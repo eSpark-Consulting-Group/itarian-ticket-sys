@@ -1,4 +1,4 @@
-import {View, Text, Pressable} from 'react-native';
+import {View, Text,} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -6,6 +6,7 @@ import DatePicker from '@react-native-community/datetimepicker';
 
 import {Theme} from '../../theme/colors';
 import styles from './style';
+import { CstmPressable } from '../CstmPressable/indes';
 
 const DateRangeSelector = ({
   fetchData,
@@ -88,7 +89,7 @@ const DateRangeSelector = ({
           }
         />
       )}
-      <Pressable
+      <CstmPressable
         onPress={openDatePicker}
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}
         style={{...styles.container, backgroundColor: colors.card}}>
@@ -103,7 +104,7 @@ const DateRangeSelector = ({
           </Text>
         </View>
         <FA color={colors.text} name="chevron-down" size={15} />
-      </Pressable>
+      </CstmPressable>
     </>
   );
 };

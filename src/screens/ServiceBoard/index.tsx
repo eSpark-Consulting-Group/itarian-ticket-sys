@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Pressable, FlatList} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
@@ -12,6 +12,7 @@ import {Theme} from '../../theme/colors';
 import {SchAdditionalButtons, ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
+import { CstmPressable } from '../../components/CstmPressable/indes';
 
 const ServiceBoard = () => {
   const {colors, dark}: Theme = useTheme();
@@ -45,7 +46,7 @@ const ServiceBoard = () => {
 
     return (
       <View style={styles.listContainer}>
-        <Pressable
+        <CstmPressable
           onPress={() => console.log('Hello')}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View
@@ -144,7 +145,7 @@ const ServiceBoard = () => {
               </View>
             </View>
           </View>
-        </Pressable>
+        </CstmPressable>
         {index !== ticketsList.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}

@@ -6,6 +6,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 
 import GoneTo from '../forms/Profile/GoneTo';
 import {backGoneTo, saveGoneTo} from '../forms/utils/headerFunctions';
+import CstmItemSelector from '../components/CstmItemSelector';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,23 @@ const StackLvl2 = ({navigation}: any) => {
             />
           ),
         }}
+      />
+      <Stack.Screen
+        name="CstmItemSelector"
+        component={CstmItemSelector}
+        options={({route, navigation}: any) => ({
+          title: route?.params?.headerTitle,
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => backGoneTo(navigation)}
+            />
+          ),
+        })}
       />
     </Stack.Navigator>
   );

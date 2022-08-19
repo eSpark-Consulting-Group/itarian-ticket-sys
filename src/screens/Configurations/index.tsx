@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Pressable, FlatList} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
@@ -20,6 +20,7 @@ import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
+import { CstmPressable } from '../../components/CstmPressable/indes';
 
 const Configurations = ({navigation}: {navigation: any}) => {
   const {colors, dark}: Theme = useTheme();
@@ -119,7 +120,7 @@ export const RenderConfigurations = ({
   const renderList = ({item, index}: {item: Configuration; index: number}) => {
     return (
       <View style={styles.listContainer}>
-        <Pressable
+        <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'Configure1',
@@ -200,7 +201,7 @@ export const RenderConfigurations = ({
               </View>
             </View>
           </View>
-        </Pressable>
+        </CstmPressable>
         {index !== listData.length - 1 && (
           <Divider
             style={{

@@ -77,7 +77,7 @@ const ModalField = ({
 
   return (
     <>
-      {mode == 'inlined' && (
+      {/* {mode == 'inlined' && (
         <TouchableOpacity
           disabled={!pressEnable}
           onPress={onPress}
@@ -167,19 +167,7 @@ const ModalField = ({
             <II name="chevron-forward" color={colors.text} size={20} />
           )}
         </TouchableOpacity>
-      )}
-      {mode == 'multiline' && (
-        <>
-          <GapView />
-          <View
-            style={{
-              ...styles.multilineDisplay,
-              backgroundColor: dark ? '#000000' : '#ffffff',
-            }}>
-            <CstmMultiLine title={headingLeft} />
-          </View>
-        </>
-      )}
+      )} */}
       {mode == 'none' && (
         <>
           {gap && <GapView />}

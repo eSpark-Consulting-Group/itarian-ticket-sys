@@ -21,6 +21,7 @@ interface Item {
   rightSwitchVal?: boolean;
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
+  mode?: 'none' | 'multiline';
 }
 
 const NewConfiguration = () => {
@@ -134,6 +135,20 @@ const NewConfiguration = () => {
       title: 'Tap to View Vendor Notes',
       rightIcon: 'chevron-right',
     },
+    {
+      title: '',
+      mode: 'multiline',
+      subTitle: 'Notes',
+      inputable: true,
+      enable: false,
+    },
+    {
+      title: '',
+      mode: 'multiline',
+      subTitle: 'Vendor Notes',
+      inputable: true,
+      enable: false,
+    },
   ]);
 
   const updateInput = (e: string, index: number) => {
@@ -151,6 +166,7 @@ const NewConfiguration = () => {
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
+              mode={item.mode}
               subTitle={item.subTitle}
               title={item.title}
               inputable={item.inputable}
@@ -165,8 +181,6 @@ const NewConfiguration = () => {
             />
           ))}
         </View>
-        <MultiLineField title="Notes" />
-        <MultiLineField title="Vendor Notes" />
       </ScrollView>
     </ModalView>
   );

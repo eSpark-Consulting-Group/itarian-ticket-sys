@@ -14,7 +14,7 @@ import {Theme} from '../../theme/colors';
 import styles from './style';
 import CstmMultiLine from '../CstmMultiLineInput';
 import GapView from '../GapView';
-import { CstmPressable } from '../CstmPressable/indes';
+import {CstmPressable} from '../CstmPressable';
 
 const Stack = createNativeStackNavigator();
 

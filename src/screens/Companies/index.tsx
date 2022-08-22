@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList,} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
@@ -14,7 +14,7 @@ import {
 } from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable';
 
 const Companies = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();

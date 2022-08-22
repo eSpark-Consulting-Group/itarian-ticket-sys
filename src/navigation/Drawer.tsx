@@ -51,7 +51,12 @@ import {
 } from '../screens';
 import {ParamList} from '../types';
 import {SCREEN_HEIGHT, WINDOW_HEIGHT, BUILD_VERSION} from '../constants';
-import {pBoardFilterList, sBoardFiterList} from '../constants/SampleArrays';
+import {
+  opportunityFilterList,
+  pBoardFilterList,
+  sBoardFiterList,
+} from '../constants/SampleArrays';
+import CstmBadge from '../components/CtsmBadge';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -330,19 +335,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   })
                 }
               />
-              <Badge
-                size={15}
-                style={{
-                  position: 'absolute',
-                  zIndex: 1,
-                  right: -5,
-                  top: -5,
-                  backgroundColor: '#dc1e1e',
-                  fontWeight: 'bold',
-                  color: '#ffffff',
-                }}>
-                99
-              </Badge>
+              <CstmBadge qty={99} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -373,19 +366,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
                   })
                 }
               />
-              <Badge
-                size={15}
-                style={{
-                  position: 'absolute',
-                  zIndex: 1,
-                  right: -5,
-                  top: -5,
-                  backgroundColor: '#dc1e1e',
-                  fontWeight: 'bold',
-                  color: '#ffffff',
-                }}>
-                33
-              </Badge>
+              <CstmBadge qty={99} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -413,28 +394,24 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
       <Drawer.Screen
         name="Opportunities"
         component={Oppurtunities}
-        options={{
+        options={({navigation, route}) => ({
           headerRight: () => (
             <View style={{flexDirection: 'row', right: 10}}>
               <AD
                 size={30}
                 name="filter"
                 color={'#ffffff'}
-                onPress={() => console.log('Filter')}
+                onPress={() =>
+                  navigation.navigate('Stack1', {
+                    screen: 'Filters',
+                    params: {
+                      dataSource: opportunityFilterList,
+                      title: '30 Dec 2022',
+                    },
+                  })
+                }
               />
-              <Badge
-                size={15}
-                style={{
-                  position: 'absolute',
-                  zIndex: 1,
-                  right: -5,
-                  top: -5,
-                  backgroundColor: '#dc1e1e',
-                  fontWeight: 'bold',
-                  color: '#ffffff',
-                }}>
-                99
-              </Badge>
+              <CstmBadge qty={99} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -443,7 +420,7 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
           drawerIcon: ({color, size, focused}) => (
             <MCI name="briefcase-outline" size={size} color={color} />
           ),
-        }}
+        })}
       />
       <Drawer.Screen
         name="IOBoard"
@@ -555,6 +532,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    // flex: 0.4,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -583,10 +561,9 @@ const styles = StyleSheet.create({
     //   PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 26) / 100),
     //   0,
     // ),
-    // justifyContent: 'space-between',
     borderTopWidth: 1,
     borderColor: '#fff',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   footerDrawerStyle: {
     opacity: 0.75,

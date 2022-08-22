@@ -20,7 +20,7 @@ import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable';
 
 const Configurations = ({navigation}: {navigation: any}) => {
   const {colors, dark}: Theme = useTheme();

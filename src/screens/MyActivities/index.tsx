@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList,} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider, Menu} from 'react-native-paper';
@@ -20,9 +20,9 @@ import {
 } from '../../constants/SampleArrays';
 import {Activity} from '../../types';
 import _ from 'lodash';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable';
 
-const MyActivities = ({navigation} : any) => {
+const MyActivities = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [visible, setVisible] = useState(false);
   const [range, setRange] = useState('Last 30 Days');
@@ -40,13 +40,12 @@ const MyActivities = ({navigation} : any) => {
           ...styles.listContainer,
         }}>
         <CstmPressable
-           onPress={() => {
+          onPress={() => {
             navigation.navigate('Stack1', {
               screen: 'Activities',
-              params: {data: item}
+              params: {data: item},
             });
-          }}
-          >
+          }}>
           <View style={styles.listInnerContainer}>
             <View style={{flexDirection: 'row'}}>
               <View>

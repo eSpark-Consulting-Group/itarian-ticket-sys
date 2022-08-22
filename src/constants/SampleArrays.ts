@@ -536,64 +536,74 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
   },
 ];
 
-export const GoneToFormArray: Array<ModalFormArrayType> = [
-  {
-    formName: 'Gone To',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Appointment',
-      checkBoxRight: true,
-    },
-  },
-  {
-    formName: 'Gone To',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Client',
-      checkBoxRight: true,
-    },
-  },
-  {
-    formName: 'Gone To',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Gone for the day',
-      checkBoxRight: true,
-    },
-  },
-  {
-    formName: 'Gone To',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Lunch',
-      checkBoxRight: true,
-    },
-  },
-  {
-    formName: 'Gone To',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Other',
-      checkBoxRight: true,
-    },
-  },
-  {
-    formName: 'Gone To',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Sick',
-      checkBoxRight: true,
-    },
-  },
-  {
-    formName: 'Gone To',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Vacation',
-      checkBoxRight: true,
-    },
-  },
+export const GoneToFormArray: SelectFeilds[] = [
+  {id: 1, name: 'Appointment'},
+  {id: 2, name: 'Client'},
+  {id: 3, name: 'Gone for the day'},
+  {id: 4, name: 'Lunch'},
+  {id: 5, name: 'Other'},
+  {id: 6, name: 'Sick'},
+  {id: 7, name: 'Vacation'},
 ];
+
+// export const GoneToFormArray: Array<ModalFormArrayType> = [
+//   {
+//     formName: 'Gone To',
+//     type: 'inlined',
+//     data: {
+//       headingLeft: 'Appointment',
+//       checkBoxRight: true,
+//     },
+//   },
+//   {
+//     formName: 'Gone To',
+//     type: 'inlined',
+//     data: {
+//       headingLeft: 'Client',
+//       checkBoxRight: true,
+//     },
+//   },
+//   {
+//     formName: 'Gone To',
+//     type: 'inlined',
+//     data: {
+//       headingLeft: 'Gone for the day',
+//       checkBoxRight: true,
+//     },
+//   },
+//   {
+//     formName: 'Gone To',
+//     type: 'inlined',
+//     data: {
+//       headingLeft: 'Lunch',
+//       checkBoxRight: true,
+//     },
+//   },
+//   {
+//     formName: 'Gone To',
+//     type: 'inlined',
+//     data: {
+//       headingLeft: 'Other',
+//       checkBoxRight: true,
+//     },
+//   },
+//   {
+//     formName: 'Gone To',
+//     type: 'inlined',
+//     data: {
+//       headingLeft: 'Sick',
+//       checkBoxRight: true,
+//     },
+//   },
+//   {
+//     formName: 'Gone To',
+//     type: 'inlined',
+//     data: {
+//       headingLeft: 'Vacation',
+//       checkBoxRight: true,
+//     },
+//   },
+// ];
 
 export const opportunitiesList: Opportunity[] = [
   {

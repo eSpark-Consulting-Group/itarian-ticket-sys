@@ -67,7 +67,7 @@ const ExpenseReportsScreen = () => {
           <FlatList
             data={expData}
             renderItem={({item}) => {
-              return <ListItem id={item.id} item={item} dateRange={dateArr} />;
+              return <ListItem dataSource={item} renderDate={true} />;
             }}
           />
         ) : (

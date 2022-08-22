@@ -787,6 +787,36 @@ export const pBoardFilterList: Filter[] = [
   },
 ];
 
+export const opportunityFilterList: Filter[] = [
+  {
+    title: 'My Opportunities',
+    showRightSwitch: true,
+    enable: false,
+    rightSwitchVal: false,
+  },
+  {
+    title: 'John Doe',
+    subTitle: 'Contact',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Status',
+    rightIcon: 'chevron-right',
+  },
+  {
+    subTitle: 'Close Date',
+    title: '',
+    leftIcon: 'calendar',
+    enable: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Type',
+    rightIcon: 'chevron-right',
+  },
+];
+
 export const customFeildList: SelectFeilds[] = [
   {
     id: 1,

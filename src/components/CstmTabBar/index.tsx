@@ -14,7 +14,7 @@ import _ from 'lodash';
 import styles from './styles';
 import {ModalField, ModalView} from '..';
 import {WINDOW_WIDTH} from '../../constants';
-import { CstmPressable } from '../CstmPressable/indes';
+import {CstmPressable} from '../CstmPressable';
 
 type Item = {key: string; title: string};
 

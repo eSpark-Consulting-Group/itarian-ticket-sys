@@ -1,4 +1,4 @@
-import {View, Text,} from 'react-native';
+import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -6,7 +6,7 @@ import DatePicker from '@react-native-community/datetimepicker';
 
 import {Theme} from '../../theme/colors';
 import styles from './style';
-import { CstmPressable } from '../CstmPressable/indes';
+import {CstmPressable} from '../CstmPressable';
 
 const DateRangeSelector = ({
   fetchData,

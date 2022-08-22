@@ -1,5 +1,12 @@
 import React, {ReactNode} from 'react';
-import {StyleSheet, Text, View, TextInput, PixelRatio} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  PixelRatio,
+  ViewStyle,
+} from 'react-native';
 import {Switch} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -33,6 +40,7 @@ const SingleLineField = ({
   onRoundedIconPress,
   border = false,
   mode = 'none',
+  leftIconStyles = {},
 }: {
   leftIcon?: string;
   subTitle?: string;
@@ -54,6 +62,7 @@ const SingleLineField = ({
   leftChild?: ReactNode;
   border?: boolean;
   mode?: 'none' | 'multiline';
+  leftIconStyles?: ViewStyle;
 }) => {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -72,9 +81,12 @@ const SingleLineField = ({
         }}>
         <View>
           {subTitle && (
-            <Text style={{...styles.subTitle, color: colors.text}}>
-              {subTitle}
-            </Text>
+            <>
+              <Text style={{...styles.subTitle, color: colors.text}}>
+                {subTitle}
+              </Text>
+              <GapView mode="vertical" length={4} />
+            </>
           )}
           <View
             style={{
@@ -89,9 +101,13 @@ const SingleLineField = ({
                 <>
                   <MCI
                     name={leftIcon}
-                    size={20}
+                    size={22}
                     color={colors.text}
-                    style={{...styles.subTitle}}
+                    style={{
+                      ...styles.subTitle,
+                      ...leftIconStyles,
+                      alignSelf: 'center',
+                    }}
                   />
                   <GapView mode="horizontal" />
                 </>

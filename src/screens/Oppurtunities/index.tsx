@@ -19,9 +19,9 @@ import {
 import {Opportunity} from '../../types';
 import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
 import _ from 'lodash';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable';
 
-const Oppurtunities = () => {
+const Oppurtunities = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({item, index}: {item: Opportunity; index: number}) => {
@@ -41,7 +41,7 @@ const Oppurtunities = () => {
     return (
       <View style={styles.listContainer}>
         <CstmPressable
-          onPress={() => console.log('Hello')}
+          onPress={() => navigation.navigate('Stack1', {screen: 'Opportunity'})}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={styles.listInner}>
             <View style={{flexDirection: 'row'}}>

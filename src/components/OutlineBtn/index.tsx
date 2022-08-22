@@ -6,7 +6,7 @@ import styles from './style';
 
 import {Theme} from '../../theme/colors';
 import {moderateScale} from 'react-native-size-matters';
-import { CstmPressable } from '../CstmPressable/indes';
+import {CstmPressable} from '../CstmPressable';
 
 const OutlineBtn = ({
   text,

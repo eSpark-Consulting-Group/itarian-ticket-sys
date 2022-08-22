@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MI from 'react-native-vector-icons/MaterialIcons';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Theme, useTheme} from '@react-navigation/native';
 import {
   backStatus,
@@ -19,7 +20,7 @@ import NewCompany from '../forms/NewCompany';
 import MyStatus from '../forms/Profile/MyStatus';
 import Filters from '../forms/Filters';
 import NewConfiguration from '../forms/Configuration/CreateConfigurations';
-
+import Activities from '../screens/MyActivities/View/Activity/index'
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -31,6 +32,7 @@ export type RootStackParamList = {
   Configure1: undefined;
   Filters: undefined;
   NewConfigure: undefined;
+  Activities: undefined
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -212,6 +214,30 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
           headerRight: () => <FA size={30} name="save" color={'#fff'} />,
+        })}
+      />
+      <Stack.Screen
+        name="Activities"
+        component={Activities}
+        options={({route, navigation}) => ({
+          title: "Activity ",
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <MCI size={30} name="phone" color={'#fff'} />
+              <View style={{width: 15}} />
+              <FA size={30} name="save" color={'#fff'} />
+            </View>
+          ),
         })}
       />
     </Stack.Navigator>

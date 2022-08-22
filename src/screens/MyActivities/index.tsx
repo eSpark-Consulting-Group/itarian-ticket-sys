@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList,} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
@@ -18,7 +18,7 @@ import {
   activitiesList,
   SchAdditionalButtons,
 } from '../../constants/SampleArrays';
-import {Activity} from '../../types';
+import {Activity, AdditionalButtons} from '../../types';
 import _ from 'lodash';
 import { CstmPressable } from '../../components/CstmPressable/indes';
 
@@ -26,12 +26,26 @@ const MyActivities = ({navigation} : any) => {
   const {colors, dark}: Theme = useTheme();
   const [visible, setVisible] = useState(false);
   const [range, setRange] = useState('Last 30 Days');
+  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(SchAdditionalButtons);
+
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
   const showMenu = (): void => setVisible(!visible);
   const hideMenu = (): void => setVisible(false);
 
+  const updatePress = () => {
+    let tempArr = [...actionButtons];
+    tempArr[0].onPress = () => {navigation.navigate('Stack1', {
+      screen: "NewActivity"
+    })}
+    setActionButtons(tempArr)
+  }
+
+  useEffect(() => {
+    updatePress()
+  }, [])
+  
   const renderList = ({item, index}: {item: Activity; index: number}) => {
     return (
       <View
@@ -180,7 +194,7 @@ const MyActivities = ({navigation} : any) => {
           <NotFound />
         )}
       </View>
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton AdditionalButtons={actionButtons} />
     </>
   );
 };

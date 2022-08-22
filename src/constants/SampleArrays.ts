@@ -435,7 +435,7 @@ export const SchAdditionalButtons: Array<AdditionalButtons> = [
     style: AdditionalButtonStyle,
     labelTextColor: '#000000c2',
     labelStyle: {backgroundColor: '#fff'},
-    onPress: () => console.log('Pressed star'),
+    onPress: () => {},
   },
   {
     icon: 'calendar-plus',

@@ -22,16 +22,6 @@ const CstmItemSelector = ({route, navigation}: any) => {
         setLoader(false)
     }, [route?.params])
 
-    const onSubmit = () => {
-        navigation.navigate(route?.params?.stack, {
-            screen: route?.params?.from,
-            params: {
-                title: route?.params?.title,
-                selected: list[currChkInd],
-                item: route?.params?.item
-            }
-        })
-    }
 
     return (
         <ModalView>
@@ -42,7 +32,13 @@ const CstmItemSelector = ({route, navigation}: any) => {
                     <SingleLineField
                         key={item.name}
                         title={item.name}
-                        onPress={() => setCurrChkInd(index)}
+                        onPress={() => {
+                            navigation?.setParams({
+                                ...route?.params,
+                                selected: list[index]
+                            })
+                            setCurrChkInd(index)
+                        }}
                         leftChild={
                             <Checkbox
                             status={currChkInd == index ? 'checked' : 'unchecked'}
@@ -54,14 +50,6 @@ const CstmItemSelector = ({route, navigation}: any) => {
                 )}
             />}
             {loader && <SimpleLoader />}
-            <FAB
-                theme={{colors: {background: '#111'}}}
-                style={styles.floatButton}
-                icon={'check'}
-                color="#fff"
-                visible={true}
-                onPress={onSubmit}
-             />
     </ModalView>
     )
   }

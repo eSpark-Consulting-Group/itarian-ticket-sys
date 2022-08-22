@@ -11,67 +11,13 @@ export default function App({
   route: any;
   navigation: any;
 }) {
+  var {dataSource: dSource, title} = route?.params;
   const {colors}: Theme = useTheme();
-  const [dataSource, setDataSource] = useState(route?.params?.dataSource);
+  const [dataSource, setDataSource] = useState(dSource);
 
   useEffect(() => {
     console.log('route?.params.dataSource:', dataSource);
-  }, []);
-
-  // const dataSource: Filter[] = [
-  //   {
-  //     title: 'My Tickets Only',
-  //     showRightSwitch: true,
-  //     enable: false,
-  //     rightSwitchVal: ticketSwitch,
-  //     onChangeSwitch: value => setTicketSwitch(value),
-  //   },
-  //   {
-  //     title: 'All',
-  //     subTitle: 'Service Board',
-  //     rightIcon: 'chevron-right',
-  //   },
-  //   {
-  //     title: 'All',
-  //     subTitle: 'Service Board',
-  //     enable: false,
-  //   },
-  //   {
-  //     title: 'Please Select',
-  //     subTitle: 'Priority',
-  //     rightIcon: 'chevron-right',
-  //   },
-  //   {
-  //     title: 'Please Select',
-  //     subTitle: 'Company',
-  //     rightIcon: 'chevron-right',
-  //   },
-  //   {
-  //     title: 'Please Select',
-  //     subTitle: 'Site',
-  //     enable: false,
-  //   },
-  //   {
-  //     title: 'Contact',
-  //     subTitle: 'Please Select',
-  //     rightIcon: 'chevron-right',
-  //   },
-  //   {
-  //     title: 'All',
-  //     subTitle: 'Type',
-  //     enable: false,
-  //   },
-  //   {
-  //     title: 'All',
-  //     subTitle: 'Subtype',
-  //     enable: false,
-  //   },
-  //   {
-  //     title: 'All',
-  //     subTitle: 'Item',
-  //     enable: false,
-  //   },
-  // ];
+  }, [route?.params]);
 
   const updateSwitch = (index: number) => {
     let tempArr: Filter[] = [...dataSource];
@@ -88,13 +34,15 @@ export default function App({
         <SingleLineField
           key={index}
           subTitle={item.subTitle}
-          title={item.title}
+          title={item.title != '' ? item.title : title}
           enable={item.enable}
           titleWidth={item.titleWidth}
           rightIcon={item.rightIcon}
           showRightSwitch={item.showRightSwitch}
           rightSwitchVal={item.rightSwitchVal}
           onChangeSwitch={() => updateSwitch(index)}
+          leftIcon={item.leftIcon}
+          leftIconStyles={{opacity: 1}}
         />
       ))}
     </ScrollView>

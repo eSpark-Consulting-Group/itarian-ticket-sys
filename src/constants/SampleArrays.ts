@@ -435,7 +435,7 @@ export const SchAdditionalButtons: Array<AdditionalButtons> = [
     style: AdditionalButtonStyle,
     labelTextColor: '#000000c2',
     labelStyle: {backgroundColor: '#fff'},
-    onPress: () => console.log('Pressed star'),
+    onPress: () => {},
   },
   {
     icon: 'calendar-plus',
@@ -793,6 +793,36 @@ export const pBoardFilterList: Filter[] = [
   {
     title: 'All',
     subTitle: 'Status',
+    rightIcon: 'chevron-right',
+  },
+];
+
+export const opportunityFilterList: Filter[] = [
+  {
+    title: 'My Opportunities',
+    showRightSwitch: true,
+    enable: false,
+    rightSwitchVal: false,
+  },
+  {
+    title: 'John Doe',
+    subTitle: 'Contact',
+    rightIcon: 'chevron-right',
+  },
+  {
+    title: 'All',
+    subTitle: 'Status',
+    rightIcon: 'chevron-right',
+  },
+  {
+    subTitle: 'Close Date',
+    title: '',
+    leftIcon: 'calendar',
+    enable: false,
+  },
+  {
+    title: 'All',
+    subTitle: 'Type',
     rightIcon: 'chevron-right',
   },
 ];

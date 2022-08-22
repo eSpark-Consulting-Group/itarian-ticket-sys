@@ -14,7 +14,7 @@ import {
 } from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
-import {CstmPressable} from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components';
 
 const Companies = () => {
   const {colors, dark}: Theme = useTheme();

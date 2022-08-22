@@ -20,7 +20,10 @@ import NewCompany from '../forms/NewCompany';
 import MyStatus from '../forms/Profile/MyStatus';
 import Filters from '../forms/Filters';
 import NewConfiguration from '../forms/Configuration/CreateConfigurations';
-import Activities from '../screens/MyActivities/View/Activity/index'
+import Activities from '../screens/MyActivities/View/Activity/index';
+import Opportunity from '../screens/Oppurtunities/View/Opportunity';
+
+import NewActivity from '../forms/NewActivity';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -32,7 +35,9 @@ export type RootStackParamList = {
   Configure1: undefined;
   Filters: undefined;
   NewConfigure: undefined;
-  Activities: undefined
+  Activities: undefined;
+  Opportunity: undefined;
+  NewActivity: undefined
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -78,6 +83,7 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
+
       <Stack.Screen
         name="STickets"
         component={STickets}
@@ -220,7 +226,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="Activities"
         component={Activities}
         options={({route, navigation}) => ({
-          title: "Activity ",
+          title: 'Activity ',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -237,6 +243,56 @@ const StackLvl1 = ({route, navigation}: any) => {
               <View style={{width: 15}} />
               <FA size={30} name="save" color={'#fff'} />
             </View>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Opportunity"
+        component={Opportunity}
+        options={({route, navigation}) => ({
+          title: 'Opportunity',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewActivity"
+        component={NewActivity}
+        options={({route, navigation}) => ({
+          title: 'New Activity',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
           ),
         })}
       />

@@ -46,4 +46,17 @@ const backGoneTo = (navigation: any) => {
   navigation.goBack();
 };
 
-export {backStatus, saveStatus, saveGoneTo, backGoneTo};
+// Function for Save ItemSelector Value
+const onSave = (navigation: any, route: any) => {
+  navigation.navigate(route?.params?.stack, {
+    screen: route?.params?.from,
+    params: {
+        title: route?.params?.title,
+        selected: route?.params?.selected,
+        item: route?.params?.item,
+        ...route?.params
+    }
+})
+}
+
+export {backStatus, saveStatus, saveGoneTo, backGoneTo, onSave};

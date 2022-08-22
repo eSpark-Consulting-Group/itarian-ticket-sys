@@ -12,7 +12,7 @@ import {Theme} from '../../theme/colors';
 import {SchAdditionalButtons, ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
-import {CstmPressable} from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable';
 
 const ServiceBoard = () => {
   const {colors, dark}: Theme = useTheme();

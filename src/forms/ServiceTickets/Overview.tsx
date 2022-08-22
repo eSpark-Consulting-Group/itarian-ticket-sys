@@ -1,44 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {useTheme, Theme, useNavigation, useRoute, useIsFocused} from '@react-navigation/native';
-import {PriorityField, SingleLineField} from '../../components';
+import {
+  useTheme,
+  Theme,
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
-import { boardList, customFeildList, itemList, siteList, statusList, subTypesList, typesList } from '../../constants/SampleArrays';
-import { SelectFeilds } from '../../types/index'
+
+import {
+  boardList,
+  customFeildList,
+  itemList,
+  siteList,
+  statusList,
+  subTypesList,
+  typesList,
+} from '../../constants/SampleArrays';
+import {PriorityField, SingleLineField} from '../../components';
+import {SelectFeilds} from '../../types/index';
 const Overview = () => {
   const {colors}: Theme = useTheme();
-  const navigation: any = useNavigation()
-  const route:any = useRoute()
-  const IsFocused = useIsFocused()
-
+  const navigation: any = useNavigation();
+  const route: any = useRoute();
+  const IsFocused = useIsFocused();
 
   const [state, setState] = useState<State>({
-    customFeild: {name: "Custom Feilds 1", id: 1},
-    site: {name: "Site 1", id: 1},
-    board: {name: "Board 1", id: 1},
-    status: {name: "Status 1", id: 1},
-    type: {name: "Type 1", id: 1},
-    subType: {name: "Subtype 1", id: 1},
-    item: {name: "Item 1", id: 1},
-  }) 
+    customFeild: {name: 'Custom Feilds 1', id: 1},
+    site: {name: 'Site 1', id: 1},
+    board: {name: 'Board 1', id: 1},
+    status: {name: 'Status 1', id: 1},
+    type: {name: 'Type 1', id: 1},
+    subType: {name: 'Subtype 1', id: 1},
+    item: {name: 'Item 1', id: 1},
+  });
 
   useEffect(() => {
-      if(route?.params?.item) {
-        var obj:any = state
-        obj[route?.params?.item] = route?.params?.selected
-        setState({...obj})
-      } 
-  }, [route?.params])
+    if (route?.params?.item) {
+      var obj: any = state;
+      obj[route?.params?.item] = route?.params?.selected;
+      setState({...obj});
+    }
+  }, [route?.params]);
 
   type State = {
-    customFeild: SelectFeilds,
-    site: SelectFeilds,
-    board: SelectFeilds,
-    status: SelectFeilds
-    type: SelectFeilds,
-    subType: SelectFeilds,
-    item: SelectFeilds
-  }
+    customFeild: SelectFeilds;
+    site: SelectFeilds;
+    board: SelectFeilds;
+    status: SelectFeilds;
+    type: SelectFeilds;
+    subType: SelectFeilds;
+    item: SelectFeilds;
+  };
 
   return (
     <ScrollView
@@ -52,20 +66,36 @@ const Overview = () => {
         onPress={() => {
           navigation.navigate('Stack2', {
             screen: 'CstmItemSelector',
-            params: {from: 'STickets', item:'customFeild', data: customFeildList, selected: state?.customFeild, stack: 'Stack1', title: route?.params?.title, headerTitle: "Custom Feild"},
-          })
+            params: {
+              from: 'STickets',
+              item: 'customFeild',
+              data: customFeildList,
+              selected: state?.customFeild,
+              stack: 'Stack1',
+              title: route?.params?.title,
+              headerTitle: 'Custom Feild',
+            },
+          });
         }}
       />
-      <SingleLineField 
-        title={state?.site?.name} 
-        subTitle="Site" 
-        rightIcon="chevron-right" 
+      <SingleLineField
+        title={state?.site?.name}
+        subTitle="Site"
+        rightIcon="chevron-right"
         onPress={() => {
           navigation.navigate('Stack2', {
             screen: 'CstmItemSelector',
-            params: {from: 'STickets', item:'site', data: siteList, selected: state?.site, stack: 'Stack1', title: route?.params?.title, headerTitle: "Site"},
-          })
-        }}  
+            params: {
+              from: 'STickets',
+              item: 'site',
+              data: siteList,
+              selected: state?.site,
+              stack: 'Stack1',
+              title: route?.params?.title,
+              headerTitle: 'Site',
+            },
+          });
+        }}
       />
       <SingleLineField
         title="123 Elm Street Tampa, Fl 32364 United States"
@@ -80,9 +110,17 @@ const Overview = () => {
         onPress={() => {
           navigation.navigate('Stack2', {
             screen: 'CstmItemSelector',
-            params: {from: 'STickets', item:'board', data: boardList, selected: state?.board, stack: 'Stack1', title: route?.params?.title, headerTitle: "Board"},
-          })
-        }}  
+            params: {
+              from: 'STickets',
+              item: 'board',
+              data: boardList,
+              selected: state?.board,
+              stack: 'Stack1',
+              title: route?.params?.title,
+              headerTitle: 'Board',
+            },
+          });
+        }}
       />
       <SingleLineField
         title={state?.status.name}
@@ -91,9 +129,17 @@ const Overview = () => {
         onPress={() => {
           navigation.navigate('Stack2', {
             screen: 'CstmItemSelector',
-            params: {from: 'STickets', item:'status', data: statusList, selected: state?.status, stack: 'Stack1', title: route?.params?.title, headerTitle: "Status"},
-          })
-        }}  
+            params: {
+              from: 'STickets',
+              item: 'status',
+              data: statusList,
+              selected: state?.status,
+              stack: 'Stack1',
+              title: route?.params?.title,
+              headerTitle: 'Status',
+            },
+          });
+        }}
       />
       <SingleLineField
         title="Sales - Existing"
@@ -112,9 +158,17 @@ const Overview = () => {
         onPress={() => {
           navigation.navigate('Stack2', {
             screen: 'CstmItemSelector',
-            params: {from: 'STickets', item:'type', data: typesList, selected: state?.type, stack: 'Stack1', title: route?.params?.title, headerTitle: "Type"},
-          })
-        }}  
+            params: {
+              from: 'STickets',
+              item: 'type',
+              data: typesList,
+              selected: state?.type,
+              stack: 'Stack1',
+              title: route?.params?.title,
+              headerTitle: 'Type',
+            },
+          });
+        }}
       />
       <SingleLineField
         title={state.subType.name}
@@ -123,9 +177,17 @@ const Overview = () => {
         onPress={() => {
           navigation.navigate('Stack2', {
             screen: 'CstmItemSelector',
-            params: {from: 'STickets', item:'subType', data: subTypesList, selected: state?.subType, stack: 'Stack1', title: route?.params?.title, headerTitle: "Subtype"},
-          })
-        }}  
+            params: {
+              from: 'STickets',
+              item: 'subType',
+              data: subTypesList,
+              selected: state?.subType,
+              stack: 'Stack1',
+              title: route?.params?.title,
+              headerTitle: 'Subtype',
+            },
+          });
+        }}
       />
       <SingleLineField
         title={state.item.name}
@@ -134,9 +196,17 @@ const Overview = () => {
         onPress={() => {
           navigation.navigate('Stack2', {
             screen: 'CstmItemSelector',
-            params: {from: 'STickets', item:'item', data: itemList, selected: state?.item, stack: 'Stack1', title: route?.params?.title, headerTitle: "Item"},
-          })
-        }}  
+            params: {
+              from: 'STickets',
+              item: 'item',
+              data: itemList,
+              selected: state?.item,
+              stack: 'Stack1',
+              title: route?.params?.title,
+              headerTitle: 'Item',
+            },
+          });
+        }}
       />
     </ScrollView>
   );

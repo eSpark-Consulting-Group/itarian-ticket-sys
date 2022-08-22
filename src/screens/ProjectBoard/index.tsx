@@ -13,7 +13,7 @@ import {Theme} from '../../theme/colors';
 import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg} from '../../components';
-import {CstmPressable} from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable';
 
 const ProjectBoard = () => {
   const {colors, dark}: Theme = useTheme();

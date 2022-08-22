@@ -572,21 +572,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   content: {
-    // flex: 2,
-    height: moderateVerticalScale(
-      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 52) / 100),
-      0.5,
-    ),
-  },
-  footer: {
     flex: 1,
     // height: moderateVerticalScale(
-    //   PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 20) / 100),
+    //   PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 6) / 100),
+    //   0.55,
+    // ),
+  },
+  footer: {
+    // flex: 1,
+    // height: moderateVerticalScale(
+    //   PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 26) / 100),
     //   0,
     // ),
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     borderTopWidth: 1,
     borderColor: '#fff',
+    justifyContent: 'flex-end',
   },
   footerDrawerStyle: {
     opacity: 0.75,

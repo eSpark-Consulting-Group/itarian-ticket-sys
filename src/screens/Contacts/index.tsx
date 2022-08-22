@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,9 +13,9 @@ import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import _ from 'lodash';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable/indes';
 
-const Contacts = ({navigation}: any) => {
+const Contacts = () => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -84,7 +84,7 @@ const Contacts = ({navigation}: any) => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderContacts listData={filteredContacts} navigation={navigation} />
+        <RenderContacts listData={filteredContacts} />
       )}
     </View>
   );
@@ -92,12 +92,12 @@ const Contacts = ({navigation}: any) => {
 
 export const RenderContacts = ({
   listData = contactsList,
-  navigation,
 }: {
   listData?: Contact[];
-  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
+  const navigation: any = useNavigation();
+  console.log('Navigation', navigation);
 
   const renderList = ({item, index}: {item: Contact; index: number}) => {
     return (

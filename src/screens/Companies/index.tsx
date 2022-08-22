@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList,} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {View, Text, FlatList} from 'react-native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
@@ -14,9 +14,9 @@ import {
 } from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable/indes';
 
-const Companies = ({navigation}: any) => {
+const Companies = () => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -85,7 +85,7 @@ const Companies = ({navigation}: any) => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderCompanies navigation={navigation} listData={filteredCompanies} />
+        <RenderCompanies listData={filteredCompanies} />
       )}
     </View>
   );
@@ -93,12 +93,11 @@ const Companies = ({navigation}: any) => {
 
 export const RenderCompanies = ({
   listData = companiesList,
-  navigation,
 }: {
   listData?: Company[];
-  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
+  const navigation: any = useNavigation();
 
   const renderList = ({item, index}: {item: Company; index: number}) => {
     return (

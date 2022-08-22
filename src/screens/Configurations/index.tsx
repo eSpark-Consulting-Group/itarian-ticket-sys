@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -20,9 +20,9 @@ import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable/indes';
 
-const Configurations = ({navigation}: {navigation: any}) => {
+const Configurations = () => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -99,10 +99,7 @@ const Configurations = ({navigation}: {navigation: any}) => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderConfigurations
-          listData={filteredConfigurations}
-          navigation={navigation}
-        />
+        <RenderConfigurations listData={filteredConfigurations} />
       )}
     </View>
   );
@@ -110,12 +107,11 @@ const Configurations = ({navigation}: {navigation: any}) => {
 
 export const RenderConfigurations = ({
   listData = configurationsList,
-  navigation,
 }: {
   listData?: Configuration[];
-  navigation?: any;
 }) => {
   const {colors, dark}: Theme = useTheme();
+  const navigation: any = useNavigation();
 
   const renderList = ({item, index}: {item: Configuration; index: number}) => {
     return (

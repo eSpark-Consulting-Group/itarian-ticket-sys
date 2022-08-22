@@ -555,6 +555,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    // flex: 0.4,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -571,17 +572,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   content: {
+    // flex: 2,
     height: moderateVerticalScale(
-      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 55) / 100),
-      0.55,
+      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 52) / 100),
+      0.5,
     ),
   },
   footer: {
     flex: 1,
-    height: moderateVerticalScale(
-      PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 20) / 100),
-      0,
-    ),
+    // height: moderateVerticalScale(
+    //   PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 20) / 100),
+    //   0,
+    // ),
     justifyContent: 'space-between',
     borderTopWidth: 1,
     borderColor: '#fff',

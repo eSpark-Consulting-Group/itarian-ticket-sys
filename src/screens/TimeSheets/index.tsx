@@ -65,7 +65,7 @@ const TimeSheetsScreen = () => {
           <FlatList
             data={sheetData}
             renderItem={({item}) => (
-              <ListItem id={item.id} item={item} dateRange={dateArr} />
+              <ListItem dataSource={item} renderDate={true} />
             )}
           />
         ) : (

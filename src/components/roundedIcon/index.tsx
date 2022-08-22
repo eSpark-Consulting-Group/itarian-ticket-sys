@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, View,} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CstmPressable } from '../CstmPressable/indes';
+import {CstmPressable} from '../CstmPressable';
 
 export default function RoundedIcon({
   enable = true,

@@ -4,7 +4,7 @@ import {useTheme, Theme} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
-import {GapView, ModalField} from '../../components';
+import {EmptyListMsg, GapView, ModalField} from '../../components';
 import {Divider, Modal} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
 import {WINDOW_HEIGHT} from '../../constants';
@@ -128,32 +128,40 @@ const Notes = () => {
     );
   };
 
-  return (
-    <View style={styles.container}>
-      <ModalField
-        mode="none"
-        pressEnable={false}
-        contentStyle={{
-          ...styles.subHeader,
-        }}>
-        <SubHeader />
-      </ModalField>
-      <ModalField mode="none" pressEnable={false} fieldPadding={0}>
-        <FlatList
-          data={dataSource}
-          renderItem={renderList}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={<View />}
-          ListFooterComponentStyle={{height: 120}}
-          ItemSeparatorComponent={() => (
-            <Divider
-              style={{backgroundColor: colors.background, height: 1.2}}
-            />
-          )}
-        />
-      </ModalField>
-    </View>
-  );
+  if (dataSource.length == 0) {
+    return (
+      <View style={styles.container}>
+        <NotFound />
+      </View>
+    );
+  } else {
+    return (
+      <>
+        <ModalField
+          mode="none"
+          pressEnable={false}
+          contentStyle={{
+            ...styles.subHeader,
+          }}>
+          <SubHeader />
+        </ModalField>
+        <ModalField mode="none" pressEnable={false} fieldPadding={0}>
+          <FlatList
+            data={dataSource}
+            renderItem={renderList}
+            showsVerticalScrollIndicator={false}
+            ListFooterComponent={<View />}
+            ListFooterComponentStyle={{height: 120}}
+            ItemSeparatorComponent={() => (
+              <Divider
+                style={{backgroundColor: colors.background, height: 1.2}}
+              />
+            )}
+          />
+        </ModalField>
+      </>
+    );
+  }
 };
 
 const SubHeader = () => {
@@ -182,12 +190,25 @@ const SubHeader = () => {
   );
 };
 
+const NotFound = (): JSX.Element => {
+  return (
+    <View style={styles.content}>
+      <EmptyListMsg label="Notes" />
+    </View>
+  );
+};
+
 export default Notes;
 
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
     // alignItems: 'center',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   subHeader: {
     flexDirection: 'row',

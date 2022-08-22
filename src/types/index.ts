@@ -221,4 +221,5 @@ export type Filter = {
   titleWidth?: number;
   showRightSwitch?: boolean;
   rightSwitchVal?: boolean;
+  leftIcon?: string;
 };

@@ -7,7 +7,7 @@ import {Divider} from 'react-native-paper';
 
 import styles from './style';
 import {Theme} from '../../../theme/colors';
-import {CstmPressable} from '../../../components/CstmPressable/indes';
+import {CstmPressable} from '../../../components/CstmPressable';
 import {DateSeparator, EmptyListMsg, GapView} from '../../../components';
 import {Ticket} from '../../../types';
 

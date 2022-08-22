@@ -13,7 +13,7 @@ import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import _ from 'lodash';
-import { CstmPressable } from '../../components/CstmPressable/indes';
+import {CstmPressable} from '../../components/CstmPressable';
 
 const Contacts = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();

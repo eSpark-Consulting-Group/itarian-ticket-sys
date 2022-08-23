@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 
-import GoneTo from '../forms/Profile/GoneTo';
+import GoneTo from '../screens/Profile/View/Profile/GoneTo';
 import {backGoneTo, onSave, saveGoneTo} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
 

@@ -51,7 +51,7 @@ const ListItem = ({
           </View>
           <View style={{width: '75%'}}>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
-              Ticket #{item2.ticket_no}
+              Ticket {item2.ticket_no}
             </Text>
             <Text style={{fontWeight: 'bold', color: colors.text}}>
               {item2.ticket_summary}

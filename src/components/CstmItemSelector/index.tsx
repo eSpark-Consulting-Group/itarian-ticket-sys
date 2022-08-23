@@ -8,6 +8,7 @@ import {SelectFeilds} from '../../types';
 import { globalState } from '../../utils/globalState';
 import { useUpdateEffect } from '../../utils/hooks';
 import {SingleLineField} from '../FormFields';
+import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
@@ -78,15 +79,17 @@ const CstmItemSelector = ({route, navigation}: any) => {
   return (
     <ModalView>
        {route?.params?.searchable && 
-       <SearchBar
-          withTag={false}
-          placeholder={'Search...'}
-          fontSize={'large'}
-          value={searchValue}
-          setChangeText={value => setSearchValue(value)}
-          onSubmit={handleSubmit}
-          onClear={handleClear}
-        />}
+       <ModalHeader empty>
+         <SearchBar
+            withTag={false}
+            placeholder={'Search...'}
+            fontSize={'large'}
+            value={searchValue}
+            setChangeText={value => setSearchValue(value)}
+            onSubmit={handleSubmit}
+            onClear={handleClear}
+          />
+       </ModalHeader>}
       {list?.length > 0 && (
         <FlatList
           data={list}

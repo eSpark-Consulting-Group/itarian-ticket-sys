@@ -13,17 +13,18 @@ import {
 } from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
-import Contact1 from '../forms/Contacts';
-import Configuration1 from '../forms/Configuration';
-import Company from '../forms/Company';
+import Contact1 from '../screens/Contacts/View/Contacts';
+import Configuration1 from '../screens/Configurations/View/Configuration';
+import Company from '../screens/Companies/View/Company';
 import NewCompany from '../forms/NewCompany';
-import MyStatus from '../forms/Profile/MyStatus';
+import MyStatus from '../screens/Profile/View/Profile/MyStatus';
 import Filters from '../forms/Filters';
-import NewConfiguration from '../forms/Configuration/CreateConfigurations';
+import NewConfiguration from '../screens/Configurations/View/Configuration/CreateConfigurations';
 import Activities from '../screens/MyActivities/View/Activity/index';
 import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 
 import NewActivity from '../forms/NewActivity';
+import NewExpenseReport from '../forms/NewExpenseReport';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -37,7 +38,8 @@ export type RootStackParamList = {
   NewConfigure: undefined;
   Activities: undefined;
   Opportunity: undefined;
-  NewActivity: undefined
+  NewActivity: undefined;
+  NewExpenseReport: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -276,6 +278,31 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={NewActivity}
         options={({route, navigation}) => ({
           title: 'New Activity',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewExpenseReport"
+        component={NewExpenseReport}
+        options={({route, navigation}) => ({
+          title: 'Add Expense',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

@@ -5,9 +5,9 @@ import {
   GapView,
   ModalView,
   SingleLineField,
-} from '../../components';
+} from '../../../../components';
 import {Theme, useTheme} from '@react-navigation/native';
-import {MultiLineField} from '../../components/FormFields';
+import {MultiLineField} from '../../../../components/FormFields';
 
 interface Item {
   title: string;

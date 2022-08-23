@@ -28,9 +28,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   inputStyle: {
-    backgroundColor: '#80808040',
     borderRadius: 15,
-    elevation: 0
+    elevation: 0,
   },
   menuItemButtonStyle: {
     flexDirection: 'row',

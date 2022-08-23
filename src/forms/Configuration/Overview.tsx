@@ -16,6 +16,7 @@ interface Item {
   rightSwitchVal?: boolean;
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
+  mode?: 'none' | 'multiline';
 }
 
 const Overview = () => {
@@ -145,13 +146,19 @@ const Overview = () => {
     },
     {
       subTitle: 'Notes',
-      title: 'Tap to View Notes',
-      rightIcon: 'chevron-right',
+      title: '',
+      mode: 'multiline',
+      inputable: true,
+      onChangeText: setTitleText,
+      enable: false,
     },
     {
       subTitle: 'Vendor Notes',
-      title: 'Tap to View Vendor Notes',
-      rightIcon: 'chevron-right',
+      title: '',
+      mode: 'multiline',
+      inputable: true,
+      onChangeText: setTitleText,
+      enable: false,
     },
   ];
 
@@ -174,11 +181,10 @@ const Overview = () => {
             showRightSwitch={item.showRightSwitch}
             rightSwitchVal={item.rightSwitchVal}
             onChangeSwitch={item.onChangeSwitch}
+            mode={item.mode}
           />
         ))}
       </ScrollView>
-      <MultiLineField title="Notes" />
-      <MultiLineField title="Vendor Notes" />
     </>
   );
 };

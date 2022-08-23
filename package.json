@@ -15,7 +15,7 @@
     ]
   },
   "dependencies": {
-    "@hookstate/core": "^4.0.0-rc8",
+    "@hookstate/core": "4.0.0-rc21",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/datetimepicker": "^6.2.0",
     "@react-navigation/drawer": "^6.4.1",

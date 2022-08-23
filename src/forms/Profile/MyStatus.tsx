@@ -1,22 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTheme, Theme} from '@react-navigation/native';
 
 import {Switch} from 'react-native-paper';
 import {ModalField, ModalView, SingleLineField} from '../../components';
+import {GoneToFormArray} from '../../constants/SampleArrays';
 
 const MyStatus = ({route, navigation}: any) => {
   console.log('Route', route);
   const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();
-  const [switchVal, setSwitchVal] = useState(false);
+  const [goneTo, setGoneTo] = useState<any>(null);
   const [showTime, setShowTime] = useState(false);
   const [showDate, setShowDate] = useState(false);
   const [currTime, setCurrTime] = useState(new Date());
   const [currDate, setCurrDate] = useState(new Date());
   const [timeDur, setTimeDur] = useState('--');
   const [dateDur, setDateDur] = useState('--');
+
+  useEffect(() => {
+    if (route?.params?.item) {
+      setGoneTo(route?.params?.selected);
+    }
+  }, [route?.params]);
 
   const closeTImePicker = (event: any, time: any) => {
     setShowTime(false);
@@ -55,7 +62,7 @@ const MyStatus = ({route, navigation}: any) => {
     <ModalView>
       <SingleLineField
         title="Are you out of office"
-        enable={false}
+        onPress={changeSwitch}
         rightChild={
           <Switch
             value={OutStatus}
@@ -70,12 +77,32 @@ const MyStatus = ({route, navigation}: any) => {
       {OutStatus && (
         <>
           <SingleLineField
-            title="Please Select"
-            onPress={() => navigation.navigate('Stack2', {screen: 'GoneTo'})}
+            title={goneTo?.name || 'Please Select'}
+            onPress={() =>
+              navigation.navigate('Stack2', {
+                screen: 'CstmItemSelector',
+                params: {
+                  from: 'MyStatus',
+                  item: 'GoneTo',
+                  data: GoneToFormArray,
+                  selected: goneTo,
+                  stack: 'Stack1',
+                  title: route?.params?.title,
+                  headerTitle: 'Gone To',
+                  status: route?.params?.status,
+                },
+              })
+            }
             rightIcon="chevron-right"
             subTitle="Gone To"
           />
-          <ModalField mode="multiline" headingLeft="Additional Info" />
+          <SingleLineField
+            title=""
+            enable={false}
+            subTitle="Additional Info"
+            mode="multiline"
+            inputable
+          />
           <ModalField
             mode="inlined"
             headingLeft="Date Back"

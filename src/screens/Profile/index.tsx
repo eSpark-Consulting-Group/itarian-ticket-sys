@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Theme} from '../../theme/colors';
-import {AvatarContainer} from '../../components';
+import {AvatarContainer, SingleLineField} from '../../components';
 import II from 'react-native-vector-icons/Ionicons';
 
 import {State, useState as hookState} from '@hookstate/core';
@@ -29,7 +29,13 @@ const Profile = ({route, navigation}: any) => {
         </Text>
         <Text style={{color: colors.text}}>education_c</Text>
       </View>
-      <TouchableOpacity
+      <SingleLineField
+        subTitle="My Status"
+        title={route.params.status == false ? 'In Office' : 'Out of the Office'}
+        onPress={() => navigation.navigate('Stack1', {screen: 'MyStatus'})}
+        rightIcon="chevron-right"
+      />
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate('Stack1', {screen: 'MyStatus'})}
         style={{
           ...styles.statusButton,
@@ -38,13 +44,11 @@ const Profile = ({route, navigation}: any) => {
         <View>
           <Text style={{color: colors.text}}>My Status</Text>
           <Text style={{fontWeight: 'bold', color: colors.text}}>
-            {/* {route.params.status} */}
             {route.params.status == false ? 'In Office' : 'Out of the Office'}
-            {/* {currStatus.get() ? 'Out of the Office' : 'In Office'} */}
           </Text>
         </View>
         <II name="chevron-forward" color={colors.text} size={20} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

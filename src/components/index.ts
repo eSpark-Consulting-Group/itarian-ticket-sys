@@ -18,6 +18,7 @@ import DateRangeSelector from './DateRangeSelector';
 import ModalHeader from './ModalHeader';
 import RoundedIcon from './roundedIcon';
 import CstmTabBar from './CstmTabBar';
+import {CstmPressable} from './CstmPressable';
 import GapView from './GapView';
 import {PriorityField, SingleLineField} from './FormFields';
 
@@ -45,4 +46,5 @@ export {
   PriorityField,
   SingleLineField,
   CstmTitleInput,
+  CstmPressable,
 };

@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     backgroundColor: '#80808040',
     borderRadius: 15,
+    elevation: 0
   },
   menuItemButtonStyle: {
     flexDirection: 'row',

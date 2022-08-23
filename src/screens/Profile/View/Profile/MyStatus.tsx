@@ -4,9 +4,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTheme, Theme} from '@react-navigation/native';
 
 import {Switch} from 'react-native-paper';
-import {ModalField, ModalView, SingleLineField} from '../../components';
-import {GoneToFormArray} from '../../constants/SampleArrays';
-import {globalState} from '../../utils/globalState';
+import {ModalField, ModalView, SingleLineField} from '../../../../components';
+import {GoneToFormArray} from '../../../../constants/SampleArrays';
+import {globalState} from '../../../../utils/globalState';
 import {State, useState as useHState} from '@hookstate/core';
 
 const MyStatus = ({route, navigation}: any) => {

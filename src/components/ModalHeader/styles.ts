@@ -3,10 +3,10 @@ import {WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    width: WINDOW_WIDTH,
+    // flexDirection: 'row',
+    width: '100%',
     padding: 10,
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
     elevation: 1.5,
     justifyContent: 'space-between',
   },

@@ -12,9 +12,21 @@ const DateSeperator = ({text}: any) => {
 
   return (
     <View style={styles.container}>
-      <Divider style={styles.divider_1} />
+      <Divider
+        style={{
+          ...styles.divider_1,
+          backgroundColor: colors.text,
+          opacity: 0.2,
+        }}
+      />
       <Text style={{...styles.centerContent, color: colors.text}}>{text}</Text>
-      <Divider style={styles.divider_2} />
+      <Divider
+        style={{
+          ...styles.divider_2,
+          backgroundColor: colors.text,
+          opacity: 0.2,
+        }}
+      />
     </View>
   );
 };

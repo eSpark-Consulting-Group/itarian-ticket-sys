@@ -7,8 +7,8 @@ import {
   ModalView,
   RoundedIcon,
   CstmTabBar,
-} from '../../components';
-import Communications from './Communications';
+} from '../../../../components';
+import Overview from './Overview';
 import Details from './Details';
 
 if (
@@ -21,25 +21,20 @@ if (
 export default function App() {
   return (
     <ModalView>
-      <ModalHeader
-        title="John Doe"
-        subTitle="Acme Company Ltd"
-        subIcon="office-building-marker-outline"
-      />
       <TabComp />
     </ModalView>
   );
 }
 
 const renderScene = SceneMap({
-  first: Communications,
+  first: Overview,
   second: Details,
 });
 
 function TabComp() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Communications'},
+    {key: 'first', title: 'Overview'},
     {key: 'second', title: 'Details'},
   ]);
 

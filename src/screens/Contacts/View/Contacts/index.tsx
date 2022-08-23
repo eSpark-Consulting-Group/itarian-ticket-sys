@@ -1,11 +1,15 @@
 import React from 'react';
-import {StyleSheet, Platform, UIManager} from 'react-native';
+import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
-import {ModalHeader, ModalView, CstmTabBar} from '../../components';
+import {
+  ModalHeader,
+  ModalView,
+  RoundedIcon,
+  CstmTabBar,
+} from '../../../../components';
+import Communications from './Communications';
 import Details from './Details';
-import Notes from './Notes';
-import Overview from './Overview';
 
 if (
   Platform.OS === 'android' &&
@@ -14,32 +18,29 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const Company = () => {
+export default function App() {
   return (
     <ModalView>
       <ModalHeader
-        icon="office-building-marker-outline"
-        title="Acme IT Solutions"
+        title="John Doe"
+        subTitle="Acme Company Ltd"
+        subIcon="office-building-marker-outline"
       />
       <TabComp />
     </ModalView>
   );
-};
-
-export default Company;
+}
 
 const renderScene = SceneMap({
-  first: Overview,
-  second: Notes,
-  third: Details,
+  first: Communications,
+  second: Details,
 });
 
 function TabComp() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Overview'},
-    {key: 'second', title: 'Notes'},
-    {key: 'third', title: 'Details'},
+    {key: 'first', title: 'Communications'},
+    {key: 'second', title: 'Details'},
   ]);
 
   return (

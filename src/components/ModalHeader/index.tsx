@@ -11,33 +11,46 @@ const ModalHeader = ({
   subTitle,
   icon,
   subIcon,
+  empty = false,
+  children,
 }: {
   icon?: string;
   right?: ReactNode;
-  title: string;
+  title?: string;
   subTitle?: string;
   subIcon?: string;
+  empty?: boolean;
+  children?: ReactNode;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
   return (
-    <View style={{...styles.container, backgroundColor: solidColor}}>
-      <View>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: solidColor,
+      }}>
+      <View
+        style={{
+          flexDirection: !empty ? 'row' : 'column',
+          justifyContent: 'space-between',
+        }}>
         <View
           style={{
             flexDirection: 'row',
-            alignItems: 'flex-start',
           }}>
-          {icon && (
-            <MCI
-              name={icon as string}
-              size={16}
-              color={colors.text}
-              style={{paddingTop: 6}}
-            />
-          )}
+          {empty
+            ? children
+            : icon && (
+                <MCI
+                  name={icon as string}
+                  size={16}
+                  color={colors.text}
+                  style={{paddingTop: 6}}
+                />
+              )}
           <View>
             <Text style={{...styles.title, color: colors.text}}>{title}</Text>
             <View style={{flexDirection: 'row'}}>
@@ -57,8 +70,8 @@ const ModalHeader = ({
             </View>
           </View>
         </View>
+        <View style={styles.rightContainer}>{right}</View>
       </View>
-      <View style={styles.rightContainer}>{right}</View>
     </View>
   );
 };

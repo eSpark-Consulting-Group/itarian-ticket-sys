@@ -7,13 +7,13 @@ import {Theme} from '../../theme/colors';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {
   expReportList,
-  SchAdditionalButtons,
+  ExpenseAdditionalButtons,
   scheduledList,
 } from '../../constants/SampleArrays';
-import {ExpReportList} from '../../types';
+import {AdditionalButtons, ExpReportList} from '../../types';
 import ListItem from '../Agenda/ListItem';
 
-const ExpenseReportsScreen = () => {
+const ExpenseReportsScreen = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [isDate, setIsDate] = useState(false);
   const [totExp, setTotExp] = useState(0);
@@ -22,6 +22,22 @@ const ExpenseReportsScreen = () => {
     {date: new Date()},
   ]);
   const [expData, setExpData] = useState<ExpReportList[]>([]);
+  const [actionButtons, setActionButtons] =
+  useState<AdditionalButtons[]>(ExpenseAdditionalButtons);
+
+  const updatePress = () => {
+    let tempArr = [...actionButtons];
+    tempArr[0].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewExpenseReport',
+      });
+    };
+    setActionButtons(tempArr);
+  };
+
+  useEffect(() => {
+    updatePress();
+  }, []);
 
   const getDate = (date1: Date, date2: Date) => {
     let datArr = [...dateArr];
@@ -79,7 +95,7 @@ const ExpenseReportsScreen = () => {
         </View>
       )}
 
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton AdditionalButtons={actionButtons} />
     </View>
   );
 };

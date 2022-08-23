@@ -74,6 +74,7 @@ const Overview = () => {
               stack: 'Stack1',
               title: route?.params?.title,
               headerTitle: 'Custom Feild',
+              searchable: true
             },
           });
         }}

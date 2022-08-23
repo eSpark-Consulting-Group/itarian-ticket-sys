@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
-import {SingleLineField} from '../../components';
+import {SingleLineField} from '../../../../components';
 
 export default function Communications() {
   const {colors}: Theme = useTheme();

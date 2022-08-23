@@ -38,7 +38,7 @@ const InOutBoardScreen = () => {
       // Filter the masterDataSource
       // Update FilteredDataSource
       // console.log('aya filtered memebers', members);
-      const newData = members?.filter(item => {
+      const newData = contactsList?.filter(item => {
         const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -96,9 +96,30 @@ const InOutBoardScreen = () => {
           <Text
             style={{
               color: colors.text,
+              fontWeight: selection == 2 ? "bold" : "normal"
             }}>
             {item.name}
           </Text>
+         {selection == 2 && <>
+          <Text
+            style={{
+              color: colors.text,
+            }}>
+             Gone To: Gone for the day
+          </Text>
+          <Text
+            style={{
+              color: colors.text,
+            }}>
+            Back Date: 16 August 2022
+          </Text>
+          <Text
+            style={{
+              color: colors.text,
+            }}>
+            Back Time: 08:00 AM
+          </Text>
+          </>}
         </View>
         {index !== contactsList.length - 1 && (
           <Divider

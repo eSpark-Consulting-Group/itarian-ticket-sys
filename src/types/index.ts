@@ -57,7 +57,7 @@ export type Unscheduled_Data = {
 export type ExpRprt_Data = {
   id: number;
   ticket_no: string;
-  task: string;
+  ticket_summary: string;
   totExp: string;
   expType: string;
 };
@@ -144,7 +144,7 @@ export type ModalFormArrayType = {
 
 export type Ticket = {
   id: number;
-  ticket_no: number;
+  ticket_no: string;
   age: number;
   ticket_summary: string;
   contact?: string;

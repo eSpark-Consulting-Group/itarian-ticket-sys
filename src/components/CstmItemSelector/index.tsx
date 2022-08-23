@@ -6,8 +6,11 @@ import {Checkbox, FAB} from 'react-native-paper';
 import { DarkTheme, LightTheme } from '../../theme/colors';
 import {SelectFeilds} from '../../types';
 import { globalState } from '../../utils/globalState';
+import { useUpdateEffect } from '../../utils/hooks';
 import {SingleLineField} from '../FormFields';
+import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
+import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
 import styles from './style';
 
@@ -17,6 +20,52 @@ const CstmItemSelector = ({route, navigation}: any) => {
   const [currChkInd, setCurrChkInd] = useState<number | any>(null);
   const [loader, setLoader] = useState<boolean>(true);
   const [list, setList] = useState<SelectFeilds[] | []>([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [clear, setClear] = useState(false);
+
+  const handleSubmit = () => {
+    setIsLoading(true);
+    searchFilterFunction(searchValue);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  };
+
+  const searchFilterFunction = (text: string) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = route?.params?.data?.filter((item: any) => {
+        const itemData = `${item.name.toUpperCase()}`;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setList(newData);
+    } else {
+      let listData = [...route?.params?.data]
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setList(listData);
+    }
+  };
+
+
+  const handleClear = () => {
+    setSearchValue('');
+    setClear(true);
+  };
+
+  useUpdateEffect(() => {
+    if (clear) {
+      console.log('done');
+      handleSubmit();
+      setClear(false);
+    }
+  }, [clear]);
+
 
   useEffect(() => {
     setList(route?.params?.data);
@@ -29,6 +78,18 @@ const CstmItemSelector = ({route, navigation}: any) => {
 
   return (
     <ModalView>
+       {route?.params?.searchable && 
+       <ModalHeader empty>
+         <SearchBar
+            withTag={false}
+            placeholder={'Search...'}
+            fontSize={'large'}
+            value={searchValue}
+            setChangeText={value => setSearchValue(value)}
+            onSubmit={handleSubmit}
+            onClear={handleClear}
+          />
+       </ModalHeader>}
       {list?.length > 0 && (
         <FlatList
           data={list}

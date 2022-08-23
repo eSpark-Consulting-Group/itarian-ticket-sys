@@ -4,13 +4,13 @@ import {useTheme, Theme} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
-import {GapView, ModalField} from '../../components';
+import {GapView, ModalField} from '../../../../components';
 import {Divider} from 'react-native-paper';
 
 const dataSource: Item[] = [
   {
     id: 1,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 1',
     time: '12:19 AM',
     date: '11 Nov, 2021',
@@ -18,21 +18,21 @@ const dataSource: Item[] = [
   },
   {
     id: 2,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 2',
     time: '12:19 AM',
     date: '15 Nov, 2021',
   },
   {
     id: 3,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 3',
     time: '12:19 AM',
     date: '19 Nov, 2021',
   },
   {
     id: 4,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 4',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -40,14 +40,14 @@ const dataSource: Item[] = [
   },
   {
     id: 5,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 5',
     time: '12:19 AM',
     date: '19 Nov, 2021',
   },
   {
     id: 6,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 6',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -55,14 +55,14 @@ const dataSource: Item[] = [
   },
   {
     id: 7,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 7',
     time: '12:19 AM',
     date: '19 Nov, 2021',
   },
   {
     id: 8,
-    img: require('../../assets/images/avatar_holder.webp'),
+    img: require('../../../../assets/images/avatar_holder.webp'),
     title: 'Template 8',
     time: '12:19 AM',
     date: '19 Nov, 2021',

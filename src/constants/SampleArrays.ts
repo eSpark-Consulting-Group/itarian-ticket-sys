@@ -35,7 +35,7 @@ export const AdditionalButtonStyle = {
 export const ticketsList: Ticket[] = [
   {
     id: 0,
-    ticket_no: 15222,
+    ticket_no: '#15222',
     age: 4.6,
     company: 'ACME Corporation',
     contact: 'Mills Davidson',
@@ -50,7 +50,7 @@ export const ticketsList: Ticket[] = [
   },
   {
     id: 1,
-    ticket_no: 15299,
+    ticket_no: '#15299',
     age: 6.5,
     company: 'Coca Cola Industries',
     contact: 'Joe Burns',
@@ -65,7 +65,7 @@ export const ticketsList: Ticket[] = [
   },
   {
     id: 2,
-    ticket_no: 15351,
+    ticket_no: '#15351',
     age: 2.2,
     company: 'Business INC',
     contact: 'Emiko Matsuzaka',
@@ -80,7 +80,7 @@ export const ticketsList: Ticket[] = [
   },
   {
     id: 3,
-    ticket_no: 15779,
+    ticket_no: '#15779',
     age: 1.0,
     company: 'Infusions Tech',
     ticket_summary: 'Dispose of Waste Materials',
@@ -94,7 +94,7 @@ export const ticketsList: Ticket[] = [
   },
   {
     id: 4,
-    ticket_no: 16831,
+    ticket_no: '#16831',
     age: 6.3,
     company: 'Miners Co & Sons',
     contact: 'Jim Evans',
@@ -109,7 +109,7 @@ export const ticketsList: Ticket[] = [
   },
   {
     id: 5,
-    ticket_no: 15529,
+    ticket_no: '#15529',
     age: 14.5,
     company: 'Fusion Tech',
     ticket_summary: 'Purchasing new Instruments and Equipments',
@@ -349,22 +349,22 @@ export const expReportList: Array<ExpReportList> = [
     data: [
       {
         id: 1,
-        ticket_no: 'Ticket #15340',
-        task: 'Config Service History # 2',
+        ticket_no: '#15340',
+        ticket_summary: 'Config Service History # 2',
         totExp: '$119.00',
         expType: 'Parts ',
       },
       {
         id: 2,
-        ticket_no: 'Ticket #15346',
-        task: 'Weekly Team Meeting',
+        ticket_no: '#15346',
+        ticket_summary: 'Weekly Team Meeting',
         totExp: '$456.00',
         expType: 'Miscellaneous',
       },
       {
         id: 3,
-        ticket_no: 'Ticket #16357',
-        task: 'New Server Installation',
+        ticket_no: '#16357',
+        ticket_summary: 'New Server Installation',
         totExp: '$148.00',
         expType: 'Equipments',
       },
@@ -377,8 +377,8 @@ export const expReportList: Array<ExpReportList> = [
     data: [
       {
         id: 4,
-        ticket_no: 'Ticket #18464',
-        task: 'Products for Exchange Server',
+        ticket_no: '#18464',
+        ticket_summary: 'Products for Exchange Server',
         totExp: '$1123.00',
         expType: 'Products',
       },
@@ -650,14 +650,14 @@ export const opportunitiesList: Opportunity[] = [
 
 export const stopWatchList: Stopwatch[] = [
   {
-    ticket_no: '12348',
+    ticket_no: '#12348',
     ticket_summary: 'Checking for Mantaince',
     created_at: '20, June 2021',
     timer: '00:13:42',
     isPlaying: false,
   },
   {
-    ticket_no: '56231',
+    ticket_no: '#56231',
     ticket_summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: '00:08:10',

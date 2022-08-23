@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Theme} from '../../theme/colors';
@@ -10,10 +10,24 @@ import EventCalendar from 'react-native-events-calendar';
 
 import {SchAdditionalButtons} from '../../constants/SampleArrays';
 import {FloatButton} from '../../components';
+import { AdditionalButtons } from '../../types';
 
-const Calendar = () => {
+const Calendar = ({navigation} : any) => {
   const {colors}: Theme = useTheme();
+  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(SchAdditionalButtons);
 
+  const updatePress = () => {
+    let tempArr = [...actionButtons];
+    tempArr[0].onPress = () => {navigation.navigate('Stack1', {
+      screen: "NewActivity",
+    })}
+    setActionButtons(tempArr)
+  }
+
+  useEffect(() => {
+    updatePress()
+  }, [])
+  
   const events = [
     {
       start: '2022-07-07 10:00:00',
@@ -81,7 +95,7 @@ const Calendar = () => {
         width={WINDOW_WIDTH}
         initDate={'2022-07-07'}
       />
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton AdditionalButtons={actionButtons} />
     </View>
   );
 };

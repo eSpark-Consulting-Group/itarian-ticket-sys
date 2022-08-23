@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {useState as useHookState, State} from '@hookstate/core';
+import {useState as useHState, State} from '@hookstate/core';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 
 //@ts-ignore
@@ -31,9 +31,9 @@ const config: any = {
 };
 
 const App = () => {
-  const themeValue: State<string> = useHookState(globalState.theme);
-  const user: State<boolean> = useHookState(globalState.user);
-  const shortCutScreen: State<any> = useHookState(globalState.shortCutScreen);
+  const themeValue: State<string> = useHState(globalState.theme);
+  const user: State<boolean> = useHState(globalState.user);
+  const shortCutScreen: State<any> = useHState(globalState.shortCutScreen);
 
   //! ----------------------------------------------------
 

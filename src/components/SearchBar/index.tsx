@@ -223,7 +223,9 @@ const SearchBar = ({
             color: colors.text,
             fontSize: getSize(fontSize),
           }}
-          style={{...styles.inputStyle, backgroundColor: '#dfdfdf'}}
+          style={[styles.inputStyle, {
+            backgroundColor: dark ? "#80808040" : "#dfdfdf" 
+          }]}
           icon={() => (
             <Ionicons
               name="search"

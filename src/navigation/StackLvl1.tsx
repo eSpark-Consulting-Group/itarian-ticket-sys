@@ -6,11 +6,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MI from 'react-native-vector-icons/MaterialIcons';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Theme, useTheme} from '@react-navigation/native';
-import {
-  backStatus,
-  saveGoneTo,
-  saveStatus,
-} from '../forms/utils/headerFunctions';
+import {goBack, saveStatus} from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
 import Contact1 from '../forms/Contacts';
@@ -24,6 +20,8 @@ import Activities from '../screens/MyActivities/View/Activity/index';
 import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 
 import NewActivity from '../forms/NewActivity';
+import {State, useState} from '@hookstate/core';
+import {globalState} from '../utils/globalState';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -37,11 +35,13 @@ export type RootStackParamList = {
   NewConfigure: undefined;
   Activities: undefined;
   Opportunity: undefined;
-  NewActivity: undefined
+  NewActivity: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
+  const activeStatus: State<any> = useState(globalState);
+
   console.log('route Props', route);
 
   return (
@@ -61,15 +61,13 @@ const StackLvl1 = ({route, navigation}: any) => {
           title: 'My Status',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => {
-            console.log('Options Props', route.params);
-
             return (
               <II
                 size={30}
                 name="close"
                 style={{right: 6}}
                 color={'#fff'}
-                onPress={() => backStatus(navigation)}
+                onPress={() => goBack(navigation)}
               />
             );
           },
@@ -78,7 +76,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => saveStatus(navigation, route)}
+              onPress={() => saveStatus(navigation, route, activeStatus)}
             />
           ),
         })}

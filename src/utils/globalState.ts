@@ -5,7 +5,7 @@ export const globalState = createState({
   statusSwitch: false,
   currentStatus: false,
   prevGoneTo: '',
-  currentGoneTo: '',
+  currentGoneTo: {},
   searchTag: 'tickets',
   oldAddInputVal: '',
   additionalInputVal: '',
@@ -15,5 +15,5 @@ export const globalState = createState({
   defaultScreenId: 'Agenda',
   defaultScreenName: 'Agenda',
   shortCutScreen: null,
-  user: false
+  user: false,
 });

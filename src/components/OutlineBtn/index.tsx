@@ -7,6 +7,7 @@ import styles from './style';
 import {Theme} from '../../theme/colors';
 import {moderateScale} from 'react-native-size-matters';
 import {CstmPressable} from '../CstmPressable';
+import {WINDOW_WIDTH} from '../../constants';
 
 const OutlineBtn = ({
   text,
@@ -17,6 +18,8 @@ const OutlineBtn = ({
   backColor,
   border,
   pressRipple,
+  widthLength,
+  highlight = false,
 }: {
   text: string;
   onPress: () => void;
@@ -26,6 +29,8 @@ const OutlineBtn = ({
   backColor?: string;
   border?: boolean;
   pressRipple?: boolean;
+  widthLength?: number | string;
+  highlight?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -34,11 +39,22 @@ const OutlineBtn = ({
     borderColor: colors.primary,
   };
 
+  const handleBackColor = backColor
+    ? highlight
+      ? colors.primary
+      : backColor
+    : colors.background;
+  const handleTextColor = textColor
+    ? highlight
+      ? '#ffffff'
+      : textColor
+    : colors.text;
+
   return (
     <View
       style={[
         {
-          backgroundColor: backColor ?? colors.background,
+          backgroundColor: handleBackColor,
           ...styles.container,
           alignItems: 'center',
           justifyContent: 'center',
@@ -58,11 +74,17 @@ const OutlineBtn = ({
         }>
         <View style={styles.content}>
           {leftIcon}
-          <View style={{width: rightIcon && 100, justifyContent: 'center'}}>
+          <View
+            style={{
+              width: rightIcon ? 100 : widthLength,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <Text
               style={{
                 textAlignVertical: 'center',
-                color: textColor ?? colors.text,
+                color: handleTextColor,
+                paddingVertical: 5,
                 ...styles.textStyle,
               }}>
               {text}

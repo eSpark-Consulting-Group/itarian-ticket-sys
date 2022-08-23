@@ -6,7 +6,7 @@ import AD from 'react-native-vector-icons/AntDesign';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
 import Ions from 'react-native-vector-icons/Ionicons';
-import {State, useState as useHookState} from '@hookstate/core';
+import {State, useState as useHState} from '@hookstate/core';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
@@ -21,7 +21,7 @@ const StopWatchScreen = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
-  const stopWatchDataList: State<any> = useHookState(globalState.stopwatch);
+  const stopWatchDataList: State<any> = useHState(globalState.stopwatch);
   const solidColor = dark ? '#000000' : '#ffffff';
 
   useFocusEffect(

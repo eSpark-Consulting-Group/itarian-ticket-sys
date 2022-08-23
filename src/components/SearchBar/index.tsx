@@ -8,7 +8,7 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {moderateScale} from 'react-native-size-matters';
-import {useState as useHookState, State} from '@hookstate/core';
+import {useState as useHState, State} from '@hookstate/core';
 
 import {Theme} from '../../theme/colors';
 import styles from './style';
@@ -36,7 +36,7 @@ const SearchBar = ({
   const [visible, setVisible] = useState(false);
   const [check, setCheckValue] = useState('tickets');
 
-  const searchTagValue: State<string> = useHookState(globalState.searchTag);
+  const searchTagValue: State<string> = useHState(globalState.searchTag);
 
   const onChangeSearch = (query: string): void => setChangeText(query);
   const showMenu = (): void => setVisible(!visible);

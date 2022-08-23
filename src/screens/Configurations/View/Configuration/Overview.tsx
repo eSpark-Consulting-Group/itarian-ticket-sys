@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
-import {PriorityField, SingleLineField} from '../../components';
-import {MultiLineField} from '../../components/FormFields';
+import {PriorityField, SingleLineField} from '../../../../components';
+import {MultiLineField} from '../../../../components/FormFields';
 
 interface Item {
   title: string;

@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-import {ModalField, ModalView, SingleLineField} from '../../components';
-import {GoneToFormArray} from '../../constants/SampleArrays';
-import {Theme} from '../../theme/colors';
-import {GONE_TO_ARRAY} from '../../constants';
+import {ModalField, ModalView, SingleLineField} from '../../../../components';
+import {GoneToFormArray} from '../../../../constants/SampleArrays';
+import {Theme} from '../../../../theme/colors';
+import {GONE_TO_ARRAY} from '../../../../constants';
 import {Checkbox} from 'react-native-paper';
 
 const GoneTo = ({navigation}: any) => {

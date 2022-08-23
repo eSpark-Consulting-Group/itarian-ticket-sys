@@ -15,5 +15,5 @@ export const globalState = createState({
   defaultScreenId: 'Agenda',
   defaultScreenName: 'Agenda',
   shortCutScreen: null,
-  user: false
+  user: false,
 });

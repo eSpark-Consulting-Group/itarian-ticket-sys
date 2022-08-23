@@ -4,9 +4,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 
-import GoneTo from '../forms/Profile/GoneTo';
+import GoneTo from '../screens/Profile/View/Profile/GoneTo';
 import {backGoneTo, onSave, saveGoneTo} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
+import ComposeNote from '../forms/ComposeNote';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,31 @@ const StackLvl2 = ({navigation}: any) => {
             <FA
               size={27}
               name="check"
+              color={'#fff'}
+              onPress={() => onSave(navigation, route)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ComposeNote"
+        component={ComposeNote}
+        options={({route, navigation}: any) => ({
+          title: 'Compose Note',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => backGoneTo(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
               color={'#fff'}
               onPress={() => onSave(navigation, route)}
             />

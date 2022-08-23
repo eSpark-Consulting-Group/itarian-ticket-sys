@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList,} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider, Menu} from 'react-native-paper';
@@ -26,8 +26,8 @@ const MyActivities = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [visible, setVisible] = useState(false);
   const [range, setRange] = useState('Last 30 Days');
-  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(SchAdditionalButtons);
-
+  const [actionButtons, setActionButtons] =
+    useState<AdditionalButtons[]>(SchAdditionalButtons);
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
@@ -36,16 +36,18 @@ const MyActivities = ({navigation}: any) => {
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
-    tempArr[0].onPress = () => {navigation.navigate('Stack1', {
-      screen: "NewActivity"
-    })}
-    setActionButtons(tempArr)
-  }
+    tempArr[0].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewActivity',
+      });
+    };
+    setActionButtons(tempArr);
+  };
 
   useEffect(() => {
-    updatePress()
-  }, [])
-  
+    updatePress();
+  }, []);
+
   const renderList = ({item, index}: {item: Activity; index: number}) => {
     return (
       <View
@@ -152,7 +154,7 @@ const MyActivities = ({navigation}: any) => {
                 rightIcon={
                   <View style={{flexDirection: 'row'}}>
                     <View style={styles.adjuster} />
-                    <View style={{padding: 4}}>
+                    <View style={{padding: 4, alignSelf: 'center'}}>
                       <MCI name="chevron-down" size={14} color="#fff" />
                     </View>
                   </View>

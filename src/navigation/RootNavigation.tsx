@@ -16,7 +16,15 @@ import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import Splash from '../screens/Splash/Splash';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Login: undefined;
+  SignUp: undefined;
+  Draw: undefined;
+  Stack1: undefined;
+  Stack2: {screen: string; params?: object};
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const config: any = {
   screens: {
@@ -40,16 +48,15 @@ const App = () => {
   //! ---------------------------------------------------
 
   useEffect(() => {
-    store.get('user')
-    .then((res: any) => {
-        if(res) user.set(res) 
-    })
+    store.get('user').then((res: any) => {
+      if (res) user.set(res);
+    });
     console.log('Theme State', themeValue.get());
   }, [themeValue.get()]);
 
   const handleColdBoot = (data: ShortcutItem) => {
     const {userInfo} = data;
-    shortCutScreen.set(data.type)
+    shortCutScreen.set(data.type);
     console.log('chala coldboot', userInfo?.url, data.type);
   };
 
@@ -68,41 +75,43 @@ const App = () => {
         }}
         fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
-        <Stack.Navigator >
-          {!user.get() ? <>
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{headerShown: false}}
-            />
-          </>
-          :
-          <Stack.Group
-            screenOptions={{
-              presentation: 'modal',
-              animation: 'slide_from_bottom',
-            }}>
-            <Stack.Screen
-              name="Draw"
-              component={Drawer}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Stack1"
-              component={StackLvl1}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Stack2"
-              component={StackLvl2}
-              options={{headerShown: false}}
-            />
-          </Stack.Group>}
+        <Stack.Navigator>
+          {!user.get() ? (
+            <>
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUp}
+                options={{headerShown: false}}
+              />
+            </>
+          ) : (
+            <Stack.Group
+              screenOptions={{
+                presentation: 'modal',
+                animation: 'slide_from_bottom',
+              }}>
+              <Stack.Screen
+                name="Draw"
+                component={Drawer}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Stack1"
+                component={StackLvl1}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Stack2"
+                component={StackLvl2}
+                options={{headerShown: false}}
+              />
+            </Stack.Group>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

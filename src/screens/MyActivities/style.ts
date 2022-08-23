@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   },
   dropDown: {
     padding: 4,
+    alignSelf: 'center',
     backgroundColor: '#fff',
     borderRadius: 100,
   },

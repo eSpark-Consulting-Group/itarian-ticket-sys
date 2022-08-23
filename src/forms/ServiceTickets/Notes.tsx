@@ -1,6 +1,11 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
+import {
+  useTheme,
+  Theme,
+  useNavigation,
+  NavigationProp,
+} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
@@ -9,6 +14,8 @@ import {Divider, Modal} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
 import {WINDOW_HEIGHT} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/RootNavigation';
 
 const dataSource: Item[] = [
   {
@@ -163,9 +170,11 @@ const Notes = () => {
     );
   }
 };
+type StackLvl2 = StackNavigationProp<RootStackParamList, 'Stack2'>;
 
 const SubHeader = () => {
   const {colors}: Theme = useTheme();
+  const navigation = useNavigation<StackLvl2>();
   return (
     <>
       <Text style={{color: colors.text, ...styles.titleStyle}}>All</Text>
@@ -175,7 +184,7 @@ const SubHeader = () => {
           size={24}
           color={colors.text}
           style={{opacity: 0.8}}
-          onPress={() => console.log('Pressed')}
+          onPress={() => navigation.navigate('Stack2', {screen: 'ComposeNote'})}
         />
         <GapView mode="horizontal" length={30} />
         <FT

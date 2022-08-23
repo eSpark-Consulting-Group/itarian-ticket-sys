@@ -31,7 +31,7 @@ const MyActivities = ({navigation}: any) => {
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
-  const showMenu = (): void => setVisible(!visible);
+  const showMenu = (): void => setVisible(true);
   const hideMenu = (): void => setVisible(false);
 
   const updatePress = () => {

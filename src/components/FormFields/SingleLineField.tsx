@@ -147,6 +147,7 @@ const SingleLineField = ({
             value={rightSwitchVal}
             onValueChange={onChangeSwitch}
             color={colors.primary}
+            trackColor={{true: '#5b57578f', false: '#5b57578f'}}
           />
         )}
         {rightIconRound && (

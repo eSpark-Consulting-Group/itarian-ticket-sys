@@ -18,7 +18,7 @@ import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
-import {useState as useHookState, State} from '@hookstate/core';
+import {useState as useHState, State} from '@hookstate/core';
 import {globalState} from '../../../utils/globalState';
 // @ts-ignore
 import store from 'react-native-simple-store';
@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
-  const user: State<any> = useHookState(globalState.user);
+  const user: State<any> = useHState(globalState.user);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const {colors}: Theme = useTheme();
 

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {useState as useHookState, State} from '@hookstate/core';
+import {useState as useHState, State} from '@hookstate/core';
 
 import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
@@ -34,7 +34,7 @@ const Search = () => {
     useState(configurationsList);
   const [filteredTickets, setFilteredTickets] = useState(ticketsList);
 
-  const searchTagValue: State<string> = useHookState(globalState.searchTag);
+  const searchTagValue: State<string> = useHState(globalState.searchTag);
 
   const handleSubmit = () => {
     setIsSearching(true);

@@ -1,10 +1,10 @@
 import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {GapView, ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
-const NewActivity = () => {
+const NewActivity = ({route} : any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>("date")
@@ -85,7 +85,14 @@ const NewActivity = () => {
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
 
-
+  useEffect(() => {
+    if(route?.params?.from) {
+      let newData = [...dataSource];
+      newData[9].title = "Johnny Bravo";
+      setDataSource(newData);
+    }
+  }, [route?.params])
+  
   const updateInput = (e: string, index: number) => {
     console.log('Text Index', e, index);
     let newData = [...dataSource];

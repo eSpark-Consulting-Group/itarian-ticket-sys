@@ -120,7 +120,12 @@ const SingleLineField = ({
                 )
               ) : (
                 <>
-                  {leftChild && leftChild}
+                  {leftChild && (
+                    <>
+                      {leftChild}
+                      <GapView mode="horizontal" />
+                    </>
+                  )}
                   <Text
                     style={{
                       color: colors.text,

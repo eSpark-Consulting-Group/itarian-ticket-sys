@@ -22,6 +22,7 @@ import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 import NewActivity from '../forms/NewActivity';
 import {State, useState} from '@hookstate/core';
 import {globalState} from '../utils/globalState';
+import NewOpportunity from '../forms/NewOpportunity';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -36,6 +37,7 @@ export type RootStackParamList = {
   Activities: undefined;
   Opportunity: undefined;
   NewActivity: undefined;
+  NewOpportunity: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -274,6 +276,31 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={NewActivity}
         options={({route, navigation}) => ({
           title: 'New Activity',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewOpportunity"
+        component={NewOpportunity}
+        options={({route, navigation}) => ({
+          title: 'New Opportunity',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

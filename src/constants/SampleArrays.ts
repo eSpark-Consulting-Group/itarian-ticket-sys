@@ -556,6 +556,39 @@ export const STicketsAdditionalButtons : Array<AdditionalButtons> = [
   },
 ]
 
+export const AddExpenseAdditionalButtons: Array<AdditionalButtons> = [
+  {
+    icon: 'cash-plus',
+    label: 'Add Tax Type',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+]
+
+export const TimeSheetAdditionalButtons : Array<AdditionalButtons> = [
+  {
+    icon: 'clock-plus-outline',
+    label: 'Add Time',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'calendar-plus',
+    label: 'Submit Time Sheet',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed email'),
+  },
+]
+
 export const StatusFormArray: Array<ModalFormArrayType> = [
   {
     formName: 'My Status',

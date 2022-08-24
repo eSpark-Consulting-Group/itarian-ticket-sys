@@ -167,7 +167,7 @@ const ServiceBoard = ({navigation} : any) => {
       ) : (
         <NotFound />
       )}
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton icon='tag-plus-outline' onPress={() => console.log("press")} />
     </View>
   );
 };

@@ -1,19 +1,18 @@
 import {View, Text, FlatList} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './style';
 import {useTheme} from '@react-navigation/native';
 import {Theme} from '../../theme/colors';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {
-  expReportList,
-  SchAdditionalButtons,
-  scheduledList,
+
+  TimeSheetAdditionalButtons,
   timeSheetList,
 } from '../../constants/SampleArrays';
-import {TimeSheet} from '../../types';
+import {AdditionalButtons, TimeSheet} from '../../types';
 import ListItem from '../Agenda/ListItem';
 
-const TimeSheetsScreen = () => {
+const TimeSheetsScreen = ({navigation} :any) => {
   const {colors}: Theme = useTheme();
   const [isDate, setIsDate] = useState(false);
   const [totHrs, setTotHrs] = useState(0);
@@ -22,6 +21,22 @@ const TimeSheetsScreen = () => {
     {date: new Date()},
   ]);
   const [sheetData, setSheetData] = useState<TimeSheet[]>([]);
+  const [actionButtons, setActionButtons] =
+  useState<AdditionalButtons[]>(TimeSheetAdditionalButtons);
+
+  const updatePress = () => {
+    let tempArr = [...actionButtons];
+    tempArr[0].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewTimeSheet',
+      });
+    };
+    setActionButtons(tempArr);
+  };
+
+  useEffect(() => {
+    updatePress();
+  }, []);
 
   const getDate = (date1: Date, date2: Date) => {
     let datArr = [...dateArr];
@@ -76,7 +91,7 @@ const TimeSheetsScreen = () => {
           <Text style={{color: colors.text}}>Please Select Date Range</Text>
         </View>
       )}
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton AdditionalButtons={actionButtons} />
     </View>
   );
 };

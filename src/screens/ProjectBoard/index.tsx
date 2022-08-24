@@ -55,7 +55,7 @@ const ProjectBoard = () => {
                   ...styles.horizontalItemStyles,
                 }}>
                 <Text style={{...styles.title, color: colors.text}}>
-                  Ticket #{item.ticket_no}
+                  Ticket {item.ticket_no}
                 </Text>
                 <View
                   style={{

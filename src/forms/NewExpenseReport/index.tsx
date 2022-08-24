@@ -70,10 +70,8 @@ const NewExpenseReport = ({route} : any) => {
   }, [route?.params])
   
   const updateInput = (e: string, index: number) => {
-    console.log('Text Index', e, index);
     let newData = [...dataSource];
     newData[index].title = e;
-    console.log('New Data', newData);
     setDataSource(newData);
   };
 

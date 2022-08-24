@@ -508,6 +508,54 @@ export const ExpenseAdditionalButtons : Array<AdditionalButtons> = [
   },
 ]
 
+export const STicketsAdditionalButtons : Array<AdditionalButtons> = [
+  {
+    icon: 'file-sign',
+    label: 'Add Signature',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'calendar-plus',
+    label: 'Add Resource',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'tag-plus-outline',
+    label: 'Add Ticket',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed notifications'),
+  },
+  {
+    icon: 'currency-usd',
+    label: 'Add Expense',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'timetable',
+    label: 'Add Time',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+]
+
 export const StatusFormArray: Array<ModalFormArrayType> = [
   {
     formName: 'My Status',

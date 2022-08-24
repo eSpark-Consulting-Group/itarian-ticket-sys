@@ -5,7 +5,7 @@ import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 
 import GoneTo from '../screens/Profile/View/Profile/GoneTo';
-import { onSave, goBack} from '../forms/utils/headerFunctions';
+import {onSave, goBack} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
 import ComposeNote from '../forms/ComposeNote';
 

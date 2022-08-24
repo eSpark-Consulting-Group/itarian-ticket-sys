@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
 
 import {useTheme} from '@react-navigation/native';
@@ -11,25 +11,32 @@ import {
   SchAdditionalButtons,
   scheduledList,
 } from '../../../constants/SampleArrays';
-import { AdditionalButtons } from '../../../types';
+import {AdditionalButtons} from '../../../types';
 
 const ScheduledTab = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
-  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(SchAdditionalButtons);
+  const [actionButtons, setActionButtons] =
+    useState<AdditionalButtons[]>(SchAdditionalButtons);
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
-    tempArr[0].onPress = () => {navigation.navigate('Stack1', {
-      screen: "NewActivity",
-      params: {from: 'agenda'}
-    })}
-    setActionButtons(tempArr)
-  }
+    tempArr[0].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewActivity',
+        params: {from: 'agenda'},
+      });
+    };
+    tempArr[2].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewTicket',
+      });
+    };
+    setActionButtons(tempArr);
+  };
 
   useEffect(() => {
-    updatePress()
-  }, [])
-  
+    updatePress();
+  }, []);
 
   return (
     <View style={styles.container}>

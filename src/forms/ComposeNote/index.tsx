@@ -52,7 +52,7 @@ export default function ComposeNote({ route, navigation }: any) {
 
   const renderNoteTypes = (item: Item, index: number) => {
     return (
-      <View style={{ marginHorizontal: 1 }} >
+      <View key={index} style={{ marginHorizontal: 1 }} >
         <OutlineBtn
           key={index}
           text={item.text}

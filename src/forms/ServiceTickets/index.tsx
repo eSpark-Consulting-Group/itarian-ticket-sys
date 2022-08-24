@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
@@ -7,7 +7,10 @@ import {
   ModalView,
   RoundedIcon,
   CstmTabBar,
+  FloatButton,
 } from '../../components';
+import { STicketsAdditionalButtons } from '../../constants/SampleArrays';
+import { AdditionalButtons } from '../../types';
 import Details from './Details';
 import Notes from './Notes';
 import Overview from './Overview';
@@ -19,7 +22,25 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const App = () => {
+const App = ({navigation} : any
+  ) => {
+  const [actionButtons, setActionButtons] =
+  useState<AdditionalButtons[]>(STicketsAdditionalButtons);
+
+  const updatePress = () => {
+    let tempArr = [...actionButtons];
+    tempArr[3].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewExpenseReport',
+      });
+    };
+    setActionButtons(tempArr);
+  };
+
+  useEffect(() => {
+    updatePress();
+  }, []);
+
   return (
     <ModalView>
       <ModalHeader
@@ -38,6 +59,7 @@ const App = () => {
         }
       />
       <TabComp />
+      <FloatButton AdditionalButtons={actionButtons} />
     </ModalView>
   );
 };

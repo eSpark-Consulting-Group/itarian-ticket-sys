@@ -1,8 +1,9 @@
 import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {GapView, ModalView, RoundedIcon, SingleLineField} from '../../components';
+import {FloatButton, GapView, ModalView, RoundedIcon, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
+import { AddExpenseAdditionalButtons } from '../../constants/SampleArrays';
 
 const NewExpenseReport = ({route} : any) => {
   const {colors, dark}: Theme = useTheme();
@@ -70,10 +71,8 @@ const NewExpenseReport = ({route} : any) => {
   }, [route?.params])
   
   const updateInput = (e: string, index: number) => {
-    console.log('Text Index', e, index);
     let newData = [...dataSource];
     newData[index].title = e;
-    console.log('New Data', newData);
     setDataSource(newData);
   };
 
@@ -120,6 +119,7 @@ const NewExpenseReport = ({route} : any) => {
           {/* <GapView /> */}
         </View>
       </ScrollView>
+      <FloatButton AdditionalButtons={AddExpenseAdditionalButtons} />
     </ModalView>
   );
 };

@@ -7,9 +7,11 @@ import styles from './style';
 const FloatButton = ({
   AdditionalButtons,
   onPress,
+  icon='plus'
 }: {
   AdditionalButtons?: any;
   onPress?: any;
+  icon?: string
 }) => {
   const [showBtns, setShowBtns] = useState(false);
   const ShowMoreBtns = () => {
@@ -34,7 +36,7 @@ const FloatButton = ({
         <FAB
           theme={{colors: {background: '#111'}}}
           style={styles.floatButton}
-          icon={'plus'}
+          icon={icon}
           color="#fff"
           visible={true}
           onPress={onPress}

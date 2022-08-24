@@ -15,7 +15,7 @@ import {Ticket} from '../../types';
 import {EmptyListMsg} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';
 
-const ProjectBoard = () => {
+const ProjectBoard = ({navigation} : any) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({item, index}: {item: Ticket; index: number}) => {
@@ -34,6 +34,14 @@ const ProjectBoard = () => {
 
     return (
       <View style={styles.listContainer}>
+        <CstmPressable
+         onPress={() => {
+          navigation.navigate('Stack1', {
+            screen: 'STickets',
+            params: {title: item.ticket_no.toString()},
+          });
+        }}
+          >
         <View
           style={{
             ...styles.listInner,
@@ -55,7 +63,7 @@ const ProjectBoard = () => {
                   ...styles.horizontalItemStyles,
                 }}>
                 <Text style={{...styles.title, color: colors.text}}>
-                  Ticket #{item.ticket_no}
+                  Ticket {item.ticket_no}
                 </Text>
                 <View
                   style={{
@@ -145,6 +153,7 @@ const ProjectBoard = () => {
             </View>
           </View>
         </View>
+        </CstmPressable>
         {index !== ticketsList.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}

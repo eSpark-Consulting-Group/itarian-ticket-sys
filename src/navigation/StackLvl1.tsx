@@ -25,6 +25,7 @@ import NewActivity from '../forms/NewActivity';
 import NewExpenseReport from '../forms/NewExpenseReport';
 import {globalState} from '../utils/globalState';
 import NewOpportunity from '../forms/NewOpportunity';
+import NewTimeSheet from '../forms/NewTimeSheet';
 import NewTicket from '../forms/NewTicket';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -42,6 +43,7 @@ export type RootStackParamList = {
   NewActivity: undefined;
   NewExpenseReport: undefined;
   NewOpportunity: undefined;
+  NewTimeSheet: undefined;
   NewTicket: undefined;
 };
 
@@ -93,7 +95,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="STickets"
         component={STickets}
         options={({route, navigation}) => ({
-          title: '#' + route?.params?.title,
+          title: route?.params?.title,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -331,6 +333,31 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={NewOpportunity}
         options={({route, navigation}) => ({
           title: 'New Opportunity',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewTimeSheet"
+        component={NewTimeSheet}
+        options={({route, navigation}) => ({
+          title: 'Add Time',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

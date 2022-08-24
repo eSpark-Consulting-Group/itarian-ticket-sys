@@ -23,6 +23,10 @@ const UnscheduledTab = ({navigation}: any) => {
       screen: "NewActivity",
       params: {from: 'agenda'}
     })}
+    tempArr[1].onPress = () => {navigation.navigate('Stack1', {
+      screen: "AddMiscSchedule",
+      params: {from: 'agenda'}
+    })}
     setActionButtons(tempArr)
   }
 

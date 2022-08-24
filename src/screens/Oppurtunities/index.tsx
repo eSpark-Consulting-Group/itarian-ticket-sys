@@ -133,7 +133,11 @@ const Oppurtunities = ({navigation, route}: any) => {
       ) : (
         <NotFound />
       )}
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton
+        onPress={() =>
+          navigation.navigate('Stack1', {screen: 'NewOpportunity'})
+        }
+      />
     </View>
   );
 };

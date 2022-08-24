@@ -72,7 +72,7 @@ const SingleLineField = ({
       onPress={onPress}
       gap={gap}
       border={border}
-      fieldPadding={20}>
+      fieldPadding={10}>
       <View
         style={{
           flexDirection: 'row',
@@ -120,7 +120,12 @@ const SingleLineField = ({
                 )
               ) : (
                 <>
-                  {leftChild && leftChild}
+                  {leftChild && (
+                    <>
+                      {leftChild}
+                      <GapView mode="horizontal" />
+                    </>
+                  )}
                   <Text
                     style={{
                       color: colors.text,
@@ -176,7 +181,7 @@ const styles = StyleSheet.create({
     width: 10,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
     opacity: 0.8,
   },

@@ -6,11 +6,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MI from 'react-native-vector-icons/MaterialIcons';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Theme, useTheme} from '@react-navigation/native';
-import {
-  backStatus,
-  saveGoneTo,
-  saveStatus,
-} from '../forms/utils/headerFunctions';
+import {goBack, saveStatus} from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
 import Contact1 from '../screens/Contacts/View/Contacts';
@@ -25,6 +21,9 @@ import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 
 import NewActivity from '../forms/NewActivity';
 import NewExpenseReport from '../forms/NewExpenseReport';
+import {State, useState} from '@hookstate/core';
+import {globalState} from '../utils/globalState';
+import NewOpportunity from '../forms/NewOpportunity';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -40,10 +39,13 @@ export type RootStackParamList = {
   Opportunity: undefined;
   NewActivity: undefined;
   NewExpenseReport: undefined;
+  NewOpportunity: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
+  const activeStatus: State<any> = useState(globalState);
+
   console.log('route Props', route);
 
   return (
@@ -63,15 +65,13 @@ const StackLvl1 = ({route, navigation}: any) => {
           title: 'My Status',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => {
-            console.log('Options Props', route.params);
-
             return (
               <II
                 size={30}
                 name="close"
                 style={{right: 6}}
                 color={'#fff'}
-                onPress={() => backStatus(navigation)}
+                onPress={() => goBack(navigation)}
               />
             );
           },
@@ -80,7 +80,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => saveStatus(navigation, route)}
+              onPress={() => saveStatus(navigation, route, activeStatus)}
             />
           ),
         })}
@@ -303,6 +303,31 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={NewExpenseReport}
         options={({route, navigation}) => ({
           title: 'Add Expense',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewOpportunity"
+        component={NewOpportunity}
+        options={({route, navigation}) => ({
+          title: 'New Opportunity',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

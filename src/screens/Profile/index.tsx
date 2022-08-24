@@ -31,7 +31,7 @@ const Profile = ({route, navigation}: any) => {
       </View>
       <SingleLineField
         subTitle="My Status"
-        title={route.params.status == false ? 'In Office' : 'Out of the Office'}
+        title={currStatus.get() == false ? 'In Office' : 'Out of the Office'}
         onPress={() => navigation.navigate('Stack1', {screen: 'MyStatus'})}
         rightIcon="chevron-right"
       />

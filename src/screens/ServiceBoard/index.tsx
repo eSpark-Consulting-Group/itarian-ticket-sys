@@ -14,7 +14,7 @@ import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';
 
-const ServiceBoard = () => {
+const ServiceBoard = ({navigation} : any) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({item, index}: {item: Ticket; index: number}) => {
@@ -46,10 +46,14 @@ const ServiceBoard = () => {
 
     return (
       <View style={styles.listContainer}>
-        {/* <Pressable
-          onPress={() => console.log('Hello')}
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}
-          > */}
+        <CstmPressable
+         onPress={() => {
+          navigation.navigate('Stack1', {
+            screen: 'STickets',
+            params: {title: item.ticket_no.toString()},
+          });
+        }}
+          >
         <View
           style={{
             ...styles.listInner,
@@ -70,7 +74,7 @@ const ServiceBoard = () => {
                   ...styles.horizontalItemStyles,
                 }}>
                 <Text style={{...styles.title, color: colors.text}}>
-                  Ticket #{item.ticket_no}
+                  Ticket {item.ticket_no}
                 </Text>
                 <View
                   style={{
@@ -146,7 +150,7 @@ const ServiceBoard = () => {
             </View>
           </View>
         </View>
-        {/* </Pressable> */}
+        </CstmPressable>
         {index !== ticketsList.length - 1 && (
           <Divider
             style={{backgroundColor: colors.text, ...styles.dividerStyle}}
@@ -163,7 +167,7 @@ const ServiceBoard = () => {
       ) : (
         <NotFound />
       )}
-      <FloatButton AdditionalButtons={SchAdditionalButtons} />
+      <FloatButton icon='tag-plus-outline' onPress={() => console.log("press")} />
     </View>
   );
 };

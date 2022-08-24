@@ -44,7 +44,7 @@ const NewTimeSheet = ({route} : any) => {
             setShowDate(true)
         }
     },
-    {title: 'Add time to deduct', subTitle: 'Time', inputable: true},
+    {title: '', subTitle: 'Time', inputable: true, enable: false},
     {title: 'Please Select', subTitle: 'Work Role', rightIcon: 'chevron-right'},
     {title: 'Please Select', subTitle: 'Work Type', rightIcon: 'chevron-right'},
     {

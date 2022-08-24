@@ -27,6 +27,8 @@ import {globalState} from '../utils/globalState';
 import NewOpportunity from '../forms/NewOpportunity';
 import NewTimeSheet from '../forms/NewTimeSheet';
 import NewTicket from '../forms/NewTicket';
+import AddMiscSchedule from '../forms/AddMiscSchedule';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -45,6 +47,7 @@ export type RootStackParamList = {
   NewOpportunity: undefined;
   NewTimeSheet: undefined;
   NewTicket: undefined;
+  AddMiscSchedule: undefined
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -383,6 +386,31 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={NewTicket}
         options={({route, navigation}) => ({
           title: 'New Ticket',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="AddMiscSchedule"
+        component={AddMiscSchedule}
+        options={({route, navigation}) => ({
+          title: 'Add Misc Schedule',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

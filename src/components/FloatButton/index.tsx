@@ -7,11 +7,11 @@ import styles from './style';
 const FloatButton = ({
   AdditionalButtons,
   onPress,
-  icon='plus'
+  icon = 'plus',
 }: {
   AdditionalButtons?: any;
   onPress?: any;
-  icon?: string
+  icon?: string;
 }) => {
   const [showBtns, setShowBtns] = useState(false);
   const ShowMoreBtns = () => {

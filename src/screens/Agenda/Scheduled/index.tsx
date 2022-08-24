@@ -26,6 +26,10 @@ const ScheduledTab = ({navigation}: any) => {
         params: {from: 'agenda'},
       });
     };
+    tempArr[1].onPress = () => {navigation.navigate('Stack1', {
+      screen: "AddMiscSchedule",
+      params: {from: 'agenda'}
+    })}
     tempArr[2].onPress = () => {
       navigation.navigate('Stack1', {
         screen: 'NewTicket',

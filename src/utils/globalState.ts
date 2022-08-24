@@ -5,7 +5,7 @@ export const globalState = createState({
   statusSwitch: false,
   currentStatus: false,
   prevGoneTo: '',
-  currentGoneTo: '',
+  currentGoneTo: {},
   searchTag: 'tickets',
   oldAddInputVal: '',
   additionalInputVal: '',

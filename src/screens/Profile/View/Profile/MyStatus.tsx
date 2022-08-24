@@ -6,24 +6,51 @@ import {useTheme, Theme} from '@react-navigation/native';
 import {Switch} from 'react-native-paper';
 import {ModalField, ModalView, SingleLineField} from '../../../../components';
 import {GoneToFormArray} from '../../../../constants/SampleArrays';
+import {globalState} from '../../../../utils/globalState';
+import {State, useState as useHState} from '@hookstate/core';
 
 const MyStatus = ({route, navigation}: any) => {
+  const currStatus: State<boolean> = useHState(globalState.currentStatus);
+  const currGonTo: State<object> = useHState(globalState.currentGoneTo);
   console.log('Route', route);
   const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();
   const [goneTo, setGoneTo] = useState<any>(null);
+  const [goneToStatus, setGoneToStatus] = useState<any>(currStatus.get());
   const [showTime, setShowTime] = useState(false);
   const [showDate, setShowDate] = useState(false);
   const [currTime, setCurrTime] = useState(new Date());
   const [currDate, setCurrDate] = useState(new Date());
   const [timeDur, setTimeDur] = useState('--');
   const [dateDur, setDateDur] = useState('--');
+  const [addInfo, setAddInfo] = useState('');
 
   useEffect(() => {
     if (route?.params?.item) {
-      setGoneTo(route?.params?.selected);
+      if (route?.params?.selected) {
+        setGoneTo(route?.params?.selected);
+      } else {
+        setGoneTo(currGonTo.get());
+      }
     }
   }, [route?.params]);
+
+  useEffect(() => {
+    if (route?.params?.selected) {
+      setGoneTo(route?.params?.selected);
+    } else {
+      setGoneTo(currGonTo.get());
+    }
+  }, []);
+
+  useEffect(() => {
+    navigation?.setParams({
+      ...route?.params,
+      status: goneToStatus,
+      goneTo: goneTo,
+      addInfo: addInfo,
+    });
+  }, [goneTo, addInfo, goneToStatus]);
 
   const closeTImePicker = (event: any, time: any) => {
     setShowTime(false);
@@ -52,10 +79,13 @@ const MyStatus = ({route, navigation}: any) => {
   };
 
   const changeSwitch = () => {
-    const {setParams} = navigation;
-    setParams({
-      status: !OutStatus,
-    });
+    // const {setParams} = navigation;
+    setGoneToStatus(!goneToStatus);
+    // setParams({
+    //   ...route?.params,
+    //   status: !OutStatus,
+    // });
+    // setGoneTo(null);
   };
 
   return (
@@ -65,7 +95,7 @@ const MyStatus = ({route, navigation}: any) => {
         onPress={changeSwitch}
         rightChild={
           <Switch
-            value={OutStatus}
+            value={goneToStatus}
             style={{marginRight: 5}}
             color={colors.primary}
             thumbColor={colors.primary}
@@ -74,7 +104,7 @@ const MyStatus = ({route, navigation}: any) => {
           />
         }
       />
-      {OutStatus && (
+      {goneToStatus && (
         <>
           <SingleLineField
             title={goneTo?.name || 'Please Select'}
@@ -97,11 +127,12 @@ const MyStatus = ({route, navigation}: any) => {
             subTitle="Gone To"
           />
           <SingleLineField
-            title=""
+            title={addInfo}
             enable={false}
             subTitle="Additional Info"
             mode="multiline"
             inputable
+            onChangeText={e => setAddInfo(e)}
           />
           <ModalField
             mode="inlined"

@@ -6,6 +6,8 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MI from 'react-native-vector-icons/MaterialIcons';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Theme, useTheme} from '@react-navigation/native';
+import {State, useState} from '@hookstate/core';
+
 import {goBack, saveStatus} from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
@@ -21,9 +23,9 @@ import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 
 import NewActivity from '../forms/NewActivity';
 import NewExpenseReport from '../forms/NewExpenseReport';
-import {State, useState} from '@hookstate/core';
 import {globalState} from '../utils/globalState';
 import NewOpportunity from '../forms/NewOpportunity';
+import NewTicket from '../forms/NewTicket';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -40,6 +42,7 @@ export type RootStackParamList = {
   NewActivity: undefined;
   NewExpenseReport: undefined;
   NewOpportunity: undefined;
+  NewTicket: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -333,6 +336,31 @@ const StackLvl1 = ({route, navigation}: any) => {
             <II
               size={30}
               name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewTicket"
+        component={NewTicket}
+        options={({route, navigation}) => ({
+          title: 'New Ticket',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
               style={{right: 6}}
               color={'#fff'}
               onPress={() => navigation.goBack()}

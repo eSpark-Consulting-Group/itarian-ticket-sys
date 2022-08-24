@@ -4,6 +4,7 @@ import {useTheme, Theme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
+import {CstmPressable} from '../CstmPressable';
 
 const ModalHeader = ({
   right,
@@ -13,6 +14,8 @@ const ModalHeader = ({
   subIcon,
   empty = false,
   children,
+  onPress,
+  disabled = true,
 }: {
   icon?: string;
   right?: ReactNode;
@@ -21,13 +24,17 @@ const ModalHeader = ({
   subIcon?: string;
   empty?: boolean;
   children?: ReactNode;
+  onPress?: () => void;
+  disabled?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
   return (
-    <View
+    <CstmPressable
+      disabled={disabled}
+      onPress={onPress}
       style={{
         ...styles.container,
         backgroundColor: solidColor,
@@ -72,7 +79,7 @@ const ModalHeader = ({
         </View>
         <View style={styles.rightContainer}>{right}</View>
       </View>
-    </View>
+    </CstmPressable>
   );
 };
 

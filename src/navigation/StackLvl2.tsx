@@ -5,7 +5,7 @@ import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 
 import GoneTo from '../screens/Profile/View/Profile/GoneTo';
-import {backGoneTo, onSave, saveGoneTo} from '../forms/utils/headerFunctions';
+import {onSave, goBack, saveStatus} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
 import ComposeNote from '../forms/ComposeNote';
 
@@ -35,7 +35,7 @@ const StackLvl2 = ({navigation}: any) => {
               name="close"
               style={{right: 6}}
               color={'#fff'}
-              onPress={() => backGoneTo(navigation)}
+              onPress={() => goBack(navigation)}
             />
           ),
           headerRight: () => (
@@ -43,7 +43,7 @@ const StackLvl2 = ({navigation}: any) => {
               size={27}
               name="check"
               color={'#fff'}
-              onPress={() => saveGoneTo(navigation)}
+              onPress={() => goBack(navigation)}
             />
           ),
         }}
@@ -60,7 +60,7 @@ const StackLvl2 = ({navigation}: any) => {
               name="close"
               style={{right: 6}}
               color={'#fff'}
-              onPress={() => backGoneTo(navigation)}
+              onPress={() => goBack(navigation)}
             />
           ),
           headerRight: () => (
@@ -85,7 +85,7 @@ const StackLvl2 = ({navigation}: any) => {
               name="chevron-back"
               style={{right: 6}}
               color={'#fff'}
-              onPress={() => backGoneTo(navigation)}
+              onPress={() => goBack(navigation)}
             />
           ),
           headerRight: () => (

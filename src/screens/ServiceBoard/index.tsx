@@ -14,7 +14,7 @@ import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';
 
-const ServiceBoard = ({navigation} : any) => {
+const ServiceBoard = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({item, index}: {item: Ticket; index: number}) => {
@@ -47,109 +47,108 @@ const ServiceBoard = ({navigation} : any) => {
     return (
       <View style={styles.listContainer}>
         <CstmPressable
-         onPress={() => {
-          navigation.navigate('Stack1', {
-            screen: 'STickets',
-            params: {title: item.ticket_no.toString()},
-          });
-        }}
-          >
-        <View
-          style={{
-            ...styles.listInner,
+          onPress={() => {
+            navigation.navigate('Stack1', {
+              screen: 'STickets',
+              params: {title: item.ticket_no.toString()},
+            });
           }}>
-          <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                backgroundColor: renderColor(),
-                ...styles.priorityContainer,
-              }}
-            />
-            <View
-              style={{
-                ...styles.listItemContainer,
-              }}>
+          <View
+            style={{
+              ...styles.listInner,
+            }}>
+            <View style={{flexDirection: 'row'}}>
               <View
                 style={{
-                  ...styles.horizontalItemStyles,
+                  backgroundColor: renderColor(),
+                  ...styles.priorityContainer,
+                }}
+              />
+              <View
+                style={{
+                  ...styles.listItemContainer,
                 }}>
-                <Text style={{...styles.title, color: colors.text}}>
-                  Ticket {item.ticket_no}
-                </Text>
                 <View
                   style={{
-                    ...styles.ageContainer,
+                    ...styles.horizontalItemStyles,
                   }}>
-                  <Text style={{color: '#fff', fontSize: 12}}>
-                    {item.age.toFixed(1)}
+                  <Text style={{...styles.title, color: colors.text}}>
+                    Ticket {item.ticket_no}
                   </Text>
-                </View>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={{...styles.title, color: colors.text}}>
-                  {item.ticket_summary}
-                </Text>
-              </View>
-              {item.contact && (
-                <View style={{flexDirection: 'row'}}>
-                  <Fthr
-                    name="user"
-                    color={colors.text}
-                    size={12}
+                  <View
                     style={{
-                      ...styles.iconStyle,
-                    }}
-                  />
-                  <Text style={{...styles.subTitle, color: colors.text}}>
-                    {item.contact}
-                  </Text>
-                </View>
-              )}
-              <View style={{flexDirection: 'row'}}>
-                <MCI
-                  name="office-building-marker-outline"
-                  color={colors.text}
-                  size={12}
-                  style={{
-                    ...styles.iconStyle,
-                  }}
-                />
-                <Text style={{...styles.subTitle, color: colors.text}}>
-                  {item.company}
-                </Text>
-              </View>
-              <View
-                style={{
-                  ...styles.horizontalItemStyles,
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  <FD
-                    name="wrench"
-                    color={colors.text}
-                    size={12}
-                    style={{
-                      ...styles.iconStyle,
-                      paddingRight: 8,
-                    }}
-                  />
-                  <Text style={{...styles.subTitle, color: colors.text}}>
-                    {item.status}
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      ...styles.subTitle,
-                      color: colors.text,
-                      ...styles.highlight,
+                      ...styles.ageContainer,
                     }}>
-                    {renderPriorityText(item.priority)}
+                    <Text style={{color: '#fff', fontSize: 12}}>
+                      {item.age.toFixed(1)}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{...styles.title, color: colors.text}}>
+                    {item.ticket_summary}
                   </Text>
+                </View>
+                {item.contact && (
+                  <View style={{flexDirection: 'row'}}>
+                    <Fthr
+                      name="user"
+                      color={colors.text}
+                      size={12}
+                      style={{
+                        ...styles.iconStyle,
+                      }}
+                    />
+                    <Text style={{...styles.subTitle, color: colors.text}}>
+                      {item.contact}
+                    </Text>
+                  </View>
+                )}
+                <View style={{flexDirection: 'row'}}>
+                  <MCI
+                    name="office-building-marker-outline"
+                    color={colors.text}
+                    size={12}
+                    style={{
+                      ...styles.iconStyle,
+                    }}
+                  />
+                  <Text style={{...styles.subTitle, color: colors.text}}>
+                    {item.company}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    ...styles.horizontalItemStyles,
+                  }}>
+                  <View style={{flexDirection: 'row'}}>
+                    <FD
+                      name="wrench"
+                      color={colors.text}
+                      size={12}
+                      style={{
+                        ...styles.iconStyle,
+                        paddingRight: 8,
+                      }}
+                    />
+                    <Text style={{...styles.subTitle, color: colors.text}}>
+                      {item.status}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        ...styles.subTitle,
+                        color: colors.text,
+                        ...styles.highlight,
+                      }}>
+                      {renderPriorityText(item.priority)}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
-        </View>
         </CstmPressable>
         {index !== ticketsList.length - 1 && (
           <Divider
@@ -167,7 +166,10 @@ const ServiceBoard = ({navigation} : any) => {
       ) : (
         <NotFound />
       )}
-      <FloatButton icon='tag-plus-outline' onPress={() => console.log("press")} />
+      <FloatButton
+        icon="tag-plus-outline"
+        onPress={() => navigation.navigate('Stack1', {screen: 'NewTicket'})}
+      />
     </View>
   );
 };

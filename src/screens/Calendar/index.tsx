@@ -10,24 +10,32 @@ import EventCalendar from 'react-native-events-calendar';
 
 import {SchAdditionalButtons} from '../../constants/SampleArrays';
 import {FloatButton} from '../../components';
-import { AdditionalButtons } from '../../types';
+import {AdditionalButtons} from '../../types';
 
-const Calendar = ({navigation} : any) => {
+const Calendar = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
-  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(SchAdditionalButtons);
+  const [actionButtons, setActionButtons] =
+    useState<AdditionalButtons[]>(SchAdditionalButtons);
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
-    tempArr[0].onPress = () => {navigation.navigate('Stack1', {
-      screen: "NewActivity",
-    })}
-    setActionButtons(tempArr)
-  }
+    tempArr[0].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewActivity',
+      });
+    };
+    tempArr[2].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewTicket',
+      });
+    };
+    setActionButtons(tempArr);
+  };
 
   useEffect(() => {
-    updatePress()
-  }, [])
-  
+    updatePress();
+  }, []);
+
   const events = [
     {
       start: '2022-07-07 10:00:00',

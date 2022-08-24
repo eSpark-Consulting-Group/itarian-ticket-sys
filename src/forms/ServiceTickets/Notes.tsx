@@ -1,21 +1,23 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   NavigationProp,
+  useRoute,
 } from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
-import {EmptyListMsg, GapView, ModalField} from '../../components';
-import {Divider, Modal} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
-import {WINDOW_HEIGHT} from '../../constants';
-import {ScrollView} from 'react-native-gesture-handler';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../navigation/RootNavigation';
+import { EmptyListMsg, GapView, ModalField } from '../../components';
+import { Divider, Modal } from 'react-native-paper';
+import { moderateScale } from 'react-native-size-matters';
+import { WINDOW_HEIGHT } from '../../constants';
+import { ScrollView } from 'react-native-gesture-handler';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/RootNavigation';
+import { STNoteTypes } from '../../constants/SampleArrays';
 
 const dataSource: Item[] = [
   {
@@ -98,22 +100,22 @@ interface Item {
 }
 
 const Notes = () => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
 
-  const renderList = ({item, index}: {item: Item; index: number}) => {
+  const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
       <View>
-        <View style={{flexDirection: 'row', padding: 8}}>
-          <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
+        <View style={{ flexDirection: 'row', padding: 8 }}>
+          <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
             <Image source={item.img} style={styles.imageStyle} />
           </View>
           <GapView mode="horizontal" />
-          <View style={{justifyContent: 'center'}}>
-            <Text style={{color: colors.text, ...styles.titleStyle}}>
+          <View style={{ justifyContent: 'center' }}>
+            <Text style={{ color: colors.text, ...styles.titleStyle }}>
               {item.title}
             </Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{color: colors.text, ...styles.subText}}>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ color: colors.text, ...styles.subText }}>
                 {item.time}
               </Text>
               <View
@@ -122,14 +124,14 @@ const Notes = () => {
                   ...styles.divider,
                 }}
               />
-              <Text style={{color: colors.text, ...styles.subText}}>
+              <Text style={{ color: colors.text, ...styles.subText }}>
                 {item.date}
               </Text>
             </View>
           </View>
         </View>
         {item.note && (
-          <Text style={{color: colors.text, padding: 8}}>{item.note}</Text>
+          <Text style={{ color: colors.text, padding: 8 }}>{item.note}</Text>
         )}
       </View>
     );
@@ -158,10 +160,10 @@ const Notes = () => {
             renderItem={renderList}
             showsVerticalScrollIndicator={false}
             ListFooterComponent={<View />}
-            ListFooterComponentStyle={{height: 120}}
+            ListFooterComponentStyle={{ height: 120 }}
             ItemSeparatorComponent={() => (
               <Divider
-                style={{backgroundColor: colors.background, height: 1.2}}
+                style={{ backgroundColor: colors.background, height: 1.2 }}
               />
             )}
           />
@@ -173,25 +175,38 @@ const Notes = () => {
 type StackLvl2 = StackNavigationProp<RootStackParamList, 'Stack2'>;
 
 const SubHeader = () => {
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
   const navigation = useNavigation<StackLvl2>();
+  const route = useRoute<any>();
   return (
     <>
-      <Text style={{color: colors.text, ...styles.titleStyle}}>All</Text>
-      <View style={{flexDirection: 'row'}}>
+      <Text style={{ color: colors.text, ...styles.titleStyle }}>All</Text>
+      <View style={{ flexDirection: 'row' }}>
         <AD
           name="addfile"
           size={24}
           color={colors.text}
-          style={{opacity: 0.8}}
-          onPress={() => navigation.navigate('Stack2', {screen: 'ComposeNote'})}
+          style={{ opacity: 0.8 }}
+          onPress={() => navigation.navigate('Stack2', {
+            screen: 'ComposeNote',
+            params: {
+              from: 'STickets',
+              item: 'GoneTo',
+              data: STNoteTypes,
+              selected: null,
+              stack: 'Stack2',
+              title: route?.params?.title,
+              headerTitle: 'Note Type',
+              status: route?.params?.status,
+            },
+          })}
         />
         <GapView mode="horizontal" length={30} />
         <FT
           name="equalizer"
           size={24}
           color={colors.text}
-          style={{opacity: 0.8}}
+          style={{ opacity: 0.8 }}
           onPress={() => console.log('Pressed')}
         />
       </View>

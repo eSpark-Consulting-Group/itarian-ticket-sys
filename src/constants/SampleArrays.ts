@@ -487,7 +487,7 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
   },
 ];
 
-export const ExpenseAdditionalButtons : Array<AdditionalButtons> = [
+export const ExpenseAdditionalButtons: Array<AdditionalButtons> = [
   {
     icon: 'currency-usd',
     label: 'Add Expense',
@@ -506,9 +506,9 @@ export const ExpenseAdditionalButtons : Array<AdditionalButtons> = [
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed email'),
   },
-]
+];
 
-export const STicketsAdditionalButtons : Array<AdditionalButtons> = [
+export const STicketsAdditionalButtons: Array<AdditionalButtons> = [
   {
     icon: 'file-sign',
     label: 'Add Signature',
@@ -554,7 +554,7 @@ export const STicketsAdditionalButtons : Array<AdditionalButtons> = [
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed star'),
   },
-]
+];
 
 export const AddExpenseAdditionalButtons: Array<AdditionalButtons> = [
   {
@@ -566,9 +566,9 @@ export const AddExpenseAdditionalButtons: Array<AdditionalButtons> = [
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed star'),
   },
-]
+];
 
-export const TimeSheetAdditionalButtons : Array<AdditionalButtons> = [
+export const TimeSheetAdditionalButtons: Array<AdditionalButtons> = [
   {
     icon: 'clock-plus-outline',
     label: 'Add Time',
@@ -587,7 +587,7 @@ export const TimeSheetAdditionalButtons : Array<AdditionalButtons> = [
     labelStyle: {backgroundColor: '#fff'},
     onPress: () => console.log('Pressed email'),
   },
-]
+];
 
 export const StatusFormArray: Array<ModalFormArrayType> = [
   {
@@ -648,64 +648,51 @@ export const GoneToFormArray: SelectFeilds[] = [
   {id: 7, name: 'Vacation'},
 ];
 
-// export const GoneToFormArray: Array<ModalFormArrayType> = [
-//   {
-//     formName: 'Gone To',
-//     type: 'inlined',
-//     data: {
-//       headingLeft: 'Appointment',
-//       checkBoxRight: true,
-//     },
-//   },
-//   {
-//     formName: 'Gone To',
-//     type: 'inlined',
-//     data: {
-//       headingLeft: 'Client',
-//       checkBoxRight: true,
-//     },
-//   },
-//   {
-//     formName: 'Gone To',
-//     type: 'inlined',
-//     data: {
-//       headingLeft: 'Gone for the day',
-//       checkBoxRight: true,
-//     },
-//   },
-//   {
-//     formName: 'Gone To',
-//     type: 'inlined',
-//     data: {
-//       headingLeft: 'Lunch',
-//       checkBoxRight: true,
-//     },
-//   },
-//   {
-//     formName: 'Gone To',
-//     type: 'inlined',
-//     data: {
-//       headingLeft: 'Other',
-//       checkBoxRight: true,
-//     },
-//   },
-//   {
-//     formName: 'Gone To',
-//     type: 'inlined',
-//     data: {
-//       headingLeft: 'Sick',
-//       checkBoxRight: true,
-//     },
-//   },
-//   {
-//     formName: 'Gone To',
-//     type: 'inlined',
-//     data: {
-//       headingLeft: 'Vacation',
-//       checkBoxRight: true,
-//     },
-//   },
-// ];
+export const NoteTypeArray: SelectFeilds[] = [
+  {id: 1, name: 'Accounting'},
+  {id: 2, name: 'Comment'},
+  {id: 3, name: 'Informational'},
+  {id: 4, name: 'Technical'},
+];
+
+export const STNoteTypes: NoteTypes[] = [
+  {
+    text: 'Discussion',
+    highlight: true,
+  },
+  {
+    text: 'Internal',
+    highlight: false,
+  },
+  {
+    text: 'Resolution',
+    highlight: false,
+  },
+];
+
+export const NONoteTypes: NoteTypes[] = [
+  {
+    text: 'Accounting',
+    highlight: true,
+  },
+  {
+    text: 'Comment',
+    highlight: false,
+  },
+  {
+    text: 'Informational',
+    highlight: false,
+  },
+  {
+    text: 'Technical',
+    highlight: false,
+  },
+];
+
+export type NoteTypes = {
+  text: string;
+  highlight: boolean;
+};
 
 export const opportunitiesList: Opportunity[] = [
   {

@@ -1,14 +1,22 @@
-import { View, Text, TextInput, FlatList, ScrollView } from 'react-native';
-import React, { ReactNode, useState } from 'react';
-import { GapView, ModalHeader, ModalView, SingleLineField } from '../../components';
-import { NavigationRouteContext, Theme, useTheme } from '@react-navigation/native';
+import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import React, {ReactNode, useState} from 'react';
+import {
+  GapView,
+  ModalHeader,
+  ModalView,
+  SingleLineField,
+} from '../../components';
+import {
+  NavigationRouteContext,
+  Theme,
+  useTheme,
+} from '@react-navigation/native';
 import AD from 'react-native-vector-icons/AntDesign';
-import { NONoteTypes } from '../../constants/SampleArrays';
+import {NONoteTypes} from '../../constants/SampleArrays';
 
-const NewOpportunity = ({ navigation, route }: any) => {
-  const { colors, dark }: Theme = useTheme();
+const NewOpportunity = ({navigation, route}: any) => {
+  const {colors, dark}: Theme = useTheme();
   const [dataSource, setDataSource] = useState<Item[]>([
-
     {
       title: '',
       subTitle: 'Oppotunity',
@@ -57,29 +65,23 @@ const NewOpportunity = ({ navigation, route }: any) => {
     },
     {
       title: 'Add a Note',
-      leftChild: (
-        <AD
-          name="addfile"
-          size={20}
-          color={colors.text}
-          style={{ opacity: 0.8 }}
-          onPress={() => console.log('Pressed')}
-        />
-      ),
-      onPress: () => navigation.navigate('Stack2', {
-        screen: 'ComposeNote',
-        params: {
-          from: 'NewOpportunity',
-          item: 'GoneTo',
-          data: NONoteTypes,
-          selected: null,
-          stack: 'Stack2',
-          title: route?.params?.title,
-          headerTitle: 'Note Type',
-          status: route?.params?.status,
-        },
-      })
-      // onPress: () => navigation.navigate('Stack2', { screen: 'ComposeNote' })
+      rightIconRound: 'file-plus-outline',
+      roundedIconEnable: true,
+      enable: false,
+      onRoundedIconPress: () =>
+        navigation.navigate('Stack2', {
+          screen: 'ComposeNote',
+          params: {
+            from: 'NewOpportunity',
+            item: 'GoneTo',
+            data: NONoteTypes,
+            selected: null,
+            stack: 'Stack2',
+            title: route?.params?.title,
+            headerTitle: 'Note Type',
+            status: route?.params?.status,
+          },
+        }),
     },
   ]);
 
@@ -90,6 +92,8 @@ const NewOpportunity = ({ navigation, route }: any) => {
     enable?: boolean;
     rightIcon?: string;
     rightIconRound?: string;
+    roundedIconEnable?: boolean;
+    onRoundedIconPress?: () => void;
     titleWidth?: number;
     showRightSwitch?: boolean;
     rightSwitchVal?: boolean;
@@ -97,7 +101,7 @@ const NewOpportunity = ({ navigation, route }: any) => {
     onChangeText?: (text: string) => void;
     leftIcon?: string;
     leftChild?: ReactNode;
-    onPress?: () => void
+    onPress?: () => void;
   }
 
   const updateInput = (e: string, index: number) => {
@@ -113,10 +117,9 @@ const NewOpportunity = ({ navigation, route }: any) => {
       <ModalHeader
         icon="office-building-marker-outline"
         title="Select Company"
-
       />
-      <ScrollView style={{ flex: 1 }}>
-        <View style={{ backgroundColor: colors.background }}>
+      <ScrollView style={{flex: 1}}>
+        <View style={{backgroundColor: colors.background}}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -126,8 +129,10 @@ const NewOpportunity = ({ navigation, route }: any) => {
               onChangeText={e => updateInput(e, index)}
               enable={item.enable}
               leftIcon={item.leftIcon}
-              leftChild={item.leftChild}
               rightIcon={item.rightIcon}
+              rightIconRound={item.rightIconRound}
+              roundedIconEnable={item.roundedIconEnable}
+              onRoundedIconPress={item.onRoundedIconPress}
               onPress={item.onPress}
             />
           ))}

@@ -22,9 +22,8 @@ export default function RoundedIcon({
         ...styles.iconStyle,
       }}>
       <CstmPressable
-        onPress={() => {
-          enable ? onPress : null;
-        }}
+        disabled={!enable}
+        onPress={onPress}
         android_disableSound
         android_ripple={{
           color: enable ? (dark ? '#ffffff1f' : '#0000000e') : 'transparent',

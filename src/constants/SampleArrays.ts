@@ -1220,7 +1220,7 @@ export const itemList: SelectFields[] = [
 export const companyNameList: SelectFields[] = [
   {
     id: 0,
-    name: 'Acme Company Ltd',
+    name: 'Chris Craft Boots',
   },
   {
     id: 1,

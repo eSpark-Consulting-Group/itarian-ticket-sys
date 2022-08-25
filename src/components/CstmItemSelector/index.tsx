@@ -96,7 +96,7 @@ const CstmItemSelector = ({route, navigation}: any) => {
   return (
     <ModalView>
       {route?.params?.searchable && (
-        <ModalHeader empty>
+        <ModalHeader empty searchHeader>
           <SearchBar
             withTag={false}
             placeholder={'Search...'}

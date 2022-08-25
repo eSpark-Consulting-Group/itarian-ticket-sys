@@ -23,14 +23,11 @@ interface Item {
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
   mode?: 'none' | 'multiline';
+  list?: SelectFields[];
+  selectedItem?: SelectFields;
 }
 
-type State = {
-  companyName: SelectFields;
-};
-
 const Overview = () => {
-  const {colors}: Theme = useTheme();
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const [titleText, setTitleText] = useState('Some Configuration Title');
@@ -49,6 +46,8 @@ const Overview = () => {
       subTitle: 'Company Name',
       title: 'Chris Craft Boots',
       rightIcon: 'chevron-right',
+      list: companyNameList,
+      selectedItem: {id: 0, name: 'Chris Craft Boots'},
     },
     {
       subTitle: 'Contact',
@@ -176,29 +175,24 @@ const Overview = () => {
 
   const [Ds, setDs] = useState<Item[]>(dataSource);
 
-  const [state, setState] = useState<State>({
-    companyName: {name: 'Chris Craft Boots', id: 1},
-  });
-
-  console.log('jua', route?.params);
   useEffect(() => {
-    if (route?.params?.item) {
-      var obj: any = state;
-      obj[route?.params?.item] = route?.params?.selected;
-      setState({...obj});
+    if (route?.params?.item?.toString()) {
+      var obj: any = [...Ds];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDs([...obj]);
     }
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    let tempArr = [...dataSource];
     if (index == 1) {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
         params: {
           from: 'Configure1',
-          item: 'companyName',
-          data: companyNameList,
-          selected: state?.companyName,
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
           stack: 'Stack1',
           title: route?.params?.title,
           headerTitle: 'Company Name',
@@ -206,7 +200,6 @@ const Overview = () => {
         },
       });
     }
-    setDs(tempArr);
   };
 
   return (

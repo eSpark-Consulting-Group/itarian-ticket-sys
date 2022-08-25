@@ -1,21 +1,21 @@
 import { useHookstate, State } from '@hookstate/core';
-import {Theme, useTheme} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
-import {Checkbox, FAB} from 'react-native-paper';
+import { Theme, useTheme } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { FlatList } from 'react-native';
+import { Checkbox, FAB } from 'react-native-paper';
 import { DarkTheme, LightTheme } from '../../theme/colors';
-import {SelectFeilds} from '../../types';
+import { SelectFeilds } from '../../types';
 import { globalState } from '../../utils/globalState';
 import { useUpdateEffect } from '../../utils/hooks';
-import {SingleLineField} from '../FormFields';
+import { SingleLineField } from '../FormFields';
 import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
 import styles from './style';
 
-const CstmItemSelector = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const CstmItemSelector = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const themeValue: State<string> = useHookstate(globalState.theme);
   const [currChkInd, setCurrChkInd] = useState<number | any>(null);
   const [loader, setLoader] = useState<boolean>(true);
@@ -76,11 +76,19 @@ const CstmItemSelector = ({route, navigation}: any) => {
     setLoader(false);
   }, [route?.params]);
 
+  const selectItem = (ind: number) => {
+    navigation?.setParams({
+      ...route?.params,
+      selected: list[ind],
+    });
+    setCurrChkInd(ind);
+  }
+
   return (
     <ModalView>
-       {route?.params?.searchable && 
-       <ModalHeader empty>
-         <SearchBar
+      {route?.params?.searchable &&
+        <ModalHeader empty>
+          <SearchBar
             withTag={false}
             placeholder={'Search...'}
             fontSize={'large'}
@@ -89,27 +97,21 @@ const CstmItemSelector = ({route, navigation}: any) => {
             onSubmit={handleSubmit}
             onClear={handleClear}
           />
-       </ModalHeader>}
+        </ModalHeader>}
       {list?.length > 0 && (
         <FlatList
           data={list}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <SingleLineField
               key={item.name}
               title={item.name}
-              onPress={() => {
-                navigation?.setParams({
-                  ...route?.params,
-                  selected: list[index],
-                });
-                setCurrChkInd(index);
-              }}
+              onPress={() => selectItem(index)}
               leftChild={
                 <Checkbox
                   status={currChkInd == index ? 'checked' : 'unchecked'}
                   color={colors.primary}
                   theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}
-                  onPress={() => setCurrChkInd(index)}
+                  onPress={() => selectItem(index)}
                 />
               }
             />

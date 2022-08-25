@@ -11,7 +11,7 @@ import {moderateScale} from 'react-native-size-matters';
 
 import {
   boardList,
-  customFeildList,
+  customFieldList,
   itemList,
   siteList,
   statusList,
@@ -19,7 +19,8 @@ import {
   typesList,
 } from '../../constants/SampleArrays';
 import {PriorityField, SingleLineField} from '../../components';
-import {SelectFeilds} from '../../types/index';
+import {SelectFields} from '../../types/index';
+
 const Overview = () => {
   const {colors}: Theme = useTheme();
   const navigation: any = useNavigation();
@@ -27,7 +28,7 @@ const Overview = () => {
   const IsFocused = useIsFocused();
 
   const [state, setState] = useState<State>({
-    customFeild: {name: 'Custom Feilds 1', id: 1},
+    customField: {name: 'Custom Fields 1', id: 1},
     site: {name: 'Site 1', id: 1},
     board: {name: 'Board 1', id: 1},
     status: {name: 'Status 1', id: 1},
@@ -45,13 +46,13 @@ const Overview = () => {
   }, [route?.params]);
 
   type State = {
-    customFeild: SelectFeilds;
-    site: SelectFeilds;
-    board: SelectFeilds;
-    status: SelectFeilds;
-    type: SelectFeilds;
-    subType: SelectFeilds;
-    item: SelectFeilds;
+    customField: SelectFields;
+    site: SelectFields;
+    board: SelectFields;
+    status: SelectFields;
+    type: SelectFields;
+    subType: SelectFields;
+    item: SelectFields;
   };
 
   return (
@@ -60,7 +61,7 @@ const Overview = () => {
       contentContainerStyle={{alignItems: 'center'}}>
       <PriorityField />
       <SingleLineField
-        title={state?.customFeild.name}
+        title={state?.customField.name}
         leftIcon="clipboard-text-outline"
         rightIcon="chevron-right"
         onPress={() => {
@@ -68,13 +69,13 @@ const Overview = () => {
             screen: 'CstmItemSelector',
             params: {
               from: 'STickets',
-              item: 'customFeild',
-              data: customFeildList,
-              selected: state?.customFeild,
+              item: 'customField',
+              data: customFieldList,
+              selected: state?.customField,
               stack: 'Stack1',
               title: route?.params?.title,
-              headerTitle: 'Custom Feild',
-              searchable: true
+              headerTitle: 'Custom Field',
+              searchable: true,
             },
           });
         }}

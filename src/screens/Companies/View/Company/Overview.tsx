@@ -19,18 +19,21 @@ const Overview = () => {
         title="(815)-555-1234"
         subTitle="Company Phone No."
         rightChild={<RoundedIcon icon="phone" />}
+        enable={false}
       />
       <SingleLineField
         title="645 Elm Street Tampa, Fl 32364"
         titleWidth={moderateScale(130)}
         subTitle="Company Address"
         rightChild={<RoundedIcon icon="map-marker-outline" />}
+        enable={false}
       />
-      <SingleLineField title="Tim Smith" leftIcon="account" />
+      <SingleLineField title="Tim Smith" leftIcon="account" enable={false} />
       <SingleLineField
         title="TSmith@AcmeItSolutions.com"
         subTitle="Email (Primary)"
         rightChild={<RoundedIcon icon="email-outline" />}
+        enable={false}
       />
     </ScrollView>
   );

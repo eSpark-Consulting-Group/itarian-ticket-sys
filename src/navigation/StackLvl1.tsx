@@ -17,7 +17,7 @@ import Company from '../screens/Companies/View/Company';
 import NewCompany from '../forms/NewCompany';
 import MyStatus from '../screens/Profile/View/Profile/MyStatus';
 import Filters from '../forms/Filters';
-import NewConfiguration from '../screens/Configurations/View/Configuration/CreateConfigurations';
+import NewConfiguration from '../forms/NewConfiguration/CreateConfigurations';
 import Activities from '../screens/MyActivities/View/Activity/index';
 import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 
@@ -47,7 +47,7 @@ export type RootStackParamList = {
   NewOpportunity: undefined;
   NewTimeSheet: undefined;
   NewTicket: undefined;
-  AddMiscSchedule: undefined
+  AddMiscSchedule: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {

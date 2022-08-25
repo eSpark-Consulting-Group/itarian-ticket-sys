@@ -1,11 +1,19 @@
 import React from 'react';
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
+import {
+  useTheme,
+  Theme,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
 import {GapView, ModalField} from '../../../../components';
 import {Divider} from 'react-native-paper';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../../../navigation/RootNavigation';
+import {NoteTypes_ACIT} from '../../../../constants/SampleArrays';
 
 const dataSource: Item[] = [
   {
@@ -145,18 +153,35 @@ const Notes = () => {
   );
 };
 
+type StackLvl2 = StackNavigationProp<RootStackParamList, 'Stack2'>;
+
 const SubHeader = () => {
   const {colors}: Theme = useTheme();
+  const navigation = useNavigation<StackLvl2>();
+  const route: any = useRoute();
   return (
     <>
-      <Text style={{color: colors.text, opacity: 0.8}}>All</Text>
+      <Text style={{color: colors.text, ...styles.subHeaderText}}>All</Text>
       <View style={{flexDirection: 'row'}}>
         <AD
           name="addfile"
           size={24}
           color={colors.text}
           style={{opacity: 0.8}}
-          onPress={() => console.log('Pressed')}
+          onPress={() =>
+            navigation.navigate('Stack2', {
+              screen: 'ComposeNote',
+              params: {
+                from: 'Company',
+                data: NoteTypes_ACIT,
+                selected: null,
+                stack: 'Stack2',
+                title: route?.params?.title,
+                headerTitle: 'Note Type',
+                status: route?.params?.status,
+              },
+            })
+          }
         />
         <GapView mode="horizontal" length={30} />
         <FT
@@ -202,4 +227,5 @@ const styles = StyleSheet.create({
   subText: {
     opacity: 0.6,
   },
+  subHeaderText: {opacity: 0.8, fontWeight: 'bold', fontSize: 16},
 });

@@ -16,7 +16,7 @@ import {
   ScheduledList,
   Scheduled_Data,
   ScreenItems,
-  SelectFeilds,
+  SelectFields,
   NotesType,
   Stopwatch,
   Ticket,
@@ -60,7 +60,7 @@ export const ticketsList: Ticket[] = [
     status: 'Scheduled',
     priority: 'DNR',
     phase: 'Tech Prep',
-    schedule_time:  null,
+    schedule_time: null,
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
@@ -238,9 +238,9 @@ export const contactsList: Contact[] = [
     company_name: 'Walt Disney',
     phone_no: null,
     email_address: 'email@test.com',
-    backDate: "17 August 2022",
-    backTime: "05:00 PM",
-    goneTo: "Gone for the day"
+    backDate: '17 August 2022',
+    backTime: '05:00 PM',
+    goneTo: 'Gone for the day',
   },
   {
     name: 'Brad Coops',
@@ -258,9 +258,9 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
     inOffice: false,
-    backDate: "18 August 2022",
-    backTime: "08:00 PM",
-    goneTo: "Client"
+    backDate: '18 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Client',
   },
   {
     name: 'Zeeshan Akram',
@@ -268,18 +268,18 @@ export const contactsList: Contact[] = [
     phone_no: null,
     email_address: null,
     inOffice: false,
-    backDate: "16 August 2022",
-    backTime: "08:00 PM",
-    goneTo: "Appointment"
+    backDate: '16 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Appointment',
   },
   {
     name: 'Hardeep Vishnam',
     company_name: 'Star Trek Enterprises',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
-    backDate: "20 August 2022",
-    backTime: "08:00 PM",
-    goneTo: "Others"
+    backDate: '20 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Others',
   },
   {
     name: 'Carl Johnson',
@@ -287,9 +287,9 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
     inOffice: false,
-    backDate: "25 August 2022",
-    backTime: "08:00 PM",
-    goneTo: "Gone for the day"
+    backDate: '25 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Gone for the day',
   },
 ];
 
@@ -667,7 +667,7 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
   },
 ];
 
-export const GoneToFormArray: SelectFeilds[] = [
+export const GoneToFormArray: SelectFields[] = [
   {id: 1, name: 'Appointment'},
   {id: 2, name: 'Client'},
   {id: 3, name: 'Gone for the day'},
@@ -677,14 +677,7 @@ export const GoneToFormArray: SelectFeilds[] = [
   {id: 7, name: 'Vacation'},
 ];
 
-export const NoteTypeArray: SelectFeilds[] = [
-  {id: 1, name: 'Accounting'},
-  {id: 2, name: 'Comment'},
-  {id: 3, name: 'Informational'},
-  {id: 4, name: 'Technical'},
-];
-
-export const STNoteTypes: NoteTypes[] = [
+export const NoteTypes_DIR: NoteTypes[] = [
   {
     text: NotesType.Discussion,
     highlight: true,
@@ -699,7 +692,7 @@ export const STNoteTypes: NoteTypes[] = [
   },
 ];
 
-export const NONoteTypes: NoteTypes[] = [
+export const NoteTypes_ACIT: NoteTypes[] = [
   {
     text: NotesType.Accounting,
     highlight: true,
@@ -945,7 +938,9 @@ export const opportunityFilterList: Filter[] = [
   },
 ];
 
-export const customFeildList: SelectFeilds[] = [
+//? ------------------------------ Tickets Selector Fields
+
+export const customFieldList: SelectFields[] = [
   {
     id: 1,
     name: 'Custom 1',
@@ -984,7 +979,7 @@ export const customFeildList: SelectFeilds[] = [
   },
 ];
 
-export const siteList: SelectFeilds[] = [
+export const siteList: SelectFields[] = [
   {
     id: 1,
     name: 'Site 1',
@@ -1023,7 +1018,7 @@ export const siteList: SelectFeilds[] = [
   },
 ];
 
-export const boardList: SelectFeilds[] = [
+export const boardList: SelectFields[] = [
   {
     id: 1,
     name: 'Board 1',
@@ -1062,7 +1057,7 @@ export const boardList: SelectFeilds[] = [
   },
 ];
 
-export const statusList: SelectFeilds[] = [
+export const statusList: SelectFields[] = [
   {
     id: 1,
     name: 'Status 1',
@@ -1101,7 +1096,7 @@ export const statusList: SelectFeilds[] = [
   },
 ];
 
-export const typesList: SelectFeilds[] = [
+export const typesList: SelectFields[] = [
   {
     id: 1,
     name: 'Type 1',
@@ -1140,7 +1135,7 @@ export const typesList: SelectFeilds[] = [
   },
 ];
 
-export const subTypesList: SelectFeilds[] = [
+export const subTypesList: SelectFields[] = [
   {
     id: 1,
     name: 'Subtype 1',
@@ -1179,7 +1174,7 @@ export const subTypesList: SelectFeilds[] = [
   },
 ];
 
-export const itemList: SelectFeilds[] = [
+export const itemList: SelectFields[] = [
   {
     id: 1,
     name: 'Item 1',
@@ -1218,7 +1213,24 @@ export const itemList: SelectFeilds[] = [
   },
 ];
 
+//? ---------------------------------------
 
+//? ------------------------------- Configuration Selector Fields
+
+export const companyNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Acme Company Ltd',
+  },
+  {
+    id: 1,
+    name: 'Coca Cola Ltd',
+  },
+  {
+    id: 2,
+    name: 'Lorem Ipsum Co.',
+  },
+];
 
 export const noteList: Item[] = [
   {
@@ -1228,7 +1240,7 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '11 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 2,
@@ -1236,7 +1248,7 @@ export const noteList: Item[] = [
     title: 'Template 2',
     time: '12:19 AM',
     date: '15 Nov, 2021',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 3,
@@ -1244,7 +1256,7 @@ export const noteList: Item[] = [
     title: 'Template 3',
     time: '12:19 AM',
     date: '19 Nov, 2021',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 4,
@@ -1253,7 +1265,7 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 5,
@@ -1261,7 +1273,7 @@ export const noteList: Item[] = [
     title: 'Template 5',
     time: '12:19 AM',
     date: '19 Nov, 2021',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 6,
@@ -1270,7 +1282,7 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 7,
@@ -1278,7 +1290,7 @@ export const noteList: Item[] = [
     title: 'Template 7',
     time: '12:19 AM',
     date: '19 Nov, 2021',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 8,
@@ -1287,7 +1299,7 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
   {
     id: 9,
@@ -1296,7 +1308,6 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type:  NotesType.Discussion
+    type: NotesType.Discussion,
   },
 ];
-

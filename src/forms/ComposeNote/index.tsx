@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 import {
   CstmMultiLine,
   ModalField,
@@ -9,42 +9,26 @@ import {
   OutlineBtn,
   SimpleLoader,
 } from '../../components';
-import { WINDOW_WIDTH } from '../../constants';
-import { MultiLineField, SingleLineField } from '../../components/FormFields';
-import { NoteTypeArray, NoteTypes } from '../../constants/SampleArrays';
-import { NotesType } from '../../types';
-
-const noteTypes: Item[] = [
-  {
-    text: 'Discussion',
-    highlight: true,
-  },
-  {
-    text: 'Internal',
-    highlight: false,
-  },
-  {
-    text: 'Resolution',
-    highlight: false,
-  },
-];
+import {WINDOW_WIDTH} from '../../constants';
+import {SingleLineField} from '../../components/FormFields';
+import {NoteTypes} from '../../constants/SampleArrays';
+import {NotesType} from '../../types';
 
 type Item = {
   text: string;
   highlight: boolean;
 };
 
-export default function ComposeNote({ route, navigation }: any) {
-  const { colors, dark } = useTheme();
+export default function ComposeNote({route, navigation}: any) {
+  const {colors, dark} = useTheme();
   const [noteTypeList, setNoteTypeList] = useState<NoteTypes[]>([]);
   const [currChkInd, setCurrChkInd] = useState<number | any>(0);
   const [loader, setLoader] = useState<boolean>(true);
   const [notes, setNotes] = useState<string>('');
 
-
   useEffect(() => {
     setNoteTypeList(route?.params?.data);
-    setLoader(false)
+    setLoader(false);
   }, [route?.params]);
 
   useEffect(() => {
@@ -52,12 +36,12 @@ export default function ComposeNote({ route, navigation }: any) {
       ...route?.params,
       notes: notes,
       type: noteTypeList[currChkInd]?.text,
-      selected: null
+      selected: null,
     });
-  }, [notes])
+  }, [notes]);
   const renderNoteTypes = (item: NoteTypes, index: number) => {
     return (
-      <View key={index} style={{ marginHorizontal: 1 }} >
+      <View key={index} style={{marginHorizontal: 1}}>
         <OutlineBtn
           key={index}
           text={item.text}
@@ -75,20 +59,25 @@ export default function ComposeNote({ route, navigation }: any) {
 
   return (
     <ModalView>
-      {noteTypeList?.length > 0 && <>
-        <ModalHeader empty>
-          <View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              >
-              {noteTypeList.map(renderNoteTypes)}
-            </ScrollView>
-          </View>
-        </ModalHeader>
-        {/* <SingleLineField title="Flag" showRightSwitch /> */}
-        <SingleLineField mode='multiline' onChangeText={setNotes} subTitle='Compose Note' title={notes} inputable />
-      </>}
+      {noteTypeList?.length > 0 && (
+        <>
+          <ModalHeader empty>
+            <View>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {noteTypeList.map(renderNoteTypes)}
+              </ScrollView>
+            </View>
+          </ModalHeader>
+          {/* <SingleLineField title="Flag" showRightSwitch /> */}
+          <SingleLineField
+            mode="multiline"
+            onChangeText={setNotes}
+            subTitle="Compose Note"
+            title={notes}
+            inputable
+          />
+        </>
+      )}
       {loader && <SimpleLoader />}
     </ModalView>
   );

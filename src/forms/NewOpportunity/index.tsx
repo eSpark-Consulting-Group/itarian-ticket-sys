@@ -12,7 +12,7 @@ import {
   useTheme,
 } from '@react-navigation/native';
 import AD from 'react-native-vector-icons/AntDesign';
-import {NONoteTypes} from '../../constants/SampleArrays';
+import {NoteTypes_ACIT} from '../../constants/SampleArrays';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -74,7 +74,7 @@ const NewOpportunity = ({navigation, route}: any) => {
           params: {
             from: 'NewOpportunity',
             item: 'GoneTo',
-            data: NONoteTypes,
+            data: NoteTypes_ACIT,
             stack: 'Stack2',
             title: route?.params?.title, // used for Dynamic Headers Used
             headerTitle: 'Note Type',

@@ -12,13 +12,15 @@ export default function Communications() {
         title="johndoe@acme.com"
         subTitle="Email (Primary)"
         rightIconRound="email-outline"
-        enable={true}
+        roundedIconEnable={true}
+        enable={false}
       />
       <SingleLineField
         title="(218) 262-5575"
         subTitle="Direct (Primary)"
         rightIconRound="phone"
-        enable={true}
+        roundedIconEnable={true}
+        enable={false}
       />
     </View>
   );

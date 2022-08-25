@@ -18,8 +18,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootNavigation';
 import {
+  NoteTypes_DIR,
   noteList as dataSource,
-  STNoteTypes,
 } from '../../constants/SampleArrays';
 import {Item} from '../../types';
 import {CstmMenu} from '../../components/CstmMenu';
@@ -33,7 +33,7 @@ const Notes = () => {
 
   const [visible, setVisible] = useState(false);
   const [filterType, setfilterType] = useState('All');
-  const [data, setData] = useState(dataSource)
+  const [data, setData] = useState(dataSource);
   const showMenu = (): void => setVisible(true);
   const hideMenu = (): void => setVisible(false);
 
@@ -75,7 +75,9 @@ const Notes = () => {
   const subHeader = () => {
     return (
       <>
-        <Text style={{color: colors.text, ...styles.titleStyle}}>{filterType}</Text>
+        <Text style={{color: colors.text, ...styles.titleStyle}}>
+          {filterType}
+        </Text>
         <View style={{flexDirection: 'row'}}>
           <AD
             name="addfile"
@@ -88,7 +90,7 @@ const Notes = () => {
                 params: {
                   from: 'STickets',
                   item: 'GoneTo',
-                  data: STNoteTypes,
+                  data: NoteTypes_DIR,
                   selected: null,
                   stack: 'Stack1',
                   title: route?.params?.title,
@@ -100,7 +102,7 @@ const Notes = () => {
           />
           <GapView mode="horizontal" length={30} />
           <CstmMenu
-            menuItems={[{text: 'All'}, ...STNoteTypes]}
+            menuItems={[{text: 'All'}, ...NoteTypes_DIR]}
             visible={visible}
             hideMenu={hideMenu}
             onChange={setfilterType}
@@ -120,13 +122,13 @@ const Notes = () => {
   };
 
   useEffect(() => {
-    if(filterType == "All") {
-      setData(dataSource)
-    }else {
-      const filteredData = dataSource.filter((val) => val.type == filterType)
-      setData([...filteredData])
+    if (filterType == 'All') {
+      setData(dataSource);
+    } else {
+      const filteredData = dataSource.filter(val => val.type == filterType);
+      setData([...filteredData]);
     }
-  }, [filterType])
+  }, [filterType]);
 
   // if (data.length == 0) {
   //   return (
@@ -135,17 +137,17 @@ const Notes = () => {
   //     // </View>
   //   );
   // } else {
-    return (
-      <>
-        <ModalField
-          mode="none"
-          pressEnable={false}
-          contentStyle={{
-            ...styles.subHeader,
-          }}>
-          {subHeader()}
-        </ModalField>
-        {data?.length > 0 ?
+  return (
+    <>
+      <ModalField
+        mode="none"
+        pressEnable={false}
+        contentStyle={{
+          ...styles.subHeader,
+        }}>
+        {subHeader()}
+      </ModalField>
+      {data?.length > 0 ? (
         <ModalField mode="none" pressEnable={false} fieldPadding={0}>
           <FlatList
             data={data}
@@ -159,11 +161,13 @@ const Notes = () => {
               />
             )}
           />
-        </ModalField> :
-         <NotFound />}
-      </>
-    );
-  }
+        </ModalField>
+      ) : (
+        <NotFound />
+      )}
+    </>
+  );
+};
 // };
 
 const NotFound = (): JSX.Element => {
@@ -181,7 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-   },
+  },
   content: {
     flex: 1,
     justifyContent: 'center',

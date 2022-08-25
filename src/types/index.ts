@@ -12,6 +12,7 @@ export type Company = {
 };
 
 export type Contact = {
+  id: number;
   name: string;
   company_name: string;
   phone_no?: string | undefined | null;
@@ -209,7 +210,7 @@ export type ScreenItems = {
   name: string;
 };
 
-export type SelectFeilds = {
+export type SelectFields = {
   id: number;
   name: string;
 };
@@ -236,6 +237,11 @@ export type Item = {
   note?: string;
   type?: NotesType;
 };
+
+/*
+//* Enum's for all Types/Interfaces
+*/
+
 export enum NotesType {
   Discussion = 'Discussion',
   Internal = 'Internal',

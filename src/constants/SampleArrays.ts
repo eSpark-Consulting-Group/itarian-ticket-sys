@@ -16,7 +16,7 @@ import {
   ScheduledList,
   Scheduled_Data,
   ScreenItems,
-  SelectFeilds,
+  SelectFields,
   NotesType,
   Stopwatch,
   Ticket,
@@ -204,6 +204,7 @@ export const companiesList: Array<Company> = [
 
 export const contactsList: Contact[] = [
   {
+    id: 1,
     name: 'John Doe',
     company_name: 'ACME Industries',
     phone_no: '+555 555 5555',
@@ -214,6 +215,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 2,
     name: 'Blake Wesker',
     company_name: 'Monsters INC',
     phone_no: '+555 555 5555',
@@ -224,6 +226,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 3,
     name: 'Bob Kins',
     company_name: 'Bethesda Studios',
     phone_no: '+555 555 5555',
@@ -234,6 +237,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 4,
     name: 'Kevin Spacey',
     company_name: 'Walt Disney',
     phone_no: null,
@@ -243,6 +247,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Gone for the day',
   },
   {
+    id: 5,
     name: 'Brad Coops',
     company_name: 'XYZ Company',
     phone_no: '+555 555 5555',
@@ -253,6 +258,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 6,
     name: 'Jimmy Neutron',
     company_name: 'Coca Cola Ltd',
     phone_no: '+555 555 5555',
@@ -263,6 +269,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Client',
   },
   {
+    id: 7,
     name: 'Zeeshan Akram',
     company_name: 'K-Electric Corp',
     phone_no: null,
@@ -273,6 +280,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Appointment',
   },
   {
+    id: 8,
     name: 'Hardeep Vishnam',
     company_name: 'Star Trek Enterprises',
     phone_no: '+555 555 5555',
@@ -282,6 +290,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Others',
   },
   {
+    id: 9,
     name: 'Carl Johnson',
     company_name: 'Star Trek Enterprises',
     phone_no: '+555 555 5555',
@@ -667,7 +676,7 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
   },
 ];
 
-export const GoneToFormArray: SelectFeilds[] = [
+export const GoneToFormArray: SelectFields[] = [
   {id: 1, name: 'Appointment'},
   {id: 2, name: 'Client'},
   {id: 3, name: 'Gone for the day'},
@@ -677,14 +686,7 @@ export const GoneToFormArray: SelectFeilds[] = [
   {id: 7, name: 'Vacation'},
 ];
 
-export const NoteTypeArray: SelectFeilds[] = [
-  {id: 1, name: 'Accounting'},
-  {id: 2, name: 'Comment'},
-  {id: 3, name: 'Informational'},
-  {id: 4, name: 'Technical'},
-];
-
-export const STNoteTypes: NoteTypes[] = [
+export const NoteTypes_DIR: NoteTypes[] = [
   {
     text: NotesType.Discussion,
     highlight: true,
@@ -699,7 +701,7 @@ export const STNoteTypes: NoteTypes[] = [
   },
 ];
 
-export const NONoteTypes: NoteTypes[] = [
+export const NoteTypes_ACIT: NoteTypes[] = [
   {
     text: NotesType.Accounting,
     highlight: true,
@@ -945,7 +947,9 @@ export const opportunityFilterList: Filter[] = [
   },
 ];
 
-export const customFeildList: SelectFeilds[] = [
+//? ------------------------------ Tickets Selector Fields
+
+export const customFieldList: SelectFields[] = [
   {
     id: 1,
     name: 'Custom 1',
@@ -984,7 +988,97 @@ export const customFeildList: SelectFeilds[] = [
   },
 ];
 
-export const siteList: SelectFeilds[] = [
+export const priorityList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Priority 1',
+  },
+  {
+    id: 2,
+    name: 'Priority 2',
+  },
+  {
+    id: 3,
+    name: 'Priority 3',
+  },
+];
+
+export const stageList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Stage 1',
+  },
+  {
+    id: 2,
+    name: 'Stage 2',
+  },
+  {
+    id: 3,
+    name: 'Stage 3',
+  },
+];
+
+export const probabilityList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Probability 1',
+  },
+  {
+    id: 2,
+    name: 'Probability 2',
+  },
+  {
+    id: 3,
+    name: 'Probability 3',
+  },
+];
+
+export const ratingList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Rating 1',
+  },
+  {
+    id: 2,
+    name: 'Rating 2',
+  },
+  {
+    id: 3,
+    name: 'Rating 3',
+  },
+];
+
+export const typeList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Type 1',
+  },
+  {
+    id: 2,
+    name: 'Type 2',
+  },
+  {
+    id: 3,
+    name: 'Type 3',
+  },
+];
+
+export const salesRepList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Sales Rep 1',
+  },
+  {
+    id: 2,
+    name: 'Sales Rep 2',
+  },
+  {
+    id: 3,
+    name: 'Sales Rep 3',
+  },
+];
+
+export const siteList: SelectFields[] = [
   {
     id: 1,
     name: 'Site 1',
@@ -1023,7 +1117,7 @@ export const siteList: SelectFeilds[] = [
   },
 ];
 
-export const boardList: SelectFeilds[] = [
+export const boardList: SelectFields[] = [
   {
     id: 1,
     name: 'Board 1',
@@ -1062,7 +1156,7 @@ export const boardList: SelectFeilds[] = [
   },
 ];
 
-export const statusList: SelectFeilds[] = [
+export const statusList: SelectFields[] = [
   {
     id: 1,
     name: 'Status 1',
@@ -1101,7 +1195,7 @@ export const statusList: SelectFeilds[] = [
   },
 ];
 
-export const typesList: SelectFeilds[] = [
+export const typesList: SelectFields[] = [
   {
     id: 1,
     name: 'Type 1',
@@ -1140,7 +1234,7 @@ export const typesList: SelectFeilds[] = [
   },
 ];
 
-export const subTypesList: SelectFeilds[] = [
+export const subTypesList: SelectFields[] = [
   {
     id: 1,
     name: 'Subtype 1',
@@ -1179,7 +1273,7 @@ export const subTypesList: SelectFeilds[] = [
   },
 ];
 
-export const itemList: SelectFeilds[] = [
+export const itemList: SelectFields[] = [
   {
     id: 1,
     name: 'Item 1',
@@ -1215,6 +1309,25 @@ export const itemList: SelectFeilds[] = [
   {
     id: 9,
     name: 'Item 9',
+  },
+];
+
+//? ---------------------------------------
+
+//? ------------------------------- Configuration Selector Fields
+
+export const companyNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Chris Craft Boots',
+  },
+  {
+    id: 1,
+    name: 'Coca Cola Ltd',
+  },
+  {
+    id: 2,
+    name: 'Lorem Ipsum Co.',
   },
 ];
 

@@ -75,7 +75,13 @@ const SettingsScreen = () => {
             </View>
           )}
         />
-        <Divider style={{backgroundColor: colors.text, opacity: 0.25}} />
+        <Divider
+          style={{
+            backgroundColor: colors.text,
+            opacity: 0.25,
+            transform: [{scale: 2}],
+          }}
+        />
         <List.Subheader style={{color: colors.text, opacity: 0.6}}>
           Default Home Screen
         </List.Subheader>

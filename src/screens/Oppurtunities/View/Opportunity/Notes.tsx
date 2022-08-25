@@ -13,7 +13,7 @@ import {EmptyListMsg, GapView, ModalField} from '../../../../components';
 import {Divider, Modal} from 'react-native-paper';
 import {
   noteList as dataSource,
-  NONoteTypes,
+  NoteTypes_ACIT,
 } from '../../../../constants/SampleArrays';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../../navigation/RootNavigation';
@@ -42,8 +42,6 @@ export default function Notes() {
   const [data, setData] = useState(dataSource);
   const showMenu = (): void => setVisible(true);
   const hideMenu = (): void => setVisible(false);
-
-  console.log('route params', dataSource);
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
     return (
@@ -97,7 +95,7 @@ export default function Notes() {
                 params: {
                   from: 'Opportunity',
                   item: 'GoneTo',
-                  data: NONoteTypes,
+                  data: NoteTypes_ACIT,
                   selected: null,
                   stack: 'Stack1',
                   title: route?.params?.title,
@@ -109,7 +107,7 @@ export default function Notes() {
           />
           <GapView mode="horizontal" length={30} />
           <CstmMenu
-            menuItems={[{text: 'All'}, ...NONoteTypes]}
+            menuItems={[{text: 'All'}, ...NoteTypes_ACIT]}
             visible={visible}
             hideMenu={hideMenu}
             onChange={setfilterType}
@@ -153,8 +151,8 @@ export default function Notes() {
             data={data}
             renderItem={renderList}
             showsVerticalScrollIndicator={false}
-            // ListFooterComponent={<View />}
-            // ListFooterComponentStyle={{height: 120}}
+            ListFooterComponent={<View />}
+            ListFooterComponentStyle={{height: 120}}
             ItemSeparatorComponent={() => (
               <Divider
                 style={{backgroundColor: colors.background, height: 1.2}}

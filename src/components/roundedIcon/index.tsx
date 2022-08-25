@@ -18,7 +18,7 @@ export default function RoundedIcon({
     <View
       style={{
         borderColor: colors.text,
-        opacity: enable ? 1 : 0.5,
+        opacity: enable ? 0.7 : 0.5,
         ...styles.iconStyle,
       }}>
       <CstmPressable

@@ -1,8 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
-import {PriorityField, SingleLineField} from '../../../../components';
-import {MultiLineField} from '../../../../components/FormFields';
+import {
+  useTheme,
+  Theme,
+  useRoute,
+  useNavigation,
+} from '@react-navigation/native';
+import {SingleLineField} from '../../../../components';
+import {SelectFields} from '../../../../types';
+import {companyNameList} from '../../../../constants/SampleArrays';
 
 interface Item {
   title: string;
@@ -17,10 +23,13 @@ interface Item {
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
   mode?: 'none' | 'multiline';
+  list?: SelectFields[];
+  selectedItem?: SelectFields;
 }
 
 const Overview = () => {
-  const {colors}: Theme = useTheme();
+  const navigation: any = useNavigation();
+  const route: any = useRoute();
   const [titleText, setTitleText] = useState('Some Configuration Title');
   const [billCustomer, setBillCustomer] = useState(false);
   const [needsRenewal, setNeedsRenewal] = useState(false);
@@ -37,6 +46,8 @@ const Overview = () => {
       subTitle: 'Company Name',
       title: 'Chris Craft Boots',
       rightIcon: 'chevron-right',
+      list: companyNameList,
+      selectedItem: {id: 0, name: 'Chris Craft Boots'},
     },
     {
       subTitle: 'Contact',
@@ -162,12 +173,41 @@ const Overview = () => {
     },
   ];
 
+  const [Ds, setDs] = useState<Item[]>(dataSource);
+
+  useEffect(() => {
+    if (route?.params?.item?.toString()) {
+      var obj: any = [...Ds];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDs([...obj]);
+    }
+  }, [route?.params]);
+
+  const handlePress = (item: Item, index: number) => {
+    if (index == 1) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          from: 'Configure1',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: 'Company Name',
+          searchable: true,
+        },
+      });
+    }
+  };
+
   return (
     <>
       <ScrollView
         style={styles.container}
         contentContainerStyle={{alignItems: 'center'}}>
-        {dataSource.map((item: Item, index: number) => (
+        {Ds.map((item: Item, index: number) => (
           <SingleLineField
             key={index}
             subTitle={item.subTitle}
@@ -182,6 +222,7 @@ const Overview = () => {
             rightSwitchVal={item.rightSwitchVal}
             onChangeSwitch={item.onChangeSwitch}
             mode={item.mode}
+            onPress={() => handlePress(item, index)}
           />
         ))}
       </ScrollView>

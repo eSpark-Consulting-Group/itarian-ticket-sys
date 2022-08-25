@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import {Checkbox, FAB} from 'react-native-paper';
 import {DarkTheme, LightTheme} from '../../theme/colors';
-import {SelectFeilds} from '../../types';
+import {SelectFields} from '../../types';
 import {globalState} from '../../utils/globalState';
 import {useUpdateEffect} from '../../utils/hooks';
 import {SingleLineField} from '../FormFields';
@@ -19,7 +19,7 @@ const CstmItemSelector = ({route, navigation}: any) => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const [currChkInd, setCurrChkInd] = useState<number | any>(null);
   const [loader, setLoader] = useState<boolean>(true);
-  const [list, setList] = useState<SelectFeilds[] | []>([]);
+  const [list, setList] = useState<SelectFields[] | []>([]);
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [clear, setClear] = useState(false);
@@ -59,25 +59,36 @@ const CstmItemSelector = ({route, navigation}: any) => {
 
   useUpdateEffect(() => {
     if (clear) {
-      console.log('done');
       handleSubmit();
       setClear(false);
     }
   }, [clear]);
 
   useEffect(() => {
-    setList(route?.params?.data);
-    const selectedInd = route?.params?.data?.findIndex(
-      (val: any) => val.id == route?.params?.selected?.id,
-    );
-    if (selectedInd != -1) setCurrChkInd(selectedInd);
+    if (!searchValue) {
+      setList(route?.params?.data);
+    }
     setLoader(false);
   }, [route?.params]);
 
+  useEffect(() => {
+    const selectedInd = route?.params?.data?.findIndex(
+      (val: any) => val.id == route?.params?.selected?.id,
+    );
+    if (selectedInd != -1) setCurrChkInd(route?.params?.data[selectedInd]?.id);
+
+    return () => {
+      setCurrChkInd(0); // This worked for me
+    };
+  }, []);
+
   const selectItem = (ind: number) => {
+    const selectedInd = route?.params?.data?.findIndex(
+      (val: any) => val.id == ind,
+    );
     navigation?.setParams({
       ...route?.params,
-      selected: list[ind],
+      selected: route?.params?.data[selectedInd],
     });
     setCurrChkInd(ind);
   };
@@ -85,7 +96,7 @@ const CstmItemSelector = ({route, navigation}: any) => {
   return (
     <ModalView>
       {route?.params?.searchable && (
-        <ModalHeader empty>
+        <ModalHeader empty searchHeader>
           <SearchBar
             withTag={false}
             placeholder={'Search...'}
@@ -100,21 +111,25 @@ const CstmItemSelector = ({route, navigation}: any) => {
       {list?.length > 0 && (
         <FlatList
           data={list}
-          renderItem={({item, index}) => (
-            <SingleLineField
-              key={item.name}
-              title={item.name}
-              onPress={() => selectItem(index)}
-              leftChild={
-                <Checkbox
-                  status={currChkInd == index ? 'checked' : 'unchecked'}
-                  color={colors.primary}
-                  theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}
-                  onPress={() => selectItem(index)}
-                />
-              }
-            />
-          )}
+          renderItem={({item, index}) => {
+            return (
+              <SingleLineField
+                key={item.name}
+                title={item.name}
+                onPress={() => selectItem(item?.id)}
+                leftChild={
+                  <Checkbox
+                    status={currChkInd == item?.id ? 'checked' : 'unchecked'}
+                    color={colors.primary}
+                    theme={
+                      themeValue.get() === 'light' ? LightTheme : DarkTheme
+                    }
+                    onPress={() => selectItem(item?.id)}
+                  />
+                }
+              />
+            );
+          }}
         />
       )}
       {loader && <SimpleLoader />}

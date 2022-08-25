@@ -62,7 +62,7 @@ const Drawer = createDrawerNavigator<ParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
-  const user: State<boolean> = hookState(globalState.user);
+  const user: State<any> = hookState(globalState.user);
 
   const {colors}: Theme = useTheme();
 
@@ -87,7 +87,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </View>
         <View style={{flex: 0.7}}>
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={styles.drawerTitleStyle}>Johnny Bravo</Text>
+            <Text style={styles.drawerTitleStyle}>{user.get()?.user?.username}</Text>
             <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
               {currStatus.get() ? 'Out of the Office' : 'In Office'}

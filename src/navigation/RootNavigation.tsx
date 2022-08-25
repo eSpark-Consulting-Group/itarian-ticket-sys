@@ -40,7 +40,7 @@ const config: any = {
 
 const App = () => {
   const themeValue: State<string> = useHState(globalState.theme);
-  const user: State<boolean> = useHState(globalState.user);
+  const user: State<any> = useHState(globalState.user);
   const shortCutScreen: State<any> = useHState(globalState.shortCutScreen);
 
   //! ----------------------------------------------------

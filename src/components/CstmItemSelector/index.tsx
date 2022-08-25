@@ -59,25 +59,36 @@ const CstmItemSelector = ({route, navigation}: any) => {
 
   useUpdateEffect(() => {
     if (clear) {
-      console.log('done');
       handleSubmit();
       setClear(false);
     }
   }, [clear]);
 
   useEffect(() => {
-    setList(route?.params?.data);
-    const selectedInd = route?.params?.data?.findIndex(
-      (val: any) => val.id == route?.params?.selected?.id,
-    );
-    if (selectedInd != -1) setCurrChkInd(selectedInd);
+    if (!searchValue) {
+      setList(route?.params?.data);
+    }
     setLoader(false);
   }, [route?.params]);
 
+  useEffect(() => {
+    const selectedInd = route?.params?.data?.findIndex(
+      (val: any) => val.id == route?.params?.selected?.id,
+    );
+    if (selectedInd != -1) setCurrChkInd(route?.params?.data[selectedInd]?.id);
+
+    return () => {
+      setCurrChkInd(0); // This worked for me
+    };
+  }, []);
+
   const selectItem = (ind: number) => {
+    const selectedInd = route?.params?.data?.findIndex(
+      (val: any) => val.id == ind,
+    );
     navigation?.setParams({
       ...route?.params,
-      selected: list[ind],
+      selected: route?.params?.data[selectedInd],
     });
     setCurrChkInd(ind);
   };
@@ -100,21 +111,25 @@ const CstmItemSelector = ({route, navigation}: any) => {
       {list?.length > 0 && (
         <FlatList
           data={list}
-          renderItem={({item, index}) => (
-            <SingleLineField
-              key={item.name}
-              title={item.name}
-              onPress={() => selectItem(index)}
-              leftChild={
-                <Checkbox
-                  status={currChkInd == index ? 'checked' : 'unchecked'}
-                  color={colors.primary}
-                  theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}
-                  onPress={() => selectItem(index)}
-                />
-              }
-            />
-          )}
+          renderItem={({item, index}) => {
+            return (
+              <SingleLineField
+                key={item.name}
+                title={item.name}
+                onPress={() => selectItem(item?.id)}
+                leftChild={
+                  <Checkbox
+                    status={currChkInd == item?.id ? 'checked' : 'unchecked'}
+                    color={colors.primary}
+                    theme={
+                      themeValue.get() === 'light' ? LightTheme : DarkTheme
+                    }
+                    onPress={() => selectItem(item?.id)}
+                  />
+                }
+              />
+            );
+          }}
         />
       )}
       {loader && <SimpleLoader />}

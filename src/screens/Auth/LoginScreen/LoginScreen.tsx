@@ -23,7 +23,7 @@ import {globalState} from '../../../utils/globalState';
 // @ts-ignore
 import store from 'react-native-simple-store';
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label('Email'),
+  username: Yup.string().required().min(5).label('Username'),
   password: Yup.string().required().min(6).label('Password'),
 });
 
@@ -71,12 +71,16 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
         <KeyboardAvoidingView style={keyboardStatus ? styles.container : {}} behavior="padding">
           <Formik
             initialValues={{
-              email: '',
+              username: '',
               password: '',
             }}
             onSubmit={values => {
-              navigation.navigate('Draw');
-              console.log('HAHAH');
+              user.set({
+                user: values
+              })
+              store.update('user', {
+                user: values
+              })
             }}
             validationSchema={validationSchema}>
             {({
@@ -93,15 +97,15 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                   <CstmInput title={'Company'} placeholder={'Your company'} />
                   <CstmInput
                     title={'Username'}
-                    placeholder={'Your email address'}
-                    value={values.email}
-                    keyType={'email-address'}
-                    onChangeText={handleChange('email')}
+                    placeholder={'Your username'}
+                    value={values.username}
+                    keyType={'default'}
+                    onChangeText={handleChange('username')}
                     onChange={() => {}}
-                    onBlur={() => setFieldTouched('email')}
+                    onBlur={() => setFieldTouched('username')}
                   />
-                  {touched.email && errors.email ? (
-                    <CstmErrorText errorMsg={errors.email} />
+                  {touched.username && errors.username ? (
+                    <CstmErrorText errorMsg={errors.username} />
                   ) : (
                     <View />
                   )}
@@ -123,13 +127,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                     <CstmButton
                       title="Sign In"
                       onPress={() => {
-                        // handleSubmit();
-                        user.set({
-                          user: true
-                        })
-                        store.update('user', {
-                          user: true
-                        })
+                        handleSubmit();
                       }}
                     />
                   </View>

@@ -16,6 +16,7 @@ const ModalHeader = ({
   children,
   onPress,
   disabled = true,
+  searchHeader = false,
 }: {
   icon?: string;
   right?: ReactNode;
@@ -26,6 +27,7 @@ const ModalHeader = ({
   children?: ReactNode;
   onPress?: () => void;
   disabled?: boolean;
+  searchHeader?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
 
@@ -38,6 +40,7 @@ const ModalHeader = ({
       style={{
         ...styles.container,
         backgroundColor: solidColor,
+        padding: searchHeader ? 0 : 10,
       }}>
       <View
         style={{

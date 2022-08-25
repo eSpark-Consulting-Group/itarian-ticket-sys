@@ -236,6 +236,11 @@ export type Item = {
   note?: string;
   type?: NotesType;
 };
+
+/*
+//* Enum's for all Types/Interfaces
+*/
+
 export enum NotesType {
   Discussion = 'Discussion',
   Internal = 'Internal',

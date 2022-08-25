@@ -72,9 +72,9 @@ const Overview = () => {
               data: customFeildList,
               selected: state?.customFeild,
               stack: 'Stack1',
-              title: route?.params?.title,
+              // title: route?.params?.title,
               headerTitle: 'Custom Feild',
-              searchable: true
+              searchable: true,
             },
           });
         }}

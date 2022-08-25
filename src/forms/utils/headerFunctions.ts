@@ -1,7 +1,7 @@
 //Function for My Status screen header's right button
 
-import { Alert } from "react-native";
-import { noteList } from "../../constants/SampleArrays";
+import {Alert} from 'react-native';
+import {noteList} from '../../constants/SampleArrays';
 
 const saveStatus = (navigation: any, route: any, activeStatus: any) => {
   activeStatus?.currentStatus.set(route.params.status);
@@ -21,8 +21,8 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any) => {
-  if(route?.params?.notes) {
-    console.log(" route?.params?.type",  route?.params?.type)
+  if (route?.params?.notes) {
+    console.log(' route?.params?.type', route?.params?.type);
     noteList.push({
       id: noteList?.length + 1,
       img: require('../../assets/images/avatar_holder.webp'),
@@ -30,18 +30,28 @@ const onSave = (navigation: any, route: any) => {
       time: '12:19 AM',
       date: '19 Nov, 2021',
       note: route?.params?.notes,
-      type: route?.params?.type
-    },)
+      type: route?.params?.type,
+    });
   }
-  navigation.navigate(route?.params?.stack, {
-    screen: route?.params?.from,
-    params: {
+
+  if (route?.params?.stack == 'Draw') {
+    navigation.navigate(route?.params?.stack, {
       title: route?.params?.title,
       selected: route?.params?.selected,
       item: route?.params?.item,
       ...route?.params,
-    },
-  });
+    });
+  } else {
+    navigation.navigate(route?.params?.stack, {
+      screen: route?.params?.from,
+      params: {
+        title: route?.params?.title,
+        selected: route?.params?.selected,
+        item: route?.params?.item,
+        ...route?.params,
+      },
+    });
+  }
 };
 
 export {saveStatus, goBack, onSave};

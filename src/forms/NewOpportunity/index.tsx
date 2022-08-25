@@ -75,9 +75,8 @@ const NewOpportunity = ({navigation, route}: any) => {
             from: 'NewOpportunity',
             item: 'GoneTo',
             data: NONoteTypes,
-            selected: null,
             stack: 'Stack2',
-            title: route?.params?.title,
+            title: route?.params?.title, // used for Dynamic Headers Used
             headerTitle: 'Note Type',
             status: route?.params?.status,
           },

@@ -17,6 +17,9 @@ export type Contact = {
   phone_no?: string | undefined | null;
   email_address?: string | undefined | null;
   inOffice?: boolean;
+  backDate?: string | undefined | null;
+  backTime?: string | undefined | null;
+  goneTo?: string | undefined | null;
 };
 
 export type Configuration = {
@@ -153,7 +156,7 @@ export type Ticket = {
   priority: 'DNR' | 'P1' | 'P2' | 'P3';
   phase?: string;
   project?: string;
-  schedule_time?: string;
+  schedule_time?: string | null;
   time_dur?: string;
   site?: 'Remote' | 'On-Site' | 'In-House';
 };
@@ -223,3 +226,22 @@ export type Filter = {
   rightSwitchVal?: boolean;
   leftIcon?: string;
 };
+
+export type Item = {
+  id: number;
+  img?: any;
+  title: string;
+  time: string;
+  date: string;
+  note?: string;
+  type?: NotesType;
+};
+export enum NotesType {
+  Discussion = 'Discussion',
+  Internal = 'Internal',
+  Resolution = 'Resolution',
+  Accounting = 'Accounting',
+  Comment = 'Comment',
+  Informational = 'Informational',
+  Technical = 'Technical',
+}

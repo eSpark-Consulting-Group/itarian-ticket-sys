@@ -8,6 +8,7 @@ import {
   ExpRprt_Data,
   Filter,
   FloatButtons,
+  Item,
   ModalFormArrayType,
   ModalFormDataArrayType,
   Opportunity,
@@ -16,6 +17,7 @@ import {
   Scheduled_Data,
   ScreenItems,
   SelectFields,
+  NotesType,
   Stopwatch,
   Ticket,
   TimeSheet,
@@ -58,7 +60,7 @@ export const ticketsList: Ticket[] = [
     status: 'Scheduled',
     priority: 'DNR',
     phase: 'Tech Prep',
-    schedule_time: '10:00AM - 12:30PM',
+    schedule_time: null,
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
@@ -87,7 +89,7 @@ export const ticketsList: Ticket[] = [
     status: 'Scheduled',
     priority: 'DNR',
     phase: 'New',
-    schedule_time: '10:00AM - 12:30PM',
+    schedule_time: null,
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
@@ -116,7 +118,7 @@ export const ticketsList: Ticket[] = [
     status: 'Scheduled',
     priority: 'P3',
     phase: 'New',
-    schedule_time: '10:00AM - 12:30PM',
+    schedule_time: null,
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
@@ -207,6 +209,9 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: null,
     inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
   },
   {
     name: 'Blake Wesker',
@@ -214,6 +219,9 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
     inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
   },
   {
     name: 'Bob Kins',
@@ -221,12 +229,18 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
     inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
   },
   {
     name: 'Kevin Spacey',
     company_name: 'Walt Disney',
     phone_no: null,
     email_address: 'email@test.com',
+    backDate: '17 August 2022',
+    backTime: '05:00 PM',
+    goneTo: 'Gone for the day',
   },
   {
     name: 'Brad Coops',
@@ -234,6 +248,9 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
     inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
   },
   {
     name: 'Jimmy Neutron',
@@ -241,6 +258,9 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
     inOffice: false,
+    backDate: '18 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Client',
   },
   {
     name: 'Zeeshan Akram',
@@ -248,12 +268,18 @@ export const contactsList: Contact[] = [
     phone_no: null,
     email_address: null,
     inOffice: false,
+    backDate: '16 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Appointment',
   },
   {
     name: 'Hardeep Vishnam',
     company_name: 'Star Trek Enterprises',
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
+    backDate: '20 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Others',
   },
   {
     name: 'Carl Johnson',
@@ -261,6 +287,9 @@ export const contactsList: Contact[] = [
     phone_no: '+555 555 5555',
     email_address: 'email@test.com',
     inOffice: false,
+    backDate: '25 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Gone for the day',
   },
 ];
 
@@ -405,12 +434,12 @@ export const scheduledList: Array<ScheduledList> = [
   {
     id: 1,
     date: new Date(2022, 10, 12),
-    data: ticketsList,
+    data: ticketsList.filter(val => val?.schedule_time),
   },
   {
     id: 2,
     date: new Date(2022, 10, 14),
-    data: ticketsList,
+    data: ticketsList.filter(val => val?.schedule_time),
   },
 ];
 
@@ -418,12 +447,12 @@ export const unscheduledList: Array<UnscheduledList> = [
   {
     id: 3,
     date: new Date(2022, 10, 13),
-    data: ticketsList,
+    data: ticketsList.filter(val => !val?.schedule_time),
   },
   {
     id: 4,
     date: new Date(2022, 10, 15),
-    data: ticketsList,
+    data: ticketsList.filter(val => !val?.schedule_time),
   },
 ];
 
@@ -650,40 +679,40 @@ export const GoneToFormArray: SelectFields[] = [
 
 export const NoteTypes_DIR: NoteTypes[] = [
   {
-    text: 'Discussion',
+    text: NotesType.Discussion,
     highlight: true,
   },
   {
-    text: 'Internal',
+    text: NotesType.Internal,
     highlight: false,
   },
   {
-    text: 'Resolution',
+    text: NotesType.Resolution,
     highlight: false,
   },
 ];
 
 export const NoteTypes_ACIT: NoteTypes[] = [
   {
-    text: 'Accounting',
+    text: NotesType.Accounting,
     highlight: true,
   },
   {
-    text: 'Comment',
+    text: NotesType.Comment,
     highlight: false,
   },
   {
-    text: 'Informational',
+    text: NotesType.Informational,
     highlight: false,
   },
   {
-    text: 'Technical',
+    text: NotesType.Technical,
     highlight: false,
   },
 ];
 
 export type NoteTypes = {
-  text: string;
+  text: NotesType;
   highlight: boolean;
 };
 
@@ -1200,5 +1229,85 @@ export const companyNameList: SelectFields[] = [
   {
     id: 2,
     name: 'Lorem Ipsum Co.',
+  },
+];
+
+export const noteList: Item[] = [
+  {
+    id: 1,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 1',
+    time: '12:19 AM',
+    date: '11 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 2,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 2',
+    time: '12:19 AM',
+    date: '15 Nov, 2021',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 3,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 3',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 4,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 4',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 5,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 5',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 6,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 6',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 7,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 7',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 8,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 8',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
+    type: NotesType.Discussion,
+  },
+  {
+    id: 9,
+    img: require('../assets/images/avatar_holder.webp'),
+    title: 'Template 9',
+    time: '12:19 AM',
+    date: '19 Nov, 2021',
+    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
+    type: NotesType.Discussion,
   },
 ];

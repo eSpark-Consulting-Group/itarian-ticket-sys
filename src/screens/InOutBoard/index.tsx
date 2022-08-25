@@ -38,10 +38,14 @@ const InOutBoardScreen = () => {
       // Filter the masterDataSource
       // Update FilteredDataSource
       // console.log('aya filtered memebers', members);
-      const newData = contactsList?.filter(item => {
+        const newData = contactsList?.filter(item => {
         const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
         const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
+        if(selection == 1) {
+          return (itemData.indexOf(textData) > -1 && item.inOffice);
+        }else {
+          return (itemData.indexOf(textData) > -1 && !item.inOffice);
+        }
       });
       setMembers(newData);
     } else {
@@ -74,7 +78,7 @@ const InOutBoardScreen = () => {
   useUpdateEffect(() => {
     if (clear) {
       console.log('done');
-      handleSubmit();
+      handleSwitch();
       setClear(false);
     }
   }, [clear]);
@@ -105,19 +109,19 @@ const InOutBoardScreen = () => {
             style={{
               color: colors.text,
             }}>
-             Gone To: Gone for the day
+             Gone To: {item.goneTo}
           </Text>
           <Text
             style={{
               color: colors.text,
             }}>
-            Back Date: 16 August 2022
+            Back Date: {item.backDate}
           </Text>
           <Text
             style={{
               color: colors.text,
             }}>
-            Back Time: 08:00 AM
+            Back Time: {item.backTime}
           </Text>
           </>}
         </View>

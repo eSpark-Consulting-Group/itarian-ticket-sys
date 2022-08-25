@@ -1,25 +1,25 @@
-import { useHookstate, State } from '@hookstate/core';
-import { Theme, useTheme } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
-import { Checkbox, FAB } from 'react-native-paper';
-import { DarkTheme, LightTheme } from '../../theme/colors';
-import { SelectFeilds } from '../../types';
-import { globalState } from '../../utils/globalState';
-import { useUpdateEffect } from '../../utils/hooks';
-import { SingleLineField } from '../FormFields';
+import {useHookstate, State} from '@hookstate/core';
+import {Theme, useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {FlatList} from 'react-native';
+import {Checkbox, FAB} from 'react-native-paper';
+import {DarkTheme, LightTheme} from '../../theme/colors';
+import {SelectFields} from '../../types';
+import {globalState} from '../../utils/globalState';
+import {useUpdateEffect} from '../../utils/hooks';
+import {SingleLineField} from '../FormFields';
 import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
 import styles from './style';
 
-const CstmItemSelector = ({ route, navigation }: any) => {
-  const { colors, dark }: Theme = useTheme();
+const CstmItemSelector = ({route, navigation}: any) => {
+  const {colors, dark}: Theme = useTheme();
   const themeValue: State<string> = useHookstate(globalState.theme);
   const [currChkInd, setCurrChkInd] = useState<number | any>(null);
   const [loader, setLoader] = useState<boolean>(true);
-  const [list, setList] = useState<SelectFeilds[] | []>([]);
+  const [list, setList] = useState<SelectFields[] | []>([]);
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [clear, setClear] = useState(false);
@@ -45,13 +45,12 @@ const CstmItemSelector = ({ route, navigation }: any) => {
       });
       setList(newData);
     } else {
-      let listData = [...route?.params?.data]
+      let listData = [...route?.params?.data];
       // Inserted text is blank
       // Update FilteredDataSource with masterDataSource
       setList(listData);
     }
   };
-
 
   const handleClear = () => {
     setSearchValue('');
@@ -65,7 +64,6 @@ const CstmItemSelector = ({ route, navigation }: any) => {
       setClear(false);
     }
   }, [clear]);
-
 
   useEffect(() => {
     setList(route?.params?.data);
@@ -82,11 +80,11 @@ const CstmItemSelector = ({ route, navigation }: any) => {
       selected: list[ind],
     });
     setCurrChkInd(ind);
-  }
+  };
 
   return (
     <ModalView>
-      {route?.params?.searchable &&
+      {route?.params?.searchable && (
         <ModalHeader empty>
           <SearchBar
             withTag={false}
@@ -97,11 +95,12 @@ const CstmItemSelector = ({ route, navigation }: any) => {
             onSubmit={handleSubmit}
             onClear={handleClear}
           />
-        </ModalHeader>}
+        </ModalHeader>
+      )}
       {list?.length > 0 && (
         <FlatList
           data={list}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <SingleLineField
               key={item.name}
               title={item.name}

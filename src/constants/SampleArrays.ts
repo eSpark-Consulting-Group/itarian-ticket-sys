@@ -15,7 +15,7 @@ import {
   ScheduledList,
   Scheduled_Data,
   ScreenItems,
-  SelectFeilds,
+  SelectFields,
   Stopwatch,
   Ticket,
   TimeSheet,
@@ -638,7 +638,7 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
   },
 ];
 
-export const GoneToFormArray: SelectFeilds[] = [
+export const GoneToFormArray: SelectFields[] = [
   {id: 1, name: 'Appointment'},
   {id: 2, name: 'Client'},
   {id: 3, name: 'Gone for the day'},
@@ -648,14 +648,7 @@ export const GoneToFormArray: SelectFeilds[] = [
   {id: 7, name: 'Vacation'},
 ];
 
-export const NoteTypeArray: SelectFeilds[] = [
-  {id: 1, name: 'Accounting'},
-  {id: 2, name: 'Comment'},
-  {id: 3, name: 'Informational'},
-  {id: 4, name: 'Technical'},
-];
-
-export const STNoteTypes: NoteTypes[] = [
+export const NoteTypes_DIR: NoteTypes[] = [
   {
     text: 'Discussion',
     highlight: true,
@@ -670,7 +663,7 @@ export const STNoteTypes: NoteTypes[] = [
   },
 ];
 
-export const NONoteTypes: NoteTypes[] = [
+export const NoteTypes_ACIT: NoteTypes[] = [
   {
     text: 'Accounting',
     highlight: true,
@@ -916,7 +909,9 @@ export const opportunityFilterList: Filter[] = [
   },
 ];
 
-export const customFeildList: SelectFeilds[] = [
+//? ------------------------------ Tickets Selector Fields
+
+export const customFieldList: SelectFields[] = [
   {
     id: 1,
     name: 'Custom 1',
@@ -955,7 +950,7 @@ export const customFeildList: SelectFeilds[] = [
   },
 ];
 
-export const siteList: SelectFeilds[] = [
+export const siteList: SelectFields[] = [
   {
     id: 1,
     name: 'Site 1',
@@ -994,7 +989,7 @@ export const siteList: SelectFeilds[] = [
   },
 ];
 
-export const boardList: SelectFeilds[] = [
+export const boardList: SelectFields[] = [
   {
     id: 1,
     name: 'Board 1',
@@ -1033,7 +1028,7 @@ export const boardList: SelectFeilds[] = [
   },
 ];
 
-export const statusList: SelectFeilds[] = [
+export const statusList: SelectFields[] = [
   {
     id: 1,
     name: 'Status 1',
@@ -1072,7 +1067,7 @@ export const statusList: SelectFeilds[] = [
   },
 ];
 
-export const typesList: SelectFeilds[] = [
+export const typesList: SelectFields[] = [
   {
     id: 1,
     name: 'Type 1',
@@ -1111,7 +1106,7 @@ export const typesList: SelectFeilds[] = [
   },
 ];
 
-export const subTypesList: SelectFeilds[] = [
+export const subTypesList: SelectFields[] = [
   {
     id: 1,
     name: 'Subtype 1',
@@ -1150,7 +1145,7 @@ export const subTypesList: SelectFeilds[] = [
   },
 ];
 
-export const itemList: SelectFeilds[] = [
+export const itemList: SelectFields[] = [
   {
     id: 1,
     name: 'Item 1',
@@ -1186,5 +1181,24 @@ export const itemList: SelectFeilds[] = [
   {
     id: 9,
     name: 'Item 9',
+  },
+];
+
+//? ---------------------------------------
+
+//? ------------------------------- Configuration Selector Fields
+
+export const companyNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Acme Company Ltd',
+  },
+  {
+    id: 1,
+    name: 'Coca Cola Ltd',
+  },
+  {
+    id: 2,
+    name: 'Lorem Ipsum Co.',
   },
 ];

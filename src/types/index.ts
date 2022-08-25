@@ -206,7 +206,7 @@ export type ScreenItems = {
   name: string;
 };
 
-export type SelectFeilds = {
+export type SelectFields = {
   id: number;
   name: string;
 };

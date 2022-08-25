@@ -78,7 +78,7 @@ const OutlineBtn = ({
             style={{
               width: rightIcon ? 100 : widthLength,
               justifyContent: 'center',
-              alignItems: 'center',
+              alignItems: rightIcon ? "flex-start" : 'center',
             }}>
             <Text
               style={{

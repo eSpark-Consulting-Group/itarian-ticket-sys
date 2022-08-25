@@ -1,5 +1,5 @@
-import React from 'react';
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import {
   useTheme,
   Theme,
@@ -10,112 +10,47 @@ import {
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
-import { EmptyListMsg, GapView, ModalField } from '../../components';
-import { Divider, Modal } from 'react-native-paper';
-import { moderateScale } from 'react-native-size-matters';
-import { WINDOW_HEIGHT } from '../../constants';
-import { ScrollView } from 'react-native-gesture-handler';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../navigation/RootNavigation';
-import { STNoteTypes } from '../../constants/SampleArrays';
-
-const dataSource: Item[] = [
-  {
-    id: 1,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 1',
-    time: '12:19 AM',
-    date: '11 Nov, 2021',
-    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-  },
-  {
-    id: 2,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 2',
-    time: '12:19 AM',
-    date: '15 Nov, 2021',
-  },
-  {
-    id: 3,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 3',
-    time: '12:19 AM',
-    date: '19 Nov, 2021',
-  },
-  {
-    id: 4,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 4',
-    time: '12:19 AM',
-    date: '19 Nov, 2021',
-    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-  },
-  {
-    id: 5,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 5',
-    time: '12:19 AM',
-    date: '19 Nov, 2021',
-  },
-  {
-    id: 6,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 6',
-    time: '12:19 AM',
-    date: '19 Nov, 2021',
-    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-  },
-  {
-    id: 7,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 7',
-    time: '12:19 AM',
-    date: '19 Nov, 2021',
-  },
-  {
-    id: 8,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 8',
-    time: '12:19 AM',
-    date: '19 Nov, 2021',
-    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-  },
-  {
-    id: 9,
-    img: require('../../assets/images/avatar_holder.webp'),
-    title: 'Template 9',
-    time: '12:19 AM',
-    date: '19 Nov, 2021',
-    note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-  },
-];
-
-interface Item {
-  id: number;
-  img?: any;
-  title: string;
-  time: string;
-  date: string;
-  note?: string;
-}
+import {EmptyListMsg, GapView, ModalField} from '../../components';
+import {Divider, Modal} from 'react-native-paper';
+import {moderateScale} from 'react-native-size-matters';
+import {WINDOW_HEIGHT} from '../../constants';
+import {ScrollView} from 'react-native-gesture-handler';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/RootNavigation';
+import {
+  noteList as dataSource,
+  STNoteTypes,
+} from '../../constants/SampleArrays';
+import {Item} from '../../types';
+import {CstmMenu} from '../../components/CstmMenu';
 
 const Notes = () => {
-  const { colors, dark }: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
+  type StackLvl2 = StackNavigationProp<RootStackParamList, 'Stack2'>;
 
-  const renderList = ({ item, index }: { item: Item; index: number }) => {
+  const navigation = useNavigation<StackLvl2>();
+  const route = useRoute<any>();
+
+  const [visible, setVisible] = useState(false);
+  const [filterType, setfilterType] = useState('All');
+  const [data, setData] = useState(dataSource)
+  const showMenu = (): void => setVisible(true);
+  const hideMenu = (): void => setVisible(false);
+
+  const renderList = ({item, index}: {item: Item; index: number}) => {
     return (
       <View>
-        <View style={{ flexDirection: 'row', padding: 8 }}>
-          <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
+        <View style={{flexDirection: 'row', padding: 8}}>
+          <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
             <Image source={item.img} style={styles.imageStyle} />
           </View>
           <GapView mode="horizontal" />
-          <View style={{ justifyContent: 'center' }}>
-            <Text style={{ color: colors.text, ...styles.titleStyle }}>
+          <View style={{justifyContent: 'center'}}>
+            <Text style={{color: colors.text, ...styles.titleStyle}}>
               {item.title}
             </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ color: colors.text, ...styles.subText }}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{color: colors.text, ...styles.subText}}>
                 {item.time}
               </Text>
               <View
@@ -124,26 +59,82 @@ const Notes = () => {
                   ...styles.divider,
                 }}
               />
-              <Text style={{ color: colors.text, ...styles.subText }}>
+              <Text style={{color: colors.text, ...styles.subText}}>
                 {item.date}
               </Text>
             </View>
           </View>
         </View>
         {item.note && (
-          <Text style={{ color: colors.text, padding: 8 }}>{item.note}</Text>
+          <Text style={{color: colors.text, padding: 8}}>{item.note}</Text>
         )}
       </View>
     );
   };
 
-  if (dataSource.length == 0) {
+  const subHeader = () => {
     return (
-      <View style={styles.container}>
-        <NotFound />
-      </View>
+      <>
+        <Text style={{color: colors.text, ...styles.titleStyle}}>{filterType}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <AD
+            name="addfile"
+            size={24}
+            color={colors.text}
+            style={{opacity: 0.8}}
+            onPress={() =>
+              navigation.navigate('Stack2', {
+                screen: 'ComposeNote',
+                params: {
+                  from: 'STickets',
+                  item: 'GoneTo',
+                  data: STNoteTypes,
+                  selected: null,
+                  stack: 'Stack1',
+                  title: route?.params?.title,
+                  headerTitle: 'Note Type',
+                  status: route?.params?.status,
+                },
+              })
+            }
+          />
+          <GapView mode="horizontal" length={30} />
+          <CstmMenu
+            menuItems={[{text: 'All'}, ...STNoteTypes]}
+            visible={visible}
+            hideMenu={hideMenu}
+            onChange={setfilterType}
+            children={
+              <FT
+                name="equalizer"
+                size={24}
+                color={colors.text}
+                style={{opacity: 0.8}}
+                onPress={showMenu}
+              />
+            }
+          />
+        </View>
+      </>
     );
-  } else {
+  };
+
+  useEffect(() => {
+    if(filterType == "All") {
+      setData(dataSource)
+    }else {
+      const filteredData = dataSource.filter((val) => val.type == filterType)
+      setData([...filteredData])
+    }
+  }, [filterType])
+
+  // if (data.length == 0) {
+  //   return (
+  //     // <View style={styles.container}>
+  //       <NotFound />
+  //     // </View>
+  //   );
+  // } else {
     return (
       <>
         <ModalField
@@ -152,67 +143,28 @@ const Notes = () => {
           contentStyle={{
             ...styles.subHeader,
           }}>
-          <SubHeader />
+          {subHeader()}
         </ModalField>
+        {data?.length > 0 ?
         <ModalField mode="none" pressEnable={false} fieldPadding={0}>
           <FlatList
-            data={dataSource}
+            data={data}
             renderItem={renderList}
             showsVerticalScrollIndicator={false}
             ListFooterComponent={<View />}
-            ListFooterComponentStyle={{ height: 120 }}
+            ListFooterComponentStyle={{height: 120}}
             ItemSeparatorComponent={() => (
               <Divider
-                style={{ backgroundColor: colors.background, height: 1.2 }}
+                style={{backgroundColor: colors.background, height: 1.2}}
               />
             )}
           />
-        </ModalField>
+        </ModalField> :
+         <NotFound />}
       </>
     );
   }
-};
-type StackLvl2 = StackNavigationProp<RootStackParamList, 'Stack2'>;
-
-const SubHeader = () => {
-  const { colors }: Theme = useTheme();
-  const navigation = useNavigation<StackLvl2>();
-  const route = useRoute<any>();
-  return (
-    <>
-      <Text style={{ color: colors.text, ...styles.titleStyle }}>All</Text>
-      <View style={{ flexDirection: 'row' }}>
-        <AD
-          name="addfile"
-          size={24}
-          color={colors.text}
-          style={{ opacity: 0.8 }}
-          onPress={() => navigation.navigate('Stack2', {
-            screen: 'ComposeNote',
-            params: {
-              from: 'STickets',
-              item: 'GoneTo',
-              data: STNoteTypes,
-              selected: null,
-              stack: 'Stack2',
-              title: route?.params?.title,
-              headerTitle: 'Note Type',
-              status: route?.params?.status,
-            },
-          })}
-        />
-        <GapView mode="horizontal" length={30} />
-        <FT
-          name="equalizer"
-          size={24}
-          color={colors.text}
-          style={{ opacity: 0.8 }}
-          onPress={() => console.log('Pressed')}
-        />
-      </View>
-    </>
-  );
-};
+// };
 
 const NotFound = (): JSX.Element => {
   return (
@@ -226,9 +178,10 @@ export default Notes;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // alignItems: 'center',
-  },
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+   },
   content: {
     flex: 1,
     justifyContent: 'center',

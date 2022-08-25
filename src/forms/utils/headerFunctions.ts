@@ -1,5 +1,8 @@
 //Function for My Status screen header's right button
 
+import { Alert } from "react-native";
+import { noteList } from "../../constants/SampleArrays";
+
 const saveStatus = (navigation: any, route: any, activeStatus: any) => {
   activeStatus?.currentStatus.set(route.params.status);
   activeStatus?.currentGoneTo.set(route.params.goneTo);
@@ -18,6 +21,18 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any) => {
+  if(route?.params?.notes) {
+    console.log(" route?.params?.type",  route?.params?.type)
+    noteList.push({
+      id: noteList?.length + 1,
+      img: require('../../assets/images/avatar_holder.webp'),
+      title: `Template ${noteList?.length + 1}`,
+      time: '12:19 AM',
+      date: '19 Nov, 2021',
+      note: route?.params?.notes,
+      type: route?.params?.type
+    },)
+  }
   navigation.navigate(route?.params?.stack, {
     screen: route?.params?.from,
     params: {

@@ -21,6 +21,7 @@ import {
 import {Activity, AdditionalButtons} from '../../types';
 import _ from 'lodash';
 import {CstmPressable} from '../../components/CstmPressable';
+import {CstmMenu} from '../../components/CstmMenu';
 
 const MyActivities = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -129,12 +130,12 @@ const MyActivities = ({navigation}: any) => {
             }}
           />
           <View style={styles.adjuster} />
-          <Menu
+          <CstmMenu
+            menuItems={menuItems}
             visible={visible}
-            onDismiss={hideMenu}
-            style={{width: moderateScale(170)}}
-            contentStyle={{backgroundColor: solidColor}}
-            anchor={
+            hideMenu={hideMenu}
+            onChange={(value) => setRange(value)}
+            children={
               <OutlineBtn
                 text={range}
                 backColor={colors.primary}
@@ -161,31 +162,8 @@ const MyActivities = ({navigation}: any) => {
                 }
                 onPress={showMenu}
               />
-            }>
-            <FlatList
-              data={menuItems}
-              renderItem={({item, index}) => {
-                return (
-                  <>
-                    <MenuItem
-                      itemName={item}
-                      textColor={colors.text}
-                      dark={dark}
-                      onPress={() => {
-                        hideMenu();
-                        setRange(item);
-                      }}
-                    />
-                    {index == 0 && (
-                      <Divider
-                        style={{backgroundColor: colors.text, opacity: 0.2}}
-                      />
-                    )}
-                  </>
-                );
-              }}
-            />
-          </Menu>
+            }
+          />
         </View>
       </View>
       <View style={styles.container}>
@@ -211,48 +189,12 @@ const NotFound = (): JSX.Element => {
 //*---------- Helper Components
 
 const menuItems = [
-  'All',
-  'Last 30 Days',
-  'Today',
-  'Tomorrow',
-  'This Week',
-  'Next 30 Days',
+  {text: 'All'},
+  {text: 'Last 30 Days'},
+  {text: 'Today'},
+  {text: 'Tomorrow'},
+  {text: 'This Week'},
+  {text: 'Next 30 Days'},
 ];
-
-const MenuItem = ({
-  itemName,
-  onPress,
-  leftIcon,
-  rightIcon,
-  textColor = '#000',
-  checkVisible,
-  dark,
-}: {
-  itemName: string;
-  onPress: () => void;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  textColor?: string;
-  checkVisible?: boolean;
-  dark?: boolean;
-}) => {
-  return (
-    <CstmPressable
-      onPress={onPress}
-      android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
-      <View style={styles.menuItemButtonStyle}>
-        <View style={{flexDirection: 'row'}}>
-          {leftIcon}
-          <Text style={{color: textColor, marginHorizontal: 5}}>
-            {itemName}
-          </Text>
-        </View>
-        <View style={styles.menuIconContainer}>
-          {checkVisible && rightIcon}
-        </View>
-      </View>
-    </CstmPressable>
-  );
-};
 
 export default MyActivities;

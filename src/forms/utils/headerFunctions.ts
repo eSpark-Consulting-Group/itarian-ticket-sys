@@ -4,8 +4,11 @@ import {Alert} from 'react-native';
 import {noteList} from '../../constants/SampleArrays';
 
 const saveStatus = (navigation: any, route: any, activeStatus: any) => {
-  activeStatus?.currentStatus.set(route.params.status);
-  activeStatus?.currentGoneTo.set(route.params.goneTo);
+  console.log("route.params", route?.params)
+  if(route?.params) {
+    activeStatus?.currentStatus.set(route.params?.status);
+    activeStatus?.currentGoneTo.set({...route.params?.goneTo});
+  }
   navigation.navigate({
     name: 'Profile',
     params: {status: route.params.status},
@@ -21,8 +24,9 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any) => {
+  console.log(' route?.params?.type', route?.params);
+
   if (route?.params?.notes) {
-    console.log(' route?.params?.type', route?.params?.type);
     noteList.push({
       id: noteList?.length + 1,
       img: require('../../assets/images/avatar_holder.webp'),

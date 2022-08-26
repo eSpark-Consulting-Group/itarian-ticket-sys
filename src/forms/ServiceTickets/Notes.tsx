@@ -91,7 +91,7 @@ const Notes = () => {
                   from: 'STickets',
                   item: 'GoneTo',
                   data: NoteTypes_DIR,
-                  selected: null,
+                  selected: {},
                   stack: 'Stack1',
                   title: route?.params?.title,
                   headerTitle: 'Note Type',

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Image,
   KeyboardAvoidingView,
   ScrollView,
   Linking,
-  Keyboard
+  Keyboard,
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
@@ -33,10 +33,10 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const {colors}: Theme = useTheme();
 
   useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus(true);
     });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
       setKeyboardStatus(false);
     });
 
@@ -68,7 +68,9 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
         />
       </View>
       <ScrollView>
-        <KeyboardAvoidingView style={keyboardStatus ? styles.container : {}} behavior="padding">
+        <KeyboardAvoidingView
+          style={keyboardStatus ? styles.container : {}}
+          behavior="padding">
           <Formik
             initialValues={{
               username: '',
@@ -76,11 +78,11 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
             }}
             onSubmit={values => {
               user.set({
-                user: values
-              })
+                user: values,
+              });
               store.update('user', {
-                user: values
-              })
+                user: values,
+              });
             }}
             validationSchema={validationSchema}>
             {({

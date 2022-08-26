@@ -8,7 +8,14 @@ import {
 } from '@react-navigation/native';
 import {SingleLineField} from '../../../../components';
 import {SelectFields} from '../../../../types';
-import {companyNameList} from '../../../../constants/SampleArrays';
+import {
+  companyNameList,
+  contactNameList,
+  installerNameList,
+  manufacturerNameList,
+  siteNameList,
+  vendorNameList,
+} from '../../../../constants/SampleArrays';
 
 interface Item {
   title: string;
@@ -53,11 +60,15 @@ const Overview = () => {
       subTitle: 'Contact',
       title: 'Steven Howard',
       rightIcon: 'chevron-right',
+      list: contactNameList,
+      selectedItem: {id: 0, name: 'Steven Howard'},
     },
     {
       subTitle: 'Site',
       title: 'Southern',
       rightIcon: 'chevron-right',
+      list: siteNameList,
+      selectedItem: {id: 0, name: 'Southern'},
     },
     {
       subTitle: 'Address',
@@ -84,6 +95,8 @@ const Overview = () => {
       subTitle: 'Manufacturer',
       title: 'Kents Works',
       rightIcon: 'chevron-right',
+      list: manufacturerNameList,
+      selectedItem: {id: 0, name: 'Kents Works'},
     },
     {
       subTitle: 'Mfg Part Number',
@@ -114,6 +127,8 @@ const Overview = () => {
       subTitle: 'Vendor',
       title: 'Loco Fixers',
       rightIcon: 'chevron-right',
+      list: vendorNameList,
+      selectedItem: {id: 0, name: 'Loco Fixers'},
     },
     {
       subTitle: 'Purchase Date',
@@ -134,6 +149,8 @@ const Overview = () => {
       subTitle: 'Installed By',
       title: 'Kents Works',
       rightIcon: 'chevron-right',
+      list: installerNameList,
+      selectedItem: {id: 0, name: 'Kents Works'},
     },
     {
       subTitle: 'Bill Customer',

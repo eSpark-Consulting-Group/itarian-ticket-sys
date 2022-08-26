@@ -7,9 +7,10 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import {SingleLineField} from '../../../../components';
-import {SelectFields} from '../../../../types';
+import {QNATypes, SelectFields} from '../../../../types';
 import {
   companyNameList,
+  configQuesList,
   contactNameList,
   installerNameList,
   manufacturerNameList,
@@ -30,7 +31,7 @@ interface Item {
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
   mode?: 'none' | 'multiline';
-  list?: SelectFields[];
+  list?: SelectFields[] | QNATypes[];
   selectedItem?: SelectFields;
 }
 
@@ -90,6 +91,7 @@ const Overview = () => {
       subTitle: 'Configuration Questions',
       title: 'Tap to View',
       rightIcon: 'chevron-right',
+      list: configQuesList,
     },
     {
       subTitle: 'Manufacturer',
@@ -205,6 +207,21 @@ const Overview = () => {
     if (index == 1) {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
+        params: {
+          from: 'Configure1',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: 'Company Name',
+          searchable: true,
+        },
+      });
+    }
+    if (index == 7) {
+      navigation.navigate('Stack2', {
+        screen: 'QNA',
         params: {
           from: 'Configure1',
           item: index,

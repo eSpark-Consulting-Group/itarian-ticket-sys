@@ -215,6 +215,12 @@ export type SelectFields = {
   name: string;
 };
 
+export type QNATypes = {
+  id: number;
+  ques: string;
+  ans: string;
+};
+
 export type Filter = {
   title: string;
   subTitle?: string;

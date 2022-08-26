@@ -1,76 +1,109 @@
-import React from 'react';
+import React, {ReactNode, useState} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
-import {useTheme, Theme, useRoute } from '@react-navigation/native';
-import { SingleLineField} from '../../../../components';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons'
-import II from 'react-native-vector-icons/Ionicons'
-import { Activity } from '../../../../types';
+import {useTheme, Theme, useRoute} from '@react-navigation/native';
+import {SingleLineField} from '../../../../components';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import II from 'react-native-vector-icons/Ionicons';
+import {Activity, SelectFields} from '../../../../types';
+
+interface Item {
+  title: string;
+  subTitle: string;
+  inputable?: boolean;
+  enable?: boolean;
+  rightIcon?: string;
+  onChangeText?: (text: string) => void;
+  mode?: 'none' | 'multiline';
+  list?: SelectFields[];
+  selectedItem?: SelectFields;
+  rightChild?: ReactNode;
+  searchable?: boolean;
+  headerTitle?: string;
+  gap?: boolean;
+}
+
 const Overview = () => {
   const {colors}: Theme = useTheme();
-  const route: any = useRoute()
-  const item: Activity = route?.params?.data
+  const route: any = useRoute();
+  const item: Activity = route?.params?.data;
+  const [dataSource, setDataSource] = useState<Item[]>([
+    {
+      title: item?.name,
+      subTitle: 'Summary',
+      inputable: true,
+    },
+    {
+      title: item?.company_name,
+      subTitle: 'Company',
+      rightIcon: 'chevron-right',
+    },
+    {
+      title: item?.date,
+      subTitle: 'Due Date',
+      rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+    },
+    {
+      title: item?.start_time,
+      subTitle: 'Start Time',
+      rightChild: <II name="ios-stopwatch" size={26} color={colors.primary} />,
+    },
+    {
+      title: item?.end_time,
+      subTitle: 'End Time',
+      rightChild: <II name="ios-stopwatch" size={26} color={colors.primary} />,
+      gap: false,
+    },
+    {
+      title: 'Kyle Coney',
+      subTitle: 'Contact',
+      rightIcon: 'chevron-right',
+    },
+    {
+      title: 'Inquiry',
+      subTitle: 'Type',
+      rightIcon: 'chevron-right',
+    },
+    {
+      title: 'Remote',
+      subTitle: 'Where',
+      rightIcon: 'chevron-right',
+    },
+    {
+      title: 'Status',
+      subTitle: 'Status',
+      rightIcon: 'chevron-right',
+    },
+    {
+      title: 'Resource',
+      subTitle: 'Resource',
+      rightIcon: 'chevron-right',
+    },
+    {
+      title: 'Visit potential prospect',
+      subTitle: 'Notes',
+      inputable: true,
+      mode: 'multiline',
+    },
+  ]);
 
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={{alignItems: 'center'}}>
-      <SingleLineField
-        title={item?.name}
-        subTitle="Summary"
-        inputable
-      />
-      <SingleLineField
-        title={item?.company_name}
-        subTitle="Company"
-        rightIcon="chevron-right"
-      />
-      <SingleLineField
-        title={item?.date}
-        subTitle="Due Date"
-        rightChild={<MCI name="calendar" size={26} color={colors.primary} />}
-      />
-      <SingleLineField
-          title={item?.start_time}
-          subTitle="Start Time"
-          rightChild={<II name="ios-stopwatch" size={26} color={colors.primary} />}
+      {dataSource.map((item: Item, index: number) => (
+        <SingleLineField
+          key={index}
+          subTitle={item.subTitle}
+          title={item.title}
+          inputable={item.inputable}
+          onChangeText={value => {}}
+          enable={item.enable}
+          rightIcon={item.rightIcon}
+          rightChild={item.rightChild}
+          mode={item.mode}
+          onPress={() => {}}
         />
-      <SingleLineField
-          title={item?.end_time}
-          subTitle="End Time"
-          rightChild={<II name="ios-stopwatch" size={26} color={colors.primary} />}
-          gap={false}
-        />
-      <SingleLineField
-        title={"Kyle Coney"}
-        subTitle="Contact"
-        rightIcon="chevron-right"
-      />
-      <SingleLineField
-        title={"Inquiry"}
-        subTitle="Type"
-        rightIcon="chevron-right"
-      />
-      <SingleLineField
-        title={"Remote"}
-        subTitle="Where"
-        rightIcon="chevron-right"
-      />
-      <SingleLineField
-        title={"Status"}
-        subTitle="Status"
-        rightIcon="chevron-right"
-      />
-       <SingleLineField
-        title={"Resource"}
-        subTitle="Resource"
-        rightIcon="chevron-right"
-      />
-      <SingleLineField
-        title={"Visit potential prospect"}
-        subTitle="Notes"
-        inputable
-        mode="multiline"
-      />
+      ))}
     </ScrollView>
   );
 };

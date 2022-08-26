@@ -122,7 +122,7 @@ const Overview = () => {
   const [Ds, setDs] = useState<Item[]>(dataSource);
 
   useEffect(() => {
-    if (route?.params?.item?.toString()) {
+    if (route?.params?.item?.toString() && route?.params?.item != "GoneTo") {
       var obj: any = [...Ds];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;

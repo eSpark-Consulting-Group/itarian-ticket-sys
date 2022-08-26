@@ -11,8 +11,8 @@ import {State, useState as useHState} from '@hookstate/core';
 
 const MyStatus = ({route, navigation}: any) => {
   const currStatus: State<boolean> = useHState(globalState.currentStatus);
-  const currGonTo: State<object> = useHState(globalState.currentGoneTo);
-  console.log('Route', route);
+  const currGonTo: State<any> = useHState(globalState.currentGoneTo);
+  // console.log('Route', route);
   const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();
   const [goneTo, setGoneTo] = useState<any>(null);

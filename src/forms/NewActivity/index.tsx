@@ -4,6 +4,8 @@ import {GapView, ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
+import {State, useState as hookState} from '@hookstate/core';
+import { globalState } from '../../utils/globalState';
 const NewActivity = ({route} : any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
@@ -13,6 +15,7 @@ const NewActivity = ({route} : any) => {
   const [dueDate, setDueDate] = useState(null)
   const [StartTime, setStartTime] = useState(null)
   const [endTime, setendTime] = useState(null)
+  const user: State<any> = hookState(globalState.user);
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -88,7 +91,7 @@ const NewActivity = ({route} : any) => {
   useEffect(() => {
     if(route?.params?.from) {
       let newData = [...dataSource];
-      newData[9].title = "Johnny Bravo";
+      newData[9].title = user.get().user?.username;
       setDataSource(newData);
     }
   }, [route?.params])

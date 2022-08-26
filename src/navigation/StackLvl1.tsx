@@ -54,7 +54,6 @@ const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
   const activeStatus: State<any> = useState(globalState);
 
-  console.log('route Props', route);
 
   return (
     <Stack.Navigator

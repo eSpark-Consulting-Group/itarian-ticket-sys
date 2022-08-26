@@ -1331,6 +1331,83 @@ export const companyNameList: SelectFields[] = [
   },
 ];
 
+export const contactNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Steven Howard',
+  },
+  {
+    id: 1,
+    name: 'Blake Wesker',
+  },
+  {
+    id: 2,
+    name: 'John Doe',
+  },
+];
+
+export const siteNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Southern',
+  },
+  {
+    id: 1,
+    name: 'Remote',
+  },
+  {
+    id: 2,
+    name: 'On-Site',
+  },
+];
+
+export const manufacturerNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Kents Works',
+  },
+  {
+    id: 1,
+    name: 'ABC NAMU',
+  },
+  {
+    id: 2,
+    name: 'ACME Manufacturers',
+  },
+];
+
+export const vendorNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Loco Fixers',
+  },
+  {
+    id: 1,
+    name: 'Lorem ipsum',
+  },
+  {
+    id: 2,
+    name: 'ACME Vendors',
+  },
+];
+
+export const installerNameList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Kents Works',
+  },
+  {
+    id: 1,
+    name: 'Installer 2',
+  },
+  {
+    id: 2,
+    name: 'Installer 3',
+  },
+];
+
+//? ---------------------------------------
+
 export const noteList: Item[] = [
   {
     id: 1,

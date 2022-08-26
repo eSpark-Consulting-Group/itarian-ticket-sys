@@ -6,14 +6,15 @@ import {Theme} from '../../theme/colors';
 import {WINDOW_WIDTH} from '../../constants';
 
 // @ts-ignore
-import EventCalendar from 'react-native-events-calendar';
+import EventCalendar from '../../components/react-native-events-calendar/src/EventCalendar';
 
 import {SchAdditionalButtons} from '../../constants/SampleArrays';
 import {FloatButton} from '../../components';
 import {AdditionalButtons} from '../../types';
 
 const Calendar = ({navigation}: any) => {
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
+  const [toggle, setToggle] = useState<any>(false);
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
 
@@ -36,10 +37,15 @@ const Calendar = ({navigation}: any) => {
     updatePress();
   }, []);
 
+  useEffect(() => {
+    console.log("useEffect")
+    setToggle(!toggle);
+  }, [dark]);
+
   const events = [
     {
-      start: '2022-07-07 10:00:00',
-      end: '2022-07-07 12:00:00',
+      start: '2022-08-26 10:00:00',
+      end: '2022-08-26 12:00:00',
       title: 'Ticket #15378',
       summary: 'The System is down',
     },
@@ -102,7 +108,7 @@ const Calendar = ({navigation}: any) => {
         events={events}
         width={WINDOW_WIDTH}
         initDate={new Date()}
-        styles={{contentStyle: {backgroundColor: 'red'}}}
+        styles={{contentStyle: {backgroundColor: dark ? '#000' : '#fff'}, header: {backgroundColor: dark ? colors.background : '#F5F5F6', borderColor: dark ? "#000" : 'transparent'} , headerText:  {color: dark ? '#fff' : '#000'}}}
       />
       <FloatButton AdditionalButtons={actionButtons} />
     </View>

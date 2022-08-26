@@ -12,6 +12,7 @@ import {globalState} from '../../utils/globalState';
 const Profile = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const currStatus: State<boolean> = hookState(globalState.currentStatus);
+  const user: State<any> = hookState(globalState.user);
   return (
     <View
       style={{
@@ -25,7 +26,7 @@ const Profile = ({route, navigation}: any) => {
         }}>
         <AvatarContainer source={require('../../assets/images/avatar.png')} />
         <Text style={{fontWeight: 'bold', color: colors.text}}>
-          Johnny Bravo
+          {user.get()?.user?.username}
         </Text>
         <Text style={{color: colors.text}}>education_c</Text>
       </View>

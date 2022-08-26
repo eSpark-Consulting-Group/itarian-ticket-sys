@@ -204,6 +204,7 @@ export const companiesList: Array<Company> = [
 
 export const contactsList: Contact[] = [
   {
+    id: 1,
     name: 'John Doe',
     company_name: 'ACME Industries',
     phone_no: '+555 555 5555',
@@ -214,6 +215,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 2,
     name: 'Blake Wesker',
     company_name: 'Monsters INC',
     phone_no: '+555 555 5555',
@@ -224,6 +226,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 3,
     name: 'Bob Kins',
     company_name: 'Bethesda Studios',
     phone_no: '+555 555 5555',
@@ -234,6 +237,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 4,
     name: 'Kevin Spacey',
     company_name: 'Walt Disney',
     phone_no: null,
@@ -243,6 +247,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Gone for the day',
   },
   {
+    id: 5,
     name: 'Brad Coops',
     company_name: 'XYZ Company',
     phone_no: '+555 555 5555',
@@ -253,6 +258,7 @@ export const contactsList: Contact[] = [
     goneTo: null,
   },
   {
+    id: 6,
     name: 'Jimmy Neutron',
     company_name: 'Coca Cola Ltd',
     phone_no: '+555 555 5555',
@@ -263,6 +269,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Client',
   },
   {
+    id: 7,
     name: 'Zeeshan Akram',
     company_name: 'K-Electric Corp',
     phone_no: null,
@@ -273,6 +280,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Appointment',
   },
   {
+    id: 8,
     name: 'Hardeep Vishnam',
     company_name: 'Star Trek Enterprises',
     phone_no: '+555 555 5555',
@@ -282,6 +290,7 @@ export const contactsList: Contact[] = [
     goneTo: 'Others',
   },
   {
+    id: 9,
     name: 'Carl Johnson',
     company_name: 'Star Trek Enterprises',
     phone_no: '+555 555 5555',
@@ -976,6 +985,96 @@ export const customFieldList: SelectFields[] = [
   {
     id: 9,
     name: 'Custom 9',
+  },
+];
+
+export const priorityList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Priority 1',
+  },
+  {
+    id: 2,
+    name: 'Priority 2',
+  },
+  {
+    id: 3,
+    name: 'Priority 3',
+  },
+];
+
+export const stageList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Stage 1',
+  },
+  {
+    id: 2,
+    name: 'Stage 2',
+  },
+  {
+    id: 3,
+    name: 'Stage 3',
+  },
+];
+
+export const probabilityList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Probability 1',
+  },
+  {
+    id: 2,
+    name: 'Probability 2',
+  },
+  {
+    id: 3,
+    name: 'Probability 3',
+  },
+];
+
+export const ratingList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Rating 1',
+  },
+  {
+    id: 2,
+    name: 'Rating 2',
+  },
+  {
+    id: 3,
+    name: 'Rating 3',
+  },
+];
+
+export const typeList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Type 1',
+  },
+  {
+    id: 2,
+    name: 'Type 2',
+  },
+  {
+    id: 3,
+    name: 'Type 3',
+  },
+];
+
+export const salesRepList: SelectFields[] = [
+  {
+    id: 1,
+    name: 'Sales Rep 1',
+  },
+  {
+    id: 2,
+    name: 'Sales Rep 2',
+  },
+  {
+    id: 3,
+    name: 'Sales Rep 3',
   },
 ];
 

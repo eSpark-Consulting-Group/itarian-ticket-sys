@@ -37,9 +37,9 @@ interface Item {
 const dataSource: Item[] = [
   {
     title: 'Custom Fields 1',
-    headerTitle: 'Custom Field',
     leftIcon: 'clipboard-text-outline',
     rightIcon: 'chevron-right',
+    headerTitle: 'Custom Field',
     list: customFieldList,
     selectedItem: customFieldList[0],
     searchable: true,
@@ -47,8 +47,8 @@ const dataSource: Item[] = [
   {
     title: 'Site 1',
     subTitle: 'Site',
-    headerTitle: 'Site',
     rightIcon: 'chevron-right',
+    headerTitle: 'Site',
     list: siteList,
     selectedItem: {name: 'Site 1', id: 1},
     searchable: false,

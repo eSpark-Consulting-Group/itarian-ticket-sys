@@ -101,7 +101,8 @@ const Calendar = ({navigation}: any) => {
         eventTapped={(item: any) => console.log('EVENT TAPPED', item)}
         events={events}
         width={WINDOW_WIDTH}
-        initDate={'2022-07-07'}
+        initDate={new Date()}
+        styles={{contentStyle: {backgroundColor: 'red'}}}
       />
       <FloatButton AdditionalButtons={actionButtons} />
     </View>

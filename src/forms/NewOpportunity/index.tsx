@@ -65,30 +65,22 @@ const NewOpportunity = ({navigation, route}: any) => {
     },
     {
       title: 'Add a Note',
-      leftChild: (
-        <AD
-          name="addfile"
-          size={20}
-          color={colors.text}
-          style={{opacity: 0.8}}
-          onPress={() => console.log('Pressed')}
-        />
-      ),
-      onPress: () =>
+      rightIconRound: 'file-plus-outline',
+      roundedIconEnable: true,
+      enable: false,
+      onRoundedIconPress: () =>
         navigation.navigate('Stack2', {
           screen: 'ComposeNote',
           params: {
             from: 'NewOpportunity',
             item: 'GoneTo',
             data: NoteTypes_ACIT,
-            selected: null,
             stack: 'Stack2',
-            title: route?.params?.title,
+            title: route?.params?.title, // used for Dynamic Headers Used
             headerTitle: 'Note Type',
             status: route?.params?.status,
           },
         }),
-      // onPress: () => navigation.navigate('Stack2', { screen: 'ComposeNote' })
     },
   ]);
 
@@ -99,6 +91,8 @@ const NewOpportunity = ({navigation, route}: any) => {
     enable?: boolean;
     rightIcon?: string;
     rightIconRound?: string;
+    roundedIconEnable?: boolean;
+    onRoundedIconPress?: () => void;
     titleWidth?: number;
     showRightSwitch?: boolean;
     rightSwitchVal?: boolean;
@@ -134,8 +128,10 @@ const NewOpportunity = ({navigation, route}: any) => {
               onChangeText={e => updateInput(e, index)}
               enable={item.enable}
               leftIcon={item.leftIcon}
-              leftChild={item.leftChild}
               rightIcon={item.rightIcon}
+              rightIconRound={item.rightIconRound}
+              roundedIconEnable={item.roundedIconEnable}
+              onRoundedIconPress={item.onRoundedIconPress}
               onPress={item.onPress}
             />
           ))}

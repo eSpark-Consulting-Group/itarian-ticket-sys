@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -16,7 +16,12 @@ import {
   DrawerHeaderProps,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
-import {useTheme, DrawerActions} from '@react-navigation/native';
+import {
+  useTheme,
+  DrawerActions,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -52,6 +57,7 @@ import {
 import {ParamList} from '../types';
 import {SCREEN_HEIGHT, WINDOW_HEIGHT, BUILD_VERSION} from '../constants';
 import {
+  contactsList,
   opportunityFilterList,
   pBoardFilterList,
   sBoardFiterList,
@@ -87,7 +93,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </View>
         <View style={{flex: 0.7}}>
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={styles.drawerTitleStyle}>{user.get()?.user?.username}</Text>
+            <Text style={styles.drawerTitleStyle}>
+              {user.get()?.user?.username}
+            </Text>
             <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
               {currStatus.get() ? 'Out of the Office' : 'In Office'}
@@ -152,12 +160,34 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 };
 
-const Draw = ({navigation, route}: DrawerHeaderProps) => {
+const Draw = () => {
   const dScreen: State<any> = hookState(globalState.defaultScreenId);
+  const navigation: any = useNavigation();
+  const route: any = useRoute();
   const shortCutScreen: State<any> = hookState(globalState.shortCutScreen);
+  const [currMember, setcurrMember] = useState<any>(contactsList[0]);
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
+
+  useEffect(() => {
+    if (route?.params?.item) {
+      if (route?.params?.selected) {
+        setcurrMember(route?.params?.selected);
+      } else {
+        setcurrMember(currMember);
+      }
+    }
+  }, [route?.params]);
+
+  useEffect(() => {
+    if (route?.params?.selected) {
+      setcurrMember(route?.params?.selected);
+    } else {
+      setcurrMember(currMember);
+    }
+  }, []);
+
   return (
     <Drawer.Navigator
       initialRouteName={shortCutScreen?.get() || dScreen.get()}
@@ -195,7 +225,20 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
             size={30}
             name="user"
             color={'#fff'}
-            onPress={() => console.log('Hello User')}
+            onPress={() =>
+              navigation.navigate('Stack2', {
+                screen: 'CstmItemSelector',
+                params: {
+                  from: 'Draw',
+                  item: 'GoneTo',
+                  data: contactsList,
+                  selected: currMember,
+                  stack: 'Draw',
+                  // title: route?.params?.title,
+                  headerTitle: 'Select Member',
+                },
+              })
+            }
             style={{right: 10}}
           />
         ),
@@ -232,6 +275,22 @@ const Draw = ({navigation, route}: DrawerHeaderProps) => {
         name="Agenda"
         component={Agenda}
         options={{
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 20,
+                  fontFamily: 'sans-serif-medium',
+                  textAlign: 'center',
+                }}>
+                Agenda
+              </Text>
+              <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
+                {currMember?.name || 'Jack Ma'}
+              </Text>
+            </View>
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Agenda</Text>
           ),

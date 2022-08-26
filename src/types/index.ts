@@ -12,6 +12,7 @@ export type Company = {
 };
 
 export type Contact = {
+  id: number;
   name: string;
   company_name: string;
   phone_no?: string | undefined | null;

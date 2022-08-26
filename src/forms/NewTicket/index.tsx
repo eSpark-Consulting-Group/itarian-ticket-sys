@@ -47,8 +47,7 @@ export default function NewTicket() {
         title="Add Note"
         rightIconRound="file-plus-outline"
         roundedIconEnable={true}
-        enable={true}
-        onRoundedIconPress={() => console.log('hello')}
+        onRoundedIconPress={() => console.log('pRessed')}
       />
     </ModalView>
   );

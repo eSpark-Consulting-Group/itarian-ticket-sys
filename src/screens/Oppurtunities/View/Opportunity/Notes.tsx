@@ -1,13 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
+import {
+  useTheme,
+  Theme,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
 import {EmptyListMsg, GapView, ModalField} from '../../../../components';
 import {Divider, Modal} from 'react-native-paper';
+import {
+  noteList as dataSource,
+  NoteTypes_ACIT,
+} from '../../../../constants/SampleArrays';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../../../navigation/RootNavigation';
+import {CstmMenu} from '../../../../components/CstmMenu';
 
-const dataSource: Item[] = [];
+// const dataSource: Item[] = [];
 
 interface Item {
   id: number;
@@ -20,6 +32,16 @@ interface Item {
 
 export default function Notes() {
   const {colors, dark}: Theme = useTheme();
+  type StackLvl2 = StackNavigationProp<RootStackParamList, 'Stack2'>;
+
+  const navigation = useNavigation<StackLvl2>();
+  const route = useRoute<any>();
+
+  const [visible, setVisible] = useState(false);
+  const [filterType, setfilterType] = useState('All');
+  const [data, setData] = useState(dataSource);
+  const showMenu = (): void => setVisible(true);
+  const hideMenu = (): void => setVisible(false);
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
     return (
@@ -56,6 +78,63 @@ export default function Notes() {
     );
   };
 
+  const subHeader = () => {
+    const {colors}: Theme = useTheme();
+    return (
+      <>
+        <Text style={{color: colors.text, ...styles.titleStyle}}>All</Text>
+        <View style={{flexDirection: 'row'}}>
+          <AD
+            name="addfile"
+            size={24}
+            color={colors.text}
+            style={{opacity: 0.8}}
+            onPress={() =>
+              navigation.navigate('Stack2', {
+                screen: 'ComposeNote',
+                params: {
+                  from: 'Opportunity',
+                  item: 'GoneTo',
+                  data: NoteTypes_ACIT,
+                  selected: null,
+                  stack: 'Stack1',
+                  title: route?.params?.title,
+                  headerTitle: 'Note Type',
+                  status: route?.params?.status,
+                },
+              })
+            }
+          />
+          <GapView mode="horizontal" length={30} />
+          <CstmMenu
+            menuItems={[{text: 'All'}, ...NoteTypes_ACIT]}
+            visible={visible}
+            hideMenu={hideMenu}
+            onChange={setfilterType}
+            children={
+              <FT
+                name="equalizer"
+                size={24}
+                color={colors.text}
+                style={{opacity: 0.8}}
+                onPress={showMenu}
+              />
+            }
+          />
+        </View>
+      </>
+    );
+  };
+
+  useEffect(() => {
+    if (filterType == 'All') {
+      setData(dataSource);
+    } else {
+      const filteredData = dataSource.filter(val => val.type == filterType);
+      setData([...filteredData]);
+    }
+  }, [filterType]);
+
   return (
     <>
       <ModalField
@@ -64,59 +143,29 @@ export default function Notes() {
         contentStyle={{
           ...styles.subHeader,
         }}>
-        <SubHeader />
+        {subHeader()}
       </ModalField>
-      {dataSource.length == 0 ? (
-        <View style={styles.container}>
-          <NotFound />
-        </View>
+      {data?.length > 0 ? (
+        <ModalField mode="none" pressEnable={false} fieldPadding={0}>
+          <FlatList
+            data={data}
+            renderItem={renderList}
+            showsVerticalScrollIndicator={false}
+            ListFooterComponent={<View />}
+            ListFooterComponentStyle={{height: 120}}
+            ItemSeparatorComponent={() => (
+              <Divider
+                style={{backgroundColor: colors.background, height: 1.2}}
+              />
+            )}
+          />
+        </ModalField>
       ) : (
-        <>
-          <ModalField mode="none" pressEnable={false} fieldPadding={0}>
-            <FlatList
-              data={dataSource}
-              renderItem={renderList}
-              showsVerticalScrollIndicator={false}
-              ListFooterComponent={<View />}
-              ListFooterComponentStyle={{height: 120}}
-              ItemSeparatorComponent={() => (
-                <Divider
-                  style={{backgroundColor: colors.background, height: 1.2}}
-                />
-              )}
-            />
-          </ModalField>
-        </>
+        <NotFound />
       )}
     </>
   );
 }
-
-const SubHeader = () => {
-  const {colors}: Theme = useTheme();
-  return (
-    <>
-      <Text style={{color: colors.text, ...styles.titleStyle}}>All</Text>
-      <View style={{flexDirection: 'row'}}>
-        <AD
-          name="addfile"
-          size={24}
-          color={colors.text}
-          style={{opacity: 0.8}}
-          onPress={() => console.log('Pressed')}
-        />
-        <GapView mode="horizontal" length={30} />
-        <FT
-          name="equalizer"
-          size={24}
-          color={colors.text}
-          style={{opacity: 0.8}}
-          onPress={() => console.log('Pressed')}
-        />
-      </View>
-    </>
-  );
-};
 
 const NotFound = (): JSX.Element => {
   return (

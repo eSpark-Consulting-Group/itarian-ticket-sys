@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {
   useTheme,
@@ -6,6 +6,8 @@ import {
   useRoute,
   useNavigation,
 } from '@react-navigation/native';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {SingleLineField} from '../../../../components';
 import {SelectFields} from '../../../../types';
 import {
@@ -32,21 +34,30 @@ interface Item {
   mode?: 'none' | 'multiline';
   list?: SelectFields[];
   selectedItem?: SelectFields;
+  rightChild?: ReactNode;
+  searchable?: boolean;
+  headerTitle?: string;
 }
 
 const Overview = () => {
+  const {colors} = useTheme();
   const navigation: any = useNavigation();
   const route: any = useRoute();
-  const [titleText, setTitleText] = useState('Some Configuration Title');
-  const [billCustomer, setBillCustomer] = useState(false);
-  const [needsRenewal, setNeedsRenewal] = useState(false);
+  const inputFields = [
+    {text: 'Configuration Name'},
+    {text: '123f'},
+    {text: 'abc1'},
+    {text: 'xyz1'},
+    {text: 'kso1'},
+    {text: 'Some Test Notes'},
+    {text: 'Some Test Vendor Notes'},
+  ];
 
-  const dataSource: Item[] = [
+  const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: titleText,
+      title: inputFields[0].text,
       subTitle: 'Configuration Name',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
     {
@@ -55,6 +66,8 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: companyNameList,
       selectedItem: {id: 0, name: 'Chris Craft Boots'},
+      searchable: true,
+      headerTitle: 'Company Name',
     },
     {
       subTitle: 'Contact',
@@ -62,6 +75,8 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: contactNameList,
       selectedItem: {id: 0, name: 'Steven Howard'},
+      searchable: true,
+      headerTitle: 'Contact Name',
     },
     {
       subTitle: 'Site',
@@ -69,6 +84,8 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: siteNameList,
       selectedItem: {id: 0, name: 'Southern'},
+      searchable: false,
+      headerTitle: 'Site Name',
     },
     {
       subTitle: 'Address',
@@ -97,31 +114,32 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: manufacturerNameList,
       selectedItem: {id: 0, name: 'Kents Works'},
+      searchable: false,
+      headerTitle: 'Manufacturer Name',
     },
     {
       subTitle: 'Mfg Part Number',
-      title: 'A-751',
-      rightIcon: 'chevron-right',
-    },
-    {
-      subTitle: 'Mfg Part Number',
-      title: 'A-751',
-      rightIcon: 'chevron-right',
+      title: inputFields[1].text,
+      inputable: true,
+      enable: false,
     },
     {
       subTitle: 'Model Number',
-      title: '#90234',
-      rightIcon: 'chevron-right',
+      title: inputFields[2].text,
+      inputable: true,
+      enable: false,
     },
     {
       subTitle: 'Serial Number',
-      title: 'S/N123PL',
-      rightIcon: 'chevron-right',
+      title: inputFields[3].text,
+      inputable: true,
+      enable: false,
     },
     {
       subTitle: 'Tag Number',
-      title: 'T45',
-      rightIcon: 'chevron-right',
+      title: inputFields[4].text,
+      inputable: true,
+      enable: false,
     },
     {
       subTitle: 'Vendor',
@@ -129,21 +147,23 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: vendorNameList,
       selectedItem: {id: 0, name: 'Loco Fixers'},
+      searchable: false,
+      headerTitle: 'Vendor Name',
     },
     {
       subTitle: 'Purchase Date',
       title: '20-05-2022',
-      rightIcon: 'chevron-right',
+      rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
     },
     {
       subTitle: 'Expiration Date',
       title: '25-11-2022',
-      rightIcon: 'chevron-right',
+      rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
     },
     {
       subTitle: 'Install Date',
       title: '04-10-2022',
-      rightIcon: 'chevron-right',
+      rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
     },
     {
       subTitle: 'Installed By',
@@ -151,72 +171,76 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: installerNameList,
       selectedItem: {id: 0, name: 'Kents Works'},
+      searchable: false,
+      headerTitle: 'Installer Name',
     },
     {
       subTitle: 'Bill Customer',
-      title: `Current State: ${billCustomer ? 'Yes' : 'No'}`,
+      title: `Current State: No`,
       showRightSwitch: true,
       enable: false,
-      rightSwitchVal: billCustomer,
-      onChangeSwitch: value => {
-        setBillCustomer(value);
-      },
+      rightSwitchVal: false,
     },
     {
       subTitle: 'Needs Renewal',
       title: 'Tap to toggle on or off',
       showRightSwitch: true,
       enable: false,
-      rightSwitchVal: needsRenewal,
-      onChangeSwitch: value => {
-        setNeedsRenewal(value);
-      },
+      rightSwitchVal: false,
     },
     {
       subTitle: 'Notes',
-      title: '',
+      title: inputFields[5].text,
       mode: 'multiline',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
     {
       subTitle: 'Vendor Notes',
-      title: '',
+      title: inputFields[6].text,
       mode: 'multiline',
       inputable: true,
-      onChangeText: setTitleText,
       enable: false,
     },
-  ];
+  ]);
 
-  const [Ds, setDs] = useState<Item[]>(dataSource);
+  const handleSwitchChange = (value: boolean, index: number) => {
+    let tempArr = [...dataSource];
+    tempArr[index].rightSwitchVal = value;
+    if (index == 18)
+      tempArr[index].title = value ? 'Current State: Yes' : 'Current State: No';
+    setDataSource(tempArr);
+  };
+
+  const handleChangeText = (value: string, index: number) => {
+    let tempArr = [...dataSource];
+    tempArr[index].title = value;
+    setDataSource(tempArr);
+  };
 
   useEffect(() => {
     if (route?.params?.item?.toString()) {
-      var obj: any = [...Ds];
+      var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
-      setDs([...obj]);
+      setDataSource([...obj]);
     }
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    if (index == 1) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          from: 'Configure1',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: 'Company Name',
-          searchable: true,
-        },
-      });
-    }
+    navigation.navigate('Stack2', {
+      screen: 'CstmItemSelector',
+      params: {
+        from: 'Configure1',
+        item: index,
+        data: item.list,
+        selected: item.selectedItem,
+        stack: 'Stack1',
+        title: route?.params?.title,
+        headerTitle: item.headerTitle,
+        searchable: true,
+      },
+    });
   };
 
   return (
@@ -224,20 +248,21 @@ const Overview = () => {
       <ScrollView
         style={styles.container}
         contentContainerStyle={{alignItems: 'center'}}>
-        {Ds.map((item: Item, index: number) => (
+        {dataSource.map((item: Item, index: number) => (
           <SingleLineField
             key={index}
             subTitle={item.subTitle}
             title={item.title}
             inputable={item.inputable}
-            onChangeText={item.onChangeText}
+            onChangeText={value => handleChangeText(value, index)}
             enable={item.enable}
             rightIconRound={item.rightIconRound}
             titleWidth={item.titleWidth}
             rightIcon={item.rightIcon}
             showRightSwitch={item.showRightSwitch}
             rightSwitchVal={item.rightSwitchVal}
-            onChangeSwitch={item.onChangeSwitch}
+            onChangeSwitch={value => handleSwitchChange(value, index)}
+            rightChild={item.rightChild}
             mode={item.mode}
             onPress={() => handlePress(item, index)}
           />

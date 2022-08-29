@@ -23,6 +23,7 @@ const SingleLineField = ({
   leftIcon,
   subTitle,
   title,
+  placeholder,
   rightIcon,
   rightIconRound,
   enable = true,
@@ -45,6 +46,7 @@ const SingleLineField = ({
   leftIcon?: string;
   subTitle?: string;
   title: string;
+  placeholder?: string;
   rightIcon?: string;
   rightIconRound?: string;
   enable?: boolean;
@@ -80,14 +82,14 @@ const SingleLineField = ({
           justifyContent: 'space-between',
         }}>
         <View>
-          {subTitle && (
+          {subTitle ? (
             <>
               <Text style={{...styles.subTitle, color: colors.text}}>
                 {subTitle}
               </Text>
               <GapView mode="vertical" length={4} />
             </>
-          )}
+          ) : null}
           <View
             style={{
               flexDirection: 'row',
@@ -116,7 +118,11 @@ const SingleLineField = ({
                 mode == 'none' ? (
                   <CstmTitleInput value={title} onChangeText={onChangeText} />
                 ) : (
-                  <CstmMultiLine value={title} onChangeText={onChangeText} />
+                  <CstmMultiLine
+                    value={title}
+                    placeholder={placeholder}
+                    onChangeText={onChangeText}
+                  />
                 )
               ) : (
                 <>

@@ -1,3 +1,4 @@
+import Images from '../assets/images';
 import {
   Activity,
   AdditionalButtons,
@@ -350,14 +351,14 @@ export const activitiesList: Array<Activity> = [
   {
     name: 'Process Bills',
     company_name: 'Ezlo Innovations',
-    date: 'Nov 16, 2020',
+    date: 'Aug 29, 2022',
     start_time: '9:30 AM',
     end_time: '10:00 AM',
   },
   {
     name: 'Visit Potential Prospect',
     company_name: 'XYZ Company Incorporated',
-    date: 'Nov 17, 2020',
+    date: 'Aug 28, 2022',
     start_time: '10:30 AM',
     end_time: '11:00 AM',
     company_contact: '+555 5555 555',
@@ -365,7 +366,7 @@ export const activitiesList: Array<Activity> = [
   {
     name: 'B2B Reports',
     company_name: 'Zoom Electronics',
-    date: 'Dec 17, 2020',
+    date: 'Aug 1, 2022',
     start_time: '09:30 PM',
     end_time: '11:00 PM',
     company_contact: '+555 5555 555',
@@ -373,7 +374,15 @@ export const activitiesList: Array<Activity> = [
   {
     name: 'Inspection',
     company_name: 'Coca Cola Limited',
-    date: 'Dec 20, 2020',
+    date: 'Aug 25, 2022',
+    start_time: '10:00 AM',
+    end_time: '11:45 AM',
+    company_contact: '+555 5555 555',
+  },
+  {
+    name: 'Inspection',
+    company_name: 'Coca Cola Limited',
+    date: 'Jul 25, 2022',
     start_time: '10:00 AM',
     end_time: '11:45 AM',
     company_contact: '+555 5555 555',
@@ -628,6 +637,26 @@ export const TimeSheetAdditionalButtons: Array<AdditionalButtons> = [
   },
 ];
 
+export const NotesAdditionalButtons: Array<AdditionalButtons> = [
+  {
+    icon: 'clipboard-plus',
+    label: 'Standard Note',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed email'),
+  },
+  {
+    icon: 'clock-plus-outline',
+    label: 'Time Stamp',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+];
 export const StatusFormArray: Array<ModalFormArrayType> = [
   {
     formName: 'My Status',
@@ -1425,12 +1454,42 @@ export const installerNameList: SelectFields[] = [
   },
 ];
 
+export const whereList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Remote',
+  },
+  {
+    id: 1,
+    name: 'Onsite',
+  },
+  {
+    id: 2,
+    name: 'Hybrid',
+  },
+];
+
+export const resourceList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Resource 1',
+  },
+  {
+    id: 1,
+    name: 'Resource 2',
+  },
+  {
+    id: 2,
+    name: 'Resource 3',
+  },
+];
+
 //? ---------------------------------------
 
 export const noteList: Item[] = [
   {
     id: 1,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 1',
     time: '12:19 AM',
     date: '11 Nov, 2021',
@@ -1439,7 +1498,7 @@ export const noteList: Item[] = [
   },
   {
     id: 2,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 2',
     time: '12:19 AM',
     date: '15 Nov, 2021',
@@ -1447,7 +1506,7 @@ export const noteList: Item[] = [
   },
   {
     id: 3,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 3',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -1455,7 +1514,7 @@ export const noteList: Item[] = [
   },
   {
     id: 4,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 4',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -1464,7 +1523,7 @@ export const noteList: Item[] = [
   },
   {
     id: 5,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 5',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -1472,7 +1531,7 @@ export const noteList: Item[] = [
   },
   {
     id: 6,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 6',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -1481,7 +1540,7 @@ export const noteList: Item[] = [
   },
   {
     id: 7,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 7',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -1489,7 +1548,7 @@ export const noteList: Item[] = [
   },
   {
     id: 8,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 8',
     time: '12:19 AM',
     date: '19 Nov, 2021',
@@ -1498,7 +1557,7 @@ export const noteList: Item[] = [
   },
   {
     id: 9,
-    img: require('../assets/images/avatar_holder.webp'),
+    img: Images.AvatarHolder,
     title: 'Template 9',
     time: '12:19 AM',
     date: '19 Nov, 2021',

@@ -22,6 +22,7 @@ import {useState as useHState, State} from '@hookstate/core';
 import {globalState} from '../../../utils/globalState';
 // @ts-ignore
 import store from 'react-native-simple-store';
+import Images from '../../../assets/images';
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().min(5).label('Username'),
   password: Yup.string().required().min(6).label('Password'),
@@ -62,7 +63,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     <View style={{height: WINDOW_HEIGHT}}>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/images/ITarian_Logo_Clear.png')}
+          source={Images.Logo}
           resizeMode={'contain'}
           style={styles.headerImage}
         />

@@ -8,6 +8,7 @@ import II from 'react-native-vector-icons/Ionicons';
 
 import {State, useState as hookState} from '@hookstate/core';
 import {globalState} from '../../utils/globalState';
+import Images from '../../assets/images';
 
 const Profile = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -24,7 +25,7 @@ const Profile = ({route, navigation}: any) => {
           ...styles.infoHolder,
           backgroundColor: dark ? '#0000008a' : '#ffffff8a',
         }}>
-        <AvatarContainer source={require('../../assets/images/avatar.png')} />
+        <AvatarContainer source={Images.Avatar} />
         <Text style={{fontWeight: 'bold', color: colors.text}}>
           {user.get()?.user?.username}
         </Text>

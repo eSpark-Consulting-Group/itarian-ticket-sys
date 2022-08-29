@@ -11,10 +11,12 @@ const CstmMultiLine = ({
   value,
   width = '100%',
   onChangeText,
+  placeholder,
 }: {
   title?: string;
   value?: string;
   width?: string | number;
+  placeholder?: string;
   onChangeText?: (text: string) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
@@ -22,15 +24,17 @@ const CstmMultiLine = ({
   return (
     <View style={{width: width}}>
       {title && (
-        <Text
-          style={{
-            color: colors.text,
-            ...styles.labelStyle,
-          }}>
-          {title}
-        </Text>
+        <>
+          <Text
+            style={{
+              color: colors.text,
+              ...styles.labelStyle,
+            }}>
+            {title}
+          </Text>
+          <GapView mode="vertical" />
+        </>
       )}
-      <GapView mode="vertical" />
       <TextInput
         multiline
         value={value}
@@ -40,6 +44,7 @@ const CstmMultiLine = ({
           borderColor: dark ? '#ffffff80' : '#00000080',
           ...styles.multilineDisplay,
         }}
+        placeholder={placeholder}
         onChangeText={onChangeText}
         returnKeyType="send"
         autoCorrect={false}

@@ -23,6 +23,7 @@ import {
   TimeSheet,
   UnscheduledList,
   Unscheduled_Data,
+  QNATypes,
 } from '../types';
 
 /*
@@ -1373,6 +1374,24 @@ export const manufacturerNameList: SelectFields[] = [
   {
     id: 2,
     name: 'ACME Manufacturers',
+  },
+];
+
+export const configQuesList: QNATypes[] = [
+  {
+    id: 0,
+    ques: 'What is your name?',
+    ans: '',
+  },
+  {
+    id: 1,
+    ques: 'Why are you doing this configuration?',
+    ans: '',
+  },
+  {
+    id: 2,
+    ques: 'Is this configuration is capatible with this?',
+    ans: '',
   },
 ];
 

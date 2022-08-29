@@ -144,19 +144,21 @@ export default function Overview() {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    navigation.navigate('Stack2', {
-      screen: 'CstmItemSelector',
-      params: {
-        from: 'Opportunity',
-        item: index,
-        data: item.list,
-        selected: item.selectedItem,
-        stack: 'Stack1',
-        title: route?.params?.title,
-        headerTitle: item.headerTitle,
-        searchable: item.searchable,
-      },
-    });
+    if(item?.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          from: 'Opportunity',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: item.searchable,
+        },
+      });
+    }
   };
 
   return (

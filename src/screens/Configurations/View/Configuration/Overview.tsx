@@ -230,7 +230,7 @@ const Overview = () => {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    if (index == 1) {
+    if (index != 7 && item.list) {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
         params: {

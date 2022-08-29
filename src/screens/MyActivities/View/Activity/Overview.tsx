@@ -1,10 +1,11 @@
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
-import {useTheme, Theme, useRoute} from '@react-navigation/native';
+import {useTheme, Theme, useRoute, useNavigation} from '@react-navigation/native';
 import {SingleLineField} from '../../../../components';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import II from 'react-native-vector-icons/Ionicons';
 import {Activity, SelectFields} from '../../../../types';
+import { companyNameList, contactNameList, resourceList, statusList, typeList, whereList } from '../../../../constants/SampleArrays';
 
 interface Item {
   title: string;
@@ -24,6 +25,7 @@ interface Item {
 
 const Overview = () => {
   const {colors}: Theme = useTheme();
+  const navigation: any = useNavigation();
   const route: any = useRoute();
   const item: Activity = route?.params?.data;
   const [dataSource, setDataSource] = useState<Item[]>([
@@ -36,6 +38,9 @@ const Overview = () => {
       title: item?.company_name,
       subTitle: 'Company',
       rightIcon: 'chevron-right',
+      list: companyNameList,
+      selectedItem: companyNameList[0],
+      headerTitle: "Companies"
     },
     {
       title: item?.date,
@@ -57,26 +62,41 @@ const Overview = () => {
       title: 'Kyle Coney',
       subTitle: 'Contact',
       rightIcon: 'chevron-right',
+      list: contactNameList,
+      selectedItem: contactNameList[0],
+      headerTitle: "Contacts"
     },
     {
       title: 'Inquiry',
       subTitle: 'Type',
       rightIcon: 'chevron-right',
+      list: typeList,
+      selectedItem: typeList[0],
+      headerTitle: 'Types'
     },
     {
       title: 'Remote',
       subTitle: 'Where',
       rightIcon: 'chevron-right',
+      list: whereList,
+      selectedItem: whereList[0],
+      headerTitle: "Where"
     },
     {
       title: 'Status',
       subTitle: 'Status',
       rightIcon: 'chevron-right',
+      list: statusList,
+      selectedItem: statusList[0],
+      headerTitle: "Status"
     },
     {
       title: 'Resource',
       subTitle: 'Resource',
       rightIcon: 'chevron-right',
+      list: resourceList,
+      selectedItem: resourceList[0],
+      headerTitle: "Resources"
     },
     {
       title: 'Visit potential prospect',
@@ -86,6 +106,32 @@ const Overview = () => {
     },
   ]);
 
+  useEffect(() => {
+    if (route?.params?.item?.toString()) {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [route?.params]);
+
+  const handlePress = (item: Item, index: number) => {
+    if (item.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          from: 'Activities',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: true,
+        },
+      });
+    }
+  };
   return (
     <ScrollView
       style={styles.container}
@@ -101,7 +147,7 @@ const Overview = () => {
           rightIcon={item.rightIcon}
           rightChild={item.rightChild}
           mode={item.mode}
-          onPress={() => {}}
+          onPress={() => handlePress(item, index)}
         />
       ))}
     </ScrollView>

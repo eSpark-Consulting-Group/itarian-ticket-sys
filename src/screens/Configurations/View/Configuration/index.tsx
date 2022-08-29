@@ -7,6 +7,7 @@ import {
   ModalView,
   RoundedIcon,
   CstmTabBar,
+  FloatButton,
 } from '../../../../components';
 import Overview from './Overview';
 import Details from './Details';
@@ -18,10 +19,14 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export default function App() {
+export default function App({navigation}: any) {
   return (
     <ModalView>
       <TabComp />
+      <FloatButton
+        icon="tag-plus-outline"
+        onPress={() => navigation.navigate('Stack1', {screen: 'NewTicket'})}
+      />
     </ModalView>
   );
 }

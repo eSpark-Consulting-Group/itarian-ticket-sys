@@ -1419,7 +1419,7 @@ export const configQuesList: QNATypes[] = [
   },
   {
     id: 2,
-    ques: 'Is this configuration is capatible with this?',
+    ques: 'Is this compatible with the configuration that you have selected?',
     ans: '',
   },
 ];

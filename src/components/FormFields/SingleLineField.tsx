@@ -19,6 +19,32 @@ import {
   CstmMultiLine,
 } from '..';
 
+interface Props {
+  leftIcon?: string;
+  subTitle?: string;
+  title: string;
+  placeholder?: string;
+  rightIcon?: string;
+  rightIconRound?: string;
+  enable?: boolean;
+  onPress?: () => void;
+  titleWidth?: number;
+  gap?: boolean;
+  inputable?: boolean;
+  onChangeText?: (text: string) => void;
+  showRightSwitch?: boolean;
+  rightSwitchVal?: boolean;
+  onChangeSwitch?: (value: boolean) => void;
+  roundedIconEnable?: boolean;
+  onRoundedIconPress?: () => void;
+  rightChild?: ReactNode;
+  leftChild?: ReactNode;
+  border?: boolean;
+  mode?: 'none' | 'multiline';
+  leftIconStyles?: ViewStyle;
+  fieldPadding?: number;
+}
+
 const SingleLineField = ({
   leftIcon,
   subTitle,
@@ -42,30 +68,8 @@ const SingleLineField = ({
   border = false,
   mode = 'none',
   leftIconStyles = {},
-}: {
-  leftIcon?: string;
-  subTitle?: string;
-  title: string;
-  placeholder?: string;
-  rightIcon?: string;
-  rightIconRound?: string;
-  enable?: boolean;
-  onPress?: () => void;
-  titleWidth?: number;
-  gap?: boolean;
-  inputable?: boolean;
-  onChangeText?: (text: string) => void;
-  showRightSwitch?: boolean;
-  rightSwitchVal?: boolean;
-  onChangeSwitch?: (value: boolean) => void;
-  roundedIconEnable?: boolean;
-  onRoundedIconPress?: () => void;
-  rightChild?: ReactNode;
-  leftChild?: ReactNode;
-  border?: boolean;
-  mode?: 'none' | 'multiline';
-  leftIconStyles?: ViewStyle;
-}) => {
+  fieldPadding = 10,
+}: Props) => {
   const {colors, dark}: Theme = useTheme();
   return (
     <ModalField
@@ -74,7 +78,7 @@ const SingleLineField = ({
       onPress={onPress}
       gap={gap}
       border={border}
-      fieldPadding={10}>
+      fieldPadding={fieldPadding}>
       <View
         style={{
           flexDirection: 'row',

@@ -5,6 +5,7 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
 import {CstmPressable} from '../CstmPressable';
+import GapView from '../GapView';
 
 const ModalHeader = ({
   right,
@@ -40,44 +41,45 @@ const ModalHeader = ({
       style={{
         ...styles.container,
         backgroundColor: solidColor,
-        padding: searchHeader ? 0 : 10,
+        padding: searchHeader ? 0 : 14,
       }}>
       <View
         style={{
           flexDirection: !empty ? 'row' : 'column',
           justifyContent: 'space-between',
         }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          {empty
-            ? children
-            : icon && (
-                <MCI
-                  name={icon as string}
-                  size={16}
-                  color={colors.text}
-                  style={{paddingTop: 6}}
-                />
-              )}
-          <View>
+        <View>
+          <View style={{flexDirection: 'row'}}>
+            {empty
+              ? children
+              : icon && (
+                  <MCI
+                    name={icon as string}
+                    size={18}
+                    color={colors.text}
+                    style={{alignSelf: 'center'}}
+                  />
+                )}
+            <GapView mode="horizontal" length={5} />
+            {!icon && <GapView mode="horizontal" length={14} />}
             <Text style={{...styles.title, color: colors.text}}>{title}</Text>
-            <View style={{flexDirection: 'row'}}>
-              {subIcon && (
-                <MCI
-                  name={subIcon as string}
-                  size={14}
-                  color={colors.text}
-                  style={{paddingTop: 6, opacity: 0.5}}
-                />
-              )}
-              {subTitle && (
-                <Text style={{...styles.subTitle, color: colors.text}}>
-                  {subTitle}
-                </Text>
-              )}
-            </View>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            {subIcon && (
+              <MCI
+                name={subIcon as string}
+                size={14}
+                color={colors.text}
+                style={{alignSelf: 'center', opacity: 0.5}}
+              />
+            )}
+            {icon && <GapView mode="horizontal" length={18} />}
+            <GapView mode="horizontal" length={5} />
+            {subTitle && (
+              <Text style={{...styles.subTitle, color: colors.text}}>
+                {subTitle}
+              </Text>
+            )}
           </View>
         </View>
         <View style={styles.rightContainer}>{right}</View>

@@ -5,6 +5,8 @@ import {moderateScale} from 'react-native-size-matters';
 import {Divider, Menu} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import MI from 'react-native-vector-icons/MaterialIcons';
+import _ from 'lodash';
+import moment from 'moment';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
@@ -14,21 +16,16 @@ import {
   OutlineBtn,
   RoundedIcon,
 } from '../../components';
-import {
-  activitiesList,
-} from '../../constants/SampleArrays';
+import {activitiesList} from '../../constants/SampleArrays';
 import {Activity} from '../../types';
-import _ from 'lodash';
 import {CstmPressable} from '../../components/CstmPressable';
 import {CstmMenu} from '../../components/CstmMenu';
-import moment from 'moment';
 
 const MyActivities = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [visible, setVisible] = useState(false);
   const [range, setRange] = useState('All');
-  const [dataSource, setdataSource] =
-    useState<Activity[]>(activitiesList);
+  const [dataSource, setdataSource] = useState<Activity[]>(activitiesList);
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
@@ -98,55 +95,68 @@ const MyActivities = ({navigation}: any) => {
   };
 
   const filterData = (value: any) => {
-    var arr = []
-    const today = moment(new Date()).format("MMM DD, YYYY");
+    var arr = [];
+    const today = moment(new Date()).format('MMM DD, YYYY');
     switch (value) {
-      case "All":
-        setdataSource(activitiesList)
+      case 'All':
+        setdataSource(activitiesList);
         break;
-      case "Today":
+      case 'Today':
         for (let index = 0; index < activitiesList.length; index++) {
           const element = activitiesList[index];
-          if( moment(element.date).format("MMM DD, YYYY") == today) {
-            arr.push(element)
+          if (moment(element.date).format('MMM DD, YYYY') == today) {
+            arr.push(element);
           }
         }
-        setdataSource(arr)
+        setdataSource(arr);
         break;
-      case "Last 30 Days":
-        const lastThirtyDate = moment(today).subtract(30, 'days')
+      case 'Last 30 Days':
+        const lastThirtyDate = moment(today).subtract(30, 'days');
         for (let index = 0; index < activitiesList.length; index++) {
           const element = activitiesList[index];
-          if(moment(element.date).isBetween(lastThirtyDate, moment(today).add(1, 'day'))) {
-            arr.push(element)
+          if (
+            moment(element.date).isBetween(
+              lastThirtyDate,
+              moment(today).add(1, 'day'),
+            )
+          ) {
+            arr.push(element);
           }
         }
-        setdataSource(arr)
+        setdataSource(arr);
         break;
-      case "Tomorrow":
+      case 'Tomorrow':
         for (let index = 0; index < activitiesList.length; index++) {
           const element = activitiesList[index];
-          if(moment(element.date).format("MMM DD, YYYY") == moment(today).subtract(1, 'day').format("MMM DD, YYYY")) {
-            arr.push(element)
+          if (
+            moment(element.date).format('MMM DD, YYYY') ==
+            moment(today).subtract(1, 'day').format('MMM DD, YYYY')
+          ) {
+            arr.push(element);
           }
         }
-        setdataSource(arr)
+        setdataSource(arr);
         break;
-      case "This Week":
-        const lastWeekDate = moment(today).subtract(7, 'days')
+      case 'This Week':
+        const lastWeekDate = moment(today).subtract(7, 'days');
         for (let index = 0; index < activitiesList.length; index++) {
           const element = activitiesList[index];
-          if(moment(element.date).isBetween(lastWeekDate, moment(today).add(1, 'day'))) {
-            arr.push(element)
+          if (
+            moment(element.date).isBetween(
+              lastWeekDate,
+              moment(today).add(1, 'day'),
+            )
+          ) {
+            arr.push(element);
           }
         }
-        setdataSource(arr)
+        setdataSource(arr);
         break;
       default:
         break;
     }
-    setRange(value)
-  }
+    setRange(value);
+  };
 
   return (
     <>
@@ -210,11 +220,13 @@ const MyActivities = ({navigation}: any) => {
           <NotFound />
         )}
       </View>
-      <FloatButton onPress={() => {
-        navigation.navigate('Stack1', {
-          screen: 'NewActivity',
-        });
-      }} />
+      <FloatButton
+        onPress={() => {
+          navigation.navigate('Stack1', {
+            screen: 'NewActivity',
+          });
+        }}
+      />
     </>
   );
 };
@@ -222,7 +234,7 @@ const MyActivities = ({navigation}: any) => {
 const NotFound = (): JSX.Element => {
   return (
     <View style={styles.content}>
-      <EmptyListMsg label="Contacts" />
+      <EmptyListMsg label="Activities" />
     </View>
   );
 };

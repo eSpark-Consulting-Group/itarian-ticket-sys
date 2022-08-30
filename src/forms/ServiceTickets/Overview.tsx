@@ -76,11 +76,11 @@ const dataSource: Item[] = [
     selectedItem: {name: 'Status 1', id: 1},
     searchable: false,
   },
-  {
-    title: 'Sales - Existing',
-    subTitle: 'Board',
-    rightIcon: 'chevron-right',
-  },
+  // {
+  //   title: 'Sales - Existing',
+  //   subTitle: 'Board',
+  //   rightIcon: 'chevron-right',
+  // },
   {
     title: 'The Sale of Agreements',
     subTitle: 'Agreement',
@@ -131,19 +131,21 @@ const Overview = () => {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    navigation.navigate('Stack2', {
-      screen: 'CstmItemSelector',
-      params: {
-        from: 'STickets',
-        item: index,
-        data: item.list,
-        selected: item.selectedItem,
-        stack: 'Stack1',
-        title: route?.params?.title,
-        headerTitle: item.headerTitle,
-        searchable: item.searchable,
-      },
-    });
+    if(item?.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          from: 'STickets',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: item.searchable,
+        },
+      });
+    }
   };
 
   return (

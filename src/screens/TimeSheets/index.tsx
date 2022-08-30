@@ -80,7 +80,12 @@ const TimeSheetsScreen = ({navigation} :any) => {
           <FlatList
             data={sheetData}
             renderItem={({item}) => (
-              <ListItem dataSource={item} renderDate={true} />
+              <ListItem onPress={(ticket) => {
+                navigation.navigate('Stack1', {
+                  screen: 'STickets',
+                  params: {title: ticket.ticket_no.toString()},
+                });
+              }} dataSource={item} renderDate={true} />
             )}
           />
         ) : (

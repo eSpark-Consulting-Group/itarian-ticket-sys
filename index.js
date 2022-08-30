@@ -3,7 +3,7 @@
  */
 import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
-import {AppRegistry, DeviceEventEmitter, Linking} from 'react-native';
+import {AppRegistry, DeviceEventEmitter, Linking, LogBox} from 'react-native';
 import App from './App';
 import {Provider} from 'react-native-paper';
 import Splash from './src/screens/Splash/Splash';
@@ -56,6 +56,7 @@ const Screen = () => {
       setState(true);
     }, 3000);
   }, []);
+  LogBox.ignoreLogs(['Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date()'])
   return state === true ? (
     <Provider>
       <App />

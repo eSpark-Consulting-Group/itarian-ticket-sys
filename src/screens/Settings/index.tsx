@@ -72,7 +72,6 @@ const SettingsScreen = () => {
   useEffect(() => {
     getNavigtionApps()
     .then((arr) => {
-      console.log("arr navigation apps", arr)
       setDefaultNavigationList(arr)
     })
     .catch((err) => {

@@ -304,6 +304,22 @@ const Draw = () => {
         name="Calendar"
         component={Calendar}
         options={{
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 20,
+                  fontFamily: 'sans-serif-medium',
+                  textAlign: 'center',
+                }}>
+                Calendar
+              </Text>
+              <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
+                {currMember?.name || 'Jack Ma'}
+              </Text>
+            </View>
+          ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Calendar</Text>
           ),

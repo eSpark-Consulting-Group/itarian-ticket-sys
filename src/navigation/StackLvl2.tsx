@@ -40,9 +40,9 @@ const StackLvl2 = ({navigation, route}: any) => {
             />
           ),
           headerRight: () => (
-            <FA
-              size={27}
-              name="check"
+            <II
+              size={30}
+              name="checkmark"
               color={'#fff'}
               onPress={() => onSave(navigation, route)}
             />
@@ -65,9 +65,9 @@ const StackLvl2 = ({navigation, route}: any) => {
             />
           ),
           headerRight: () => (
-            <FA
-              size={27}
-              name="check"
+            <II
+              size={30}
+              name="checkmark"
               color={'#fff'}
               onPress={() => onSave(navigation, route)}
             />

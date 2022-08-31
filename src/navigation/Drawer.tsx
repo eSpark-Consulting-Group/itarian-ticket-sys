@@ -63,6 +63,7 @@ import {
   sBoardFiterList,
 } from '../constants/SampleArrays';
 import CstmBadge from '../components/CtsmBadge';
+import Images from '../assets/images';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -87,7 +88,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
           <View style={styles.avatar}>
             <Avatar.Image
               size={moderateVerticalScale(65, 0.5)}
-              source={require('../assets/images/avatar.png')}
+              source={Images.Avatar}
             />
           </View>
         </View>

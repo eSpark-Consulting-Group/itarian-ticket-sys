@@ -19,32 +19,11 @@ import {
   CstmMultiLine,
 } from '..';
 
-const SingleLineField = ({
-  leftIcon,
-  subTitle,
-  title,
-  rightIcon,
-  rightIconRound,
-  enable = true,
-  onPress,
-  titleWidth,
-  rightChild,
-  leftChild,
-  gap = true,
-  inputable = false,
-  onChangeText,
-  showRightSwitch,
-  rightSwitchVal,
-  onChangeSwitch,
-  roundedIconEnable,
-  onRoundedIconPress,
-  border = false,
-  mode = 'none',
-  leftIconStyles = {},
-}: {
+interface Props {
   leftIcon?: string;
   subTitle?: string;
   title: string;
+  placeholder?: string;
   rightIcon?: string;
   rightIconRound?: string;
   enable?: boolean;
@@ -63,7 +42,34 @@ const SingleLineField = ({
   border?: boolean;
   mode?: 'none' | 'multiline';
   leftIconStyles?: ViewStyle;
-}) => {
+  fieldPadding?: number;
+}
+
+const SingleLineField = ({
+  leftIcon,
+  subTitle,
+  title,
+  placeholder,
+  rightIcon,
+  rightIconRound,
+  enable = true,
+  onPress,
+  titleWidth,
+  rightChild,
+  leftChild,
+  gap = true,
+  inputable = false,
+  onChangeText,
+  showRightSwitch,
+  rightSwitchVal,
+  onChangeSwitch,
+  roundedIconEnable,
+  onRoundedIconPress,
+  border = false,
+  mode = 'none',
+  leftIconStyles = {},
+  fieldPadding = 10,
+}: Props) => {
   const {colors, dark}: Theme = useTheme();
   return (
     <ModalField
@@ -72,7 +78,7 @@ const SingleLineField = ({
       onPress={onPress}
       gap={gap}
       border={border}
-      fieldPadding={10}>
+      fieldPadding={fieldPadding}>
       <View
         style={{
           flexDirection: 'row',
@@ -80,14 +86,14 @@ const SingleLineField = ({
           justifyContent: 'space-between',
         }}>
         <View>
-          {subTitle && (
+          {subTitle ? (
             <>
               <Text style={{...styles.subTitle, color: colors.text}}>
                 {subTitle}
               </Text>
               <GapView mode="vertical" length={4} />
             </>
-          )}
+          ) : null}
           <View
             style={{
               flexDirection: 'row',
@@ -116,7 +122,11 @@ const SingleLineField = ({
                 mode == 'none' ? (
                   <CstmTitleInput value={title} onChangeText={onChangeText} />
                 ) : (
-                  <CstmMultiLine value={title} onChangeText={onChangeText} />
+                  <CstmMultiLine
+                    value={title}
+                    placeholder={placeholder}
+                    onChangeText={onChangeText}
+                  />
                 )
               ) : (
                 <>

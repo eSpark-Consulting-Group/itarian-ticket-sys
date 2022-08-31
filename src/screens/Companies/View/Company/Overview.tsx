@@ -60,6 +60,7 @@ const Overview = () => {
       contentContainerStyle={{alignItems: 'center'}}>
       {Ds.map((item: Item, index: number) => (
         <SingleLineField
+          key={index}
           title={item.title}
           titleWidth={item.titleWidth}
           subTitle={item.subTitle}

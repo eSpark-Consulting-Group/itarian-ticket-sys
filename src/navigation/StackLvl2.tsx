@@ -8,6 +8,7 @@ import GoneTo from '../screens/Profile/View/Profile/GoneTo';
 import {onSave, goBack} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
 import ComposeNote from '../forms/ComposeNote';
+import QNAs from '../forms/QNAs';
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,31 @@ const StackLvl2 = ({navigation, route}: any) => {
         component={ComposeNote}
         options={({route, navigation}: any) => ({
           title: 'Compose Note',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => onSave(navigation, route)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QNA"
+        component={QNAs}
+        options={({route, navigation}: any) => ({
+          title: 'Configuration Questions',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

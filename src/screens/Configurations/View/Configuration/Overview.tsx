@@ -9,9 +9,10 @@ import {
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {SingleLineField} from '../../../../components';
-import {SelectFields} from '../../../../types';
+import {QNATypes, SelectFields} from '../../../../types';
 import {
   companyNameList,
+  configQuesList,
   contactNameList,
   installerNameList,
   manufacturerNameList,
@@ -32,7 +33,7 @@ interface Item {
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
   mode?: 'none' | 'multiline';
-  list?: SelectFields[];
+  list?: SelectFields[] | QNATypes[];
   selectedItem?: SelectFields;
   rightChild?: ReactNode;
   searchable?: boolean;
@@ -107,6 +108,7 @@ const Overview = () => {
       subTitle: 'Configuration Questions',
       title: 'Tap to View',
       rightIcon: 'chevron-right',
+      list: configQuesList,
     },
     {
       subTitle: 'Manufacturer',
@@ -228,19 +230,36 @@ const Overview = () => {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    navigation.navigate('Stack2', {
-      screen: 'CstmItemSelector',
-      params: {
-        from: 'Configure1',
-        item: index,
-        data: item.list,
-        selected: item.selectedItem,
-        stack: 'Stack1',
-        title: route?.params?.title,
-        headerTitle: item.headerTitle,
-        searchable: true,
-      },
-    });
+    if (index != 7 && item.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          from: 'Configure1',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: 'Company Name',
+          searchable: true,
+        },
+      });
+    }
+    if (index == 7) {
+      navigation.navigate('Stack2', {
+        screen: 'QNA',
+        params: {
+          from: 'Configure1',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: 'Company Name',
+          searchable: true,
+        },
+      });
+    }
   };
 
   return (

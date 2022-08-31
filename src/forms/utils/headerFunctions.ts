@@ -1,6 +1,7 @@
 //Function for My Status screen header's right button
 
 import {Alert} from 'react-native';
+import Images from '../../assets/images';
 import {noteList} from '../../constants/SampleArrays';
 
 const saveStatus = (navigation: any, route: any, activeStatus: any) => {
@@ -29,7 +30,7 @@ const onSave = (navigation: any, route: any) => {
   if (route?.params?.notes) {
     noteList.push({
       id: noteList?.length + 1,
-      img: require('../../assets/images/avatar_holder.webp'),
+      img: Images.AvatarHolder,
       title: `Template ${noteList?.length + 1}`,
       time: '12:19 AM',
       date: '19 Nov, 2021',

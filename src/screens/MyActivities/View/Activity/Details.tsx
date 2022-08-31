@@ -26,7 +26,7 @@ const Details = () => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
-    return <SingleLineField title={item.title} gap={false} />;
+    return <SingleLineField title={item.title} gap={false} fieldPadding={28} />;
   };
 
   return (

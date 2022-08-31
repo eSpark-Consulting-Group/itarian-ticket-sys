@@ -83,7 +83,13 @@ const ExpenseReportsScreen = ({navigation}: any) => {
           <FlatList
             data={expData}
             renderItem={({item}) => {
-              return <ListItem dataSource={item} renderDate={true} />;
+              return <ListItem 
+              onPress={(ticket) => {
+                navigation.navigate('Stack1', {
+                  screen: 'STickets',
+                  params: {title: ticket.ticket_no.toString()},
+                });
+              }} dataSource={item} renderDate={true} />;
             }}
           />
         ) : (

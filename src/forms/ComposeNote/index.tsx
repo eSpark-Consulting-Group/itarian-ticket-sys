@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {
   CstmMultiLine,
+  FloatButton,
   ModalField,
   ModalHeader,
   ModalView,
@@ -11,8 +12,7 @@ import {
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
 import {SingleLineField} from '../../components/FormFields';
-import {NoteTypes} from '../../constants/SampleArrays';
-import {NotesType} from '../../types';
+import {NotesAdditionalButtons, NoteTypes,} from '../../constants/SampleArrays';
 
 type Item = {
   text: string;
@@ -79,6 +79,7 @@ export default function ComposeNote({route, navigation}: any) {
         </>
       )}
       {loader && <SimpleLoader />}
+      <FloatButton AdditionalButtons={NotesAdditionalButtons} />
     </ModalView>
   );
 }

@@ -82,7 +82,7 @@ export default function Notes() {
     const {colors}: Theme = useTheme();
     return (
       <>
-        <Text style={{color: colors.text, ...styles.titleStyle}}>All</Text>
+        <Text style={{color: colors.text, ...styles.titleStyle}}>{filterType}</Text>
         <View style={{flexDirection: 'row'}}>
           <AD
             name="addfile"

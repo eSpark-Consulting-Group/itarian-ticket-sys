@@ -5,6 +5,8 @@ import {moderateScale} from 'react-native-size-matters';
 import {Divider, Menu} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import MI from 'react-native-vector-icons/MaterialIcons';
+import _ from 'lodash';
+import moment from 'moment';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
@@ -14,40 +16,21 @@ import {
   OutlineBtn,
   RoundedIcon,
 } from '../../components';
-import {
-  activitiesList,
-  SchAdditionalButtons,
-} from '../../constants/SampleArrays';
-import {Activity, AdditionalButtons} from '../../types';
-import _ from 'lodash';
+import {activitiesList} from '../../constants/SampleArrays';
+import {Activity} from '../../types';
 import {CstmPressable} from '../../components/CstmPressable';
 import {CstmMenu} from '../../components/CstmMenu';
 
 const MyActivities = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [visible, setVisible] = useState(false);
-  const [range, setRange] = useState('Last 30 Days');
-  const [actionButtons, setActionButtons] =
-    useState<AdditionalButtons[]>(SchAdditionalButtons);
+  const [range, setRange] = useState('All');
+  const [dataSource, setdataSource] = useState<Activity[]>(activitiesList);
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
   const showMenu = (): void => setVisible(true);
   const hideMenu = (): void => setVisible(false);
-
-  const updatePress = () => {
-    let tempArr = [...actionButtons];
-    tempArr[0].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'NewActivity',
-      });
-    };
-    setActionButtons(tempArr);
-  };
-
-  useEffect(() => {
-    updatePress();
-  }, []);
 
   const renderList = ({item, index}: {item: Activity; index: number}) => {
     return (
@@ -111,6 +94,70 @@ const MyActivities = ({navigation}: any) => {
     );
   };
 
+  const filterData = (value: any) => {
+    var arr = [];
+    const today = moment(new Date()).format('MMM DD, YYYY');
+    switch (value) {
+      case 'All':
+        setdataSource(activitiesList);
+        break;
+      case 'Today':
+        for (let index = 0; index < activitiesList.length; index++) {
+          const element = activitiesList[index];
+          if (moment(element.date).format('MMM DD, YYYY') == today) {
+            arr.push(element);
+          }
+        }
+        setdataSource(arr);
+        break;
+      case 'Last 30 Days':
+        const lastThirtyDate = moment(today).subtract(30, 'days');
+        for (let index = 0; index < activitiesList.length; index++) {
+          const element = activitiesList[index];
+          if (
+            moment(element.date).isBetween(
+              lastThirtyDate,
+              moment(today).add(1, 'day'),
+            )
+          ) {
+            arr.push(element);
+          }
+        }
+        setdataSource(arr);
+        break;
+      case 'Tomorrow':
+        for (let index = 0; index < activitiesList.length; index++) {
+          const element = activitiesList[index];
+          if (
+            moment(element.date).format('MMM DD, YYYY') ==
+            moment(today).subtract(1, 'day').format('MMM DD, YYYY')
+          ) {
+            arr.push(element);
+          }
+        }
+        setdataSource(arr);
+        break;
+      case 'This Week':
+        const lastWeekDate = moment(today).subtract(7, 'days');
+        for (let index = 0; index < activitiesList.length; index++) {
+          const element = activitiesList[index];
+          if (
+            moment(element.date).isBetween(
+              lastWeekDate,
+              moment(today).add(1, 'day'),
+            )
+          ) {
+            arr.push(element);
+          }
+        }
+        setdataSource(arr);
+        break;
+      default:
+        break;
+    }
+    setRange(value);
+  };
+
   return (
     <>
       <View
@@ -134,7 +181,7 @@ const MyActivities = ({navigation}: any) => {
             menuItems={menuItems}
             visible={visible}
             hideMenu={hideMenu}
-            onChange={(value) => setRange(value)}
+            onChange={filterData}
             children={
               <OutlineBtn
                 text={range}
@@ -167,13 +214,19 @@ const MyActivities = ({navigation}: any) => {
         </View>
       </View>
       <View style={styles.container}>
-        {activitiesList.length !== 0 ? (
-          <FlatList data={activitiesList} renderItem={renderList} />
+        {dataSource.length !== 0 ? (
+          <FlatList data={dataSource} renderItem={renderList} />
         ) : (
           <NotFound />
         )}
       </View>
-      <FloatButton AdditionalButtons={actionButtons} />
+      <FloatButton
+        onPress={() => {
+          navigation.navigate('Stack1', {
+            screen: 'NewActivity',
+          });
+        }}
+      />
     </>
   );
 };
@@ -181,7 +234,7 @@ const MyActivities = ({navigation}: any) => {
 const NotFound = (): JSX.Element => {
   return (
     <View style={styles.content}>
-      <EmptyListMsg label="Contacts" />
+      <EmptyListMsg label="Activities" />
     </View>
   );
 };
@@ -194,7 +247,6 @@ const menuItems = [
   {text: 'Today'},
   {text: 'Tomorrow'},
   {text: 'This Week'},
-  {text: 'Next 30 Days'},
 ];
 
 export default MyActivities;

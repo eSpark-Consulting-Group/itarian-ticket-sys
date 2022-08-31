@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, Linking} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useState as useHState, State} from '@hookstate/core';
@@ -10,16 +10,24 @@ import {Theme} from '../../theme/colors';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
 import {CstmPressable} from '../../components/CstmPressable';
+import { getNavigtionApps } from '../../utils/helperFunctions';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHState(globalState.theme);
   const dScreen: State<string> = useHState(globalState.defaultScreenId);
   const dSName: State<string> = useHState(globalState.defaultScreenName);
+  const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
+
   const [isSwitchOn, setIsSwitchOn] = useState(
     themeValue.get() == 'light' ? false : true,
   );
   const [visible, setVisible] = useState(false);
   const [defaultScreen, setdefaultScreen] = useState(dSName.get());
+
+  const [navigationVisible, setnavigationVisible] = useState(false);
+  const [defaultNavigitonList, setDefaultNavigationList] = useState([]);
+  const [defaultNav, setdefaultNav] = useState(dNavName.get());
+
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
@@ -40,6 +48,12 @@ const SettingsScreen = () => {
     dSName.set(name);
     setdefaultScreen(name);
   };
+
+  const handleDefaultNaveSwitch = (id: string, name: string) => {
+    dNavName.set(name);
+    setdefaultNav(name);
+  };
+
   const hideMenu = () => {
     setVisible(false);
   };
@@ -47,6 +61,24 @@ const SettingsScreen = () => {
     setVisible(true);
   };
 
+
+  const hideNavMenu = () => {
+    setnavigationVisible(false);
+  };
+  const openNavMenu = () => {
+    setnavigationVisible(true);
+  };
+
+  useEffect(() => {
+    getNavigtionApps()
+    .then((arr) => {
+      console.log("arr navigation apps", arr)
+      setDefaultNavigationList(arr)
+    })
+    .catch((err) => {
+      console.log("err", err)
+    })
+  }, [])
   const {colors, dark}: Theme = useTheme();
   return (
     <View>
@@ -117,6 +149,59 @@ const SettingsScreen = () => {
                           onPress={() => {
                             hideMenu();
                             handleDefaultSwitch(item.id, item.name);
+                          }}
+                        />
+                      );
+                    }}
+                  />
+                </Menu>
+              </View>
+            )}
+          />
+        </TouchableOpacity>
+
+        <Divider
+          style={{
+            backgroundColor: colors.text,
+            opacity: 0.25,
+            transform: [{scale: 2}],
+          }}
+        />
+        <List.Subheader style={{color: colors.text, opacity: 0.6}}>
+          Default Navigation App
+        </List.Subheader>
+        <TouchableOpacity onPress={openNavMenu}>
+          <List.Item
+            title={defaultNav || 'Select default navigation'}
+            titleStyle={{color: colors.text, opacity: 0.75}}
+            right={() => (
+              <View style={{flexDirection: 'row'}}>
+                <Menu
+                  visible={navigationVisible}
+                  onDismiss={hideNavMenu}
+                  style={{
+                    width: moderateScale(170),
+                    height: moderateScale(200),
+                  }}
+                  contentStyle={{backgroundColor: colors.background}}
+                  anchor={
+                    <List.Icon
+                      icon="chevron-right"
+                      color={colors.primary}
+                      style={{opacity: 1}}
+                    />
+                  }>
+                  <FlatList
+                    data={defaultNavigitonList}
+                    renderItem={({item, index}: any) => {
+                      return (
+                        <MenuItem
+                          itemName={item.name}
+                          textColor={colors.text}
+                          dark={dark}
+                          onPress={() => {
+                            hideNavMenu()
+                            handleDefaultNaveSwitch(index, item.name);
                           }}
                         />
                       );

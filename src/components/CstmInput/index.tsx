@@ -1,16 +1,10 @@
-import {
-  KeyboardAvoidingView,
-  KeyboardTypeOptions,
-  Text,
-  View,
-} from 'react-native';
+import {KeyboardTypeOptions, Text, View} from 'react-native';
 import React from 'react';
 import {TextInput} from 'react-native-paper';
 import PropTypes from 'prop-types';
 
 import styles from './style';
-import {useTheme} from '@react-navigation/native';
-import {Theme} from '../../theme/colors';
+import {Theme, useTheme} from '@react-navigation/native';
 
 const CstmInput = ({
   title,

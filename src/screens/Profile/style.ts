@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   infoHolder: {
-    // flex: 0.3,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',

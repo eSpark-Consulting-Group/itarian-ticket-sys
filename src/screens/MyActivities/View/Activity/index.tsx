@@ -1,13 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
+import {StyleSheet, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
-import {
-  ModalHeader,
-  ModalView,
-  RoundedIcon,
-  CstmTabBar,
-} from '../../../../components';
+import {ModalView, CstmTabBar} from '../../../../components';
 import Details from './Details';
 import Overview from './Overview';
 
@@ -49,9 +44,3 @@ function TabComp() {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  adjuster: {
-    width: 18,
-  },
-});

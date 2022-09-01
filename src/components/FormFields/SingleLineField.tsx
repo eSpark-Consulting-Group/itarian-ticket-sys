@@ -1,12 +1,5 @@
 import React, {ReactNode} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  PixelRatio,
-  ViewStyle,
-} from 'react-native';
+import {StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {Switch} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -70,10 +63,9 @@ const SingleLineField = ({
   leftIconStyles = {},
   fieldPadding = 10,
 }: Props) => {
-  const {colors, dark}: Theme = useTheme();
+  const {colors}: Theme = useTheme();
   return (
     <ModalField
-      mode="none"
       pressEnable={enable}
       onPress={onPress}
       gap={gap}

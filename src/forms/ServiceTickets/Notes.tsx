@@ -4,17 +4,13 @@ import {
   useTheme,
   Theme,
   useNavigation,
-  NavigationProp,
   useRoute,
 } from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
 import {EmptyListMsg, GapView, ModalField} from '../../components';
-import {Divider, Modal} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
-import {WINDOW_HEIGHT} from '../../constants';
-import {ScrollView} from 'react-native-gesture-handler';
+import {Divider} from 'react-native-paper';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootNavigation';
 import {
@@ -130,17 +126,9 @@ const Notes = () => {
     }
   }, [filterType]);
 
-  // if (data.length == 0) {
-  //   return (
-  //     // <View style={styles.container}>
-  //       <NotFound />
-  //     // </View>
-  //   );
-  // } else {
   return (
     <>
       <ModalField
-        mode="none"
         pressEnable={false}
         contentStyle={{
           ...styles.subHeader,
@@ -148,7 +136,7 @@ const Notes = () => {
         {subHeader()}
       </ModalField>
       {data?.length > 0 ? (
-        <ModalField mode="none" pressEnable={false} fieldPadding={0}>
+        <ModalField pressEnable={false} fieldPadding={0}>
           <FlatList
             data={data}
             renderItem={renderList}
@@ -168,7 +156,6 @@ const Notes = () => {
     </>
   );
 };
-// };
 
 const NotFound = (): JSX.Element => {
   return (

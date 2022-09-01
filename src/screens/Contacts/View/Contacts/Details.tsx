@@ -15,9 +15,9 @@ const dataSource: Item[] = [
   },
 ];
 
-type Item = {
+interface Item {
   title: string;
-};
+}
 
 export default function Details() {
   const {colors, dark}: Theme = useTheme();

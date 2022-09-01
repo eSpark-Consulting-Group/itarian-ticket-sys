@@ -1,8 +1,7 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './style';
-import {useTheme} from '@react-navigation/native';
-import {Theme} from '../../theme/colors';
+import {Theme, useTheme} from '@react-navigation/native';
 import {WINDOW_WIDTH} from '../../constants';
 
 // @ts-ignore
@@ -38,7 +37,7 @@ const Calendar = ({navigation}: any) => {
   }, []);
 
   useEffect(() => {
-    console.log("useEffect")
+    console.log('useEffect');
     setToggle(!toggle);
   }, [dark]);
 
@@ -102,13 +101,19 @@ const Calendar = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={{color: colors.text}}>Calendar Screen</Text> */}
       <EventCalendar
         eventTapped={(item: any) => console.log('EVENT TAPPED', item)}
         events={events}
         width={WINDOW_WIDTH}
         initDate={new Date()}
-        styles={{contentStyle: {backgroundColor: dark ? '#000' : '#fff'}, header: {backgroundColor: dark ? colors.background : '#F5F5F6', borderColor: dark ? "#000" : 'transparent'} , headerText:  {color: dark ? '#fff' : '#000'}}}
+        styles={{
+          contentStyle: {backgroundColor: dark ? '#000' : '#fff'},
+          header: {
+            backgroundColor: dark ? colors.background : '#F5F5F6',
+            borderColor: dark ? '#000' : 'transparent',
+          },
+          headerText: {color: dark ? '#fff' : '#000'},
+        }}
       />
       <FloatButton AdditionalButtons={actionButtons} />
     </View>

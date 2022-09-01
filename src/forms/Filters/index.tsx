@@ -1,18 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
+import {StyleSheet, ScrollView} from 'react-native';
+
 import {SingleLineField} from '../../components';
 import {Filter} from '../../types';
 
-export default function App({
-  route,
-  navigation,
-}: {
-  route: any;
-  navigation: any;
-}) {
+export default function App({route}: {route: any}) {
   var {dataSource: dSource, title} = route?.params;
-  const {colors}: Theme = useTheme();
   const [dataSource, setDataSource] = useState(dSource);
 
   useEffect(() => {

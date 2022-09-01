@@ -1,15 +1,13 @@
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
-
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fthr from 'react-native-vector-icons/Feather';
 import FD from 'react-native-vector-icons/Foundation';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
-import {SchAdditionalButtons, ticketsList} from '../../constants/SampleArrays';
+import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';

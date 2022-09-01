@@ -1,9 +1,8 @@
 import React from 'react';
 import {View, Text, TextInput} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import GapView from '../GapView';
 
 const CstmMultiLine = ({
@@ -49,7 +48,6 @@ const CstmMultiLine = ({
         returnKeyType="send"
         autoCorrect={false}
         maxLength={100}
-        // onChangeText={txt => inputVal.set(txt)}
       />
     </View>
   );

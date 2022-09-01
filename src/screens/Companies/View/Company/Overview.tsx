@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, Alert} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
-import {
-  PriorityField,
-  RoundedIcon,
-  SingleLineField,
-} from '../../../../components';
-import {moderateScale} from 'react-native-size-matters';
-import {SelectFields} from '../../../../types';
-import { redirectToMap } from '../../../../utils/helperFunctions';
-import {globalState} from '../../../../utils/globalState';
 import {useState as useHState, State} from '@hookstate/core';
+import {moderateScale} from 'react-native-size-matters';
+
+import {RoundedIcon, SingleLineField} from '../../../../components';
+import {SelectFields} from '../../../../types';
+import {redirectToMap} from '../../../../utils/helperFunctions';
+import {globalState} from '../../../../utils/globalState';
 
 interface Item {
   headerTitle?: string;
@@ -26,9 +23,7 @@ interface Item {
   rightChild?: React.ReactNode;
 }
 
-
 const Overview = () => {
-  const {colors}: Theme = useTheme();
   const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
   const dataSource: Item[] = [
@@ -41,7 +36,12 @@ const Overview = () => {
     {
       title: '645 Elm Street Tampa, Fl 32364',
       headerTitle: 'Company Address',
-      rightChild: <RoundedIcon icon="map-marker-outline" onPress={() => redirectToMap(24.918009, 67.106047, defaultNav)} />,
+      rightChild: (
+        <RoundedIcon
+          icon="map-marker-outline"
+          onPress={() => redirectToMap(24.918009, 67.106047, defaultNav)}
+        />
+      ),
       enable: false,
       titleWidth: moderateScale(130),
     },

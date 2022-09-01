@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {
   useTheme,
@@ -13,10 +13,11 @@ import {EmptyListMsg, GapView, ModalField} from '../../../../components';
 import {Divider} from 'react-native-paper';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../../navigation/RootNavigation';
-import {NoteTypes_ACIT, noteList as dataSource} from '../../../../constants/SampleArrays';
-import Images from '../../../../assets/images';
-import { CstmMenu } from '../../../../components/CstmMenu';
-
+import {
+  NoteTypes_ACIT,
+  noteList as dataSource,
+} from '../../../../constants/SampleArrays';
+import {CstmMenu} from '../../../../components/CstmMenu';
 
 interface Item {
   id: number;
@@ -31,7 +32,7 @@ const Notes = () => {
   const {colors, dark}: Theme = useTheme();
   const navigation = useNavigation<StackLvl2>();
   const route = useRoute<any>();
-  
+
   const [visible, setVisible] = useState(false);
   const [filterType, setfilterType] = useState('All');
   const [data, setData] = useState(dataSource);
@@ -134,7 +135,6 @@ const Notes = () => {
   return (
     <View style={styles.container}>
       <ModalField
-        mode="none"
         pressEnable={false}
         contentStyle={{
           ...styles.subHeader,
@@ -142,7 +142,7 @@ const Notes = () => {
         {subHeader()}
       </ModalField>
       {data?.length > 0 ? (
-        <ModalField mode="none" pressEnable={false} fieldPadding={0}>
+        <ModalField pressEnable={false} fieldPadding={0}>
           <FlatList
             data={data}
             renderItem={renderList}

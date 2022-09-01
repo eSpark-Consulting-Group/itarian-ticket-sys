@@ -1,8 +1,6 @@
 import React from 'react';
 import {View, ActivityIndicator, StyleSheet} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-
-import {Theme} from '../../theme/colors';
+import {Theme, useTheme} from '@react-navigation/native';
 
 const SimpleLoader = () => {
   const {dark, colors}: Theme = useTheme();

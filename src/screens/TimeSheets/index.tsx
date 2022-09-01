@@ -1,18 +1,17 @@
-import {View, Text, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {View, Text, FlatList} from 'react-native';
+import {Theme, useTheme} from '@react-navigation/native';
+
 import styles from './style';
-import {useTheme} from '@react-navigation/native';
-import {Theme} from '../../theme/colors';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {
-
   TimeSheetAdditionalButtons,
   timeSheetList,
 } from '../../constants/SampleArrays';
 import {AdditionalButtons, TimeSheet} from '../../types';
 import ListItem from '../Agenda/ListItem';
 
-const TimeSheetsScreen = ({navigation} :any) => {
+const TimeSheetsScreen = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
   const [isDate, setIsDate] = useState(false);
   const [totHrs, setTotHrs] = useState(0);
@@ -21,8 +20,9 @@ const TimeSheetsScreen = ({navigation} :any) => {
     {date: new Date()},
   ]);
   const [sheetData, setSheetData] = useState<TimeSheet[]>([]);
-  const [actionButtons, setActionButtons] =
-  useState<AdditionalButtons[]>(TimeSheetAdditionalButtons);
+  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
+    TimeSheetAdditionalButtons,
+  );
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
@@ -80,12 +80,16 @@ const TimeSheetsScreen = ({navigation} :any) => {
           <FlatList
             data={sheetData}
             renderItem={({item}) => (
-              <ListItem onPress={(ticket) => {
-                navigation.navigate('Stack1', {
-                  screen: 'STickets',
-                  params: {title: ticket.ticket_no.toString()},
-                });
-              }} dataSource={item} renderDate={true} />
+              <ListItem
+                onPress={ticket => {
+                  navigation.navigate('Stack1', {
+                    screen: 'STickets',
+                    params: {title: ticket.ticket_no.toString()},
+                  });
+                }}
+                dataSource={item}
+                renderDate={true}
+              />
             )}
           />
         ) : (

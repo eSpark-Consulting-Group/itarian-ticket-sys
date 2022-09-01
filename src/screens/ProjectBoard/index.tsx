@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,13 +9,12 @@ import FD from 'react-native-vector-icons/Foundation';
 import AD from 'react-native-vector-icons/AntDesign';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';
 
-const ProjectBoard = ({navigation} : any) => {
+const ProjectBoard = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
 
   const renderList = ({item, index}: {item: Ticket; index: number}) => {
@@ -35,124 +34,123 @@ const ProjectBoard = ({navigation} : any) => {
     return (
       <View style={styles.listContainer}>
         <CstmPressable
-         onPress={() => {
-          navigation.navigate('Stack1', {
-            screen: 'STickets',
-            params: {title: item.ticket_no.toString()},
-          });
-        }}
-          >
-        <View
-          style={{
-            ...styles.listInner,
+          onPress={() => {
+            navigation.navigate('Stack1', {
+              screen: 'STickets',
+              params: {title: item.ticket_no.toString()},
+            });
           }}>
-          <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                backgroundColor: '#f6b40e',
-                ...styles.priorityContainer,
-              }}>
-              <AD name="areachart" color={'#ffffff'} size={18} />
-            </View>
-            <View
-              style={{
-                ...styles.listItemContainer,
-              }}>
+          <View
+            style={{
+              ...styles.listInner,
+            }}>
+            <View style={{flexDirection: 'row'}}>
               <View
                 style={{
-                  ...styles.horizontalItemStyles,
+                  backgroundColor: '#f6b40e',
+                  ...styles.priorityContainer,
                 }}>
-                <Text style={{...styles.title, color: colors.text}}>
-                  Ticket {item.ticket_no}
-                </Text>
+                <AD name="areachart" color={'#ffffff'} size={18} />
+              </View>
+              <View
+                style={{
+                  ...styles.listItemContainer,
+                }}>
                 <View
                   style={{
-                    ...styles.ageContainer,
+                    ...styles.horizontalItemStyles,
                   }}>
-                  <Text style={{color: '#fff', fontSize: 12}}>
-                    {item.age.toFixed(1)}
+                  <Text style={{...styles.title, color: colors.text}}>
+                    Ticket {item.ticket_no}
                   </Text>
-                </View>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={{...styles.title, color: colors.text}}>
-                  {item.ticket_summary}
-                </Text>
-              </View>
-              {item.contact && (
-                <View style={{flexDirection: 'row'}}>
-                  <Fthr
-                    name="user"
-                    color={colors.text}
-                    size={12}
+                  <View
                     style={{
-                      ...styles.iconStyle,
-                    }}
-                  />
-                  <Text style={{...styles.subTitle, color: colors.text}}>
-                    {item.contact}
-                  </Text>
-                </View>
-              )}
-              <View style={{flexDirection: 'row'}}>
-                <MCI
-                  name="office-building-marker-outline"
-                  color={colors.text}
-                  size={12}
-                  style={{
-                    ...styles.iconStyle,
-                  }}
-                />
-                <Text style={{...styles.subTitle, color: colors.text}}>
-                  {item.company}
-                </Text>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <FD
-                  name="wrench"
-                  color={colors.text}
-                  size={12}
-                  style={{
-                    ...styles.iconStyle,
-                    paddingRight: 8,
-                  }}
-                />
-                <Text style={{...styles.subTitle, color: colors.text}}>
-                  {item.phase}
-                </Text>
-              </View>
-              <View
-                style={{
-                  ...styles.horizontalItemStyles,
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  <AD
-                    name="areachart"
-                    color={colors.text}
-                    size={12}
-                    style={{
-                      ...styles.iconStyle,
-                      paddingRight: 5,
-                    }}
-                  />
-                  <Text style={{...styles.subTitle, color: colors.text}}>
-                    {item.project}
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      ...styles.subTitle,
-                      color: colors.text,
-                      ...styles.highlight,
+                      ...styles.ageContainer,
                     }}>
-                    {renderPriorityText(item.priority)}
+                    <Text style={{color: '#fff', fontSize: 12}}>
+                      {item.age.toFixed(1)}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{...styles.title, color: colors.text}}>
+                    {item.ticket_summary}
                   </Text>
+                </View>
+                {item.contact && (
+                  <View style={{flexDirection: 'row'}}>
+                    <Fthr
+                      name="user"
+                      color={colors.text}
+                      size={12}
+                      style={{
+                        ...styles.iconStyle,
+                      }}
+                    />
+                    <Text style={{...styles.subTitle, color: colors.text}}>
+                      {item.contact}
+                    </Text>
+                  </View>
+                )}
+                <View style={{flexDirection: 'row'}}>
+                  <MCI
+                    name="office-building-marker-outline"
+                    color={colors.text}
+                    size={12}
+                    style={{
+                      ...styles.iconStyle,
+                    }}
+                  />
+                  <Text style={{...styles.subTitle, color: colors.text}}>
+                    {item.company}
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <FD
+                    name="wrench"
+                    color={colors.text}
+                    size={12}
+                    style={{
+                      ...styles.iconStyle,
+                      paddingRight: 8,
+                    }}
+                  />
+                  <Text style={{...styles.subTitle, color: colors.text}}>
+                    {item.phase}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    ...styles.horizontalItemStyles,
+                  }}>
+                  <View style={{flexDirection: 'row'}}>
+                    <AD
+                      name="areachart"
+                      color={colors.text}
+                      size={12}
+                      style={{
+                        ...styles.iconStyle,
+                        paddingRight: 5,
+                      }}
+                    />
+                    <Text style={{...styles.subTitle, color: colors.text}}>
+                      {item.project}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        ...styles.subTitle,
+                        color: colors.text,
+                        ...styles.highlight,
+                      }}>
+                      {renderPriorityText(item.priority)}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
-        </View>
         </CstmPressable>
         {index !== ticketsList.length - 1 && (
           <Divider

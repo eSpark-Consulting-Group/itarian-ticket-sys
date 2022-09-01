@@ -1,48 +1,52 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {GapView, ModalView, SingleLineField} from '../../components';
+import {ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 
-const NewTimeSheet = ({route} : any) => {
+const NewTimeSheet = ({route}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
-  const [mode, setMode] = useState<Mode>("date")
-  const [pickerType, setpickerType] = useState<PickerType>("dd")
-  const [StartTime, setStartTime] = useState(null)
-  const [endTime, setendTime] = useState(null)
+  const [mode, setMode] = useState<Mode>('date');
+  const [pickerType, setpickerType] = useState<PickerType>('dd');
+  const [StartTime, setStartTime] = useState(null);
+  const [endTime, setendTime] = useState(null);
 
   const [dataSource, setDataSource] = useState<Item[]>([
-    {title: 'Please Select', subTitle: 'Charge Code', rightIcon: 'chevron-right'},
     {
-        title: 'Please Select', 
-        subTitle: 'Date ', 
-        rightIcon: 'calendar', 
-        onPress: () => {
-            setMode("date")
-            setpickerType("dd")
-            setShowDate(true)
-        }
+      title: 'Please Select',
+      subTitle: 'Charge Code',
+      rightIcon: 'chevron-right',
     },
     {
-        title: 'Please Select',
-        subTitle: 'Start Time ', 
-        rightIcon: 'clock',
-        onPress: () => {
-            setMode("time")
-            setpickerType("st")
-            setShowDate(true)
-        }
+      title: 'Please Select',
+      subTitle: 'Date ',
+      rightIcon: 'calendar',
+      onPress: () => {
+        setMode('date');
+        setpickerType('dd');
+        setShowDate(true);
+      },
     },
     {
-        title: 'Please Select',
-        subTitle: 'End Time ', 
-        rightIcon: 'clock',
-        onPress: () => {
-            setMode("time")
-            setpickerType("et")
-            setShowDate(true)
-        }
+      title: 'Please Select',
+      subTitle: 'Start Time ',
+      rightIcon: 'clock',
+      onPress: () => {
+        setMode('time');
+        setpickerType('st');
+        setShowDate(true);
+      },
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'End Time ',
+      rightIcon: 'clock',
+      onPress: () => {
+        setMode('time');
+        setpickerType('et');
+        setShowDate(true);
+      },
     },
     {title: '', subTitle: 'Time', inputable: true, enable: false},
     {title: 'Please Select', subTitle: 'Work Role', rightIcon: 'chevron-right'},
@@ -52,7 +56,7 @@ const NewTimeSheet = ({route} : any) => {
       subTitle: 'Notes',
       inputable: true,
       enable: false,
-      mode: 'multiline'
+      mode: 'multiline',
     },
   ]);
 
@@ -69,20 +73,20 @@ const NewTimeSheet = ({route} : any) => {
     onChangeSwitch?: (value: boolean) => void;
     onChangeText?: (text: string) => void;
     mode?: 'none' | 'multiline';
-    onPress?: () => void
+    onPress?: () => void;
   }
 
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
 
   useEffect(() => {
-    if(route?.params?.from) {
+    if (route?.params?.from) {
       let newData = [...dataSource];
-      newData[9].title = "Johnny Bravo";
+      newData[9].title = 'Johnny Bravo';
       setDataSource(newData);
     }
-  }, [route?.params])
-  
+  }, [route?.params]);
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -91,41 +95,44 @@ const NewTimeSheet = ({route} : any) => {
 
   const onChangeDate = (event: any, date: any) => {
     setShowDate(false);
-    let time = date.toString().substring(16, 21)
+    let time = date.toString().substring(16, 21);
 
-    if(event?.type == 'set') {
-        switch (pickerType) {
-            case "dd":
-                dataSource[1].title = date?.toDateString()
-                setDataSource([...dataSource])
-                break;
-            case "st": 
-                setStartTime(date?.toISOString())
-                dataSource[2].title = time
-                setDataSource([...dataSource])
-                break;
-            case "et": 
-                setendTime(date?.toISOString())
-                dataSource[3].title = time
-                setDataSource([...dataSource])
-            default:
-                break;
-        }
+    if (event?.type == 'set') {
+      switch (pickerType) {
+        case 'dd':
+          dataSource[1].title = date?.toDateString();
+          setDataSource([...dataSource]);
+          break;
+        case 'st':
+          setStartTime(date?.toISOString());
+          dataSource[2].title = time;
+          setDataSource([...dataSource]);
+          break;
+        case 'et':
+          setendTime(date?.toISOString());
+          dataSource[3].title = time;
+          setDataSource([...dataSource]);
+        default:
+          break;
+      }
     }
-   
-  }
+  };
 
   return (
     <ModalView bgColor={colors.card}>
-        {showDate && (
+      {showDate && (
         <DatePicker
           mode={mode}
           value={new Date()}
           minimumDate={new Date()}
           onChange={onChangeDate}
-          themeVariant='dark'
+          themeVariant="dark"
           positiveButtonLabel={
-            pickerType == "dd" ? 'Set Date' : (pickerType == "st" ? 'Confirm Start Time' : 'Confirm End Time')
+            pickerType == 'dd'
+              ? 'Set Date'
+              : pickerType == 'st'
+              ? 'Confirm Start Time'
+              : 'Confirm End Time'
           }
         />
       )}
@@ -149,7 +156,6 @@ const NewTimeSheet = ({route} : any) => {
               onPress={item?.onPress}
             />
           ))}
-          {/* <GapView /> */}
         </View>
       </ScrollView>
     </ModalView>

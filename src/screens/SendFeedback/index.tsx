@@ -89,36 +89,44 @@ const SendFeedbackScreen = () => {
     'Oppurtunities not Added',
   ];
 
+  const dropDownDataSource = [
+    {
+      data: ideaData,
+      type: 'idea',
+      toggleValue: ideaToggle,
+      title: "I have an Idea"
+    },
+    {
+      data: cantFindData,
+      type: 'feed',
+      toggleValue: feedToggle,
+      title: "I can't find something"
+    },
+    {
+      data: errorData,
+      type: 'error',
+      toggleValue: errorToggle,
+      title: "I have encountered an error"
+    }
+  ]
+
   return (
     <View
       style={{
         // bottom: iskeyboardShown.current ? 100 : 0,
         ...styles.container,
       }}>
-      <CstmDropDown
-        dataSource={ideaData}
-        handleLabel={handleLabel}
-        type={'idea'}
-        toggleValue={ideaToggle}
-        handleToggle={handleToggle}
-        title={'I have an Idea'}
-      />
-      <CstmDropDown
-        dataSource={cantFindData}
-        handleLabel={handleLabel}
-        type={'feed'}
-        toggleValue={feedToggle}
-        handleToggle={handleToggle}
-        title={"I can't find something"}
-      />
-      <CstmDropDown
-        dataSource={errorData}
-        handleLabel={handleLabel}
-        toggleValue={errorToggle}
-        type={'error'}
-        handleToggle={handleToggle}
-        title={'I have encountered an error'}
-      />
+      {dropDownDataSource.map((val, int) => (
+        <CstmDropDown
+          key={int}
+          dataSource={val.data}
+          handleLabel={handleLabel}
+          type={val.type}
+          toggleValue={val.toggleValue}
+          handleToggle={handleToggle}
+          title={val.title}
+        />
+      ))}
       <CstmMultiLine title="Share Your Feedback" />
       <CstmButton
         title="Send Feedback"

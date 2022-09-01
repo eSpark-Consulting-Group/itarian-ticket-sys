@@ -1484,6 +1484,50 @@ export const resourceList: SelectFields[] = [
   },
 ];
 
+export const chargeCodeList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'chargeCode 1',
+  },
+  {
+    id: 1,
+    name: 'chargeCode 2',
+  },
+  {
+    id: 2,
+    name: 'chargeCode 3',
+  },
+];
+
+export const expenseTypeList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'expenseType 1',
+  },
+  {
+    id: 1,
+    name: 'expenseType 2',
+  },
+  {
+    id: 2,
+    name: 'expenseType 3',
+  },
+];
+
+export const paymentTypeList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'paymentType 1',
+  },
+  {
+    id: 1,
+    name: 'paymentType 2',
+  },
+  {
+    id: 2,
+    name: 'paymentType 3',
+  },
+];
 //? ---------------------------------------
 
 export const noteList: Item[] = [

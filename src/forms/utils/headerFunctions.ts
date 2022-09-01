@@ -1,12 +1,10 @@
 //Function for My Status screen header's right button
-
-import {Alert} from 'react-native';
 import Images from '../../assets/images';
 import {noteList} from '../../constants/SampleArrays';
 
 const saveStatus = (navigation: any, route: any, activeStatus: any) => {
-  console.log("route.params", route?.params)
-  if(route?.params) {
+  console.log('route.params', route?.params);
+  if (route?.params) {
     activeStatus?.currentStatus.set(route.params?.status);
     activeStatus?.currentGoneTo.set({...route.params?.goneTo});
   }

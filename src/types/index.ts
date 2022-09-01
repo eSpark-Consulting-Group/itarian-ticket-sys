@@ -215,6 +215,11 @@ export type SelectFields = {
   name: string;
 };
 
+export type NoteTypes = {
+  text: NotesType;
+  highlight: boolean;
+};
+
 export type QNATypes = {
   id: number;
   ques: string;

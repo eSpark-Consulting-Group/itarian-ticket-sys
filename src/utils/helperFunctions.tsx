@@ -1,7 +1,6 @@
 import {Linking, Platform} from 'react-native';
 import {
   AppInstalledChecker,
-  CheckPackageInstallation,
   // @ts-ignore
 } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';

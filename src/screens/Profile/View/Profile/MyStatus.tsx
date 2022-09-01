@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTheme, Theme} from '@react-navigation/native';
-
-import {Switch} from 'react-native-paper';
-import {ModalField, ModalView, SingleLineField} from '../../../../components';
-import {GoneToFormArray} from '../../../../constants/SampleArrays';
 import {State, useState as useHState} from '@hookstate/core';
+import {Switch} from 'react-native-paper';
+
+import {ModalView, SingleLineField} from '../../../../components';
+import {GoneToFormArray} from '../../../../constants/SampleArrays';
 import { userStore } from '../../../../stores/userStore';
 
 const MyStatus = ({route, navigation}: any) => {
@@ -15,6 +14,7 @@ const MyStatus = ({route, navigation}: any) => {
   // console.log('Route', route);
   const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();
+
   const [goneTo, setGoneTo] = useState<any>(null);
   const [goneToStatus, setGoneToStatus] = useState<any>(currStatus.get());
   const [showTime, setShowTime] = useState(false);
@@ -79,13 +79,7 @@ const MyStatus = ({route, navigation}: any) => {
   };
 
   const changeSwitch = () => {
-    // const {setParams} = navigation;
     setGoneToStatus(!goneToStatus);
-    // setParams({
-    //   ...route?.params,
-    //   status: !OutStatus,
-    // });
-    // setGoneTo(null);
   };
 
   return (
@@ -134,19 +128,6 @@ const MyStatus = ({route, navigation}: any) => {
             inputable
             onChangeText={e => setAddInfo(e)}
           />
-          <ModalField
-            mode="inlined"
-            headingLeft="Date Back"
-            subHeadingLeft={dateDur}
-            subIconLeft="calendar-outline"
-            pressEnableLeft
-            onPressLeft={() => setShowDate(true)}
-            headingRight="Time Back"
-            subHeadingRight={timeDur}
-            subIconRight="timer-outline"
-            pressEnableRight
-            onPressRight={() => setShowTime(true)}
-          />
         </>
       )}
       {showTime && (
@@ -169,5 +150,3 @@ const MyStatus = ({route, navigation}: any) => {
 };
 
 export default MyStatus;
-
-const styles = StyleSheet.create({});

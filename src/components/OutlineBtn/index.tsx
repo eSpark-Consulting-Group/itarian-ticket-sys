@@ -1,13 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
-
-import {Theme} from '../../theme/colors';
-import {moderateScale} from 'react-native-size-matters';
 import {CstmPressable} from '../CstmPressable';
-import {WINDOW_WIDTH} from '../../constants';
 
 const OutlineBtn = ({
   text,
@@ -78,7 +74,7 @@ const OutlineBtn = ({
             style={{
               width: rightIcon ? 100 : widthLength,
               justifyContent: 'center',
-              alignItems: rightIcon ? "flex-start" : 'center',
+              alignItems: rightIcon ? 'flex-start' : 'center',
             }}>
             <Text
               style={{

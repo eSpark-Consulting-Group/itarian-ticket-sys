@@ -1,21 +1,21 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {GapView, ModalView, SingleLineField} from '../../components';
+import {View, ScrollView} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
-import moment from 'moment'
 import {State, useState as hookState} from '@hookstate/core';
-import { globalState } from '../../stores/globalAppState';
+
+import {ModalView, SingleLineField} from '../../components';
+import {globalState} from '../../stores/globalAppState';
 import { userStore } from '../../stores/userStore';
-const NewActivity = ({route} : any) => {
+
+const NewActivity = ({route}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
-  const [mode, setMode] = useState<Mode>("date")
-  const [pickerType, setpickerType] = useState<PickerType>("dd")
-  const [currIndex, setcurrIndex] = useState(undefined)
-  const [dueDate, setDueDate] = useState(null)
-  const [StartTime, setStartTime] = useState(null)
-  const [endTime, setendTime] = useState(null)
+  const [mode, setMode] = useState<Mode>('date');
+  const [pickerType, setpickerType] = useState<PickerType>('dd');
+
+  const [StartTime, setStartTime] = useState(null);
+  const [endTime, setendTime] = useState(null);
   const user: State<any> = hookState(userStore.user);
 
   const [dataSource, setDataSource] = useState<Item[]>([
@@ -28,34 +28,34 @@ const NewActivity = ({route} : any) => {
     {title: 'Please Select', subTitle: 'Company ', rightIcon: 'chevron-right'},
     {title: 'Please Select', subTitle: 'Contact ', rightIcon: 'chevron-right'},
     {
-        title: 'Please Select', 
-        subTitle: 'Due Date ', 
-        rightIcon: 'calendar', 
-        onPress: () => {
-            setMode("date")
-            setpickerType("dd")
-            setShowDate(true)
-        }
+      title: 'Please Select',
+      subTitle: 'Due Date ',
+      rightIcon: 'calendar',
+      onPress: () => {
+        setMode('date');
+        setpickerType('dd');
+        setShowDate(true);
+      },
     },
     {
-        title: 'Please Select',
-        subTitle: 'Start Time ', 
-        rightIcon: 'clock',
-        onPress: () => {
-            setMode("time")
-            setpickerType("st")
-            setShowDate(true)
-        }
+      title: 'Please Select',
+      subTitle: 'Start Time ',
+      rightIcon: 'clock',
+      onPress: () => {
+        setMode('time');
+        setpickerType('st');
+        setShowDate(true);
+      },
     },
     {
-        title: 'Please Select',
-        subTitle: 'End Time ', 
-        rightIcon: 'clock',
-        onPress: () => {
-            setMode("time")
-            setpickerType("et")
-            setShowDate(true)
-        }
+      title: 'Please Select',
+      subTitle: 'End Time ',
+      rightIcon: 'clock',
+      onPress: () => {
+        setMode('time');
+        setpickerType('et');
+        setShowDate(true);
+      },
     },
     {title: 'Please Select', subTitle: 'Type', rightIcon: 'chevron-right'},
     {title: 'Please Select', subTitle: 'Where', rightIcon: 'chevron-right'},
@@ -66,7 +66,7 @@ const NewActivity = ({route} : any) => {
       subTitle: 'Notes',
       inputable: true,
       enable: false,
-      mode: 'multiline'
+      mode: 'multiline',
     },
   ]);
 
@@ -83,20 +83,20 @@ const NewActivity = ({route} : any) => {
     onChangeSwitch?: (value: boolean) => void;
     onChangeText?: (text: string) => void;
     mode?: 'none' | 'multiline';
-    onPress?: () => void
+    onPress?: () => void;
   }
 
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
 
   useEffect(() => {
-    if(route?.params?.from) {
+    if (route?.params?.from) {
       let newData = [...dataSource];
       newData[9].title = user.get().user?.username;
       setDataSource(newData);
     }
-  }, [route?.params])
-  
+  }, [route?.params]);
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -105,40 +105,43 @@ const NewActivity = ({route} : any) => {
 
   const onChangeDate = (event: any, date: any) => {
     setShowDate(false);
-    let time = date.toString().substring(16, 21)
+    let time = date.toString().substring(16, 21);
 
-    if(event?.type == 'set') {
-        switch (pickerType) {
-            case "dd":
-                dataSource[3].title = date?.toDateString()
-                setDataSource([...dataSource])
-                break;
-            case "st": 
-                setStartTime(date?.toISOString())
-                dataSource[4].title = time
-                setDataSource([...dataSource])
-                break;
-            case "et": 
-                setendTime(date?.toISOString())
-                dataSource[5].title = time
-                setDataSource([...dataSource])
-            default:
-                break;
-        }
+    if (event?.type == 'set') {
+      switch (pickerType) {
+        case 'dd':
+          dataSource[3].title = date?.toDateString();
+          setDataSource([...dataSource]);
+          break;
+        case 'st':
+          setStartTime(date?.toISOString());
+          dataSource[4].title = time;
+          setDataSource([...dataSource]);
+          break;
+        case 'et':
+          setendTime(date?.toISOString());
+          dataSource[5].title = time;
+          setDataSource([...dataSource]);
+        default:
+          break;
+      }
     }
-   
-  }
+  };
 
   return (
     <ModalView bgColor={colors.card}>
-        {showDate && (
+      {showDate && (
         <DatePicker
           mode={mode}
           value={new Date()}
           minimumDate={new Date()}
           onChange={onChangeDate}
           positiveButtonLabel={
-            pickerType == "dd" ? 'Set Due Date' : (pickerType == "st" ? 'Confirm Start Time' : 'Confirm End Time')
+            pickerType == 'dd'
+              ? 'Set Due Date'
+              : pickerType == 'st'
+              ? 'Confirm Start Time'
+              : 'Confirm End Time'
           }
         />
       )}
@@ -162,7 +165,6 @@ const NewActivity = ({route} : any) => {
               onPress={item?.onPress}
             />
           ))}
-          {/* <GapView /> */}
         </View>
       </ScrollView>
     </ModalView>

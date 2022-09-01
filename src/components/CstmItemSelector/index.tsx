@@ -1,8 +1,9 @@
-import {useHookstate, State} from '@hookstate/core';
-import {Theme, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
-import {Checkbox, FAB} from 'react-native-paper';
+import {Checkbox} from 'react-native-paper';
+import {useHookstate, State} from '@hookstate/core';
+import {Theme, useTheme} from '@react-navigation/native';
+
 import {DarkTheme, LightTheme} from '../../theme/colors';
 import {SelectFields} from '../../types';
 import {globalState} from '../../stores/globalAppState';
@@ -12,7 +13,6 @@ import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
-import styles from './style';
 
 const CstmItemSelector = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();

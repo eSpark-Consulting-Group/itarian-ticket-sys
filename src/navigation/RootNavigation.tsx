@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -8,7 +8,7 @@ import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 //@ts-ignore
 import store from 'react-native-simple-store';
 
-import {Login, Profile, SignUp} from '../screens/index';
+import {Login, SignUp} from '../screens/index';
 import {DarkTheme, LightTheme} from '../theme/colors';
 import Drawer from './Drawer';
 import {globalState} from '../stores/globalAppState';

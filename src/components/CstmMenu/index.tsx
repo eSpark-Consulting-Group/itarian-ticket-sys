@@ -1,12 +1,10 @@
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {Divider, Menu} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
-import {NoteTypes} from '../../constants/SampleArrays';
-import {Theme} from '../../theme/colors';
-// import { Item } from '../../types';
+
 import {CstmPressable} from '../CstmPressable';
 import {styles} from './style';
 
@@ -18,13 +16,13 @@ export const CstmMenu = ({
   menuItems = [],
   hideMenu = () => {},
   visible = false,
-  onChange = (value) => {}
+  onChange = value => {},
 }: {
   children: React.ReactNode;
   menuItems: Item[];
   hideMenu: () => void;
   visible: boolean;
-  onChange: (value: string) => void
+  onChange: (value: string) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const [range, setRange] = useState<any>('Last 30 Days');
@@ -49,7 +47,7 @@ export const CstmMenu = ({
                 onPress={() => {
                   hideMenu();
                   setRange(item.text);
-                  onChange(item.text)
+                  onChange(item.text);
                 }}
               />
               {index == 0 && (

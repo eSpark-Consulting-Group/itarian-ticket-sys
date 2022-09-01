@@ -1,10 +1,9 @@
 import {View, Text} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Theme, useTheme} from '@react-navigation/native';
 import FA from 'react-native-vector-icons/FontAwesome';
 import DatePicker from '@react-native-community/datetimepicker';
 
-import {Theme} from '../../theme/colors';
 import styles from './style';
 import {CstmPressable} from '../CstmPressable';
 

@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {View, Text, FlatList} from 'react-native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
 import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {EmptyListMsg, CstmSwitchSelector} from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
@@ -38,13 +37,13 @@ const InOutBoardScreen = () => {
       // Filter the masterDataSource
       // Update FilteredDataSource
       // console.log('aya filtered memebers', members);
-        const newData = contactsList?.filter(item => {
+      const newData = contactsList?.filter(item => {
         const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
         const textData = text.toUpperCase();
-        if(selection == 1) {
-          return (itemData.indexOf(textData) > -1 && item.inOffice);
-        }else {
-          return (itemData.indexOf(textData) > -1 && !item.inOffice);
+        if (selection == 1) {
+          return itemData.indexOf(textData) > -1 && item.inOffice;
+        } else {
+          return itemData.indexOf(textData) > -1 && !item.inOffice;
         }
       });
       setMembers(newData);
@@ -100,30 +99,32 @@ const InOutBoardScreen = () => {
           <Text
             style={{
               color: colors.text,
-              fontWeight: selection == 2 ? "bold" : "normal"
+              fontWeight: selection == 2 ? 'bold' : 'normal',
             }}>
             {item.name}
           </Text>
-         {selection == 2 && <>
-          <Text
-            style={{
-              color: colors.text,
-            }}>
-             Gone To: {item.goneTo}
-          </Text>
-          <Text
-            style={{
-              color: colors.text,
-            }}>
-            Back Date: {item.backDate}
-          </Text>
-          <Text
-            style={{
-              color: colors.text,
-            }}>
-            Back Time: {item.backTime}
-          </Text>
-          </>}
+          {selection == 2 && (
+            <>
+              <Text
+                style={{
+                  color: colors.text,
+                }}>
+                Gone To: {item.goneTo}
+              </Text>
+              <Text
+                style={{
+                  color: colors.text,
+                }}>
+                Back Date: {item.backDate}
+              </Text>
+              <Text
+                style={{
+                  color: colors.text,
+                }}>
+                Back Time: {item.backTime}
+              </Text>
+            </>
+          )}
         </View>
         {index !== contactsList.length - 1 && (
           <Divider

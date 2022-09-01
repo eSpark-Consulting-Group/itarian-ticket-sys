@@ -1,18 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {useState as useHState, State} from '@hookstate/core';
 
 import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {globalState} from '../../stores/globalAppState';
 
 import {RenderContacts} from '../Contacts';
 import {RenderCompanies} from '../Companies';
 import {RenderConfigurations} from '../Configurations';
 import {RenderTickets} from '../Agenda/ListItem';
-
 import {
   companiesList,
   contactsList,

@@ -1,10 +1,9 @@
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import React from 'react';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {moderateScale} from 'react-native-size-matters';
 
 const AvatarContainer = ({source, size}: {source: any; size: any}) => {

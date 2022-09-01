@@ -38,20 +38,6 @@ const Profile = ({route, navigation}: any) => {
         onPress={() => navigation.navigate('Stack1', {screen: 'MyStatus'})}
         rightIcon="chevron-right"
       />
-      {/* <TouchableOpacity
-        onPress={() => navigation.navigate('Stack1', {screen: 'MyStatus'})}
-        style={{
-          ...styles.statusButton,
-          backgroundColor: dark ? '#0000008a' : '#ffffff8a',
-        }}>
-        <View>
-          <Text style={{color: colors.text}}>My Status</Text>
-          <Text style={{fontWeight: 'bold', color: colors.text}}>
-            {route.params.status == false ? 'In Office' : 'Out of the Office'}
-          </Text>
-        </View>
-        <II name="chevron-forward" color={colors.text} size={20} />
-      </TouchableOpacity> */}
     </View>
   );
 };

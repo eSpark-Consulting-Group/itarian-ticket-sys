@@ -1,3 +1,4 @@
+import {AdditionalButtonStyle} from '.';
 import Images from '../assets/images';
 import {
   Activity,
@@ -6,16 +7,11 @@ import {
   Configuration,
   Contact,
   ExpReportList,
-  ExpRprt_Data,
   Filter,
-  FloatButtons,
   Item,
   ModalFormArrayType,
-  ModalFormDataArrayType,
   Opportunity,
-  ParamList,
   ScheduledList,
-  Scheduled_Data,
   ScreenItems,
   SelectFields,
   NotesType,
@@ -23,18 +19,13 @@ import {
   Ticket,
   TimeSheet,
   UnscheduledList,
-  Unscheduled_Data,
   QNATypes,
+  NoteTypes,
 } from '../types';
 
 /*
 //* Sample Array List Disposable in the Future
 */
-
-export const AdditionalButtonStyle = {
-  backgroundColor: '#28648f',
-  borderRadius: 1000,
-};
 
 export const ticketsList: Ticket[] = [
   {
@@ -780,11 +771,6 @@ export const NoteTypes_ACIT: NoteTypes[] = [
   },
 ];
 
-export type NoteTypes = {
-  text: NotesType;
-  highlight: boolean;
-};
-
 export const opportunitiesList: Opportunity[] = [
   {
     name: 'New Site Wiring',
@@ -1372,7 +1358,7 @@ export const itemList: SelectFields[] = [
   },
 ];
 
-//? ---------------------------------------
+// ---------------------------------------
 
 //? ------------------------------- Configuration Selector Fields
 
@@ -1558,6 +1544,7 @@ export const paymentTypeList: SelectFields[] = [
     name: 'paymentType 3',
   },
 ];
+
 //? ---------------------------------------
 
 export const noteList: Item[] = [

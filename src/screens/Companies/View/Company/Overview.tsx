@@ -9,7 +9,7 @@ import {
 import {moderateScale} from 'react-native-size-matters';
 import {SelectFields} from '../../../../types';
 import { redirectToMap } from '../../../../utils/helperFunctions';
-import {globalState} from '../../../../utils/globalState';
+import {globalState} from '../../../../stores/globalAppState';
 import {useState as useHState, State} from '@hookstate/core';
 
 interface Item {

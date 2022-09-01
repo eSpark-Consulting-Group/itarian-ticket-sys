@@ -6,7 +6,7 @@ import {useState as useHState, State} from '@hookstate/core';
 import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {globalState} from '../../utils/globalState';
+import {globalState} from '../../stores/globalAppState';
 
 import {RenderContacts} from '../Contacts';
 import {RenderCompanies} from '../Companies';

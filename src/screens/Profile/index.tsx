@@ -7,13 +7,14 @@ import {AvatarContainer, SingleLineField} from '../../components';
 import II from 'react-native-vector-icons/Ionicons';
 
 import {State, useState as hookState} from '@hookstate/core';
-import {globalState} from '../../utils/globalState';
 import Images from '../../assets/images';
+import { userStore } from '../../stores/userStore';
 
 const Profile = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
-  const currStatus: State<boolean> = hookState(globalState.currentStatus);
-  const user: State<any> = hookState(globalState.user);
+  const currStatus: State<boolean> = hookState(userStore.currentStatus);
+  const user: State<any> = hookState(userStore.user);
+  console.log("currStatus.get()", currStatus.get())
   return (
     <View
       style={{

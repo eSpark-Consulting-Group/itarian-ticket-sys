@@ -5,7 +5,7 @@ import {FlatList} from 'react-native';
 import {Checkbox, FAB} from 'react-native-paper';
 import {DarkTheme, LightTheme} from '../../theme/colors';
 import {SelectFields} from '../../types';
-import {globalState} from '../../utils/globalState';
+import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
 import {SingleLineField} from '../FormFields';
 import ModalHeader from '../ModalHeader';

@@ -5,7 +5,8 @@ import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
 import {State, useState as hookState} from '@hookstate/core';
-import { globalState } from '../../utils/globalState';
+import { globalState } from '../../stores/globalAppState';
+import { userStore } from '../../stores/userStore';
 const NewActivity = ({route} : any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
@@ -15,7 +16,7 @@ const NewActivity = ({route} : any) => {
   const [dueDate, setDueDate] = useState(null)
   const [StartTime, setStartTime] = useState(null)
   const [endTime, setendTime] = useState(null)
-  const user: State<any> = hookState(globalState.user);
+  const user: State<any> = hookState(userStore.user);
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {

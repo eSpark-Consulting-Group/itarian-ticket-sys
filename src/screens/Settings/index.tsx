@@ -5,7 +5,7 @@ import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useState as useHState, State} from '@hookstate/core';
 import {moderateScale} from 'react-native-size-matters';
 
-import {globalState} from '../../utils/globalState';
+import {globalState} from '../../stores/globalAppState';
 import {Theme} from '../../theme/colors';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';

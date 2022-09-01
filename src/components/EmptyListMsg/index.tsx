@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 import {Theme} from '../../theme/colors';
 import styles from './styles';
 
-const EmptyListMsg = ({label}: {label: string}): JSX.Element => {
+const EmptyListMsg = ({label, iconName="selection-search"}: {label: string, iconName?: string}): JSX.Element => {
   const {colors, dark}: Theme = useTheme();
   return (
     <View style={styles.emptyListContainer}>
-      <MCI name="selection-search" color={'#8585858a'} size={100} />
+      <MCI name={iconName} color={'#8585858a'} size={100} />
       <Text style={{color: colors.text, ...styles.emptyListLabel}}>
         No {label} Found
       </Text>

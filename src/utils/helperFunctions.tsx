@@ -5,6 +5,7 @@ import {
   // @ts-ignore
 } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';
+import DocumentPicker, { types } from 'react-native-document-picker'
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -58,7 +59,6 @@ export const redirectToMap = (
 export const imagePicker = async ({
   multiple = false,
   cropping = false,
-  type = 'photo',
   maxFiles = 10,
 }) => {
   try {
@@ -69,11 +69,25 @@ export const imagePicker = async ({
       multiple: multiple,
       compressImageQuality: 0.5,
       maxFiles,
-      mediaType: 'photo',
+      mediaType: "photo",
     });
     return result;
   } catch (error) {
     console.log('imagePicker error', error);
+  }
+};
+
+export const documentPicker = async ({
+}) => {
+  try {
+    const result =  DocumentPicker.pickSingle({
+      presentationStyle: 'fullScreen',
+      copyTo: 'cachesDirectory',
+      type: [types.pdf, types.docx, types.xls, types.xlsx, types.csv, types.doc, types.plainText]
+    })
+    return result;
+  } catch (error) {
+    console.log('documentPicker error', error);
   }
 };
 

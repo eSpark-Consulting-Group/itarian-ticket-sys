@@ -23,11 +23,12 @@ import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 
 import NewActivity from '../forms/NewActivity';
 import NewExpenseReport from '../forms/NewExpenseReport';
-import {globalState} from '../utils/globalState';
+import {globalState} from '../stores/globalAppState';
 import NewOpportunity from '../forms/NewOpportunity';
 import NewTimeSheet from '../forms/NewTimeSheet';
 import NewTicket from '../forms/NewTicket';
 import AddMiscSchedule from '../forms/AddMiscSchedule';
+import { userStore } from '../stores/userStore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -52,7 +53,7 @@ export type RootStackParamList = {
 
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
-  const activeStatus: State<any> = useState(globalState);
+  const activeStatus: State<any> = useState(userStore);
 
 
   return (

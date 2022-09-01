@@ -11,10 +11,11 @@ import store from 'react-native-simple-store';
 import {Login, Profile, SignUp} from '../screens/index';
 import {DarkTheme, LightTheme} from '../theme/colors';
 import Drawer from './Drawer';
-import {globalState} from '../utils/globalState';
+import {globalState} from '../stores/globalAppState';
 import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import Splash from '../screens/Splash/Splash';
+import { userStore } from '../stores/userStore';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -40,7 +41,7 @@ const config: any = {
 
 const App = () => {
   const themeValue: State<string> = useHState(globalState.theme);
-  const user: State<any> = useHState(globalState.user);
+  const user: State<any> = useHState(userStore.user);
   const shortCutScreen: State<any> = useHState(globalState.shortCutScreen);
 
   //! ----------------------------------------------------

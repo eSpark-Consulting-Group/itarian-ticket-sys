@@ -19,17 +19,17 @@ import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
 import {useState as useHState, State} from '@hookstate/core';
-import {globalState} from '../../../utils/globalState';
 // @ts-ignore
 import store from 'react-native-simple-store';
 import Images from '../../../assets/images';
+import { userStore } from '../../../stores/userStore';
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().min(5).label('Username'),
   password: Yup.string().required().min(6).label('Password'),
 });
 
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
-  const user: State<any> = useHState(globalState.user);
+  const user: State<any> = useHState(userStore.user);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const {colors}: Theme = useTheme();
 

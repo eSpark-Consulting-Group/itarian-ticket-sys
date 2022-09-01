@@ -13,7 +13,7 @@ import {Theme} from '../../theme/colors';
 import {stopWatchList} from '../../constants/SampleArrays';
 import {Stopwatch} from '../../types';
 import {EmptyListMsg, SimpleLoader} from '../../components';
-import {globalState} from '../../utils/globalState';
+import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
 
 const StopWatchScreen = () => {

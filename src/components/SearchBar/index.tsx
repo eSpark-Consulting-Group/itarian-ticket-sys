@@ -12,7 +12,7 @@ import {useState as useHState, State} from '@hookstate/core';
 
 import {Theme} from '../../theme/colors';
 import styles from './style';
-import {globalState} from '../../utils/globalState';
+import {globalState} from '../../stores/globalAppState';
 import {CstmPressable} from '../CstmPressable';
 
 const SearchBar = ({

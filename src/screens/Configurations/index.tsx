@@ -1,21 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
+import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Theme} from '../../theme/colors';
 import {
   SearchBar,
   EmptyListMsg,
   SimpleLoader,
   FloatButton,
 } from '../../components';
-import {
-  configurationsList,
-  SchAdditionalButtons,
-} from '../../constants/SampleArrays';
+import {configurationsList} from '../../constants/SampleArrays';
 import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 

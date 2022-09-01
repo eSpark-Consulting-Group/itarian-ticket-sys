@@ -7,7 +7,7 @@ import {GapView, ModalField} from '..';
 const PriorityField = () => {
   const {colors}: Theme = useTheme();
   return (
-    <ModalField mode="none" pressEnable={false}>
+    <ModalField pressEnable={false}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={styles.priorityBox} />
         <GapView mode="horizontal" />

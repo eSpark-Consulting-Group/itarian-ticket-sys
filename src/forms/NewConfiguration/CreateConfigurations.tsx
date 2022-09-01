@@ -1,13 +1,7 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React, {useState} from 'react';
-import {
-  CstmTitleInput,
-  GapView,
-  ModalView,
-  SingleLineField,
-} from '../../components';
+import {ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
-import {MultiLineField} from '../../components/FormFields';
 
 interface Item {
   title: string;
@@ -26,7 +20,6 @@ interface Item {
 
 const NewConfiguration = () => {
   const {colors, dark}: Theme = useTheme();
-  const [titleText, setTitleText] = useState('');
   const [billCustomer, setBillCustomer] = useState(false);
   const [needsRenewal, setNeedsRenewal] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([

@@ -10,7 +10,7 @@ import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
 import {EmptyListMsg, GapView, ModalField} from '../../../../components';
-import {Divider, Modal} from 'react-native-paper';
+import {Divider} from 'react-native-paper';
 import {
   noteList as dataSource,
   NoteTypes_ACIT,
@@ -18,8 +18,6 @@ import {
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../../navigation/RootNavigation';
 import {CstmMenu} from '../../../../components/CstmMenu';
-
-// const dataSource: Item[] = [];
 
 interface Item {
   id: number;
@@ -82,7 +80,9 @@ export default function Notes() {
     const {colors}: Theme = useTheme();
     return (
       <>
-        <Text style={{color: colors.text, ...styles.titleStyle}}>{filterType}</Text>
+        <Text style={{color: colors.text, ...styles.titleStyle}}>
+          {filterType}
+        </Text>
         <View style={{flexDirection: 'row'}}>
           <AD
             name="addfile"
@@ -138,7 +138,6 @@ export default function Notes() {
   return (
     <>
       <ModalField
-        mode="none"
         pressEnable={false}
         contentStyle={{
           ...styles.subHeader,
@@ -146,7 +145,7 @@ export default function Notes() {
         {subHeader()}
       </ModalField>
       {data?.length > 0 ? (
-        <ModalField mode="none" pressEnable={false} fieldPadding={0}>
+        <ModalField pressEnable={false} fieldPadding={0}>
           <FlatList
             data={data}
             renderItem={renderList}

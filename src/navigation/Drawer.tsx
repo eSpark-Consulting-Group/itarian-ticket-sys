@@ -7,13 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  PixelRatio,
 } from 'react-native';
 import {
   createDrawerNavigator,
   DrawerItemList,
   DrawerItem,
-  DrawerHeaderProps,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import {
@@ -21,6 +19,7 @@ import {
   DrawerActions,
   useNavigation,
   useRoute,
+  Theme,
 } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -29,11 +28,10 @@ import AD from 'react-native-vector-icons/AntDesign';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {State, useState as hookState} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
-import {Avatar, Badge} from 'react-native-paper';
+import {Avatar} from 'react-native-paper';
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-import {Theme} from '../theme/colors';
 import {globalState} from '../utils/globalState';
 import {
   Agenda,
@@ -55,7 +53,7 @@ import {
   Profile,
 } from '../screens';
 import {ParamList} from '../types';
-import {SCREEN_HEIGHT, WINDOW_HEIGHT, BUILD_VERSION} from '../constants';
+import {BUILD_VERSION} from '../constants';
 import {
   contactsList,
   opportunityFilterList,
@@ -144,7 +142,6 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               console.log('Logout');
               user.set(false);
               store.delete('user');
-              // props.navigation.navigate('Login');
             }}
           />
         </View>
@@ -235,7 +232,6 @@ const Draw = () => {
                   data: contactsList,
                   selected: currMember,
                   stack: 'Draw',
-                  // title: route?.params?.title,
                   headerTitle: 'Select Member',
                 },
               })
@@ -558,7 +554,6 @@ const Draw = () => {
         component={Profile}
         initialParams={{status: false}}
         options={{
-          // swipeEnabled: false,
           headerLeft: () => (
             <Ionicons
               size={30}
@@ -608,7 +603,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    // flex: 0.4,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -626,17 +620,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    // height: moderateVerticalScale(
-    //   PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 6) / 100),
-    //   0.55,
-    // ),
   },
   footer: {
-    // flex: 1,
-    // height: moderateVerticalScale(
-    //   PixelRatio.roundToNearestPixel((WINDOW_HEIGHT * 26) / 100),
-    //   0,
-    // ),
     borderTopWidth: 1,
     borderColor: '#fff',
     justifyContent: 'flex-end',

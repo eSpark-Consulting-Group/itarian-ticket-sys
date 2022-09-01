@@ -1,12 +1,6 @@
 import {Theme, useTheme} from '@react-navigation/native';
 import React from 'react';
-import {
-  Pressable,
-  PressableAndroidRippleConfig,
-  StyleProp,
-  StyleSheetProperties,
-  ViewStyle,
-} from 'react-native';
+import {Pressable, PressableAndroidRippleConfig, ViewStyle} from 'react-native';
 
 export const CstmPressable = ({
   android_disableSound = false,

@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import GapView from '../GapView';
 import {Theme, useTheme} from '@react-navigation/native';
 import styles from './style';
-import ModalView from '../ModalView';
 
 const CstmTitleInput = ({
   title,

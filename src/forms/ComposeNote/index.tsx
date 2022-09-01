@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+
 import {
-  CstmMultiLine,
   FloatButton,
-  ModalField,
   ModalHeader,
   ModalView,
   OutlineBtn,
@@ -12,12 +11,8 @@ import {
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
 import {SingleLineField} from '../../components/FormFields';
-import {NotesAdditionalButtons, NoteTypes,} from '../../constants/SampleArrays';
-
-type Item = {
-  text: string;
-  highlight: boolean;
-};
+import {NotesAdditionalButtons} from '../../constants/SampleArrays';
+import {NoteTypes} from '../../types';
 
 export default function ComposeNote({route, navigation}: any) {
   const {colors, dark} = useTheme();
@@ -46,7 +41,6 @@ export default function ComposeNote({route, navigation}: any) {
           key={index}
           text={item.text}
           widthLength={WINDOW_WIDTH * (noteTypeList?.length > 3 ? 0.27 : 0.312)}
-          // onPress={() => handleType(item, index)}
           onPress={() => setCurrChkInd(index)}
           border
           backColor={colors.card}
@@ -68,7 +62,6 @@ export default function ComposeNote({route, navigation}: any) {
               </ScrollView>
             </View>
           </ModalHeader>
-          {/* <SingleLineField title="Flag" showRightSwitch /> */}
           <SingleLineField
             mode="multiline"
             onChangeText={setNotes}
@@ -83,5 +76,3 @@ export default function ComposeNote({route, navigation}: any) {
     </ModalView>
   );
 }
-
-const styles = StyleSheet.create({});

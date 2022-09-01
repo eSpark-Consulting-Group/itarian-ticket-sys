@@ -1,19 +1,14 @@
 import React, {useRef, useState, useEffect, useReducer} from 'react';
-import {View, Text, KeyboardAvoidingView, Keyboard} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {View, Keyboard} from 'react-native';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {CstmButton, CstmDropDown, CstmMultiLine} from '../../components';
 
 const SendFeedbackScreen = () => {
-  const {colors, dark}: Theme = useTheme();
-
   const [ideaToggle, setIdeaToggle] = useState(false);
   const [errorToggle, setErrorToggle] = useState(false);
   const [feedToggle, setFeedToggle] = useState(false);
   const iskeyboardShown = useRef(false);
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   const handleLabel = (value: string, type: string) => {
     // 👇️ take parameter passed from Child component
@@ -23,11 +18,9 @@ const SendFeedbackScreen = () => {
   useEffect(() => {
     let show = Keyboard.addListener('keyboardDidShow', () => {
       iskeyboardShown.current = true;
-      // forceUpdate();
     });
     let hide = Keyboard.addListener('keyboardDidHide', () => {
       iskeyboardShown.current = false;
-      // forceUpdate();
     });
 
     return () => {
@@ -94,26 +87,25 @@ const SendFeedbackScreen = () => {
       data: ideaData,
       type: 'idea',
       toggleValue: ideaToggle,
-      title: "I have an Idea"
+      title: 'I have an Idea',
     },
     {
       data: cantFindData,
       type: 'feed',
       toggleValue: feedToggle,
-      title: "I can't find something"
+      title: "I can't find something",
     },
     {
       data: errorData,
       type: 'error',
       toggleValue: errorToggle,
-      title: "I have encountered an error"
-    }
-  ]
+      title: 'I have encountered an error',
+    },
+  ];
 
   return (
     <View
       style={{
-        // bottom: iskeyboardShown.current ? 100 : 0,
         ...styles.container,
       }}>
       {dropDownDataSource.map((val, int) => (

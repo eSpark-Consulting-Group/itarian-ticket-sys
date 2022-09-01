@@ -1,20 +1,17 @@
-import React, {useState, useEffect, useReducer, useCallback} from 'react';
+import React, {useState, useReducer, useCallback} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import {useTheme, useFocusEffect} from '@react-navigation/native';
+import {useTheme, useFocusEffect, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
-import AD from 'react-native-vector-icons/AntDesign';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
 import Ions from 'react-native-vector-icons/Ionicons';
 import {State, useState as useHState} from '@hookstate/core';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {stopWatchList} from '../../constants/SampleArrays';
 import {Stopwatch} from '../../types';
 import {EmptyListMsg, SimpleLoader} from '../../components';
 import {globalState} from '../../utils/globalState';
-import {useUpdateEffect} from '../../utils/hooks';
 
 const StopWatchScreen = () => {
   const {colors, dark}: Theme = useTheme();

@@ -1,11 +1,6 @@
 import React, {ReactNode, useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useRoute,
-  useNavigation,
-} from '@react-navigation/native';
+import {StyleSheet, ScrollView} from 'react-native';
+import {useTheme, useRoute, useNavigation} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {SingleLineField} from '../../../../components';

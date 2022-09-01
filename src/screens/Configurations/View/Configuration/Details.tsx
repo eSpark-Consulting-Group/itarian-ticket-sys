@@ -1,10 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
 import {GapView, SingleLineField} from '../../../../components';
-import {WINDOW_HEIGHT} from '../../../../constants';
 
 const dataSource: Item[] = [
   {
@@ -12,9 +11,9 @@ const dataSource: Item[] = [
   },
 ];
 
-type Item = {
+interface Item {
   title: string;
-};
+}
 
 const Details = () => {
   const {colors, dark}: Theme = useTheme();
@@ -38,5 +37,3 @@ const Details = () => {
 };
 
 export default Details;
-
-const styles = StyleSheet.create({});

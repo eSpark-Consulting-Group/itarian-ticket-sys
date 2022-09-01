@@ -1,27 +1,14 @@
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import {Divider} from 'react-native-paper';
 
 import styles from './style';
-import {Theme} from '../../../theme/colors';
 import {CstmPressable} from '../../../components/CstmPressable';
 import {DateSeparator, EmptyListMsg, GapView} from '../../../components';
 import {Ticket} from '../../../types';
-
-export type dates = {
-  date: Date;
-};
-
-export type Item = {
-  company_name: string;
-  id: number;
-  location: 'Remote' | 'On-Site' | 'In-House';
-  task: string;
-  ticket_no: string;
-};
 
 const ListItem = ({
   dataSource,

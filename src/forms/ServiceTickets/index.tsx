@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
+import {StyleSheet, View, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
 import {

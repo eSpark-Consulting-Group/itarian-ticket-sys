@@ -1,6 +1,6 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React, {useState} from 'react';
-import {GapView, ModalView, SingleLineField} from '../../components';
+import {ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 
 const NewCompany = () => {
@@ -75,15 +75,6 @@ const NewCompany = () => {
       enable: false,
     },
   ]);
-
-  // type Item = {
-  //   id: number;
-  //   title: string;
-  //   value?: string;
-  //   width?: string;
-  //   subItem?: Item;
-  // };
-
   interface Item {
     title: string;
     subTitle: string;
@@ -126,7 +117,6 @@ const NewCompany = () => {
               onChangeSwitch={item.onChangeSwitch}
             />
           ))}
-          {/* <GapView /> */}
         </View>
       </ScrollView>
     </ModalView>

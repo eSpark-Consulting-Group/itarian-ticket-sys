@@ -1,12 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useNavigation,
-  useRoute,
-  useIsFocused,
-} from '@react-navigation/native';
+import {StyleSheet, ScrollView} from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 
 import {
@@ -76,11 +70,6 @@ const dataSource: Item[] = [
     selectedItem: {name: 'Status 1', id: 1},
     searchable: false,
   },
-  // {
-  //   title: 'Sales - Existing',
-  //   subTitle: 'Board',
-  //   rightIcon: 'chevron-right',
-  // },
   {
     title: 'The Sale of Agreements',
     subTitle: 'Agreement',
@@ -122,7 +111,7 @@ const Overview = () => {
   const [Ds, setDs] = useState<Item[]>(dataSource);
 
   useEffect(() => {
-    if (route?.params?.item?.toString() && route?.params?.item != "GoneTo") {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...Ds];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
@@ -131,7 +120,7 @@ const Overview = () => {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    if(item?.list) {
+    if (item?.list) {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
         params: {

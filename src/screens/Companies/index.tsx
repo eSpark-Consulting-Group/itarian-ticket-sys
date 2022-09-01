@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
 import {FloatButton, SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
-import {Colors, Theme} from '../../theme/colors';
 import {EmptyListMsg} from '../../components';
-import {
-  companiesList,
-  SchAdditionalButtons,
-} from '../../constants/SampleArrays';
+import {companiesList} from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import {CstmPressable} from '../../components';

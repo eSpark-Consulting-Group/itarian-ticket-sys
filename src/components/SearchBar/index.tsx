@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Searchbar as Search, Menu} from 'react-native-paper';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import FA from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,7 +10,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {moderateScale} from 'react-native-size-matters';
 import {useState as useHState, State} from '@hookstate/core';
 
-import {Theme} from '../../theme/colors';
 import styles from './style';
 import {globalState} from '../../utils/globalState';
 import {CstmPressable} from '../CstmPressable';
@@ -223,9 +222,12 @@ const SearchBar = ({
             color: colors.text,
             fontSize: getSize(fontSize),
           }}
-          style={[styles.inputStyle, {
-            backgroundColor: dark ? "#80808040" : "#dfdfdf" 
-          }]}
+          style={[
+            styles.inputStyle,
+            {
+              backgroundColor: dark ? '#80808040' : '#dfdfdf',
+            },
+          ]}
           icon={() => (
             <Ionicons
               name="search"

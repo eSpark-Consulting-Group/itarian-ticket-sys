@@ -1,17 +1,7 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React, {ReactNode, useState} from 'react';
-import {
-  GapView,
-  ModalHeader,
-  ModalView,
-  SingleLineField,
-} from '../../components';
-import {
-  NavigationRouteContext,
-  Theme,
-  useTheme,
-} from '@react-navigation/native';
-import AD from 'react-native-vector-icons/AntDesign';
+import {ModalHeader, ModalView, SingleLineField} from '../../components';
+import {Theme, useTheme} from '@react-navigation/native';
 import {NoteTypes_ACIT} from '../../constants/SampleArrays';
 
 const NewOpportunity = ({navigation, route}: any) => {

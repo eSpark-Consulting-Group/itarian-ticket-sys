@@ -649,6 +649,35 @@ export const NotesAdditionalButtons: Array<AdditionalButtons> = [
   },
 ];
 
+export const AttachmentAdditionalButtons: Array<AdditionalButtons> = [
+  {
+    icon: 'file-search-outline',
+    label: 'Add Files',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed email'),
+  },
+  {
+    icon: 'image',
+    label: 'Choose Image',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'camera-outline',
+    label: 'Take Photo',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+];
 export const StatusFormArray: Array<ModalFormArrayType> = [
   {
     formName: 'My Status',

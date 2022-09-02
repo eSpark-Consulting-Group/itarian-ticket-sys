@@ -17,7 +17,7 @@ import {
   statusList,
   subTypesList,
   typesList,
-} from '../../constants/SampleArrays';
+} from '../../constants/SelectionList';
 import {PriorityField, SingleLineField} from '../../components';
 import {SelectFields} from '../../types/index';
 
@@ -122,7 +122,7 @@ const Overview = () => {
   const [Ds, setDs] = useState<Item[]>(dataSource);
 
   useEffect(() => {
-    if (route?.params?.item?.toString() && route?.params?.item != "GoneTo") {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...Ds];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
@@ -131,7 +131,7 @@ const Overview = () => {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    if(item?.list) {
+    if (item?.list) {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
         params: {

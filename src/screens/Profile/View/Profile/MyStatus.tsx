@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTheme, Theme} from '@react-navigation/native';
 
@@ -134,7 +134,7 @@ const MyStatus = ({route, navigation}: any) => {
             inputable
             onChangeText={e => setAddInfo(e)}
           />
-          <ModalField
+          {/* <ModalField
             mode="inlined"
             headingLeft="Date Back"
             subHeadingLeft={dateDur}
@@ -146,7 +146,7 @@ const MyStatus = ({route, navigation}: any) => {
             subIconRight="timer-outline"
             pressEnableRight
             onPressRight={() => setShowTime(true)}
-          />
+          /> */}
         </>
       )}
       {showTime && (

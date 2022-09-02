@@ -12,10 +12,7 @@ import {
   SimpleLoader,
   FloatButton,
 } from '../../components';
-import {
-  configurationsList,
-  SchAdditionalButtons,
-} from '../../constants/SampleArrays';
+import {configurationsList} from '../../constants/SampleArrays';
 import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 

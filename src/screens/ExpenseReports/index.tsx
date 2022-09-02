@@ -1,15 +1,12 @@
 import {View, Text, FlatList} from 'react-native';
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
-import {
-  expReportList,
-  ExpenseAdditionalButtons,
-  scheduledList,
-} from '../../constants/SampleArrays';
+import {expReportList} from '../../constants/SampleArrays';
+import {ExpenseAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons, ExpReportList} from '../../types';
 import ListItem from '../Agenda/ListItem';
 
@@ -22,8 +19,9 @@ const ExpenseReportsScreen = ({navigation}: any) => {
     {date: new Date()},
   ]);
   const [expData, setExpData] = useState<ExpReportList[]>([]);
-  const [actionButtons, setActionButtons] =
-  useState<AdditionalButtons[]>(ExpenseAdditionalButtons);
+  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
+    ExpenseAdditionalButtons,
+  );
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
@@ -83,13 +81,18 @@ const ExpenseReportsScreen = ({navigation}: any) => {
           <FlatList
             data={expData}
             renderItem={({item}) => {
-              return <ListItem 
-              onPress={(ticket) => {
-                navigation.navigate('Stack1', {
-                  screen: 'STickets',
-                  params: {title: ticket.ticket_no.toString()},
-                });
-              }} dataSource={item} renderDate={true} />;
+              return (
+                <ListItem
+                  onPress={ticket => {
+                    navigation.navigate('Stack1', {
+                      screen: 'STickets',
+                      params: {title: ticket.ticket_no.toString()},
+                    });
+                  }}
+                  dataSource={item}
+                  renderDate={true}
+                />
+              );
             }}
           />
         ) : (

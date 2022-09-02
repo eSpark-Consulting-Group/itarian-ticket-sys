@@ -1,11 +1,23 @@
 import React, {ReactNode, useEffect, useState} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
-import {useTheme, Theme, useRoute, useNavigation} from '@react-navigation/native';
+import {
+  useTheme,
+  Theme,
+  useRoute,
+  useNavigation,
+} from '@react-navigation/native';
 import {SingleLineField} from '../../../../components';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import II from 'react-native-vector-icons/Ionicons';
 import {Activity, SelectFields} from '../../../../types';
-import { companyNameList, contactNameList, resourceList, statusList, typeList, whereList } from '../../../../constants/SampleArrays';
+import {
+  companyNameList,
+  contactNameList,
+  resourceList,
+  statusList,
+  typeList,
+  whereList,
+} from '../../../../constants/SelectionList';
 
 interface Item {
   title: string;
@@ -40,7 +52,7 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: companyNameList,
       selectedItem: companyNameList[0],
-      headerTitle: "Companies"
+      headerTitle: 'Companies',
     },
     {
       title: item?.date,
@@ -64,7 +76,7 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: contactNameList,
       selectedItem: contactNameList[0],
-      headerTitle: "Contacts"
+      headerTitle: 'Contacts',
     },
     {
       title: 'Inquiry',
@@ -72,7 +84,7 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: typeList,
       selectedItem: typeList[0],
-      headerTitle: 'Types'
+      headerTitle: 'Types',
     },
     {
       title: 'Remote',
@@ -80,7 +92,7 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: whereList,
       selectedItem: whereList[0],
-      headerTitle: "Where"
+      headerTitle: 'Where',
     },
     {
       title: 'Status',
@@ -88,7 +100,7 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: statusList,
       selectedItem: statusList[0],
-      headerTitle: "Status"
+      headerTitle: 'Status',
     },
     {
       title: 'Resource',
@@ -96,7 +108,7 @@ const Overview = () => {
       rightIcon: 'chevron-right',
       list: resourceList,
       selectedItem: resourceList[0],
-      headerTitle: "Resources"
+      headerTitle: 'Resources',
     },
     {
       title: 'Visit potential prospect',

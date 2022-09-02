@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList, Linking} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useState as useHState, State} from '@hookstate/core';
@@ -10,7 +10,7 @@ import {Theme} from '../../theme/colors';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
 import {CstmPressable} from '../../components/CstmPressable';
-import { getNavigtionApps } from '../../utils/helperFunctions';
+import {getNavigtionApps} from '../../utils/helperFunctions';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHState(globalState.theme);
@@ -27,7 +27,6 @@ const SettingsScreen = () => {
   const [navigationVisible, setnavigationVisible] = useState(false);
   const [defaultNavigitonList, setDefaultNavigationList] = useState([]);
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
-
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
@@ -61,7 +60,6 @@ const SettingsScreen = () => {
     setVisible(true);
   };
 
-
   const hideNavMenu = () => {
     setnavigationVisible(false);
   };
@@ -71,13 +69,13 @@ const SettingsScreen = () => {
 
   useEffect(() => {
     getNavigtionApps()
-    .then((arr) => {
-      setDefaultNavigationList(arr)
-    })
-    .catch((err) => {
-      console.log("err", err)
-    })
-  }, [])
+      .then(arr => {
+        setDefaultNavigationList(arr);
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  }, []);
   const {colors, dark}: Theme = useTheme();
   return (
     <View>
@@ -199,7 +197,7 @@ const SettingsScreen = () => {
                           textColor={colors.text}
                           dark={dark}
                           onPress={() => {
-                            hideNavMenu()
+                            hideNavMenu();
                             handleDefaultNaveSwitch(index, item.name);
                           }}
                         />

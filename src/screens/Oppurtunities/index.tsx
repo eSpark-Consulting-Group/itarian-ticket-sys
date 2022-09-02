@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList, ToastAndroid} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -12,10 +11,7 @@ import FD from 'react-native-vector-icons/Foundation';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {
-  opportunitiesList,
-  SchAdditionalButtons,
-} from '../../constants/SampleArrays';
+import {opportunitiesList} from '../../constants/SampleArrays';
 import {Opportunity} from '../../types';
 import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
 import _ from 'lodash';

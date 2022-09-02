@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   useRoute,
-  useIsFocused,
 } from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 
 import {SingleLineField} from '../../../../components/index';
 import {
@@ -19,7 +17,7 @@ import {
   stageList,
   statusList,
   typeList,
-} from '../../../../constants/SampleArrays';
+} from '../../../../constants/SelectionList';
 import {SelectFields} from '../../../../types';
 
 interface Item {
@@ -135,7 +133,7 @@ export default function Overview() {
   const [Ds, setDs] = useState<Item[]>(overviewList);
 
   useEffect(() => {
-    if (route?.params?.item?.toString() && route?.params?.item != "GoneTo") {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...Ds];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
@@ -144,7 +142,7 @@ export default function Overview() {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    if(item?.list) {
+    if (item?.list) {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
         params: {

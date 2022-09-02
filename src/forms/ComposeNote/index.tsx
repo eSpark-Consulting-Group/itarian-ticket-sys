@@ -2,9 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {
-  CstmMultiLine,
   FloatButton,
-  ModalField,
   ModalHeader,
   ModalView,
   OutlineBtn,
@@ -12,12 +10,8 @@ import {
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
 import {SingleLineField} from '../../components/FormFields';
-import {NotesAdditionalButtons, NoteTypes,} from '../../constants/SampleArrays';
-
-type Item = {
-  text: string;
-  highlight: boolean;
-};
+import {NoteTypes} from '../../constants/SampleArrays';
+import {NotesAdditionalButtons} from '../../constants/ButtonsList';
 
 export default function ComposeNote({route, navigation}: any) {
   const {colors, dark} = useTheme();

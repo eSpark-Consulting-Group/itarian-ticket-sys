@@ -1,17 +1,21 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   FloatButton,
-  GapView,
   ModalView,
   RoundedIcon,
   SingleLineField,
 } from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
-import {AddExpenseAdditionalButtons, chargeCodeList, expenseTypeList, paymentTypeList} from '../../constants/SampleArrays';
+import {
+  chargeCodeList,
+  expenseTypeList,
+  paymentTypeList,
+} from '../../constants/SelectionList';
+import {AddExpenseAdditionalButtons} from '../../constants/ButtonsList';
 import {cameraPicker, imagePicker} from '../../utils/helperFunctions';
-import { SelectFields } from '../../types';
+import {SelectFields} from '../../types';
 
 const NewExpenseReport = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -24,7 +28,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
       rightIcon: 'chevron-right',
       list: chargeCodeList,
       selectedItem: chargeCodeList[0],
-      headerTitle: "Charge Code"
+      headerTitle: 'Charge Code',
     },
     {
       title: 'Please Select',
@@ -40,7 +44,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
       rightIcon: 'chevron-right',
       list: expenseTypeList,
       selectedItem: expenseTypeList[0],
-      headerTitle: "Expense Type"
+      headerTitle: 'Expense Type',
     },
     {title: 'Amount', rightChild: <Text>0.00</Text>},
     {
@@ -49,7 +53,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
       rightIcon: 'chevron-right',
       list: paymentTypeList,
       selectedItem: paymentTypeList[0],
-      headerTitle: "Payment Method"
+      headerTitle: 'Payment Method',
     },
     {
       title: 'Please Select',
@@ -110,12 +114,11 @@ const NewExpenseReport = ({route, navigation}: any) => {
     rightChild?: React.ReactNode;
     list?: SelectFields[];
     selectedItem?: SelectFields;
-    headerTitle?: string
+    headerTitle?: string;
   }
 
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
-
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
@@ -133,7 +136,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
   };
 
   useEffect(() => {
-    if (route?.params?.item?.toString() && route?.params?.item != "GoneTo") {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
@@ -142,7 +145,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
   }, [route?.params]);
 
   const handlePress = (item: Item, index: number) => {
-    if(item?.list) {
+    if (item?.list) {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
         params: {
@@ -157,7 +160,6 @@ const NewExpenseReport = ({route, navigation}: any) => {
       });
     }
   };
-
 
   return (
     <ModalView bgColor={colors.card}>

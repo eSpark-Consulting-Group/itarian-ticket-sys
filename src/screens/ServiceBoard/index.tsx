@@ -9,7 +9,7 @@ import FD from 'react-native-vector-icons/Foundation';
 
 import styles from './style';
 import {Theme} from '../../theme/colors';
-import {SchAdditionalButtons, ticketsList} from '../../constants/SampleArrays';
+import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';

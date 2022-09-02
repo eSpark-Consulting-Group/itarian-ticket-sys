@@ -1,18 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {
-  CstmMultiLine,
-  ModalField,
-  ModalHeader,
-  ModalView,
-  OutlineBtn,
-  SimpleLoader,
-} from '../../components';
-import {WINDOW_WIDTH} from '../../constants';
+import {ModalView, SimpleLoader} from '../../components';
 import {SingleLineField} from '../../components/FormFields';
-import {NoteTypes} from '../../constants/SampleArrays';
-import {NotesType, QNATypes, SelectFields} from '../../types';
+import {QNATypes} from '../../types';
 
 type Item = {
   text: string;

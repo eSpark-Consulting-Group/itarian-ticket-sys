@@ -11,10 +11,7 @@ import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
 import {EmptyListMsg, GapView, ModalField} from '../../components';
-import {Divider, Modal} from 'react-native-paper';
-import {moderateScale} from 'react-native-size-matters';
-import {WINDOW_HEIGHT} from '../../constants';
-import {ScrollView} from 'react-native-gesture-handler';
+import {Divider} from 'react-native-paper';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootNavigation';
 import {

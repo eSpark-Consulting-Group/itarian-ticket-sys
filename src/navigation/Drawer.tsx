@@ -7,13 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  PixelRatio,
 } from 'react-native';
 import {
   createDrawerNavigator,
   DrawerItemList,
   DrawerItem,
-  DrawerHeaderProps,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import {

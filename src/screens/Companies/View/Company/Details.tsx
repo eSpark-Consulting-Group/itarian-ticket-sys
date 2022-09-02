@@ -1,37 +1,45 @@
 import React from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
+import {useTheme, Theme, useNavigation} from '@react-navigation/native';
 
 import {GapView, SingleLineField} from '../../../../components';
 import {Divider} from 'react-native-paper';
 
-const dataSource: Item[] = [
-  {
-    title: 'Attachments',
-  },
-  {
-    title: 'Contacts',
-  },
-  {
-    title: 'Configurations',
-  },
-  {
-    title: 'Open Tickets',
-  },
-  {
-    title: 'Sites',
-  },
-];
+
 
 interface Item {
   title: string;
+  onPress?: () => void
 }
 
 const Details = () => {
   const {colors}: Theme = useTheme();
+  const navigation: any = useNavigation()
+  const dataSource: Item[] = [
+    {
+      title: 'Attachments',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'Attachments',
+        })
+      }
+    },
+    {
+      title: 'Contacts',
+    },
+    {
+      title: 'Configurations',
+    },
+    {
+      title: 'Open Tickets',
+    },
+    {
+      title: 'Sites',
+    },
+  ];
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
-    return <SingleLineField title={item.title} gap={false} fieldPadding={28} />;
+    return <SingleLineField onPress={item.onPress} title={item.title} gap={false} fieldPadding={28} />;
   };
 
   return (

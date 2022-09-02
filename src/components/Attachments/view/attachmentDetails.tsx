@@ -3,6 +3,7 @@ import {View, Text, Image} from 'react-native';
 import {SingleLineField} from '../../FormFields';
 import ModalView from '../../ModalView';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import { fileIcons } from '../../../constants/SampleArrays';
 interface Item {
   title: string;
   subTitle?: string;
@@ -44,6 +45,7 @@ export const AttachmentDetails = ({navigation, route}: any) => {
     });
     setDataSource(newData);
   };
+  const fileExt =  route?.params?.file?.name?.split('.').pop()
   return (
     <ModalView>
       {route?.params?.file?.type != 'file' ? (
@@ -53,8 +55,8 @@ export const AttachmentDetails = ({navigation, route}: any) => {
         />
       ) : (
         <MCI
-          name={'file-document'}
-          color={'#8585858a'}
+          name={fileIcons[fileExt].icon}
+          color={fileIcons[fileExt].color}
           size={300}
           style={{alignSelf: 'center'}}
         />

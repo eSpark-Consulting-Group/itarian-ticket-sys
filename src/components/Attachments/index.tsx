@@ -4,7 +4,7 @@ import ModalView from '../ModalView';
 import EmptyListMsg from '../EmptyListMsg';
 import FloatButton from '../FloatButton';
 import {styles} from './styles';
-import {AttachmentAdditionalButtons} from '../../constants/SampleArrays';
+import {AttachmentAdditionalButtons, fileIcons} from '../../constants/SampleArrays';
 import {
   cameraPicker,
   documentPicker,
@@ -13,6 +13,7 @@ import {
 import {SingleLineField} from '../FormFields';
 import moment from 'moment';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 export const Attachments = ({
   id = 0,
@@ -105,11 +106,17 @@ export const Attachments = ({
     }
   }, [route?.params]);
 
+  const onDelete = (index: any) => {
+    let data: any = [...attachments];
+      data.splice(index, 1);
+      setAttachments(data);
+  }
   return (
     <ModalView>
       <FlatList
         data={attachments}
         renderItem={({item, index}: any) => {
+          const fileExt =  item?.name.split('.').pop()
           return (
             <SingleLineField
               enable={false}
@@ -123,8 +130,11 @@ export const Attachments = ({
                     style={{height: 40, width: 40}}
                   />
                 ) : (
-                  <MCI name={'file-document'} color={'#8585858a'} size={40} />
+                  <MCI name={fileIcons[fileExt].icon} color={fileIcons[fileExt].color} size={40} />
                 )
+              }
+              rightChild= {
+                <MCI name={"trash-can-outline"} color={"#f40f02"} size={30} onPress={() => onDelete(index)} />
               }
             />
           );

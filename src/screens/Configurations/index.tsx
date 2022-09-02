@@ -16,6 +16,7 @@ import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
 import {CstmPressable} from '../../components';
+import { searchFromArray } from '../../utils/helperFunctions';
 
 const Configurations = () => {
   const {colors, dark}: Theme = useTheme();
@@ -34,31 +35,13 @@ const Configurations = () => {
     }, 3000);
   };
 
-  const searchFilterFunction = (text: string) => {
-    console.log('kia ha search query', text);
-
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = configurationsList.filter(item => {
-        const itemData = `
-              ${item.name.toUpperCase()} 
-              ${item.company_name.toUpperCase()} 
-              ${item.model?.toUpperCase()} 
-              ${item.serial?.toUpperCase()} 
-              ${item.tag?.toUpperCase()}
-            `;
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredConfigurations(newData);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredConfigurations(configurationsList);
-    }
+  const searchFilterFunction = async (text: string) => {
+    var result = await searchFromArray({
+      text: text || '',
+      list: configurationsList,
+      keys: ['name', 'company_name', 'model', 'serial', 'tag'],
+    });
+    setFilteredConfigurations(result);
   };
 
   const handleClear = () => {

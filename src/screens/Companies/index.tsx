@@ -11,6 +11,7 @@ import {companiesList} from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import {CstmPressable} from '../../components';
+import { searchFromArray } from '../../utils/helperFunctions';
 
 const Companies = () => {
   const {colors, dark}: Theme = useTheme();
@@ -28,24 +29,13 @@ const Companies = () => {
     }, 3000);
   };
 
-  const searchFilterFunction = (text: string) => {
-    console.log('kia ha search query', text);
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = companiesList.filter(item => {
-        const itemData = `${item.name.toUpperCase()} ${item.id.toUpperCase()}`;
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
+  const searchFilterFunction = async (text: string) => {
+      var result = await searchFromArray({
+        text: text || '',
+        list: companiesList,
+        keys: ['name', 'id'],
       });
-      setFilteredCompanies(newData);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredCompanies(companiesList);
-    }
+      setFilteredCompanies(result);
   };
 
   const handleClear = () => {

@@ -10,6 +10,7 @@ import {EmptyListMsg, CstmSwitchSelector} from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
 
 const InOutBoardScreen = () => {
   const {colors, dark}: Theme = useTheme();
@@ -28,31 +29,35 @@ const InOutBoardScreen = () => {
     }, 3000);
   };
 
-  const searchFilterFunction = (text: string) => {
+  const searchFilterFunction = async (text: string) => {
     console.log('kia ha search query', text);
 
     // Check if searched text is not blank
-    if (text) {
       // Inserted text is not blank
       // Filter the masterDataSource
       // Update FilteredDataSource
       // console.log('aya filtered memebers', members);
-      const newData = contactsList?.filter(item => {
-        const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
-        const textData = text.toUpperCase();
-        if (selection == 1) {
-          return itemData.indexOf(textData) > -1 && item.inOffice;
-        } else {
-          return itemData.indexOf(textData) > -1 && !item.inOffice;
-        }
+      // const newData = contactsList?.filter(item => {
+      //   const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
+      //   const textData = text.toUpperCase();
+      //   if (selection == 1) {
+      //     return itemData.indexOf(textData) > -1 && item.inOffice;
+      //   } else {
+      //     return itemData.indexOf(textData) > -1 && !item.inOffice;
+      //   }
+      // });
+      var result = await searchFromArray({
+        text: text || '',
+        list: contactsList.filter((val) =>  selection == 1 ? val.inOffice : !val.inOffice),
+        keys: ['name', 'company_name'],
       });
-      setMembers(newData);
-    } else {
-      let membersList = [...contactsList].filter(item => item.inOffice);
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setMembers(membersList);
-    }
+      setMembers(result);
+    // } else {
+    //   let membersList = [...contactsList].filter(item => item.inOffice);
+    //   // Inserted text is blank
+    //   // Update FilteredDataSource with masterDataSource
+    //   setMembers(membersList);
+    // }
   };
 
   const handleSwitch = () => {
@@ -77,7 +82,7 @@ const InOutBoardScreen = () => {
   useUpdateEffect(() => {
     if (clear) {
       console.log('done');
-      handleSwitch();
+      setMembers(contactsList.filter((val) =>  selection == 1 ? val.inOffice : !val.inOffice));
       setClear(false);
     }
   }, [clear]);

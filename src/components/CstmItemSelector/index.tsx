@@ -13,6 +13,7 @@ import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
+import { searchFromArray } from '../../utils/helperFunctions';
 
 const CstmItemSelector = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -32,24 +33,13 @@ const CstmItemSelector = ({route, navigation}: any) => {
     }, 3000);
   };
 
-  const searchFilterFunction = (text: string) => {
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = route?.params?.data?.filter((item: any) => {
-        const itemData = `${item.name.toUpperCase()}`;
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
+  const searchFilterFunction = async (text: string) => {
+      var result = await searchFromArray({
+        text: text || '',
+        list: route?.params?.data,
+        keys: ['name'],
       });
-      setList(newData);
-    } else {
-      let listData = [...route?.params?.data];
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setList(listData);
-    }
+      setList(result);
   };
 
   const handleClear = () => {

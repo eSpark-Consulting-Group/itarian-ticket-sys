@@ -9,7 +9,7 @@ import {
   CstmTabBar,
   FloatButton,
 } from '../../components';
-import {STicketsAdditionalButtons} from '../../constants/SampleArrays';
+import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons} from '../../types';
 import Details from './Details';
 import Notes from './Notes';

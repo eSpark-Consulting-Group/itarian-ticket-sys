@@ -6,50 +6,56 @@ import {
   Text,
   VirtualizedList,
   Alert,
-  VirtualizedListProps
-} from 'react-native'
-import _ from 'lodash'
-import moment from 'moment'
-import React, {createRef} from 'react'
+  VirtualizedListProps,
+} from 'react-native';
+import _ from 'lodash';
+import moment from 'moment';
+import React, {createRef} from 'react';
 
-import styleConstructor from './style'
+import styleConstructor from './style';
 
-import DayView, { MyProps } from './DayView'
+import DayView, {MyProps} from './DayView';
 
 export default class EventCalendar extends React.Component<MyProps, any> {
-  calendar: React.RefObject<VirtualizedListProps<null>> | any
+  calendar: React.RefObject<VirtualizedListProps<null>> | any;
   constructor(props: any) {
-    super(props)
+    super(props);
     this.state = {
       date: moment(this.props.initDate),
-      index: this.props.size
-    }
+      index: this.props.size,
+    };
     this.calendar = createRef<HTMLInputElement>();
   }
-  
+
   static defaultProps = {
     size: 30,
     initDate: new Date(),
-    formatHeader: 'DD MMMM YYYY'
-  }
-
-  _getItemLayout(data: any, index: number) {
-    const { width } = this.props
-    return { length: width, offset: width * index, index }
+    formatHeader: 'DD MMMM YYYY',
   };
 
-  _getItem(events: any, index: number) {
-    const date = moment(this.props.initDate).add(index - this.props.size, 'days')
-    return _.filter(events, event => {
-      const eventStartTime = moment(event.start)
-      return eventStartTime >= date.clone().startOf('day') &&
-        eventStartTime <= date.clone().endOf('day')
-    })
+  _getItemLayout(data: any, index: number) {
+    const {width} = this.props;
+    return {length: width, offset: width * index, index};
   }
 
-  _renderItem({ index, item }: any) {
-    const { width, format24h, initDate, scrollToFirst } = this.props
-    const date = moment(initDate).add(index - this.props.size, 'days')
+  _getItem(events: any, index: number) {
+    const date = moment(this.props.initDate).add(
+      index - this.props.size,
+      'days',
+    );
+    return _.filter(events, event => {
+      const eventStartTime = moment(event.start);
+      return (
+        eventStartTime >= date.clone().startOf('day') &&
+        eventStartTime <= date.clone().endOf('day')
+      );
+    });
+  }
+
+  _renderItem({index, item}: any) {
+    const {width, format24h, initDate, scrollToFirst} = this.props;
+    const date = moment(initDate).add(index - this.props.size, 'days');
+    console.log('ITEM', item);
     return (
       <DayView
         key={index}
@@ -62,37 +68,48 @@ export default class EventCalendar extends React.Component<MyProps, any> {
         eventTapped={this.props.eventTapped}
         events={item}
         width={width}
-        styles={styleConstructor(this.props.styles)}
-        scrollToFirst={scrollToFirst} initDate={''} size={0}     />
-    )
+        styles={styleConstructor(this.props.styles, item)}
+        scrollToFirst={scrollToFirst}
+        initDate={''}
+        size={0}
+      />
+    );
   }
 
   _goToPage(index: number) {
     if (index <= 0 || index >= this.props.size * 2) {
-      return
+      return;
     }
-    const date = moment(this.props.initDate).add(index - this.props.size, 'days')
-    this.calendar.scrollToIndex({ index, animated: false })
-    this.setState({ index, date })
+    const date = moment(this.props.initDate).add(
+      index - this.props.size,
+      'days',
+    );
+    this.calendar.scrollToIndex({index, animated: false});
+    this.setState({index, date});
   }
 
   render() {
-    const {
-      width,
-      virtualizedListProps,
-      events,
-      initDate,
-      formatHeader
-    } = this.props
+    const {width, virtualizedListProps, events, initDate, formatHeader} =
+      this.props;
     return (
-      <View style={[styleConstructor(this.props.styles).container, { width }]}>
+      <View style={[styleConstructor(this.props.styles).container, {width}]}>
         <View style={styleConstructor(this.props.styles).header}>
-          <TouchableOpacity onPress={() => this._goToPage(this.state.index - 1)}>
-            <Image source={require('./back.png')} style={styleConstructor(this.props.styles).arrow} />
+          <TouchableOpacity
+            onPress={() => this._goToPage(this.state.index - 1)}>
+            <Image
+              source={require('./back.png')}
+              style={styleConstructor(this.props.styles).arrow}
+            />
           </TouchableOpacity>
-          <Text style={styleConstructor(this.props.styles).headerText}>{this.state.date.format(formatHeader || 'DD MMMM YYYY')}</Text>
-          <TouchableOpacity onPress={() => this._goToPage(this.state.index + 1)}>
-            <Image source={require('./forward.png')} style={styleConstructor(this.props.styles).arrow} />
+          <Text style={styleConstructor(this.props.styles).headerText}>
+            {this.state.date.format(formatHeader || 'DD MMMM YYYY')}
+          </Text>
+          <TouchableOpacity
+            onPress={() => this._goToPage(this.state.index + 1)}>
+            <Image
+              source={require('./forward.png')}
+              style={styleConstructor(this.props.styles).arrow}
+            />
           </TouchableOpacity>
         </View>
         <VirtualizedList
@@ -108,16 +125,20 @@ export default class EventCalendar extends React.Component<MyProps, any> {
           horizontal
           pagingEnabled
           renderItem={this._renderItem.bind(this)}
-          style={{ width: width }}
-          onMomentumScrollEnd={(event) => {
-            const index = parseInt((event.nativeEvent.contentOffset.x / width).toString())
-            const date = moment(this.props.initDate).add(index - this.props.size, 'days')
-            this.setState({ index, date })
+          style={{width: width}}
+          onMomentumScrollEnd={event => {
+            const index = parseInt(
+              (event.nativeEvent.contentOffset.x / width).toString(),
+            );
+            const date = moment(this.props.initDate).add(
+              index - this.props.size,
+              'days',
+            );
+            this.setState({index, date});
           }}
           {...virtualizedListProps}
         />
       </View>
-
-    )
+    );
   }
 }

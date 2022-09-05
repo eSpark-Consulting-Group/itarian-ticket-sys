@@ -9,11 +9,11 @@ import {
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 import {
-  AddExpenseAdditionalButtons,
   chargeCodeList,
   expenseTypeList,
   paymentTypeList,
-} from '../../constants/SampleArrays';
+} from '../../constants/SelectionList';
+import {AddExpenseAdditionalButtons} from '../../constants/ButtonsList';
 import {cameraPicker, imagePicker} from '../../utils/helperFunctions';
 import {SelectFields} from '../../types';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Theme, useTheme} from '@react-navigation/native';
 
@@ -7,8 +7,14 @@ import UnscheduledTab from './Unscheduled';
 
 const Tab = createMaterialTopTabNavigator();
 
-const AgendaScreen = () => {
+const AgendaScreen = ({route}: any) => {
+  console.log('ROUTE PROPS', route?.params);
+
   const {colors}: Theme = useTheme();
+  // useEffect(() => {
+
+  // }, [])
+
   return (
     <Tab.Navigator
       screenOptions={{

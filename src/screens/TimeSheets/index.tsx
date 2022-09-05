@@ -4,10 +4,11 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
-import {TimeSheetAdditionalButtons, timeSheetList} from '../../constants/SampleArrays';
+import {timeSheetList} from '../../constants/SampleArrays';
+import {TimeSheetAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons, TimeSheet} from '../../types';
 import ListItem from '../Agenda/ListItem';
-import { getDatesInRange } from '../../utils/helperFunctions';
+import {getDatesInRange} from '../../utils/helperFunctions';
 
 const TimeSheetsScreen = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
@@ -41,7 +42,7 @@ const TimeSheetsScreen = ({navigation}: any) => {
     datArr[0].date = date1;
     datArr[1].date = date2;
     setDateArr(datArr);
-    const dates = getDatesInRange(date1, date2)
+    const dates = getDatesInRange(date1, date2);
     let Expense = 0;
     timeSheetList.map(i => {
       i.date >= date1 && i.date <= date2
@@ -50,23 +51,23 @@ const TimeSheetsScreen = ({navigation}: any) => {
     });
     const data: TimeSheet[] = dates.map((date, ind) => {
       const index = timeSheetList.findIndex(val => {
-        return val.date.toDateString() == date.toDateString()
-      })
+        return val.date.toDateString() == date.toDateString();
+      });
 
-      if(index != -1) {
+      if (index != -1) {
         return {
           id: ind + 1,
           date: new Date(date),
           totHrs: 2.5,
           data: timeSheetList[index].data,
-        }
-      }else {
+        };
+      } else {
         return {
           id: ind + 1,
           date: new Date(date),
           totHrs: 2.5,
           data: null,
-        }
+        };
       }
     });
 
@@ -109,7 +110,7 @@ const TimeSheetsScreen = ({navigation}: any) => {
                 renderDate={true}
               />
             )}
-            />
+          />
         ) : (
           <NotFound />
         )

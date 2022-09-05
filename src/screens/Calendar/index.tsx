@@ -7,7 +7,7 @@ import {WINDOW_WIDTH} from '../../constants';
 // @ts-ignore
 import EventCalendar from '../../components/react-native-events-calendar/src/EventCalendar';
 
-import {SchAdditionalButtons} from '../../constants/SampleArrays';
+import {SchAdditionalButtons} from '../../constants/ButtonsList';
 import {FloatButton} from '../../components';
 import {AdditionalButtons} from '../../types';
 
@@ -47,23 +47,27 @@ const Calendar = ({navigation}: any) => {
       end: '2022-08-26 12:00:00',
       title: 'Ticket #15378',
       summary: 'The System is down',
+      eventType: 'Service Ticket',
     },
     {
-      start: '2022-07-07 12:30:00',
-      end: '2022-07-07 13:30:00',
+      start: '2022-08-26 12:30:00',
+      end: '2022-08-26 13:30:00',
       title: 'Lunch',
+      eventType: 'Activity',
     },
     {
-      start: '2022-07-07 16:10:00',
-      end: '2022-07-07 16:40:00',
+      start: '2022-08-26 16:10:00',
+      end: '2022-08-26 16:40:00',
       title: 'Ticket #15490',
       summary: 'Printer not working',
+      eventType: 'Service Ticket',
     },
     {
-      start: '2022-07-07 14:30:00',
-      end: '2022-07-07 16:00:00',
+      start: '2022-08-26 14:30:00',
+      end: '2022-08-26 16:00:00',
       title: 'Ticket #15490',
       summary: 'Reception workstation install',
+      eventType: 'Service Ticket',
     },
 
     {

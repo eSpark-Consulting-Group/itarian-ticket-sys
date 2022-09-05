@@ -18,7 +18,7 @@ import {
   statusList,
   typeList,
   whereList,
-} from '../../../../constants/SampleArrays';
+} from '../../../../constants/SelectionList';
 
 interface Item {
   title: string;

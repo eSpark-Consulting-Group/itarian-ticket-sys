@@ -33,21 +33,21 @@ const StackLvl2 = ({navigation, route}: any) => {
         name="CstmItemSelector"
         component={CstmItemSelector}
         options={({route, navigation}: any) => ({
-          title: 'Compose Note',
+          title: route?.params?.headerTitle,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
               size={30}
-              name="chevron-back"
+              name="close"
               style={{right: 6}}
               color={'#fff'}
               onPress={() => goBack(navigation)}
             />
           ),
           headerRight: () => (
-            <FA
-              size={27}
-              name="save"
+            <II
+              size={30}
+              name="checkmark"
               color={'#fff'}
               onPress={() => onSave(navigation, route, activeStatus)}
             />
@@ -55,10 +55,10 @@ const StackLvl2 = ({navigation, route}: any) => {
         })}
       />
       <Stack.Screen
-        name="QNA"
-        component={QNAs}
+        name="ComposeNote"
+        component={ComposeNote}
         options={({route, navigation}: any) => ({
-          title: 'Configuration Questions',
+          title: 'Compose Note',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -81,27 +81,10 @@ const StackLvl2 = ({navigation, route}: any) => {
       />
 
       <Stack.Screen
-        name="Attachments"
-        component={Attachments}
+        name="QNA"
+        component={QNAs}
         options={({route, navigation}: any) => ({
-          title: 'Attachments',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="AttachmentDetails"
-        component={AttachmentDetails}
-        options={({route, navigation}: any) => ({
-          title: 'Attachments',
+          title: 'Configuration Questions',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

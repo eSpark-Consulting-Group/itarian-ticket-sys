@@ -85,6 +85,11 @@ const NewTimeSheet = ({route}: any) => {
       newData[9].title = 'Johnny Bravo';
       setDataSource(newData);
     }
+    if (route?.params?.date) {
+      let newData = [...dataSource];
+      newData[1].title = route?.params?.date;
+      setDataSource(newData);
+    }
   }, [route?.params]);
 
   const updateInput = (e: string, index: number) => {

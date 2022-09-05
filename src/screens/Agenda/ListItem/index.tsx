@@ -3,6 +3,7 @@ import {View, Text, FlatList} from 'react-native';
 
 import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Divider} from 'react-native-paper';
 
 import styles from './style';
@@ -20,7 +21,7 @@ const ListItem = ({
   onPress?: (item: Ticket) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
-
+  const navigation: any = useNavigation()
   const renderData = (item2: any, ind: number) => {
     return (
       <CstmPressable
@@ -104,16 +105,45 @@ const ListItem = ({
     );
   };
 
+  const renderAddTime = (date: Date) => {
+    return (
+      <CstmPressable onPress={() => {
+        navigation.navigate('Stack1', {
+          screen: 'NewTimeSheet',
+          params: {date: date.toDateString()}
+        });
+      }}>
+        <View style={[styles.itemContentContainer, {paddingHorizontal: 20}]}>
+          <View style={styles.itemContentIconContainer}>
+            <View style={[styles.itemContentIcon, {backgroundColor: "#bdbdbd"}]}>
+              <MCI name="clock-outline" size={22} color="#fff" />
+            </View>
+          </View>
+          <View style={{width: '75%'}}>
+            <Text style={{color: colors.text}}>No time recorded yet</Text>
+            <Text style={{fontWeight: 'bold', color: colors.text}}>
+              Tap to add time
+            </Text>
+          </View>
+        </View>
+      </CstmPressable>
+    );
+  };
+
   return (
     <View style={styles.itemContainer}>
       <GapView />
       {renderDate && (
         <DateSeparator text={dataSource.date.toString().slice(0, 10)} />
       )}
-      <FlatList
-        data={renderDate ? dataSource.data : dataSource}
-        renderItem={({item, index}) => renderData(item, index)}
-      />
+      {dataSource.data ? (
+        <FlatList
+          data={renderDate ? dataSource.data : dataSource}
+          renderItem={({item, index}) => renderData(item, index)}
+        />
+      ) : (
+         renderAddTime(dataSource?.date)
+      )}
     </View>
   );
 };

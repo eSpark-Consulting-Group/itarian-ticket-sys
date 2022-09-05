@@ -33,6 +33,31 @@ const StackLvl2 = ({navigation, route}: any) => {
         name="CstmItemSelector"
         component={CstmItemSelector}
         options={({route, navigation}: any) => ({
+          title: route?.params?.headerTitle,
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <II
+              size={30}
+              name="checkmark"
+              color={'#fff'}
+              onPress={() => onSave(navigation, route, activeStatus)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ComposeNote"
+        component={ComposeNote}
+        options={({route, navigation}: any) => ({
           title: 'Compose Note',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -49,7 +74,7 @@ const StackLvl2 = ({navigation, route}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => onSave(navigation, route, activeStatus)}
+              onPress={() => onSave(navigation, route)}
             />
           ),
         })}
@@ -79,50 +104,6 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
-
-      <Stack.Screen
-        name="Attachments"
-        component={Attachments}
-        options={({route, navigation}: any) => ({
-          title: 'Attachments',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="AttachmentDetails"
-        component={AttachmentDetails}
-        options={({route, navigation}: any) => ({
-          title: 'Attachments',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-          headerRight: () => (
-            <FA
-              size={27}
-              name="save"
-              color={'#fff'}
-              onPress={() => onSave(navigation, route)}
-            />
-          ),
-        })}
-      />
-
       <Stack.Screen
         name="Attachments"
         component={Attachments}

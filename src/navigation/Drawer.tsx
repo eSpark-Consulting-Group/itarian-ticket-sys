@@ -32,7 +32,8 @@ import {Avatar} from 'react-native-paper';
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-import {globalState} from '../utils/globalState';
+// import {Theme} from '../theme/colors';
+import {globalState} from '../stores/globalAppState';
 import {
   Agenda,
   Calendar,
@@ -62,12 +63,13 @@ import {
 } from '../constants/SampleArrays';
 import CstmBadge from '../components/CtsmBadge';
 import Images from '../assets/images';
+import { userStore } from '../stores/userStore';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
-  const currStatus: State<boolean> = hookState(globalState.currentStatus);
-  const user: State<any> = hookState(globalState.user);
+  const currStatus: State<boolean> = hookState(userStore.currentStatus);
+  const user: State<any> = hookState(userStore.user);
 
   const {colors}: Theme = useTheme();
 

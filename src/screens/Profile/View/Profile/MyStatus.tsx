@@ -6,11 +6,13 @@ import {Switch} from 'react-native-paper';
 
 import {ModalView, SingleLineField} from '../../../../components';
 import {GoneToFormArray} from '../../../../constants/SampleArrays';
-import {globalState} from '../../../../utils/globalState';
+import { userStore } from '../../../../stores/userStore';
 
 const MyStatus = ({route, navigation}: any) => {
-  const currStatus: State<boolean> = useHState(globalState.currentStatus);
-  const currGonTo: State<any> = useHState(globalState.currentGoneTo);
+  const currStatus: State<boolean> = useHState(userStore.currentStatus);
+  const currGonTo: State<any> = useHState(userStore.currentGoneTo);
+  // console.log('Route', route);
+  const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();
 
   const [goneTo, setGoneTo] = useState<any>(null);

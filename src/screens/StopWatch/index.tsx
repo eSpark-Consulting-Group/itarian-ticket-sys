@@ -11,7 +11,8 @@ import styles from './style';
 import {stopWatchList} from '../../constants/SampleArrays';
 import {Stopwatch} from '../../types';
 import {EmptyListMsg, SimpleLoader} from '../../components';
-import {globalState} from '../../utils/globalState';
+import {globalState} from '../../stores/globalAppState';
+import {useUpdateEffect} from '../../utils/hooks';
 
 const StopWatchScreen = () => {
   const {colors, dark}: Theme = useTheme();
@@ -78,7 +79,7 @@ const StopWatchScreen = () => {
                     ...styles.horizontalItemStyles,
                   }}>
                   <Text style={{...styles.title, color: colors.text}}>
-                    Ticket #{item.ticket_no}
+                    Ticket {item.ticket_no}
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>

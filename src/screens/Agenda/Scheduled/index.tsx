@@ -10,7 +10,7 @@ import {FloatButton} from '../../../components';
 import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
 import {SchAdditionalButtons} from '../../../constants/ButtonsList';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
-import {globalState} from '../../../utils/globalState';
+import {globalState} from '../../../stores/globalAppState';
 
 const ScheduledTab = ({route, navigation}: any) => {
   console.log('route props', route);

@@ -11,7 +11,7 @@ import {moderateScale} from 'react-native-size-matters';
 import {useState as useHState, State} from '@hookstate/core';
 
 import styles from './style';
-import {globalState} from '../../utils/globalState';
+import {globalState} from '../../stores/globalAppState';
 import {CstmPressable} from '../CstmPressable';
 
 const SearchBar = ({

@@ -4,6 +4,7 @@ import {
   // @ts-ignore
 } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';
+import DocumentPicker, {types} from 'react-native-document-picker';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -57,7 +58,6 @@ export const redirectToMap = (
 export const imagePicker = async ({
   multiple = false,
   cropping = false,
-  type = 'photo',
   maxFiles = 10,
 }) => {
   try {
@@ -76,6 +76,27 @@ export const imagePicker = async ({
   }
 };
 
+export const documentPicker = async ({}) => {
+  try {
+    const result = DocumentPicker.pickSingle({
+      presentationStyle: 'fullScreen',
+      copyTo: 'cachesDirectory',
+      type: [
+        types.pdf,
+        types.docx,
+        types.xls,
+        types.xlsx,
+        types.csv,
+        types.doc,
+        types.plainText,
+      ],
+    });
+    return result;
+  } catch (error) {
+    console.log('documentPicker error', error);
+  }
+};
+
 export const cameraPicker = async ({cropping = false}) => {
   try {
     const result = await ImagePicker.openCamera({
@@ -88,4 +109,30 @@ export const cameraPicker = async ({cropping = false}) => {
   } catch (error) {
     console.log('cameraPicker error', error);
   }
+};
+
+export const searchFromArray = async ({
+  text = "",
+  list = [],
+  keys = []
+}: {
+  text: string
+  list: any
+  keys: any
+}) => {
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = list?.filter((item: any) => {
+        const itemData = keys?.map((value: any) => `${item[value]?.toUpperCase()}`)?.join(" ");
+        const textData = text?.toUpperCase();
+        return itemData?.indexOf(textData) > -1;
+      });
+      return newData;
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      return list;
+    }
 };

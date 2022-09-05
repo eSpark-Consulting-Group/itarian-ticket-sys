@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
-import {useState as useHState, State} from '@hookstate/core';
+import {
+  PriorityField,
+  RoundedIcon,
+  SingleLineField,
+} from '../../../../components';
 import {moderateScale} from 'react-native-size-matters';
-
-import {RoundedIcon, SingleLineField} from '../../../../components';
 import {SelectFields} from '../../../../types';
-import {redirectToMap} from '../../../../utils/helperFunctions';
-import {globalState} from '../../../../utils/globalState';
+import { redirectToMap } from '../../../../utils/helperFunctions';
+import {globalState} from '../../../../stores/globalAppState';
+import {useState as useHState, State} from '@hookstate/core';
 
 interface Item {
   headerTitle?: string;

@@ -12,6 +12,7 @@ import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import _ from 'lodash';
 import {CstmPressable} from '../../components';
+import { searchFromArray } from '../../utils/helperFunctions';
 
 const Contacts = () => {
   const {colors, dark}: Theme = useTheme();
@@ -29,24 +30,13 @@ const Contacts = () => {
     }, 3000);
   };
 
-  const searchFilterFunction = (text: string) => {
-    console.log('kia ha search query', text);
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = contactsList.filter(item => {
-        const itemData = `${item.name.toUpperCase()} ${item.company_name.toUpperCase()}`;
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredContacts(newData);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredContacts(contactsList);
-    }
+  const searchFilterFunction = async (text: string) => {
+    var result = await searchFromArray({
+      text: text || '',
+      list: contactsList,
+      keys: ['name', 'company_name'],
+    });
+      setFilteredContacts(result);
   };
 
   const handleClear = () => {

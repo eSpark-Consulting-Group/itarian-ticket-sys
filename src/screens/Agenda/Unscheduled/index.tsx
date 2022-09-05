@@ -14,7 +14,7 @@ import {
 import {UnschAdditionalButtons} from '../../../constants/ButtonsList';
 import {FloatButton} from '../../../components';
 import {AdditionalButtons, ScheduledList} from '../../../types';
-import {globalState} from '../../../utils/globalState';
+import {globalState} from '../../../stores/globalAppState';
 
 const UnscheduledTab = ({navigation}: any) => {
   const {colors}: Theme = useTheme();

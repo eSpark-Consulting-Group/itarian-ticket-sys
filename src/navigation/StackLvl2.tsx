@@ -10,7 +10,9 @@ import CstmItemSelector from '../components/CstmItemSelector';
 import ComposeNote from '../forms/ComposeNote';
 import QNAs from '../forms/QNAs';
 import {State, useState} from '@hookstate/core';
-import {globalState} from '../utils/globalState';
+import {Attachments} from '../components/Attachments/index';
+import {AttachmentDetails} from '../components/Attachments/view/attachmentDetails';
+import {globalState} from '../stores/globalAppState';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,21 +33,21 @@ const StackLvl2 = ({navigation, route}: any) => {
         name="CstmItemSelector"
         component={CstmItemSelector}
         options={({route, navigation}: any) => ({
-          title: route?.params?.headerTitle,
+          title: 'Compose Note',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
               size={30}
-              name="close"
+              name="chevron-back"
               style={{right: 6}}
               color={'#fff'}
               onPress={() => goBack(navigation)}
             />
           ),
           headerRight: () => (
-            <II
-              size={30}
-              name="checkmark"
+            <FA
+              size={27}
+              name="save"
               color={'#fff'}
               onPress={() => onSave(navigation, route, activeStatus)}
             />
@@ -53,10 +55,10 @@ const StackLvl2 = ({navigation, route}: any) => {
         })}
       />
       <Stack.Screen
-        name="ComposeNote"
-        component={ComposeNote}
+        name="QNA"
+        component={QNAs}
         options={({route, navigation}: any) => ({
-          title: 'Compose Note',
+          title: 'Configuration Questions',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -77,11 +79,72 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
+
       <Stack.Screen
-        name="QNA"
-        component={QNAs}
+        name="Attachments"
+        component={Attachments}
         options={({route, navigation}: any) => ({
-          title: 'Configuration Questions',
+          title: 'Attachments',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="AttachmentDetails"
+        component={AttachmentDetails}
+        options={({route, navigation}: any) => ({
+          title: 'Attachments',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => onSave(navigation, route)}
+            />
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="Attachments"
+        component={Attachments}
+        options={({route, navigation}: any) => ({
+          title: 'Attachments',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="AttachmentDetails"
+        component={AttachmentDetails}
+        options={({route, navigation}: any) => ({
+          title: 'Attachments',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

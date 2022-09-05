@@ -1,17 +1,20 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
-import {State, useState as hookState} from '@hookstate/core';
-
-import {AvatarContainer, SingleLineField} from '../../components';
+import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './style';
-import {globalState} from '../../utils/globalState';
+import {useTheme} from '@react-navigation/native';
+import {Theme} from '../../theme/colors';
+import {AvatarContainer, SingleLineField} from '../../components';
+import II from 'react-native-vector-icons/Ionicons';
+
+import {State, useState as hookState} from '@hookstate/core';
 import Images from '../../assets/images';
+import { userStore } from '../../stores/userStore';
 
 const Profile = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
-  const currStatus: State<boolean> = hookState(globalState.currentStatus);
-  const user: State<any> = hookState(globalState.user);
+  const currStatus: State<boolean> = hookState(userStore.currentStatus);
+  const user: State<any> = hookState(userStore.user);
+  console.log("currStatus.get()", currStatus.get())
   return (
     <View
       style={{

@@ -1,22 +1,17 @@
 import React, {useReducer} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-  UIManager,
-  LayoutAnimation,
-} from 'react-native';
+import {Text, View} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 import _ from 'lodash';
 
 import styles from './styles';
-import {ModalField, ModalView} from '..';
+import {ModalField} from '..';
 import {WINDOW_WIDTH} from '../../constants';
 import {CstmPressable} from '../CstmPressable';
 
-type Item = {key: string; title: string};
+interface Item {
+  key: string;
+  title: string;
+}
 
 export default function CstmTabBar(props: any) {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -56,11 +51,7 @@ export default function CstmTabBar(props: any) {
         }}>
         <CstmPressable
           onPress={() => {
-            // LayoutAnimation.configureNext(
-            //   LayoutAnimation.Presets.easeInEaseOut,
-            // );
             handleTabNavigation(index);
-            // forceUpdate();
           }}
           android_ripple={{color: pressColor}}>
           <View
@@ -81,7 +72,7 @@ export default function CstmTabBar(props: any) {
   };
 
   return (
-    <ModalField mode="none" pressEnable={false}>
+    <ModalField pressEnable={false}>
       <View
         style={{
           ...styles.container,

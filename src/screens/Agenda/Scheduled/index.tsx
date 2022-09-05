@@ -1,18 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
 
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
+import {State, useState as useHState} from '@hookstate/core';
 
 import styles from './style';
-import {Theme} from '../../../theme/colors';
 import ListItem from '../ListItem';
 import {FloatButton} from '../../../components';
-import {scheduledList} from '../../../constants/SampleArrays';
+import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
 import {SchAdditionalButtons} from '../../../constants/ButtonsList';
-import {AdditionalButtons} from '../../../types';
+import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
+import {globalState} from '../../../utils/globalState';
 
-const ScheduledTab = ({navigation}: any) => {
+const ScheduledTab = ({route, navigation}: any) => {
+  console.log('route props', route);
+
   const {colors}: Theme = useTheme();
+  const activeMember: State<string> = useHState(globalState.agendaMember);
+  const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
 
@@ -39,14 +44,33 @@ const ScheduledTab = ({navigation}: any) => {
   };
 
   useEffect(() => {
+    console.log('Agenda Member', activeMember.get());
+    console.log('Sched lIst', scheduledList);
+    const schTicks = ticketsList.filter(val => val?.schedule_time);
+    const filTickets = schTicks.filter(
+      val => val?.assigned_to == activeMember.get(),
+    );
+    console.log('Schedule Tickets', schTicks);
+    console.log('Filtered Tickets', filTickets);
+    let aRR: ScheduledList[] = [];
+    scheduledList.map(item => {
+      let data = {id: item.id, date: item.date, data: filTickets};
+      aRR.push(data);
+    });
+    console.log('Filtered List', aRR);
+    setFilArr(aRR);
+  }, [activeMember.get()]);
+
+  useEffect(() => {
     updatePress();
   }, []);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={scheduledList}
+        data={filArr}
         renderItem={({item}) => {
+          // console.log('ITEM', item);
           return (
             <ListItem
               dataSource={item}

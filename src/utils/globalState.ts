@@ -17,4 +17,5 @@ export const globalState = createState({
   defaultnNavigationName: '',
   shortCutScreen: null,
   user: false,
+  agendaMember: 'John Doe',
 });

@@ -1,14 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
+import {StyleSheet, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
-import {
-  ModalHeader,
-  ModalView,
-  RoundedIcon,
-  CstmTabBar,
-  FloatButton,
-} from '../../../../components';
+import {ModalView, CstmTabBar, FloatButton} from '../../../../components';
 import Overview from './Overview';
 import Details from './Details';
 

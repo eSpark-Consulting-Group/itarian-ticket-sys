@@ -19,8 +19,6 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../../navigation/RootNavigation';
 import {CstmMenu} from '../../../../components/CstmMenu';
 
-// const dataSource: Item[] = [];
-
 interface Item {
   id: number;
   img?: any;
@@ -140,7 +138,6 @@ export default function Notes() {
   return (
     <>
       <ModalField
-        mode="none"
         pressEnable={false}
         contentStyle={{
           ...styles.subHeader,
@@ -148,7 +145,7 @@ export default function Notes() {
         {subHeader()}
       </ModalField>
       {data?.length > 0 ? (
-        <ModalField mode="none" pressEnable={false} fieldPadding={0}>
+        <ModalField pressEnable={false} fieldPadding={0}>
           <FlatList
             data={data}
             renderItem={renderList}

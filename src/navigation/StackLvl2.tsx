@@ -9,11 +9,14 @@ import {onSave, goBack} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
 import ComposeNote from '../forms/ComposeNote';
 import QNAs from '../forms/QNAs';
+import {State, useState} from '@hookstate/core';
+import {globalState} from '../utils/globalState';
 
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
   const {colors}: Theme = useTheme();
+  const activeStatus: State<any> = useState(globalState);
 
   return (
     <Stack.Navigator
@@ -24,31 +27,6 @@ const StackLvl2 = ({navigation, route}: any) => {
         },
         animation: 'slide_from_bottom',
       }}>
-      <Stack.Screen
-        name="GoneTo"
-        component={GoneTo}
-        options={{
-          title: 'Gone To',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="close"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-          headerRight: () => (
-            <II
-              size={30}
-              name="checkmark"
-              color={'#fff'}
-              onPress={() => onSave(navigation, route)}
-            />
-          ),
-        }}
-      />
       <Stack.Screen
         name="CstmItemSelector"
         component={CstmItemSelector}
@@ -69,7 +47,7 @@ const StackLvl2 = ({navigation, route}: any) => {
               size={30}
               name="checkmark"
               color={'#fff'}
-              onPress={() => onSave(navigation, route)}
+              onPress={() => onSave(navigation, route, activeStatus)}
             />
           ),
         })}

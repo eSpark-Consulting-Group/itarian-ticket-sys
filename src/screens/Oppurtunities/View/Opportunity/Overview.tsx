@@ -126,7 +126,6 @@ const overviewList = [
 ];
 
 export default function Overview() {
-  const {colors}: Theme = useTheme();
   const navigation: any = useNavigation();
   const route: any = useRoute();
 

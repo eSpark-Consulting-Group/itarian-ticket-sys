@@ -117,9 +117,6 @@ const NewExpenseReport = ({route, navigation}: any) => {
     headerTitle?: string;
   }
 
-  type Mode = 'date' | 'time';
-  type PickerType = 'dd' | 'st' | 'et';
-
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -187,7 +184,6 @@ const NewExpenseReport = ({route, navigation}: any) => {
               rightChild={item?.rightChild}
             />
           ))}
-          {/* <GapView /> */}
         </View>
       </ScrollView>
       <FloatButton AdditionalButtons={AddExpenseAdditionalButtons} />

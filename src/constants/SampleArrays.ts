@@ -1,3 +1,4 @@
+import {AdditionalButtonStyle} from '.';
 import Images from '../assets/images';
 import {
   Activity,
@@ -17,16 +18,13 @@ import {
   Ticket,
   TimeSheet,
   UnscheduledList,
+  QNATypes,
+  NoteTypes,
 } from '../types';
 
 /*
 //* Sample Array List Disposable in the Future
 */
-
-export type NoteTypes = {
-  text: NotesType;
-  highlight: boolean;
-};
 
 export const ticketsList: Ticket[] = [
   {
@@ -43,6 +41,7 @@ export const ticketsList: Ticket[] = [
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
+    assigned_to: 'John Doe',
   },
   {
     id: 1,
@@ -58,6 +57,7 @@ export const ticketsList: Ticket[] = [
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
+    assigned_to: 'Blake Wesker',
   },
   {
     id: 2,
@@ -73,6 +73,7 @@ export const ticketsList: Ticket[] = [
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
+    assigned_to: 'John Doe',
   },
   {
     id: 3,
@@ -87,6 +88,7 @@ export const ticketsList: Ticket[] = [
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
+    assigned_to: 'Bob Kins',
   },
   {
     id: 4,
@@ -102,6 +104,7 @@ export const ticketsList: Ticket[] = [
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
+    assigned_to: 'Brad Coops',
   },
   {
     id: 5,
@@ -116,6 +119,7 @@ export const ticketsList: Ticket[] = [
     time_dur: '2.5h',
     project: 'Server Migration',
     site: 'Remote',
+    assigned_to: 'Kevin Spacey',
   },
 ];
 

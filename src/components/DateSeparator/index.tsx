@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
 import {Divider} from 'react-native-paper';
-import {Theme} from '../../theme/colors';
 
 const DateSeperator = ({text}: any) => {
   const {colors}: Theme = useTheme();

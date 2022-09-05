@@ -1,6 +1,6 @@
 import {Dimensions} from 'react-native';
 
-export const BUILD_VERSION = '0.6.02';
+export const BUILD_VERSION = '0.6.03';
 
 export const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} =
   Dimensions.get('window');
@@ -38,3 +38,8 @@ export const GONE_TO_ARRAY = [
     check: 'unchecked',
   },
 ];
+
+export const AdditionalButtonStyle = {
+  backgroundColor: '#28648f',
+  borderRadius: 1000,
+};

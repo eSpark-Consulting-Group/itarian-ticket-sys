@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 import styles from './style';
-import {Theme} from '../../../theme/colors';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
@@ -28,7 +27,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(6).label('Password'),
 });
 
-const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
+const LoginScreen = () => {
   const user: State<any> = useHState(globalState.user);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const {colors}: Theme = useTheme();

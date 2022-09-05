@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, FlatList, ToastAndroid} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {View, Text, FlatList} from 'react-native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -8,13 +8,12 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fthr from 'react-native-vector-icons/Feather';
 import MI from 'react-native-vector-icons/MaterialIcons';
 import FD from 'react-native-vector-icons/Foundation';
+import _ from 'lodash';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {opportunitiesList} from '../../constants/SampleArrays';
 import {Opportunity} from '../../types';
 import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
-import _ from 'lodash';
 import {CstmPressable} from '../../components/CstmPressable';
 
 const Oppurtunities = ({navigation, route}: any) => {

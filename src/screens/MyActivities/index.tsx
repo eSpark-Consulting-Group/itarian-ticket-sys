@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {Divider, Menu} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import MI from 'react-native-vector-icons/MaterialIcons';
@@ -8,7 +8,6 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {
   EmptyListMsg,
   FloatButton,

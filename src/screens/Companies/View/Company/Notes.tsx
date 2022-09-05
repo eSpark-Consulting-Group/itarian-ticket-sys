@@ -135,7 +135,6 @@ const Notes = () => {
   return (
     <View style={styles.container}>
       <ModalField
-        mode="none"
         pressEnable={false}
         contentStyle={{
           ...styles.subHeader,
@@ -143,7 +142,7 @@ const Notes = () => {
         {subHeader()}
       </ModalField>
       {data?.length > 0 ? (
-        <ModalField mode="none" pressEnable={false} fieldPadding={0}>
+        <ModalField pressEnable={false} fieldPadding={0}>
           <FlatList
             data={data}
             renderItem={renderList}

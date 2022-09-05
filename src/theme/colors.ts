@@ -1,16 +1,4 @@
-export type Theme = {
-  dark: boolean;
-  colors: Colors;
-};
-
-export type Colors = {
-  primary: string;
-  background: string;
-  border: string;
-  text: string;
-  card: string;
-  notification: string;
-};
+import {Theme} from '@react-navigation/native';
 
 export const LightTheme: Theme = {
   //Light Theme

@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useState as useHState, State} from '@hookstate/core';
 import {moderateScale} from 'react-native-size-matters';
 
 import {globalState} from '../../utils/globalState';
-import {Theme} from '../../theme/colors';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
 import {CstmPressable} from '../../components/CstmPressable';

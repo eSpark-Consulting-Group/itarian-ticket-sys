@@ -1,14 +1,15 @@
 import React, {ReactNode, useEffect, useState} from 'react';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {
   useTheme,
   Theme,
   useRoute,
   useNavigation,
 } from '@react-navigation/native';
-import {SingleLineField} from '../../../../components';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import II from 'react-native-vector-icons/Ionicons';
+
+import {SingleLineField} from '../../../../components';
 import {Activity, SelectFields} from '../../../../types';
 import {
   companyNameList,

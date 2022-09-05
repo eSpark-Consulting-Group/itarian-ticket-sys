@@ -160,6 +160,7 @@ export type Ticket = {
   schedule_time?: string | null;
   time_dur?: string;
   site?: 'Remote' | 'On-Site' | 'In-House';
+  assigned_to?: string;
 };
 
 export type Opportunity = {
@@ -213,6 +214,11 @@ export type ScreenItems = {
 export type SelectFields = {
   id: number;
   name: string;
+};
+
+export type NoteTypes = {
+  text: NotesType;
+  highlight: boolean;
 };
 
 export type QNATypes = {

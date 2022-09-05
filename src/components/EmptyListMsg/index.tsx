@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
-import {Theme} from '../../theme/colors';
 import styles from './styles';
 
 const EmptyListMsg = ({label}: {label: string}): JSX.Element => {

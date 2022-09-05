@@ -1,8 +1,8 @@
-import {View, Text, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {View, Text, FlatList} from 'react-native';
+import {Theme, useTheme} from '@react-navigation/native';
+
 import styles from './style';
-import {useTheme} from '@react-navigation/native';
-import {Theme} from '../../theme/colors';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {timeSheetList} from '../../constants/SampleArrays';
 import {TimeSheetAdditionalButtons} from '../../constants/ButtonsList';

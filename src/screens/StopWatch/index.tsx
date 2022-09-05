@@ -1,6 +1,6 @@
 import React, {useState, useReducer, useCallback} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import {useTheme, useFocusEffect} from '@react-navigation/native';
+import {useTheme, useFocusEffect, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
@@ -8,7 +8,6 @@ import Ions from 'react-native-vector-icons/Ionicons';
 import {State, useState as useHState} from '@hookstate/core';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {stopWatchList} from '../../constants/SampleArrays';
 import {Stopwatch} from '../../types';
 import {EmptyListMsg, SimpleLoader} from '../../components';

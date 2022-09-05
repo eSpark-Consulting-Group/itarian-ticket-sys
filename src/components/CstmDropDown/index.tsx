@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 
-import {Theme} from '../../theme/colors';
 import styles from './styles';
 import {useUpdateEffect} from '../../utils/hooks';
 import MI from 'react-native-vector-icons/MaterialIcons';

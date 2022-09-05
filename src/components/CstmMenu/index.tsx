@@ -1,11 +1,10 @@
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {Divider, Menu} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
-import {Theme} from '../../theme/colors';
-// import { Item } from '../../types';
+
 import {CstmPressable} from '../CstmPressable';
 import {styles} from './style';
 

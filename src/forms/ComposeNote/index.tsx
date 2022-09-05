@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+
 import {
   FloatButton,
   ModalHeader,
@@ -40,7 +41,6 @@ export default function ComposeNote({route, navigation}: any) {
           key={index}
           text={item.text}
           widthLength={WINDOW_WIDTH * (noteTypeList?.length > 3 ? 0.27 : 0.312)}
-          // onPress={() => handleType(item, index)}
           onPress={() => setCurrChkInd(index)}
           border
           backColor={colors.card}
@@ -62,7 +62,6 @@ export default function ComposeNote({route, navigation}: any) {
               </ScrollView>
             </View>
           </ModalHeader>
-          {/* <SingleLineField title="Flag" showRightSwitch /> */}
           <SingleLineField
             mode="multiline"
             onChangeText={setNotes}
@@ -77,5 +76,3 @@ export default function ComposeNote({route, navigation}: any) {
     </ModalView>
   );
 }
-
-const styles = StyleSheet.create({});

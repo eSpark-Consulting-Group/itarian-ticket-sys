@@ -1,9 +1,8 @@
 import {View, Text, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useTheme} from '@react-navigation/native';
+import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
-import {Theme} from '../../theme/colors';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
 import {expReportList} from '../../constants/SampleArrays';
 import {ExpenseAdditionalButtons} from '../../constants/ButtonsList';

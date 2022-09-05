@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
@@ -11,9 +11,9 @@ const dataSource: Item[] = [
   },
 ];
 
-type Item = {
+interface Item {
   title: string;
-};
+}
 
 export default function Details() {
   const {colors, dark}: Theme = useTheme();

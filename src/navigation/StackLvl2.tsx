@@ -79,7 +79,6 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
-
       <Stack.Screen
         name="QNA"
         component={QNAs}
@@ -105,7 +104,6 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
-
       <Stack.Screen
         name="Attachments"
         component={Attachments}

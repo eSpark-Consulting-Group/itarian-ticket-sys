@@ -5,6 +5,7 @@ import EmptyListMsg from '../EmptyListMsg';
 import FloatButton from '../FloatButton';
 import {styles} from './styles';
 import {fileIcons} from '../../constants/SampleArrays';
+import {AttachmentAdditionalButtons} from '../../constants/ButtonsList';
 import {
   cameraPicker,
   documentPicker,
@@ -13,7 +14,6 @@ import {
 import {SingleLineField} from '../FormFields';
 import moment from 'moment';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
-import {AttachmentAdditionalButtons} from '../../constants/ButtonsList';
 
 export const Attachments = ({
   id = 0,

@@ -5,16 +5,14 @@ import {Divider} from 'react-native-paper';
 
 import {GapView, SingleLineField} from '../../components';
 
-
-
 type Item = {
   title: string;
-  onPress?: () => void
+  onPress?: () => void;
 };
 
 const Details = () => {
   const {colors, dark}: Theme = useTheme();
-  const navigation: any = useNavigation()
+  const navigation: any = useNavigation();
   const dataSource: Item[] = [
     {
       title: 'Configurations',
@@ -27,8 +25,8 @@ const Details = () => {
       onPress: () => {
         navigation.navigate('Stack2', {
           screen: 'Attachments',
-        })
-      }
+        });
+      },
     },
     {
       title: 'Tasks',
@@ -48,7 +46,14 @@ const Details = () => {
   ];
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
-    return <SingleLineField onPress={item.onPress} title={item.title} gap={false} fieldPadding={28} />;
+    return (
+      <SingleLineField
+        onPress={item.onPress}
+        title={item.title}
+        gap={false}
+        fieldPadding={24}
+      />
+    );
   };
 
   return (

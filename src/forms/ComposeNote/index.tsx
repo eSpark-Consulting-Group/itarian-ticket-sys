@@ -11,8 +11,9 @@ import {
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
 import {SingleLineField} from '../../components/FormFields';
-import {NoteTypes} from '../../constants/SampleArrays';
+// import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import {NotesAdditionalButtons} from '../../constants/ButtonsList';
+import {NoteTypes} from '../../types';
 
 export default function ComposeNote({route, navigation}: any) {
   const {colors, dark} = useTheme();

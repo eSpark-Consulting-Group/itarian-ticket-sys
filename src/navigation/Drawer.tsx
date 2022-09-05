@@ -220,27 +220,28 @@ const Draw = () => {
             style={{left: 10}}
           />
         ),
-        headerRight: () => (
-          <FA
-            size={30}
-            name="user"
-            color={'#fff'}
-            onPress={() =>
-              navigation.navigate('Stack2', {
-                screen: 'CstmItemSelector',
-                params: {
-                  from: 'Draw',
-                  item: 'GoneTo',
-                  data: contactsList,
-                  selected: currMember,
-                  stack: 'Draw',
-                  headerTitle: 'Select Member',
-                },
-              })
-            }
-            style={{right: 10}}
-          />
-        ),
+        // headerRight: () => (
+        //   <FA
+        //     size={30}
+        //     name="user"
+        //     color={'#fff'}
+        //     onPress={() =>
+        //       navigation.navigate('Stack2', {
+        //         screen: 'CstmItemSelector',
+        //         params: {
+        //           from: 'Agenda',
+        //           item: 'GoneTo',
+        //           data: contactsList,
+        //           selected: currMember,
+        //           stack: 'Draw',
+        //           headerTitle: 'Select Member',
+        //           searchable: true,
+        //         },
+        //       })
+        //     }
+        //     style={{right: 10}}
+        //   />
+        // ),
       }}>
       <Drawer.Screen
         name="FSLoader"
@@ -295,6 +296,28 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <MCI name="calendar" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <FA
+              size={30}
+              name="user"
+              color={'#fff'}
+              onPress={() =>
+                navigation.navigate('Stack2', {
+                  screen: 'CstmItemSelector',
+                  params: {
+                    from: 'Agenda',
+                    item: 'GoneTo',
+                    data: contactsList,
+                    selected: currMember,
+                    stack: 'Draw',
+                    headerTitle: 'Select Member',
+                    searchable: true,
+                  },
+                })
+              }
+              style={{right: 10}}
+            />
           ),
         }}
       />

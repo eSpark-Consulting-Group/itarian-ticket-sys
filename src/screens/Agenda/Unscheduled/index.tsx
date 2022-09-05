@@ -2,18 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
 
 import {Theme, useTheme} from '@react-navigation/native';
+import {State, useState as useHState} from '@hookstate/core';
 
 import styles from './style';
 import ListItem from '../ListItem';
 import {
-  UnschAdditionalButtons,
+  scheduledList,
+  ticketsList,
   unscheduledList,
 } from '../../../constants/SampleArrays';
+import {UnschAdditionalButtons} from '../../../constants/ButtonsList';
 import {FloatButton} from '../../../components';
-import {AdditionalButtons} from '../../../types';
+import {AdditionalButtons, ScheduledList} from '../../../types';
+import {globalState} from '../../../stores/globalAppState';
 
 const UnscheduledTab = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
+  const activeMember: State<string> = useHState(globalState.agendaMember);
+  const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
     UnschAdditionalButtons,
   );
@@ -36,13 +42,31 @@ const UnscheduledTab = ({navigation}: any) => {
   };
 
   useEffect(() => {
+    console.log('Agenda Member', activeMember.get());
+    console.log('Sched lIst', scheduledList);
+    const schTicks = ticketsList.filter(val => !val?.schedule_time);
+    const filTickets = schTicks.filter(
+      val => val?.assigned_to == activeMember.get(),
+    );
+    console.log('Schedule Tickets', schTicks);
+    console.log('Filtered Tickets', filTickets);
+    let aRR: ScheduledList[] = [];
+    scheduledList.map(item => {
+      let data = {id: item.id, date: item.date, data: filTickets};
+      aRR.push(data);
+    });
+    console.log('Filtered List', aRR);
+    setFilArr(aRR);
+  }, [activeMember.get()]);
+
+  useEffect(() => {
     updatePress();
   }, []);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={unscheduledList}
+        data={filArr}
         renderItem={({item}) => (
           <ListItem
             dataSource={item}

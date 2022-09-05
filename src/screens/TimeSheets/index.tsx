@@ -4,10 +4,8 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
-import {
-  TimeSheetAdditionalButtons,
-  timeSheetList,
-} from '../../constants/SampleArrays';
+import {timeSheetList} from '../../constants/SampleArrays';
+import {TimeSheetAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons, TimeSheet} from '../../types';
 import ListItem from '../Agenda/ListItem';
 

@@ -19,7 +19,7 @@ export interface ThemeStyle {
   arrow?: ImageStyle;
   lineNow?: ViewStyle;
 }
-export default function styleConstructor(theme: ThemeStyle = {}) {
+export default function styleConstructor(theme: ThemeStyle = {}, item?: any) {
   let style: ThemeStyle = {
     container: {
       flex: 1,

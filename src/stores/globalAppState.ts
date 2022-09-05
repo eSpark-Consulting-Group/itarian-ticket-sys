@@ -8,4 +8,6 @@ export const globalState = createState({
   defaultScreenName: 'Agenda',
   defaultnNavigationName: '',
   shortCutScreen: null,
+  user: false,
+  agendaMember: 'John Doe',
 });

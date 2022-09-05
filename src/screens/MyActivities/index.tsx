@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 import {Divider, Menu} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import MI from 'react-native-vector-icons/MaterialIcons';

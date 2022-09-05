@@ -17,7 +17,7 @@ import {
   stageList,
   statusList,
   typeList,
-} from '../../../../constants/SampleArrays';
+} from '../../../../constants/SelectionList';
 import {SelectFields} from '../../../../types';
 
 interface Item {

@@ -4,11 +4,8 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
 import {DateRangeSelector, EmptyListMsg, FloatButton} from '../../components';
-import {
-  expReportList,
-  ExpenseAdditionalButtons,
-  scheduledList,
-} from '../../constants/SampleArrays';
+import {expReportList} from '../../constants/SampleArrays';
+import {ExpenseAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons, ExpReportList} from '../../types';
 import ListItem from '../Agenda/ListItem';
 

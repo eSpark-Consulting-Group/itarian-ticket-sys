@@ -11,7 +11,7 @@ import {
   statusList,
   subTypesList,
   typesList,
-} from '../../constants/SampleArrays';
+} from '../../constants/SelectionList';
 import {PriorityField, SingleLineField} from '../../components';
 import {SelectFields} from '../../types/index';
 

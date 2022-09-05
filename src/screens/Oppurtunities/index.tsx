@@ -11,10 +11,7 @@ import FD from 'react-native-vector-icons/Foundation';
 import _ from 'lodash';
 
 import styles from './style';
-import {
-  opportunitiesList,
-  SchAdditionalButtons,
-} from '../../constants/SampleArrays';
+import {opportunitiesList} from '../../constants/SampleArrays';
 import {Opportunity} from '../../types';
 import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';

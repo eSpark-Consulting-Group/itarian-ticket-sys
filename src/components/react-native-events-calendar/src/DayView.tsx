@@ -148,11 +148,37 @@ export default class DayView extends React.PureComponent<MyProps, any> {
     const {packedEvents} = this.state;
     let events = packedEvents.map(
       (event: any, i: React.Key | null | undefined) => {
+        const eventType = this.props.events[event.index].eventType;
+        let bgColor = '#F0F4FF';
+        switch (eventType) {
+          case 'Service Ticket':
+            bgColor = 'lightblue';
+            break;
+          case 'Activity':
+            bgColor = 'lightgreen';
+            break;
+          case 'Schedule Entry':
+            bgColor = 'orange';
+            break;
+          case 'Meeting Invite':
+            bgColor = 'pink';
+            break;
+          case 'Service Template':
+            bgColor = 'lightpurple';
+            break;
+          case 'Project':
+            bgColor = 'lightyellow';
+            break;
+
+          default:
+            break;
+        }
         const style = {
           left: event.left,
           height: event.height,
           width: event.width,
           top: event.top,
+          backgroundColor: bgColor ?? '#F0F4FF',
         };
 
         // Fixing the number of lines for the event title makes this calculation easier.

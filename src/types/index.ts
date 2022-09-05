@@ -88,7 +88,7 @@ export type ExpReportList = {
 export type TimeSheet = {
   id: number;
   date: Date;
-  data: Array<Ticket>;
+  data: Array<Ticket> | null;
   totHrs: number;
 };
 

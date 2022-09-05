@@ -113,7 +113,13 @@ const StackLvl1 = ({route, navigation}: any) => {
             <View style={{flexDirection: 'row'}}>
               <II size={30} name="stopwatch-outline" color={'#fff'} />
               <View style={{width: 15}} />
-              <MI size={30} name="edit" color={'#fff'} />
+              <MI 
+                onPress={() => navigation.navigate('Stack2', {
+                  screen: 'EditTicket',
+                  params: route?.params
+                })} 
+                size={30} name="edit" color={'#fff'} 
+              />
             </View>
           ),
         })}

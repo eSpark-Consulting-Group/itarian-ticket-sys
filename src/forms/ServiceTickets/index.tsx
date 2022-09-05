@@ -9,8 +9,8 @@ import {
   CstmTabBar,
   FloatButton,
 } from '../../components';
-import {STicketsAdditionalButtons} from '../../constants/SampleArrays';
-import {AdditionalButtons} from '../../types';
+import {companiesList, contactsList, STicketsAdditionalButtons} from '../../constants/SampleArrays';
+import {AdditionalButtons, SelectFields} from '../../types';
 import Details from './Details';
 import Notes from './Notes';
 import Overview from './Overview';
@@ -22,10 +22,14 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const App = ({navigation}: any) => {
+const App = ({navigation, route}: any) => {
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
     STicketsAdditionalButtons,
   );
+  const [companyContact, setCompanyContact] = useState<any>({
+    contact: contactsList[0],
+    company: companiesList[0]
+  })
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
@@ -43,15 +47,27 @@ const App = ({navigation}: any) => {
   };
 
   useEffect(() => {
+    if(route?.params?.companyContact) {
+      console.log('route?.params?.companyContact',route?.params?.companyContact);
+      setCompanyContact({...route.params?.companyContact})
+    }
+  }, (route?.params));
+
+  useEffect(() => {
     updatePress();
+    navigation.setParams({
+      ...route?.params,
+      companyContact: companyContact
+    });
   }, []);
 
+  console.log("companyContact companyContact", companyContact)
   return (
     <ModalView>
       <ModalHeader
         icon="office-building-marker-outline"
-        title="Acme Company"
-        subTitle="John Doe"
+        title={companyContact.company?.name}
+        subTitle={companyContact?.contact?.name}
         right={
           <>
             <RoundedIcon icon="phone" onPress={() => console.log('Pressed')} />

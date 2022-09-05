@@ -23,8 +23,6 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any) => {
-  console.log(' route?.params?.type', route?.params);
-
   if (route?.params?.notes) {
     noteList.push({
       id: noteList?.length + 1,

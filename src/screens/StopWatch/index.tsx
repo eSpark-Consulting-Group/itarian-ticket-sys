@@ -1,5 +1,5 @@
 import React, {useState, useReducer, useCallback} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
 import {useTheme, useFocusEffect, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
@@ -52,11 +52,29 @@ const StopWatchScreen = () => {
     };
 
     const handleDelete = (index: number) => {
-      const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
-      temp.splice(index, 1);
-      console.log('xxxxx', temp);
-      stopWatchDataList.set(temp);
-      forceUpdate();
+      Alert.alert(
+        'Delete StopWatch Entry?',
+        'Your stopwatch entry will be deleted permanently',
+        [
+          {
+            text: 'Yes',
+            style: 'default',
+            onPress: confirmDelete,
+          },
+          {
+            text: 'No',
+            style: 'cancel',
+            onPress: () => console.log('Pressed Cancel on Delete'),
+          },
+        ],
+      );
+      function confirmDelete() {
+        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
+        temp.splice(index, 1);
+        console.log('xxxxx', temp);
+        stopWatchDataList.set(temp);
+        forceUpdate();
+      }
     };
 
     return (

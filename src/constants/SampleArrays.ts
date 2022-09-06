@@ -1,4 +1,3 @@
-import {AdditionalButtonStyle} from '.';
 import Images from '../assets/images';
 import {
   Activity,
@@ -403,7 +402,7 @@ export const activitiesList: Array<Activity> = [
 export const expReportList: Array<ExpReportList> = [
   {
     id: 1,
-    date: new Date(2022, 7, 1),
+    date: new Date(2022, 7, 9),
     totExp: 723,
     data: [
       {
@@ -431,7 +430,7 @@ export const expReportList: Array<ExpReportList> = [
   },
   {
     id: 2,
-    date: new Date(2022, 7, 5),
+    date: new Date(2022, 7, 14),
     totExp: 1123,
     data: [
       {
@@ -627,14 +626,14 @@ export const stopWatchList: Stopwatch[] = [
     ticket_no: '#12348',
     ticket_summary: 'Checking for Mantaince',
     created_at: '20, June 2021',
-    timer: '00:13:42',
+    timer: '00:00:00',
     isPlaying: false,
   },
   {
     ticket_no: '#56231',
     ticket_summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
-    timer: '00:08:10',
+    timer: '00:00:00',
     isPlaying: false,
   },
 ];

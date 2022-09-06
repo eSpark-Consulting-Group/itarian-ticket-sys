@@ -315,8 +315,8 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewExpenseReport"
         component={NewExpenseReport}
-        options={({route, navigation}) => ({
-          title: 'Add Expense',
+        options={({route, navigation}: any) => ({
+          title: route?.params?.title ||  'Add Expense',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -365,8 +365,8 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewTimeSheet"
         component={NewTimeSheet}
-        options={({route, navigation}) => ({
-          title: 'Add Time',
+        options={({route, navigation}: any) => ({
+          title: route?.params?.title || 'Add Time',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

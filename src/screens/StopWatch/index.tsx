@@ -1,5 +1,5 @@
-import React, {useState, useReducer, useCallback} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState, useReducer, useCallback} from 'react';
+import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
 import {useTheme, useFocusEffect, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
@@ -10,7 +10,11 @@ import {State, useState as useHState} from '@hookstate/core';
 import styles from './style';
 import {stopWatchList} from '../../constants/SampleArrays';
 import {Stopwatch} from '../../types';
-import {EmptyListMsg, SimpleLoader} from '../../components';
+import {
+  EmptyListMsg,
+  SimpleLoader,
+  StopWatch as MyStopWatch,
+} from '../../components';
 import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
 
@@ -48,11 +52,29 @@ const StopWatchScreen = () => {
     };
 
     const handleDelete = (index: number) => {
-      const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
-      temp.splice(index, 1);
-      console.log('xxxxx', temp);
-      stopWatchDataList.set(temp);
-      forceUpdate();
+      Alert.alert(
+        'Delete StopWatch Entry?',
+        'Your stopwatch entry will be deleted permanently',
+        [
+          {
+            text: 'Yes',
+            style: 'default',
+            onPress: confirmDelete,
+          },
+          {
+            text: 'No',
+            style: 'cancel',
+            onPress: () => console.log('Pressed Cancel on Delete'),
+          },
+        ],
+      );
+      function confirmDelete() {
+        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
+        temp.splice(index, 1);
+        console.log('xxxxx', temp);
+        stopWatchDataList.set(temp);
+        forceUpdate();
+      }
     };
 
     return (
@@ -128,14 +150,18 @@ const StopWatchScreen = () => {
                         color={colors.primary}
                         style={{alignSelf: 'center', marginRight: 5}}
                       />
-                      <Text
-                        style={{
-                          color: colors.primary,
-                          fontWeight: 'bold',
-                          fontSize: 18,
-                        }}>
-                        {item.timer}
-                      </Text>
+                      <MyStopWatch
+                        timerStyle={{
+                          text: {
+                            color: colors.primary,
+                            fontWeight: 'bold',
+                            fontSize: 18,
+                          },
+                        }}
+                        start={item.isPlaying}
+                        getTime={time => console.log('kia ha time: ', time)}
+                        startTime={0}
+                      />
                     </View>
                     <TouchableOpacity disabled={item.isPlaying}>
                       <Text

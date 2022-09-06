@@ -219,3 +219,24 @@ export const AttachmentAdditionalButtons: Array<AdditionalButtons> = [
     onPress: () => console.log('Pressed star'),
   },
 ];
+
+export const ActivityAdditionalButtons: Array<AdditionalButtons> = [
+  {
+    icon: 'currency-usd',
+    label: 'Add Expense',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+  {
+    icon: 'clock-plus-outline',
+    label: 'Add Time',
+    color: '#FFF',
+    style: AdditionalButtonStyle,
+    labelTextColor: '#000000c2',
+    labelStyle: {backgroundColor: '#fff'},
+    onPress: () => console.log('Pressed star'),
+  },
+]

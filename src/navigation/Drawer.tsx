@@ -543,6 +543,7 @@ const Draw = () => {
         name="StopWatch"
         component={StopWatch}
         options={{
+          headerTitle: 'Stopwatch',
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Stopwatch</Text>
           ),

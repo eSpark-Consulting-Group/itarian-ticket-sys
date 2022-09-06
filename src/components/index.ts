@@ -21,6 +21,7 @@ import CstmTabBar from './CstmTabBar';
 import {CstmPressable} from './CstmPressable';
 import GapView from './GapView';
 import {PriorityField, SingleLineField} from './FormFields';
+import NotFound from './NotFound';
 
 export {
   CstmButton,
@@ -47,4 +48,5 @@ export {
   SingleLineField,
   CstmTitleInput,
   CstmPressable,
+  NotFound,
 };

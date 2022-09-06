@@ -32,7 +32,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
     },
     {
       title: 'Please Select',
-      subTitle: 'Jan 17, 2020',
+      subTitle: 'Date',
       rightIcon: 'calendar',
       onPress: () => {
         setShowDate(true);
@@ -66,7 +66,6 @@ const NewExpenseReport = ({route, navigation}: any) => {
                 cameraPicker({cropping: false}).then((res: any) => {
                   let newData = [...dataSource];
                   newData[5].title = res?.path.split('/').pop();
-                  console.log('response', res?.path.split('/').pop());
                   setDataSource(newData);
                 });
               }}
@@ -78,7 +77,6 @@ const NewExpenseReport = ({route, navigation}: any) => {
               imagePicker({cropping: false}).then((res: any) => {
                 let newData = [...dataSource];
                 newData[5].title = res?.path.split('/').pop();
-                console.log('response', res?.path.split('/').pop());
                 setDataSource(newData);
               });
             }}
@@ -138,6 +136,16 @@ const NewExpenseReport = ({route, navigation}: any) => {
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
+    }
+
+    if(route?.params?.data && route?.params?.data?.from == "ExpenseReportsScreen") {
+      let newData = [...dataSource];
+      newData[0].title = route?.params?.data?.ticket?.ticket_no;
+      newData[1].title = route?.params?.data?.date;
+      newData[2].title = route?.params?.data?.ticket?.expType;
+      newData[3].rightChild = <Text>{route?.params?.data?.totExp}</Text>
+      newData[6].title = route?.params?.data?.ticket?.ticket_summary;
+      setDataSource(newData);
     }
   }, [route?.params]);
 

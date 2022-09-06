@@ -84,8 +84,8 @@ const ExpenseReportsScreen = ({navigation}: any) => {
                 <ListItem
                   onPress={ticket => {
                     navigation.navigate('Stack1', {
-                      screen: 'STickets',
-                      params: {title: ticket.ticket_no.toString()},
+                      screen: 'NewExpenseReport',
+                      params: {title: "Edit Expense", data: {ticket: ticket, date: item.date.toDateString(), totExp: item.totExp, from: "ExpenseReportsScreen"}},
                     });
                   }}
                   dataSource={item}

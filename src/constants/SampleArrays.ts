@@ -818,7 +818,7 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type: NotesType.Discussion,
+    type: NotesType.Internal,
   },
   {
     id: 5,
@@ -826,7 +826,7 @@ export const noteList: Item[] = [
     title: 'Template 5',
     time: '12:19 AM',
     date: '19 Nov, 2021',
-    type: NotesType.Discussion,
+    type: NotesType.Internal,
   },
   {
     id: 6,
@@ -835,7 +835,7 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type: NotesType.Discussion,
+    type: NotesType.Internal,
   },
   {
     id: 7,
@@ -843,7 +843,7 @@ export const noteList: Item[] = [
     title: 'Template 7',
     time: '12:19 AM',
     date: '19 Nov, 2021',
-    type: NotesType.Discussion,
+    type: NotesType.Accounting,
   },
   {
     id: 8,
@@ -852,7 +852,7 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type: NotesType.Discussion,
+    type: NotesType.Accounting,
   },
   {
     id: 9,
@@ -861,6 +861,6 @@ export const noteList: Item[] = [
     time: '12:19 AM',
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
-    type: NotesType.Discussion,
+    type: NotesType.Informational,
   },
 ];

@@ -101,7 +101,7 @@ export default class StopWatch extends Component<
       ? this.interval
       : setInterval(() => {
           this.setState({elapsed: new Date().getTime() - this.state.startTime});
-        }, 1);
+        }, 1000);
   }
 
   stop() {

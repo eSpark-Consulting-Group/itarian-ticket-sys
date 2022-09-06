@@ -8,12 +8,8 @@ import UnscheduledTab from './Unscheduled';
 const Tab = createMaterialTopTabNavigator();
 
 const AgendaScreen = ({route}: any) => {
-  console.log('ROUTE PROPS', route?.params);
 
   const {colors}: Theme = useTheme();
-  // useEffect(() => {
-
-  // }, [])
 
   return (
     <Tab.Navigator

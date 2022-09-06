@@ -866,29 +866,4 @@ export const noteList: Item[] = [
   },
 ];
 
-export const fileIcons: any = {
-  pdf: {
-    icon: 'file-pdf-box',
-    color: '#f40f02',
-  },
-  xls: {
-    icon: 'microsoft-excel',
-    color: '#1D6F42',
-  },
-  xlsx: {
-    icon: 'microsoft-excel',
-    color: '#1D6F42',
-  },
-  txt: {
-    icon: 'file-document',
-    color: '#8585858a',
-  },
-  doc: {
-    icon: 'file-document',
-    color: '#8585858a',
-  },
-  docx: {
-    icon: 'file-document',
-    color: '#8585858a',
-  },
-};
+

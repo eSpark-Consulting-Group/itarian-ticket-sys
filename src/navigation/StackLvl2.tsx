@@ -13,6 +13,7 @@ import {State, useState} from '@hookstate/core';
 import {Attachments} from '../components/Attachments/index';
 import {AttachmentDetails} from '../components/Attachments/view/attachmentDetails';
 import {globalState} from '../stores/globalAppState';
+import { EditTicket } from '../forms/EditTicket';
 
 const Stack = createNativeStackNavigator();
 
@@ -140,6 +141,31 @@ const StackLvl2 = ({navigation, route}: any) => {
             <FA
               size={27}
               name="save"
+              color={'#fff'}
+              onPress={() => onSave(navigation, route)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="EditTicket"
+        component={EditTicket}
+        options={({route, navigation}: any) => ({
+          title: "Edit Ticket",
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <II
+              size={30}
+              name="checkmark"
               color={'#fff'}
               onPress={() => onSave(navigation, route)}
             />

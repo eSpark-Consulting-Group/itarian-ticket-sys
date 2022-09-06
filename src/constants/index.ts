@@ -1,6 +1,6 @@
 import {Dimensions} from 'react-native';
 
-export const BUILD_VERSION = '0.6.08';
+export const BUILD_VERSION = '0.6.09';
 
 export const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} =
   Dimensions.get('window');
@@ -38,3 +38,30 @@ export const GONE_TO_ARRAY = [
     check: 'unchecked',
   },
 ];
+
+export const fileIcons: any = {
+  pdf: {
+    icon: 'file-pdf-box',
+    color: '#f40f02',
+  },
+  xls: {
+    icon: 'microsoft-excel',
+    color: '#1D6F42',
+  },
+  xlsx: {
+    icon: 'microsoft-excel',
+    color: '#1D6F42',
+  },
+  txt: {
+    icon: 'file-document',
+    color: '#8585858a',
+  },
+  doc: {
+    icon: 'file-document',
+    color: '#8585858a',
+  },
+  docx: {
+    icon: 'file-document',
+    color: '#8585858a',
+  },
+};

@@ -4,7 +4,7 @@ import ModalView from '../ModalView';
 import EmptyListMsg from '../EmptyListMsg';
 import FloatButton from '../FloatButton';
 import {styles} from './styles';
-import {fileIcons} from '../../constants/SampleArrays';
+import {fileIcons} from '../../constants/';
 import {AttachmentAdditionalButtons} from '../../constants/ButtonsList';
 import {
   cameraPicker,

@@ -3,7 +3,7 @@ import {View, Text, Image} from 'react-native';
 import {SingleLineField} from '../../FormFields';
 import ModalView from '../../ModalView';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
-import { fileIcons } from '../../../constants/SampleArrays';
+import { fileIcons } from '../../../constants/';
 interface Item {
   title: string;
   subTitle?: string;

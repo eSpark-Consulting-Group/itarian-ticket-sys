@@ -388,7 +388,7 @@ export const activitiesList: Array<Activity> = [
 export const expReportList: Array<ExpReportList> = [
   {
     id: 1,
-    date: new Date(2022, 7, 1),
+    date: new Date(2022, 7, 9),
     totExp: 723,
     data: [
       {
@@ -416,7 +416,7 @@ export const expReportList: Array<ExpReportList> = [
   },
   {
     id: 2,
-    date: new Date(2022, 7, 5),
+    date: new Date(2022, 7, 14),
     totExp: 1123,
     data: [
       {

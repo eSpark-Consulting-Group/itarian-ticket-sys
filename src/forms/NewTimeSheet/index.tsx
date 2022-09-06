@@ -90,6 +90,19 @@ const NewTimeSheet = ({route}: any) => {
       newData[1].title = route?.params?.date;
       setDataSource(newData);
     }
+
+    if(route?.params?.data && route?.params?.data?.from == "TimeSheet") {
+      let newData = [...dataSource];
+      newData[0].title = route?.params?.data?.ticket?.ticket_no;
+      newData[1].title = route?.params?.data?.date;
+      newData[2].title = route?.params?.data?.ticket?.schedule_time?.split('-')[0] || "Please select";
+      newData[3].title =  route?.params?.data?.ticket?.schedule_time?.split('-')[1] || "Please select";
+      newData[4].title = route?.params?.data?.totHrs?.toString();
+      newData[5].title = route?.params?.data?.ticket?.phase;
+      newData[6].title = route?.params?.data?.ticket?.site;
+      newData[7].title = route?.params?.data?.ticket?.ticket_summary;
+      setDataSource(newData);
+    }
   }, [route?.params]);
 
   const updateInput = (e: string, index: number) => {

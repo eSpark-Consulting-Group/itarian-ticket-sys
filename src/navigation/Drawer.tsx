@@ -63,7 +63,7 @@ import {
 } from '../constants/SampleArrays';
 import CstmBadge from '../components/CtsmBadge';
 import Images from '../assets/images';
-import { userStore } from '../stores/userStore';
+import {userStore} from '../stores/userStore';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -565,6 +565,7 @@ const Draw = () => {
         name="StopWatch"
         component={StopWatch}
         options={{
+          headerTitle: 'Stopwatch',
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Stopwatch</Text>
           ),

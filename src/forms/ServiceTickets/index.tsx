@@ -51,7 +51,7 @@ const App = ({navigation, route}: any) => {
       console.log('route?.params?.companyContact',route?.params?.companyContact);
       setCompanyContact({...route.params?.companyContact})
     }
-  }, (route?.params));
+  }, [route?.params]);
 
   useEffect(() => {
     updatePress();

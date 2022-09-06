@@ -9,7 +9,8 @@ import {
   CstmTabBar,
   FloatButton,
 } from '../../components';
-import {companiesList, contactsList, STicketsAdditionalButtons} from '../../constants/SampleArrays';
+import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
+import {companyNameList, contactNameList} from '../../constants/SelectionList';
 import {AdditionalButtons, SelectFields} from '../../types';
 import Details from './Details';
 import Notes from './Notes';
@@ -27,8 +28,8 @@ const App = ({navigation, route}: any) => {
     STicketsAdditionalButtons,
   );
   const [companyContact, setCompanyContact] = useState<any>({
-    contact: contactsList[0],
-    company: companiesList[0]
+    contact: contactNameList[0],
+    company: companyNameList[0]
   })
 
   const updatePress = () => {
@@ -48,7 +49,6 @@ const App = ({navigation, route}: any) => {
 
   useEffect(() => {
     if(route?.params?.companyContact) {
-      console.log('route?.params?.companyContact',route?.params?.companyContact);
       setCompanyContact({...route.params?.companyContact})
     }
   }, [route?.params]);
@@ -61,7 +61,6 @@ const App = ({navigation, route}: any) => {
     });
   }, []);
 
-  console.log("companyContact companyContact", companyContact)
   return (
     <ModalView>
       <ModalHeader

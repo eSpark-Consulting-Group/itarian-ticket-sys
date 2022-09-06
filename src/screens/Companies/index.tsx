@@ -11,7 +11,7 @@ import {companiesList} from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import {CstmPressable} from '../../components';
-import { searchFromArray } from '../../utils/helperFunctions';
+import {searchFromArray} from '../../utils/helperFunctions';
 
 const Companies = () => {
   const {colors, dark}: Theme = useTheme();
@@ -30,12 +30,12 @@ const Companies = () => {
   };
 
   const searchFilterFunction = async (text: string) => {
-      var result = await searchFromArray({
-        text: text || '',
-        list: companiesList,
-        keys: ['name', 'id'],
-      });
-      setFilteredCompanies(result);
+    var result = await searchFromArray({
+      text: text || '',
+      list: companiesList,
+      keys: ['name', 'id'],
+    });
+    setFilteredCompanies(result);
   };
 
   const handleClear = () => {

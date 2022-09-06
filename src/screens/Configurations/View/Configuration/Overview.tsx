@@ -13,7 +13,7 @@ import {
   manufacturerNameList,
   siteNameList,
   vendorNameList,
-} from '../../../../constants/SampleArrays';
+} from '../../../../constants/SelectionList';
 
 interface Item {
   title: string;

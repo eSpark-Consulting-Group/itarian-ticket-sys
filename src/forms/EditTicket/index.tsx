@@ -2,7 +2,7 @@ import { useIsFocused } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {SingleLineField} from '../../components';
-import {companyNameList, contactsList} from '../../constants/SampleArrays';
+import {companyNameList, contactNameList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
 
 interface Item {
@@ -36,7 +36,7 @@ export const EditTicket = ({navigation, route}: any) => {
       title: route?.params?.companyContact?.contact?.name,
       rightIcon: 'chevron-right',
       headerTitle: 'Contact',
-      list: contactsList,
+      list: contactNameList,
       selectedItem: route?.params?.companyContact?.contact,
       searchable: false,
     },

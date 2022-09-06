@@ -10,7 +10,11 @@ import {State, useState as useHState} from '@hookstate/core';
 import styles from './style';
 import {stopWatchList} from '../../constants/SampleArrays';
 import {Stopwatch} from '../../types';
-import {EmptyListMsg, SimpleLoader} from '../../components';
+import {
+  EmptyListMsg,
+  SimpleLoader,
+  StopWatch as MyStopWatch,
+} from '../../components';
 import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
 
@@ -128,14 +132,16 @@ const StopWatchScreen = () => {
                         color={colors.primary}
                         style={{alignSelf: 'center', marginRight: 5}}
                       />
-                      <Text
-                        style={{
-                          color: colors.primary,
-                          fontWeight: 'bold',
-                          fontSize: 18,
-                        }}>
-                        {item.timer}
-                      </Text>
+                      <MyStopWatch
+                        timerStyle={{
+                          text: {
+                            color: colors.primary,
+                            fontWeight: 'bold',
+                            fontSize: 18,
+                          },
+                        }}
+                        start={item.isPlaying}
+                      />
                     </View>
                     <TouchableOpacity disabled={item.isPlaying}>
                       <Text

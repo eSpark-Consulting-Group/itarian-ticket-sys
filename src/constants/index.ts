@@ -38,8 +38,3 @@ export const GONE_TO_ARRAY = [
     check: 'unchecked',
   },
 ];
-
-export const AdditionalButtonStyle = {
-  backgroundColor: '#28648f',
-  borderRadius: 1000,
-};

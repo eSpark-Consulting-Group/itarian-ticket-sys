@@ -70,136 +70,142 @@ const StopWatchScreen = () => {
       );
       function confirmDelete() {
         const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
-        temp.splice(index, 1);
-        console.log('xxxxx', temp);
+        // temp.splice(index, 1);
+        temp[index].show = false;
         stopWatchDataList.set(temp);
         forceUpdate();
       }
     };
 
-    return (
-      <View style={{...styles.listContainer, backgroundColor: solidColor}}>
-        <View>
-          <View
-            style={{
-              ...styles.listInner,
-            }}>
-            <View style={{flexDirection: 'row'}}>
-              <View
-                style={{
-                  backgroundColor: colors.primary,
-                  ...styles.priorityContainer,
-                }}>
-                <Ions name="pricetag" color={'#ffffff'} size={18} />
-              </View>
-              <View
-                style={{
-                  ...styles.listItemContainer,
-                }}>
+    if(item.show) {
+      return (
+        <View style={{...styles.listContainer, backgroundColor: solidColor}}>
+          <View>
+            <View
+              style={{
+                ...styles.listInner,
+              }}>
+              <View style={{flexDirection: 'row'}}>
                 <View
                   style={{
-                    ...styles.horizontalItemStyles,
+                    backgroundColor: colors.primary,
+                    ...styles.priorityContainer,
                   }}>
-                  <Text style={{...styles.title, color: colors.text}}>
-                    Ticket {item.ticket_no}
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{...styles.title, color: colors.text}}>
-                    {item.ticket_summary}
-                  </Text>
+                  <Ions name="pricetag" color={'#ffffff'} size={18} />
                 </View>
                 <View
                   style={{
-                    marginTop: 10,
-                    ...styles.horizontalItemStyles,
+                    ...styles.listItemContainer,
                   }}>
                   <View
                     style={{
                       ...styles.horizontalItemStyles,
-                      flex: 0.35,
-                      padding: 8,
                     }}>
-                    <TouchableOpacity
-                      style={{paddingHorizontal: 8}}
-                      onPress={() => handleDelete(index)}>
-                      <FD name="trash" size={20} color={colors.primary} />
-                    </TouchableOpacity>
-                    <View style={{width: 8}} />
-                    <TouchableOpacity
-                      style={{
-                        paddingHorizontal: 8,
-                      }}
-                      onPress={() => handlePlayPause(item.isPlaying, index)}>
-                      <FD
-                        name={item.isPlaying ? 'pause' : 'play'}
-                        size={22}
-                        color={colors.primary}
-                      />
-                    </TouchableOpacity>
+                    <Text style={{...styles.title, color: colors.text}}>
+                      Ticket {item.ticket_no}
+                    </Text>
                   </View>
-                  <View style={{flex: 1}}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{...styles.title, color: colors.text}}>
+                      {item.ticket_summary}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: 10,
+                      ...styles.horizontalItemStyles,
+                    }}>
                     <View
                       style={{
                         ...styles.horizontalItemStyles,
-                        justifyContent: 'flex-end',
+                        flex: 0.35,
+                        padding: 8,
                       }}>
-                      <FT
-                        name="stopwatch"
-                        size={18}
-                        color={colors.primary}
-                        style={{alignSelf: 'center', marginRight: 5}}
-                      />
-                      <MyStopWatch
-                        timerStyle={{
-                          text: {
-                            color: colors.primary,
-                            fontWeight: 'bold',
-                            fontSize: 18,
-                          },
-                        }}
-                        start={item.isPlaying}
-                        getTime={time => console.log('kia ha time: ', time)}
-                        startTime={0}
-                      />
-                    </View>
-                    <TouchableOpacity disabled={item.isPlaying}>
-                      <Text
+                      <TouchableOpacity
+                        style={{paddingHorizontal: 8}}
+                        onPress={() => handleDelete(index)}>
+                        <FD name="trash" size={20} color={colors.primary} />
+                      </TouchableOpacity>
+                      <View style={{width: 8}} />
+                      <TouchableOpacity
                         style={{
-                          color: colors.primary,
-                          textAlign: 'right',
+                          paddingHorizontal: 8,
+                        }}
+                        onPress={() => handlePlayPause(item.isPlaying, index)}>
+                        <FD
+                          name={item.isPlaying ? 'pause' : 'play'}
+                          size={22}
+                          color={colors.primary}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{flex: 1}}>
+                      <View
+                        style={{
+                          ...styles.horizontalItemStyles,
+                          justifyContent: 'flex-end',
                         }}>
-                        {item.isPlaying
-                          ? item.created_at
-                          : 'Create a Time Entry'}
-                      </Text>
-                    </TouchableOpacity>
+                        <FT
+                          name="stopwatch"
+                          size={18}
+                          color={colors.primary}
+                          style={{alignSelf: 'center', marginRight: 5}}
+                        />
+                        <MyStopWatch
+                          timerStyle={{
+                            text: {
+                              color: colors.primary,
+                              fontWeight: 'bold',
+                              fontSize: 18,
+                            },
+                          }}
+                          start={item.isPlaying}
+                          // getTime={time => console.log('kia ha time: ', time)}
+                          startTime={0}
+                          index={index}
+                        />
+                      </View>
+                      <TouchableOpacity disabled={item.isPlaying}>
+                        <Text
+                          style={{
+                            color: colors.primary,
+                            textAlign: 'right',
+                          }}>
+                          {item.isPlaying
+                            ? item.created_at
+                            : 'Create a Time Entry'}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-            <View
-              style={{
-                ...styles.horizontalItemStyles,
-              }}>
-              <View></View>
+              <View
+                style={{
+                  ...styles.horizontalItemStyles,
+                }}>
+                <View></View>
+              </View>
             </View>
           </View>
+          {index !== stopWatchDataList.get()?.length - 1 && (
+            <Divider
+              style={{backgroundColor: colors.text, ...styles.dividerStyle}}
+            />
+          )}
         </View>
-        {index !== stopWatchDataList.get()?.length - 1 && (
-          <Divider
-            style={{backgroundColor: colors.text, ...styles.dividerStyle}}
-          />
-        )}
-      </View>
-    );
+      );
+    }else {
+      return  <View />
+    }
+    
   };
 
   return (
     <View style={{...styles.container, backgroundColor: colors.background}}>
       {isLoading ? (
         <SimpleLoader />
-      ) : stopWatchDataList.get()?.length !== 0 ? (
+      ) : (stopWatchDataList.get()?.length != 0 && !stopWatchDataList.get()?.every((val: any) => !val?.show)) ? (
         <FlatList data={stopWatchDataList.get()} renderItem={renderList} />
       ) : (
         <NotFound />

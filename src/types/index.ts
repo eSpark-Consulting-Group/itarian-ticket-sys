@@ -204,6 +204,7 @@ export type Stopwatch = {
   created_at: string;
   timer: string;
   isPlaying?: boolean;
+  show?: boolean
 };
 
 export type ScreenItems = {

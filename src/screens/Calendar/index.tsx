@@ -82,7 +82,6 @@ const Calendar = ({navigation}: any) => {
       title: 'Ticket #12420',
       summary: '3412 Piedmont Rd NE, GA 3032',
       eventType: 'Activity',
-
     },
     {
       start: '2022-09-06 11:30:00',
@@ -114,6 +113,9 @@ const Calendar = ({navigation}: any) => {
         width={WINDOW_WIDTH}
         initDate={new Date()}
         styles={{
+          eventTitle: {color: colors.text},
+          eventSummary: {color: colors.text + 'e7'},
+          eventTimes: {color: colors.text},
           contentStyle: {backgroundColor: dark ? '#000' : '#fff'},
           header: {
             backgroundColor: dark ? colors.background : '#F5F5F6',

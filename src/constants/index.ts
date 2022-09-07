@@ -57,11 +57,11 @@ export const fileIcons: any = {
     color: '#8585858a',
   },
   doc: {
-    icon: 'file-document',
-    color: '#8585858a',
+    icon: 'microsoft-word',
+    color: '#1992fa',
   },
   docx: {
-    icon: 'file-document',
-    color: '#8585858a',
+    icon: 'microsoft-word',
+    color: '#1992fa',
   },
 };

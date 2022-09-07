@@ -71,6 +71,7 @@ export default class EventCalendar extends React.Component<MyProps, any> {
         scrollToFirst={scrollToFirst}
         initDate={''}
         size={0}
+        scrollToCurrentTime={this.props.scrollToCurrentTime}
       />
     );
   }

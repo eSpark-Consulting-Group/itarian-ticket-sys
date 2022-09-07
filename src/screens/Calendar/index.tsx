@@ -126,6 +126,7 @@ const Calendar = ({navigation}: any) => {
         events={filArr}
         width={WINDOW_WIDTH}
         initDate={new Date()}
+        scrollToCurrentTime={true}
         styles={{
           eventTitle: {color: colors.text},
           eventSummary: {color: colors.text + 'e7'},

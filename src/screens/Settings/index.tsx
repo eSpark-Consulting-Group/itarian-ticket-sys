@@ -37,9 +37,14 @@ const SettingsScreen = () => {
     // watch the swtich state for theme change
     if (isSwitchOn) {
       themeValue.set('dark');
-      console.log('chala');
+      store.update('theme', {
+        theme: 'dark',
+      });
     } else {
       themeValue.set('light');
+      store.update('theme', {
+        theme: 'light',
+      });
     }
   }, [isSwitchOn]);
 

@@ -65,6 +65,11 @@ const App = () => {
         dNavName.set(res?.dNavName);
       }
     });
+    store.get('theme').then((res: any) => {
+      if (res) {
+        themeValue.set(res?.theme);
+      }
+    });
     console.log('Theme State', themeValue.get());
   }, [themeValue.get()]);
 

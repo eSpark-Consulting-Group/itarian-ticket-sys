@@ -113,6 +113,7 @@ const Calendar = ({navigation}: any) => {
         events={events}
         width={WINDOW_WIDTH}
         initDate={new Date()}
+        scrollToCurrentTime={true}
         styles={{
           contentStyle: {backgroundColor: dark ? '#000' : '#fff'},
           header: {

@@ -5,6 +5,7 @@ import React from 'react';
 import moment, {Moment} from 'moment';
 import _ from 'lodash';
 import {ThemeStyle} from './style';
+import { Alert } from 'react-native';
 
 const LEFT_MARGIN = 60 - 1;
 // const RIGHT_MARGIN = 10
@@ -29,6 +30,7 @@ export interface MyProps {
   eventTapped: (e: any) => void;
   initDate: string | any;
   scrollToFirst?: boolean;
+  scrollToCurrentTime?: boolean;
   size: number;
   virtualizedListProps?: object;
   styles: ThemeStyle;
@@ -59,6 +61,7 @@ export default class DayView extends React.PureComponent<MyProps, any> {
 
   componentDidMount() {
     this.props.scrollToFirst && this.scrollToFirst();
+    this.props.scrollToCurrentTime && this.scrollToCurrentTime();
   }
 
   scrollToFirst() {
@@ -67,6 +70,20 @@ export default class DayView extends React.PureComponent<MyProps, any> {
         this._scrollView.scrollTo({
           x: 0,
           y: this.state._scrollY,
+          animated: true,
+        });
+      }
+    }, 1);
+  }
+
+  scrollToCurrentTime() {
+    const offset = CALENDER_HEIGHT / 24;
+    const timeNowHour = moment().hour();
+    setTimeout(() => {
+      if (this.state && this.state._scrollY && this._scrollView) {
+        this._scrollView.scrollTo({
+          x: 0,
+          y: offset * timeNowHour,
           animated: true,
         });
       }

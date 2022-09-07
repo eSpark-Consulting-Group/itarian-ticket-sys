@@ -78,7 +78,7 @@ export const imagePicker = async ({
 
 export const documentPicker = async ({}) => {
   try {
-    const result = DocumentPicker.pickSingle({
+    const result = await DocumentPicker.pickSingle({
       presentationStyle: 'fullScreen',
       copyTo: 'cachesDirectory',
       type: [

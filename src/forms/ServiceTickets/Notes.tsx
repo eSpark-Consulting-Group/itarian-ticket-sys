@@ -142,7 +142,7 @@ const Notes = () => {
             renderItem={renderList}
             showsVerticalScrollIndicator={false}
             ListFooterComponent={<View />}
-            ListFooterComponentStyle={{height: 120}}
+            ListFooterComponentStyle={{height: 70}}
             ItemSeparatorComponent={() => (
               <Divider
                 style={{backgroundColor: colors.background, height: 1.2}}

@@ -51,6 +51,7 @@ const dataSource: Item[] = [
     title: '123 Elm Street Tampa, Fl 32364 United States',
     titleWidth: moderateScale(130),
     subTitle: 'Address',
+    enable: false,
   },
   {
     title: 'Board 1',
@@ -124,6 +125,7 @@ const Overview = () => {
       navigation.navigate('Stack2', {
         screen: 'CstmItemSelector',
         params: {
+          ...route?.params,
           from: 'STickets',
           item: index,
           data: item.list,

@@ -41,9 +41,9 @@ export const EditTicket = ({navigation, route}: any) => {
       searchable: false,
     },
   ]);
-
+  console.log("route?.params?.companyContact", route?.params?.from)
   useEffect(() => {
-    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+    if (route?.params?.item?.toString() && route?.params?.from == 'EditTicket') {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;

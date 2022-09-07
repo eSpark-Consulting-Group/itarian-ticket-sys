@@ -55,7 +55,6 @@ export default class EventCalendar extends React.Component<MyProps, any> {
   _renderItem({index, item}: any) {
     const {width, format24h, initDate, scrollToFirst} = this.props;
     const date = moment(initDate).add(index - this.props.size, 'days');
-    console.log('ITEM', item);
     return (
       <DayView
         key={index}

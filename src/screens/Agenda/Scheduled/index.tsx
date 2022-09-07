@@ -50,8 +50,6 @@ const ScheduledTab = ({route, navigation}: any) => {
     const filTickets = schTicks.filter(
       val => val?.assigned_to == activeMember.get(),
     );
-    console.log('Schedule Tickets', schTicks);
-    console.log('Filtered Tickets', filTickets);
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
       scheduledList.map(item => {

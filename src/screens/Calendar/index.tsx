@@ -37,56 +37,59 @@ const Calendar = ({navigation}: any) => {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect');
     setToggle(!toggle);
   }, [dark]);
 
   const events = [
     {
-      start: '2022-08-26 10:00:00',
-      end: '2022-08-26 12:00:00',
+      start: '2022-09-07 10:00:00',
+      end: '2022-09-07 12:00:00',
       title: 'Ticket #15378',
       summary: 'The System is down',
       eventType: 'Service Ticket',
     },
     {
-      start: '2022-08-26 12:30:00',
-      end: '2022-08-26 13:30:00',
+      start: '2022-09-07 12:30:00',
+      end: '2022-09-07 13:30:00',
       title: 'Lunch',
       eventType: 'Activity',
     },
     {
-      start: '2022-08-26 16:10:00',
-      end: '2022-08-26 16:40:00',
+      start: '2022-09-07 16:10:00',
+      end: '2022-09-07 16:40:00',
       title: 'Ticket #15490',
       summary: 'Printer not working',
       eventType: 'Service Ticket',
     },
     {
-      start: '2022-08-26 14:30:00',
-      end: '2022-08-26 16:00:00',
+      start: '2022-09-07 14:30:00',
+      end: '2022-09-07 16:00:00',
       title: 'Ticket #15490',
       summary: 'Reception workstation install',
       eventType: 'Service Ticket',
     },
 
     {
-      start: '2022-07-08 16:10:00',
-      end: '2022-07-08 16:40:00',
+      start: '2022-09-06 16:10:00',
+      end: '2022-09-06 16:40:00',
       title: 'Ticket #14645',
       summary: '3412 Piedmont Rd NE, GA 3032',
+      eventType: 'Service Ticket',
     },
     {
-      start: '2022-07-08 12:45:00',
-      end: '2022-07-08 13:45:00',
+      start: '2022-09-06 12:45:00',
+      end: '2022-09-06 13:45:00',
       title: 'Ticket #12420',
       summary: '3412 Piedmont Rd NE, GA 3032',
+      eventType: 'Activity',
+
     },
     {
-      start: '2022-07-08 11:30:00',
-      end: '2022-07-08 12:30:00',
+      start: '2022-09-06 11:30:00',
+      end: '2022-09-06 12:30:00',
       title: 'Ticket #16456',
       summary: '3412 Piedmont Rd NE, GA 3032',
+      eventType: 'Service Ticket',
     },
 
     {

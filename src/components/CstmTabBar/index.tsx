@@ -17,7 +17,6 @@ export default function CstmTabBar(props: any) {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
   const {dark, colors}: Theme = useTheme();
   const {routes, index: routeIndex} = props.navigationState;
-  console.log('kia ha props', props.navigationState);
 
   const renderList = (item: Item, index: number) => {
     const highlight =

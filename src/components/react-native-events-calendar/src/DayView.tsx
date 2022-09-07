@@ -80,10 +80,10 @@ export default class DayView extends React.PureComponent<MyProps, any> {
     const offset = CALENDER_HEIGHT / 24;
     const timeNowHour = moment().hour();
     setTimeout(() => {
-      if (this.state && this.state._scrollY && this._scrollView) {
+      if (this._scrollView) {
         this._scrollView.scrollTo({
           x: 0,
-          y: offset * timeNowHour,
+          y: offset * timeNowHour - 100,
           animated: true,
         });
       }

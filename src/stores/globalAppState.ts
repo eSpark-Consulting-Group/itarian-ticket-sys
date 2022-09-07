@@ -10,4 +10,5 @@ export const globalState = createState({
   shortCutScreen: null,
   user: false,
   agendaMember: 'John Doe',
+  calendarMember: 'John Doe',
 });

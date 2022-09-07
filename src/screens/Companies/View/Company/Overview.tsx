@@ -8,7 +8,7 @@ import {
 } from '../../../../components';
 import {moderateScale} from 'react-native-size-matters';
 import {SelectFields} from '../../../../types';
-import { redirectToMap } from '../../../../utils/helperFunctions';
+import {redirectToMap} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
 import {useState as useHState, State} from '@hookstate/core';
 
@@ -42,7 +42,7 @@ const Overview = () => {
       rightChild: (
         <RoundedIcon
           icon="map-marker-outline"
-          onPress={() => redirectToMap(24.918009, 67.106047, defaultNav)}
+          onPress={() => redirectToMap(34.923264, -120.429214, defaultNav)}
         />
       ),
       enable: false,

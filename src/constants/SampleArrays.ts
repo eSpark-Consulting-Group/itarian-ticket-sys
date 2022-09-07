@@ -120,6 +120,21 @@ export const ticketsList: Ticket[] = [
     site: 'Remote',
     assigned_to: 'Kevin Spacey',
   },
+  {
+    id: 6,
+    ticket_no: '#15529',
+    age: 14.5,
+    company: 'Fact Tech',
+    ticket_summary: 'Purchasing new Instruments and Equipments',
+    status: 'Scheduled',
+    priority: 'P3',
+    phase: 'New',
+    schedule_time: null,
+    time_dur: '2.5h',
+    project: 'Server Migration',
+    site: 'Remote',
+    assigned_to: 'John Doe',
+  },
 ];
 
 export const companiesList: Array<Company> = [
@@ -520,10 +535,10 @@ export const StatusFormArray: Array<ModalFormArrayType> = [
 ];
 
 export const GoneToFormArray: SelectFields[] = [
-  {id: 1, name: 'Appointment'},
-  {id: 2, name: 'Client'},
-  {id: 3, name: 'Gone for the day'},
-  {id: 4, name: 'Lunch'},
+  {id: 1, name: 'Lunch'},
+  {id: 2, name: 'Appointment'},
+  {id: 3, name: 'Client'},
+  {id: 4, name: 'Gone for the day'},
   {id: 5, name: 'Other'},
   {id: 6, name: 'Sick'},
   {id: 7, name: 'Vacation'},

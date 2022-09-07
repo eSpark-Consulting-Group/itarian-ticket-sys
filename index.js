@@ -10,6 +10,7 @@ import Splash from './src/screens/Splash/Splash';
 import {name as appName} from './app.json';
 import RNBootSplash from 'react-native-bootsplash';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
+import FlashMessage from 'react-native-flash-message';
 
 QuickActions.setShortcutItems([
   {
@@ -56,10 +57,13 @@ const Screen = () => {
       setState(true);
     }, 3000);
   }, []);
-  LogBox.ignoreLogs(['Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date()'])
+  LogBox.ignoreLogs([
+    'Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date()',
+  ]);
   return state === true ? (
     <Provider>
       <App />
+      <FlashMessage position="top" />
     </Provider>
   ) : (
     <Splash />

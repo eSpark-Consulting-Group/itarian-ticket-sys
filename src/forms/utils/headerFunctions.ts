@@ -1,18 +1,29 @@
 //Function for My Status screen header's right button
+import {Alert} from 'react-native';
 import Images from '../../assets/images';
 import {noteList} from '../../constants/SampleArrays';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const saveStatus = (navigation: any, route: any, activeStatus: any) => {
   console.log('route.params', route?.params);
-  if (route?.params) {
+  if (route.params?.status && route.params?.backDate == '-') {
+    showMessage({
+      message: 'Please select Date Back',
+      type: 'warning',
+      icon: 'warning',
+    });
+  } else {
     activeStatus?.currentStatus.set(route.params?.status);
     activeStatus?.currentGoneTo.set({...route.params?.goneTo});
+    activeStatus?.additionalInfo.set(route.params?.addInfo);
+    activeStatus?.dateBack.set(route.params?.backDate);
+    activeStatus?.timeBack.set(route.params?.backTime);
+    navigation.navigate({
+      name: 'Profile',
+      params: {status: route.params.status},
+      merge: true,
+    });
   }
-  navigation.navigate({
-    name: 'Profile',
-    params: {status: route.params.status},
-    merge: true,
-  });
 };
 
 //Function for Gone To Screen header's left button

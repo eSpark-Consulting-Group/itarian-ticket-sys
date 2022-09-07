@@ -12,7 +12,7 @@ import {
   unscheduledList,
 } from '../../../constants/SampleArrays';
 import {UnschAdditionalButtons} from '../../../constants/ButtonsList';
-import {FloatButton} from '../../../components';
+import {FloatButton, NotFound} from '../../../components';
 import {AdditionalButtons, ScheduledList} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
 
@@ -51,10 +51,12 @@ const UnscheduledTab = ({navigation}: any) => {
     console.log('Schedule Tickets', schTicks);
     console.log('Filtered Tickets', filTickets);
     let aRR: ScheduledList[] = [];
-    scheduledList.map(item => {
-      let data = {id: item.id, date: item.date, data: filTickets};
-      aRR.push(data);
-    });
+    if (filTickets.length > 0) {
+      scheduledList.map(item => {
+        let data = {id: item.id, date: item.date, data: filTickets};
+        aRR.push(data);
+      });
+    }
     console.log('Filtered List', aRR);
     setFilArr(aRR);
   }, [activeMember.get()]);
@@ -65,20 +67,24 @@ const UnscheduledTab = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={filArr}
-        renderItem={({item}) => (
-          <ListItem
-            dataSource={item}
-            onPress={iValue =>
-              navigation.navigate('Stack1', {
-                screen: 'STickets',
-                params: {title: iValue.ticket_no},
-              })
-            }
-          />
-        )}
-      />
+      {filArr.length > 0 ? (
+        <FlatList
+          data={filArr}
+          renderItem={({item}) => (
+            <ListItem
+              dataSource={item}
+              onPress={iValue =>
+                navigation.navigate('Stack1', {
+                  screen: 'STickets',
+                  params: {title: iValue.ticket_no},
+                })
+              }
+            />
+          )}
+        />
+      ) : (
+        <NotFound label="Tickets" />
+      )}
       <FloatButton AdditionalButtons={actionButtons} />
     </View>
   );

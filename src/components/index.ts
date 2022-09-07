@@ -22,6 +22,7 @@ import {CstmPressable} from './CstmPressable';
 import GapView from './GapView';
 import {PriorityField, SingleLineField} from './FormFields';
 import {StopWatch, Timer} from './CstmStopwatch';
+import NotFound from './NotFound';
 
 export {
   CstmButton,
@@ -48,6 +49,7 @@ export {
   SingleLineField,
   CstmTitleInput,
   CstmPressable,
+  NotFound,
   StopWatch,
   Timer,
 };

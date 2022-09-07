@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   emptyFieldStyle: {
-    width: WINDOW_WIDTH,
     paddingHorizontal: 15,
   },
 });

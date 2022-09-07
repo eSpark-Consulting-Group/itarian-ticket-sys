@@ -5,6 +5,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 import styles from './style';
 import GapView from '../GapView';
 import {CstmPressable} from '../CstmPressable';
+import {WINDOW_WIDTH} from '../../constants';
 
 const ModalField = ({
   pressEnable = true,
@@ -14,6 +15,7 @@ const ModalField = ({
   contentStyle,
   gap = true,
   border = false,
+  halfWidth = false,
 }: {
   pressEnable?: boolean;
   onPress?: () => void;
@@ -22,6 +24,7 @@ const ModalField = ({
   contentStyle?: ViewStyle;
   gap?: boolean;
   border?: boolean;
+  halfWidth?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const pressColor = dark ? '#ffffff1a' : '#0000001a';
@@ -43,6 +46,7 @@ const ModalField = ({
           disabled={!pressEnable}
           style={{
             ...styles.emptyFieldStyle,
+            width: halfWidth ? WINDOW_WIDTH / 2 : WINDOW_WIDTH,
             padding: fieldPadding,
             ...contentStyle,
           }}

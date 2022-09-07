@@ -1,29 +1,36 @@
 import React, {useEffect, useState} from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTheme, Theme} from '@react-navigation/native';
 import {State, useState as useHState} from '@hookstate/core';
 import {Switch} from 'react-native-paper';
+import DatePicker from '@react-native-community/datetimepicker';
 
 import {ModalView, SingleLineField} from '../../../../components';
 import {GoneToFormArray} from '../../../../constants/SampleArrays';
-import { userStore } from '../../../../stores/userStore';
+import {userStore} from '../../../../stores/userStore';
+import {View} from 'react-native';
 
 const MyStatus = ({route, navigation}: any) => {
   const currStatus: State<boolean> = useHState(userStore.currentStatus);
   const currGonTo: State<any> = useHState(userStore.currentGoneTo);
+  const addInf: State<string> = useHState(userStore.additionalInfo);
+  const backDate: State<string> = useHState(userStore.dateBack);
+  const backTime: State<string> = useHState(userStore.timeBack);
   // console.log('Route', route);
   const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();
 
   const [goneTo, setGoneTo] = useState<any>(null);
   const [goneToStatus, setGoneToStatus] = useState<any>(currStatus.get());
-  const [showTime, setShowTime] = useState(false);
   const [showDate, setShowDate] = useState(false);
-  const [currTime, setCurrTime] = useState(new Date());
-  const [currDate, setCurrDate] = useState(new Date());
-  const [timeDur, setTimeDur] = useState('--');
-  const [dateDur, setDateDur] = useState('--');
-  const [addInfo, setAddInfo] = useState('');
+  const [currDate, setCurrDate] = useState(backDate.get());
+  const [currTime, setCurrTime] = useState(backTime.get());
+  const [addInfo, setAddInfo] = useState(addInf.get());
+
+  const [mode, setMode] = useState<Mode>('date');
+  const [pickerType, setpickerType] = useState<PickerType>('db');
+
+  type Mode = 'date' | 'time';
+  type PickerType = 'db' | 'tb';
 
   useEffect(() => {
     if (route?.params?.item) {
@@ -49,37 +56,35 @@ const MyStatus = ({route, navigation}: any) => {
       status: goneToStatus,
       goneTo: goneTo,
       addInfo: addInfo,
+      backDate: currDate,
+      backTime: currTime,
     });
-  }, [goneTo, addInfo, goneToStatus]);
-
-  const closeTImePicker = (event: any, time: any) => {
-    setShowTime(false);
-    let hours = time.getHours();
-    let minutes = time.getMinutes();
-    let ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    console.log('Pressed Date', event, hours + ':' + minutes + ' ' + ampm);
-    if (event.type == 'set') {
-      setTimeDur(hours + ':' + minutes + ' ' + ampm);
-    }
-    setCurrTime(time);
-  };
-
-  const closeDatePicker = (event: any, date: any) => {
-    setShowDate(false);
-    let month = date.toString().slice(4, 7);
-    let dat = date.getDate();
-    let year = date.getFullYear();
-    console.log('Pressed Date', event, month + ' ' + dat + ',' + year);
-    if (event.type == 'set') {
-      setDateDur(month + ' ' + dat + ', ' + year);
-    }
-    setCurrDate(date);
-  };
+  }, [goneTo, addInfo, goneToStatus, currDate, currTime]);
 
   const changeSwitch = () => {
     setGoneToStatus(!goneToStatus);
+    setGoneTo(GoneToFormArray[0]);
+    setAddInfo('');
+    setCurrDate('-');
+    setCurrTime('-');
+  };
+
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+    let time = date.toString().substring(16, 21);
+
+    if (event?.type == 'set') {
+      switch (pickerType) {
+        case 'db':
+          setCurrDate(date?.toDateString());
+          break;
+        case 'tb':
+          setCurrTime(time);
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   return (
@@ -101,7 +106,7 @@ const MyStatus = ({route, navigation}: any) => {
       {goneToStatus && (
         <>
           <SingleLineField
-            title={goneTo?.name || 'Please Select'}
+            title={goneTo?.name}
             onPress={() =>
               navigation.navigate('Stack2', {
                 screen: 'CstmItemSelector',
@@ -128,21 +133,41 @@ const MyStatus = ({route, navigation}: any) => {
             inputable
             onChangeText={e => setAddInfo(e)}
           />
+          <View style={{flexDirection: 'row'}}>
+            <SingleLineField
+              leftIcon="calendar-month"
+              title={currDate}
+              subTitle="Date Back"
+              halfWidth={true}
+              onPress={() => {
+                setMode('date');
+                setpickerType('db');
+                setShowDate(true);
+              }}
+            />
+            <SingleLineField
+              leftIcon="timer-outline"
+              title={currTime}
+              subTitle="Time Back"
+              halfWidth={true}
+              onPress={() => {
+                setMode('time');
+                setpickerType('tb');
+                setShowDate(true);
+              }}
+            />
+          </View>
         </>
       )}
-      {showTime && (
-        <DateTimePicker
-          accentColor={colors.primary}
-          mode="time"
-          value={currTime}
-          onChange={closeTImePicker}
-        />
-      )}
       {showDate && (
-        <DateTimePicker
-          mode="date"
-          value={currDate}
-          onChange={closeDatePicker}
+        <DatePicker
+          mode={mode}
+          value={new Date()}
+          minimumDate={new Date()}
+          onChange={onChangeDate}
+          positiveButtonLabel={
+            pickerType == 'db' ? 'Set Date Back' : 'Set Time Back'
+          }
         />
       )}
     </ModalView>

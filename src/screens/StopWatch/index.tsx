@@ -1,4 +1,4 @@
-import React, {useState, useReducer, useCallback} from 'react';
+import React, {useEffect, useState, useReducer, useCallback} from 'react';
 import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
 import {useTheme, useFocusEffect, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
@@ -159,6 +159,8 @@ const StopWatchScreen = () => {
                           },
                         }}
                         start={item.isPlaying}
+                        getTime={time => console.log('kia ha time: ', time)}
+                        startTime={0}
                       />
                     </View>
                     <TouchableOpacity disabled={item.isPlaying}>

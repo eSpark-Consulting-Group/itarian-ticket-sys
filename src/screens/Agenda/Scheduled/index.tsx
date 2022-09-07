@@ -6,7 +6,7 @@ import {State, useState as useHState} from '@hookstate/core';
 
 import styles from './style';
 import ListItem from '../ListItem';
-import {FloatButton} from '../../../components';
+import {FloatButton, NotFound} from '../../../components';
 import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
 import {SchAdditionalButtons} from '../../../constants/ButtonsList';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
@@ -51,10 +51,12 @@ const ScheduledTab = ({route, navigation}: any) => {
       val => val?.assigned_to == activeMember.get(),
     );
     let aRR: ScheduledList[] = [];
-    scheduledList.map(item => {
-      let data = {id: item.id, date: item.date, data: filTickets};
-      aRR.push(data);
-    });
+    if (filTickets.length > 0) {
+      scheduledList.map(item => {
+        let data = {id: item.id, date: item.date, data: filTickets};
+        aRR.push(data);
+      });
+    }
     console.log('Filtered List', aRR);
     setFilArr(aRR);
   }, [activeMember.get()]);
@@ -65,23 +67,27 @@ const ScheduledTab = ({route, navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={filArr}
-        renderItem={({item}) => {
-          // console.log('ITEM', item);
-          return (
-            <ListItem
-              dataSource={item}
-              onPress={iValue => {
-                navigation.navigate('Stack1', {
-                  screen: 'STickets',
-                  params: {title: iValue.ticket_no.toString()},
-                });
-              }}
-            />
-          );
-        }}
-      />
+      {filArr.length > 0 ? (
+        <FlatList
+          data={filArr}
+          renderItem={({item}) => {
+            // console.log('ITEM', item);
+            return (
+              <ListItem
+                dataSource={item}
+                onPress={iValue => {
+                  navigation.navigate('Stack1', {
+                    screen: 'STickets',
+                    params: {title: iValue.ticket_no.toString()},
+                  });
+                }}
+              />
+            );
+          }}
+        />
+      ) : (
+        <NotFound label="Tickets" />
+      )}
       <FloatButton AdditionalButtons={actionButtons} />
     </View>
   );

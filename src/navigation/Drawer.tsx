@@ -63,7 +63,7 @@ import {
 } from '../constants/SampleArrays';
 import CstmBadge from '../components/CtsmBadge';
 import Images from '../assets/images';
-import { userStore } from '../stores/userStore';
+import {userStore} from '../stores/userStore';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -225,28 +225,6 @@ const Draw = () => {
             style={{left: 10}}
           />
         ),
-        // headerRight: () => (
-        //   <FA
-        //     size={30}
-        //     name="user"
-        //     color={'#fff'}
-        //     onPress={() =>
-        //       navigation.navigate('Stack2', {
-        //         screen: 'CstmItemSelector',
-        //         params: {
-        //           from: 'Agenda',
-        //           item: 'GoneTo',
-        //           data: contactsList,
-        //           selected: currMember,
-        //           stack: 'Draw',
-        //           headerTitle: 'Select Member',
-        //           searchable: true,
-        //         },
-        //       })
-        //     }
-        //     style={{right: 10}}
-        //   />
-        // ),
       }}>
       <Drawer.Screen
         name="FSLoader"
@@ -292,7 +270,7 @@ const Draw = () => {
                 Agenda
               </Text>
               <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
-                {currMember?.name || 'Jack Ma'}
+                {currMember?.name}
               </Text>
             </View>
           ),
@@ -342,7 +320,7 @@ const Draw = () => {
                 Calendar
               </Text>
               <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
-                {currMember?.name || 'Jack Ma'}
+                {'Dek Wright'}
               </Text>
             </View>
           ),
@@ -570,6 +548,7 @@ const Draw = () => {
         name="StopWatch"
         component={StopWatch}
         options={{
+          headerTitle: 'Stopwatch',
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Stopwatch</Text>
           ),

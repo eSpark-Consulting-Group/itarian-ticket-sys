@@ -36,6 +36,7 @@ interface Props {
   mode?: 'none' | 'multiline';
   leftIconStyles?: ViewStyle;
   fieldPadding?: number;
+  halfWidth?: boolean;
 }
 
 const SingleLineField = ({
@@ -62,6 +63,7 @@ const SingleLineField = ({
   mode = 'none',
   leftIconStyles = {},
   fieldPadding = 10,
+  halfWidth = false,
 }: Props) => {
   const {colors}: Theme = useTheme();
   return (
@@ -70,7 +72,8 @@ const SingleLineField = ({
       onPress={onPress}
       gap={gap}
       border={border}
-      fieldPadding={fieldPadding}>
+      fieldPadding={fieldPadding}
+      halfWidth={halfWidth}>
       <View
         style={{
           flexDirection: 'row',

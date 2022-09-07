@@ -127,6 +127,9 @@ const Calendar = ({navigation}: any) => {
         width={WINDOW_WIDTH}
         initDate={new Date()}
         styles={{
+          eventTitle: {color: colors.text},
+          eventSummary: {color: colors.text + 'e7'},
+          eventTimes: {color: colors.text},
           contentStyle: {backgroundColor: dark ? '#000' : '#fff'},
           header: {
             backgroundColor: dark ? colors.background : '#F5F5F6',

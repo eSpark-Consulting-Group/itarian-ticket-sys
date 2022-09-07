@@ -43,7 +43,9 @@ const App = () => {
   const themeValue: State<string> = useHState(globalState.theme);
   const user: State<any> = useHState(userStore.user);
   const shortCutScreen: State<any> = useHState(globalState.shortCutScreen);
-
+  const dSName: State<string> = useHState(globalState.defaultScreenName);
+  const dScreen: State<any> = useHState(globalState.defaultScreenId);
+  const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
   //! ----------------------------------------------------
 
   //! ---------------------------------------------------
@@ -51,6 +53,17 @@ const App = () => {
   useEffect(() => {
     store.get('user').then((res: any) => {
       if (res) user.set(res);
+    });
+    store.get('dSName').then((res: any) => {
+      if (res) {
+        dSName.set(res?.dSName);
+        dScreen.set(res?.dSId);
+      }
+    });
+    store.get('dNavName').then((res: any) => {
+      if (res) {
+        dNavName.set(res?.dNavName);
+      }
     });
     console.log('Theme State', themeValue.get());
   }, [themeValue.get()]);
@@ -74,7 +87,7 @@ const App = () => {
           prefixes: ['app://'],
           config,
         }}
-        fallback={<Splash />}
+        // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
         <Stack.Navigator>
           {!user.get() ? (

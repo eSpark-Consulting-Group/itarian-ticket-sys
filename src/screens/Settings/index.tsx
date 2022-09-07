@@ -10,6 +10,8 @@ import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
 import {CstmPressable} from '../../components/CstmPressable';
 import {getNavigtionApps} from '../../utils/helperFunctions';
+// @ts-ignore
+import store from 'react-native-simple-store';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHState(globalState.theme);
@@ -44,11 +46,18 @@ const SettingsScreen = () => {
   const handleDefaultSwitch = (id: string, name: string) => {
     dScreen.set(id);
     dSName.set(name);
+    store.update('dSName', {
+      dSName: name,
+      dSId: id
+    });
     setdefaultScreen(name);
   };
 
   const handleDefaultNaveSwitch = (id: string, name: string) => {
     dNavName.set(name);
+    store.update('dNavName', {
+      dNavName: name,
+    });
     setdefaultNav(name);
   };
 

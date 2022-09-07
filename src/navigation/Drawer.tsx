@@ -70,6 +70,9 @@ const Drawer = createDrawerNavigator<ParamList>();
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = hookState(userStore.currentStatus);
   const user: State<any> = hookState(userStore.user);
+  const dScreen: State<string> = hookState(globalState.defaultScreenId);
+  const dSName: State<string> = hookState(globalState.defaultScreenName);
+  const dNavName: State<string> = hookState(globalState.defaultnNavigationName);
 
   const {colors}: Theme = useTheme();
 
@@ -141,9 +144,11 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               <MCI name="logout" size={size} color={color} />
             )}
             onPress={() => {
-              console.log('Logout');
               user.set(false);
-              store.delete('user');
+              dSName.set('Agenda')
+              dScreen.set('Agenda')
+              dNavName.set('')
+              store.delete(['user', 'dSName', 'dNavName']);
             }}
           />
         </View>

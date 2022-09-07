@@ -103,6 +103,7 @@ export default function styleConstructor(theme: ThemeStyle = {}, item?: any) {
       position: 'absolute',
       left: leftMargin,
       backgroundColor: 'red',
+      zIndex: -1,
       ...theme.line,
     },
     timeLabel: {

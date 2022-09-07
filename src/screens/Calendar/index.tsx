@@ -10,10 +10,14 @@ import EventCalendar from '../../components/react-native-events-calendar/src/Eve
 import {SchAdditionalButtons} from '../../constants/ButtonsList';
 import {FloatButton} from '../../components';
 import {AdditionalButtons} from '../../types';
+import {globalState} from '../../stores/globalAppState';
+import {State, useState as useHState} from '@hookstate/core';
 
 const Calendar = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
+  const activeMember: State<string> = useHState(globalState.calendarMember);
   const [toggle, setToggle] = useState<any>(false);
+  const [filArr, setFilArr] = useState<any>([]);
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
 
@@ -31,6 +35,14 @@ const Calendar = ({navigation}: any) => {
     };
     setActionButtons(tempArr);
   };
+
+  useEffect(() => {
+    if (activeMember.get() == 'John Doe') {
+      setFilArr(events);
+    } else {
+      setFilArr([]);
+    }
+  }, [activeMember]);
 
   useEffect(() => {
     updatePress();
@@ -81,8 +93,7 @@ const Calendar = ({navigation}: any) => {
       end: '2022-09-06 13:45:00',
       title: 'Ticket #12420',
       summary: '3412 Piedmont Rd NE, GA 3032',
-      eventType: 'Activity',
-
+      eventType: 'Service Ticket',
     },
     {
       start: '2022-09-06 11:30:00',
@@ -97,12 +108,14 @@ const Calendar = ({navigation}: any) => {
       end: '2022-07-09 15:40:00',
       title: 'Ticket #13675',
       summary: '3412 Piedmont Rd NE, GA 3032',
+      eventType: 'Service Ticket',
     },
     {
       start: '2022-07-09 13:10:00',
       end: '2022-07-09 14:45:00',
       title: 'Ticket #15673',
       summary: '3412 Piedmont Rd NE, GA 3032',
+      eventType: 'Service Ticket',
     },
   ];
 
@@ -110,7 +123,7 @@ const Calendar = ({navigation}: any) => {
     <View style={styles.container}>
       <EventCalendar
         eventTapped={(item: any) => console.log('EVENT TAPPED', item)}
-        events={events}
+        events={filArr}
         width={WINDOW_WIDTH}
         initDate={new Date()}
         styles={{

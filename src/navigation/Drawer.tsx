@@ -145,9 +145,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             )}
             onPress={() => {
               user.set(false);
-              dSName.set('Agenda')
-              dScreen.set('Agenda')
-              dNavName.set('')
+              dSName.set('Agenda');
+              dScreen.set('Agenda');
+              dNavName.set('');
               store.delete(['user', 'dSName', 'dNavName']);
             }}
           />
@@ -171,16 +171,22 @@ const Draw = () => {
   const route: any = useRoute();
   const shortCutScreen: State<any> = hookState(globalState.shortCutScreen);
   const [currMember, setcurrMember] = useState<any>(contactsList[0]);
+  const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
 
   useEffect(() => {
     if (route?.params?.item) {
-      if (route?.params?.selected) {
+      console.log('route?.params?.', route?.params?.from);
+
+      if (route?.params?.from == 'Agenda') {
         setcurrMember(route?.params?.selected);
+      } else if (route?.params?.from == 'Calendar') {
+        setCalCurrMember(route?.params?.selected);
       } else {
         setcurrMember(currMember);
+        setCalCurrMember(calCurrMember);
       }
     }
   }, [route?.params]);
@@ -188,8 +194,10 @@ const Draw = () => {
   useEffect(() => {
     if (route?.params?.selected) {
       setcurrMember(route?.params?.selected);
+      setCalCurrMember(route?.params?.selected);
     } else {
       setcurrMember(currMember);
+      setCalCurrMember(calCurrMember);
     }
   }, []);
 
@@ -320,7 +328,7 @@ const Draw = () => {
                 Calendar
               </Text>
               <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
-                {'Dek Wright'}
+                {calCurrMember?.name}
               </Text>
             </View>
           ),
@@ -329,6 +337,28 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <Ionicons name="calendar" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <FA
+              size={30}
+              name="user"
+              color={'#fff'}
+              onPress={() =>
+                navigation.navigate('Stack2', {
+                  screen: 'CstmItemSelector',
+                  params: {
+                    from: 'Calendar',
+                    item: 'GoneTo',
+                    data: contactsList,
+                    selected: calCurrMember,
+                    stack: 'Draw',
+                    headerTitle: 'Select Member',
+                    searchable: true,
+                  },
+                })
+              }
+              style={{right: 10}}
+            />
           ),
         }}
       />

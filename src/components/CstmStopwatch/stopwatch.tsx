@@ -12,6 +12,7 @@ interface StopWatchProps {
   getTime?: (timer: number | string) => void;
   startTime?: number;
   getMsecs?: (timer: number | string) => void;
+  index?: number;
 }
 
 interface StopWatchStates {
@@ -143,7 +144,7 @@ export default class StopWatch extends Component<
     const styles = this.props.timerStyle
       ? this.props.timerStyle
       : this.defaultStyles;
-
+    console.log("index", this.props.index, this.formatTime());
     return (
       <View ref="stopwatch" style={styles.container}>
         <Text style={styles.text}>{this.formatTime()}</Text>

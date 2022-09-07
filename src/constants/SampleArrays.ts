@@ -628,6 +628,7 @@ export const stopWatchList: Stopwatch[] = [
     created_at: '20, June 2021',
     timer: '00:00:00',
     isPlaying: false,
+    show: true
   },
   {
     ticket_no: '#56231',
@@ -635,6 +636,7 @@ export const stopWatchList: Stopwatch[] = [
     created_at: '26, August 2019',
     timer: '00:00:00',
     isPlaying: false,
+    show: true
   },
 ];
 

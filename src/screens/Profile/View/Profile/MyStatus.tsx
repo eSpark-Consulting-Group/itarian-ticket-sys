@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import {State, useState as useHState} from '@hookstate/core';
 import {Switch} from 'react-native-paper';
 import DatePicker from '@react-native-community/datetimepicker';
 
-import {ModalView, SingleLineField} from '../../../../components';
+import {GapView, ModalView, SingleLineField} from '../../../../components';
 import {GoneToFormArray} from '../../../../constants/SampleArrays';
 import {userStore} from '../../../../stores/userStore';
-import {View} from 'react-native';
 
 const MyStatus = ({route, navigation}: any) => {
   const currStatus: State<boolean> = useHState(userStore.currentStatus);
@@ -133,6 +133,7 @@ const MyStatus = ({route, navigation}: any) => {
             inputable
             onChangeText={e => setAddInfo(e)}
           />
+          <GapView />
           <View style={{flexDirection: 'row'}}>
             <SingleLineField
               leftIcon="calendar-month"

@@ -50,8 +50,8 @@ export default function styleConstructor(theme: ThemeStyle = {}, item?: any) {
       ...theme.headerText,
     },
     arrow: {
-      width: 15,
-      height: 15,
+      width: 20,
+      height: 20,
       resizeMode: 'contain',
     },
     event: {
@@ -99,10 +99,12 @@ export default function styleConstructor(theme: ThemeStyle = {}, item?: any) {
       ...theme.line,
     },
     lineNow: {
-      height: 1,
       position: 'absolute',
-      left: leftMargin,
-      backgroundColor: 'red',
+      flexDirection: 'row',
+      // left: leftMargin,
+      left: 5,
+
+      // backgroundColor: 'red',
       zIndex: -1,
       ...theme.line,
     },

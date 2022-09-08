@@ -112,29 +112,31 @@ export const cameraPicker = async ({cropping = false}) => {
 };
 
 export const searchFromArray = async ({
-  text = "",
+  text = '',
   list = [],
-  keys = []
+  keys = [],
 }: {
-  text: string
-  list: any
-  keys: any
+  text: string;
+  list: any;
+  keys: any;
 }) => {
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = list?.filter((item: any) => {
-        const itemData = keys?.map((value: any) => `${item[value]?.toUpperCase()}`)?.join(" ");
-        const textData = text?.toUpperCase();
-        return itemData?.indexOf(textData) > -1;
-      });
-      return newData;
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      return list;
-    }
+  if (text) {
+    // Inserted text is not blank
+    // Filter the masterDataSource
+    // Update FilteredDataSource
+    const newData = list?.filter((item: any) => {
+      const itemData = keys
+        ?.map((value: any) => `${item[value]?.toUpperCase()}`)
+        ?.join(' ');
+      const textData = text?.toUpperCase();
+      return itemData?.indexOf(textData) > -1;
+    });
+    return newData;
+  } else {
+    // Inserted text is blank
+    // Update FilteredDataSource with masterDataSource
+    return list;
+  }
 };
 
 export const getDatesInRange = (startDate: any, endDate: any) => {
@@ -147,4 +149,4 @@ export const getDatesInRange = (startDate: any, endDate: any) => {
     date.setDate(date.getDate() + 1);
   }
   return dates;
-}
+};

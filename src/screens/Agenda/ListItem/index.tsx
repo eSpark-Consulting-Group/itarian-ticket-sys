@@ -14,14 +14,16 @@ import {Ticket} from '../../../types';
 const ListItem = ({
   dataSource,
   renderDate = true,
+  flag,
   onPress,
 }: {
   dataSource: any;
   renderDate?: boolean;
+  flag?: boolean;
   onPress?: (item: Ticket) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
-  const navigation: any = useNavigation()
+  const navigation: any = useNavigation();
   const renderData = (item2: any, ind: number) => {
     return (
       <CstmPressable
@@ -107,15 +109,17 @@ const ListItem = ({
 
   const renderAddTime = (date: Date) => {
     return (
-      <CstmPressable onPress={() => {
-        navigation.navigate('Stack1', {
-          screen: 'NewTimeSheet',
-          params: {date: date.toDateString()}
-        });
-      }}>
+      <CstmPressable
+        onPress={() => {
+          navigation.navigate('Stack1', {
+            screen: 'NewTimeSheet',
+            params: {date: date.toDateString()},
+          });
+        }}>
         <View style={[styles.itemContentContainer, {paddingHorizontal: 20}]}>
           <View style={styles.itemContentIconContainer}>
-            <View style={[styles.itemContentIcon, {backgroundColor: "#bdbdbd"}]}>
+            <View
+              style={[styles.itemContentIcon, {backgroundColor: '#bdbdbd'}]}>
               <MCI name="clock-outline" size={22} color="#fff" />
             </View>
           </View>
@@ -142,7 +146,13 @@ const ListItem = ({
           renderItem={({item, index}) => renderData(item, index)}
         />
       ) : (
-         renderAddTime(dataSource?.date)
+        !flag && renderAddTime(dataSource?.date)
+      )}
+      {flag && (
+        <FlatList
+          data={renderDate ? dataSource.data : dataSource}
+          renderItem={({item, index}) => renderData(item, index)}
+        />
       )}
     </View>
   );
@@ -156,6 +166,7 @@ export const RenderTickets = ({listData}: {listData: Ticket[]}) => {
         <View style={styles.renderListContainer}>
           <ListItem
             dataSource={listData}
+            flag={true}
             renderDate={false}
             onPress={iValue =>
               navigation.navigate('Stack1', {

@@ -3,8 +3,10 @@ import React, {useEffect, useState} from 'react';
 import {ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
+import { SelectFields } from '../../types';
+import { chargeCodeList, typeList, workRoleList } from '../../constants/SelectionList';
 
-const NewTimeSheet = ({route}: any) => {
+const NewTimeSheet = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');
@@ -17,6 +19,9 @@ const NewTimeSheet = ({route}: any) => {
       title: 'Please Select',
       subTitle: 'Charge Code',
       rightIcon: 'chevron-right',
+      list: chargeCodeList,
+      selectedItem: chargeCodeList[0],
+      headerTitle: 'Charge Code',
     },
     {
       title: 'Please Select',
@@ -49,8 +54,8 @@ const NewTimeSheet = ({route}: any) => {
       },
     },
     {title: '', subTitle: 'Time', inputable: true, enable: false},
-    {title: 'Please Select', subTitle: 'Work Role', rightIcon: 'chevron-right'},
-    {title: 'Please Select', subTitle: 'Work Type', rightIcon: 'chevron-right'},
+    {title: 'Please Select', subTitle: 'Work Role', rightIcon: 'chevron-right', list: workRoleList, selectedItem: workRoleList[0], headerTitle: 'Work Role'},
+    {title: 'Please Select', subTitle: 'Work Type', rightIcon: 'chevron-right', list: typeList, selectedItem: typeList[0], headerTitle: 'Work Type'},
     {
       title: '',
       subTitle: 'Notes',
@@ -74,13 +79,17 @@ const NewTimeSheet = ({route}: any) => {
     onChangeText?: (text: string) => void;
     mode?: 'none' | 'multiline';
     onPress?: () => void;
+    list?: SelectFields[];
+    selectedItem?: SelectFields;
+    searchable?: boolean;
+    headerTitle?: string;
   }
 
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
 
   useEffect(() => {
-    if (route?.params?.from) {
+    if (route?.params?.from && !route?.params?.item?.toString()) {
       let newData = [...dataSource];
       newData[9].title = 'Johnny Bravo';
       setDataSource(newData);
@@ -136,6 +145,35 @@ const NewTimeSheet = ({route}: any) => {
     }
   };
 
+   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+   useEffect(() => {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [route?.params]);
+
+  const handlePress = (item: Item, index: number) => {
+    if (item?.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          ...route?.params,
+          from: 'NewTimeSheet',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: item.searchable,
+        },
+      });
+    }
+  };
+
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -171,7 +209,7 @@ const NewTimeSheet = ({route}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
-              onPress={item?.onPress}
+              onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
             />
           ))}
         </View>

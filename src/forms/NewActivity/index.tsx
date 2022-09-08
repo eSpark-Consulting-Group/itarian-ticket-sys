@@ -6,9 +6,18 @@ import {State, useState as hookState} from '@hookstate/core';
 
 import {ModalView, SingleLineField} from '../../components';
 import {globalState} from '../../stores/globalAppState';
-import { userStore } from '../../stores/userStore';
+import {userStore} from '../../stores/userStore';
+import {
+  companyNameList,
+  contactNameList,
+  resourceList,
+  statusList,
+  typeList,
+  whereList,
+} from '../../constants/SelectionList';
+import {SelectFields} from '../../types';
 
-const NewActivity = ({route}: any) => {
+const NewActivity = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');
@@ -25,8 +34,24 @@ const NewActivity = ({route}: any) => {
       inputable: true,
       enable: false,
     },
-    {title: 'Please Select', subTitle: 'Company ', rightIcon: 'chevron-right'},
-    {title: 'Please Select', subTitle: 'Contact ', rightIcon: 'chevron-right'},
+    {
+      title: 'Please Select',
+      subTitle: 'Company ',
+      rightIcon: 'chevron-right',
+      list: companyNameList,
+      selectedItem: companyNameList[0],
+      searchable: true,
+      headerTitle: 'Company',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Contact ',
+      rightIcon: 'chevron-right',
+      list: contactNameList,
+      selectedItem: contactNameList[0],
+      searchable: true,
+      headerTitle: 'Contact',
+    },
     {
       title: 'Please Select',
       subTitle: 'Due Date ',
@@ -57,10 +82,38 @@ const NewActivity = ({route}: any) => {
         setShowDate(true);
       },
     },
-    {title: 'Please Select', subTitle: 'Type', rightIcon: 'chevron-right'},
-    {title: 'Please Select', subTitle: 'Where', rightIcon: 'chevron-right'},
-    {title: 'Please Select', subTitle: 'Status', rightIcon: 'chevron-right'},
-    {title: 'Please Select', subTitle: 'Resource', rightIcon: 'chevron-right'},
+    {
+      title: 'Please Select',
+      subTitle: 'Type',
+      rightIcon: 'chevron-right',
+      list: typeList,
+      selectedItem: typeList[0],
+      headerTitle: 'Type',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Where',
+      rightIcon: 'chevron-right',
+      list: whereList,
+      selectedItem: whereList[0],
+      headerTitle: 'Where',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Status',
+      rightIcon: 'chevron-right',
+      list: statusList,
+      selectedItem: statusList[0],
+      headerTitle: 'Status',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Resource',
+      rightIcon: 'chevron-right',
+      list: resourceList,
+      selectedItem: resourceList[0],
+      headerTitle: 'Resource',
+    },
     {
       title: '',
       subTitle: 'Notes',
@@ -84,6 +137,10 @@ const NewActivity = ({route}: any) => {
     onChangeText?: (text: string) => void;
     mode?: 'none' | 'multiline';
     onPress?: () => void;
+    list?: SelectFields[];
+    selectedItem?: SelectFields;
+    searchable?: boolean;
+    headerTitle?: string;
   }
 
   type Mode = 'date' | 'time';
@@ -128,6 +185,36 @@ const NewActivity = ({route}: any) => {
     }
   };
 
+
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [route?.params]);
+
+  const handlePress = (item: Item, index: number) => {
+    if (item?.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          ...route?.params,
+          from: 'NewActivity',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: item.searchable,
+        },
+      });
+    }
+  };
+
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -162,7 +249,7 @@ const NewActivity = ({route}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
-              onPress={item?.onPress}
+              onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
             />
           ))}
         </View>

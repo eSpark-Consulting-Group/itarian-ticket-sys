@@ -1,10 +1,12 @@
 import {View, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CstmButton, ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
+import {SelectFields} from '../../types';
+import {typeList, whereList} from '../../constants/SelectionList';
 
-const AddMiscSchedule = () => {
+const AddMiscSchedule = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');
@@ -22,9 +24,19 @@ const AddMiscSchedule = () => {
       title: 'Please Select',
       subTitle: 'Schedule Type',
       rightIcon: 'chevron-right',
+      list: typeList,
+      selectedItem: typeList[0],
+      headerTitle: 'Schedule Type',
     },
     {title: 'Johnny Bravo', subTitle: 'Member Name '},
-    {title: 'Please Select', subTitle: 'Where', rightIcon: 'chevron-right'},
+    {
+      title: 'Please Select',
+      subTitle: 'Where',
+      rightIcon: 'chevron-right',
+      list: whereList,
+      selectedItem: whereList[0],
+      headerTitle: 'Where',
+    },
     {
       title: 'Please Select',
       subTitle: 'Start Date ',
@@ -81,6 +93,10 @@ const AddMiscSchedule = () => {
     onChangeText?: (text: string) => void;
     mode?: 'none' | 'multiline';
     onPress?: () => void;
+    list?: SelectFields[];
+    selectedItem?: SelectFields;
+    searchable?: boolean;
+    headerTitle?: string;
   }
 
   type Mode = 'date' | 'time';
@@ -127,6 +143,34 @@ const AddMiscSchedule = () => {
     setDataSource(tempArr);
   };
 
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [route?.params]);
+
+  const handlePress = (item: Item, index: number) => {
+    if (item?.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          ...route?.params,
+          from: 'AddMiscSchedule',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: item.searchable,
+        },
+      });
+    }
+  };
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -163,7 +207,9 @@ const AddMiscSchedule = () => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={() => updateSwitch(index)}
               mode={item?.mode}
-              onPress={item?.onPress}
+              onPress={
+                item?.onPress ? item?.onPress : () => handlePress(item, index)
+              }
             />
           ))}
         </View>

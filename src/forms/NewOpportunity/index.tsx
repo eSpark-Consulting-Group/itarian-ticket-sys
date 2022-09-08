@@ -1,8 +1,10 @@
 import {View, ScrollView} from 'react-native';
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {ModalHeader, ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import {NoteTypes_ACIT} from '../../constants/SampleArrays';
+import { SelectFields } from '../../types';
+import { priorityList, probabilityList, ratingList, salesRepList, stageList, statusList, typeList } from '../../constants/SelectionList';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -22,36 +24,57 @@ const NewOpportunity = ({navigation, route}: any) => {
       title: 'Please Select',
       subTitle: 'Priority',
       rightIcon: 'chevron-right',
+      list: priorityList,
+      selectedItem: priorityList[0],
+      headerTitle: 'Priority',
     },
     {
       title: 'Please Select',
       subTitle: 'Status',
       rightIcon: 'chevron-right',
+      list: statusList,
+      selectedItem: statusList[0],
+      headerTitle: 'Status',
     },
     {
       title: 'Please Select',
       subTitle: 'Stage',
       rightIcon: 'chevron-right',
+      list: stageList,
+      selectedItem: stageList[0],
+      headerTitle: 'Stage',
     },
     {
       title: 'Please Select',
       subTitle: 'Probability',
       rightIcon: 'chevron-right',
+      list: probabilityList,
+      selectedItem: probabilityList[0],
+      headerTitle: 'Probability',
     },
     {
       title: 'Please Select',
       subTitle: 'Rating',
       rightIcon: 'chevron-right',
+      list: ratingList,
+      selectedItem: ratingList[0],
+      headerTitle: 'Rating',
     },
     {
       title: 'Please Select',
       subTitle: 'Type',
       rightIcon: 'chevron-right',
+      list: typeList,
+      selectedItem: typeList[0],
+      headerTitle: 'Type',
     },
     {
       title: 'Please Select',
       subTitle: 'Sales Rep',
       rightIcon: 'chevron-right',
+      list: salesRepList,
+      selectedItem: salesRepList[0],
+      headerTitle: 'Sales Rep',
     },
     {
       title: 'Add a Note',
@@ -91,6 +114,10 @@ const NewOpportunity = ({navigation, route}: any) => {
     leftIcon?: string;
     leftChild?: ReactNode;
     onPress?: () => void;
+    list?: SelectFields[];
+    selectedItem?: SelectFields;
+    searchable?: boolean;
+    headerTitle?: string;
   }
 
   const updateInput = (e: string, index: number) => {
@@ -100,6 +127,35 @@ const NewOpportunity = ({navigation, route}: any) => {
     console.log('New Data', newData);
     setDataSource(newData);
   };
+
+    // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+    useEffect(() => {
+      if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+        var obj: any = [...dataSource];
+        obj[route?.params?.item].title = route?.params?.selected?.name;
+        obj[route?.params?.item].selectedItem = route?.params?.selected;
+        setDataSource([...obj]);
+      }
+    }, [route?.params]);
+  
+    const handlePress = (item: Item, index: number) => {
+      if (item?.list) {
+        navigation.navigate('Stack2', {
+          screen: 'CstmItemSelector',
+          params: {
+            ...route?.params,
+            from: 'NewOpportunity',
+            item: index,
+            data: item.list,
+            selected: item.selectedItem,
+            stack: 'Stack1',
+            title: route?.params?.title,
+            headerTitle: item.headerTitle,
+            searchable: item.searchable,
+          },
+        });
+      }
+    };
 
   return (
     <ModalView bgColor={colors.card}>
@@ -122,7 +178,7 @@ const NewOpportunity = ({navigation, route}: any) => {
               rightIconRound={item.rightIconRound}
               roundedIconEnable={item.roundedIconEnable}
               onRoundedIconPress={item.onRoundedIconPress}
-              onPress={item.onPress}
+              onPress={item.onPress ? item.onPress : () => handlePress(item, index)}
             />
           ))}
         </View>

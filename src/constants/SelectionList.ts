@@ -549,3 +549,50 @@ export const paymentTypeList: SelectFields[] = [
     name: 'paymentType 3',
   },
 ];
+
+//? ------------------------------- Company Selector Fields
+export const stateList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'State 1',
+  },
+  {
+    id: 1,
+    name: 'State 2',
+  },
+  {
+    id: 2,
+    name: 'State 3',
+  },
+];
+
+export const countryList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Country 1',
+  },
+  {
+    id: 1,
+    name: 'Country 2',
+  },
+  {
+    id: 2,
+    name: 'Country 3',
+  },
+];
+
+//? ------------------------------- Timesheet Selector Fields
+export const workRoleList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'workRoleList 1',
+  },
+  {
+    id: 1,
+    name: 'workRoleList 2',
+  },
+  {
+    id: 2,
+    name: 'workRoleList 3',
+  },
+];

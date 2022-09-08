@@ -96,6 +96,8 @@ export default class EventCalendar extends React.Component<MyProps, any> {
     var tomorrow = new Date(this.state.date);
     tomorrow.setDate(tomorrow.getDate() + index);
     // const date = moment(this.state.date).add(index - this.props.size, 'days');
+    this.setState({currDate: tomorrow});
+
     const date = moment(tomorrow);
     console.log('State Date', this.state.date);
 

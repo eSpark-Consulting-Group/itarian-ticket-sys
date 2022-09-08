@@ -202,7 +202,7 @@ export type Stopwatch = {
   ticket_no: string;
   ticket_summary: string;
   created_at: string;
-  timer: string;
+  timer: number;
   isPlaying?: boolean;
   show?: boolean
 };

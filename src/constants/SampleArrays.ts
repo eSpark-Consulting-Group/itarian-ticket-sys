@@ -626,7 +626,7 @@ export const stopWatchList: Stopwatch[] = [
     ticket_no: '#12348',
     ticket_summary: 'Checking for Mantaince',
     created_at: '20, June 2021',
-    timer: '00:00:00',
+    timer: 0,
     isPlaying: false,
     show: true
   },
@@ -634,7 +634,7 @@ export const stopWatchList: Stopwatch[] = [
     ticket_no: '#56231',
     ticket_summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
-    timer: '00:00:00',
+    timer: 0,
     isPlaying: false,
     show: true
   },

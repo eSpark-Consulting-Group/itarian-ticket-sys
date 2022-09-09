@@ -1,5 +1,6 @@
-import React from 'react';
-import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
+import { State, useHookstate } from '@hookstate/core';
+import React, { useState } from 'react';
+import {StyleSheet, Text, View, Platform, UIManager, Linking} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
 import {
@@ -8,6 +9,8 @@ import {
   RoundedIcon,
   CstmTabBar,
 } from '../../../../components';
+import { globalState } from '../../../../stores/globalAppState';
+import { redirectToMap } from '../../../../utils/helperFunctions';
 import Details from './Details';
 import Notes from './Notes';
 import Overview from './Overview';
@@ -20,6 +23,8 @@ if (
 }
 
 export default function App() {
+  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+  const [defaultNav, setdefaultNav] = useState(dNavName.get());
   return (
     <ModalView>
       <ModalHeader
@@ -28,11 +33,11 @@ export default function App() {
         subTitle="John Doe"
         right={
           <>
-            <RoundedIcon icon="phone" onPress={() => console.log('Pressed')} />
+            <RoundedIcon icon="phone" onPress={() =>  Linking.openURL(`tel:090078601`)} />
             <View style={styles.adjuster} />
             <RoundedIcon
               icon="map-marker-outline"
-              onPress={() => console.log('Pressed')}
+              onPress={() => redirectToMap(34.923264, -120.429214, defaultNav)}
             />
           </>
         }

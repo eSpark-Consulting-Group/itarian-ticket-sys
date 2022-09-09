@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Linking} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Divider, Menu} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -79,7 +79,7 @@ const MyActivities = ({navigation}: any) => {
             <RoundedIcon
               enable={!_.isUndefined(item.company_contact)}
               icon="phone"
-              onPress={() => console.log('Phone Pressed')}
+              onPress={() => Linking.openURL(`tel:090078601`)}
             />
           </View>
         </CstmPressable>

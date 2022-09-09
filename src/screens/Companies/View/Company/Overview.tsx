@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView, Linking} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import {
   PriorityField,
@@ -33,7 +33,7 @@ const Overview = () => {
     {
       title: '(815)-555-1234',
       headerTitle: 'Company Phone No.',
-      rightChild: <RoundedIcon icon="phone" />,
+      rightChild: <RoundedIcon onPress={() => Linking.openURL(`tel:090078601`)} icon="phone" />,
       enable: false,
     },
     {
@@ -57,7 +57,7 @@ const Overview = () => {
     {
       title: 'TSmith@AcmeItSolutions.com',
       headerTitle: 'Email (Primary)',
-      rightChild: <RoundedIcon icon="email-outline" />,
+      rightChild: <RoundedIcon onPress={() => Linking.openURL('mailto:support@example.com')} icon="email-outline" />,
       enable: false,
     },
   ];

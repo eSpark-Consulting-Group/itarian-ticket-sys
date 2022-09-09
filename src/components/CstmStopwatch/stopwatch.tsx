@@ -168,11 +168,11 @@ export const StopWatch = ({start = false, startTime = 0, getTime = (time) => {},
     }
   }, [start]);
 
-  // useEffect(() => {
-  //   if (startTime) {
-  //       setDuration(startTime)
-  //   }
-  // }, [startTime]);
+  useEffect(() => {
+    if (startTime) {
+        setDuration(startTime)
+    }
+  }, [startTime]);
 
   useEffect(() => {
     return () => {

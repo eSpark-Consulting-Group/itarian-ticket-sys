@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Linking} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
@@ -107,7 +107,7 @@ const Oppurtunities = ({navigation, route}: any) => {
               enable={!_.isUndefined(item.contant_phone)}
               icon="phone"
               onPress={() => {
-                console.log('Press Phone');
+                Linking.openURL(`tel:090078601`)
               }}
             />
           </View>

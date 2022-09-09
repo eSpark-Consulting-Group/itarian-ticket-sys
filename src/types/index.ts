@@ -239,6 +239,10 @@ export type Filter = {
   showRightSwitch?: boolean;
   rightSwitchVal?: boolean;
   leftIcon?: string;
+  list?: SelectFields[];
+  selectedItem?: SelectFields;
+  searchable?: boolean;
+  headerTitle?: string;
 };
 
 export type Item = {

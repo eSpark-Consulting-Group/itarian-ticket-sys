@@ -20,6 +20,7 @@ import {
   QNATypes,
   NoteTypes,
 } from '../types';
+import { boardList, companyNameList, contactNameList, priorityList, siteList, statusList, subTypesList, typeList } from './SelectionList';
 
 /*
 //* Sample Array List Disposable in the Future
@@ -710,6 +711,9 @@ export const sBoardFiterList: Filter[] = [
     title: 'All',
     subTitle: 'Service Board',
     rightIcon: 'chevron-right',
+    list: boardList,
+    selectedItem: boardList[0],
+    headerTitle: 'Service Board',
   },
   {
     title: 'All',
@@ -720,21 +724,34 @@ export const sBoardFiterList: Filter[] = [
     title: 'Please Select',
     subTitle: 'Priority',
     rightIcon: 'chevron-right',
+    list: priorityList,
+    selectedItem: priorityList[0],
+    headerTitle: 'Priority',
   },
   {
     title: 'Please Select',
     subTitle: 'Company',
     rightIcon: 'chevron-right',
+    list: companyNameList,
+    selectedItem: companyNameList[0],
+    headerTitle: 'Company',
+    searchable: true,
   },
   {
     title: 'Please Select',
     subTitle: 'Site',
     enable: false,
+    list: siteList,
+    selectedItem: siteList[0],
+    headerTitle: 'Site',
   },
   {
     title: 'Contact',
     subTitle: 'Please Select',
     rightIcon: 'chevron-right',
+    list: contactsList,
+    selectedItem: contactsList[0],
+    headerTitle: 'Contact',
   },
   {
     title: 'All',
@@ -764,11 +781,17 @@ export const pBoardFilterList: Filter[] = [
     title: 'Service Projects',
     subTitle: 'Project Board',
     rightIcon: 'chevron-right',
+    list: siteList,
+    selectedItem: siteList[0],
+    headerTitle: 'Service Projects',
   },
   {
     title: 'All',
     subTitle: 'Status',
     rightIcon: 'chevron-right',
+    list: statusList,
+    selectedItem: statusList[0],
+    headerTitle: 'Status',
   },
 ];
 
@@ -783,11 +806,18 @@ export const opportunityFilterList: Filter[] = [
     title: 'John Doe',
     subTitle: 'Contact',
     rightIcon: 'chevron-right',
+    list: contactNameList,
+    selectedItem: contactNameList[0],
+    headerTitle: 'Contact',
+    searchable: true,
   },
   {
     title: 'All',
     subTitle: 'Status',
     rightIcon: 'chevron-right',
+    list: statusList,
+    selectedItem: statusList[0],
+    headerTitle: 'Status',
   },
   {
     subTitle: 'Close Date',
@@ -799,6 +829,9 @@ export const opportunityFilterList: Filter[] = [
     title: 'All',
     subTitle: 'Type',
     rightIcon: 'chevron-right',
+    list: typeList,
+    selectedItem: typeList[0],
+    headerTitle: 'Type',
   },
 ];
 

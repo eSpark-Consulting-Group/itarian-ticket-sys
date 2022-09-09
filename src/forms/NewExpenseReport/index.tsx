@@ -188,7 +188,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
-              onPress={() => handlePress(item, index)}
+              onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
               rightChild={item?.rightChild}
             />
           ))}

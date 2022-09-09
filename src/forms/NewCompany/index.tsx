@@ -2,8 +2,8 @@ import {View, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
-import { SelectFields } from '../../types';
-import { countryList, siteList, stateList } from '../../constants/SelectionList';
+import {SelectFields} from '../../types';
+import {countryList, siteList, stateList} from '../../constants/SelectionList';
 
 const NewCompany = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -50,8 +50,22 @@ const NewCompany = ({route, navigation}: any) => {
       inputable: true,
       enable: false,
     },
-    {title: 'Please Select', subTitle: 'State', rightIcon: 'chevron-right', list: stateList, selectedItem: stateList[0], headerTitle: 'State',},
-    {title: 'Please Select', subTitle: 'Country', rightIcon: 'chevron-right', list: countryList, selectedItem: countryList[0], headerTitle: 'State',},
+    {
+      title: 'Please Select',
+      subTitle: 'State',
+      rightIcon: 'chevron-right',
+      list: stateList,
+      selectedItem: stateList[0],
+      headerTitle: 'State',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Country',
+      rightIcon: 'chevron-right',
+      list: countryList,
+      selectedItem: countryList[0],
+      headerTitle: 'State',
+    },
     {
       title: '',
       subTitle: 'First Name',
@@ -104,8 +118,8 @@ const NewCompany = ({route, navigation}: any) => {
     setDataSource(newData);
   };
 
-   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
-   useEffect(() => {
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
@@ -132,7 +146,6 @@ const NewCompany = ({route, navigation}: any) => {
       });
     }
   };
-
 
   return (
     <ModalView bgColor={colors.card}>

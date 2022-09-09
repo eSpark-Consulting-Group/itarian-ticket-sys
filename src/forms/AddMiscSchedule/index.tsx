@@ -28,7 +28,11 @@ const AddMiscSchedule = ({route, navigation}: any) => {
       selectedItem: typeList[0],
       headerTitle: 'Schedule Type',
     },
-    {title: 'Johnny Bravo', subTitle: 'Member Name '},
+    {
+      title: 'Johnny Bravo',
+      subTitle: 'Member Name',
+      enable: false,
+    },
     {
       title: 'Please Select',
       subTitle: 'Where',

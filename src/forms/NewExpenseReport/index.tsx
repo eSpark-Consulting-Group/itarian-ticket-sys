@@ -58,6 +58,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
     {
       title: 'Please Select',
       subTitle: 'Images',
+      enable: false,
       rightChild: (
         <View style={{flexDirection: 'row'}}>
           <View style={{marginHorizontal: 5}}>
@@ -138,12 +139,15 @@ const NewExpenseReport = ({route, navigation}: any) => {
       setDataSource([...obj]);
     }
 
-    if(route?.params?.data && route?.params?.data?.from == "ExpenseReportsScreen") {
+    if (
+      route?.params?.data &&
+      route?.params?.data?.from == 'ExpenseReportsScreen'
+    ) {
       let newData = [...dataSource];
       newData[0].title = route?.params?.data?.ticket?.ticket_no;
       newData[1].title = route?.params?.data?.date;
       newData[2].title = route?.params?.data?.ticket?.expType;
-      newData[3].rightChild = <Text>{route?.params?.data?.totExp}</Text>
+      newData[3].rightChild = <Text>{route?.params?.data?.totExp}</Text>;
       newData[6].title = route?.params?.data?.ticket?.ticket_summary;
       setDataSource(newData);
     }
@@ -188,7 +192,9 @@ const NewExpenseReport = ({route, navigation}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
-              onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
+              onPress={
+                item?.onPress ? item.onPress : () => handlePress(item, index)
+              }
               rightChild={item?.rightChild}
             />
           ))}

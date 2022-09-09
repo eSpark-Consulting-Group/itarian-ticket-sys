@@ -34,7 +34,7 @@ interface Item {
   rightChild?: ReactNode;
   searchable?: boolean;
   headerTitle?: string;
-  onPress?: () => void
+  onPress?: () => void;
 }
 
 type PickerType = 'PD' | 'ED' | 'ID';
@@ -52,7 +52,7 @@ const Overview = () => {
     {text: 'Some Test Notes'},
     {text: 'Some Test Vendor Notes'},
   ];
-  
+
   const [showDate, setShowDate] = useState(false);
   const [pickerType, setpickerType] = useState<PickerType>('PD');
   const [dataSource, setDataSource] = useState<Item[]>([
@@ -94,6 +94,7 @@ const Overview = () => {
       title: 'Tempor do laborum magna quis in fugiat ad ex eiusmod',
       rightIconRound: 'map-marker-outline',
       titleWidth: 160,
+      enable: false,
     },
     {
       subTitle: 'Type',
@@ -300,7 +301,7 @@ const Overview = () => {
 
   return (
     <>
-     {showDate && (
+      {showDate && (
         <DatePicker
           mode={'date'}
           value={new Date()}
@@ -327,7 +328,9 @@ const Overview = () => {
             onChangeSwitch={value => handleSwitchChange(value, index)}
             rightChild={item.rightChild}
             mode={item.mode}
-            onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
+            onPress={
+              item?.onPress ? item.onPress : () => handlePress(item, index)
+            }
           />
         ))}
       </ScrollView>

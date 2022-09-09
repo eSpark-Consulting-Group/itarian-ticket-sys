@@ -1,21 +1,24 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import styles from './style';
 import {Theme, useTheme} from '@react-navigation/native';
-import {WINDOW_WIDTH} from '../../constants';
+import DatePicker from '@react-native-community/datetimepicker';
+import {State, useState as useHState} from '@hookstate/core';
 
 // @ts-ignore
 import EventCalendar from '../../components/react-native-events-calendar/src/EventCalendar';
 
+import styles from './style';
+import {WINDOW_WIDTH} from '../../constants';
 import {SchAdditionalButtons} from '../../constants/ButtonsList';
 import {FloatButton} from '../../components';
 import {AdditionalButtons} from '../../types';
 import {globalState} from '../../stores/globalAppState';
-import {State, useState as useHState} from '@hookstate/core';
 
 const Calendar = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const activeMember: State<string> = useHState(globalState.calendarMember);
+  const [showDate, setShowDate] = useState(false);
+  const [currDate, setCurrDate] = useState(new Date());
   const [toggle, setToggle] = useState<any>(false);
   const [filArr, setFilArr] = useState<any>([]);
   const [actionButtons, setActionButtons] =
@@ -34,6 +37,14 @@ const Calendar = ({navigation}: any) => {
       });
     };
     setActionButtons(tempArr);
+  };
+
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+
+    if (event?.type == 'set') {
+      setCurrDate(date);
+    }
   };
 
   useEffect(() => {
@@ -125,8 +136,9 @@ const Calendar = ({navigation}: any) => {
         eventTapped={(item: any) => console.log('EVENT TAPPED', item)}
         events={filArr}
         width={WINDOW_WIDTH}
-        initDate={new Date()}
+        initDate={currDate}
         scrollToCurrentTime={true}
+        selectDate={() => setShowDate(true)}
         styles={{
           eventTitle: {color: colors.text},
           eventSummary: {color: colors.text + 'e7'},
@@ -140,6 +152,14 @@ const Calendar = ({navigation}: any) => {
         }}
       />
       <FloatButton AdditionalButtons={actionButtons} />
+      {showDate && (
+        <DatePicker
+          mode={'date'}
+          value={currDate}
+          onChange={onChangeDate}
+          positiveButtonLabel={'Set Date'}
+        />
+      )}
     </View>
   );
 };

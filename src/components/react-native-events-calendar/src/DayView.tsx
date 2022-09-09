@@ -5,8 +5,8 @@ import React from 'react';
 import moment, {Moment} from 'moment';
 import _ from 'lodash';
 import {ThemeStyle} from './style';
-import { Alert } from 'react-native';
-
+import {Alert} from 'react-native';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 const LEFT_MARGIN = 60 - 1;
 // const RIGHT_MARGIN = 10
 const CALENDER_HEIGHT = 2400;
@@ -36,6 +36,7 @@ export interface MyProps {
   styles: ThemeStyle;
   date?: Moment;
   index?: number;
+  selectDate?: () => void;
 }
 
 export default class DayView extends React.PureComponent<MyProps, any> {
@@ -96,6 +97,9 @@ export default class DayView extends React.PureComponent<MyProps, any> {
     const {width, styles}: any = this.props;
     const timeNowHour = moment().hour();
     const timeNowMin = moment().minutes();
+    const timeNow = moment().format('hh:mm A');
+    console.log('Time', timeNowHour, timeNowMin);
+
     return (
       <View
         key={`timeNow`}
@@ -105,8 +109,17 @@ export default class DayView extends React.PureComponent<MyProps, any> {
             top: offset * timeNowHour + (offset * timeNowMin) / 60,
             width: width - 20,
           },
-        ]}
-      />
+        ]}>
+        <View style={{flexDirection: 'row', position: 'absolute', bottom: -15}}>
+          <Text
+            style={{
+              color: 'red',
+            }}>
+            {timeNow}
+          </Text>
+          <MCI color={'red'} size={20} name="arrow-left-bold" />
+        </View>
+      </View>
     );
   }
 

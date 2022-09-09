@@ -19,6 +19,7 @@ import {
   typeList,
   whereList,
 } from '../../../../constants/SelectionList';
+import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
   title: string;
@@ -34,13 +35,20 @@ interface Item {
   searchable?: boolean;
   headerTitle?: string;
   gap?: boolean;
+  onPress?: () => void;
 }
+
+type Mode = 'date' | 'time';
+type PickerType = 'dd' | 'st' | 'et';
 
 const Overview = () => {
   const {colors}: Theme = useTheme();
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const item: Activity = route?.params?.data;
+  const [showDate, setShowDate] = useState(false);
+  const [mode, setMode] = useState<Mode>('date');
+  const [pickerType, setpickerType] = useState<PickerType>('dd');
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: item?.name,
@@ -59,17 +67,32 @@ const Overview = () => {
       title: item?.date,
       subTitle: 'Due Date',
       rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+      onPress: () => {
+        setMode('date');
+        setpickerType('dd');
+        setShowDate(true);
+      },
     },
     {
       title: item?.start_time,
       subTitle: 'Start Time',
       rightChild: <II name="ios-stopwatch" size={26} color={colors.primary} />,
+      onPress: () => {
+        setMode('time');
+        setpickerType('st');
+        setShowDate(true);
+      },
     },
     {
       title: item?.end_time,
       subTitle: 'End Time',
       rightChild: <II name="ios-stopwatch" size={26} color={colors.primary} />,
       gap: false,
+      onPress: () => {
+        setMode('time');
+        setpickerType('et');
+        setShowDate(true);
+      },
     },
     {
       title: 'Kyle Coney',
@@ -145,10 +168,49 @@ const Overview = () => {
       });
     }
   };
+
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+    let time = date.toString().substring(16, 21);
+
+    if (event?.type == 'set') {
+      switch (pickerType) {
+        case 'dd':
+          dataSource[2].title = date?.toDateString();
+          setDataSource([...dataSource]);
+          break;
+        case 'st':
+          dataSource[3].title = time;
+          setDataSource([...dataSource]);
+          break;
+        case 'et':
+          dataSource[4].title = time;
+          setDataSource([...dataSource]);
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={{alignItems: 'center'}}>
+      {showDate && (
+        <DatePicker
+          mode={mode}
+          value={new Date()}
+          minimumDate={new Date()}
+          onChange={onChangeDate}
+          positiveButtonLabel={
+            pickerType == 'dd'
+              ? 'Set Due Date'
+              : pickerType == 'st'
+              ? 'Confirm Start Time'
+              : 'Confirm End Time'
+          }
+        />
+      )}
       {dataSource.map((item: Item, index: number) => (
         <SingleLineField
           key={index}
@@ -160,7 +222,7 @@ const Overview = () => {
           rightIcon={item.rightIcon}
           rightChild={item.rightChild}
           mode={item.mode}
-          onPress={() => handlePress(item, index)}
+          onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
         />
       ))}
     </ScrollView>

@@ -4,7 +4,7 @@ import {StyleSheet, ScrollView} from 'react-native';
 import {SingleLineField} from '../../components';
 import {Filter} from '../../types';
 
-export default function App({route}: {route: any}) {
+export default function App({route, navigation}: {route: any, navigation: any}) {
   var {dataSource: dSource, title} = route?.params;
   const [dataSource, setDataSource] = useState(dSource);
 
@@ -17,6 +17,36 @@ export default function App({route}: {route: any}) {
     tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
     console.log('tempArr', tempArr);
     setDataSource(tempArr);
+  };
+
+
+   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+   useEffect(() => {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [route?.params]);
+
+  const handlePress = (item: Filter, index: number) => {
+    if (item?.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          ...route?.params,
+          from: 'Filters',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: item.searchable,
+        },
+      });
+    }
   };
 
   return (
@@ -36,6 +66,7 @@ export default function App({route}: {route: any}) {
           onChangeSwitch={() => updateSwitch(index)}
           leftIcon={item.leftIcon}
           leftIconStyles={{opacity: 1}}
+          onPress={() => handlePress(item, index)}
         />
       ))}
     </ScrollView>

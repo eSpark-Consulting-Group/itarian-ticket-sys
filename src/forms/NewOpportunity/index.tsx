@@ -5,9 +5,12 @@ import {Theme, useTheme} from '@react-navigation/native';
 import {NoteTypes_ACIT} from '../../constants/SampleArrays';
 import { SelectFields } from '../../types';
 import { priorityList, probabilityList, ratingList, salesRepList, stageList, statusList, typeList } from '../../constants/SelectionList';
+import DatePicker from '@react-native-community/datetimepicker';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
+  
+  const [showDate, setShowDate] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: '',
@@ -16,9 +19,12 @@ const NewOpportunity = ({navigation, route}: any) => {
       enable: false,
     },
     {
-      title: '',
+      title: 'Please Select',
       subTitle: 'Close Date',
       leftIcon: 'calendar-month',
+      onPress: () => {
+        setShowDate(true);
+      },
     },
     {
       title: 'Please Select',
@@ -157,8 +163,26 @@ const NewOpportunity = ({navigation, route}: any) => {
       }
     };
 
+    const onChangeDate = (event: any, date: any) => {
+      setShowDate(false);
+      let time = date.toString().substring(16, 21);
+  
+      if (event?.type == 'set') {
+        dataSource[1].title = date?.toDateString();
+        setDataSource([...dataSource]);
+      }
+    };
   return (
     <ModalView bgColor={colors.card}>
+      {showDate && (
+        <DatePicker
+          mode={'date'}
+          value={new Date()}
+          minimumDate={new Date()}
+          onChange={onChangeDate}
+        />
+      )}
+
       <ModalHeader
         icon="office-building-marker-outline"
         title="Select Company"

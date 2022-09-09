@@ -110,14 +110,16 @@ export default class DayView extends React.PureComponent<MyProps, any> {
             width: width - 20,
           },
         ]}>
-        <View style={{flexDirection: 'row', position: 'absolute', bottom: -15}}>
+        <View style={{flexDirection: 'row', position: 'absolute', zIndex: 1}}>
           <Text
             style={{
               color: 'red',
+              fontSize: 10,
+              textAlignVertical: 'center',
             }}>
             {timeNow}
           </Text>
-          <MCI color={'red'} size={20} name="arrow-left-bold" />
+          <MCI color={'red'} size={20} name="arrow-right-bold" />
         </View>
       </View>
     );

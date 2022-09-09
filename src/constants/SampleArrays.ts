@@ -20,7 +20,16 @@ import {
   QNATypes,
   NoteTypes,
 } from '../types';
-import { boardList, companyNameList, contactNameList, priorityList, siteList, statusList, subTypesList, typeList } from './SelectionList';
+import {
+  boardList,
+  companyNameList,
+  contactNameList,
+  priorityList,
+  siteList,
+  statusList,
+  subTypesList,
+  typeList,
+} from './SelectionList';
 
 /*
 //* Sample Array List Disposable in the Future
@@ -629,7 +638,7 @@ export const stopWatchList: Stopwatch[] = [
     created_at: '20, June 2021',
     timer: 0,
     isPlaying: false,
-    show: true
+    show: true,
   },
   {
     ticket_no: '#56231',
@@ -637,7 +646,7 @@ export const stopWatchList: Stopwatch[] = [
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
-    show: true
+    show: true,
   },
 ];
 
@@ -717,7 +726,7 @@ export const sBoardFiterList: Filter[] = [
   },
   {
     title: 'All',
-    subTitle: 'Service Board',
+    subTitle: 'Status',
     enable: false,
   },
   {

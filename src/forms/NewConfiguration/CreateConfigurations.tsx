@@ -4,6 +4,8 @@ import {ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import { SelectFields } from '../../types';
 import { companyNameList, contactNameList, manufacturerNameList, statusList, typeList, vendorNameList } from '../../constants/SelectionList';
+import DatePicker from '@react-native-community/datetimepicker';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Item {
   title: string;
@@ -22,12 +24,18 @@ interface Item {
   selectedItem?: SelectFields;
   searchable?: boolean;
   headerTitle?: string;
+  onPress?: () => void;
+  rightChild?: React.ReactNode;
 }
+
+type PickerType = 'PD' | 'ED' | 'ID';
 
 const NewConfiguration = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [billCustomer, setBillCustomer] = useState(false);
   const [needsRenewal, setNeedsRenewal] = useState(false);
+  const [showDate, setShowDate] = useState(false);
+  const [pickerType, setpickerType] = useState<PickerType>('PD');
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: '',
@@ -103,17 +111,29 @@ const NewConfiguration = ({route, navigation}: any) => {
     {
       subTitle: 'Purchase Date',
       title: '20-05-2022',
-      rightIcon: 'chevron-right',
+      rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+      onPress: () => {
+        setpickerType('PD');
+        setShowDate(true);
+      },
     },
     {
       subTitle: 'Expiration Date',
       title: '25-11-2022',
-      rightIcon: 'chevron-right',
+      rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+      onPress: () => {
+        setpickerType('ED');
+        setShowDate(true);
+      },
     },
     {
       subTitle: 'Install Date',
       title: '04-10-2022',
-      rightIcon: 'chevron-right',
+      rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+      onPress: () => {
+        setpickerType('ID');
+        setShowDate(true);
+      },
     },
     {
       subTitle: 'Installed By',
@@ -215,9 +235,39 @@ const NewConfiguration = ({route, navigation}: any) => {
     }
   };
 
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+    let time = date.toString().substring(16, 21);
+
+    if (event?.type == 'set') {
+      switch (pickerType) {
+        case 'PD':
+          dataSource[10].title = date?.toDateString();
+          setDataSource([...dataSource]);
+          break;
+        case 'ED':
+          dataSource[11].title = date?.toDateString();
+          setDataSource([...dataSource]);
+          break;
+        case 'ID':
+          dataSource[12].title = date?.toDateString();
+          setDataSource([...dataSource]);
+        default:
+          break;
+      }
+    }
+  };
 
   return (
     <ModalView bgColor={colors.card}>
+       {showDate && (
+        <DatePicker
+          mode={'date'}
+          value={new Date()}
+          minimumDate={new Date()}
+          onChange={onChangeDate}
+        />
+      )}
      <ScrollView style={{flex: 1}}>
         <View style={{backgroundColor: colors.background}}>
           {dataSource.map((item, index) => (
@@ -235,7 +285,8 @@ const NewConfiguration = ({route, navigation}: any) => {
               showRightSwitch={item.showRightSwitch}
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={() => updateSwitch(index)}
-              onPress={() => handlePress(item, index)}
+              onPress={item?.onPress ? item?.onPress : () => handlePress(item, index)}
+              rightChild={item?.rightChild} 
             />
           ))}
         </View>

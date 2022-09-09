@@ -14,6 +14,7 @@ import {
   siteNameList,
   vendorNameList,
 } from '../../../../constants/SelectionList';
+import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
   title: string;
@@ -33,7 +34,10 @@ interface Item {
   rightChild?: ReactNode;
   searchable?: boolean;
   headerTitle?: string;
+  onPress?: () => void
 }
+
+type PickerType = 'PD' | 'ED' | 'ID';
 
 const Overview = () => {
   const {colors} = useTheme();
@@ -48,7 +52,9 @@ const Overview = () => {
     {text: 'Some Test Notes'},
     {text: 'Some Test Vendor Notes'},
   ];
-
+  
+  const [showDate, setShowDate] = useState(false);
+  const [pickerType, setpickerType] = useState<PickerType>('PD');
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: inputFields[0].text,
@@ -151,16 +157,28 @@ const Overview = () => {
       subTitle: 'Purchase Date',
       title: '20-05-2022',
       rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+      onPress: () => {
+        setpickerType('PD');
+        setShowDate(true);
+      },
     },
     {
       subTitle: 'Expiration Date',
       title: '25-11-2022',
       rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+      onPress: () => {
+        setpickerType('ED');
+        setShowDate(true);
+      },
     },
     {
       subTitle: 'Install Date',
       title: '04-10-2022',
       rightChild: <MCI name="calendar" size={26} color={colors.primary} />,
+      onPress: () => {
+        setpickerType('ID');
+        setShowDate(true);
+      },
     },
     {
       subTitle: 'Installed By',
@@ -257,8 +275,39 @@ const Overview = () => {
     }
   };
 
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+    let time = date.toString().substring(16, 21);
+
+    if (event?.type == 'set') {
+      switch (pickerType) {
+        case 'PD':
+          dataSource[14].title = date?.toDateString();
+          setDataSource([...dataSource]);
+          break;
+        case 'ED':
+          dataSource[15].title = date?.toDateString();
+          setDataSource([...dataSource]);
+          break;
+        case 'ID':
+          dataSource[16].title = date?.toDateString();
+          setDataSource([...dataSource]);
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <>
+     {showDate && (
+        <DatePicker
+          mode={'date'}
+          value={new Date()}
+          minimumDate={new Date()}
+          onChange={onChangeDate}
+        />
+      )}
       <ScrollView
         style={styles.container}
         contentContainerStyle={{alignItems: 'center'}}>
@@ -278,7 +327,7 @@ const Overview = () => {
             onChangeSwitch={value => handleSwitchChange(value, index)}
             rightChild={item.rightChild}
             mode={item.mode}
-            onPress={() => handlePress(item, index)}
+            onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
           />
         ))}
       </ScrollView>

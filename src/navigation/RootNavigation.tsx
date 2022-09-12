@@ -16,6 +16,7 @@ import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import Splash from '../screens/Splash/Splash';
 import { userStore } from '../stores/userStore';
+import { Stopwatch } from '../types';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -46,6 +47,8 @@ const App = () => {
   const dSName: State<string> = useHState(globalState.defaultScreenName);
   const dScreen: State<any> = useHState(globalState.defaultScreenId);
   const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
+  const globalStopwatch: State<any> = useHState(globalState.stopwatch);
+
   //! ----------------------------------------------------
 
   //! ---------------------------------------------------
@@ -63,6 +66,12 @@ const App = () => {
     store.get('dNavName').then((res: any) => {
       if (res) {
         dNavName.set(res?.dNavName);
+      }
+    });
+    store.get('stopwatch').then((res: any) => {
+      if (res) {
+        console.log("res?.stopwatch res?.stopwatch", res?.stopwatch)
+        globalStopwatch.set(res?.stopwatch);
       }
     });
     store.get('theme').then((res: any) => {

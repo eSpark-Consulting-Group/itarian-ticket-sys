@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
@@ -16,20 +16,27 @@ import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
 import {CstmPressable} from '../../components';
-import { searchFromArray } from '../../utils/helperFunctions';
+import {searchFromArray} from '../../utils/helperFunctions';
 
-const Configurations = () => {
+const Configurations = ({route}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
 
+  useEffect(() => {
+    if (route.params) {
+      setSearchValue(route.params.data);
+      handleSubmit(route.params.data);
+    }
+  }, [route.params]);
+
   const [filteredConfigurations, setFilteredConfigurations] =
     useState(configurationsList);
 
-  const handleSubmit = () => {
+  const handleSubmit = (val?: string) => {
     setLoading(true);
-    searchFilterFunction(searchValue);
+    searchFilterFunction(val ?? searchValue);
     setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -196,7 +203,9 @@ export const RenderConfigurations = ({
         <NotFound />
       )}
       <FloatButton
-        onPress={() => navigation.navigate('Stack1', {screen: 'NewConfigure'})}
+        onPress={() =>
+          navigation.navigate('Stack1', {screen: 'BarcodeScanner'})
+        }
       />
     </>
   );

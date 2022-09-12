@@ -28,7 +28,8 @@ import NewOpportunity from '../forms/NewOpportunity';
 import NewTimeSheet from '../forms/NewTimeSheet';
 import NewTicket from '../forms/NewTicket';
 import AddMiscSchedule from '../forms/AddMiscSchedule';
-import { userStore } from '../stores/userStore';
+import {userStore} from '../stores/userStore';
+import {BarcodeScanner} from '../components';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,12 +50,12 @@ export type RootStackParamList = {
   NewTimeSheet: undefined;
   NewTicket: undefined;
   AddMiscSchedule: undefined;
+  BarcodeScanner: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
   const activeStatus: State<any> = useState(userStore);
-
 
   return (
     <Stack.Navigator
@@ -113,12 +114,16 @@ const StackLvl1 = ({route, navigation}: any) => {
             <View style={{flexDirection: 'row'}}>
               <II size={30} name="stopwatch-outline" color={'#fff'} />
               <View style={{width: 15}} />
-              <MI 
-                onPress={() => navigation.navigate('Stack2', {
-                  screen: 'EditTicket',
-                  params: route?.params
-                })} 
-                size={30} name="edit" color={'#fff'} 
+              <MI
+                onPress={() =>
+                  navigation.navigate('Stack2', {
+                    screen: 'EditTicket',
+                    params: route?.params,
+                  })
+                }
+                size={30}
+                name="edit"
+                color={'#fff'}
               />
             </View>
           ),
@@ -316,7 +321,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="NewExpenseReport"
         component={NewExpenseReport}
         options={({route, navigation}: any) => ({
-          title: route?.params?.title ||  'Add Expense',
+          title: route?.params?.title || 'Add Expense',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -417,6 +422,32 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={AddMiscSchedule}
         options={({route, navigation}) => ({
           title: 'Add Misc Schedule',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="BarcodeScanner"
+        component={BarcodeScanner}
+        options={({route, navigation}) => ({
+          title: 'Barcode Scanner',
+          headerShown: false,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

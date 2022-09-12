@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Searchbar as Search, Menu} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
@@ -22,6 +22,7 @@ const SearchBar = ({
   setChangeText,
   onSubmit,
   onClear,
+  searchType,
 }: {
   withTag?: boolean;
   placeholder?: string;
@@ -30,12 +31,21 @@ const SearchBar = ({
   setChangeText: (val: string) => void;
   onSubmit?: () => void;
   onClear?: () => void;
+  searchType?: string;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const [visible, setVisible] = useState(false);
   const [check, setCheckValue] = useState('tickets');
 
   const searchTagValue: State<string> = useHState(globalState.searchTag);
+
+  useEffect(() => {
+    console.log('searchType', searchType);
+
+    if (searchType == 'configurations') {
+      setCheckValue(searchType);
+    }
+  }, [searchType]);
 
   const onChangeSearch = (query: string): void => setChangeText(query);
   const showMenu = (): void => setVisible(!visible);

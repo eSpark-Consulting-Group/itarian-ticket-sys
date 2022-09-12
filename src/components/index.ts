@@ -23,6 +23,7 @@ import GapView from './GapView';
 import {PriorityField, SingleLineField} from './FormFields';
 import {StopWatch, Timer} from './CstmStopwatch';
 import NotFound from './NotFound';
+import BarcodeScanner from './BarcodeScanner';
 
 export {
   CstmButton,
@@ -52,4 +53,5 @@ export {
   NotFound,
   StopWatch,
   Timer,
+  BarcodeScanner,
 };

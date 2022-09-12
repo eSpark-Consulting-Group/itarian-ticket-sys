@@ -32,7 +32,7 @@ export type Configuration = {
 };
 
 export type Activity = {
-  name: string;
+  summary: string;
   company_name: string;
   date: string;
   start_time: string;
@@ -148,17 +148,20 @@ export type ModalFormArrayType = {
 
 export type Ticket = {
   id: number;
-  ticket_no: string;
+  type: 'Ticket' | 'Activity';
+  ticket_no?: string;
   age: number;
-  ticket_summary: string;
+  summary: string;
   contact?: string;
-  company: string;
+  company_name: string;
   status: 'New' | 'Off Board' | 'Scheduled';
   priority: 'DNR' | 'P1' | 'P2' | 'P3';
   phase?: string;
   project?: string;
-  schedule_time?: string | null;
+  start_time?: string;
+  end_time?: string;
   time_dur?: string;
+  date?: string;
   site?: 'Remote' | 'On-Site' | 'In-House';
   assigned_to?: string;
 };
@@ -204,7 +207,7 @@ export type Stopwatch = {
   created_at: string;
   timer: number;
   isPlaying?: boolean;
-  show?: boolean
+  show?: boolean;
 };
 
 export type ScreenItems = {

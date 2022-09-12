@@ -3,14 +3,24 @@ import React, {ReactNode, useEffect, useState} from 'react';
 import {ModalHeader, ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import {NoteTypes_ACIT} from '../../constants/SampleArrays';
-import { SelectFields } from '../../types';
-import { priorityList, probabilityList, ratingList, salesRepList, stageList, statusList, typeList } from '../../constants/SelectionList';
+import {SelectFields} from '../../types';
+import {
+  companyNameList,
+  priorityList,
+  probabilityList,
+  ratingList,
+  salesRepList,
+  stageList,
+  statusList,
+  typeList,
+} from '../../constants/SelectionList';
 import DatePicker from '@react-native-community/datetimepicker';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
-  
+
   const [showDate, setShowDate] = useState(false);
+  const [companyName, setCompanyName] = useState('Select Company');
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: '',
@@ -134,44 +144,68 @@ const NewOpportunity = ({navigation, route}: any) => {
     setDataSource(newData);
   };
 
-    // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
-    useEffect(() => {
-      if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
-        var obj: any = [...dataSource];
-        obj[route?.params?.item].title = route?.params?.selected?.name;
-        obj[route?.params?.item].selectedItem = route?.params?.selected;
-        setDataSource([...obj]);
-      }
-    }, [route?.params]);
-  
-    const handlePress = (item: Item, index: number) => {
-      if (item?.list) {
-        navigation.navigate('Stack2', {
-          screen: 'CstmItemSelector',
-          params: {
-            ...route?.params,
-            from: 'NewOpportunity',
-            item: index,
-            data: item.list,
-            selected: item.selectedItem,
-            stack: 'Stack1',
-            title: route?.params?.title,
-            headerTitle: item.headerTitle,
-            searchable: item.searchable,
-          },
-        });
-      }
-    };
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (
+      route?.params?.item?.toString() &&
+      route?.params?.item != 'GoneTo' &&
+      route?.params?.item != 'Comp'
+    ) {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+    if (route?.params?.item?.toString() && route?.params?.item === 'Comp') {
+      setCompanyName(route?.params?.selected?.name);
+    }
+  }, [route?.params]);
 
-    const onChangeDate = (event: any, date: any) => {
-      setShowDate(false);
-      let time = date.toString().substring(16, 21);
-  
-      if (event?.type == 'set') {
-        dataSource[1].title = date?.toDateString();
-        setDataSource([...dataSource]);
-      }
-    };
+  const handlePress = (item: Item, index: number) => {
+    if (item?.list) {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          ...route?.params,
+          from: 'NewOpportunity',
+          item: index,
+          data: item.list,
+          selected: item.selectedItem,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: item.headerTitle,
+          searchable: item.searchable,
+        },
+      });
+    }
+  };
+
+  const handleSelectCompany = () => {
+    navigation.navigate('Stack2', {
+      screen: 'CstmItemSelector',
+      params: {
+        ...route?.params,
+        from: 'NewOpportunity',
+        item: 'Comp',
+        data: companyNameList,
+        selected: companyNameList[0],
+        stack: 'Stack1',
+        // title: 'New Shit',
+        headerTitle: 'Select Company',
+        searchable: true, // boolean
+      },
+    });
+  };
+
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+    let time = date.toString().substring(16, 21);
+
+    if (event?.type == 'set') {
+      dataSource[1].title = date?.toDateString();
+      setDataSource([...dataSource]);
+    }
+  };
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -185,7 +219,9 @@ const NewOpportunity = ({navigation, route}: any) => {
 
       <ModalHeader
         icon="office-building-marker-outline"
-        title="Select Company"
+        title={companyName}
+        disabled={false}
+        onPress={handleSelectCompany}
       />
       <ScrollView style={{flex: 1}}>
         <View style={{backgroundColor: colors.background}}>
@@ -202,7 +238,9 @@ const NewOpportunity = ({navigation, route}: any) => {
               rightIconRound={item.rightIconRound}
               roundedIconEnable={item.roundedIconEnable}
               onRoundedIconPress={item.onRoundedIconPress}
-              onPress={item.onPress ? item.onPress : () => handlePress(item, index)}
+              onPress={
+                item.onPress ? item.onPress : () => handlePress(item, index)
+              }
             />
           ))}
         </View>

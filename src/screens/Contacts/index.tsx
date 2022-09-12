@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Linking} from 'react-native';
 import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -125,13 +125,13 @@ export const RenderContacts = ({
               <RoundedIcon
                 enable={!_.isNull(item.phone_no)}
                 icon={'phone'}
-                onPress={() => console.log('Press Phone')}
+                onPress={() => Linking.openURL(`tel:090078601`)}
               />
               <View style={styles.horizontalAdjuster} />
               <RoundedIcon
                 enable={!_.isNull(item.email_address)}
                 icon={'email-outline'}
-                onPress={() => console.log('Press Email')}
+                onPress={() => Linking.openURL('mailto:support@example.com')}
               />
             </View>
           </View>

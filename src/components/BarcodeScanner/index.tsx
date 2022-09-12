@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, Text, TouchableOpacity} from 'react-native';
+import {Dimensions, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
@@ -19,49 +19,46 @@ const BarcodeScanner = ({navigation, route}: any) => {
       flashMode={RNCamera.Constants.FlashMode.torch}
       showMarker
       vibrate
-      containerStyle={{flex: 1, justifyContent: 'space-between'}}
-      topViewStyle={{
-        height: Dimensions.get('window').height * 0.1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        width: Dimensions.get('window').width,
-      }}
-      bottomViewStyle={{
-        height: Dimensions.get('window').height * 0.1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        width: Dimensions.get('window').width,
-      }}
-      topContent={
-        <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: 20,
-            color: '#777',
-            padding: 10,
-          }}>
-          Scan Barcode/QR Code
-        </Text>
-      }
+      containerStyle={styles.mainContainer}
+      topViewStyle={styles.infoView}
+      bottomViewStyle={styles.infoView}
+      topContent={<Text style={styles.headerText}>Scan Barcode/QR Code</Text>}
       bottomContent={
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            padding: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 21,
-              color: 'rgb(0,122,255)',
-            }}>
-            Stop Scanning
-          </Text>
+          style={styles.footerContainer}
+          onPress={() => navigation.goBack()}>
+          <Text style={styles.footerText}>Stop Scanning</Text>
         </TouchableOpacity>
       }
     />
   );
 };
+
+const styles = StyleSheet.create({
+  mainContainer: {justifyContent: 'space-between'},
+  infoView: {
+    flex: 0,
+    height: Dimensions.get('window').height * 0.1,
+    backgroundColor: 'black',
+  },
+
+  headerText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#eee',
+    paddingBottom: 10,
+  },
+
+  footerContainer: {
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: 'rgb(0,122,255)',
+  },
+
+  footerText: {
+    fontSize: 20,
+    color: '#eee',
+  },
+});
 
 export default BarcodeScanner;

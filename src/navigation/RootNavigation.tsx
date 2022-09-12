@@ -14,6 +14,7 @@ import Drawer from './Drawer';
 import {globalState} from '../stores/globalAppState';
 import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
+import StackLvl3 from './StackLvl3';
 import Splash from '../screens/Splash/Splash';
 import { userStore } from '../stores/userStore';
 import { Stopwatch } from '../types';
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   Draw: undefined;
   Stack1: undefined;
   Stack2: {screen: string; params?: object};
+  Stack3: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -136,6 +138,11 @@ const App = () => {
               <Stack.Screen
                 name="Stack2"
                 component={StackLvl2}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Stack3"
+                component={StackLvl3}
                 options={{headerShown: false}}
               />
             </Stack.Group>

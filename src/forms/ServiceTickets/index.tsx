@@ -1,4 +1,4 @@
-import { State, useHookstate } from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Platform, UIManager, Linking} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
@@ -11,10 +11,14 @@ import {
   FloatButton,
 } from '../../components';
 import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
-import {companyNameList, contactNameList} from '../../constants/SelectionList';
-import { globalState } from '../../stores/globalAppState';
+import {
+  companyNameList,
+  contactNameList,
+  templateList,
+} from '../../constants/SelectionList';
+import {globalState} from '../../stores/globalAppState';
 import {AdditionalButtons, SelectFields} from '../../types';
-import { redirectToMap } from '../../utils/helperFunctions';
+import {redirectToMap} from '../../utils/helperFunctions';
 import Details from './Details';
 import Notes from './Notes';
 import Overview from './Overview';
@@ -32,13 +36,29 @@ const App = ({navigation, route}: any) => {
   );
   const [companyContact, setCompanyContact] = useState<any>({
     contact: contactNameList[0],
-    company: companyNameList[0]
-  })
-  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+    company: companyNameList[0],
+  });
+  const dNavName: State<string> = useHookstate(
+    globalState.defaultnNavigationName,
+  );
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
+    tempArr[0].onPress = () => {
+      navigation.navigate('Stack2', {
+        screen: 'CstmItemSelector',
+        params: {
+          ...route?.params,
+          from: 'Signature',
+          data: templateList,
+          selected: null,
+          stack: 'Stack3',
+          title: route?.params?.title,
+          headerTitle: 'Signoff template',
+        },
+      });
+    };
     tempArr[3].onPress = () => {
       navigation.navigate('Stack1', {
         screen: 'NewExpenseReport',
@@ -53,8 +73,8 @@ const App = ({navigation, route}: any) => {
   };
 
   useEffect(() => {
-    if(route?.params?.companyContact) {
-      setCompanyContact({...route.params?.companyContact})
+    if (route?.params?.companyContact) {
+      setCompanyContact({...route.params?.companyContact});
     }
   }, [route?.params]);
 
@@ -62,7 +82,7 @@ const App = ({navigation, route}: any) => {
     updatePress();
     navigation.setParams({
       ...route?.params,
-      companyContact: companyContact
+      companyContact: companyContact,
     });
   }, []);
 
@@ -74,8 +94,10 @@ const App = ({navigation, route}: any) => {
         subTitle={companyContact?.contact?.name}
         right={
           <>
-            <RoundedIcon icon="phone" onPress={() => Linking.openURL(`tel:090078601`)
-} />
+            <RoundedIcon
+              icon="phone"
+              onPress={() => Linking.openURL(`tel:090078601`)}
+            />
             <View style={styles.adjuster} />
             <RoundedIcon
               icon="map-marker-outline"

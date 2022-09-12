@@ -249,8 +249,16 @@ const Draw = () => {
             <Ionicons
               size={30}
               name="barcode-outline"
-              color={'#ffffff96'}
-              onPress={() => console.log('Hello User')}
+              color={'#ffffff'}
+              onPress={() =>
+                navigation.navigate('Stack1', {
+                  screen: 'BarcodeScanner',
+                  params: {
+                    from: 'Search',
+                    stack: 'Draw',
+                  },
+                })
+              }
               style={{right: 10}}
             />
           ),
@@ -401,7 +409,15 @@ const Draw = () => {
               size={30}
               name="barcode-outline"
               color={'#ffffff'}
-              onPress={() => console.log('Hello User')}
+              onPress={() =>
+                navigation.navigate('Stack1', {
+                  screen: 'BarcodeScanner',
+                  params: {
+                    from: 'Configurations',
+                    stack: 'Draw',
+                  },
+                })
+              }
               style={{right: 10}}
             />
           ),

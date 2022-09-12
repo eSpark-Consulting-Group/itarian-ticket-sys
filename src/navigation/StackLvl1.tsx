@@ -33,6 +33,7 @@ import NewTimeSheet from '../forms/NewTimeSheet';
 import NewTicket from '../forms/NewTicket';
 import AddMiscSchedule from '../forms/AddMiscSchedule';
 import {userStore} from '../stores/userStore';
+import {BarcodeScanner} from '../components';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -53,6 +54,7 @@ export type RootStackParamList = {
   NewTimeSheet: undefined;
   NewTicket: undefined;
   AddMiscSchedule: undefined;
+  BarcodeScanner: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -429,6 +431,32 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={AddMiscSchedule}
         options={({route, navigation}) => ({
           title: 'Add Misc Schedule',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="BarcodeScanner"
+        component={BarcodeScanner}
+        options={({route, navigation}) => ({
+          title: 'Barcode Scanner',
+          headerShown: false,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

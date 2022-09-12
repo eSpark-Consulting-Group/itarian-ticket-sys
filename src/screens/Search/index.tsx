@@ -20,9 +20,10 @@ import {
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
 
-const Search = () => {
+const Search = ({route}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
+  const [type, setType] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [clear, setClear] = useState(false);
@@ -35,22 +36,39 @@ const Search = () => {
 
   const searchTagValue: State<string> = useHState(globalState.searchTag);
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    if (route.params) {
+      setSearchValue(route.params.data);
+      setType('configurations');
+      handleSubmit(route.params.data);
+    }
+  }, [route.params]);
+
+  const handleSubmit = (val?: string) => {
     setIsSearching(true);
     setLoading(true);
-    searchFilterFunction(searchValue, searchTagValue.get());
+    searchFilterFunction(val ?? searchValue, searchTagValue.get());
     setTimeout(() => {
       setLoading(false);
     }, 3000);
   };
 
-  const searchFilterFunction = async (text: string, domain: string = 'tickets') => {
+  const searchFilterFunction = async (
+    text: string,
+    domain: string = 'tickets',
+  ) => {
     switch (domain) {
       case 'tickets':
         var result = await searchFromArray({
           text: text || '',
           list: ticketsList,
-          keys: ['ticket_no', 'ticket_summary', 'contact', 'company', 'project'],
+          keys: [
+            'ticket_no',
+            'ticket_summary',
+            'contact',
+            'company',
+            'project',
+          ],
         });
         setFilteredTickets(result);
       case 'contacts':
@@ -61,19 +79,19 @@ const Search = () => {
         });
         setFilteredContacts(result);
       case 'companies':
-          var result = await searchFromArray({
-            text: text || '',
-            list: companiesList,
-            keys: ['name', 'id'],
-          });
-          setFilteredCompanies(result);
+        var result = await searchFromArray({
+          text: text || '',
+          list: companiesList,
+          keys: ['name', 'id'],
+        });
+        setFilteredCompanies(result);
       case 'configurations':
-          var result = await searchFromArray({
-            text: text || '',
-            list: configurationsList,
-            keys: ['name', 'company_name', 'model', 'serial', 'tag'],
-          });
-          setFilteredConfigurations(result);
+        var result = await searchFromArray({
+          text: text || '',
+          list: configurationsList,
+          keys: ['name', 'company_name', 'model', 'serial', 'tag'],
+        });
+        setFilteredConfigurations(result);
     }
   };
 
@@ -141,6 +159,7 @@ const Search = () => {
         }}>
         <SearchBar
           withTag={true}
+          searchType={type}
           placeholder={'Search Contacts'}
           fontSize={'small'}
           value={searchValue}

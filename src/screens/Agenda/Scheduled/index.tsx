@@ -76,9 +76,16 @@ const ScheduledTab = ({route, navigation}: any) => {
               <ListItem
                 dataSource={item}
                 onPress={iValue => {
+                  console.log('iValue', iValue);
                   navigation.navigate('Stack1', {
                     screen: 'STickets',
-                    params: {title: iValue.ticket_no.toString()},
+                    params: {
+                      title: iValue.ticket_no.toString(),
+                      ticket_info: {
+                        id: iValue.ticket_no.toString(),
+                        summary: iValue.ticket_summary,
+                      },
+                    },
                   });
                 }}
               />

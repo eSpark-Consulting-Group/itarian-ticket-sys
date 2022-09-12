@@ -8,7 +8,11 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Theme, useTheme} from '@react-navigation/native';
 import {State, useState} from '@hookstate/core';
 
-import {goBack, saveStatus} from '../forms/utils/headerFunctions';
+import {
+  goBack,
+  handleStopwatch,
+  saveStatus,
+} from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
 import Contact1 from '../screens/Contacts/View/Contacts';
@@ -28,7 +32,7 @@ import NewOpportunity from '../forms/NewOpportunity';
 import NewTimeSheet from '../forms/NewTimeSheet';
 import NewTicket from '../forms/NewTicket';
 import AddMiscSchedule from '../forms/AddMiscSchedule';
-import { userStore } from '../stores/userStore';
+import {userStore} from '../stores/userStore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -54,7 +58,6 @@ export type RootStackParamList = {
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
   const activeStatus: State<any> = useState(userStore);
-
 
   return (
     <Stack.Navigator
@@ -111,14 +114,23 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-              <II size={30} name="stopwatch-outline" color={'#fff'} />
+              <II
+                size={30}
+                name="stopwatch-outline"
+                color={'#fff'}
+                onPress={() => handleStopwatch(route?.params)}
+              />
               <View style={{width: 15}} />
-              <MI 
-                onPress={() => navigation.navigate('Stack2', {
-                  screen: 'EditTicket',
-                  params: route?.params
-                })} 
-                size={30} name="edit" color={'#fff'} 
+              <MI
+                onPress={() =>
+                  navigation.navigate('Stack2', {
+                    screen: 'EditTicket',
+                    params: route?.params,
+                  })
+                }
+                size={30}
+                name="edit"
+                color={'#fff'}
               />
             </View>
           ),
@@ -316,7 +328,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="NewExpenseReport"
         component={NewExpenseReport}
         options={({route, navigation}: any) => ({
-          title: route?.params?.title ||  'Add Expense',
+          title: route?.params?.title || 'Add Expense',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

@@ -10,7 +10,7 @@ import {moderateScale} from 'react-native-size-matters';
 import {SelectFields} from '../../../../types';
 import {redirectToMap} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
-import {useState as useHState, State} from '@hookstate/core';
+import {useHookstate, State} from '@hookstate/core';
 
 interface Item {
   headerTitle?: string;
@@ -27,7 +27,7 @@ interface Item {
 }
 
 const Overview = () => {
-  const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
+  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
   const dataSource: Item[] = [
     {

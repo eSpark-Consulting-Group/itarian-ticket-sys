@@ -1,6 +1,6 @@
-import {createState} from '@hookstate/core';
+import {hookstate} from '@hookstate/core';
 
-export const userStore = createState({
+export const userStore = hookstate({
   // Current Status indicates the user Office Check-in Status
   currentStatus: false,
   // Current Gone to indicates why user is out of the office
@@ -9,5 +9,5 @@ export const userStore = createState({
   additionalInfo: '',
   dateBack: '-',
   timeBack: '-',
-  user: false,
+  user: null,
 });

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
-import {useState as useHState, State} from '@hookstate/core';
+import {useHookstate, State} from '@hookstate/core';
 import {moderateScale} from 'react-native-size-matters';
 
 import {globalState} from '../../stores/globalAppState';
@@ -14,10 +14,10 @@ import {getNavigtionApps} from '../../utils/helperFunctions';
 import store from 'react-native-simple-store';
 
 const SettingsScreen = () => {
-  const themeValue: State<string> = useHState(globalState.theme);
-  const dScreen: State<string> = useHState(globalState.defaultScreenId);
-  const dSName: State<string> = useHState(globalState.defaultScreenName);
-  const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
+  const themeValue: State<string> = useHookstate(globalState.theme);
+  const dScreen: State<string> = useHookstate(globalState.defaultScreenId);
+  const dSName: State<string> = useHookstate(globalState.defaultScreenName);
+  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
 
   const [isSwitchOn, setIsSwitchOn] = useState(
     themeValue.get() == 'light' ? false : true,

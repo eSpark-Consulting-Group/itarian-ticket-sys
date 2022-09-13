@@ -9,7 +9,7 @@ import {onSave, goBack} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
 import ComposeNote from '../forms/ComposeNote';
 import QNAs from '../forms/QNAs';
-import {State, useState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 import {Attachments} from '../components/Attachments/index';
 import {AttachmentDetails} from '../components/Attachments/view/attachmentDetails';
 import {globalState} from '../stores/globalAppState';
@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
   const {colors}: Theme = useTheme();
-  const activeStatus: State<any> = useState(globalState);
+  const activeStatus: State<any> = useHookstate(globalState);
 
   return (
     <Stack.Navigator

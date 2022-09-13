@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
-import {State, useState as useHState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 
 // @ts-ignore
 import EventCalendar from '../../components/react-native-events-calendar/src/EventCalendar';
@@ -16,7 +16,7 @@ import {globalState} from '../../stores/globalAppState';
 
 const Calendar = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
-  const activeMember: State<string> = useHState(globalState.calendarMember);
+  const activeMember: State<string> = useHookstate(globalState.calendarMember);
   const [showDate, setShowDate] = useState(false);
   const [currDate, setCurrDate] = useState(new Date());
   const [toggle, setToggle] = useState<any>(false);

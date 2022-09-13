@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {useState as useHState, State} from '@hookstate/core';
+import {useHookstate, State} from '@hookstate/core';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 
 //@ts-ignore
@@ -43,13 +43,13 @@ const config: any = {
 };
 
 const App = () => {
-  const themeValue: State<string> = useHState(globalState.theme);
-  const user: State<any> = useHState(userStore.user);
-  const shortCutScreen: State<any> = useHState(globalState.shortCutScreen);
-  const dSName: State<string> = useHState(globalState.defaultScreenName);
-  const dScreen: State<any> = useHState(globalState.defaultScreenId);
-  const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
-  const globalStopwatch: State<any> = useHState(globalState.stopwatch);
+  const themeValue: State<string> = useHookstate(globalState.theme);
+  const user: State<any> = useHookstate(userStore.user);
+  const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
+  const dSName: State<string> = useHookstate(globalState.defaultScreenName);
+  const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
+  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+  const globalStopwatch: State<any> = useHookstate(globalState.stopwatch);
 
   //! ----------------------------------------------------
 
@@ -57,7 +57,8 @@ const App = () => {
 
   useEffect(() => {
     store.get('user').then((res: any) => {
-      if (res) user.set(res.user);
+      console.log("user", res);
+      if (res) user.set(res);
     });
     store.get('dSName').then((res: any) => {
       if (res) {
@@ -95,7 +96,8 @@ const App = () => {
       if (data != null) handleColdBoot(data);
     })
     .catch(err => console.log('err', err));
-
+  
+  console.log('actions  loaded  successfully', user.get());
   return (
     <SafeAreaProvider>
       <NavigationContainer

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
-import {State, useState as useHState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 import {Switch} from 'react-native-paper';
 import DatePicker from '@react-native-community/datetimepicker';
 
@@ -10,11 +10,11 @@ import {GoneToFormArray} from '../../../../constants/SampleArrays';
 import {userStore} from '../../../../stores/userStore';
 
 const MyStatus = ({route, navigation}: any) => {
-  const currStatus: State<boolean> = useHState(userStore.currentStatus);
-  const currGonTo: State<any> = useHState(userStore.currentGoneTo);
-  const addInf: State<string> = useHState(userStore.additionalInfo);
-  const backDate: State<string> = useHState(userStore.dateBack);
-  const backTime: State<string> = useHState(userStore.timeBack);
+  const currStatus: State<boolean> = useHookstate(userStore.currentStatus);
+  const currGonTo: State<any> = useHookstate(userStore.currentGoneTo);
+  const addInf: State<string> = useHookstate(userStore.additionalInfo);
+  const backDate: State<string> = useHookstate(userStore.dateBack);
+  const backTime: State<string> = useHookstate(userStore.timeBack);
   // console.log('Route', route);
   const {status: OutStatus} = route.params;
   const {colors}: Theme = useTheme();

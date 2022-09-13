@@ -52,7 +52,7 @@ const StackLvl2 = ({navigation, route}: any) => {
        <Stack.Screen
         name="SignaturePad"
         component={SignaturePad}
-        options={({route, navigation}) => ({
+        options={({route, navigation} : any) => ({
           title: 'Collect Signature',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -62,6 +62,14 @@ const StackLvl2 = ({navigation, route}: any) => {
               style={{right: 6}}
               color={'#fff'}
               onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <II
+              size={30}
+              name="checkmark"
+              color={'#fff'}
+              onPress={() => route?.params?.onCheck()}
             />
           ),
         })}

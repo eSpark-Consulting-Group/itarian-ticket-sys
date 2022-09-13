@@ -220,7 +220,7 @@ export const StopWatch = ({start = false, startTime = 0, getTime = (time) => {},
           minutes?.length == 1 ? '0' + minutes : minutes
         }:${seconds?.length == 1 ? '0' + seconds : seconds}`;
         setvoiceDuration(durationString);
-        getTime(seconds)
+        getTime(parseInt(seconds) + (parseInt(minutes) * 60) + (parseInt(hours) * 60 * 60 ))
     }, 1000);
   };
 

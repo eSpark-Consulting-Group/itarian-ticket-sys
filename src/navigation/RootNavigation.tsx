@@ -14,8 +14,10 @@ import Drawer from './Drawer';
 import {globalState} from '../stores/globalAppState';
 import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
+import StackLvl3 from './StackLvl3';
 import Splash from '../screens/Splash/Splash';
 import { userStore } from '../stores/userStore';
+import { Stopwatch } from '../types';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -23,6 +25,7 @@ export type RootStackParamList = {
   Draw: undefined;
   Stack1: undefined;
   Stack2: {screen: string; params?: object};
+  Stack3: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,6 +49,8 @@ const App = () => {
   const dSName: State<string> = useHState(globalState.defaultScreenName);
   const dScreen: State<any> = useHState(globalState.defaultScreenId);
   const dNavName: State<string> = useHState(globalState.defaultnNavigationName);
+  const globalStopwatch: State<any> = useHState(globalState.stopwatch);
+
   //! ----------------------------------------------------
 
   //! ---------------------------------------------------
@@ -63,6 +68,12 @@ const App = () => {
     store.get('dNavName').then((res: any) => {
       if (res) {
         dNavName.set(res?.dNavName);
+      }
+    });
+    store.get('stopwatch').then((res: any) => {
+      if (res) {
+        console.log("res?.stopwatch res?.stopwatch", res?.stopwatch)
+        globalStopwatch.set(res?.stopwatch);
       }
     });
     store.get('theme').then((res: any) => {
@@ -127,6 +138,11 @@ const App = () => {
               <Stack.Screen
                 name="Stack2"
                 component={StackLvl2}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Stack3"
+                component={StackLvl3}
                 options={{headerShown: false}}
               />
             </Stack.Group>

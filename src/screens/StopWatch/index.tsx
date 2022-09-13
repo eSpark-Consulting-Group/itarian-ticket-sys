@@ -1,6 +1,6 @@
-import React, {useEffect, useState, useReducer, useCallback} from 'react';
+import React, {useEffect, useState, useReducer, useCallback, useRef} from 'react';
 import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
-import {useTheme, useFocusEffect, Theme} from '@react-navigation/native';
+import {useTheme, useFocusEffect, Theme, useIsFocused} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
@@ -18,6 +18,8 @@ import {
 import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
 import {StopWatch} from '../../components/CstmStopwatch/stopwatch';
+//@ts-ignore
+import store from 'react-native-simple-store';
 
 const StopWatchScreen = () => {
   const {colors, dark}: Theme = useTheme();
@@ -26,29 +28,55 @@ const StopWatchScreen = () => {
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
   const stopWatchDataList: State<any> = useHState(globalState.stopwatch);
   const solidColor = dark ? '#000000' : '#ffffff';
-  // const [isPending, startTransition] = useTransition();
-  useFocusEffect(
-    useCallback(() => {
-      console.log('stopwaaaXXXXXX', stopWatchDataList.get());
-      stopWatchDataList.set(stopWatchList);
-      setImmediate(() => {
+  const [stopwatchs, SetStopwatch] = useState<Stopwatch[]>(JSON.parse(JSON.stringify(stopWatchDataList?.get())));
+  let timerStopwatch = JSON.parse(JSON.stringify(stopwatchs));
+  // var timer = useRef<NodeJS.Timer>();
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     SetStopwatch(stopWatchDataList?.get());
+      // setImmediate(() => {
+      //   setIsLoading(false);
+      // });
+  //     return () => setIsLoading(true);
+  //   }, []),
+  // );
+
+  const isFocused = useIsFocused()
+  useEffect(() => {
+    SetStopwatch(JSON.parse(JSON.stringify(stopWatchDataList?.get())));
+     setImmediate(() => {
         setIsLoading(false);
       });
-      return () => setIsLoading(true);
-    }, []),
-  );
+  }, [isFocused]);
+
+  useEffect(() => {
+    // useRef value stored in .current property
+    let timer = setInterval(() => {
+      const temp = JSON.parse(JSON.stringify(stopwatchs));
+      store.update('stopwatch', {
+        stopwatch: stopwatchs,
+      });
+      stopWatchDataList.set(temp);
+    }, 4000);
+
+    // clear on component unmount
+    return () => {
+      console.log("return")
+      clearInterval(timer);
+    };
+  }, [stopwatchs]);
 
   const renderList = ({item, index}: {item: Stopwatch; index: number}) => {
     const handlePlayPause = () => {
       if (item?.isPlaying === true) {
-        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get())); //* Force Copy Method
+        const temp = stopwatchs //* Force Copy Method
         temp[index].isPlaying = false;
-        stopWatchDataList.set(temp);
+        SetStopwatch(temp);
         forceUpdate();
       } else if (item?.isPlaying === false) {
-        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get())); //* Force Copy Method
+        const temp = stopwatchs //* Force Copy Method
         temp[index].isPlaying = true;
-        stopWatchDataList.set(temp);
+        SetStopwatch(temp);
         forceUpdate();
       }
     };
@@ -73,10 +101,10 @@ const StopWatchScreen = () => {
       function confirmDelete() {
         // handlePlayPause()
         // setTimeout(() => {
-        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
-        temp.splice(index, 1);
-        stopWatchDataList.set(temp);
-        forceUpdate();
+          const temp = stopwatchs
+          temp.splice(index, 1);
+          SetStopwatch(temp);
+          forceUpdate();
         // }, 1000)
       }
     };
@@ -157,16 +185,15 @@ const StopWatchScreen = () => {
                         style={{alignSelf: 'center', marginRight: 5}}
                       />
                       <StopWatch
-                        id={parseInt(item.ticket_no.replace('#', ''))}
+                        key={parseInt(item.ticket_no.replace('#',''))}
                         start={item.isPlaying}
                         startTime={item.timer}
-                        getTime={time => {
-                          const temp = JSON.parse(
-                            JSON.stringify(stopWatchDataList.get()),
-                          ); //* Force Copy Method
-                          temp[index] && (temp[index].timer = time);
-                          stopWatchDataList.set(temp);
-                          forceUpdate();
+                        getTime={(time) => {
+                          console.log("item.timer item.timer", stopwatchs[0].timer)
+                          const temp = stopwatchs; //* Force Copy Method
+                          temp[index] && (temp[index].timer = time)
+                          timerStopwatch = temp
+                          SetStopwatch(temp);
                         }}
                       />
                     </View>
@@ -206,8 +233,8 @@ const StopWatchScreen = () => {
     <View style={{...styles.container, backgroundColor: colors.background}}>
       {isLoading ? (
         <SimpleLoader />
-      ) : stopWatchDataList.get()?.length !== 0 ? (
-        <FlatList data={stopWatchDataList.get()} renderItem={renderList} />
+      ) : stopwatchs?.length !== 0 ? (
+        <FlatList data={stopwatchs} renderItem={renderList} />
       ) : (
         <NotFound />
       )}

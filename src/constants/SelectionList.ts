@@ -581,6 +581,21 @@ export const countryList: SelectFields[] = [
   },
 ];
 
+export const templateList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Signoff Template 1',
+  },
+  {
+    id: 1,
+    name: 'Signoff Template 2',
+  },
+  {
+    id: 2,
+    name: 'Signoff Template 3',
+  },
+];
+
 //? ------------------------------- Timesheet Selector Fields
 export const workRoleList: SelectFields[] = [
   {

@@ -17,12 +17,14 @@ import styles from './style';
 import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
-import {useState as useHState, State} from '@hookstate/core';
+import {useState as useHState, State, useHookstate} from '@hookstate/core';
 
 // @ts-ignore
 import store from 'react-native-simple-store';
 import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
+import {handleLoginUser} from '../utils/functions';
+import {loader} from '../../../stores/globalAppState';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -31,6 +33,7 @@ const validationSchema = Yup.object().shape({
 
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const user: State<any> = useHState(userStore.user);
+  const loadingState: State<boolean> = useHookstate(loader);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const {colors}: Theme = useTheme();
 
@@ -79,12 +82,8 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               password: '',
             }}
             onSubmit={values => {
-              user.set({
-                user: values,
-              });
-              store.update('user', {
-                user: values,
-              });
+              const {email, password} = values;
+              handleLoginUser(email, password);
             }}
             validationSchema={validationSchema}>
             {({
@@ -130,6 +129,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                   <View style={{marginVertical: 10}}>
                     <CstmButton
                       title="Sign In"
+                      loader={loadingState.get()}
                       onPress={() => {
                         handleSubmit();
                       }}

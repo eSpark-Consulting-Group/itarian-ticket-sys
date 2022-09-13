@@ -1,11 +1,19 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Button} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';
 
-const CstmButton = ({title, onPress}: {title: string; onPress: () => void}) => {
+const CstmButton = ({
+  title,
+  loader,
+  onPress,
+}: {
+  title: string;
+  loader: boolean;
+  onPress: () => void;
+}) => {
   const {colors}: Theme = useTheme();
   return (
     <View>
@@ -15,9 +23,14 @@ const CstmButton = ({title, onPress}: {title: string; onPress: () => void}) => {
 
         {/* <---- Center ---> */}
         <TouchableOpacity
+          disabled={loader}
           onPress={onPress}
           style={{...styles.button, backgroundColor: colors.primary}}>
-          <Text style={styles.text}>{title}</Text>
+          {loader ? (
+            <ActivityIndicator color={'#fff'} size={'large'} />
+          ) : (
+            <Text style={styles.text}>{title}</Text>
+          )}
         </TouchableOpacity>
 
         {/* <---- Adjuster from Right ---> */}

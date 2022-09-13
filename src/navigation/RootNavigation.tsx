@@ -16,8 +16,8 @@ import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import StackLvl3 from './StackLvl3';
 import Splash from '../screens/Splash/Splash';
-import { userStore } from '../stores/userStore';
-import { Stopwatch } from '../types';
+import {userStore} from '../stores/userStore';
+import {Stopwatch} from '../types';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -57,7 +57,7 @@ const App = () => {
 
   useEffect(() => {
     store.get('user').then((res: any) => {
-      if (res) user.set(res);
+      if (res) user.set(res.user);
     });
     store.get('dSName').then((res: any) => {
       if (res) {
@@ -72,7 +72,7 @@ const App = () => {
     });
     store.get('stopwatch').then((res: any) => {
       if (res) {
-        console.log("res?.stopwatch res?.stopwatch", res?.stopwatch)
+        console.log('res?.stopwatch res?.stopwatch', res?.stopwatch);
         globalStopwatch.set(res?.stopwatch);
       }
     });

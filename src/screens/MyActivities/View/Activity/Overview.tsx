@@ -51,7 +51,7 @@ const Overview = () => {
   const [pickerType, setpickerType] = useState<PickerType>('dd');
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: item?.name,
+      title: item?.summary,
       subTitle: 'Summary',
       inputable: true,
     },
@@ -222,7 +222,9 @@ const Overview = () => {
           rightIcon={item.rightIcon}
           rightChild={item.rightChild}
           mode={item.mode}
-          onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
+          onPress={
+            item?.onPress ? item.onPress : () => handlePress(item, index)
+          }
         />
       ))}
     </ScrollView>

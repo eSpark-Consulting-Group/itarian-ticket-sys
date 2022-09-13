@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   footerContainer: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: 'rgb(0,122,255)',
+    backgroundColor: '#28648f',
   },
 
   footerText: {

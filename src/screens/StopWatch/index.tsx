@@ -110,7 +110,9 @@ const StopWatchScreen = () => {
     };
 
     return (
-      <View key={item.ticket_no} style={{...styles.listContainer, backgroundColor: solidColor}}>
+      <View
+        key={item.ticket_no}
+        style={{...styles.listContainer, backgroundColor: solidColor}}>
         <View>
           <View
             style={{

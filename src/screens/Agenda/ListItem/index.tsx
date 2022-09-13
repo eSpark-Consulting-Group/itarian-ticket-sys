@@ -35,16 +35,27 @@ const ListItem = ({
         android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>
-            <View style={styles.itemContentIcon}>
-              <II name="pricetag" size={22} color="#fff" />
+            <View
+              style={{
+                ...styles.itemContentIcon,
+                backgroundColor:
+                  item2.type == 'Ticket' ? '#28648f' : 'lightgreen',
+              }}>
+              {item2.type == 'Ticket' ? (
+                <II name="pricetag" size={22} color="#fff" />
+              ) : (
+                <MCI name="clipboard-text-outline" size={22} color={'#fff'} />
+              )}
             </View>
           </View>
           <View style={{width: '75%'}}>
+            {item2.ticket_no && (
+              <Text style={{fontWeight: 'bold', color: colors.text}}>
+                Ticket {item2.ticket_no}
+              </Text>
+            )}
             <Text style={{fontWeight: 'bold', color: colors.text}}>
-              Ticket {item2.ticket_no}
-            </Text>
-            <Text style={{fontWeight: 'bold', color: colors.text}}>
-              {item2.ticket_summary}
+              {item2.summary}
             </Text>
             <View style={styles.descContentContainer}>
               {item2.expType && (
@@ -58,7 +69,7 @@ const ListItem = ({
                   <Text style={{...styles.schedule_dur}}>{item2.totExp}</Text>
                 </View>
               )}
-              {item2.schedule_time && (
+              {item2.time_dur && (
                 <View style={styles.rowContainer}>
                   <II
                     name="calendar-outline"
@@ -66,21 +77,21 @@ const ListItem = ({
                     style={styles.margin_5}
                   />
                   <Text style={{...styles.margin_5, color: colors.text}}>
-                    {item2.schedule_time}
+                    {item2.start_time + '-' + item2.end_time}
                   </Text>
                   <Text style={{...styles.schedule_dur, color: '#fff'}}>
                     {item2.time_dur}
                   </Text>
                 </View>
               )}
-              {item2.company && (
+              {item2.company_name && (
                 <View style={styles.rowContainer}>
                   <II
                     name="business"
                     color={colors.text}
                     style={styles.margin_5}
                   />
-                  <Text style={{color: colors.text}}>{item2.company}</Text>
+                  <Text style={{color: colors.text}}>{item2.company_name}</Text>
                 </View>
               )}
               {item2.site && (
@@ -171,7 +182,7 @@ export const RenderTickets = ({listData}: {listData: Ticket[]}) => {
             onPress={iValue =>
               navigation.navigate('Stack1', {
                 screen: 'STickets',
-                params: {title: iValue.ticket_no.toString()},
+                params: {title: iValue.ticket_no?.toString()},
               })
             }
           />

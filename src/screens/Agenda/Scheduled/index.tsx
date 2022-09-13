@@ -94,10 +94,10 @@ const ScheduledTab = ({route, navigation}: any) => {
                   ? navigation.navigate('Stack1', {
                       screen: 'STickets',
                       params: {
-                        title: iValue.ticket_no.toString(),
+                        title: iValue?.ticket_no?.toString(),
                         ticket_info: {
-                          id: iValue.ticket_no.toString(),
-                          summary: iValue.ticket_summary,
+                          id: iValue.ticket_no?.toString(),
+                          summary: iValue.summary,
                         },
                       },
                     })

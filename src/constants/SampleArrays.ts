@@ -150,7 +150,6 @@ export const ticketsList: Ticket[] = [
   {
     id: 7,
     type: 'Activity',
-    ticket_no: '#15329',
     age: 14.5,
     company_name: 'Fast Tech',
     summary: 'Purchasing new Instruments and Equipments',
@@ -716,7 +715,6 @@ export const stopWatchList: Stopwatch[] = [
     isPlaying: false,
     show: true,
   },
-
 ];
 
 export const screenItemList: ScreenItems[] = [

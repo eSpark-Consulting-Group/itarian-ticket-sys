@@ -40,7 +40,7 @@ const handleLoginUser = async (email: string, password: string) => {
       });
       userStore.user.set(displayName);
       store.update('user', {
-        user: displayName,
+        user_name: displayName,
       });
     }
   } else {

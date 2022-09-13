@@ -49,7 +49,7 @@ const MyActivities = ({navigation}: any) => {
               <View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{...styles.title, color: colors.text}}>
-                    {item.name}
+                    {item.summary}
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>

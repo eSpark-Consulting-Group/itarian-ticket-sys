@@ -164,6 +164,20 @@ export const ticketsList: Ticket[] = [
     site: 'Remote',
     assigned_to: 'John Doe',
   },
+  {
+    id: 8,
+    type: 'Activity',
+    age: 14.5,
+    company_name: 'Fast Tech',
+    summary: 'Equip new Instruments and Equipments',
+    status: 'Scheduled',
+    priority: 'P3',
+    phase: 'New',
+    date: 'Aug 29, 2022',
+    project: 'Server Migration',
+    site: 'Remote',
+    assigned_to: 'John Doe',
+  },
 ];
 
 export const companiesList: Array<Company> = [

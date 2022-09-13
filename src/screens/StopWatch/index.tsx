@@ -30,9 +30,7 @@ const StopWatchScreen = () => {
   useFocusEffect(
     useCallback(() => {
       console.log('stopwaaaXXXXXX', stopWatchDataList.get());
-      // const mainData = JSON.stringify(stopWatchDataList.get());
-      // const finalArr = [...new Set([...stopWatchList, JSON.parse(mainData)])];
-      // stopWatchDataList.set(finalArr);
+      stopWatchDataList.set(stopWatchList);
       setImmediate(() => {
         setIsLoading(false);
       });

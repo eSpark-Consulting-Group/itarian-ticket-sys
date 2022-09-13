@@ -18,12 +18,14 @@ import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
 import {useState as useHState, State} from '@hookstate/core';
+
 // @ts-ignore
 import store from 'react-native-simple-store';
 import Images from '../../../assets/images';
-import { userStore } from '../../../stores/userStore';
+import {userStore} from '../../../stores/userStore';
+
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required().min(5).label('Username'),
+  email: Yup.string().email('Invalid email format').required().label('Email'),
   password: Yup.string().required().min(6).label('Password'),
 });
 
@@ -73,7 +75,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
           behavior="padding">
           <Formik
             initialValues={{
-              username: '',
+              email: '',
               password: '',
             }}
             onSubmit={values => {
@@ -98,16 +100,16 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                   <CstmInput title={'Site'} placeholder={'Your site'} />
                   <CstmInput title={'Company'} placeholder={'Your company'} />
                   <CstmInput
-                    title={'Username'}
-                    placeholder={'Your username'}
-                    value={values.username}
+                    title={'Email'}
+                    placeholder={'Your email'}
+                    value={values.email}
                     keyType={'default'}
-                    onChangeText={handleChange('username')}
+                    onChangeText={handleChange('email')}
                     onChange={() => {}}
-                    onBlur={() => setFieldTouched('username')}
+                    onBlur={() => setFieldTouched('email')}
                   />
-                  {touched.username && errors.username ? (
-                    <CstmErrorText errorMsg={errors.username} />
+                  {touched.email && errors.email ? (
+                    <CstmErrorText errorMsg={errors.email} />
                   ) : (
                     <View />
                   )}

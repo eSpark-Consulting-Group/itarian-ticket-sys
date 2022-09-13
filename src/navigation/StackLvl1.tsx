@@ -8,7 +8,11 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Theme, useTheme} from '@react-navigation/native';
 import {State, useState} from '@hookstate/core';
 
-import {goBack, saveStatus} from '../forms/utils/headerFunctions';
+import {
+  goBack,
+  handleStopwatch,
+  saveStatus,
+} from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
 import Contact1 from '../screens/Contacts/View/Contacts';
@@ -112,7 +116,12 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-              <II size={30} name="stopwatch-outline" color={'#fff'} />
+              <II
+                size={30}
+                name="stopwatch-outline"
+                color={'#fff'}
+                onPress={() => handleStopwatch(route?.params)}
+              />
               <View style={{width: 15}} />
               <MI
                 onPress={() =>

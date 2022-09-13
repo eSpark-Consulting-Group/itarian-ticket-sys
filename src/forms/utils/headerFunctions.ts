@@ -1,8 +1,9 @@
 //Function for My Status screen header's right button
 import {Alert} from 'react-native';
 import Images from '../../assets/images';
-import {noteList} from '../../constants/SampleArrays';
+import {noteList, stopWatchList} from '../../constants/SampleArrays';
 import {showMessage, hideMessage} from 'react-native-flash-message';
+import {globalState} from '../../stores/globalAppState';
 
 const saveStatus = (navigation: any, route: any, activeStatus: any) => {
   console.log('route.params', route?.params);
@@ -76,4 +77,20 @@ const onSave = (navigation: any, route: any, activeStatus?: any) => {
   }
 };
 
-export {saveStatus, goBack, onSave};
+const handleStopwatch = (params: any) => {
+  // const {ticket_info} = params;
+  // const date = new Date();
+  // let tempArr: any = [...stopWatchList];
+  // tempArr.push({
+  //   ticket_no: ticket_info.id,
+  //   ticket_summary: ticket_info.summary,
+  //   created_at: date.toDateString(),
+  //   timer: 0,
+  //   isPlaying: false,
+  //   show: true,
+  // });
+  // globalState.stopwatch.set(tempArr);
+  // console.log('hoa ==========>>', tempArr);
+};
+
+export {saveStatus, goBack, onSave, handleStopwatch};

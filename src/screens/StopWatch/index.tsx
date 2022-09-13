@@ -17,7 +17,7 @@ import {
 } from '../../components';
 import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
-import { StopWatch } from '../../components/CstmStopwatch/stopwatch';
+import {StopWatch} from '../../components/CstmStopwatch/stopwatch';
 
 const StopWatchScreen = () => {
   const {colors, dark}: Theme = useTheme();
@@ -29,6 +29,7 @@ const StopWatchScreen = () => {
   // const [isPending, startTransition] = useTransition();
   useFocusEffect(
     useCallback(() => {
+      console.log('stopwaaaXXXXXX', stopWatchDataList.get());
       stopWatchDataList.set(stopWatchList);
       setImmediate(() => {
         setIsLoading(false);
@@ -72,16 +73,18 @@ const StopWatchScreen = () => {
       function confirmDelete() {
         // handlePlayPause()
         // setTimeout(() => {
-          const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
-          temp.splice(index, 1);
-          stopWatchDataList.set(temp);
-          forceUpdate();
+        const temp = JSON.parse(JSON.stringify(stopWatchDataList.get()));
+        temp.splice(index, 1);
+        stopWatchDataList.set(temp);
+        forceUpdate();
         // }, 1000)
       }
     };
 
     return (
-      <View key={item.ticket_no} style={{...styles.listContainer, backgroundColor: solidColor}}>
+      <View
+        key={item.ticket_no}
+        style={{...styles.listContainer, backgroundColor: solidColor}}>
         <View>
           <View
             style={{
@@ -154,14 +157,16 @@ const StopWatchScreen = () => {
                         style={{alignSelf: 'center', marginRight: 5}}
                       />
                       <StopWatch
-                        id={parseInt(item.ticket_no.replace('#',''))}
+                        id={parseInt(item.ticket_no.replace('#', ''))}
                         start={item.isPlaying}
                         startTime={item.timer}
-                        getTime={(time) => {
-                          // const temp = JSON.parse(JSON.stringify(stopWatchDataList.get())); //* Force Copy Method
-                          // temp[index] && (temp[index].timer = time)
-                          // stopWatchDataList.set(temp);
-                          // forceUpdate();
+                        getTime={time => {
+                          const temp = JSON.parse(
+                            JSON.stringify(stopWatchDataList.get()),
+                          ); //* Force Copy Method
+                          temp[index] && (temp[index].timer = time);
+                          stopWatchDataList.set(temp);
+                          forceUpdate();
                         }}
                       />
                     </View>

@@ -5,14 +5,14 @@ import {useTheme, Theme} from '@react-navigation/native';
 import {AvatarContainer, SingleLineField} from '../../components';
 import II from 'react-native-vector-icons/Ionicons';
 
-import {State, useState as hookState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 import Images from '../../assets/images';
 import {userStore} from '../../stores/userStore';
 
 const Profile = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
-  const currStatus: State<boolean> = hookState(userStore.currentStatus);
-  const user: State<any> = hookState(userStore.user);
+  const currStatus: State<boolean> = useHookstate(userStore.currentStatus);
+  const user: State<any> = useHookstate(userStore.user);
   console.log('currStatus.get()', currStatus.get());
   return (
     <View

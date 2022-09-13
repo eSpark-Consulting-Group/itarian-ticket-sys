@@ -26,7 +26,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
-import {State, useState as hookState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar} from 'react-native-paper';
 // @ts-ignore
@@ -68,11 +68,11 @@ import {userStore} from '../stores/userStore';
 const Drawer = createDrawerNavigator<ParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
-  const currStatus: State<boolean> = hookState(userStore.currentStatus);
-  const user: State<any> = hookState(userStore.user);
-  const dScreen: State<string> = hookState(globalState.defaultScreenId);
-  const dSName: State<string> = hookState(globalState.defaultScreenName);
-  const dNavName: State<string> = hookState(globalState.defaultnNavigationName);
+  const currStatus: State<boolean> = useHookstate(userStore.currentStatus);
+  const user: State<any> = useHookstate(userStore.user);
+  const dScreen: State<string> = useHookstate(globalState.defaultScreenId);
+  const dSName: State<string> = useHookstate(globalState.defaultScreenName);
+  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
 
   const {colors}: Theme = useTheme();
 
@@ -97,7 +97,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </View>
         <View style={{flex: 0.7}}>
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={styles.drawerTitleStyle}>{user.get()}</Text>
+            <Text style={styles.drawerTitleStyle}>{user.get()?.user_name}</Text>
             <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
               {currStatus.get() ? 'Out of the Office' : 'In Office'}
@@ -164,10 +164,10 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 };
 
 const Draw = () => {
-  const dScreen: State<any> = hookState(globalState.defaultScreenId);
+  const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
   const navigation: any = useNavigation();
   const route: any = useRoute();
-  const shortCutScreen: State<any> = hookState(globalState.shortCutScreen);
+  const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const [currMember, setcurrMember] = useState<any>(contactsList[0]);
   const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
   const {colors}: Theme = useTheme();

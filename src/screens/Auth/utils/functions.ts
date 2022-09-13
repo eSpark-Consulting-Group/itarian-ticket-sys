@@ -3,11 +3,11 @@ import {showMessage} from 'react-native-flash-message';
 import store from 'react-native-simple-store';
 
 import {api} from '../../../api';
-import {loader} from '../../../stores/globalAppState';
+import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
 const handleLoginUser = async (email: string, password: string) => {
-  loader.set(true);
+  globalState.loader.set(true);
   console.log('email:', email);
   console.log('password:', password);
   const response = await api.post('/api/auth', {
@@ -19,7 +19,7 @@ const handleLoginUser = async (email: string, password: string) => {
   });
   if (response.ok) {
     const resData: any = response.data;
-    loader.set(false);
+    globalState.loader.set(false);
     console.log(response.data);
     if (resData.code == 'ERR_USER_NOT_FOUND') {
       showMessage({
@@ -30,21 +30,24 @@ const handleLoginUser = async (email: string, password: string) => {
     }
     if (resData.code == 'SUCCESS_AUTHENTICATION') {
       const {data} = resData;
-      const {displayName} = data?.sessionData;
+      const {displayName, email, userId} = data?.sessionData;
       showMessage({
         message: 'Authentication Successful',
         type: 'success',
         icon: 'auto',
         autoHide: true,
         duration: 100,
-      });
-      userStore.user.set(displayName);
-      store.update('user', {
+    });
+      const userObj: any = {
         user_name: displayName,
-      });
+        email: email,
+        userId: userId
+      }
+      store.update('user', userObj);
+      userStore.user.set(userObj);
     }
   } else {
-    loader.set(false);
+    globalState.loader.set(false);
   }
 };
 

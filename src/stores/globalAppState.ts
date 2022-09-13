@@ -1,10 +1,10 @@
-import {hookstate, createState} from '@hookstate/core';
+import {hookstate} from '@hookstate/core';
 
-export const loader = hookstate(false);
 
-export const globalState = createState({
+export const globalState = hookstate({
   theme: 'light',
   searchTag: 'tickets',
+  loader: false,
   stopwatch: [
     {
       ticket_no: '#12348',
@@ -75,7 +75,6 @@ export const globalState = createState({
   defaultScreenName: 'Agenda',
   defaultnNavigationName: '',
   shortCutScreen: null,
-  user: false,
   agendaMember: 'John Doe',
   calendarMember: 'John Doe',
 });

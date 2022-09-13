@@ -6,7 +6,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MI from 'react-native-vector-icons/MaterialIcons';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Theme, useTheme} from '@react-navigation/native';
-import {State, useState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 
 import {
   goBack,
@@ -59,7 +59,7 @@ export type RootStackParamList = {
 
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
-  const activeStatus: State<any> = useState(userStore);
+  const activeStatus: State<any> = useHookstate(userStore);
 
   return (
     <Stack.Navigator

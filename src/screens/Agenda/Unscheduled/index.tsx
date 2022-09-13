@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, FlatList, RefreshControl} from 'react-native';
 
 import {Theme, useTheme} from '@react-navigation/native';
-import {State, useState as useHState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 
 import styles from './style';
 import ListItem from '../ListItem';
@@ -18,7 +18,7 @@ import {globalState} from '../../../stores/globalAppState';
 
 const UnscheduledTab = ({navigation}: any) => {
   const {colors}: Theme = useTheme();
-  const activeMember: State<string> = useHState(globalState.agendaMember);
+  const activeMember: State<string> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, ScrollView} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
-import {State, useState as hookState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 
 import {ModalView, SingleLineField} from '../../components';
 import {globalState} from '../../stores/globalAppState';
@@ -25,7 +25,7 @@ const NewActivity = ({route, navigation}: any) => {
 
   const [StartTime, setStartTime] = useState(null);
   const [endTime, setendTime] = useState(null);
-  const user: State<any> = hookState(userStore.user);
+  const user: State<any> = useHookstate(userStore.user);
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {

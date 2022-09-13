@@ -5,7 +5,7 @@ import {Divider} from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
 import Ions from 'react-native-vector-icons/Ionicons';
-import {State, useState as useHState} from '@hookstate/core';
+import {State, useHookstate} from '@hookstate/core';
 
 import styles from './style';
 import {stopWatchList} from '../../constants/SampleArrays';
@@ -26,7 +26,7 @@ const StopWatchScreen = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
-  const stopWatchDataList: State<any> = useHState(globalState.stopwatch);
+  const stopWatchDataList: State<any> = useHookstate(globalState.stopwatch);
   const solidColor = dark ? '#000000' : '#ffffff';
   const [stopwatchs, SetStopwatch] = useState<Stopwatch[]>(JSON.parse(JSON.stringify(stopWatchDataList?.get())));
   let timerStopwatch = JSON.parse(JSON.stringify(stopwatchs));

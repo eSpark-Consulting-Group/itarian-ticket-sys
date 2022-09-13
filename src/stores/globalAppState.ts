@@ -1,4 +1,6 @@
-import {createState} from '@hookstate/core';
+import {hookstate, createState} from '@hookstate/core';
+
+export const loader = hookstate(false);
 
 export const globalState = createState({
   theme: 'light',
@@ -68,7 +70,6 @@ export const globalState = createState({
       isPlaying: false,
       show: true,
     },
-  
   ],
   defaultScreenId: 'Agenda',
   defaultScreenName: 'Agenda',

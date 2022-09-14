@@ -16,6 +16,7 @@ const ModalField = ({
   gap = true,
   border = false,
   halfWidth = false,
+  listMode = false,
 }: {
   pressEnable?: boolean;
   onPress?: () => void;
@@ -25,6 +26,7 @@ const ModalField = ({
   gap?: boolean;
   border?: boolean;
   halfWidth?: boolean;
+  listMode?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const pressColor = dark ? '#ffffff1a' : '#0000001a';
@@ -41,18 +43,30 @@ const ModalField = ({
           borderColor: border ? '#7575754a' : 'transparent',
           borderRadius: border ? 5 : 0,
         }}>
-        <CstmPressable
-          android_ripple={{color: pressColor}}
-          disabled={!pressEnable}
-          style={{
-            ...styles.emptyFieldStyle,
-            width: halfWidth ? WINDOW_WIDTH / 2 : WINDOW_WIDTH,
-            padding: fieldPadding,
-            ...contentStyle,
-          }}
-          onPress={onPress}>
-          {children}
-        </CstmPressable>
+        {listMode ? (
+          <View
+            style={{
+              ...styles.emptyFieldStyle,
+              width: halfWidth ? WINDOW_WIDTH / 2 : WINDOW_WIDTH,
+              padding: fieldPadding,
+              ...contentStyle,
+            }}>
+            {children}
+          </View>
+        ) : (
+          <CstmPressable
+            android_ripple={{color: pressColor}}
+            disabled={!pressEnable}
+            style={{
+              ...styles.emptyFieldStyle,
+              width: halfWidth ? WINDOW_WIDTH / 2 : WINDOW_WIDTH,
+              padding: fieldPadding,
+              ...contentStyle,
+            }}
+            onPress={onPress}>
+            {children}
+          </CstmPressable>
+        )}
       </View>
     </>
   );

@@ -482,11 +482,11 @@ export const whereList: SelectFields[] = [
   },
   {
     id: 1,
-    name: 'Onsite',
+    name: 'On-site',
   },
   {
     id: 2,
-    name: 'Hybrid',
+    name: 'In-house',
   },
 ];
 

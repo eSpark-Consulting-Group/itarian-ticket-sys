@@ -31,6 +31,7 @@ export const Signature = ({navigation, route}: any) => {
             });
           }}
           roundedIconEnable
+          enable={false}
         />
       </View>
     );

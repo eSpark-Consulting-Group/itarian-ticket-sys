@@ -76,9 +76,12 @@ export default function NewTicket({route, navigation}: any) {
     {
       title: 'Add Resource',
       enable: true,
-      list: resourceList,
-      selectedItem: resourceList[0],
       headerTitle: 'Add Resource',
+      onPress: () => {
+        navigation?.navigate('Stack2', {
+          screen: 'AddResource',
+        });
+      },
       rightIcon: 'chevron-right',
     },
     {

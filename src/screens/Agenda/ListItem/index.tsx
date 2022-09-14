@@ -49,7 +49,7 @@ const ListItem = ({
             </View>
           </View>
           <View style={{width: '75%'}}>
-            {item2.ticket_no && (
+            {item2.type == 'Ticket' && (
               <Text style={{fontWeight: 'bold', color: colors.text}}>
                 Ticket {item2.ticket_no}
               </Text>

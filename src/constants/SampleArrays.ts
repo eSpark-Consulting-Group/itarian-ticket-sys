@@ -150,7 +150,6 @@ export const ticketsList: Ticket[] = [
   {
     id: 7,
     type: 'Activity',
-    ticket_no: '#15329',
     age: 14.5,
     company_name: 'Fast Tech',
     summary: 'Purchasing new Instruments and Equipments',
@@ -160,6 +159,20 @@ export const ticketsList: Ticket[] = [
     start_time: '10:30 AM',
     end_time: '12:00 AM',
     time_dur: '1.5h',
+    date: 'Aug 29, 2022',
+    project: 'Server Migration',
+    site: 'Remote',
+    assigned_to: 'John Doe',
+  },
+  {
+    id: 8,
+    type: 'Activity',
+    age: 14.5,
+    company_name: 'Fast Tech',
+    summary: 'Equip new Instruments and Equipments',
+    status: 'Scheduled',
+    priority: 'P3',
+    phase: 'New',
     date: 'Aug 29, 2022',
     project: 'Server Migration',
     site: 'Remote',
@@ -716,7 +729,6 @@ export const stopWatchList: Stopwatch[] = [
     isPlaying: false,
     show: true,
   },
-
 ];
 
 export const screenItemList: ScreenItems[] = [

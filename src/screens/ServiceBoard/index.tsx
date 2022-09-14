@@ -48,7 +48,7 @@ const ServiceBoard = ({navigation}: any) => {
           onPress={() => {
             navigation.navigate('Stack1', {
               screen: 'STickets',
-              params: {title: item.ticket_no.toString()},
+              params: {title: item.ticket_no?.toString()},
             });
           }}>
           <View
@@ -84,7 +84,7 @@ const ServiceBoard = ({navigation}: any) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{...styles.title, color: colors.text}}>
-                    {item.ticket_summary}
+                    {item.summary}
                   </Text>
                 </View>
                 {item.contact && (
@@ -112,7 +112,7 @@ const ServiceBoard = ({navigation}: any) => {
                     }}
                   />
                   <Text style={{...styles.subTitle, color: colors.text}}>
-                    {item.company}
+                    {item.company_name}
                   </Text>
                 </View>
                 <View

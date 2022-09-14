@@ -13,28 +13,73 @@ import {WINDOW_WIDTH} from '../../constants';
 import {SingleLineField} from '../../components/FormFields';
 // import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import {NotesAdditionalButtons} from '../../constants/ButtonsList';
-import {NoteTypes} from '../../types';
+import {AdditionalButtons, NoteTypes} from '../../types';
+import {stNotesList} from '../../constants/SelectionList';
 
 export default function ComposeNote({route, navigation}: any) {
   const {colors, dark} = useTheme();
   const [noteTypeList, setNoteTypeList] = useState<NoteTypes[]>([]);
   const [currChkInd, setCurrChkInd] = useState<number | any>(0);
   const [loader, setLoader] = useState<boolean>(true);
+  const [stNotes, setStNotes] = useState<boolean>(false);
+  const [selectedStNote, setSelectedStNote] = useState(stNotesList[0]);
   const [notes, setNotes] = useState<string>('');
+  const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
+    NotesAdditionalButtons,
+  );
 
   useEffect(() => {
     setNoteTypeList(route?.params?.data);
     setLoader(false);
-  }, [route?.params]);
+  }, []);
+
+  useEffect(() => {
+    setSelectedStNote(route?.params?.selected);
+    setNotes(route?.params?.selected?.name);
+    console.log('Received Params', route?.params);
+  }, [route?.params?.selected]);
+
+  const updatePress = () => {
+    let tempArr = [...actionButtons];
+    tempArr[0].onPress = () => setStNotes(true);
+    tempArr[1].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'AddMiscSchedule',
+        params: {from: 'agenda'},
+      });
+    };
+    setActionButtons(tempArr);
+  };
+
+  const handlePress = () => {
+    navigation.navigate('Stack2', {
+      screen: 'CstmItemSelector',
+      params: {
+        ...route?.params,
+        from: 'ComposeNote',
+        item: stNotesList[0].id,
+        data: stNotesList,
+        selected: selectedStNote,
+        stack: 'Stack2',
+        headerTitle: 'Standard Notes',
+      },
+    });
+  };
 
   useEffect(() => {
     navigation?.setParams({
       ...route?.params,
       notes: notes,
       type: noteTypeList[currChkInd]?.text,
-      selected: null,
+      from: 'ComposeNote',
+      stack: 'Stack1',
     });
   }, [notes]);
+
+  useEffect(() => {
+    updatePress();
+  }, []);
+
   const renderNoteTypes = (item: NoteTypes, index: number) => {
     return (
       <View key={index} style={{marginHorizontal: 1}}>
@@ -65,15 +110,22 @@ export default function ComposeNote({route, navigation}: any) {
           </ModalHeader>
           <SingleLineField
             mode="multiline"
-            onChangeText={setNotes}
+            onChangeText={e => setNotes(e)}
             subTitle="Compose Note"
             title={notes}
             inputable
           />
+          {stNotes && (
+            <SingleLineField
+              title={'Select Standard Note'}
+              rightIcon={'chevron-right'}
+              onPress={handlePress}
+            />
+          )}
         </>
       )}
       {loader && <SimpleLoader />}
-      <FloatButton AdditionalButtons={NotesAdditionalButtons} />
+      <FloatButton AdditionalButtons={actionButtons} />
     </ModalView>
   );
 }

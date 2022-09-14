@@ -59,14 +59,28 @@ const App = ({navigation, route}: any) => {
         },
       });
     };
-    tempArr[3].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'NewExpenseReport',
+    tempArr[1].onPress = () => {
+      navigation.navigate('Stack2', {
+        screen: 'AddResource',
       });
     };
     tempArr[2].onPress = () => {
       navigation.navigate('Stack1', {
         screen: 'NewTicket',
+      });
+    };
+    tempArr[3].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewExpenseReport',
+      });
+    };
+    tempArr[4].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewTimeSheet',
+        params: {
+          from: 'ServiceTickets',
+          chargeCode: route?.params?.title
+        },
       });
     };
     setActionButtons(tempArr);

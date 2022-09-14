@@ -14,7 +14,7 @@ import {Attachments} from '../components/Attachments/index';
 import {AttachmentDetails} from '../components/Attachments/view/attachmentDetails';
 import {globalState} from '../stores/globalAppState';
 import { EditTicket } from '../forms/EditTicket';
-
+import { AddResource } from '../forms/AddResource';
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
@@ -168,6 +168,31 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="checkmark"
               color={'#fff'}
               onPress={() => onSave(navigation, route)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="AddResource"
+        component={AddResource}
+        options={({route, navigation}: any) => ({
+          title: "Add Resource",
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={30}
+              name="save"
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
             />
           ),
         })}

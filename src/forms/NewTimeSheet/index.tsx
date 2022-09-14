@@ -5,6 +5,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 import { SelectFields } from '../../types';
 import { chargeCodeList, typeList, workRoleList } from '../../constants/SelectionList';
+import { NoteTypes_DIR } from '../../constants/SampleArrays';
 
 const NewTimeSheet = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -57,17 +58,17 @@ const NewTimeSheet = ({route, navigation}: any) => {
     {title: 'Please Select', subTitle: 'Work Role', rightIcon: 'chevron-right', list: workRoleList, selectedItem: workRoleList[0], headerTitle: 'Work Role'},
     {title: 'Please Select', subTitle: 'Work Type', rightIcon: 'chevron-right', list: typeList, selectedItem: typeList[0], headerTitle: 'Work Type'},
     {
-      title: '',
-      subTitle: 'Notes',
-      inputable: true,
+      title: 'Add Note',
       enable: false,
-      mode: 'multiline',
+      rightIconRound: 'file-plus-outline',
+      roundedIconEnable: true,
+      onRoundIconPress: handleAddNote,
     },
   ]);
 
   interface Item {
     title: string;
-    subTitle: string;
+    subTitle?: string;
     inputable?: boolean;
     enable?: boolean;
     rightIcon?: string;
@@ -83,13 +84,15 @@ const NewTimeSheet = ({route, navigation}: any) => {
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
+    roundedIconEnable?: boolean;
+    onRoundIconPress?: () => void;
   }
 
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
 
   useEffect(() => {
-    if (route?.params?.from && !route?.params?.item?.toString()) {
+    if (route?.params?.from && !route?.params?.item?.toString() && route?.params?.from != "ServiceTickets") {
       let newData = [...dataSource];
       newData[9].title = 'Johnny Bravo';
       setDataSource(newData);
@@ -99,13 +102,17 @@ const NewTimeSheet = ({route, navigation}: any) => {
       newData[1].title = route?.params?.date;
       setDataSource(newData);
     }
-
+    if (route?.params?.from == "ServiceTickets") {
+      let newData = [...dataSource];
+      newData[0].title = route.params?.chargeCode
+      setDataSource(newData);
+    }
     if(route?.params?.data && route?.params?.data?.from == "TimeSheet") {
       let newData = [...dataSource];
       newData[0].title = route?.params?.data?.ticket?.ticket_no;
       newData[1].title = route?.params?.data?.date;
       newData[2].title = route?.params?.data?.ticket?.schedule_time?.split('-')[0] || "Please select";
-      newData[3].title =  route?.params?.data?.ticket?.schedule_time?.split('-')[1] || "Please select";
+      newData[3].title = route?.params?.data?.ticket?.schedule_time?.split('-')[1] || "Please select";
       newData[4].title = route?.params?.data?.totHrs?.toString();
       newData[5].title = route?.params?.data?.ticket?.phase;
       newData[6].title = route?.params?.data?.ticket?.site;
@@ -145,6 +152,21 @@ const NewTimeSheet = ({route, navigation}: any) => {
     }
   };
 
+  function handleAddNote() {
+    navigation.navigate('Stack2', {
+      screen: 'ComposeNote',
+      params: {
+        from: 'NewTimeSheet',
+        item: 'GoneTo',
+        data: NoteTypes_DIR,
+        stack: 'Stack1',
+        title: route?.params?.title, // used for Dynamic Headers Used
+        headerTitle: 'Note Type',
+        status: route?.params?.status,
+      },
+    });
+  }
+  
    // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
    useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
@@ -210,6 +232,8 @@ const NewTimeSheet = ({route, navigation}: any) => {
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
               onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
+              roundedIconEnable={item?.roundedIconEnable}
+              onRoundedIconPress={item?.onRoundIconPress}
             />
           ))}
         </View>

@@ -145,7 +145,7 @@ export default function Notes() {
         {subHeader()}
       </ModalField>
       {data?.length > 0 ? (
-        <ModalField pressEnable={false} fieldPadding={0}>
+        <ModalField pressEnable={false} fieldPadding={0} listMode>
           <FlatList
             data={data}
             renderItem={renderList}

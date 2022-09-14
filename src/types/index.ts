@@ -11,12 +11,18 @@ export type Company = {
   employees?: number | null;
 };
 
+export type ContactList = {
+  value: string;
+  isPrimary: boolean;
+  type: string;
+}
+
 export type Contact = {
   id: number;
   name: string;
   company_name: string;
-  phone_no?: string | undefined | null;
-  email_address?: string | undefined | null;
+  phone_no?: Array<ContactList> | undefined | null;
+  email_address?: Array<ContactList> | undefined | null;
   inOffice?: boolean;
   backDate?: string | undefined | null;
   backTime?: string | undefined | null;
@@ -246,6 +252,7 @@ export type Filter = {
   selectedItem?: SelectFields;
   searchable?: boolean;
   headerTitle?: string;
+  filterKey?: string;
 };
 
 export type Item = {

@@ -11,6 +11,7 @@ import {State, useHookstate} from '@hookstate/core';
 import {
   goBack,
   handleStopwatch,
+  onSave,
   saveStatus,
 } from '../forms/utils/headerFunctions';
 
@@ -231,7 +232,9 @@ const StackLvl1 = ({route, navigation}: any) => {
               onPress={() => navigation.goBack()}
             />
           ),
-          headerRight: () => <II size={30} name="checkmark" color={'#fff'} />,
+          headerRight: () => <II size={30} name="checkmark" color={'#fff'} onPress={() => {
+           onSave(navigation, route)
+          }}/>,
         })}
       />
       <Stack.Screen

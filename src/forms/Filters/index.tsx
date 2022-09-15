@@ -9,13 +9,15 @@ export default function App({route, navigation}: {route: any, navigation: any}) 
   const [dataSource, setDataSource] = useState(dSource);
 
   useEffect(() => {
-    console.log('route?.params.dataSource:', dataSource);
-  }, [route?.params]);
+    navigation.setParams({
+      ...route?.params,
+      filter: dataSource,
+    })
+  }, []);
 
   const updateSwitch = (index: number) => {
     let tempArr: Filter[] = [...dataSource];
     tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
-    console.log('tempArr', tempArr);
     setDataSource(tempArr);
   };
 
@@ -23,10 +25,20 @@ export default function App({route, navigation}: {route: any, navigation: any}) 
    // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
    useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      console.log("RUN RUN RUN")
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
+    }
+
+    if (route?.params?.from == "Filters") {
+      navigation.setParams({
+        ...route?.params,
+        filter: dataSource,
+        stack: route?.params?.FilterStack,
+        from: route?.params?.FilterFrom,
+      })
     }
   }, [route?.params]);
 

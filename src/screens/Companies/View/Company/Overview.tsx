@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView, Linking} from 'react-native';
+import {StyleSheet, ScrollView, Linking, FlatList} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import {
   PriorityField,
@@ -7,10 +7,11 @@ import {
   SingleLineField,
 } from '../../../../components';
 import {moderateScale} from 'react-native-size-matters';
-import {SelectFields} from '../../../../types';
+import {ContactList, SelectFields} from '../../../../types';
 import {redirectToMap} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
 import {useHookstate, State} from '@hookstate/core';
+import {contactsList} from '../../../../constants/SampleArrays';
 
 interface Item {
   headerTitle?: string;
@@ -24,16 +25,24 @@ interface Item {
   leftIcon?: string;
   searchable?: boolean;
   rightChild?: React.ReactNode;
+  contacts?: ContactList[] | null | undefined;
 }
 
 const Overview = () => {
-  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+  const dNavName: State<string> = useHookstate(
+    globalState.defaultnNavigationName,
+  );
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
   const dataSource: Item[] = [
     {
       title: '(815)-555-1234',
       headerTitle: 'Company Phone No.',
-      rightChild: <RoundedIcon onPress={() => Linking.openURL(`tel:090078601`)} icon="phone" />,
+      rightChild: (
+        <RoundedIcon
+          onPress={() => Linking.openURL(`tel:090078601`)}
+          icon="phone"
+        />
+      ),
       enable: false,
     },
     {
@@ -55,10 +64,26 @@ const Overview = () => {
       enable: false,
     },
     {
-      title: 'TSmith@AcmeItSolutions.com',
-      headerTitle: 'Email (Primary)',
-      rightChild: <RoundedIcon onPress={() => Linking.openURL('mailto:support@example.com')} icon="email-outline" />,
+      title: 'Emails',
+      contacts: contactsList[1].email_address,
+      rightChild: (
+        <RoundedIcon
+          onPress={() => Linking.openURL('mailto:support@example.com')}
+          icon="email-outline"
+        />
+      ),
       enable: false,
+    },
+    {
+      title: 'Phone numbers',
+      rightChild: (
+        <RoundedIcon
+          onPress={() => Linking.openURL(`tel:090078601`)}
+          icon="phone"
+        />
+      ),
+      enable: false,
+      contacts: contactsList[1].phone_no,
     },
   ];
   const [Ds, setDs] = useState<Item[]>(dataSource);
@@ -66,17 +91,41 @@ const Overview = () => {
     <ScrollView
       style={styles.container}
       contentContainerStyle={{alignItems: 'center'}}>
-      {Ds.map((item: Item, index: number) => (
-        <SingleLineField
-          key={index}
-          title={item.title}
-          titleWidth={item.titleWidth}
-          subTitle={item.subTitle}
-          leftIcon={item.leftIcon}
-          rightChild={item.rightChild}
-          enable={item.enable}
-        />
-      ))}
+      {Ds?.map((value, key) => {
+        if (value?.contacts?.length && value?.contacts?.length > 0) {
+          return (
+            <>
+              <SingleLineField title={value?.title || ''} enable={false}/>
+              {value?.contacts?.map((item, index) => (
+                <SingleLineField
+                  key={index}
+                  title={item?.value}
+                  subTitle={`${item?.type} ${
+                    item?.isPrimary ? '(Primary)' : ''
+                  }`}
+                  rightChild={value?.rightChild}
+                  enable={value?.enable}
+                  leftIcon={value.leftIcon}
+                  titleWidth={value?.titleWidth}
+                  gap={false}
+                />
+              ))}
+            </>
+          );
+        } else {
+          return (
+            <SingleLineField
+              key={key}
+              title={value?.title || ''}
+              subTitle={value?.subTitle}
+              rightChild={value?.rightChild}
+              enable={value?.enable}
+              titleWidth={value?.titleWidth}
+              leftIcon={value.leftIcon}
+            />
+          );
+        }
+      })}
     </ScrollView>
   );
 };

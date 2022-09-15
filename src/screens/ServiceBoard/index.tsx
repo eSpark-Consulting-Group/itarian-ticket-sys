@@ -11,9 +11,18 @@ import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
 import {EmptyListMsg, FloatButton} from '../../components';
 import {CstmPressable} from '../../components/CstmPressable';
+import { useEffect } from 'react';
 
-const ServiceBoard = ({navigation}: any) => {
+const ServiceBoard = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
+
+
+
+  useEffect(() => {
+    console.log("route?.params?.filter ServiceBoard", route?.params?.filter?.filter((val: any) => {
+      if(val?.filterKey) return {filterKey: val.filterKey, value: val?.title}
+    })?.length)
+  }, [route?.params])
 
   const renderList = ({item, index}: {item: Ticket; index: number}) => {
     const renderColor = () => {

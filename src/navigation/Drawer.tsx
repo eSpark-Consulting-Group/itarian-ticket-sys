@@ -452,12 +452,12 @@ const Draw = () => {
                 size={30}
                 name="filter"
                 color={'#ffffff'}
-                onPress={() =>
+                onPress={() => {
                   navigation.navigate('Stack1', {
                     screen: 'Filters',
-                    params: {dataSource: sBoardFiterList},
+                    params: {dataSource: sBoardFiterList, FilterStack: 'Draw', FilterFrom: 'SBoard'},
                   })
-                }
+                }}
               />
               <CstmBadge qty={99} />
             </View>

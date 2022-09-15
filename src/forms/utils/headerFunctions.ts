@@ -35,6 +35,7 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any, activeStatus?: any) => {
+  console.log('route.params', route?.params?.stack, "reoute?.params", route?.params?.from);
   if (route?.params?.notes) {
     noteList.push({
       id: noteList?.length + 1,
@@ -47,7 +48,7 @@ const onSave = (navigation: any, route: any, activeStatus?: any) => {
     });
   }
 
-  if (route?.params?.stack == 'Draw') {
+  if (route?.params?.stack == 'Draw' && route?.params?.from != 'SBoard') {
     if (route?.params?.from == 'Agenda') {
       activeStatus?.agendaMember.set(
         JSON.parse(JSON.stringify(route.params?.selected.name)),

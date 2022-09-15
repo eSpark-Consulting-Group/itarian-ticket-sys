@@ -85,7 +85,6 @@ export const RenderContacts = ({
 }) => {
   const {colors, dark}: Theme = useTheme();
   const navigation: any = useNavigation();
-  console.log('Navigation', navigation);
 
   const renderList = ({item, index}: {item: Contact; index: number}) => {
     return (

@@ -16,7 +16,7 @@ import ExpenseReports from './ExpenseReports';
 import Settings from './Settings';
 import SendFeedback from './SendFeedback';
 import Profile from './Profile';
-
+import OTPScreen from './Auth/OTPScreen';
 export {
   Login,
   SignUp,
@@ -37,4 +37,5 @@ export {
   Settings,
   SendFeedback,
   Profile,
+  OTPScreen
 };

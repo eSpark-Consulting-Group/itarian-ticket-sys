@@ -25,6 +25,7 @@ import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
+import { Loader } from '../../../components/Loader';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -83,7 +84,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
             }}
             onSubmit={values => {
               const {email, password} = values;
-              handleLoginUser(email, password);
+              handleLoginUser(email, password, navigation);
             }}
             validationSchema={validationSchema}>
             {({
@@ -129,7 +130,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                   <View style={{marginVertical: 10}}>
                     <CstmButton
                       title="Sign In"
-                      loader={loadingState.get()}
+                      loader={false}
                       onPress={() => {
                         handleSubmit();
                       }}
@@ -141,6 +142,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
           </Formik>
         </KeyboardAvoidingView>
       </ScrollView>
+      <Loader isShow={loadingState.get()} />
     </View>
   );
 };

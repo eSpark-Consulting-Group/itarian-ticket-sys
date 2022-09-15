@@ -623,3 +623,19 @@ export const workRoleList: SelectFields[] = [
     name: 'workRoleList 3',
   },
 ];
+
+//? ------------------------------- Compose Note Selector Fields
+export const stNotesList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'Hello',
+  },
+  {
+    id: 1,
+    name: 'Hey',
+  },
+  {
+    id: 2,
+    name: 'Hi',
+  },
+];

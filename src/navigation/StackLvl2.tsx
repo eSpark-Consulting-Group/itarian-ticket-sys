@@ -4,7 +4,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 
-import GoneTo from '../screens/Profile/View/Profile/GoneTo';
 import {onSave, goBack} from '../forms/utils/headerFunctions';
 import CstmItemSelector from '../components/CstmItemSelector';
 import ComposeNote from '../forms/ComposeNote';
@@ -152,7 +151,7 @@ const StackLvl2 = ({navigation, route}: any) => {
         name="EditTicket"
         component={EditTicket}
         options={({route, navigation}: any) => ({
-          title: "Edit Ticket",
+          title: 'Edit Ticket',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -177,7 +176,7 @@ const StackLvl2 = ({navigation, route}: any) => {
         name="AddResource"
         component={AddResource}
         options={({route, navigation}: any) => ({
-          title: "Add Resource",
+          title: 'Add Resource',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

@@ -130,7 +130,7 @@ export const AddTaxType = ({navigation, route}: any) => {
   const totalTax = dataSource.reduce(
     (previousValue, currentValue) => {
         console.log("parseInt(currentValue[1].title", parseInt(currentValue[1].title))
-        return previousValue + parseInt(currentValue[1].title)
+        return previousValue + parseInt(currentValue[1].title || '0')
     },
     0
   );

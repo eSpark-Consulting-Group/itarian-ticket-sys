@@ -15,6 +15,7 @@ import {AttachmentDetails} from '../components/Attachments/view/attachmentDetail
 import {globalState} from '../stores/globalAppState';
 import { EditTicket } from '../forms/EditTicket';
 import { AddResource } from '../forms/AddResource';
+import { AddTaxType } from '../forms/AddTaxType';
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
@@ -193,6 +194,31 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="AddTaxType"
+        component={AddTaxType}
+        options={({route, navigation}: any) => ({
+          title: route?.params?.title || 'Add Tax Type',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
             />
           ),
         })}

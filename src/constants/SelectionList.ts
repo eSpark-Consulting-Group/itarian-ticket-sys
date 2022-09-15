@@ -520,6 +520,18 @@ export const chargeCodeList: SelectFields[] = [
   },
 ];
 
+export const TaxTypeList: SelectFields[] = [
+  {
+    id: 0,
+    name: 'HST',
+  },
+  {
+    id: 1,
+    name: 'PST',
+  },
+ 
+];
+
 export const expenseTypeList: SelectFields[] = [
   {
     id: 0,

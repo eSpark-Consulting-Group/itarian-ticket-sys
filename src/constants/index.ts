@@ -1,6 +1,6 @@
 import {Dimensions} from 'react-native';
 
-export const BUILD_VERSION = '0.7.04';
+export const BUILD_VERSION = '0.7.05';
 
 export const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} =
   Dimensions.get('window');

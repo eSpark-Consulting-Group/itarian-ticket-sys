@@ -49,12 +49,14 @@ const Notes = () => {
               <Text style={{color: colors.text, ...styles.subText}}>
                 {item.time}
               </Text>
-              <View
-                style={{
-                  backgroundColor: dark ? '#ffffff' : '#000000',
-                  ...styles.divider,
-                }}
-              />
+              {item.time ? (
+                <View
+                  style={{
+                    backgroundColor: dark ? '#ffffff' : '#000000',
+                    ...styles.divider,
+                  }}
+                />
+              ) : null}
               <Text style={{color: colors.text, ...styles.subText}}>
                 {item.date}
               </Text>

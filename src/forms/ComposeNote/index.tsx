@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   FloatButton,
@@ -15,6 +16,7 @@ import {SingleLineField} from '../../components/FormFields';
 import {NotesAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons, NoteTypes} from '../../types';
 import {stNotesList} from '../../constants/SelectionList';
+import {Text} from 'react-native-paper';
 
 export default function ComposeNote({route, navigation}: any) {
   const {colors, dark} = useTheme();
@@ -22,6 +24,7 @@ export default function ComposeNote({route, navigation}: any) {
   const [currChkInd, setCurrChkInd] = useState<number | any>(0);
   const [loader, setLoader] = useState<boolean>(true);
   const [stNotes, setStNotes] = useState<boolean>(false);
+  const [showTimeSt, setShowTimeSt] = useState<boolean>(false);
   const [selectedStNote, setSelectedStNote] = useState(stNotesList[0]);
   const [notes, setNotes] = useState<string>('');
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
@@ -41,13 +44,8 @@ export default function ComposeNote({route, navigation}: any) {
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
-    tempArr[0].onPress = () => setStNotes(true);
-    tempArr[1].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'AddMiscSchedule',
-        params: {from: 'agenda'},
-      });
-    };
+    tempArr[0].onPress = handlePress;
+    tempArr[1].onPress = () => setShowTimeSt(true);
     setActionButtons(tempArr);
   };
 
@@ -71,10 +69,10 @@ export default function ComposeNote({route, navigation}: any) {
       ...route?.params,
       notes: notes,
       type: noteTypeList[currChkInd]?.text,
-      from: 'ComposeNote',
       stack: 'Stack1',
+      showTime: showTimeSt,
     });
-  }, [notes]);
+  }, [notes, showTimeSt]);
 
   useEffect(() => {
     updatePress();
@@ -115,12 +113,40 @@ export default function ComposeNote({route, navigation}: any) {
             title={notes}
             inputable
           />
-          {stNotes && (
+          {/* {stNotes && (
             <SingleLineField
               title={'Select Standard Note'}
               rightIcon={'chevron-right'}
               onPress={handlePress}
             />
+          )} */}
+          {showTimeSt && (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backgroundColor: dark ? '#000000' : '#ffffff',
+                marginVertical: 10,
+                paddingVertical: 5,
+                paddingHorizontal: 10,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <MCI name="check" color={'green'} size={20} />
+                <Text style={{color: 'green'}}>
+                  Time Stamp will be adde d on save.
+                </Text>
+              </View>
+              <>
+                <TouchableOpacity onPress={() => setShowTimeSt(false)}>
+                  <MCI name="close" color={colors.text} size={20} />
+                </TouchableOpacity>
+              </>
+            </View>
           )}
         </>
       )}

@@ -35,14 +35,27 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any, activeStatus?: any) => {
-  console.log('route.params', route?.params?.stack, "reoute?.params", route?.params?.from);
+  console.log(
+    'route.params',
+    route?.params?.stack,
+    'reoute?.params',
+    route?.params?.from,
+  );
   if (route?.params?.notes) {
+    const currDate = new Date();
+    const fullDate =
+      currDate.getDate() +
+      ' ' +
+      currDate.toString().slice(4, 7) +
+      ', ' +
+      currDate.getFullYear();
+    const fullTime = currDate.getHours() + ':' + currDate.getMinutes();
     noteList.push({
       id: noteList?.length + 1,
       img: Images.AvatarHolder,
       title: `Template ${noteList?.length + 1}`,
-      time: '12:19 AM',
-      date: '19 Nov, 2021',
+      time: route?.params?.showTime ? fullTime : '',
+      date: route?.params?.showTime ? fullDate : '',
       note: route?.params?.notes,
       type: route?.params?.type,
     });

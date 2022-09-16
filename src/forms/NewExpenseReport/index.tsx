@@ -1,4 +1,4 @@
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, KeyboardTypeOptions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   FloatButton,
@@ -46,7 +46,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
       selectedItem: expenseTypeList[0],
       headerTitle: 'Expense Type',
     },
-    {title: 'Amount', rightChild: <Text>0.00</Text>},
+    {subTitle: 'Amount', inputable: true, title: '0', keyboardType: 'number-pad'},
     {
       title: 'Paid by employee',
       subTitle: 'Payment Method',
@@ -114,6 +114,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
     list?: SelectFields[];
     selectedItem?: SelectFields;
     headerTitle?: string;
+    keyboardType?: KeyboardTypeOptions | undefined;
   }
 
   const updateInput = (e: string, index: number) => {
@@ -131,6 +132,14 @@ const NewExpenseReport = ({route, navigation}: any) => {
     }
   };
 
+  useEffect(() => {
+    AddExpenseAdditionalButtons[0].onPress = () => {
+      navigation.navigate('Stack2', {
+        screen: 'AddTaxType',
+        params: {amount: parseInt(dataSource[3].title || '0')}
+      })
+    }
+  }, [dataSource]);
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
@@ -196,6 +205,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
                 item?.onPress ? item.onPress : () => handlePress(item, index)
               }
               rightChild={item?.rightChild}
+              keyboardType={item?.keyboardType}
             />
           ))}
         </View>

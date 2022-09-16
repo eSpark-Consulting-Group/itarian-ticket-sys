@@ -8,7 +8,7 @@ import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 //@ts-ignore
 import store from 'react-native-simple-store';
 
-import {Login, SignUp} from '../screens/index';
+import {Login, SignUp, OTPScreen} from '../screens/index';
 import {DarkTheme, LightTheme} from '../theme/colors';
 import Drawer from './Drawer';
 import {globalState} from '../stores/globalAppState';
@@ -26,6 +26,7 @@ export type RootStackParamList = {
   Stack1: undefined;
   Stack2: {screen: string; params?: object};
   Stack3: undefined;
+  OTPScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -118,6 +119,11 @@ const App = () => {
               <Stack.Screen
                 name="SignUp"
                 component={SignUp}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="OTPScreen"
+                component={OTPScreen}
                 options={{headerShown: false}}
               />
             </>

@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
   underlineStyleHighLighted: {
     borderColor: "#03DAC6",
   },
+  resendCode: {
+      fontWeight: '500',
+      fontSize: 14,
+      lineHeight: 18,
+      color: '#3669C9',
+  }
 });
 
 export default styles;

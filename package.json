@@ -38,6 +38,7 @@
     "react-native-calendars": "^1.1286.0",
     "react-native-camera": "^4.2.1",
     "react-native-check-app-install": "^0.0.5",
+    "react-native-countdown-component": "^2.7.1",
     "react-native-document-picker": "^8.1.1",
     "react-native-dotenv": "^3.3.1",
     "react-native-flash-message": "^0.3.1",

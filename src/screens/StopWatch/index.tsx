@@ -21,7 +21,7 @@ import {StopWatch} from '../../components/CstmStopwatch/stopwatch';
 //@ts-ignore
 import store from 'react-native-simple-store';
 
-const StopWatchScreen = () => {
+const StopWatchScreen = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -197,7 +197,11 @@ const StopWatchScreen = () => {
                         }}
                       />
                     </View>
-                    <TouchableOpacity disabled={item.isPlaying}>
+                    <TouchableOpacity onPress={() => {
+                      navigation.navigate('Stack1', {
+                        screen: 'NewTimeSheet',
+                      });
+                    }} disabled={item.isPlaying}>
                       <Text
                         style={{
                           color: colors.primary,

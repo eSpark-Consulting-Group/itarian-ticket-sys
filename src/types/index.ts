@@ -252,7 +252,8 @@ export type Filter = {
   selectedItem?: SelectFields;
   searchable?: boolean;
   headerTitle?: string;
-  filterKey?: string;
+  key?: string;
+  value?: string | boolean;
 };
 
 export type Item = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ViewStyle} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CstmPressable} from '../CstmPressable';
@@ -8,10 +8,12 @@ export default function RoundedIcon({
   enable = true,
   icon,
   onPress,
+  iconStyle = {}
 }: {
   enable?: boolean;
   icon?: string;
   onPress?: () => void;
+  iconStyle?: ViewStyle
 }) {
   const {colors, dark}: Theme = useTheme();
   return (
@@ -20,6 +22,7 @@ export default function RoundedIcon({
         borderColor: colors.text,
         opacity: enable ? 0.7 : 0.5,
         ...styles.iconStyle,
+        ...iconStyle
       }}>
       <CstmPressable
         disabled={!enable}

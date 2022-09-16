@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {StyleSheet, Text, View, ViewStyle, KeyboardTypeOptions} from 'react-native';
 import {Switch} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -37,6 +37,9 @@ interface Props {
   leftIconStyles?: ViewStyle;
   fieldPadding?: number;
   halfWidth?: boolean;
+  keyboardType?: KeyboardTypeOptions | undefined;
+  inputWidth?: number | undefined;
+  roundIconStyle?: ViewStyle
 }
 
 const SingleLineField = ({
@@ -64,6 +67,9 @@ const SingleLineField = ({
   leftIconStyles = {},
   fieldPadding = 10,
   halfWidth = false,
+  keyboardType='default',
+  inputWidth = undefined,
+  roundIconStyle = {},
 }: Props) => {
   const {colors}: Theme = useTheme();
   return (
@@ -115,7 +121,7 @@ const SingleLineField = ({
               )}
               {inputable ? (
                 mode == 'none' ? (
-                  <CstmTitleInput value={title} onChangeText={onChangeText} />
+                  <CstmTitleInput width={inputWidth} value={title} onChangeText={onChangeText} keyboardType={keyboardType} />
                 ) : (
                   <CstmMultiLine
                     value={title}
@@ -162,6 +168,7 @@ const SingleLineField = ({
         )}
         {rightIconRound && (
           <RoundedIcon
+            iconStyle={roundIconStyle}
             enable={roundedIconEnable ?? false}
             onPress={onRoundedIconPress}
             icon={rightIconRound}

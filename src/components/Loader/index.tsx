@@ -1,0 +1,30 @@
+import {Theme, useTheme} from '@react-navigation/native';
+import React from 'react';
+import {View, Modal, ActivityIndicator} from 'react-native';
+
+export const Loader = ({isShow = false}: {isShow: boolean}) => {
+  const {dark, colors}: Theme = useTheme();
+  return (
+    <View
+      style={{
+        flex: 1,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}>
+      <Modal transparent={true} visible={isShow}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          }}>
+          <ActivityIndicator size={'large'} color={colors.primary} />
+        </View>
+      </Modal>
+    </View>
+  );
+};

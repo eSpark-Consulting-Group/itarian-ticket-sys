@@ -955,7 +955,8 @@ export const sBoardFiterList: Filter[] = [
     showRightSwitch: true,
     enable: false,
     rightSwitchVal: false,
-    filterKey: 'assigned_to'
+    key: 'assigned_to',
+    value: false
   },
   {
     title: 'All',
@@ -986,7 +987,7 @@ export const sBoardFiterList: Filter[] = [
     selectedItem: companyNameList[0],
     headerTitle: 'Company',
     searchable: true,
-    filterKey: 'company_name',
+    key: 'company_name',
   },
   {
     title: 'Please Select',

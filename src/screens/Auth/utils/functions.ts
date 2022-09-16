@@ -54,7 +54,12 @@ const handleLoginUser = async (
 
     if (resData.code == 'OTP_REQUIRED') {
       if (resData?.data?.otpType == 'sms') {
-        requestSmsOtp(resData?.data, navigation);
+        const result = await requestSmsOtp(resData?.data, navigation);
+        if (result) {
+          navigation?.navigate('OTPScreen', {
+            data: resData?.data,
+          });
+        }
       } else {
         navigation?.navigate('OTPScreen', {
           data: resData?.data,
@@ -75,14 +80,15 @@ const requestSmsOtp = async (data: any, navigation: any) => {
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    // console.log("requestSmsOtp", response.data);
+    console.log('requestSmsOtp', response.data, data);
     if (resData?.code == 'SUCCESS_OTP_VERIFICATION_CODE_SENT') {
-      navigation?.navigate('OTPScreen', {
-        data: data,
-      });
+      return true;
+    } else {
+      return false;
     }
   } else {
     globalState.loader.set(false);
+    return false;
   }
 };
 
@@ -128,4 +134,4 @@ const handleVerifyOTP = async (data: any) => {
   }
 };
 
-export {handleLoginUser, handleVerifyOTP};
+export {handleLoginUser, handleVerifyOTP, requestSmsOtp};

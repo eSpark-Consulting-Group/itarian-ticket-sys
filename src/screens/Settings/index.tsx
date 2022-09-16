@@ -242,7 +242,7 @@ const SettingsScreen = () => {
           Biometrics
         </List.Subheader>
         <List.Item
-          title="Use Fingerprint"
+          title="Use Biometrics for Login"
           titleStyle={{color: colors.text, opacity: 0.75}}
           right={() => (
             <Switch

@@ -63,36 +63,36 @@ const BiometricVerification = ({
     // this.description.shake();
   };
 
-  const renderLegacy = () => {
-    return (
-      <View style={styles.container}>
-        {/* <View style={[styles.contentContainer, style]}>
-          <Image
-            style={styles.logo}
-            source={require('./assets/finger_print.png')}
-          />
+  // const renderLegacy = () => {
+  //   return (
+  //     <View style={styles.container}>
+  //       <View style={[styles.contentContainer, style]}>
+  //         <Image
+  //           style={styles.logo}
+  //           source={require('./assets/finger_print.png')}
+  //         />
 
-          <Text style={styles.heading}>Biometric{'\n'}Authentication</Text>
-          <ShakingText
-            // ref={(instance) => { this.description = instance; }}
-            style={styles.description(!!errorMessageLegacy)}>
-            {errorMessageLegacy ||
-              `Scan your ${biometricLegacy} on the\ndevice scanner to continue`}
-          </ShakingText>
+  //         <Text style={styles.heading}>Biometric{'\n'}Authentication</Text>
+  //         <ShakingText
+  //           // ref={(instance) => { this.description = instance; }}
+  //           style={styles.description(!!errorMessageLegacy)}>
+  //           {errorMessageLegacy ||
+  //             `Scan your ${biometricLegacy} on the\ndevice scanner to continue`}
+  //         </ShakingText>
 
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={handlePopupDismissedLegacy}>
-            <Text style={styles.buttonText}>BACK TO MAIN</Text>
-          </TouchableOpacity>
-        </View> */}
-      </View>
-    );
-  };
+  //         <TouchableOpacity
+  //           style={styles.buttonContainer}
+  //           onPress={handlePopupDismissedLegacy}>
+  //           <Text style={styles.buttonText}>BACK TO MAIN</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </View>
+  //   );
+  // };
 
-  if (requiresLegacyAuthentication()) {
-    return renderLegacy();
-  }
+  // if (requiresLegacyAuthentication()) {
+  //   return renderLegacy();
+  // }
 
   // current API UI provided by native BiometricPrompt
   return null;

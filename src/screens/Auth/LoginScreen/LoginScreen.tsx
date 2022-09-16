@@ -152,10 +152,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
       <Loader isShow={loadingState.get()} />
 
       {biometricState.get() && (
-        <BiometricVerification
-          // onAuthenticate={() => console.log('User Authenticated')}
-          onAuthenticate={() => navigation.navigate('Draw')}
-        />
+        <BiometricVerification onAuthenticate={() => user.set(true)} />
       )}
     </View>
   );

@@ -14,18 +14,24 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 import styles from './style';
-import {CstmButton, CstmInput, CstmErrorText} from '../../../components';
+import {
+  CstmButton,
+  CstmInput,
+  CstmErrorText,
+  BiometricVerification,
+} from '../../../components';
 import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
 import {State, useHookstate} from '@hookstate/core';
 
 // @ts-ignore
 import store from 'react-native-simple-store';
+
 import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
-import { Loader } from '../../../components/Loader';
+import {Loader} from '../../../components/Loader';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -35,6 +41,7 @@ const validationSchema = Yup.object().shape({
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const user: State<any> = useHookstate(userStore.user);
   const loadingState: State<boolean> = useHookstate(globalState.loader);
+  const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const {colors}: Theme = useTheme();
 
@@ -143,6 +150,10 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
         </KeyboardAvoidingView>
       </ScrollView>
       <Loader isShow={loadingState.get()} />
+
+      {biometricState.get() && (
+        <BiometricVerification onAuthenticate={() => user.set(true)} />
+      )}
     </View>
   );
 };

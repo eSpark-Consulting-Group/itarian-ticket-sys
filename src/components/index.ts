@@ -24,6 +24,7 @@ import {PriorityField, SingleLineField} from './FormFields';
 import {StopWatch, Timer} from './CstmStopwatch';
 import NotFound from './NotFound';
 import BarcodeScanner from './BarcodeScanner';
+import BiometricVerification from './BiometricVerification';
 
 export {
   CstmButton,
@@ -54,4 +55,5 @@ export {
   StopWatch,
   Timer,
   BarcodeScanner,
+  BiometricVerification,
 };

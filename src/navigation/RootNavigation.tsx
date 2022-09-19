@@ -45,6 +45,7 @@ const config: any = {
 
 const App = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
+  const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const user: State<any> = useHookstate(userStore.user);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
@@ -85,6 +86,12 @@ const App = () => {
         themeValue.set(res?.theme);
       }
     });
+    store.get('bioMetric').then((res: any) => {
+      console.log('res?.bioMetric', res?.bioMetric);
+      if (res) {
+        biometricState.set(res?.bioMetric);
+      }
+    });
     console.log('Theme State', themeValue.get());
   }, [themeValue.get()]);
 
@@ -111,7 +118,7 @@ const App = () => {
         // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
         <Stack.Navigator>
-          {false ? (
+          {!user.get() ? (
             <>
               <Stack.Screen
                 name="Login"

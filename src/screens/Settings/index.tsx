@@ -15,9 +15,12 @@ import store from 'react-native-simple-store';
 
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
+  const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const dScreen: State<string> = useHookstate(globalState.defaultScreenId);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
-  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+  const dNavName: State<string> = useHookstate(
+    globalState.defaultnNavigationName,
+  );
 
   const [isSwitchOn, setIsSwitchOn] = useState(
     themeValue.get() == 'light' ? false : true,
@@ -31,6 +34,12 @@ const SettingsScreen = () => {
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
+  };
+  const onToggleBiometrics = () => {
+    store.update('bioMetric', {
+      bioMetric: !biometricState.get(),
+    });
+    biometricState.set(!biometricState.get());
   };
 
   useUpdateEffect(() => {
@@ -53,7 +62,7 @@ const SettingsScreen = () => {
     dSName.set(name);
     store.update('dSName', {
       dSName: name,
-      dSId: id
+      dSId: id,
     });
     setdefaultScreen(name);
   };
@@ -222,7 +231,29 @@ const SettingsScreen = () => {
             )}
           />
         </TouchableOpacity>
-        <Divider style={{backgroundColor: colors.text, opacity: 0.25}} />
+        <Divider
+          style={{
+            backgroundColor: colors.text,
+            opacity: 0.25,
+            transform: [{scale: 2}],
+          }}
+        />
+        <List.Subheader style={{color: colors.text, opacity: 0.6}}>
+          Biometrics
+        </List.Subheader>
+        <List.Item
+          title="Use Biometrics for Login"
+          titleStyle={{color: colors.text, opacity: 0.75}}
+          right={() => (
+            <Switch
+              value={biometricState.get()}
+              onValueChange={onToggleBiometrics}
+              thumbColor={colors.primary}
+              color={colors.primary}
+              trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+            />
+          )}
+        />
       </List.Section>
     </View>
   );

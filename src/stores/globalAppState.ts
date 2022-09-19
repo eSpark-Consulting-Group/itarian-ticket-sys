@@ -1,10 +1,10 @@
 import {hookstate} from '@hookstate/core';
 
-
 export const globalState = hookstate({
   theme: 'light',
   searchTag: 'tickets',
   loader: false,
+  useBiometric: false,
   stopwatch: [
     {
       ticket_no: '#12348',

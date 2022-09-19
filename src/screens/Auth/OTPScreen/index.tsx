@@ -1,57 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import Images from '../../../assets/images';
-import { SCREEN_HEIGHT, WINDOW_HEIGHT } from '../../../constants';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../../../constants';
 import styles from './style';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import { Theme, useTheme } from '@react-navigation/native';
-import { CstmButton } from '../../../components';
-import { handleVerifyOTP, requestSmsOtp } from '../utils/functions';
+import {Theme, useTheme} from '@react-navigation/native';
+import {CstmButton} from '../../../components';
+import {handleVerifyOTP, requestSmsOtp} from '../utils/functions';
 // @ts-ignore
-import CountDown from 'react-native-countdown-component'
+import CountDown from 'react-native-countdown-component';
 
-const OTPScreen = ({ navigation, route }: any) => {
-  const paramsData = route?.params?.data
+const OTPScreen = ({navigation, route}: any) => {
+  const paramsData = route?.params?.data;
 
-  const [otp, setOtp] = useState('')
-  const [counter, setCounter] = useState(300)
-  const [expired, setExpired] = useState(false)
-  const [showResend, setshowResend] = useState(false)
+  const [otp, setOtp] = useState('');
+  const [counter, setCounter] = useState(300);
+  const [expired, setExpired] = useState(false);
+  const [showResend, setshowResend] = useState(false);
 
-
-  console.log('OTPScreen route.?params', route?.params?.data, paramsData?.data?.otpType);
-  const { colors }: Theme = useTheme();
+  console.log(
+    'OTPScreen route.?params',
+    route?.params?.data,
+    paramsData?.data?.otpType,
+  );
+  const {colors}: Theme = useTheme();
 
   useEffect(() => {
     setTimeout(() => {
-      setshowResend(true)
-    }, 10000)
-  }, [])
+      setshowResend(true);
+    }, 10000);
+  }, []);
 
   const onSubmit = () => {
     var obj = {
       otp: otp,
       otpKey: paramsData?.otpKey,
-      otpType: paramsData?.otpType
-    }
-    console.log("obj obj obj", obj)
-    handleVerifyOTP(obj)
-  }
+      otpType: paramsData?.otpType,
+    };
+    console.log('obj obj obj', obj);
+    handleVerifyOTP(obj);
+  };
 
   const onResend = async () => {
-    setCounter(0)
-    const result = await requestSmsOtp(paramsData, navigation)
+    setCounter(0);
+    const result = await requestSmsOtp(paramsData, navigation);
     if (result) {
-      setshowResend(false)
-      setCounter(300)
-      setExpired(!expired)
+      setshowResend(false);
+      setCounter(300);
+      setExpired(!expired);
       setTimeout(() => {
-        setshowResend(true)
-      }, 10000)
+        setshowResend(true);
+      }, 10000);
     }
-  }
+  };
   return (
-    <View style={{ backgroundColor: colors.background }}>
+    <View style={{backgroundColor: colors.background}}>
       <View style={styles.imageContainer}>
         <Image
           source={Images.Logo}
@@ -60,39 +63,45 @@ const OTPScreen = ({ navigation, route }: any) => {
         />
       </View>
       <View style={styles.imageContainer}>
-        <Text style={{ fontWeight: 'bold', color: colors.text, fontSize: 25 }}>
+        <Text style={{fontWeight: 'bold', color: colors.text, fontSize: 25}}>
           OTP Verification
         </Text>
-        <Text style={{ color: colors.text }}>We sent your code to your {paramsData?.otpType == "sms" ? "Phone Number" : "2 Factor Authenticator App"}</Text>
-        {!expired && paramsData?.otpType == "sms" &&
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ marginVertical: 5, color: colors.text }}>
+        <Text style={{color: colors.text}}>
+          We sent your code to your{' '}
+          {paramsData?.otpType == 'sms'
+            ? 'Phone Number'
+            : '2 Factor Authenticator App'}
+        </Text>
+        {!expired && paramsData?.otpType == 'sms' && (
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{marginVertical: 5, color: colors.text}}>
               OTP will expires in
             </Text>
             <CountDown
               until={counter}
               onFinish={() => {
-                setExpired(!expired)
+                setExpired(!expired);
               }}
               timeToShow={['M', 'S']}
-              timeLabels={{ m: 'MM', s: 'SS' }}
-              style={{ width: '15%' }}
-              digitStyle={{ backgroundColor: 'none' }}
+              timeLabels={{m: 'MM', s: 'SS'}}
+              style={{width: '15%'}}
+              digitStyle={{backgroundColor: 'none'}}
               separatorStyle={{
                 color: colors.primary,
                 marginBottom: 16,
-                marginHorizontal: -15
+                marginHorizontal: -15,
               }}
-              digitTxtStyle={{ color: colors.primary }}
-              timeLabelStyle={{ color: 'transparent' }}
+              digitTxtStyle={{color: colors.primary}}
+              timeLabelStyle={{color: 'transparent'}}
               showSeparator
               size={12}
             />
-          </View>}
+          </View>
+        )}
       </View>
-      <View style={{ marginTop: SCREEN_HEIGHT * 0.15 }}>
+      <View style={{marginTop: SCREEN_HEIGHT * 0.15}}>
         <OTPInputView
-          style={{ width: '80%', height: 100, alignSelf: 'center' }}
+          style={{width: '80%', height: 100, alignSelf: 'center'}}
           pinCount={6}
           code={otp} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
           onCodeChanged={code => setOtp(code)}
@@ -113,22 +122,51 @@ const OTPScreen = ({ navigation, route }: any) => {
           }}
         />
 
-        <CstmButton disabled={otp?.length != 6} title="Continue" loader={false} onPress={() => onSubmit()} />
-        {paramsData?.otpType == "sms" &&
+        <CstmButton
+          disabled={otp?.length != 6}
+          title="Continue"
+          loader={false}
+          onPress={() => onSubmit()}
+        />
+        {paramsData?.otpType == 'sms' && (
           <TouchableOpacity
             activeOpacity={0.8}
             disabled={!showResend}
             onPress={() => {
               // _resendOtp()
-              onResend()
-            }} style={{ alignItems: 'center', marginVertical: SCREEN_HEIGHT * 0.15, flexDirection: 'row', alignSelf: 'center' }}>
-            <Text style={{ marginVertical: 5, color: colors.text, textDecorationLine: 'underline', opacity: 0.8 }}>Didn't recieve OTP? </Text>
+              onResend();
+            }}
+            style={{
+              alignItems: 'center',
+              marginVertical: SCREEN_HEIGHT * 0.15,
+              flexDirection: 'row',
+              alignSelf: 'center',
+            }}>
+            <Text
+              style={{
+                marginVertical: 5,
+                color: colors.text,
+                textDecorationLine: 'underline',
+                opacity: 0.8,
+              }}>
+              Didn't recieve OTP?{' '}
+            </Text>
 
-            <Text style={[styles.resendCode, { color: colors.primary + (!showResend ? "40" : ""), textDecorationLine: 'underline' }]}> Resend OTP Code</Text>
+            <Text
+              style={[
+                styles.resendCode,
+                {
+                  color: colors.primary + (!showResend ? '40' : ''),
+                  textDecorationLine: 'underline',
+                },
+              ]}>
+              {' '}
+              Resend OTP Code
+            </Text>
           </TouchableOpacity>
-        }
+        )}
       </View>
-    </View >
+    </View>
   );
 };
 

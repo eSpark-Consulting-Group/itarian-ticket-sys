@@ -61,7 +61,7 @@ const onSave = (navigation: any, route: any, activeStatus?: any) => {
     });
   }
 
-  if (route?.params?.stack == 'Draw' && route?.params?.from != 'SBoard') {
+  if (route?.params?.stack == 'Draw' && route?.params?.from != 'SBoard' && route?.params?.from != 'PBoard') {
     if (route?.params?.from == 'Agenda') {
       activeStatus?.agendaMember.set(
         JSON.parse(JSON.stringify(route.params?.selected.name)),
@@ -91,6 +91,17 @@ const onSave = (navigation: any, route: any, activeStatus?: any) => {
   }
 };
 
+const clearFunc = (navigation: any, route: any) => {
+  navigation.navigate(route?.params?.stack, {
+    screen: route?.params?.from,
+    params: {
+      title: route?.params?.title,
+      selected: route?.params?.selected,
+      item: route?.params?.item,
+      filter: []
+    },
+  });
+}
 const handleStopwatch = (params: any) => {
   // const {ticket_info} = params;
   // const date = new Date();
@@ -107,4 +118,4 @@ const handleStopwatch = (params: any) => {
   // console.log('hoa ==========>>', tempArr);
 };
 
-export {saveStatus, goBack, onSave, handleStopwatch};
+export {saveStatus, goBack, onSave, handleStopwatch, clearFunc};

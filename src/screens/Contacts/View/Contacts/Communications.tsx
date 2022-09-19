@@ -54,8 +54,8 @@ export default function Communications() {
       {dataSource?.map((value, key) => {
         if (value?.contacts?.length && value?.contacts?.length > 0) {
           return (
-            <>
-              <SingleLineField title={value?.title || ''} enable={false}/>
+            <View key={key}>
+              <SingleLineField title={value?.title || ''} enable={false} />
               {value?.contacts?.map((item, index) => (
                 <SingleLineField
                   key={index}
@@ -70,7 +70,7 @@ export default function Communications() {
                   gap={false}
                 />
               ))}
-            </>
+            </View>
           );
         } else {
           return (

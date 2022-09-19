@@ -31,7 +31,7 @@ const Companies = () => {
 
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
-      text: text || '',
+      text: text,
       list: companiesList,
       keys: ['name', 'id'],
     });

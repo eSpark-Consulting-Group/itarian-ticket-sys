@@ -28,7 +28,7 @@ const OTPScreen = ({navigation, route}: any) => {
   useEffect(() => {
     setTimeout(() => {
       setshowResend(true);
-    }, 10000);
+    }, 5000);
   }, []);
 
   const onSubmit = () => {
@@ -50,7 +50,7 @@ const OTPScreen = ({navigation, route}: any) => {
       setExpired(!expired);
       setTimeout(() => {
         setshowResend(true);
-      }, 10000);
+      }, 5000);
     }
   };
   return (
@@ -128,7 +128,7 @@ const OTPScreen = ({navigation, route}: any) => {
           loader={false}
           onPress={() => onSubmit()}
         />
-        {paramsData?.otpType == 'sms' && (
+        {paramsData?.otpType == 'sms' && showResend && (
           <TouchableOpacity
             activeOpacity={0.8}
             disabled={!showResend}

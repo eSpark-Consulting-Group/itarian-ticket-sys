@@ -111,7 +111,7 @@ const App = () => {
         // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
         <Stack.Navigator>
-          {!user.get() ? (
+          {false ? (
             <>
               <Stack.Screen
                 name="Login"

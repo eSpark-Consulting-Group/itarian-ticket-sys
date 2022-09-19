@@ -12,7 +12,7 @@ import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import _ from 'lodash';
 import {CstmPressable} from '../../components';
-import { searchFromArray } from '../../utils/helperFunctions';
+import {searchFromArray} from '../../utils/helperFunctions';
 
 const Contacts = () => {
   const {colors, dark}: Theme = useTheme();
@@ -32,11 +32,11 @@ const Contacts = () => {
 
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
-      text: text || '',
+      text: text,
       list: contactsList,
       keys: ['name', 'company_name'],
     });
-      setFilteredContacts(result);
+    setFilteredContacts(result);
   };
 
   const handleClear = () => {

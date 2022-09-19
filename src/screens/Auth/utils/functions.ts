@@ -7,9 +7,9 @@ import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
 const handleLoginUser = async (
-  email?: string,
-  password?: string,
-  navigation?: any,
+  email: string,
+  password: string,
+  navigation: any,
 ) => {
   globalState.loader.set(true);
   console.log('email:', email);
@@ -21,11 +21,10 @@ const handleLoginUser = async (
     password: 'Admin123!@', //
     nameSpace: 'ServiceDesk',
   });
-  console.log('handleLoginUser', response);
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    // console.log('handleLoginUser', response.data);
+    // console.log("handleLoginUser", response.data);
     if (resData.code == 'ERR_USER_NOT_FOUND') {
       showMessage({
         message: 'Incorrect Email or Password',

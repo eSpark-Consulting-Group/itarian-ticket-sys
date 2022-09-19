@@ -1,15 +1,15 @@
-import { Linking, Platform } from 'react-native';
+import {Linking, Platform} from 'react-native';
 import {
   AppInstalledChecker,
   // @ts-ignore
 } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';
-import DocumentPicker, { types } from 'react-native-document-picker';
+import DocumentPicker, {types} from 'react-native-document-picker';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
-    { package: 'com.waze', name: 'Waze' },
-    { package: 'com.google.android.apps.maps', name: 'Google Maps' },
+    {package: 'com.waze', name: 'Waze'},
+    {package: 'com.google.android.apps.maps', name: 'Google Maps'},
   ];
   const arr: any = [];
   for (let index = 0; index < Androidpackages.length; index++) {
@@ -31,11 +31,11 @@ export const redirectToMap = (
 ) => {
   const scheme =
     defaultNav == 'Waze'
-      ? Platform.select({ ios: 'maps:0,0?q=', android: 'waze://?ll=' })
+      ? Platform.select({ios: 'maps:0,0?q=', android: 'waze://?ll='})
       : Platform.select({
-        ios: 'maps:0,0?q=',
-        android: 'https://www.google.com/maps/search/?api=1&query=',
-      });
+          ios: 'maps:0,0?q=',
+          android: 'https://www.google.com/maps/search/?api=1&query=',
+        });
 
   const latLng = `${lat},${lng}`;
   const url: any = Platform.select({
@@ -76,7 +76,7 @@ export const imagePicker = async ({
   }
 };
 
-export const documentPicker = async ({ }) => {
+export const documentPicker = async ({}) => {
   try {
     const result = await DocumentPicker.pickSingle({
       presentationStyle: 'fullScreen',
@@ -97,7 +97,7 @@ export const documentPicker = async ({ }) => {
   }
 };
 
-export const cameraPicker = async ({ cropping = false }) => {
+export const cameraPicker = async ({cropping = false}) => {
   try {
     const result = await ImagePicker.openCamera({
       width: 300,
@@ -112,7 +112,7 @@ export const cameraPicker = async ({ cropping = false }) => {
 };
 
 export const searchFromArray = async ({
-  text = '',
+  text,
   list = [],
   keys = [],
 }: {
@@ -121,6 +121,7 @@ export const searchFromArray = async ({
   keys: any;
 }) => {
   if (text) {
+    console.log('whoss');
     // Inserted text is not blank
     // Filter the masterDataSource
     // Update FilteredDataSource
@@ -128,11 +129,12 @@ export const searchFromArray = async ({
       const itemData = keys
         ?.map((value: any) => `${item[value]?.toUpperCase()}`)
         ?.join(' ');
-      const textData = text?.toUpperCase();
+      const textData = text.toUpperCase();
       return itemData?.indexOf(textData) > -1;
     });
     return newData;
   } else {
+    console.log('chacl');
     // Inserted text is blank
     // Update FilteredDataSource with masterDataSource
     return list;

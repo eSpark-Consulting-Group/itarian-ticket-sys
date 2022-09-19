@@ -155,9 +155,16 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
-export const StopWatch = ({start = false, startTime = 0, getTime = (time) => {}, id = 0}) => {
+export const StopWatch = ({
+  start = false,
+  startTime = 0,
+  getTime = time => {},
+  id = 0,
+}) => {
   const [voiceDuration, setvoiceDuration] = useState('00:00:00');
+  const {colors} = useTheme();
   var duration = useRef<NodeJS.Timer>();
 
   useEffect(() => {
@@ -170,17 +177,17 @@ export const StopWatch = ({start = false, startTime = 0, getTime = (time) => {},
 
   useEffect(() => {
     if (startTime) {
-        setDuration(startTime)
+      setDuration(startTime);
     }
   }, [startTime]);
 
   useEffect(() => {
     return () => {
-      stopTimer()
-  }
-  }, [])
+      stopTimer();
+    };
+  }, []);
 
-  const setDuration = (timer) => {
+  const setDuration = timer => {
     var countDownDate = new Date();
     var now = new Date().getTime();
     var timeleft = now - countDownDate.getTime() + 1000 * timer;
@@ -198,41 +205,46 @@ export const StopWatch = ({start = false, startTime = 0, getTime = (time) => {},
       minutes?.length == 1 ? '0' + minutes : minutes
     }:${seconds?.length == 1 ? '0' + seconds : seconds}`;
     setvoiceDuration(durationString);
-  }
+  };
 
   const startTimer = () => {
     var countDownDate = new Date();
     // Run myfunc every second
     duration.current = setInterval(function () {
-        var now = new Date().getTime();
-        var timeleft = now - countDownDate.getTime() + 1000 * startTime;
+      var now = new Date().getTime();
+      var timeleft = now - countDownDate.getTime() + 1000 * startTime;
 
-        // Calculating the days, hours, minutes and seconds left
-        var hours = Math.floor(
-          (timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-        ).toString();
-        var minutes = Math.floor(
-          (timeleft % (1000 * 60 * 60)) / (1000 * 60),
-        ).toString();
-        var seconds = Math.floor((timeleft % (1000 * 60)) / 1000).toString();
+      // Calculating the days, hours, minutes and seconds left
+      var hours = Math.floor(
+        (timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      ).toString();
+      var minutes = Math.floor(
+        (timeleft % (1000 * 60 * 60)) / (1000 * 60),
+      ).toString();
+      var seconds = Math.floor((timeleft % (1000 * 60)) / 1000).toString();
 
-        var durationString = `${hours?.length == 1 ? '0' + hours : hours}:${
-          minutes?.length == 1 ? '0' + minutes : minutes
-        }:${seconds?.length == 1 ? '0' + seconds : seconds}`;
-        setvoiceDuration(durationString);
-        getTime(parseInt(seconds) + (parseInt(minutes) * 60) + (parseInt(hours) * 60 * 60 ))
+      var durationString = `${hours?.length == 1 ? '0' + hours : hours}:${
+        minutes?.length == 1 ? '0' + minutes : minutes
+      }:${seconds?.length == 1 ? '0' + seconds : seconds}`;
+      setvoiceDuration(durationString);
+      getTime(
+        parseInt(seconds) + parseInt(minutes) * 60 + parseInt(hours) * 60 * 60,
+      );
     }, 1000);
   };
 
   const stopTimer = () => {
-    clearInterval(duration.current)
+    clearInterval(duration.current);
   };
 
   return (
     <>
       <View style={styles.searchSection}>
         <View>
-          <Text>{voiceDuration}</Text>
+          <Text
+            style={{color: colors.primary, fontWeight: 'bold', fontSize: 16}}>
+            {voiceDuration}
+          </Text>
         </View>
       </View>
     </>

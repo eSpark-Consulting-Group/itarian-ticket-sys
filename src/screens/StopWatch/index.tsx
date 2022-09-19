@@ -1,6 +1,17 @@
-import React, {useEffect, useState, useReducer, useCallback, useRef} from 'react';
+import React, {
+  useEffect,
+  useState,
+  useReducer,
+  useCallback,
+  useRef,
+} from 'react';
 import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
-import {useTheme, useFocusEffect, Theme, useIsFocused} from '@react-navigation/native';
+import {
+  useTheme,
+  useFocusEffect,
+  Theme,
+  useIsFocused,
+} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
@@ -28,25 +39,27 @@ const StopWatchScreen = ({navigation}: any) => {
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
   const stopWatchDataList: State<any> = useHookstate(globalState.stopwatch);
   const solidColor = dark ? '#000000' : '#ffffff';
-  const [stopwatchs, SetStopwatch] = useState<Stopwatch[]>(JSON.parse(JSON.stringify(stopWatchDataList?.get())));
+  const [stopwatchs, SetStopwatch] = useState<Stopwatch[]>(
+    JSON.parse(JSON.stringify(stopWatchDataList?.get())),
+  );
   let timerStopwatch = JSON.parse(JSON.stringify(stopwatchs));
   // var timer = useRef<NodeJS.Timer>();
   // useFocusEffect(
   //   useCallback(() => {
   //     SetStopwatch(stopWatchDataList?.get());
-      // setImmediate(() => {
-      //   setIsLoading(false);
-      // });
+  // setImmediate(() => {
+  //   setIsLoading(false);
+  // });
   //     return () => setIsLoading(true);
   //   }, []),
   // );
 
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
   useEffect(() => {
     SetStopwatch(JSON.parse(JSON.stringify(stopWatchDataList?.get())));
-     setImmediate(() => {
-        setIsLoading(false);
-      });
+    setImmediate(() => {
+      setIsLoading(false);
+    });
   }, [isFocused]);
 
   useEffect(() => {
@@ -61,7 +74,7 @@ const StopWatchScreen = ({navigation}: any) => {
 
     // clear on component unmount
     return () => {
-      console.log("return")
+      console.log('return');
       clearInterval(timer);
     };
   }, [stopwatchs]);
@@ -69,12 +82,12 @@ const StopWatchScreen = ({navigation}: any) => {
   const renderList = ({item, index}: {item: Stopwatch; index: number}) => {
     const handlePlayPause = () => {
       if (item?.isPlaying === true) {
-        const temp = stopwatchs //* Force Copy Method
+        const temp = stopwatchs; //* Force Copy Method
         temp[index].isPlaying = false;
         SetStopwatch(temp);
         forceUpdate();
       } else if (item?.isPlaying === false) {
-        const temp = stopwatchs //* Force Copy Method
+        const temp = stopwatchs; //* Force Copy Method
         temp[index].isPlaying = true;
         SetStopwatch(temp);
         forceUpdate();
@@ -101,10 +114,10 @@ const StopWatchScreen = ({navigation}: any) => {
       function confirmDelete() {
         // handlePlayPause()
         // setTimeout(() => {
-          const temp = stopwatchs
-          temp.splice(index, 1);
-          SetStopwatch(temp);
-          forceUpdate();
+        const temp = stopwatchs;
+        temp.splice(index, 1);
+        SetStopwatch(temp);
+        forceUpdate();
         // }, 1000)
       }
     };
@@ -185,23 +198,28 @@ const StopWatchScreen = ({navigation}: any) => {
                         style={{alignSelf: 'center', marginRight: 5}}
                       />
                       <StopWatch
-                        key={parseInt(item.ticket_no.replace('#',''))}
+                        key={parseInt(item.ticket_no.replace('#', ''))}
                         start={item.isPlaying}
                         startTime={item.timer}
-                        getTime={(time) => {
-                          console.log("item.timer item.timer", stopwatchs[0].timer)
+                        getTime={time => {
+                          console.log(
+                            'item.timer item.timer',
+                            stopwatchs[0].timer,
+                          );
                           const temp = stopwatchs; //* Force Copy Method
-                          temp[index] && (temp[index].timer = time)
-                          timerStopwatch = temp
+                          temp[index] && (temp[index].timer = time);
+                          timerStopwatch = temp;
                           SetStopwatch(temp);
                         }}
                       />
                     </View>
-                    <TouchableOpacity onPress={() => {
-                      navigation.navigate('Stack1', {
-                        screen: 'NewTimeSheet',
-                      });
-                    }} disabled={item.isPlaying}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('Stack1', {
+                          screen: 'NewTimeSheet',
+                        });
+                      }}
+                      disabled={item.isPlaying}>
                       <Text
                         style={{
                           color: colors.primary,

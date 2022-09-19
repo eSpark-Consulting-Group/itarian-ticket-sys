@@ -146,12 +146,10 @@ const OTPScreen = ({navigation, route}: any) => {
               style={{
                 marginVertical: 5,
                 color: colors.text,
-                textDecorationLine: 'underline',
                 opacity: 0.8,
               }}>
               Didn't recieve OTP?{' '}
             </Text>
-
             <Text
               style={[
                 styles.resendCode,
@@ -160,7 +158,6 @@ const OTPScreen = ({navigation, route}: any) => {
                   textDecorationLine: 'underline',
                 },
               ]}>
-              {' '}
               Resend OTP Code
             </Text>
           </TouchableOpacity>

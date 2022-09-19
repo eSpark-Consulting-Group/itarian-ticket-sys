@@ -45,11 +45,14 @@ const config: any = {
 
 const App = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
+  const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const user: State<any> = useHookstate(userStore.user);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
-  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+  const dNavName: State<string> = useHookstate(
+    globalState.defaultnNavigationName,
+  );
   const globalStopwatch: State<any> = useHookstate(globalState.stopwatch);
 
   //! ----------------------------------------------------
@@ -58,7 +61,7 @@ const App = () => {
 
   useEffect(() => {
     store.get('user').then((res: any) => {
-      console.log("user", res);
+      console.log('user', res);
       if (res) user.set(res);
     });
     store.get('dSName').then((res: any) => {
@@ -83,6 +86,12 @@ const App = () => {
         themeValue.set(res?.theme);
       }
     });
+    store.get('bioMetric').then((res: any) => {
+      console.log('res?.bioMetric', res?.bioMetric);
+      if (res) {
+        biometricState.set(res?.bioMetric);
+      }
+    });
     console.log('Theme State', themeValue.get());
   }, [themeValue.get()]);
 
@@ -97,7 +106,7 @@ const App = () => {
       if (data != null) handleColdBoot(data);
     })
     .catch(err => console.log('err', err));
-  
+
   console.log('actions  loaded  successfully', user.get());
   return (
     <SafeAreaProvider>

@@ -27,7 +27,7 @@ const Configurations = ({route}: any) => {
   useEffect(() => {
     if (route.params) {
       setSearchValue(route.params.data);
-      handleSubmit(route.params.data);
+      // handleSubmit(route.params.data);
     }
   }, [route.params]);
 
@@ -36,7 +36,7 @@ const Configurations = ({route}: any) => {
 
   const handleSubmit = (val?: string) => {
     setLoading(true);
-    searchFilterFunction(val ?? searchValue);
+    searchFilterFunction(searchValue);
     setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -44,7 +44,7 @@ const Configurations = ({route}: any) => {
 
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
-      text: text || '',
+      text: text,
       list: configurationsList,
       keys: ['name', 'company_name', 'model', 'serial', 'tag'],
     });
@@ -58,9 +58,8 @@ const Configurations = ({route}: any) => {
 
   useUpdateEffect(() => {
     if (clear) {
-      console.log('done');
-      handleSubmit();
       setClear(false);
+      handleSubmit();
     }
   }, [clear]);
 

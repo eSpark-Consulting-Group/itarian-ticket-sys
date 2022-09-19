@@ -49,7 +49,9 @@ const App = () => {
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
-  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+  const dNavName: State<string> = useHookstate(
+    globalState.defaultnNavigationName,
+  );
   const globalStopwatch: State<any> = useHookstate(globalState.stopwatch);
 
   //! ----------------------------------------------------
@@ -58,7 +60,7 @@ const App = () => {
 
   useEffect(() => {
     store.get('user').then((res: any) => {
-      console.log("user", res);
+      console.log('user', res);
       if (res) user.set(res);
     });
     store.get('dSName').then((res: any) => {
@@ -97,7 +99,7 @@ const App = () => {
       if (data != null) handleColdBoot(data);
     })
     .catch(err => console.log('err', err));
-  
+
   console.log('actions  loaded  successfully', user.get());
   return (
     <SafeAreaProvider>

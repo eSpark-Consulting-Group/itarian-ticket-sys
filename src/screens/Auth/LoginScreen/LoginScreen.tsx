@@ -8,6 +8,7 @@ import {
   Keyboard,
   TouchableOpacity,
   Alert,
+  Text,
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
@@ -27,6 +28,7 @@ import {
   CstmErrorText,
   BiometricVerification,
   Separator,
+  GapView,
 } from '../../../components';
 import {WINDOW_HEIGHT} from '../../../constants';
 
@@ -169,14 +171,28 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               onPress={handleScanner}
               style={{
                 ...styles.fingerScannerBtn,
-                borderColor: biometricState.get() ? colors.text : '#999',
+                borderColor: biometricState.get()
+                  ? colors.primary
+                  : colors.primary + '81',
               }}>
               <MCI
                 name="fingerprint"
-                color={biometricState.get() ? colors.text : '#999'}
+                color={
+                  biometricState.get() ? colors.primary : colors.primary + '81'
+                }
                 size={50}
               />
             </TouchableOpacity>
+            <GapView />
+            <Text
+              style={{
+                color: biometricState.get()
+                  ? colors.primary
+                  : colors.primary + '81',
+                fontSize: 14,
+              }}>
+              Biometric Scan
+            </Text>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>

@@ -8,22 +8,16 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH * 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 20,
   },
-  divider_1: {
-    flex: 1,
-    transform: [{scaleY: 6}],
+  divider: {
+    transform: [{scaleY: 3}],
   },
   centerContent: {
     paddingHorizontal: 15,
-    textAlign: 'center',
-    fontSize: 16,
-  },
-  divider_2: {
-    flex: 1,
-    transform: [{scaleY: 6}],
+    fontSize: 14,
   },
 });
 

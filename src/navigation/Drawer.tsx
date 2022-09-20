@@ -72,7 +72,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   const user: State<any> = useHookstate(userStore.user);
   const dScreen: State<string> = useHookstate(globalState.defaultScreenId);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
-  const dNavName: State<string> = useHookstate(globalState.defaultnNavigationName);
+  const dNavName: State<string> = useHookstate(
+    globalState.defaultnNavigationName,
+  );
 
   const {colors}: Theme = useTheme();
 
@@ -170,13 +172,17 @@ const Draw = () => {
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const [currMember, setcurrMember] = useState<any>(contactsList[0]);
   const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
+  const [filterCount, setFilterCount] = useState<any>("0");
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
-
+  
   useEffect(() => {
+    var filterVariables = route?.params?.params?.filter?.filter((val: any) => {
+      if(val?.key && val?.value != null) return {key: val.key, value: val?.value}
+    })
+    setFilterCount(filterVariables?.length || "0")
     if (route?.params?.item) {
-      console.log('route?.params?.', route?.params?.from);
 
       if (route?.params?.from == 'Agenda') {
         setcurrMember(route?.params?.selected);
@@ -455,11 +461,22 @@ const Draw = () => {
                 onPress={() => {
                   navigation.navigate('Stack1', {
                     screen: 'Filters',
-                    params: {dataSource: sBoardFiterList, FilterStack: 'Draw', FilterFrom: 'SBoard'},
-                  })
+                    params: {
+                      dataSource: sBoardFiterList,
+                      FilterStack: 'Draw',
+                      FilterFrom: 'SBoard',
+                    },
+                  });
                 }}
               />
-              <CstmBadge qty={99} />
+              {/* {console.log(
+                'filterVariables filterVariables filterVariables',
+                route?.params?.filter?.filter((val: any) => {
+                  if (val?.key && val?.value != null)
+                    return {key: val.key, value: val?.value};
+                })?.length,
+              )} */}
+              <CstmBadge qty={filterCount || "0"} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -481,16 +498,18 @@ const Draw = () => {
                 size={30}
                 name="filter"
                 color={'#ffffff'}
-                onPress={() =>
+                onPress={() => {
                   navigation.navigate('Stack1', {
                     screen: 'Filters',
                     params: {
                       dataSource: pBoardFilterList,
+                      FilterStack: 'Draw',
+                      FilterFrom: 'PBoard',
                     },
-                  })
-                }
+                  });
+                }}
               />
-              <CstmBadge qty={99} />
+              <CstmBadge qty={filterCount || "0"} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -531,11 +550,13 @@ const Draw = () => {
                     params: {
                       dataSource: opportunityFilterList,
                       title: '30 Dec 2022',
+                      FilterStack: 'Draw',
+                      FilterFrom: 'PBoard',
                     },
                   })
                 }
               />
-              <CstmBadge qty={99} />
+              <CstmBadge qty={filterCount || "0"} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (

@@ -79,11 +79,18 @@ const requestSmsOtp = async (data: any, navigation: any) => {
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    console.log('requestSmsOtp', response.data, data);
-    if (resData?.code == 'SUCCESS_OTP_VERIFICATION_CODE_SENT') {
-      return true;
-    } else {
-      return false;
+    console.log("requestSmsOtp", response.data, data);
+    if(resData?.code == "ERR_OTP_VERIFICATION_CODE_ATTEMPT_LIMIT_REACHED") {
+      showMessage({
+        message: "Too many login attempts try again after 1 hour",
+        type: 'danger',
+        icon: 'auto',
+      });
+    }
+    if (resData?.code == "SUCCESS_OTP_VERIFICATION_CODE_SENT") {
+      return true
+    }else {
+      return false
     }
   } else {
     globalState.loader.set(false);

@@ -4,7 +4,6 @@ import {useTheme, Theme} from '@react-navigation/native';
 import {RoundedIcon, SingleLineField} from '../../../../components';
 import {contactsList} from '../../../../constants/SampleArrays';
 import {ContactList} from '../../../../types';
-import {FlatList} from 'react-native-gesture-handler';
 
 interface Item {
   headerTitle?: string;

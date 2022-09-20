@@ -18,11 +18,6 @@ const OTPScreen = ({navigation, route}: any) => {
   const [expired, setExpired] = useState(false);
   const [showResend, setshowResend] = useState(false);
 
-  console.log(
-    'OTPScreen route.?params',
-    route?.params?.data,
-    paramsData?.data?.otpType,
-  );
   const {colors}: Theme = useTheme();
 
   useEffect(() => {
@@ -37,7 +32,6 @@ const OTPScreen = ({navigation, route}: any) => {
       otpKey: paramsData?.otpKey,
       otpType: paramsData?.otpType,
     };
-    console.log('obj obj obj', obj);
     handleVerifyOTP(obj);
   };
 
@@ -53,6 +47,7 @@ const OTPScreen = ({navigation, route}: any) => {
       }, 5000);
     }
   };
+  
   return (
     <View style={{backgroundColor: colors.background}}>
       <View style={styles.imageContainer}>

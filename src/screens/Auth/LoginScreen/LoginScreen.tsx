@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {Theme, useTheme} from '@react-navigation/native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -20,18 +19,16 @@ import {
   CstmErrorText,
   BiometricVerification,
 } from '../../../components';
-import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
+import QuickActions from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
 import {State, useHookstate} from '@hookstate/core';
-
-// @ts-ignore
-import store from 'react-native-simple-store';
 
 import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
 import {Loader} from '../../../components/Loader';
+import { handleColdBoot } from '../../../utils/helperFunctions';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -43,7 +40,6 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const loadingState: State<boolean> = useHookstate(globalState.loader);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
-  const {colors}: Theme = useTheme();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -59,11 +55,6 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     };
   }, []);
 
-  const handleColdBoot = (data: ShortcutItem) => {
-    const {userInfo} = data;
-    console.log('chala coldboot', userInfo?.url);
-    Linking.openURL(userInfo?.url);
-  };
 
   QuickActions.popInitialAction()
     .then(data => {

@@ -50,13 +50,10 @@ const ExpenseReportsScreen = ({navigation}: any) => {
     const data = expReportList.filter(
       i => i.date >= dateArr[0].date && i.date <= dateArr[1].date,
     );
-    console.log('DATA', data);
     setImmediate(() => {
       setExpData(data);
-      console.log('fgf');
       setImmediate(() => {
         setIsDate(true);
-        console.log('qwe');
       });
     });
     setTotExp(Expense);

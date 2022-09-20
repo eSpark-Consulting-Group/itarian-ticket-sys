@@ -13,6 +13,7 @@ import {SchAdditionalButtons} from '../../constants/ButtonsList';
 import {FloatButton} from '../../components';
 import {AdditionalButtons} from '../../types';
 import {globalState} from '../../stores/globalAppState';
+import { events } from '../../constants/SampleArrays';
 
 const Calendar = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -62,73 +63,6 @@ const Calendar = ({navigation}: any) => {
   useEffect(() => {
     setToggle(!toggle);
   }, [dark]);
-
-  const events = [
-    {
-      start: '2022-09-07 10:00:00',
-      end: '2022-09-07 12:00:00',
-      title: 'Ticket #15378',
-      summary: 'The System is down',
-      eventType: 'Service Ticket',
-    },
-    {
-      start: '2022-09-07 12:30:00',
-      end: '2022-09-07 13:30:00',
-      title: 'Lunch',
-      eventType: 'Activity',
-    },
-    {
-      start: '2022-09-07 16:10:00',
-      end: '2022-09-07 16:40:00',
-      title: 'Ticket #15490',
-      summary: 'Printer not working',
-      eventType: 'Service Ticket',
-    },
-    {
-      start: '2022-09-07 14:30:00',
-      end: '2022-09-07 16:00:00',
-      title: 'Ticket #15490',
-      summary: 'Reception workstation install',
-      eventType: 'Service Ticket',
-    },
-
-    {
-      start: '2022-09-06 16:10:00',
-      end: '2022-09-06 16:40:00',
-      title: 'Ticket #14645',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-      eventType: 'Service Ticket',
-    },
-    {
-      start: '2022-09-06 12:45:00',
-      end: '2022-09-06 13:45:00',
-      title: 'Ticket #12420',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-      eventType: 'Service Ticket',
-    },
-    {
-      start: '2022-09-06 11:30:00',
-      end: '2022-09-06 12:30:00',
-      title: 'Ticket #16456',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-      eventType: 'Service Ticket',
-    },
-
-    {
-      start: '2022-07-09 15:10:00',
-      end: '2022-07-09 15:40:00',
-      title: 'Ticket #13675',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-      eventType: 'Service Ticket',
-    },
-    {
-      start: '2022-07-09 13:10:00',
-      end: '2022-07-09 14:45:00',
-      title: 'Ticket #15673',
-      summary: '3412 Piedmont Rd NE, GA 3032',
-      eventType: 'Service Ticket',
-    },
-  ];
 
   return (
     <View style={styles.container}>

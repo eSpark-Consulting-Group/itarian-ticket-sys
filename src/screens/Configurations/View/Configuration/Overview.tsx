@@ -278,7 +278,6 @@ const Overview = () => {
 
   const onChangeDate = (event: any, date: any) => {
     setShowDate(false);
-    let time = date.toString().substring(16, 21);
 
     if (event?.type == 'set') {
       switch (pickerType) {

@@ -27,7 +27,6 @@ const Configurations = ({route}: any) => {
   useEffect(() => {
     if (route.params) {
       setSearchValue(route.params.data);
-      // handleSubmit(route.params.data);
     }
   }, [route.params]);
 

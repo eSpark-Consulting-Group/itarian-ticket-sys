@@ -5,6 +5,7 @@ import {
 } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker, {types} from 'react-native-document-picker';
+import { ShortcutItem } from 'react-native-quick-actions';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -151,4 +152,10 @@ export const getDatesInRange = (startDate: any, endDate: any) => {
     date.setDate(date.getDate() + 1);
   }
   return dates;
+};
+
+
+export const handleColdBoot = (data: ShortcutItem) => {
+  const {userInfo} = data;
+  Linking.openURL(userInfo?.url);
 };

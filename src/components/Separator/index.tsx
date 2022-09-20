@@ -5,24 +5,28 @@ import {Divider} from 'react-native-paper';
 
 import styles from './style';
 
-const Separator = ({text}: {text?: string}) => {
+const Separator = ({text, width}: {text?: string; width?: number | string}) => {
   const {colors}: Theme = useTheme();
+
+  const length = width ?? 100;
 
   return (
     <View style={styles.container}>
       <Divider
         style={{
-          ...styles.divider_1,
+          ...styles.divider,
           backgroundColor: colors.text,
           opacity: 0.2,
+          width: length,
         }}
       />
       <Text style={{...styles.centerContent, color: colors.text}}>{text}</Text>
       <Divider
         style={{
-          ...styles.divider_2,
+          ...styles.divider,
           backgroundColor: colors.text,
           opacity: 0.2,
+          width: length,
         }}
       />
     </View>

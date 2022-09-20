@@ -74,7 +74,7 @@ const Overview = () => {
       },
     },
     {
-      title: item?.start_time,
+      title: item?.start_time ?? '--',
       subTitle: 'Start Time',
       rightChild: <II name="ios-stopwatch" size={26} color={colors.primary} />,
       onPress: () => {
@@ -84,7 +84,7 @@ const Overview = () => {
       },
     },
     {
-      title: item?.end_time,
+      title: item?.end_time ?? '--',
       subTitle: 'End Time',
       rightChild: <II name="ios-stopwatch" size={26} color={colors.primary} />,
       gap: false,

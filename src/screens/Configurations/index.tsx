@@ -27,22 +27,24 @@ const Configurations = ({route}: any) => {
   useEffect(() => {
     if (route.params) {
       setSearchValue(route.params.data);
-      handleSubmit(route.params.data);
+      handleSubmit();
     }
   }, [route.params]);
 
   const [filteredConfigurations, setFilteredConfigurations] =
     useState(configurationsList);
 
-  const handleSubmit = (val?: string) => {
+  const handleSubmit = () => {
     setLoading(true);
-    searchFilterFunction(val ?? searchValue);
+    searchFilterFunction(searchValue);
     setTimeout(() => {
       setLoading(false);
     }, 3000);
   };
 
   const searchFilterFunction = async (text: string) => {
+    console.log('TEXT', text);
+
     var result = await searchFromArray({
       text: text || '',
       list: configurationsList,

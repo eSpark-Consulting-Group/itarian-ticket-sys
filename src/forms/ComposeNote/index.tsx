@@ -27,6 +27,8 @@ export default function ComposeNote({route, navigation}: any) {
   const [showTimeSt, setShowTimeSt] = useState<boolean>(false);
   const [selectedStNote, setSelectedStNote] = useState(stNotesList[0]);
   const [notes, setNotes] = useState<string>('');
+  const [flag, setFlag] = useState<boolean>(false);
+  const showFlag = route?.params?.showFlag;
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
     NotesAdditionalButtons,
   );
@@ -68,6 +70,7 @@ export default function ComposeNote({route, navigation}: any) {
     navigation?.setParams({
       ...route?.params,
       notes: notes,
+      flag: flag,
       type: noteTypeList[currChkInd]?.text,
       stack: 'Stack1',
       showTime: showTimeSt,
@@ -106,6 +109,15 @@ export default function ComposeNote({route, navigation}: any) {
               </ScrollView>
             </View>
           </ModalHeader>
+          {showFlag && (
+            <SingleLineField
+              enable={false}
+              showRightSwitch
+              title="Flag"
+              rightSwitchVal={flag}
+              onChangeSwitch={() => setFlag(!flag)}
+            />
+          )}
           <SingleLineField
             mode="multiline"
             onChangeText={e => setNotes(e)}
@@ -113,13 +125,6 @@ export default function ComposeNote({route, navigation}: any) {
             title={notes}
             inputable
           />
-          {/* {stNotes && (
-            <SingleLineField
-              title={'Select Standard Note'}
-              rightIcon={'chevron-right'}
-              onPress={handlePress}
-            />
-          )} */}
           {showTimeSt && (
             <View
               style={{
@@ -151,7 +156,7 @@ export default function ComposeNote({route, navigation}: any) {
         </>
       )}
       {loader && <SimpleLoader />}
-      <FloatButton AdditionalButtons={actionButtons} />
+      {!showFlag && <FloatButton AdditionalButtons={actionButtons} />}
     </ModalView>
   );
 }

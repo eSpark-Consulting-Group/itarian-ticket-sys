@@ -956,7 +956,7 @@ export const sBoardFiterList: Filter[] = [
     enable: false,
     rightSwitchVal: false,
     key: 'assigned_to',
-    value: false
+    value: false,
   },
   {
     title: 'All',

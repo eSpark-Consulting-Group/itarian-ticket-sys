@@ -6,12 +6,19 @@ import {
   ScrollView,
   Linking,
   Keyboard,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {State, useHookstate} from '@hookstate/core';
+import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
+// @ts-ignore
+import store from 'react-native-simple-store';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';
 import {
@@ -19,13 +26,9 @@ import {
   CstmInput,
   CstmErrorText,
   BiometricVerification,
+  Separator,
 } from '../../../components';
-import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
-import {State, useHookstate} from '@hookstate/core';
-
-// @ts-ignore
-import store from 'react-native-simple-store';
 
 import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
@@ -42,8 +45,9 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const user: State<any> = useHookstate(userStore.user);
   const loadingState: State<boolean> = useHookstate(globalState.loader);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
+  const [showScanner, setShowScanners] = useState(false);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
-  const {colors}: Theme = useTheme();
+  const {colors, dark}: Theme = useTheme();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -63,6 +67,17 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     const {userInfo} = data;
     console.log('chala coldboot', userInfo?.url);
     Linking.openURL(userInfo?.url);
+  };
+
+  const handleScanner = () => {
+    if (biometricState.get()) {
+      setShowScanners(true);
+    } else {
+      Alert.alert(
+        'Enable Biometric Authentication',
+        'You can enable biometric authentication from App Settings',
+      );
+    }
   };
 
   QuickActions.popInitialAction()
@@ -147,12 +162,35 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               </>
             )}
           </Formik>
+          <Separator text="OR" />
+          <View style={styles.scannerBtnContainer}>
+            <TouchableOpacity
+              activeOpacity={biometricState.get() ? 0 : 1}
+              onPress={handleScanner}
+              style={{
+                ...styles.fingerScannerBtn,
+                borderColor: biometricState.get() ? colors.text : '#555555',
+              }}>
+              <MCI
+                name="fingerprint"
+                color={biometricState.get() ? colors.text : '#555555'}
+                size={50}
+              />
+            </TouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
       </ScrollView>
+
       <Loader isShow={loadingState.get()} />
 
-      {biometricState.get() && (
-        <BiometricVerification onAuthenticate={() => user.set(true)} />
+      {showScanner && (
+        <BiometricVerification
+          onAuthenticate={() => {
+            user.set(true);
+            setShowScanners(false);
+          }}
+          onCancel={() => setShowScanners(false)}
+        />
       )}
     </View>
   );

@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, Alert} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {List, Divider, Switch, Menu} from 'react-native-paper';
 import {useHookstate, State} from '@hookstate/core';
 import {moderateScale} from 'react-native-size-matters';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
+import AndroidOpenSettings from 'react-native-android-open-settings';
+// @ts-ignore
+import store from 'react-native-simple-store';
 
 import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
 import {CstmPressable} from '../../components/CstmPressable';
 import {getNavigtionApps} from '../../utils/helperFunctions';
-// @ts-ignore
-import store from 'react-native-simple-store';
-
+import {BiometricVerification} from '../../components';
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
@@ -31,15 +33,54 @@ const SettingsScreen = () => {
   const [navigationVisible, setnavigationVisible] = useState(false);
   const [defaultNavigitonList, setDefaultNavigationList] = useState([]);
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
+  const [showScanner, setShowScanners] = useState(false);
 
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
   };
-  const onToggleBiometrics = () => {
+  const checkBiometricAvailable = () => {
+    FingerprintScanner.isSensorAvailable()
+      .then(biometryType => {
+        setShowScanners(true);
+      })
+      .catch(error => {
+        setShowScanners(false);
+        Alert.alert(error.name, error.message, [
+          {
+            text: 'Open Security',
+            style: 'default',
+            onPress: () => AndroidOpenSettings.securitySettings(),
+          },
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+        ]);
+      });
+  };
+
+  const onAuthenticBiometric = () => {
+    console.log('Authentice');
     store.update('bioMetric', {
-      bioMetric: !biometricState.get(),
+      bioMetric: true,
     });
-    biometricState.set(!biometricState.get());
+    biometricState.set(true);
+    setShowScanners(false);
+  };
+
+  const onToggleBiometrics = () => {
+    if (!biometricState.get()) {
+      checkBiometricAvailable();
+    } else {
+      store.update('bioMetric', {
+        bioMetric: !biometricState.get(),
+      });
+      biometricState.set(!biometricState.get());
+    }
+    // store.update('bioMetric', {
+    //   bioMetric: !biometricState.get(),
+    // });
+    // biometricState.set(!biometricState.get());
   };
 
   useUpdateEffect(() => {
@@ -255,6 +296,12 @@ const SettingsScreen = () => {
           )}
         />
       </List.Section>
+      {showScanner && (
+        <BiometricVerification
+          onAuthenticate={onAuthenticBiometric}
+          onCancel={() => setShowScanners(false)}
+        />
+      )}
     </View>
   );
 };

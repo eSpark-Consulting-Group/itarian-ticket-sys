@@ -96,6 +96,7 @@ export default function Notes() {
                   from: 'Opportunity',
                   item: 'GoneTo',
                   data: NoteTypes_ACIT,
+                  showFlag: true,
                   selected: null,
                   stack: 'Stack1',
                   title: route?.params?.title,

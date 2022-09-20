@@ -77,7 +77,7 @@ const App = () => {
     });
     store.get('stopwatch').then((res: any) => {
       if (res) {
-        console.log('res?.stopwatch res?.stopwatch', res?.stopwatch);
+        // console.log('res?.stopwatch res?.stopwatch', res?.stopwatch);
         globalStopwatch.set(res?.stopwatch);
       }
     });

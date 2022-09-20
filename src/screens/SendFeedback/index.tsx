@@ -121,6 +121,7 @@ const SendFeedbackScreen = () => {
       ))}
       <CstmMultiLine title="Share Your Feedback" />
       <CstmButton
+        loader={false}
         title="Send Feedback"
         onPress={() => console.log('Sent the Feedback')}
       />

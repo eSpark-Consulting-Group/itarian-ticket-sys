@@ -956,7 +956,7 @@ export const sBoardFiterList: Filter[] = [
     enable: false,
     rightSwitchVal: false,
     key: 'assigned_to',
-    value: null
+    value: null,
   },
   {
     title: 'All',
@@ -988,7 +988,7 @@ export const sBoardFiterList: Filter[] = [
     headerTitle: 'Company',
     searchable: true,
     key: 'company_name',
-    value: null
+    value: null,
   },
   {
     title: 'Please Select',
@@ -1030,7 +1030,7 @@ export const pBoardFilterList: Filter[] = [
     enable: false,
     rightSwitchVal: false,
     key: 'assigned_to',
-    value: null
+    value: null,
   },
   {
     title: 'Service Projects',
@@ -1050,7 +1050,7 @@ export const pBoardFilterList: Filter[] = [
     selectedItem: statusList[0],
     headerTitle: 'Status',
     key: 'status',
-    value: null
+    value: null,
   },
 ];
 

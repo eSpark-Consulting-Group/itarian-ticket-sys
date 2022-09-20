@@ -32,7 +32,9 @@ const Search = ({route}: any) => {
   const [filteredContacts, setFilteredContacts] = useState(contactsList);
   const [filteredConfigurations, setFilteredConfigurations] =
     useState(configurationsList);
-  const [filteredTickets, setFilteredTickets] = useState(ticketsList);
+  const [filteredTickets, setFilteredTickets] = useState(
+    ticketsList.filter(val => val?.type == 'Ticket'),
+  );
 
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
 
@@ -44,7 +46,7 @@ const Search = ({route}: any) => {
     }
   }, [route.params]);
 
-  const handleSubmit = (val?: string) => {
+  const handleSubmit = () => {
     setIsSearching(true);
     setLoading(true);
     searchFilterFunction(searchValue, searchTagValue.get());
@@ -60,8 +62,8 @@ const Search = ({route}: any) => {
     switch (domain) {
       case 'tickets':
         var result = await searchFromArray({
-          text: text,
-          list: ticketsList,
+          text: text || '',
+          list: ticketsList.filter(val => val?.type == 'Ticket'),
           keys: [
             'ticket_no',
             'ticket_summary',

@@ -33,7 +33,7 @@ const Configurations = ({route}: any) => {
   const [filteredConfigurations, setFilteredConfigurations] =
     useState(configurationsList);
 
-  const handleSubmit = (val?: string) => {
+  const handleSubmit = () => {
     setLoading(true);
     searchFilterFunction(searchValue);
     setTimeout(() => {
@@ -42,6 +42,8 @@ const Configurations = ({route}: any) => {
   };
 
   const searchFilterFunction = async (text: string) => {
+    console.log('TEXT', text);
+
     var result = await searchFromArray({
       text: text,
       list: configurationsList,

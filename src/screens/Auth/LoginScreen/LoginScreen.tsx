@@ -6,11 +6,18 @@ import {
   ScrollView,
   Linking,
   Keyboard,
+  TouchableOpacity,
+  Alert,
+  Text,
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {State, useHookstate} from '@hookstate/core';
+// @ts-ignore
+import store from 'react-native-simple-store';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';
 import {
@@ -18,10 +25,11 @@ import {
   CstmInput,
   CstmErrorText,
   BiometricVerification,
+  Separator,
+  GapView,
 } from '../../../components';
 import QuickActions from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
-import {State, useHookstate} from '@hookstate/core';
 
 import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
@@ -29,6 +37,7 @@ import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
 import {Loader} from '../../../components/Loader';
 import { handleColdBoot } from '../../../utils/helperFunctions';
+import { Theme, useTheme } from '@react-navigation/native';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -39,7 +48,9 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const user: State<any> = useHookstate(userStore.user);
   const loadingState: State<boolean> = useHookstate(globalState.loader);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
+  const [showScanner, setShowScanners] = useState(false);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
+  const {colors}: Theme = useTheme();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -55,6 +66,17 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     };
   }, []);
 
+
+  const handleScanner = () => {
+    if (biometricState.get()) {
+      setShowScanners(true);
+    } else {
+      Alert.alert(
+        'Enable Biometric Authentication',
+        'You can enable biometric authentication from App Settings',
+      );
+    }
+  };
 
   QuickActions.popInitialAction()
     .then(data => {
@@ -138,12 +160,49 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               </>
             )}
           </Formik>
+          <Separator text="OR" />
+          <View style={styles.scannerBtnContainer}>
+            <TouchableOpacity
+              activeOpacity={biometricState.get() ? 0 : 1}
+              onPress={handleScanner}
+              style={{
+                ...styles.fingerScannerBtn,
+                borderColor: biometricState.get()
+                  ? colors.primary
+                  : colors.primary + '81',
+              }}>
+              <MCI
+                name="fingerprint"
+                color={
+                  biometricState.get() ? colors.primary : colors.primary + '81'
+                }
+                size={50}
+              />
+            </TouchableOpacity>
+            <GapView />
+            <Text
+              style={{
+                color: biometricState.get()
+                  ? colors.primary
+                  : colors.primary + '81',
+                fontSize: 14,
+              }}>
+              Biometric Scan
+            </Text>
+          </View>
         </KeyboardAvoidingView>
       </ScrollView>
+
       <Loader isShow={loadingState.get()} />
 
-      {biometricState.get() && (
-        <BiometricVerification onAuthenticate={() => user.set(true)} />
+      {showScanner && (
+        <BiometricVerification
+          onAuthenticate={() => {
+            user.set(true);
+            setShowScanners(false);
+          }}
+          onCancel={() => setShowScanners(false)}
+        />
       )}
     </View>
   );

@@ -25,6 +25,7 @@ import {StopWatch, Timer} from './CstmStopwatch';
 import NotFound from './NotFound';
 import BarcodeScanner from './BarcodeScanner';
 import BiometricVerification from './BiometricVerification';
+import Separator from './Separator';
 
 export {
   CstmButton,
@@ -56,4 +57,5 @@ export {
   Timer,
   BarcodeScanner,
   BiometricVerification,
+  Separator,
 };

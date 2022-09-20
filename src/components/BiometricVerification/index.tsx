@@ -10,12 +10,15 @@ import {
   Platform,
 } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
+import TouchID from 'react-native-touch-id';
 
 import styles from './style';
 
 const BiometricVerification = ({
   onAuthenticate,
+  onCancel,
 }: {
+  onCancel: () => void;
   onAuthenticate: () => void;
 }) => {
   const [errorMessageLegacy, setErrorMessageLegacy] = useState(undefined);
@@ -37,10 +40,21 @@ const BiometricVerification = ({
     FingerprintScanner.authenticate({title: 'Log in with Biometrics'})
       .then(() => {
         onAuthenticate();
+        FingerprintScanner.release();
       })
       .catch(error => {
         console.log('Authentication error is => ', error);
+        onCancel();
+        FingerprintScanner.release();
       });
+    // TouchID.authenticate('', {title: 'Log in with Biometrics'})
+    //   .then(() => {
+    //     onAuthenticate();
+    //   })
+    //   .catch((error: any) => {
+    //     onCancel();
+    //     console.log('Authentication error is => ', error);
+    //   });
   };
 
   const authLegacy = () => {

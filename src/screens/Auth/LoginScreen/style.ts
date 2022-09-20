@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {moderateVerticalScale} from 'react-native-size-matters';
-import {WINDOW_HEIGHT} from '../../../constants';
+import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,6 +15,19 @@ const styles = StyleSheet.create({
   headerImage: {
     width: '50%',
     height: '100%',
+  },
+  scannerBtnContainer: {
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  fingerScannerBtn: {
+    width: WINDOW_WIDTH * 0.15,
+    height: WINDOW_WIDTH * 0.15,
+    borderWidth: 2,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

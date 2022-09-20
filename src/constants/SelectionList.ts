@@ -173,11 +173,11 @@ export const siteList: SelectFields[] = [
 export const boardList: SelectFields[] = [
   {
     id: 1,
-    name: 'Board 1',
+    name: 'Server Migration',
   },
   {
     id: 2,
-    name: 'Board 2',
+    name: 'New Project',
   },
   {
     id: 3,
@@ -212,15 +212,15 @@ export const boardList: SelectFields[] = [
 export const statusList: SelectFields[] = [
   {
     id: 1,
-    name: 'Status 1',
+    name: 'Scheduled',
   },
   {
     id: 2,
-    name: 'Status 2',
+    name: 'New',
   },
   {
     id: 3,
-    name: 'Status 3',
+    name: 'Customer Approved',
   },
   {
     id: 4,

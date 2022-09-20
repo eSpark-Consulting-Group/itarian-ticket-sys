@@ -13,6 +13,7 @@ import {
   handleStopwatch,
   onSave,
   saveStatus,
+  clearFunc
 } from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
@@ -224,12 +225,12 @@ const StackLvl1 = ({route, navigation}: any) => {
           title: 'Filters',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
-            <II
+            <MCI
               size={30}
-              name="close"
+              name="filter-remove-outline"
               style={{right: 6}}
               color={'#fff'}
-              onPress={() => navigation.goBack()}
+              onPress={() => clearFunc(navigation, route)}
             />
           ),
           headerRight: () => <II size={30} name="checkmark" color={'#fff'} onPress={() => {

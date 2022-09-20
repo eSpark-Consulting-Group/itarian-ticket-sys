@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
@@ -15,13 +15,26 @@ import { useEffect } from 'react';
 
 const ServiceBoard = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
-
+  const [dataSource, setDataSource] = useState(ticketsList)
 
 
   useEffect(() => {
-    console.log("route?.params?.filter ServiceBoard", route?.params?.filter?.filter((val: any) => {
-      if(val?.filterKey) return {filterKey: val.filterKey, value: val?.title}
-    })?.length)
+    var filterVariables = route?.params?.filter?.filter((val: any) => {
+      if(val?.key && val?.value != null) return {key: val.key, value: val?.value}
+    })
+    if(filterVariables?.length > 0) {
+      var updatedList = ticketsList?.filter((value: any, index: any) => {
+         var isFind = filterVariables?.filter((item: any) => {
+            return value[item?.key] == item.value
+         })
+         if(isFind?.length == filterVariables?.length) {
+              return ticketsList
+            }
+      })
+      setDataSource(updatedList || [])
+    }else {
+      setDataSource(ticketsList)
+    } 
   }, [route?.params])
 
   const renderList = ({item, index}: {item: Ticket; index: number}) => {
@@ -168,8 +181,8 @@ const ServiceBoard = ({navigation, route}: any) => {
 
   return (
     <View style={styles.container}>
-      {ticketsList.length !== 0 ? (
-        <FlatList data={ticketsList} renderItem={renderList} />
+      {dataSource.length !== 0 ? (
+        <FlatList data={dataSource} renderItem={renderList} />
       ) : (
         <NotFound />
       )}

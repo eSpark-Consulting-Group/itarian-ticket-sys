@@ -169,11 +169,11 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               onPress={handleScanner}
               style={{
                 ...styles.fingerScannerBtn,
-                borderColor: biometricState.get() ? colors.text : '#555555',
+                borderColor: biometricState.get() ? colors.text : '#999',
               }}>
               <MCI
                 name="fingerprint"
-                color={biometricState.get() ? colors.text : '#555555'}
+                color={biometricState.get() ? colors.text : '#999'}
                 size={50}
               />
             </TouchableOpacity>

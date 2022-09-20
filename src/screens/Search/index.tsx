@@ -42,7 +42,7 @@ const Search = ({route}: any) => {
     if (route.params) {
       setSearchValue(route.params.data);
       setType('configurations');
-      handleSubmit();
+      // handleSubmit(route.params.data);
     }
   }, [route.params]);
 
@@ -75,21 +75,22 @@ const Search = ({route}: any) => {
         setFilteredTickets(result);
       case 'contacts':
         var result = await searchFromArray({
-          text: text || '',
+          text: text,
           list: contactsList,
           keys: ['name', 'company_name'],
         });
         setFilteredContacts(result);
       case 'companies':
+        console.log('text?:', text);
         var result = await searchFromArray({
-          text: text || '',
+          text: text,
           list: companiesList,
           keys: ['name', 'id'],
         });
         setFilteredCompanies(result);
       case 'configurations':
         var result = await searchFromArray({
-          text: text || '',
+          text: text,
           list: configurationsList,
           keys: ['name', 'company_name', 'model', 'serial', 'tag'],
         });

@@ -1,4 +1,4 @@
-declare module '*.png'
-declare module '*.webp'
-declare module '*.jpg'
-declare module '*@env'
+declare module '*.png';
+declare module '*.webp';
+declare module '*.jpg';
+declare module '*@env';

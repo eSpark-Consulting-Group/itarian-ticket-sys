@@ -112,7 +112,7 @@ export const cameraPicker = async ({cropping = false}) => {
 };
 
 export const searchFromArray = async ({
-  text = '',
+  text,
   list = [],
   keys = [],
 }: {
@@ -121,6 +121,7 @@ export const searchFromArray = async ({
   keys: any;
 }) => {
   if (text) {
+    console.log('whoss');
     // Inserted text is not blank
     // Filter the masterDataSource
     // Update FilteredDataSource
@@ -128,11 +129,12 @@ export const searchFromArray = async ({
       const itemData = keys
         ?.map((value: any) => `${item[value]?.toUpperCase()}`)
         ?.join(' ');
-      const textData = text?.toUpperCase();
+      const textData = text.toUpperCase();
       return itemData?.indexOf(textData) > -1;
     });
     return newData;
   } else {
+    console.log('chacl');
     // Inserted text is blank
     // Update FilteredDataSource with masterDataSource
     return list;

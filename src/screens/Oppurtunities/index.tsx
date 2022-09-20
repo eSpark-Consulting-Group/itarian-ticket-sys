@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Text, FlatList, Linking} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
@@ -18,6 +18,27 @@ import {CstmPressable} from '../../components/CstmPressable';
 
 const Oppurtunities = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
+  const [dataSource, setDataSource] = useState(opportunitiesList)
+
+
+  useEffect(() => {
+    var filterVariables = route?.params?.filter?.filter((val: any) => {
+      if(val?.key && val?.value != null) return {key: val.key, value: val?.value}
+    })
+    if(filterVariables?.length > 0) {
+      var updatedList = opportunitiesList?.filter((value: any, index: any) => {
+         var isFind = filterVariables?.filter((item: any) => {
+            return value[item?.key] == item.value
+         })
+         if(isFind?.length == filterVariables?.length) {
+              return opportunitiesList
+            }
+      })
+      setDataSource(updatedList || [])
+    }else {
+      setDataSource(opportunitiesList)
+    } 
+  }, [route?.params])
 
   const renderList = ({item, index}: {item: Opportunity; index: number}) => {
     const renderColor = () => {
@@ -123,8 +144,8 @@ const Oppurtunities = ({navigation, route}: any) => {
 
   return (
     <View style={styles.container}>
-      {opportunitiesList.length !== 0 ? (
-        <FlatList data={opportunitiesList} renderItem={renderList} />
+      {dataSource.length !== 0 ? (
+        <FlatList data={dataSource} renderItem={renderList} />
       ) : (
         <NotFound />
       )}

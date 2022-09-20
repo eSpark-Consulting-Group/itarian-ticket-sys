@@ -27,7 +27,7 @@ const Configurations = ({route}: any) => {
   useEffect(() => {
     if (route.params) {
       setSearchValue(route.params.data);
-      handleSubmit();
+      // handleSubmit(route.params.data);
     }
   }, [route.params]);
 
@@ -46,7 +46,7 @@ const Configurations = ({route}: any) => {
     console.log('TEXT', text);
 
     var result = await searchFromArray({
-      text: text || '',
+      text: text,
       list: configurationsList,
       keys: ['name', 'company_name', 'model', 'serial', 'tag'],
     });
@@ -60,9 +60,8 @@ const Configurations = ({route}: any) => {
 
   useUpdateEffect(() => {
     if (clear) {
-      console.log('done');
-      handleSubmit();
       setClear(false);
+      handleSubmit();
     }
   }, [clear]);
 

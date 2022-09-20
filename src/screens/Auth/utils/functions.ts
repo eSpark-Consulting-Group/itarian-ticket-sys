@@ -7,9 +7,9 @@ import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
 const handleLoginUser = async (
-  email?: string,
-  password?: string,
-  navigation?: any,
+  email: string,
+  password: string,
+  navigation: any,
 ) => {
   globalState.loader.set(true);
   console.log('email:', email);
@@ -21,11 +21,10 @@ const handleLoginUser = async (
     password: 'Admin123!@', //
     nameSpace: 'ServiceDesk',
   });
-  console.log('handleLoginUser', response);
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    // console.log('handleLoginUser', response.data);
+    // console.log("handleLoginUser", response.data);
     if (resData.code == 'ERR_USER_NOT_FOUND') {
       showMessage({
         message: 'Incorrect Email or Password',
@@ -80,11 +79,18 @@ const requestSmsOtp = async (data: any, navigation: any) => {
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    console.log('requestSmsOtp', response.data, data);
-    if (resData?.code == 'SUCCESS_OTP_VERIFICATION_CODE_SENT') {
-      return true;
-    } else {
-      return false;
+    console.log("requestSmsOtp", response.data, data);
+    if(resData?.code == "ERR_OTP_VERIFICATION_CODE_ATTEMPT_LIMIT_REACHED") {
+      showMessage({
+        message: "Too many login attempts try again after 1 hour",
+        type: 'danger',
+        icon: 'auto',
+      });
+    }
+    if (resData?.code == "SUCCESS_OTP_VERIFICATION_CODE_SENT") {
+      return true
+    }else {
+      return false
     }
   } else {
     globalState.loader.set(false);

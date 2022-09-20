@@ -253,7 +253,7 @@ export type Filter = {
   searchable?: boolean;
   headerTitle?: string;
   key?: string;
-  value?: string | boolean;
+  value?: string | boolean | null;
 };
 
 export type Item = {

@@ -36,8 +36,8 @@ import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
 import {Loader} from '../../../components/Loader';
-import { handleColdBoot } from '../../../utils/helperFunctions';
-import { Theme, useTheme } from '@react-navigation/native';
+import {handleColdBoot} from '../../../utils/helperFunctions';
+import {Theme, useTheme} from '@react-navigation/native';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -65,7 +65,6 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
       hideSubscription.remove();
     };
   }, []);
-
 
   const handleScanner = () => {
     if (biometricState.get()) {

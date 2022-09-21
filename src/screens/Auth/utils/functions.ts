@@ -16,7 +16,7 @@ const handleLoginUser = async (
   console.log('password:', password);
   const response = await api.post('/api/auth', {
     // email: email, //"fixer101@yopmail.com"
-    email: 'johnnybrabo@yopmail.com', //
+    email: 'testwiz@yopmail.com', //
     // password: password, // "Admin123!@"
     password: 'Admin123!@', //
     nameSpace: 'ServiceDesk',
@@ -79,18 +79,18 @@ const requestSmsOtp = async (data: any, navigation: any) => {
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    console.log("requestSmsOtp", response.data, data);
-    if(resData?.code == "ERR_OTP_VERIFICATION_CODE_ATTEMPT_LIMIT_REACHED") {
+    console.log('requestSmsOtp', response.data, data);
+    if (resData?.code == 'ERR_OTP_VERIFICATION_CODE_ATTEMPT_LIMIT_REACHED') {
       showMessage({
-        message: "Too many login attempts try again after 1 hour",
+        message: 'Too many login attempts try again after 1 hour',
         type: 'danger',
         icon: 'auto',
       });
     }
-    if (resData?.code == "SUCCESS_OTP_VERIFICATION_CODE_SENT") {
-      return true
-    }else {
-      return false
+    if (resData?.code == 'SUCCESS_OTP_VERIFICATION_CODE_SENT') {
+      return true;
+    } else {
+      return false;
     }
   } else {
     globalState.loader.set(false);

@@ -41,6 +41,7 @@ const SettingsScreen = () => {
   const checkBiometricAvailable = () => {
     FingerprintScanner.isSensorAvailable()
       .then(biometryType => {
+        console.log('Biometric', biometryType);
         setShowScanners(true);
       })
       .catch(error => {

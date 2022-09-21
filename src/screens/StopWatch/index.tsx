@@ -35,7 +35,7 @@ import store from 'react-native-simple-store';
 const StopWatchScreen = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
   const stopWatchDataList: State<any> = useHookstate(globalState.stopwatch);
   const solidColor = dark ? '#000000' : '#ffffff';
@@ -43,24 +43,7 @@ const StopWatchScreen = ({navigation}: any) => {
     JSON.parse(JSON.stringify(stopWatchDataList?.get())),
   );
   let timerStopwatch = JSON.parse(JSON.stringify(stopwatchs));
-  // var timer = useRef<NodeJS.Timer>();
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     SetStopwatch(stopWatchDataList?.get());
-  // setImmediate(() => {
-  //   setIsLoading(false);
-  // });
-  //     return () => setIsLoading(true);
-  //   }, []),
-  // );
 
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    SetStopwatch(JSON.parse(JSON.stringify(stopWatchDataList?.get())));
-    setImmediate(() => {
-      setIsLoading(false);
-    });
-  }, [isFocused]);
 
   useEffect(() => {
     // useRef value stored in .current property
@@ -70,7 +53,7 @@ const StopWatchScreen = ({navigation}: any) => {
         stopwatch: stopwatchs,
       });
       stopWatchDataList.set(temp);
-    }, 4000);
+    }, 5000);
 
     // clear on component unmount
     return () => {
@@ -79,7 +62,7 @@ const StopWatchScreen = ({navigation}: any) => {
     };
   }, [stopwatchs]);
 
-  const renderList = ({item, index}: {item: Stopwatch; index: number}) => {
+  const RenderList = ({item, index}: {item: Stopwatch; index: number}) => {
     const handlePlayPause = () => {
       if (item?.isPlaying === true) {
         const temp = stopwatchs; //* Force Copy Method
@@ -93,7 +76,7 @@ const StopWatchScreen = ({navigation}: any) => {
         forceUpdate();
       }
     };
-
+    
     const handleDelete = (index: number) => {
       Alert.alert(
         'Delete StopWatch Entry?',
@@ -256,7 +239,7 @@ const StopWatchScreen = ({navigation}: any) => {
       {isLoading ? (
         <SimpleLoader />
       ) : stopwatchs?.length !== 0 ? (
-        <FlatList data={stopwatchs} renderItem={renderList} />
+        <FlatList data={stopwatchs} renderItem={RenderList} />
       ) : (
         <NotFound />
       )}

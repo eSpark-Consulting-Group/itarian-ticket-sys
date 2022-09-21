@@ -13,7 +13,7 @@ const Profile = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const currStatus: State<boolean> = useHookstate(userStore.currentStatus);
   const user: State<any> = useHookstate(userStore.user);
-  console.log('currStatus.get()', currStatus.get());
+
   return (
     <View
       style={{

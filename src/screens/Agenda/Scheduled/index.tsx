@@ -13,9 +13,6 @@ import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
 
 const ScheduledTab = ({route, navigation}: any) => {
-  console.log('route props', route);
-
-  const {colors}: Theme = useTheme();
   const activeMember: State<string> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -45,8 +42,6 @@ const ScheduledTab = ({route, navigation}: any) => {
   };
 
   useEffect(() => {
-    console.log('Agenda Member', activeMember.get());
-    console.log('Sched lIst', scheduledList);
     const schTicks = ticketsList.filter(val => val?.time_dur);
     const filTickets = schTicks.filter(
       val => val?.assigned_to == activeMember.get(),
@@ -58,7 +53,6 @@ const ScheduledTab = ({route, navigation}: any) => {
         aRR.push(data);
       });
     }
-    console.log('Filtered List', aRR);
     setFilArr(aRR);
   }, [activeMember.get()]);
 

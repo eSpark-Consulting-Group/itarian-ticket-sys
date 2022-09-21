@@ -12,11 +12,9 @@ import {
 } from 'react-native';
 
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {Theme, useTheme} from '@react-navigation/native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {State, useHookstate} from '@hookstate/core';
-import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 // @ts-ignore
 import store from 'react-native-simple-store';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -30,6 +28,7 @@ import {
   Separator,
   GapView,
 } from '../../../components';
+import QuickActions from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
 
 import Images from '../../../assets/images';
@@ -37,6 +36,8 @@ import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
 import {Loader} from '../../../components/Loader';
+import { handleColdBoot } from '../../../utils/helperFunctions';
+import { Theme, useTheme } from '@react-navigation/native';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -49,7 +50,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const [showScanner, setShowScanners] = useState(false);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
-  const {colors, dark}: Theme = useTheme();
+  const {colors}: Theme = useTheme();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -65,11 +66,6 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     };
   }, []);
 
-  const handleColdBoot = (data: ShortcutItem) => {
-    const {userInfo} = data;
-    console.log('chala coldboot', userInfo?.url);
-    Linking.openURL(userInfo?.url);
-  };
 
   const handleScanner = () => {
     if (biometricState.get()) {

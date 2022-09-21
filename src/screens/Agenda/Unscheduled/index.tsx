@@ -9,7 +9,6 @@ import ListItem from '../ListItem';
 import {
   scheduledList,
   ticketsList,
-  unscheduledList,
 } from '../../../constants/SampleArrays';
 import {UnschAdditionalButtons} from '../../../constants/ButtonsList';
 import {FloatButton, NotFound} from '../../../components';
@@ -17,7 +16,6 @@ import {AdditionalButtons, ScheduledList} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
 
 const UnscheduledTab = ({navigation}: any) => {
-  const {colors}: Theme = useTheme();
   const activeMember: State<string> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -43,14 +41,10 @@ const UnscheduledTab = ({navigation}: any) => {
   };
 
   useEffect(() => {
-    console.log('Agenda Member', activeMember.get());
-    console.log('Sched lIst', scheduledList);
     const schTicks = ticketsList.filter(val => !val?.time_dur);
     const filTickets = schTicks.filter(
       val => val?.assigned_to == activeMember.get(),
     );
-    console.log('Schedule Tickets', schTicks);
-    console.log('Filtered Tickets', filTickets);
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
       scheduledList.map(item => {
@@ -58,7 +52,6 @@ const UnscheduledTab = ({navigation}: any) => {
         aRR.push(data);
       });
     }
-    console.log('Filtered List', aRR);
     setFilArr(aRR);
   }, [activeMember.get()]);
 

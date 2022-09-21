@@ -103,19 +103,19 @@ const clearFunc = (navigation: any, route: any) => {
   });
 }
 const handleStopwatch = (params: any) => {
-  // const {ticket_info} = params;
-  // const date = new Date();
-  // let tempArr: any = [...stopWatchList];
-  // tempArr.push({
-  //   ticket_no: ticket_info.id,
-  //   ticket_summary: ticket_info.summary,
-  //   created_at: date.toDateString(),
-  //   timer: 0,
-  //   isPlaying: false,
-  //   show: true,
-  // });
-  // globalState.stopwatch.set(tempArr);
-  // console.log('hoa ==========>>', tempArr);
+  const {ticket_info} = params;
+  const date = new Date();
+  let tempArr: any = [...stopWatchList];
+  tempArr.push({
+    ticket_no: ticket_info.id,
+    ticket_summary: ticket_info.summary,
+    created_at: date.toDateString(),
+    timer: 0,
+    isPlaying: false,
+    show: true,
+  });
+  globalState.stopwatch.set(tempArr);
+  console.log('hoa ==========>>', tempArr);
 };
 
 export {saveStatus, goBack, onSave, handleStopwatch, clearFunc};

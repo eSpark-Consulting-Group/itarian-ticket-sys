@@ -17,8 +17,6 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   scannerBtnContainer: {
-    marginTop: 10,
-    marginBottom: 20,
     alignItems: 'center',
   },
   fingerScannerBtn: {

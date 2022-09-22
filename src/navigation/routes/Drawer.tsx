@@ -32,7 +32,7 @@ import {Avatar} from 'react-native-paper';
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-import {globalState} from '../stores/globalAppState';
+import {globalState} from '../../stores/globalAppState';
 import {
   Agenda,
   Calendar,
@@ -51,18 +51,18 @@ import {
   Settings,
   SendFeedback,
   Profile,
-} from '../screens';
-import {ParamList} from '../types';
-import {BUILD_VERSION} from '../constants';
+} from '../../screens';
+import {ParamList} from '../../types';
+import {BUILD_VERSION} from '../../constants';
 import {
   contactsList,
   opportunityFilterList,
   pBoardFilterList,
   sBoardFiterList,
-} from '../constants/SampleArrays';
-import CstmBadge from '../components/CtsmBadge';
-import Images from '../assets/images';
-import {userStore} from '../stores/userStore';
+} from '../../constants/SampleArrays';
+import CstmBadge from '../../components/CtsmBadge';
+import Images from '../../assets/images';
+import {userStore} from '../../stores/userStore';
 
 const Drawer = createDrawerNavigator<ParamList>();
 

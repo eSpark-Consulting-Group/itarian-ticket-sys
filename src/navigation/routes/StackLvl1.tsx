@@ -14,27 +14,27 @@ import {
   onSave,
   saveStatus,
   clearFunc,
-} from '../forms/utils/headerFunctions';
+} from '../utils/headerFunctions';
 
-import STickets from '../forms/ServiceTickets';
-import Contact1 from '../screens/Contacts/View/Contacts';
-import Configuration1 from '../screens/Configurations/View/Configuration';
-import Company from '../screens/Companies/View/Company';
-import NewCompany from '../forms/NewCompany';
-import MyStatus from '../screens/Profile/View/Profile/MyStatus';
-import Filters from '../forms/Filters';
-import NewConfiguration from '../forms/NewConfiguration/CreateConfigurations';
-import Activities from '../screens/MyActivities/View/Activity/index';
-import Opportunity from '../screens/Oppurtunities/View/Opportunity';
+import STickets from '../../forms/ServiceTickets';
+import Contact1 from '../../screens/Contacts/View/Contacts';
+import Configuration1 from '../../screens/Configurations/View/Configuration';
+import Company from '../../screens/Companies/View/Company';
+import NewCompany from '../../forms/NewCompany';
+import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
+import Filters from '../../forms/Filters';
+import NewConfiguration from '../../forms/NewConfiguration/CreateConfigurations';
+import Activities from '../../screens/MyActivities/View/Activity/index';
+import Opportunity from '../../screens/Oppurtunities/View/Opportunity';
 
-import NewActivity from '../forms/NewActivity';
-import NewExpenseReport from '../forms/NewExpenseReport';
-import NewOpportunity from '../forms/NewOpportunity';
-import NewTimeSheet from '../forms/NewTimeSheet';
-import NewTicket from '../forms/NewTicket';
-import AddMiscSchedule from '../forms/AddMiscSchedule';
-import {userStore} from '../stores/userStore';
-import {BarcodeScanner} from '../components';
+import NewActivity from '../../forms/NewActivity';
+import NewExpenseReport from '../../forms/NewExpenseReport';
+import NewOpportunity from '../../forms/NewOpportunity';
+import NewTimeSheet from '../../forms/NewTimeSheet';
+import NewTicket from '../../forms/NewTicket';
+import AddMiscSchedule from '../../forms/AddMiscSchedule';
+import {userStore} from '../../stores/userStore';
+import {BarcodeScanner} from '../../components';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

@@ -12,7 +12,7 @@ import AD from 'react-native-vector-icons/AntDesign';
 import {EmptyListMsg, GapView, ModalField} from '../../components';
 import {Divider} from 'react-native-paper';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../navigation/RootNavigation';
+import {RootStackParamList} from '../../navigation/routes/RootNavigation';
 import {
   NoteTypes_DIR,
   noteList as dataSource,

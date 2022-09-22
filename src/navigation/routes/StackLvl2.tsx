@@ -5,16 +5,16 @@ import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import {State, useHookstate} from '@hookstate/core';
 
-import {onSave, goBack} from '../forms/utils/headerFunctions';
-import CstmItemSelector from '../components/CstmItemSelector';
-import ComposeNote from '../forms/ComposeNote';
-import QNAs from '../forms/QNAs';
-import {Attachments} from '../components/Attachments/index';
-import {AttachmentDetails} from '../components/Attachments/view/attachmentDetails';
-import {globalState} from '../stores/globalAppState';
-import {EditTicket} from '../forms/EditTicket';
-import {AddResource} from '../forms/AddResource';
-import {AddTaxType} from '../forms/AddTaxType';
+import {onSave, goBack} from '../utils/headerFunctions';
+import CstmItemSelector from '../../components/CstmItemSelector';
+import ComposeNote from '../../forms/ComposeNote';
+import QNAs from '../../forms/QNAs';
+import {Attachments} from '../../components/Attachments/index';
+import {AttachmentDetails} from '../../components/Attachments/view/attachmentDetails';
+import {globalState} from '../../stores/globalAppState';
+import {EditTicket} from '../../forms/EditTicket';
+import {AddResource} from '../../forms/AddResource';
+import {AddTaxType} from '../../forms/AddTaxType';
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {

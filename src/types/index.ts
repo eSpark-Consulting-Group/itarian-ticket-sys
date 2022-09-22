@@ -44,6 +44,7 @@ export type Activity = {
   start_time: string;
   end_time: string;
   company_contact?: string;
+  closed?: boolean;
 };
 
 export type Scheduled_Data = {

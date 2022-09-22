@@ -103,7 +103,15 @@ const TimeSheetsScreen = ({navigation}: any) => {
                 onPress={ticket => {
                   navigation.navigate('Stack1', {
                     screen: 'NewTimeSheet',
-                    params: {title: "Edit Time Sheet", data: {ticket: ticket, date: item.date.toDateString(), totHrs: item.totHrs, from: "TimeSheet"}},
+                    params: {
+                      title: 'Edit Time Sheet',
+                      data: {
+                        ticket: ticket,
+                        date: item.date.toDateString(),
+                        totHrs: item.totHrs,
+                        from: 'TimeSheet',
+                      },
+                    },
                   });
                 }}
                 dataSource={item}

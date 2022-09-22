@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView, Linking, FlatList} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
-import {
-  PriorityField,
-  RoundedIcon,
-  SingleLineField,
-} from '../../../../components';
+import {StyleSheet, ScrollView, Linking} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
+import {useHookstate, State} from '@hookstate/core';
+
+import {RoundedIcon, SingleLineField} from '../../../../components';
 import {ContactList, SelectFields} from '../../../../types';
 import {redirectToMap} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
-import {useHookstate, State} from '@hookstate/core';
 import {contactsList} from '../../../../constants/SampleArrays';
 
 interface Item {
@@ -95,7 +91,7 @@ const Overview = () => {
         if (value?.contacts?.length && value?.contacts?.length > 0) {
           return (
             <>
-              <SingleLineField title={value?.title || ''} enable={false}/>
+              <SingleLineField title={value?.title || ''} enable={false} />
               {value?.contacts?.map((item, index) => (
                 <SingleLineField
                   key={index}

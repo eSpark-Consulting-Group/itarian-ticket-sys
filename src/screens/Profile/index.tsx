@@ -1,9 +1,8 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import styles from './style';
 import {useTheme, Theme} from '@react-navigation/native';
 import {AvatarContainer, SingleLineField} from '../../components';
-import II from 'react-native-vector-icons/Ionicons';
 
 import {State, useHookstate} from '@hookstate/core';
 import Images from '../../assets/images';

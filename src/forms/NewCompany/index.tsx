@@ -1,7 +1,8 @@
-import {View, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {ModalView, SingleLineField} from '../../components';
+import {View, ScrollView} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
+
+import {ModalView, SingleLineField} from '../../components';
 import {SelectFields} from '../../types';
 import {countryList, siteList, stateList} from '../../constants/SelectionList';
 

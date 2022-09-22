@@ -24,6 +24,7 @@ export const CstmPressable = ({
   android_ripple?: null | PressableAndroidRippleConfig;
 }) => {
   const {dark}: Theme = useTheme();
+  const rippleColor = dark ? '#ffffff0e' : '#0000000e';
 
   return disabled ? (
     <View>
@@ -38,7 +39,7 @@ export const CstmPressable = ({
       onPress={onPress}
       android_disableSound={android_disableSound}
       android_ripple={{
-        color: dark ? '#ffffff0e' : '#0000000e',
+        color: rippleColor,
         ...android_ripple,
       }}>
       {children}

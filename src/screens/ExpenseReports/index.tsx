@@ -82,7 +82,15 @@ const ExpenseReportsScreen = ({navigation}: any) => {
                   onPress={ticket => {
                     navigation.navigate('Stack1', {
                       screen: 'NewExpenseReport',
-                      params: {title: "Edit Expense", data: {ticket: ticket, date: item.date.toDateString(), totExp: item.totExp, from: "ExpenseReportsScreen"}},
+                      params: {
+                        title: 'Edit Expense',
+                        data: {
+                          ticket: ticket,
+                          date: item.date.toDateString(),
+                          totExp: item.totExp,
+                          from: 'ExpenseReportsScreen',
+                        },
+                      },
                     });
                   }}
                   dataSource={item}

@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, FlatList, RefreshControl} from 'react-native';
 
-import {Theme, useTheme} from '@react-navigation/native';
 import {State, useHookstate} from '@hookstate/core';
 
 import styles from './style';
 import ListItem from '../ListItem';
-import {
-  scheduledList,
-  ticketsList,
-} from '../../../constants/SampleArrays';
+import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
 import {UnschAdditionalButtons} from '../../../constants/ButtonsList';
 import {FloatButton, NotFound} from '../../../components';
 import {AdditionalButtons, ScheduledList} from '../../../types';

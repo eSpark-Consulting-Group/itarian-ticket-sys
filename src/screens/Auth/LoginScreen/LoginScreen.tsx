@@ -4,7 +4,6 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
-  Linking,
   Keyboard,
   TouchableOpacity,
   Alert,
@@ -16,7 +15,6 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {State, useHookstate} from '@hookstate/core';
 // @ts-ignore
-import store from 'react-native-simple-store';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';

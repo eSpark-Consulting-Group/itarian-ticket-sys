@@ -15,8 +15,7 @@ const MyStatus = ({route, navigation}: any) => {
   const addInf: State<string> = useHookstate(userStore.additionalInfo);
   const backDate: State<string> = useHookstate(userStore.dateBack);
   const backTime: State<string> = useHookstate(userStore.timeBack);
-  // console.log('Route', route);
-  const {status: OutStatus} = route.params;
+
   const {colors}: Theme = useTheme();
 
   const [goneTo, setGoneTo] = useState<any>(null);

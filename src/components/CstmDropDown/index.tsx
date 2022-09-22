@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
+import MI from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 import {useUpdateEffect} from '../../utils/hooks';
-import MI from 'react-native-vector-icons/MaterialIcons';
 
 const CstmDropDown = ({
   dataSource,
@@ -23,6 +23,7 @@ const CstmDropDown = ({
 }) => {
   const [label, setLabel] = useState('');
   const {colors, dark}: Theme = useTheme();
+  const borderColor = dark ? '#ffffff80' : '#00000080';
 
   useUpdateEffect(() => {
     handleLabel?.(label, type); //? to Send the Selected Label to parent
@@ -56,7 +57,7 @@ const CstmDropDown = ({
       <TouchableOpacity onPress={() => handleToggle?.(type)}>
         <View
           style={{
-            borderColor: dark ? '#ffffff80' : '#00000080',
+            borderColor: borderColor,
             ...styles.dropdownLabelContainer,
           }}>
           <View style={styles.dropdownLabelInner}>
@@ -75,7 +76,7 @@ const CstmDropDown = ({
         <View
           style={{
             ...styles.dropDownContainer,
-            borderColor: dark ? '#ffffff80' : '#00000080',
+            borderColor: borderColor,
           }}>
           <FlatList data={dataSource} renderItem={renderList} />
         </View>

@@ -42,7 +42,6 @@ const Search = ({route}: any) => {
     if (route.params) {
       setSearchValue(route.params.data);
       setType('configurations');
-      // handleSubmit(route.params.data);
     }
   }, [route.params]);
 

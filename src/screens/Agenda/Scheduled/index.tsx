@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, FlatList, RefreshControl} from 'react-native';
 
-import {Theme, useTheme} from '@react-navigation/native';
 import {State, useHookstate} from '@hookstate/core';
 
 import styles from './style';

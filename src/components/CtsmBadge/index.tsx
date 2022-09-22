@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 import React from 'react';
 import {Badge} from 'react-native-paper';
 

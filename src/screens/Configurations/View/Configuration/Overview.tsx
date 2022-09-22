@@ -2,6 +2,7 @@ import React, {ReactNode, useEffect, useState} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import {useTheme, useRoute, useNavigation} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import DatePicker from '@react-native-community/datetimepicker';
 
 import {SingleLineField} from '../../../../components';
 import {QNATypes, SelectFields} from '../../../../types';
@@ -14,7 +15,6 @@ import {
   siteNameList,
   vendorNameList,
 } from '../../../../constants/SelectionList';
-import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
   title: string;
@@ -278,7 +278,6 @@ const Overview = () => {
 
   const onChangeDate = (event: any, date: any) => {
     setShowDate(false);
-
     if (event?.type == 'set') {
       switch (pickerType) {
         case 'PD':

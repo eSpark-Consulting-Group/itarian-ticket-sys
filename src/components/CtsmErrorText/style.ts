@@ -7,11 +7,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 10,
     height: moderateVerticalScale(20, 0),
-    // backgroundColor: 'pink',
   },
   center: {
     flex: 0.8,
-    // backgroundColor: 'yellow',
   },
   adjuster: {
     flex: 0.1,

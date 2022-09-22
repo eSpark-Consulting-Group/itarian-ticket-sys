@@ -1,19 +1,15 @@
 // @flow
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import populateEvents from './Packer';
 import React from 'react';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import moment, {Moment} from 'moment';
 import _ from 'lodash';
-import {ThemeStyle} from './style';
-import {Alert} from 'react-native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import populateEvents from './Packer';
+import {ThemeStyle} from './style';
 const LEFT_MARGIN = 60 - 1;
-// const RIGHT_MARGIN = 10
 const CALENDER_HEIGHT = 2400;
-// const EVENT_TITLE_HEIGHT = 15
 const TEXT_LINE_HEIGHT = 17;
-// const MIN_EVENT_TITLE_WIDTH = 20
-// const EVENT_PADDING_LEFT = 4
 
 function range(from: any, to: any) {
   return Array.from(Array(to), (_, i) => from + i);

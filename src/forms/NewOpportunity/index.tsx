@@ -1,7 +1,9 @@
-import {View, ScrollView} from 'react-native';
 import React, {ReactNode, useEffect, useState} from 'react';
-import {ModalHeader, ModalView, SingleLineField} from '../../components';
+import {View, ScrollView} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
+import DatePicker from '@react-native-community/datetimepicker';
+
+import {ModalHeader, ModalView, SingleLineField} from '../../components';
 import {NoteTypes_ACIT} from '../../constants/SampleArrays';
 import {SelectFields} from '../../types';
 import {
@@ -14,7 +16,6 @@ import {
   statusList,
   typeList,
 } from '../../constants/SelectionList';
-import DatePicker from '@react-native-community/datetimepicker';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();

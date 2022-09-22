@@ -13,7 +13,7 @@ import {SchAdditionalButtons} from '../../constants/ButtonsList';
 import {FloatButton} from '../../components';
 import {AdditionalButtons} from '../../types';
 import {globalState} from '../../stores/globalAppState';
-import { events } from '../../constants/SampleArrays';
+import {events} from '../../constants/SampleArrays';
 
 const Calendar = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();

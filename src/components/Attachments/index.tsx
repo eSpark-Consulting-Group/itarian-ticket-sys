@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, Image} from 'react-native';
+import moment from 'moment';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import ModalView from '../ModalView';
 import EmptyListMsg from '../EmptyListMsg';
 import FloatButton from '../FloatButton';
@@ -12,8 +15,6 @@ import {
   imagePicker,
 } from '../../utils/helperFunctions';
 import {SingleLineField} from '../FormFields';
-import moment from 'moment';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const Attachments = ({
   id = 0,
@@ -71,7 +72,7 @@ export const Attachments = ({
   };
 
   const onAddFile = async () => {
-    const file = await documentPicker({});
+    const file = await documentPicker();
     if (file) {
       navigation.navigate('Stack2', {
         screen: 'AttachmentDetails',

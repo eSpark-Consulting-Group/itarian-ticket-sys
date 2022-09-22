@@ -27,19 +27,21 @@ export default function CstmTabBar(props: any) {
   const {routes, index: routeIndex} = props.navigationState;
   const [translateValue] = useState(new Animated.Value(0));
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [elevation, setElevation] = useState(0);
   const handleWidth =
     routes?.length < 3 ? (WINDOW_WIDTH * 4) / 10 : (WINDOW_WIDTH * 3) / 10;
   var highlight = dark ? '#000000' : '#fff';
-  var elevation = 0;
 
   const animateHeader = (index: any) => {
     Animated.timing(translateValue, {
-      toValue: index * 1.05 * handleWidth,
+      toValue: index * 1.035 * handleWidth,
       // The translateX value should change depending on the chosen route
-      duration: 300,
+      duration: 200,
       useNativeDriver: true,
     }).start(); // the animation that animates the active tab circle
     setCurrentIndex(index);
+    let elevationVal = index == routeIndex ? 2 : 0;
+    setElevation(elevationVal);
   };
 
   useEffect(() => {
@@ -47,7 +49,6 @@ export default function CstmTabBar(props: any) {
   }, [routeIndex]);
 
   const renderList = (item: Item, index: number) => {
-    elevation = index == routeIndex ? 2 : 0;
     const pressColor = dark ? '#ffffff0e' : '#0000000e';
 
     const handleTabNavigation = (hitIndex: number) => {
@@ -77,13 +78,13 @@ export default function CstmTabBar(props: any) {
           onPress={() => {
             handleTabNavigation(index);
           }}
-          android_ripple={{color: pressColor}}>
+          android_ripple={{color: 'transparent'}}>
           <View
             style={{
               width: handleWidth,
               ...styles.itemStyle,
               backgroundColor: colors.background,
-              elevation,
+              // elevation,
             }}>
             <Text style={{...styles.textStyle, color: colors.text}}>
               {item.title}
@@ -117,9 +118,9 @@ export default function CstmTabBar(props: any) {
               ]}>
               <View
                 style={{
+                  elevation,
                   ...styles.itemStyle,
                   backgroundColor: highlight,
-                  elevation,
                   height: '100%',
                   bottom: 17,
                 }}>

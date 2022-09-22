@@ -1,10 +1,11 @@
-import {Theme, useIsFocused, useTheme} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
+import {View} from 'react-native';
+import {Theme, useIsFocused, useTheme} from '@react-navigation/native';
 import SignatureScreen from 'react-native-signature-canvas';
+
 import ModalView from '../ModalView';
-import { View } from 'react-native'
-import { SCREEN_HEIGHT, SCREEN_WIDTH, WINDOW_HEIGHT } from '../../constants';
-import CstmButton from '../CstmButton';
+import {SCREEN_WIDTH, WINDOW_HEIGHT} from '../../constants';
+
 export const SignaturePad = ({route, navigation}: any) => {
   const ref = useRef<any>(null);
   const {colors}: Theme = useTheme();
@@ -13,12 +14,11 @@ export const SignaturePad = ({route, navigation}: any) => {
   useEffect(() => {
     navigation.setParams({
       ...route.params,
-      onCheck:  () =>  {
+      onCheck: () => {
         ref?.current?.readSignature();
-      }
+      },
     });
-  }, [isFouced])
-  // Called after ref.current.readSignature() reads a non-empty base64 string
+  }, [isFouced]);
   const handleOK = (signature: any) => {
     navigation?.navigate('Stack3', {
       screen: 'Signature',
@@ -75,7 +75,7 @@ export const SignaturePad = ({route, navigation}: any) => {
           }
 
           .m-signature-pad {
-            height: ${WINDOW_HEIGHT- 170}px;
+            height: ${WINDOW_HEIGHT - 170}px;
           }
           `}
           descriptionText={`Please Tap Clear if you need to make corrections. Once approved, \n This Signature cannot be modified. You may, however, add more`}

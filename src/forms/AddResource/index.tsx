@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
+import DatePicker from '@react-native-community/datetimepicker';
+
 import {SingleLineField} from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {whereList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
-import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
   headerTitle?: string;
@@ -178,7 +179,9 @@ export const AddResource = ({navigation, route}: any) => {
           enable={item.enable}
           titleWidth={item.titleWidth}
           rightIcon={item.rightIcon}
-          onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
+          onPress={
+            item?.onPress ? item.onPress : () => handlePress(item, index)
+          }
           showRightSwitch={item.showRightSwitch}
           rightSwitchVal={item.rightSwitchVal}
         />

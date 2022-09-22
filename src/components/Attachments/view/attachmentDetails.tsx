@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {SingleLineField} from '../../FormFields';
 import ModalView from '../../ModalView';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {fileIcons} from '../../../constants/';
 interface Item {
   title: string;
@@ -45,7 +46,9 @@ export const AttachmentDetails = ({navigation, route}: any) => {
     });
     setDataSource(newData);
   };
+
   const fileExt = route?.params?.file?.name?.split('.').pop();
+
   return (
     <ModalView>
       {route?.params?.file?.type != 'file' ? (

@@ -8,14 +8,14 @@ import {
 } from '@react-navigation/native';
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {Divider} from 'react-native-paper';
 
 import {EmptyListMsg, GapView, ModalField} from '../../../../components';
-import {Divider} from 'react-native-paper';
 import {
   noteList as dataSource,
   NoteTypes_ACIT,
 } from '../../../../constants/SampleArrays';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../../navigation/RootNavigation';
 import {CstmMenu} from '../../../../components/CstmMenu';
 

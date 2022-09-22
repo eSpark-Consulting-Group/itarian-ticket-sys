@@ -32,7 +32,6 @@ import {Avatar} from 'react-native-paper';
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-// import {Theme} from '../theme/colors';
 import {globalState} from '../stores/globalAppState';
 import {
   Agenda,
@@ -172,18 +171,18 @@ const Draw = () => {
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const [currMember, setcurrMember] = useState<any>(contactsList[0]);
   const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
-  const [filterCount, setFilterCount] = useState<any>("0");
+  const [filterCount, setFilterCount] = useState<any>('0');
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
-  
+
   useEffect(() => {
     var filterVariables = route?.params?.params?.filter?.filter((val: any) => {
-      if(val?.key && val?.value != null) return {key: val.key, value: val?.value}
-    })
-    setFilterCount(filterVariables?.length || "0")
+      if (val?.key && val?.value != null)
+        return {key: val.key, value: val?.value};
+    });
+    setFilterCount(filterVariables?.length || '0');
     if (route?.params?.item) {
-
       if (route?.params?.from == 'Agenda') {
         setcurrMember(route?.params?.selected);
       } else if (route?.params?.from == 'Calendar') {
@@ -476,7 +475,7 @@ const Draw = () => {
                     return {key: val.key, value: val?.value};
                 })?.length,
               )} */}
-              <CstmBadge qty={filterCount || "0"} />
+              <CstmBadge qty={filterCount || '0'} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -509,7 +508,7 @@ const Draw = () => {
                   });
                 }}
               />
-              <CstmBadge qty={filterCount || "0"} />
+              <CstmBadge qty={filterCount || '0'} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -556,7 +555,7 @@ const Draw = () => {
                   })
                 }
               />
-              <CstmBadge qty={filterCount || "0"} />
+              <CstmBadge qty={filterCount || '0'} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (

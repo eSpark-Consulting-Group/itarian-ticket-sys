@@ -47,7 +47,7 @@ const OTPScreen = ({navigation, route}: any) => {
       }, 5000);
     }
   };
-  
+
   return (
     <View style={{backgroundColor: colors.background}}>
       <View style={styles.imageContainer}>
@@ -128,7 +128,6 @@ const OTPScreen = ({navigation, route}: any) => {
             activeOpacity={0.8}
             disabled={!showResend}
             onPress={() => {
-              // _resendOtp()
               onResend();
             }}
             style={{

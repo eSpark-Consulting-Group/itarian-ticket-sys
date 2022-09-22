@@ -1,11 +1,9 @@
 import {StyleSheet} from 'react-native';
 import {moderateVerticalScale} from 'react-native-size-matters';
-import {WINDOW_HEIGHT} from '../../../constants';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
     justifyContent: 'center',
   },
   imageContainer: {
@@ -18,32 +16,28 @@ const styles = StyleSheet.create({
     width: '50%',
     height: '100%',
   },
-
   borderStyleBase: {
     width: 30,
-    height: 45
+    height: 45,
   },
-
   borderStyleHighLighted: {
-    borderColor: "#03DAC6",
+    borderColor: '#03DAC6',
   },
-
   underlineStyleBase: {
     width: 30,
     height: 45,
     borderWidth: 0,
     borderBottomWidth: 1,
   },
-
   underlineStyleHighLighted: {
-    borderColor: "#03DAC6",
+    borderColor: '#03DAC6',
   },
   resendCode: {
-      fontWeight: '500',
-      fontSize: 14,
-      lineHeight: 18,
-      color: '#3669C9',
-  }
+    fontWeight: '500',
+    fontSize: 14,
+    lineHeight: 18,
+    color: '#3669C9',
+  },
 });
 
 export default styles;

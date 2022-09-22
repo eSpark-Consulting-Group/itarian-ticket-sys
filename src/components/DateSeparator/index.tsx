@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-
 import {Theme, useTheme} from '@react-navigation/native';
 
 import styles from './style';

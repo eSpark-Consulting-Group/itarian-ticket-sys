@@ -566,14 +566,16 @@ export const activitiesList: Array<Activity> = [
     date: 'Aug 29, 2022',
     start_time: '9:30 AM',
     end_time: '10:00 AM',
+    closed: false,
   },
   {
-    summary: 'Visit Potential Prospect',
+    summary: 'Visit Potential Prospect (C)',
     company_name: 'XYZ Company Incorporated',
     date: 'Aug 28, 2022',
     start_time: '10:30 AM',
     end_time: '11:00 AM',
     company_contact: '+555 5555 555',
+    closed: true,
   },
   {
     summary: 'B2B Reports',
@@ -582,6 +584,7 @@ export const activitiesList: Array<Activity> = [
     start_time: '09:30 PM',
     end_time: '11:00 PM',
     company_contact: '+555 5555 555',
+    closed: false,
   },
   {
     summary: 'Inspection',
@@ -590,41 +593,43 @@ export const activitiesList: Array<Activity> = [
     start_time: '10:00 AM',
     end_time: '11:45 AM',
     company_contact: '+555 5555 555',
+    closed: false,
   },
   {
-    summary: 'Inspection',
+    summary: 'Inspection (c)',
     company_name: 'Coca Cola Ltd',
     date: 'Jul 25, 2022',
     start_time: '10:00 AM',
     end_time: '11:45 AM',
     company_contact: '+555 5555 555',
+    closed: true,
   },
 ];
 
 export const expReportList: Array<ExpReportList> = [
   {
     id: 1,
-    date: new Date(2022, 7, 9),
+    date: new Date(2022, 7, 29),
     totExp: 723,
     data: [
       {
         id: 1,
         ticket_no: '#15340',
-        ticket_summary: 'Config Service History # 2',
+        summary: 'Config Service History # 2',
         totExp: '$119.00',
         expType: 'Parts ',
       },
       {
         id: 2,
         ticket_no: '#15346',
-        ticket_summary: 'Weekly Team Meeting',
+        summary: 'Weekly Team Meeting',
         totExp: '$456.00',
         expType: 'Miscellaneous',
       },
       {
         id: 3,
         ticket_no: '#16357',
-        ticket_summary: 'New Server Installation',
+        summary: 'New Server Installation',
         totExp: '$148.00',
         expType: 'Equipments',
       },
@@ -632,13 +637,13 @@ export const expReportList: Array<ExpReportList> = [
   },
   {
     id: 2,
-    date: new Date(2022, 7, 14),
+    date: new Date(2022, 7, 24),
     totExp: 1123,
     data: [
       {
         id: 4,
         ticket_no: '#18464',
-        ticket_summary: 'Products for Exchange Server',
+        summary: 'Products for Exchange Server',
         totExp: '$1123.00',
         expType: 'Products',
       },
@@ -649,13 +654,13 @@ export const expReportList: Array<ExpReportList> = [
 export const timeSheetList: Array<TimeSheet> = [
   {
     id: 1,
-    date: new Date(2022, 7, 9),
+    date: new Date(2022, 7, 29),
     totHrs: 2.5,
     data: ticketsList,
   },
   {
     id: 2,
-    date: new Date(2022, 7, 14),
+    date: new Date(2022, 7, 25),
     totHrs: 3.5,
     data: ticketsList,
   },

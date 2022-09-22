@@ -15,8 +15,8 @@ import {globalState} from '../../stores/globalAppState';
 import {EditTicket} from '../../forms/EditTicket';
 import {AddResource} from '../../forms/AddResource';
 import {AddTaxType} from '../../forms/AddTaxType';
-import TimeEntries from '../components/TimeEntries';
-import Expenses from '../components/Expenses';
+import TimeEntries from '../../components/TimeEntries';
+import Expenses from '../../components/Expenses';
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {

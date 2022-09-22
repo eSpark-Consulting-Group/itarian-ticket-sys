@@ -604,43 +604,47 @@ export const activitiesList: Array<Activity> = [
 export const expReportList: Array<ExpReportList> = [
   {
     id: 1,
-    date: new Date(2022, 7, 9),
+    date: new Date(2022, 8, 9),
     totExp: 723,
     data: [
       {
         id: 1,
         ticket_no: '#15340',
-        ticket_summary: 'Config Service History # 2',
+        summary: 'Config Service History # 2',
         totExp: '$119.00',
         expType: 'Parts ',
+        type: 'Ticket',
       },
       {
         id: 2,
         ticket_no: '#15346',
-        ticket_summary: 'Weekly Team Meeting',
+        summary: 'Weekly Team Meeting',
         totExp: '$456.00',
         expType: 'Miscellaneous',
+        type: 'Ticket',
       },
       {
         id: 3,
         ticket_no: '#16357',
-        ticket_summary: 'New Server Installation',
+        summary: 'New Server Installation',
         totExp: '$148.00',
         expType: 'Equipments',
+        type: 'Ticket',
       },
     ],
   },
   {
     id: 2,
-    date: new Date(2022, 7, 14),
+    date: new Date(2022, 8, 14),
     totExp: 1123,
     data: [
       {
         id: 4,
         ticket_no: '#18464',
-        ticket_summary: 'Products for Exchange Server',
+        summary: 'Products for Exchange Server',
         totExp: '$1123.00',
         expType: 'Products',
+        type: 'Ticket',
       },
     ],
   },
@@ -826,7 +830,7 @@ export const opportunitiesList: Opportunity[] = [
 export const stopWatchList: Stopwatch[] = [
   {
     ticket_no: '#12348',
-    ticket_summary: 'Checking for Mantaince',
+    summary: 'Checking for Mantaince',
     created_at: '20, June 2021',
     timer: 0,
     isPlaying: false,
@@ -834,7 +838,7 @@ export const stopWatchList: Stopwatch[] = [
   },
   {
     ticket_no: '#56231',
-    ticket_summary: 'Team Prep Authorization',
+    summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
@@ -842,7 +846,7 @@ export const stopWatchList: Stopwatch[] = [
   },
   {
     ticket_no: '#56232',
-    ticket_summary: 'Team Prep Authorization',
+    summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
@@ -850,7 +854,7 @@ export const stopWatchList: Stopwatch[] = [
   },
   {
     ticket_no: '#56233',
-    ticket_summary: 'Team Prep Authorization',
+    summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
@@ -858,7 +862,7 @@ export const stopWatchList: Stopwatch[] = [
   },
   {
     ticket_no: '#56234',
-    ticket_summary: 'Team Prep Authorization',
+    summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
@@ -866,7 +870,7 @@ export const stopWatchList: Stopwatch[] = [
   },
   {
     ticket_no: '#56235',
-    ticket_summary: 'Team Prep Authorization',
+    summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
@@ -874,7 +878,7 @@ export const stopWatchList: Stopwatch[] = [
   },
   {
     ticket_no: '#56236',
-    ticket_summary: 'Team Prep Authorization',
+    summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
@@ -882,7 +886,7 @@ export const stopWatchList: Stopwatch[] = [
   },
   {
     ticket_no: '#56237',
-    ticket_summary: 'Team Prep Authorization',
+    summary: 'Team Prep Authorization',
     created_at: '26, August 2019',
     timer: 0,
     isPlaying: false,
@@ -1246,4 +1250,3 @@ export const events = [
     eventType: 'Service Ticket',
   },
 ];
-

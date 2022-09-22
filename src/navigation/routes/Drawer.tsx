@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -237,13 +236,6 @@ const Draw = () => {
           />
         ),
       }}>
-      <Drawer.Screen
-        name="FSLoader"
-        component={FSLoader}
-        options={{
-          drawerItemStyle: {display: 'none'},
-        }}
-      />
       <Drawer.Screen
         name="Search"
         component={Search}
@@ -657,15 +649,6 @@ const Draw = () => {
         }}
       />
     </Drawer.Navigator>
-  );
-};
-
-const FSLoader = () => {
-  const {colors} = useTheme();
-  return (
-    <View style={{backgroundColor: colors.background, ...styles.loading}}>
-      <ActivityIndicator size="large" color={colors.primary} />
-    </View>
   );
 };
 

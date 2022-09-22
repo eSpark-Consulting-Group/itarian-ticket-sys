@@ -15,7 +15,7 @@ export type ContactList = {
   value: string;
   isPrimary: boolean;
   type: string;
-}
+};
 
 export type Contact = {
   id: number;
@@ -49,7 +49,7 @@ export type Activity = {
 export type Scheduled_Data = {
   id: number;
   ticket_no: string;
-  ticket_summary: string;
+  summary: string;
   schedule_time: string;
   time_dur: string;
   company: string;
@@ -59,7 +59,7 @@ export type Scheduled_Data = {
 export type Unscheduled_Data = {
   id: number;
   ticket_no: string;
-  ticket_summary: string;
+  summary: string;
   company: string;
   site: string;
 };
@@ -67,7 +67,8 @@ export type Unscheduled_Data = {
 export type ExpRprt_Data = {
   id: number;
   ticket_no: string;
-  ticket_summary: string;
+  type: 'Ticket' | 'Activity';
+  summary: string;
   totExp: string;
   expType: string;
 };
@@ -209,7 +210,7 @@ export type ParamList = {
 
 export type Stopwatch = {
   ticket_no: string;
-  ticket_summary: string;
+  summary: string;
   created_at: string;
   timer: number;
   isPlaying?: boolean;

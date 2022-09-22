@@ -24,6 +24,7 @@ const ListItem = ({
 }) => {
   const {colors, dark}: Theme = useTheme();
   const navigation: any = useNavigation();
+
   const renderData = (item2: any, ind: number) => {
     return (
       <CstmPressable

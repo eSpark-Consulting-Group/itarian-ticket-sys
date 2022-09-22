@@ -115,7 +115,7 @@ const StopWatchScreen = ({navigation}: any) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{...styles.title, color: colors.text}}>
-                    {item.ticket_summary}
+                    {item.summary}
                   </Text>
                 </View>
                 <View

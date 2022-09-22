@@ -4,13 +4,17 @@ import {Theme, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-import {SearchBar, SimpleLoader} from '../../components';
 import styles from './style';
-import {EmptyListMsg, CstmSwitchSelector} from '../../components';
+import {
+  EmptyListMsg,
+  CstmSwitchSelector,
+  SearchBar,
+  SimpleLoader,
+} from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
-import { searchFromArray } from '../../utils/helperFunctions';
+import {searchFromArray} from '../../utils/helperFunctions';
 
 const InOutBoardScreen = () => {
   const {colors, dark}: Theme = useTheme();
@@ -30,12 +34,14 @@ const InOutBoardScreen = () => {
   };
 
   const searchFilterFunction = async (text: string) => {
-      var result = await searchFromArray({
-        text: text || '',
-        list: contactsList.filter((val) =>  selection == 1 ? val.inOffice : !val.inOffice),
-        keys: ['name', 'company_name'],
-      });
-      setMembers(result);
+    var result = await searchFromArray({
+      text: text || '',
+      list: contactsList.filter(val =>
+        selection == 1 ? val.inOffice : !val.inOffice,
+      ),
+      keys: ['name', 'company_name'],
+    });
+    setMembers(result);
   };
 
   const handleSwitch = () => {
@@ -60,7 +66,11 @@ const InOutBoardScreen = () => {
   useUpdateEffect(() => {
     if (clear) {
       console.log('done');
-      setMembers(contactsList.filter((val) =>  selection == 1 ? val.inOffice : !val.inOffice));
+      setMembers(
+        contactsList.filter(val =>
+          selection == 1 ? val.inOffice : !val.inOffice,
+        ),
+      );
       setClear(false);
     }
   }, [clear]);

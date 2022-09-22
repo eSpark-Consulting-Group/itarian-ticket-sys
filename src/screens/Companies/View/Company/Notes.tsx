@@ -9,15 +9,19 @@ import {
 import FT from 'react-native-vector-icons/Fontisto';
 import AD from 'react-native-vector-icons/AntDesign';
 
-import {EmptyListMsg, GapView, ModalField} from '../../../../components';
+import {
+  EmptyListMsg,
+  GapView,
+  ModalField,
+  CstmMenu,
+} from '../../../../components';
 import {Divider} from 'react-native-paper';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../../../navigation/RootNavigation';
+import {RootStackParamList} from '../../../../navigation/routes/RootNavigation';
 import {
   NoteTypes_ACIT,
   noteList as dataSource,
 } from '../../../../constants/SampleArrays';
-import {CstmMenu} from '../../../../components/CstmMenu';
 
 interface Item {
   id: number;

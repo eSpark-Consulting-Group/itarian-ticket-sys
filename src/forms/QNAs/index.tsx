@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 
-import {ModalView, SimpleLoader} from '../../components';
-import {SingleLineField} from '../../components/FormFields';
+import {ModalView, SimpleLoader, SingleLineField} from '../../components';
 import {QNATypes} from '../../types';
 
 export default function QNAs({route}: any) {

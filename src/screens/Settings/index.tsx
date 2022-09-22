@@ -12,9 +12,8 @@ import store from 'react-native-simple-store';
 import {globalState} from '../../stores/globalAppState';
 import {useUpdateEffect} from '../../utils/hooks';
 import {screenItemList} from '../../constants/SampleArrays';
-import {CstmPressable} from '../../components/CstmPressable';
 import {getNavigtionApps} from '../../utils/helperFunctions';
-import {BiometricVerification} from '../../components';
+import {BiometricVerification, CstmPressable} from '../../components';
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);

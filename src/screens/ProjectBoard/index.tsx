@@ -11,8 +11,7 @@ import AD from 'react-native-vector-icons/AntDesign';
 import styles from './style';
 import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
-import {EmptyListMsg} from '../../components';
-import {CstmPressable} from '../../components/CstmPressable';
+import {EmptyListMsg, CstmPressable} from '../../components';
 
 const ProjectBoard = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();

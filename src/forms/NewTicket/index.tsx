@@ -4,7 +4,6 @@ import {useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ModalHeader, ModalView, SingleLineField} from '../../components';
-import {MultiLineField} from '../../components/FormFields';
 import {SelectFields} from '../../types';
 import {
   boardList,

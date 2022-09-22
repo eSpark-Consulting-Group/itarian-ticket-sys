@@ -4,13 +4,17 @@ import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
-import {FloatButton, SearchBar, SimpleLoader} from '../../components';
+import {
+  FloatButton,
+  SearchBar,
+  SimpleLoader,
+  EmptyListMsg,
+  CstmPressable,
+} from '../../components';
 import styles from './style';
-import {EmptyListMsg} from '../../components';
 import {companiesList} from '../../constants/SampleArrays';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
-import {CstmPressable} from '../../components';
 import {searchFromArray} from '../../utils/helperFunctions';
 
 const Companies = () => {

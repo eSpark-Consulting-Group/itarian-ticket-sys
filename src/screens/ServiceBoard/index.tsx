@@ -9,8 +9,7 @@ import FD from 'react-native-vector-icons/Foundation';
 import styles from './style';
 import {ticketsList} from '../../constants/SampleArrays';
 import {Ticket} from '../../types';
-import {EmptyListMsg, FloatButton} from '../../components';
-import {CstmPressable} from '../../components/CstmPressable';
+import {EmptyListMsg, FloatButton, CstmPressable} from '../../components';
 
 const ServiceBoard = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();

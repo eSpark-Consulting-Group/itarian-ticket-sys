@@ -13,11 +13,11 @@ import {
   FloatButton,
   OutlineBtn,
   RoundedIcon,
+  CstmMenu,
+  CstmPressable,
 } from '../../components';
 import {activitiesList} from '../../constants/SampleArrays';
 import {Activity} from '../../types';
-import {CstmPressable} from '../../components/CstmPressable';
-import {CstmMenu} from '../../components/CstmMenu';
 
 const MyActivities = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -32,7 +32,7 @@ const MyActivities = ({navigation}: any) => {
   const hideMenu = (): void => setVisible(false);
 
   const renderList = ({item, index}: {item: Activity; index: number}) => {
-    if(isClosed  && !item?.closed)  return <></>
+    if (isClosed && !item?.closed) return <></>;
     return (
       <View
         style={{
@@ -168,12 +168,12 @@ const MyActivities = ({navigation}: any) => {
         <View style={{flexDirection: 'row'}}>
           <OutlineBtn
             text="Closed Activities"
-            backColor={isClosed ? colors.primary : "#fff"}
+            backColor={isClosed ? colors.primary : '#fff'}
             textColor={isClosed ? '#fff' : '#000'}
             pressRipple
             border
             onPress={() => {
-              setisClosed((!isClosed))
+              setisClosed(!isClosed);
             }}
           />
           <View style={styles.adjuster} />

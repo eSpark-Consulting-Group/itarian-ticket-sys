@@ -26,7 +26,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import App2 from './src/navigation/RootNavigation';
+import App2 from './src/navigation/routes/RootNavigation';
 
 const Section: React.FC<{
   title: string;

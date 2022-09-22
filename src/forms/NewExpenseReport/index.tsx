@@ -163,7 +163,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
       newData[1].title = route?.params?.data?.date;
       newData[2].title = route?.params?.data?.ticket?.expType;
       newData[3].rightChild = <Text>{route?.params?.data?.totExp}</Text>;
-      newData[6].title = route?.params?.data?.ticket?.ticket_summary;
+      newData[6].title = route?.params?.data?.ticket?.summary;
       setDataSource(newData);
     }
   }, [route?.params]);

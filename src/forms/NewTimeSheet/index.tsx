@@ -143,7 +143,7 @@ const NewTimeSheet = ({route, navigation}: any) => {
       newData[4].title = route?.params?.data?.totHrs?.toString();
       newData[5].title = route?.params?.data?.ticket?.phase;
       newData[6].title = route?.params?.data?.ticket?.site;
-      newData[7].title = route?.params?.data?.ticket?.ticket_summary;
+      newData[7].title = route?.params?.data?.ticket?.summary;
       setDataSource(newData);
     }
   }, [route?.params]);

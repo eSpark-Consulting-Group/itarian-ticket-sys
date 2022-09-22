@@ -8,6 +8,7 @@ import {
 } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import II from 'react-native-vector-icons/Ionicons';
+import DatePicker from '@react-native-community/datetimepicker';
 
 import {SingleLineField} from '../../../../components';
 import {Activity, SelectFields} from '../../../../types';
@@ -19,7 +20,6 @@ import {
   typeList,
   whereList,
 } from '../../../../constants/SelectionList';
-import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
   title: string;

@@ -1,11 +1,16 @@
-import {View, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {ModalView, SingleLineField} from '../../components';
+import {View, ScrollView} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
-import { SelectFields } from '../../types';
-import { chargeCodeList, typeList, workRoleList } from '../../constants/SelectionList';
-import { NoteTypes_DIR } from '../../constants/SampleArrays';
+
+import {ModalView, SingleLineField} from '../../components';
+import {SelectFields} from '../../types';
+import {
+  chargeCodeList,
+  typeList,
+  workRoleList,
+} from '../../constants/SelectionList';
+import {NoteTypes_DIR} from '../../constants/SampleArrays';
 
 const NewTimeSheet = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -55,8 +60,22 @@ const NewTimeSheet = ({route, navigation}: any) => {
       },
     },
     {title: '', subTitle: 'Time', inputable: true, enable: false},
-    {title: 'Please Select', subTitle: 'Work Role', rightIcon: 'chevron-right', list: workRoleList, selectedItem: workRoleList[0], headerTitle: 'Work Role'},
-    {title: 'Please Select', subTitle: 'Work Type', rightIcon: 'chevron-right', list: typeList, selectedItem: typeList[0], headerTitle: 'Work Type'},
+    {
+      title: 'Please Select',
+      subTitle: 'Work Role',
+      rightIcon: 'chevron-right',
+      list: workRoleList,
+      selectedItem: workRoleList[0],
+      headerTitle: 'Work Role',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Work Type',
+      rightIcon: 'chevron-right',
+      list: typeList,
+      selectedItem: typeList[0],
+      headerTitle: 'Work Type',
+    },
     {
       title: 'Add Note',
       enable: false,
@@ -92,7 +111,11 @@ const NewTimeSheet = ({route, navigation}: any) => {
   type PickerType = 'dd' | 'st' | 'et';
 
   useEffect(() => {
-    if (route?.params?.from && !route?.params?.item?.toString() && route?.params?.from != "ServiceTickets") {
+    if (
+      route?.params?.from &&
+      !route?.params?.item?.toString() &&
+      route?.params?.from != 'ServiceTickets'
+    ) {
       let newData = [...dataSource];
       newData[9].title = 'Johnny Bravo';
       setDataSource(newData);
@@ -102,17 +125,21 @@ const NewTimeSheet = ({route, navigation}: any) => {
       newData[1].title = route?.params?.date;
       setDataSource(newData);
     }
-    if (route?.params?.from == "ServiceTickets") {
+    if (route?.params?.from == 'ServiceTickets') {
       let newData = [...dataSource];
-      newData[0].title = route.params?.chargeCode
+      newData[0].title = route.params?.chargeCode;
       setDataSource(newData);
     }
-    if(route?.params?.data && route?.params?.data?.from == "TimeSheet") {
+    if (route?.params?.data && route?.params?.data?.from == 'TimeSheet') {
       let newData = [...dataSource];
       newData[0].title = route?.params?.data?.ticket?.ticket_no;
       newData[1].title = route?.params?.data?.date;
-      newData[2].title = route?.params?.data?.ticket?.schedule_time?.split('-')[0] || "Please select";
-      newData[3].title = route?.params?.data?.ticket?.schedule_time?.split('-')[1] || "Please select";
+      newData[2].title =
+        route?.params?.data?.ticket?.schedule_time?.split('-')[0] ||
+        'Please select';
+      newData[3].title =
+        route?.params?.data?.ticket?.schedule_time?.split('-')[1] ||
+        'Please select';
       newData[4].title = route?.params?.data?.totHrs?.toString();
       newData[5].title = route?.params?.data?.ticket?.phase;
       newData[6].title = route?.params?.data?.ticket?.site;
@@ -166,9 +193,9 @@ const NewTimeSheet = ({route, navigation}: any) => {
       },
     });
   }
-  
-   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
-   useEffect(() => {
+
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
@@ -231,7 +258,9 @@ const NewTimeSheet = ({route, navigation}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
-              onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
+              onPress={
+                item?.onPress ? item.onPress : () => handlePress(item, index)
+              }
               roundedIconEnable={item?.roundedIconEnable}
               onRoundedIconPress={item?.onRoundIconPress}
             />

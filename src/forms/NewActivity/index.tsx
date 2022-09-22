@@ -185,7 +185,6 @@ const NewActivity = ({route, navigation}: any) => {
     }
   };
 
-
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
@@ -249,7 +248,9 @@ const NewActivity = ({route, navigation}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
-              onPress={item?.onPress ? item.onPress : () => handlePress(item, index)}
+              onPress={
+                item?.onPress ? item.onPress : () => handlePress(item, index)
+              }
             />
           ))}
         </View>

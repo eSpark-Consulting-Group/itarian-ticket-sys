@@ -1,7 +1,6 @@
-import {Theme, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {View, Text, FlatList} from 'react-native';
+import {Theme, useTheme} from '@react-navigation/native';
 import {Divider, Menu} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
 

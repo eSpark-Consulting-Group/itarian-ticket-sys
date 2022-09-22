@@ -78,10 +78,6 @@ const SettingsScreen = () => {
       });
       biometricState.set(!biometricState.get());
     }
-    // store.update('bioMetric', {
-    //   bioMetric: !biometricState.get(),
-    // });
-    // biometricState.set(!biometricState.get());
   };
 
   useUpdateEffect(() => {
@@ -326,10 +322,10 @@ const MenuItem = ({
   checkVisible?: boolean;
   dark?: boolean;
 }) => {
+  const rippleColor = dark ? '#ffffff1a' : '#0000000e';
+
   return (
-    <CstmPressable
-      onPress={onPress}
-      android_ripple={{color: dark ? '#ffffff1a' : '#0000000e'}}>
+    <CstmPressable onPress={onPress} android_ripple={{color: rippleColor}}>
       <View
         style={{
           flexDirection: 'row',

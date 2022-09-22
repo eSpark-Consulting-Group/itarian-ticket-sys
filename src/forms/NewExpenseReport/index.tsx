@@ -1,13 +1,14 @@
-import {View, Text, ScrollView, KeyboardTypeOptions} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {View, Text, ScrollView, KeyboardTypeOptions} from 'react-native';
+import {Theme, useTheme} from '@react-navigation/native';
+import DatePicker from '@react-native-community/datetimepicker';
+
 import {
   FloatButton,
   ModalView,
   RoundedIcon,
   SingleLineField,
 } from '../../components';
-import {Theme, useTheme} from '@react-navigation/native';
-import DatePicker from '@react-native-community/datetimepicker';
 import {
   chargeCodeList,
   expenseTypeList,
@@ -46,7 +47,12 @@ const NewExpenseReport = ({route, navigation}: any) => {
       selectedItem: expenseTypeList[0],
       headerTitle: 'Expense Type',
     },
-    {subTitle: 'Amount', inputable: true, title: '0', keyboardType: 'number-pad'},
+    {
+      subTitle: 'Amount',
+      inputable: true,
+      title: '0',
+      keyboardType: 'number-pad',
+    },
     {
       title: 'Paid by employee',
       subTitle: 'Payment Method',
@@ -136,9 +142,9 @@ const NewExpenseReport = ({route, navigation}: any) => {
     AddExpenseAdditionalButtons[0].onPress = () => {
       navigation.navigate('Stack2', {
         screen: 'AddTaxType',
-        params: {amount: parseInt(dataSource[3].title || '0')}
-      })
-    }
+        params: {amount: parseInt(dataSource[3].title || '0')},
+      });
+    };
   }, [dataSource]);
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {

@@ -13,7 +13,7 @@ import {
   handleStopwatch,
   onSave,
   saveStatus,
-  clearFunc
+  clearFunc,
 } from '../forms/utils/headerFunctions';
 
 import STickets from '../forms/ServiceTickets';
@@ -29,7 +29,6 @@ import Opportunity from '../screens/Oppurtunities/View/Opportunity';
 
 import NewActivity from '../forms/NewActivity';
 import NewExpenseReport from '../forms/NewExpenseReport';
-import {globalState} from '../stores/globalAppState';
 import NewOpportunity from '../forms/NewOpportunity';
 import NewTimeSheet from '../forms/NewTimeSheet';
 import NewTicket from '../forms/NewTicket';
@@ -100,7 +99,6 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
-
       <Stack.Screen
         name="STickets"
         component={STickets}
@@ -233,9 +231,16 @@ const StackLvl1 = ({route, navigation}: any) => {
               onPress={() => clearFunc(navigation, route)}
             />
           ),
-          headerRight: () => <II size={30} name="checkmark" color={'#fff'} onPress={() => {
-           onSave(navigation, route)
-          }}/>,
+          headerRight: () => (
+            <II
+              size={30}
+              name="checkmark"
+              color={'#fff'}
+              onPress={() => {
+                onSave(navigation, route);
+              }}
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -273,9 +278,19 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-              <MCI size={30} name="phone" color={'#fff'} onPress={() => Linking.openURL(`tel:090078601`)} />
+              <MCI
+                size={30}
+                name="phone"
+                color={'#fff'}
+                onPress={() => Linking.openURL(`tel:090078601`)}
+              />
               <View style={{width: 15}} />
-              <FA size={30} name="save" color={'#fff'} onPress={() => navigation.goBack()}/>
+              <FA
+                size={30}
+                name="save"
+                color={'#fff'}
+                onPress={() => navigation.goBack()}
+              />
             </View>
           ),
         })}

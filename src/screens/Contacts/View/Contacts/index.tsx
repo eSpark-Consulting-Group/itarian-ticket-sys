@@ -2,12 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
-import {
-  ModalHeader,
-  ModalView,
-  RoundedIcon,
-  CstmTabBar,
-} from '../../../../components';
+import {ModalHeader, ModalView, CstmTabBar} from '../../../../components';
 import Communications from './Communications';
 import Details from './Details';
 

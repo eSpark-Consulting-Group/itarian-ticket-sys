@@ -1,6 +1,6 @@
-import {State, useHookstate} from '@hookstate/core';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Platform, UIManager, Linking} from 'react-native';
+import {State, useHookstate} from '@hookstate/core';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
 import {
@@ -79,7 +79,7 @@ const App = ({navigation, route}: any) => {
         screen: 'NewTimeSheet',
         params: {
           from: 'ServiceTickets',
-          chargeCode: route?.params?.title
+          chargeCode: route?.params?.title,
         },
       });
     };

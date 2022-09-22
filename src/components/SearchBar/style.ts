@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,7 +6,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    // backgroundColor: 'teal',
   },
   adjuster: {
     width: '2.5%',

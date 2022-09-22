@@ -3,6 +3,7 @@ import {View, Text, FlatList, Linking} from 'react-native';
 import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import _ from 'lodash';
 
 import styles from './style';
 import {RoundedIcon, SearchBar, SimpleLoader} from '../../components';
@@ -10,7 +11,6 @@ import {EmptyListMsg} from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
-import _ from 'lodash';
 import {CstmPressable} from '../../components';
 import {searchFromArray} from '../../utils/helperFunctions';
 

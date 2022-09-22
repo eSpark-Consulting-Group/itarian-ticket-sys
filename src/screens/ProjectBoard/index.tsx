@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
@@ -16,28 +16,28 @@ import {CstmPressable} from '../../components/CstmPressable';
 
 const ProjectBoard = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
-  const [dataSource, setDataSource] = useState(ticketsList)
+  const [dataSource, setDataSource] = useState(ticketsList);
 
   useEffect(() => {
     var filterVariables = route?.params?.filter?.filter((val: any) => {
-      if(val?.key && val?.value != null) return {key: val.key, value: val?.value}
-    })
-    if(filterVariables?.length > 0) {
+      if (val?.key && val?.value != null)
+        return {key: val.key, value: val?.value};
+    });
+    if (filterVariables?.length > 0) {
       var updatedList = ticketsList?.filter((value: any, index: any) => {
-         var isFind = filterVariables?.filter((item: any) => {
-            return value[item?.key] == item.value
-         })
-         if(isFind?.length == filterVariables?.length) {
-              return ticketsList
-            }
-      })
-      setDataSource(updatedList || [])
-    }else {
-      setDataSource(ticketsList)
-    } 
-  }, [route?.params])
+        var isFind = filterVariables?.filter((item: any) => {
+          return value[item?.key] == item.value;
+        });
+        if (isFind?.length == filterVariables?.length) {
+          return ticketsList;
+        }
+      });
+      setDataSource(updatedList || []);
+    } else {
+      setDataSource(ticketsList);
+    }
+  }, [route?.params]);
 
-  
   const renderList = ({item, index}: {item: Ticket; index: number}) => {
     const renderPriorityText = (value: string) => {
       switch (value) {

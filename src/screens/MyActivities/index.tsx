@@ -34,7 +34,7 @@ const MyActivities = ({navigation}: any) => {
     return (
       <View
         style={{
-          backgroundColor: dark ? '#000' : '#fff',
+          backgroundColor: solidColor,
           ...styles.listContainer,
         }}>
         <CstmPressable
@@ -160,7 +160,7 @@ const MyActivities = ({navigation}: any) => {
     <>
       <View
         style={{
-          backgroundColor: dark ? '#000000' : '#ffffff',
+          backgroundColor: solidColor,
           ...styles.header,
         }}>
         <View style={{flexDirection: 'row'}}>

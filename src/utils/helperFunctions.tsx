@@ -5,7 +5,7 @@ import {
 } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker, {types} from 'react-native-document-picker';
-import { ShortcutItem } from 'react-native-quick-actions';
+import {ShortcutItem} from 'react-native-quick-actions';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -77,7 +77,7 @@ export const imagePicker = async ({
   }
 };
 
-export const documentPicker = async ({}) => {
+export const documentPicker = async () => {
   try {
     const result = await DocumentPicker.pickSingle({
       presentationStyle: 'fullScreen',
@@ -122,7 +122,6 @@ export const searchFromArray = async ({
   keys: any;
 }) => {
   if (text) {
-    console.log('whoss');
     // Inserted text is not blank
     // Filter the masterDataSource
     // Update FilteredDataSource
@@ -135,7 +134,6 @@ export const searchFromArray = async ({
     });
     return newData;
   } else {
-    console.log('chacl');
     // Inserted text is blank
     // Update FilteredDataSource with masterDataSource
     return list;
@@ -153,7 +151,6 @@ export const getDatesInRange = (startDate: any, endDate: any) => {
   }
   return dates;
 };
-
 
 export const handleColdBoot = (data: ShortcutItem) => {
   const {userInfo} = data;

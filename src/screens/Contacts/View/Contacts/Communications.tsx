@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Linking, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useTheme, Theme} from '@react-navigation/native';
+
 import {RoundedIcon, SingleLineField} from '../../../../components';
 import {contactsList} from '../../../../constants/SampleArrays';
 import {ContactList} from '../../../../types';

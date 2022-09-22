@@ -1,8 +1,9 @@
 import {View, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {CstmButton, ModalView, SingleLineField} from '../../components';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
+
+import {CstmButton, ModalView, SingleLineField} from '../../components';
 import {SelectFields} from '../../types';
 import {typeList, whereList} from '../../constants/SelectionList';
 

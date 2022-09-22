@@ -566,14 +566,16 @@ export const activitiesList: Array<Activity> = [
     date: 'Aug 29, 2022',
     start_time: '9:30 AM',
     end_time: '10:00 AM',
+    closed: false,
   },
   {
-    summary: 'Visit Potential Prospect',
+    summary: 'Visit Potential Prospect (C)',
     company_name: 'XYZ Company Incorporated',
     date: 'Aug 28, 2022',
     start_time: '10:30 AM',
     end_time: '11:00 AM',
     company_contact: '+555 5555 555',
+    closed: true,
   },
   {
     summary: 'B2B Reports',
@@ -582,6 +584,7 @@ export const activitiesList: Array<Activity> = [
     start_time: '09:30 PM',
     end_time: '11:00 PM',
     company_contact: '+555 5555 555',
+    closed: false,
   },
   {
     summary: 'Inspection',
@@ -590,14 +593,16 @@ export const activitiesList: Array<Activity> = [
     start_time: '10:00 AM',
     end_time: '11:45 AM',
     company_contact: '+555 5555 555',
+    closed: false,
   },
   {
-    summary: 'Inspection',
+    summary: 'Inspection (c)',
     company_name: 'Coca Cola Ltd',
     date: 'Jul 25, 2022',
     start_time: '10:00 AM',
     end_time: '11:45 AM',
     company_contact: '+555 5555 555',
+    closed: true,
   },
 ];
 

@@ -24,9 +24,19 @@ const Details = () => {
     },
     {
       title: 'Time Entries',
+      onPress: () => {
+        navigation.navigate('Draw', {
+          screen: 'TimeSheets',
+        });
+      },
     },
     {
       title: 'Expenses ',
+      onPress: () => {
+        navigation.navigate('Draw', {
+          screen: 'ExpReports',
+        });
+      },
     },
   ];
   const renderList = ({item, index}: {item: Item; index: number}) => {

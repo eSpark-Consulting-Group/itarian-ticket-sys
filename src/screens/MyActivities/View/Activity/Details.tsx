@@ -25,16 +25,16 @@ const Details = () => {
     {
       title: 'Time Entries',
       onPress: () => {
-        navigation.navigate('Draw', {
-          screen: 'TimeSheets',
+        navigation.navigate('Stack2', {
+          screen: 'TimeEntries',
         });
       },
     },
     {
       title: 'Expenses ',
       onPress: () => {
-        navigation.navigate('Draw', {
-          screen: 'ExpReports',
+        navigation.navigate('Stack2', {
+          screen: 'Expenses',
         });
       },
     },

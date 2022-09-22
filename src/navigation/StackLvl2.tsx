@@ -15,6 +15,8 @@ import {globalState} from '../stores/globalAppState';
 import {EditTicket} from '../forms/EditTicket';
 import {AddResource} from '../forms/AddResource';
 import {AddTaxType} from '../forms/AddTaxType';
+import TimeEntries from '../components/TimeEntries';
+import Expenses from '../components/Expenses';
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
@@ -143,6 +145,40 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => onSave(navigation, route)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="TimeEntries"
+        component={TimeEntries}
+        options={({route, navigation}: any) => ({
+          title: 'TimeEntries',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Expenses"
+        component={Expenses}
+        options={({route, navigation}: any) => ({
+          title: 'Expenses',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
             />
           ),
         })}

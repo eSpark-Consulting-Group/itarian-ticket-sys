@@ -68,7 +68,7 @@ export type Unscheduled_Data = {
 export type ExpRprt_Data = {
   id: number;
   ticket_no: string;
-  ticket_summary: string;
+  summary: string;
   totExp: string;
   expType: string;
 };

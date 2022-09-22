@@ -7,7 +7,7 @@ import {State, useHookstate} from '@hookstate/core';
 
 import {globalState} from '../../stores/globalAppState';
 import {Signature} from '../../forms/Signature';
-import {SignaturePad} from '../../components/SignaturePad';
+import {SignaturePad} from '../../components';
 
 const Stack = createNativeStackNavigator();
 

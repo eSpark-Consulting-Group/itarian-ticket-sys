@@ -3,7 +3,7 @@ import {StyleSheet, ScrollView} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 
-import {SingleLineField} from '../../../../components/index';
+import {SingleLineField} from '../../../../components';
 import {
   priorityList,
   probabilityList,

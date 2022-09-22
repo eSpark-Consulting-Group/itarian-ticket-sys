@@ -10,9 +10,9 @@ import {
   ModalView,
   OutlineBtn,
   SimpleLoader,
+  SingleLineField,
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
-import {SingleLineField} from '../../components/FormFields';
 import {NotesAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons, NoteTypes} from '../../types';
 import {stNotesList} from '../../constants/SelectionList';

@@ -59,7 +59,7 @@ import {
   pBoardFilterList,
   sBoardFiterList,
 } from '../../constants/SampleArrays';
-import CstmBadge from '../../components/CtsmBadge';
+import {CstmBadge} from '../../components';
 import Images from '../../assets/images';
 import {userStore} from '../../stores/userStore';
 

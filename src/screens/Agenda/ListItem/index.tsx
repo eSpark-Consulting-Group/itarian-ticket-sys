@@ -7,8 +7,12 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Divider} from 'react-native-paper';
 
 import styles from './style';
-import {CstmPressable} from '../../../components/CstmPressable';
-import {DateSeparator, EmptyListMsg, GapView} from '../../../components';
+import {
+  DateSeparator,
+  EmptyListMsg,
+  GapView,
+  CstmPressable,
+} from '../../../components';
 import {Ticket} from '../../../types';
 
 const ListItem = ({

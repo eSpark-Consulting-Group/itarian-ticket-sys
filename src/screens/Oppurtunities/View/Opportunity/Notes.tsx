@@ -11,13 +11,17 @@ import AD from 'react-native-vector-icons/AntDesign';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Divider} from 'react-native-paper';
 
-import {EmptyListMsg, GapView, ModalField} from '../../../../components';
+import {
+  EmptyListMsg,
+  GapView,
+  ModalField,
+  CstmMenu,
+} from '../../../../components';
 import {
   noteList as dataSource,
   NoteTypes_ACIT,
 } from '../../../../constants/SampleArrays';
-import {RootStackParamList} from '../../../../navigation/RootNavigation';
-import {CstmMenu} from '../../../../components/CstmMenu';
+import {RootStackParamList} from '../../../../navigation/routes/RootNavigation';
 
 interface Item {
   id: number;

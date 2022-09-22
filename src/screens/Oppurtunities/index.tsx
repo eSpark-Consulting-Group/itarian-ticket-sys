@@ -13,8 +13,12 @@ import _ from 'lodash';
 import styles from './style';
 import {opportunitiesList} from '../../constants/SampleArrays';
 import {Opportunity} from '../../types';
-import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
-import {CstmPressable} from '../../components/CstmPressable';
+import {
+  EmptyListMsg,
+  FloatButton,
+  RoundedIcon,
+  CstmPressable,
+} from '../../components';
 
 const Oppurtunities = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();

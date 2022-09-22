@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Linking, View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -273,9 +273,9 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-              <MCI size={30} name="phone" color={'#fff'} />
+              <MCI size={30} name="phone" color={'#fff'} onPress={() => Linking.openURL(`tel:090078601`)} />
               <View style={{width: 15}} />
-              <FA size={30} name="save" color={'#fff'} />
+              <FA size={30} name="save" color={'#fff'} onPress={() => navigation.goBack()}/>
             </View>
           ),
         })}

@@ -11,6 +11,7 @@ import {
   Text,
 } from 'react-native';
 
+import AndroidOpenSettings from 'react-native-android-open-settings';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -38,6 +39,7 @@ import {globalState} from '../../../stores/globalAppState';
 import {Loader} from '../../../components/Loader';
 import {handleColdBoot} from '../../../utils/helperFunctions';
 import {Theme, useTheme} from '@react-navigation/native';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -67,15 +69,37 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   }, []);
 
   const handleScanner = () => {
-    if (biometricState.get()) {
-      setShowScanners(true);
-    } else {
-      Alert.alert(
-        'Enable Biometric Authentication',
-        'You can enable biometric authentication from App Settings',
-      );
-    }
+    FingerprintScanner.isSensorAvailable()
+      .then(biometryType => {
+        console.log('Biometric', biometryType);
+        setShowScanners(true);
+      })
+      .catch(error => {
+        setShowScanners(false);
+        Alert.alert(error.name, error.message, [
+          {
+            text: 'Open Security',
+            style: 'default',
+            onPress: () => AndroidOpenSettings.securitySettings(),
+          },
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+        ]);
+      });
   };
+
+  // const handleScanner = () => {
+  //   if (biometricState.get()) {
+  //     setShowScanners(true);
+  //   } else {
+  //     Alert.alert(
+  //       'Enable Biometric Authentication',
+  //       'You can enable biometric authentication from App Settings',
+  //     );
+  //   }
+  // };
 
   QuickActions.popInitialAction()
     .then(data => {
@@ -162,28 +186,17 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
           <Separator text="OR" />
           <View style={styles.scannerBtnContainer}>
             <TouchableOpacity
-              activeOpacity={biometricState.get() ? 0 : 1}
               onPress={handleScanner}
               style={{
                 ...styles.fingerScannerBtn,
-                borderColor: biometricState.get()
-                  ? colors.primary
-                  : colors.primary + '81',
+                borderColor: colors.primary,
               }}>
-              <MCI
-                name="fingerprint"
-                color={
-                  biometricState.get() ? colors.primary : colors.primary + '81'
-                }
-                size={50}
-              />
+              <MCI name="fingerprint" color={colors.primary} size={50} />
             </TouchableOpacity>
             <GapView />
             <Text
               style={{
-                color: biometricState.get()
-                  ? colors.primary
-                  : colors.primary + '81',
+                color: colors.primary,
                 fontSize: 14,
               }}>
               Biometric Scan

@@ -95,7 +95,7 @@ const Overview = () => {
         if (value?.contacts?.length && value?.contacts?.length > 0) {
           return (
             <>
-              <SingleLineField title={value?.title || ''} enable={false}/>
+              <SingleLineField title={value?.title || ''} enable={false} />
               {value?.contacts?.map((item, index) => (
                 <SingleLineField
                   key={index}

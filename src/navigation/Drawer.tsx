@@ -99,7 +99,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </View>
         <View style={{flex: 0.7}}>
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={styles.drawerTitleStyle}>{user.get()?.user_name}</Text>
+            <Text style={styles.drawerTitleStyle}>
+              {user.get()?.user_name ?? 'N/A'}
+            </Text>
             <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
               {currStatus.get() ? 'Out of the Office' : 'In Office'}
@@ -172,18 +174,18 @@ const Draw = () => {
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const [currMember, setcurrMember] = useState<any>(contactsList[0]);
   const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
-  const [filterCount, setFilterCount] = useState<any>("0");
+  const [filterCount, setFilterCount] = useState<any>('0');
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;
-  
+
   useEffect(() => {
     var filterVariables = route?.params?.params?.filter?.filter((val: any) => {
-      if(val?.key && val?.value != null) return {key: val.key, value: val?.value}
-    })
-    setFilterCount(filterVariables?.length || "0")
+      if (val?.key && val?.value != null)
+        return {key: val.key, value: val?.value};
+    });
+    setFilterCount(filterVariables?.length || '0');
     if (route?.params?.item) {
-
       if (route?.params?.from == 'Agenda') {
         setcurrMember(route?.params?.selected);
       } else if (route?.params?.from == 'Calendar') {
@@ -476,7 +478,7 @@ const Draw = () => {
                     return {key: val.key, value: val?.value};
                 })?.length,
               )} */}
-              <CstmBadge qty={filterCount || "0"} />
+              <CstmBadge qty={filterCount || '0'} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -509,7 +511,7 @@ const Draw = () => {
                   });
                 }}
               />
-              <CstmBadge qty={filterCount || "0"} />
+              <CstmBadge qty={filterCount || '0'} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (
@@ -556,7 +558,7 @@ const Draw = () => {
                   })
                 }
               />
-              <CstmBadge qty={filterCount || "0"} />
+              <CstmBadge qty={filterCount || '0'} />
             </View>
           ),
           drawerLabel: ({color, focused}) => (

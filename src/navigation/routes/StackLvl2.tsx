@@ -22,6 +22,9 @@ import {
 } from '../../components';
 import TicketListing from '../../components/Ticketlisting';
 import ConfigurationListing from '../../components/ConfigurationListing';
+import { Contacts } from '../../screens';
+import ContactListing from '../../components/ContactsListing';
+import Sites from '../../components/Sites';
 
 const Stack = createNativeStackNavigator();
 
@@ -269,6 +272,40 @@ const StackLvl2 = ({navigation, route}: any) => {
         component={TicketListing}
         options={({route, navigation}: any) => ({
           title: 'Tickets',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ContactListing"
+        component={ContactListing}
+        options={({route, navigation}: any) => ({
+          title: 'Contacts',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+       <Stack.Screen
+        name="Sites"
+        component={Sites}
+        options={({route, navigation}: any) => ({
+          title: 'Sites',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

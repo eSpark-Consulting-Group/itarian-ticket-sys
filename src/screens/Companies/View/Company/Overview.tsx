@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView, Linking} from 'react-native';
+import {StyleSheet, ScrollView, Linking, View} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {useHookstate, State} from '@hookstate/core';
 
@@ -90,7 +90,7 @@ const Overview = () => {
       {Ds?.map((value, key) => {
         if (value?.contacts?.length && value?.contacts?.length > 0) {
           return (
-            <>
+            <View key={key}>
               <SingleLineField title={value?.title || ''} enable={false} />
               {value?.contacts?.map((item, index) => (
                 <SingleLineField
@@ -106,7 +106,7 @@ const Overview = () => {
                   gap={false}
                 />
               ))}
-            </>
+            </View>
           );
         } else {
           return (

@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react';
- import {View, ScrollView} from 'react-native';
-import {ModalView, SingleLineField} from '../../components';
+import {View, ScrollView} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
-import { SelectFields } from '../../types';
-import { companyNameList, contactNameList, manufacturerNameList, statusList, typeList, vendorNameList } from '../../constants/SelectionList';
 import DatePicker from '@react-native-community/datetimepicker';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {ModalView, SingleLineField} from '../../components';
+import {SelectFields} from '../../types';
+import {
+  companyNameList,
+  contactNameList,
+  manufacturerNameList,
+  statusList,
+  typeList,
+  vendorNameList,
+} from '../../constants/SelectionList';
 
 interface Item {
   title: string;
@@ -204,10 +212,9 @@ const NewConfiguration = ({route, navigation}: any) => {
     setDataSource(newData);
   };
 
-
-   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
-   console.log("route?.params?.item", route);
-   useEffect(() => {
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  console.log('route?.params?.item', route);
+  useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
@@ -260,7 +267,7 @@ const NewConfiguration = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-       {showDate && (
+      {showDate && (
         <DatePicker
           mode={'date'}
           value={new Date()}
@@ -268,7 +275,7 @@ const NewConfiguration = ({route, navigation}: any) => {
           onChange={onChangeDate}
         />
       )}
-     <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
         <View style={{backgroundColor: colors.background}}>
           {dataSource.map((item, index) => (
             <SingleLineField
@@ -285,8 +292,10 @@ const NewConfiguration = ({route, navigation}: any) => {
               showRightSwitch={item.showRightSwitch}
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={() => updateSwitch(index)}
-              onPress={item?.onPress ? item?.onPress : () => handlePress(item, index)}
-              rightChild={item?.rightChild} 
+              onPress={
+                item?.onPress ? item?.onPress : () => handlePress(item, index)
+              }
+              rightChild={item?.rightChild}
             />
           ))}
         </View>

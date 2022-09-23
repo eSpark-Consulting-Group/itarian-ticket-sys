@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import DatePicker from '@react-native-community/datetimepicker';
 
-import {SingleLineField} from '../../../../components/index';
+import {SingleLineField} from '../../../../components';
 import {
   priorityList,
   probabilityList,
@@ -19,7 +15,6 @@ import {
   typeList,
 } from '../../../../constants/SelectionList';
 import {SelectFields} from '../../../../types';
-import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
   headerTitle?: string;

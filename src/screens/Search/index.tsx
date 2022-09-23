@@ -42,7 +42,6 @@ const Search = ({route}: any) => {
     if (route.params) {
       setSearchValue(route.params.data);
       setType('configurations');
-      // handleSubmit(route.params.data);
     }
   }, [route.params]);
 
@@ -64,13 +63,7 @@ const Search = ({route}: any) => {
         var result = await searchFromArray({
           text: text || '',
           list: ticketsList.filter(val => val?.type == 'Ticket'),
-          keys: [
-            'ticket_no',
-            'ticket_summary',
-            'contact',
-            'company',
-            'project',
-          ],
+          keys: ['ticket_no', 'summary', 'contact', 'company', 'project'],
         });
         setFilteredTickets(result);
       case 'contacts':

@@ -8,16 +8,14 @@ import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 //@ts-ignore
 import store from 'react-native-simple-store';
 
-import {Login, SignUp, OTPScreen} from '../screens/index';
-import {DarkTheme, LightTheme} from '../theme/colors';
+import {Login, SignUp, OTPScreen} from '../../screens/index';
+import {DarkTheme, LightTheme} from '../../theme/colors';
 import Drawer from './Drawer';
-import {globalState} from '../stores/globalAppState';
+import {globalState} from '../../stores/globalAppState';
 import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import StackLvl3 from './StackLvl3';
-import Splash from '../screens/Splash/Splash';
-import {userStore} from '../stores/userStore';
-import {Stopwatch} from '../types';
+import {userStore} from '../../stores/userStore';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -77,7 +75,6 @@ const App = () => {
     });
     store.get('stopwatch').then((res: any) => {
       if (res) {
-        // console.log('res?.stopwatch res?.stopwatch', res?.stopwatch);
         globalStopwatch.set(res?.stopwatch);
       }
     });

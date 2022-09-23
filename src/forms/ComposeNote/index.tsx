@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Text} from 'react-native-paper';
 
 import {
   FloatButton,
@@ -9,14 +10,12 @@ import {
   ModalView,
   OutlineBtn,
   SimpleLoader,
+  SingleLineField,
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
-import {SingleLineField} from '../../components/FormFields';
-// import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import {NotesAdditionalButtons} from '../../constants/ButtonsList';
 import {AdditionalButtons, NoteTypes} from '../../types';
 import {stNotesList} from '../../constants/SelectionList';
-import {Text} from 'react-native-paper';
 
 export default function ComposeNote({route, navigation}: any) {
   const {colors, dark} = useTheme();

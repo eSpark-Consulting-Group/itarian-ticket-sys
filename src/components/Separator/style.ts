@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
     paddingBottom: 5,
+    marginBottom: 8,
   },
   divider: {
     transform: [{scaleY: 3}],

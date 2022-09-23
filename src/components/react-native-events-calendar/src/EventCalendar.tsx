@@ -16,7 +16,6 @@ import DatePicker from '@react-native-community/datetimepicker';
 import styleConstructor from './style';
 
 import DayView, {MyProps} from './DayView';
-import {date} from 'yup';
 
 export default class EventCalendar extends React.Component<MyProps, any> {
   calendar: React.RefObject<VirtualizedListProps<null>> | any;
@@ -146,17 +145,6 @@ export default class EventCalendar extends React.Component<MyProps, any> {
           pagingEnabled
           renderItem={this._renderItem.bind(this)}
           style={{width: width}}
-          // onMomentumScrollEnd={event => {
-          //   const index = parseInt(
-          //     (event.nativeEvent.contentOffset.x / width).toString(),
-          //   );
-
-          //   const date = moment(this.state.date).add(
-          //     index - this.props.size,
-          //     'days',
-          //   );
-          //   this.setState({index, date});
-          // }}
           {...virtualizedListProps}
         />
         {this.state.showDate && (

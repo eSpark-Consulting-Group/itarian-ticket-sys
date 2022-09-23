@@ -1,7 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, ScrollView, KeyboardTypeOptions, StyleSheet, ViewStyle} from 'react-native';
-import {CstmButton, EmptyListMsg, RoundedIcon, SingleLineField} from '../../components';
-import { SCREEN_HEIGHT } from '../../constants';
+import {
+  View,
+  Text,
+  ScrollView,
+  KeyboardTypeOptions,
+  StyleSheet,
+  ViewStyle,
+} from 'react-native';
+
+import {
+  CstmButton,
+  EmptyListMsg,
+  RoundedIcon,
+  SingleLineField,
+} from '../../components';
+import {SCREEN_HEIGHT} from '../../constants';
 import {TaxTypeList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
 
@@ -28,7 +41,7 @@ interface Item {
   onRoundedIconPress?: () => void;
   inputWidth?: number | undefined;
   roundedIconEnable?: boolean;
-  roundIconStyle?: ViewStyle
+  roundIconStyle?: ViewStyle;
 }
 
 export const AddTaxType = ({navigation, route}: any) => {
@@ -53,7 +66,7 @@ export const AddTaxType = ({navigation, route}: any) => {
         roundedIconEnable: true,
         inputWidth: 300,
         enable: false,
-        roundIconStyle: {top: 15}
+        roundIconStyle: {top: 15},
       },
     ],
   ]);
@@ -115,7 +128,7 @@ export const AddTaxType = ({navigation, route}: any) => {
         roundedIconEnable: true,
         inputWidth: 300,
         enable: false,
-        roundIconStyle: {top: 15}
+        roundIconStyle: {top: 15},
       },
     ]);
     setDataSource([...obj]);
@@ -127,14 +140,14 @@ export const AddTaxType = ({navigation, route}: any) => {
     setDataSource([...obj]);
   };
 
-  const totalTax = dataSource.reduce(
-    (previousValue, currentValue) => {
-        console.log("parseInt(currentValue[1].title", parseInt(currentValue[1].title))
-        return previousValue + parseInt(currentValue[1].title || '0')
-    },
-    0
-  );
-  
+  const totalTax = dataSource.reduce((previousValue, currentValue) => {
+    console.log(
+      'parseInt(currentValue[1].title',
+      parseInt(currentValue[1].title),
+    );
+    return previousValue + parseInt(currentValue[1].title || '0');
+  }, 0);
+
   return (
     <>
       <ScrollView style={{flex: 1}}>
@@ -172,34 +185,33 @@ export const AddTaxType = ({navigation, route}: any) => {
           </View>
         ))}
         {/* @ts-ignore */}
-        {dataSource?.length == 0 && <NotFound />} 
+        {dataSource?.length == 0 && <NotFound />}
       </ScrollView>
       <SingleLineField
-          subTitle={`Subtotal Excluding Taxes`}
-          title={"$"+(route?.params?.amount - totalTax).toString()}
-          rightIconRound="plus-circle"
-          onRoundedIconPress={() => onAdd()}
-          roundedIconEnable
-          enable={false}
-        />
+        subTitle={`Subtotal Excluding Taxes`}
+        title={'$' + (route?.params?.amount - totalTax).toString()}
+        rightIconRound="plus-circle"
+        onRoundedIconPress={() => onAdd()}
+        roundedIconEnable
+        enable={false}
+      />
     </>
   );
 };
 
-
 const NotFound = (): JSX.Element => {
-    return (
-      <View style={styles.content}>
-        <EmptyListMsg label="Tax Type" />
-      </View>
-    );
-  };
+  return (
+    <View style={styles.content}>
+      <EmptyListMsg label="Tax Type" />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    content: {
-        flex: 1,
-        marginTop: SCREEN_HEIGHT/3,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-})
+  content: {
+    flex: 1,
+    marginTop: SCREEN_HEIGHT / 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

@@ -4,7 +4,6 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
-  Linking,
   Keyboard,
   TouchableOpacity,
   Alert,
@@ -17,7 +16,6 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {State, useHookstate} from '@hookstate/core';
 // @ts-ignore
-import store from 'react-native-simple-store';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';
@@ -28,6 +26,7 @@ import {
   BiometricVerification,
   Separator,
   GapView,
+  Loader,
 } from '../../../components';
 import QuickActions from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
@@ -36,7 +35,6 @@ import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
-import {Loader} from '../../../components/Loader';
 import {handleColdBoot} from '../../../utils/helperFunctions';
 import {Theme, useTheme} from '@react-navigation/native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
@@ -193,7 +191,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               }}>
               <MCI name="fingerprint" color={colors.primary} size={50} />
             </TouchableOpacity>
-            <GapView />
+            <GapView length={5} />
             <Text
               style={{
                 color: colors.primary,

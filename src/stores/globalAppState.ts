@@ -8,7 +8,7 @@ export const globalState = hookstate({
   stopwatch: [
     {
       ticket_no: '#12348',
-      ticket_summary: 'Checking for Mantaince',
+      summary: 'Checking for Mantaince',
       created_at: '20, June 2021',
       timer: 0,
       isPlaying: false,
@@ -16,7 +16,7 @@ export const globalState = hookstate({
     },
     {
       ticket_no: '#56231',
-      ticket_summary: 'Team Prep Authorization',
+      summary: 'Team Prep Authorization',
       created_at: '26, August 2019',
       timer: 0,
       isPlaying: false,
@@ -24,7 +24,7 @@ export const globalState = hookstate({
     },
     {
       ticket_no: '#56232',
-      ticket_summary: 'Team Prep Authorization',
+      summary: 'Team Prep Authorization',
       created_at: '26, August 2019',
       timer: 0,
       isPlaying: false,
@@ -32,7 +32,7 @@ export const globalState = hookstate({
     },
     {
       ticket_no: '#56233',
-      ticket_summary: 'Team Prep Authorization',
+      summary: 'Team Prep Authorization',
       created_at: '26, August 2019',
       timer: 0,
       isPlaying: false,
@@ -40,7 +40,7 @@ export const globalState = hookstate({
     },
     {
       ticket_no: '#56234',
-      ticket_summary: 'Team Prep Authorization',
+      summary: 'Team Prep Authorization',
       created_at: '26, August 2019',
       timer: 0,
       isPlaying: false,
@@ -48,7 +48,7 @@ export const globalState = hookstate({
     },
     {
       ticket_no: '#56235',
-      ticket_summary: 'Team Prep Authorization',
+      summary: 'Team Prep Authorization',
       created_at: '26, August 2019',
       timer: 0,
       isPlaying: false,
@@ -56,7 +56,7 @@ export const globalState = hookstate({
     },
     {
       ticket_no: '#56236',
-      ticket_summary: 'Team Prep Authorization',
+      summary: 'Team Prep Authorization',
       created_at: '26, August 2019',
       timer: 0,
       isPlaying: false,
@@ -64,7 +64,7 @@ export const globalState = hookstate({
     },
     {
       ticket_no: '#56237',
-      ticket_summary: 'Team Prep Authorization',
+      summary: 'Team Prep Authorization',
       created_at: '26, August 2019',
       timer: 0,
       isPlaying: false,

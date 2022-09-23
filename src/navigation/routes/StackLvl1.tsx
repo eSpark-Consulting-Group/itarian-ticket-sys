@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Linking, View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -13,29 +13,28 @@ import {
   handleStopwatch,
   onSave,
   saveStatus,
-  clearFunc
-} from '../forms/utils/headerFunctions';
+  clearFunc,
+} from '../utils/headerFunctions';
 
-import STickets from '../forms/ServiceTickets';
-import Contact1 from '../screens/Contacts/View/Contacts';
-import Configuration1 from '../screens/Configurations/View/Configuration';
-import Company from '../screens/Companies/View/Company';
-import NewCompany from '../forms/NewCompany';
-import MyStatus from '../screens/Profile/View/Profile/MyStatus';
-import Filters from '../forms/Filters';
-import NewConfiguration from '../forms/NewConfiguration/CreateConfigurations';
-import Activities from '../screens/MyActivities/View/Activity/index';
-import Opportunity from '../screens/Oppurtunities/View/Opportunity';
+import STickets from '../../forms/ServiceTickets';
+import Contact1 from '../../screens/Contacts/View/Contacts';
+import Configuration1 from '../../screens/Configurations/View/Configuration';
+import Company from '../../screens/Companies/View/Company';
+import NewCompany from '../../forms/NewCompany';
+import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
+import Filters from '../../forms/Filters';
+import NewConfiguration from '../../forms/NewConfiguration/CreateConfigurations';
+import Activities from '../../screens/MyActivities/View/Activity/index';
+import Opportunity from '../../screens/Oppurtunities/View/Opportunity';
 
-import NewActivity from '../forms/NewActivity';
-import NewExpenseReport from '../forms/NewExpenseReport';
-import {globalState} from '../stores/globalAppState';
-import NewOpportunity from '../forms/NewOpportunity';
-import NewTimeSheet from '../forms/NewTimeSheet';
-import NewTicket from '../forms/NewTicket';
-import AddMiscSchedule from '../forms/AddMiscSchedule';
-import {userStore} from '../stores/userStore';
-import {BarcodeScanner} from '../components';
+import NewActivity from '../../forms/NewActivity';
+import NewExpenseReport from '../../forms/NewExpenseReport';
+import NewOpportunity from '../../forms/NewOpportunity';
+import NewTimeSheet from '../../forms/NewTimeSheet';
+import NewTicket from '../../forms/NewTicket';
+import AddMiscSchedule from '../../forms/AddMiscSchedule';
+import {userStore} from '../../stores/userStore';
+import {BarcodeScanner} from '../../components';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -100,7 +99,6 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
-
       <Stack.Screen
         name="STickets"
         component={STickets}
@@ -233,9 +231,16 @@ const StackLvl1 = ({route, navigation}: any) => {
               onPress={() => clearFunc(navigation, route)}
             />
           ),
-          headerRight: () => <II size={30} name="checkmark" color={'#fff'} onPress={() => {
-           onSave(navigation, route)
-          }}/>,
+          headerRight: () => (
+            <II
+              size={30}
+              name="checkmark"
+              color={'#fff'}
+              onPress={() => {
+                onSave(navigation, route);
+              }}
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -273,9 +278,19 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-              <MCI size={30} name="phone" color={'#fff'} />
+              <MCI
+                size={30}
+                name="phone"
+                color={'#fff'}
+                onPress={() => Linking.openURL(`tel:090078601`)}
+              />
               <View style={{width: 15}} />
-              <FA size={30} name="save" color={'#fff'} />
+              <FA
+                size={30}
+                name="save"
+                color={'#fff'}
+                onPress={() => navigation.goBack()}
+              />
             </View>
           ),
         })}

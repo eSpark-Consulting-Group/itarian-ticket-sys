@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView, Linking, FlatList} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
-import {
-  PriorityField,
-  RoundedIcon,
-  SingleLineField,
-} from '../../../../components';
+import {StyleSheet, ScrollView, Linking} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
+import {useHookstate, State} from '@hookstate/core';
+
+import {RoundedIcon, SingleLineField} from '../../../../components';
 import {ContactList, SelectFields} from '../../../../types';
 import {redirectToMap} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
-import {useHookstate, State} from '@hookstate/core';
 import {contactsList} from '../../../../constants/SampleArrays';
 
 interface Item {

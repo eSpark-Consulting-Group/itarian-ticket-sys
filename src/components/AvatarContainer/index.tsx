@@ -2,9 +2,9 @@ import {View, Image} from 'react-native';
 import React from 'react';
 import {Theme, useTheme} from '@react-navigation/native';
 import PropTypes from 'prop-types';
+import {moderateScale} from 'react-native-size-matters';
 
 import styles from './style';
-import {moderateScale} from 'react-native-size-matters';
 
 const AvatarContainer = ({source, size}: {source: any; size: any}) => {
   const {colors}: Theme = useTheme();

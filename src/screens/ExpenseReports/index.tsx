@@ -50,6 +50,7 @@ const ExpenseReportsScreen = ({navigation}: any) => {
     const data = expReportList.filter(
       i => i.date >= dateArr[0].date && i.date <= dateArr[1].date,
     );
+
     setImmediate(() => {
       setExpData(data);
       setImmediate(() => {
@@ -79,14 +80,22 @@ const ExpenseReportsScreen = ({navigation}: any) => {
             renderItem={({item}) => {
               return (
                 <ListItem
-                  onPress={ticket => {
-                    navigation.navigate('Stack1', {
-                      screen: 'NewExpenseReport',
-                      params: {title: "Edit Expense", data: {ticket: ticket, date: item.date.toDateString(), totExp: item.totExp, from: "ExpenseReportsScreen"}},
-                    });
-                  }}
                   dataSource={item}
                   renderDate={true}
+                  onPress={iValue => {
+                    navigation.navigate('Stack1', {
+                      screen: 'NewExpenseReport',
+                      params: {
+                        title: 'Edit Expense',
+                        data: {
+                          ticket: iValue,
+                          date: item.date.toDateString(),
+                          totExp: item.totExp,
+                          from: 'ExpenseReportsScreen',
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             }}

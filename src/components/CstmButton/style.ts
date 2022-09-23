@@ -1,21 +1,12 @@
 import {StyleSheet} from 'react-native';
-import {
-  scale,
-  verticalScale,
-  moderateScale,
-  ScaledSheet,
-  moderateVerticalScale,
-} from 'react-native-size-matters';
+import {moderateVerticalScale} from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 0.25,
     height: moderateVerticalScale(50, 0),
     flexDirection: 'row',
     marginVertical: 10,
     overflow: 'hidden',
-    // height: '50%',
-    // width: '100%',
   },
   button: {
     flex: 1,

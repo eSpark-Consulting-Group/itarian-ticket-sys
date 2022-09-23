@@ -3,9 +3,7 @@ import {WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
-    // flexDirection: 'row',
     width: '100%',
-    // paddingHorizontal: 16,
     elevation: 1.5,
     justifyContent: 'space-between',
   },

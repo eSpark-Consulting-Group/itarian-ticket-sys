@@ -61,7 +61,11 @@ const onSave = (navigation: any, route: any, activeStatus?: any) => {
     });
   }
 
-  if (route?.params?.stack == 'Draw' && route?.params?.from != 'SBoard' && route?.params?.from != 'PBoard') {
+  if (
+    route?.params?.stack == 'Draw' &&
+    route?.params?.from != 'SBoard' &&
+    route?.params?.from != 'PBoard'
+  ) {
     if (route?.params?.from == 'Agenda') {
       activeStatus?.agendaMember.set(
         JSON.parse(JSON.stringify(route.params?.selected.name)),
@@ -98,17 +102,17 @@ const clearFunc = (navigation: any, route: any) => {
       title: route?.params?.title,
       selected: route?.params?.selected,
       item: route?.params?.item,
-      filter: []
+      filter: [],
     },
   });
-}
+};
 const handleStopwatch = (params: any) => {
   const {ticket_info} = params;
   const date = new Date();
   let tempArr: any = [...stopWatchList];
   tempArr.push({
     ticket_no: ticket_info.id,
-    ticket_summary: ticket_info.summary,
+    summary: ticket_info.summary,
     created_at: date.toDateString(),
     timer: 0,
     isPlaying: false,

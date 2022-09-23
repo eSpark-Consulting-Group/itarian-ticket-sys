@@ -3,18 +3,24 @@ import {Theme, useTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
-
-import {onSave, goBack} from '../forms/utils/headerFunctions';
-import CstmItemSelector from '../components/CstmItemSelector';
-import ComposeNote from '../forms/ComposeNote';
-import QNAs from '../forms/QNAs';
 import {State, useHookstate} from '@hookstate/core';
-import {Attachments} from '../components/Attachments/index';
-import {AttachmentDetails} from '../components/Attachments/view/attachmentDetails';
-import {globalState} from '../stores/globalAppState';
-import { EditTicket } from '../forms/EditTicket';
-import { AddResource } from '../forms/AddResource';
-import { AddTaxType } from '../forms/AddTaxType';
+
+import {onSave, goBack} from '../utils/headerFunctions';
+import ComposeNote from '../../forms/ComposeNote';
+import QNAs from '../../forms/QNAs';
+import {globalState} from '../../stores/globalAppState';
+import {EditTicket} from '../../forms/EditTicket';
+import {AddResource} from '../../forms/AddResource';
+import {AddTaxType} from '../../forms/AddTaxType';
+
+import {
+  TimeEntries,
+  Expenses,
+  Attachments,
+  CstmItemSelector,
+  AttachmentDetails,
+} from '../../components';
+
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
@@ -143,6 +149,40 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => onSave(navigation, route)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="TimeEntries"
+        component={TimeEntries}
+        options={({route, navigation}: any) => ({
+          title: 'TimeEntries',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Expenses"
+        component={Expenses}
+        options={({route, navigation}: any) => ({
+          title: 'Expenses',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
             />
           ),
         })}

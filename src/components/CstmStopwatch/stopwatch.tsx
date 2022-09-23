@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-export const StopWatch = ({
+const StopWatch = ({
   start = false,
   startTime = 0,
   getTime = time => {},
@@ -81,7 +81,7 @@ export const StopWatch = ({
   const stopTimer = () => {
     clearInterval(duration.current);
   };
-  
+
   return (
     <>
       <View style={styles.searchSection}>
@@ -95,6 +95,8 @@ export const StopWatch = ({
     </>
   );
 };
+
+export default StopWatch;
 
 const styles = StyleSheet.create({
   searchSection: {

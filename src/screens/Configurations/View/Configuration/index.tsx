@@ -46,9 +46,3 @@ function TabComp() {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  adjuster: {
-    width: 18,
-  },
-});

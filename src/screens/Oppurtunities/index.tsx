@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, Linking} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
@@ -13,32 +13,37 @@ import _ from 'lodash';
 import styles from './style';
 import {opportunitiesList} from '../../constants/SampleArrays';
 import {Opportunity} from '../../types';
-import {EmptyListMsg, FloatButton, RoundedIcon} from '../../components';
-import {CstmPressable} from '../../components/CstmPressable';
+import {
+  EmptyListMsg,
+  FloatButton,
+  RoundedIcon,
+  CstmPressable,
+} from '../../components';
 
 const Oppurtunities = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
-  const [dataSource, setDataSource] = useState(opportunitiesList)
-
+  const rippleColor = dark ? '#ffffff0e' : '#0000000e';
+  const [dataSource, setDataSource] = useState(opportunitiesList);
 
   useEffect(() => {
     var filterVariables = route?.params?.filter?.filter((val: any) => {
-      if(val?.key && val?.value != null) return {key: val.key, value: val?.value}
-    })
-    if(filterVariables?.length > 0) {
+      if (val?.key && val?.value != null)
+        return {key: val.key, value: val?.value};
+    });
+    if (filterVariables?.length > 0) {
       var updatedList = opportunitiesList?.filter((value: any, index: any) => {
-         var isFind = filterVariables?.filter((item: any) => {
-            return value[item?.key] == item.value
-         })
-         if(isFind?.length == filterVariables?.length) {
-              return opportunitiesList
-            }
-      })
-      setDataSource(updatedList || [])
-    }else {
-      setDataSource(opportunitiesList)
-    } 
-  }, [route?.params])
+        var isFind = filterVariables?.filter((item: any) => {
+          return value[item?.key] == item.value;
+        });
+        if (isFind?.length == filterVariables?.length) {
+          return opportunitiesList;
+        }
+      });
+      setDataSource(updatedList || []);
+    } else {
+      setDataSource(opportunitiesList);
+    }
+  }, [route?.params]);
 
   const renderList = ({item, index}: {item: Opportunity; index: number}) => {
     const renderColor = () => {
@@ -58,7 +63,7 @@ const Oppurtunities = ({navigation, route}: any) => {
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() => navigation.navigate('Stack1', {screen: 'Opportunity'})}
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          android_ripple={{color: rippleColor}}>
           <View style={styles.listInner}>
             <View style={{flexDirection: 'row'}}>
               <FA name="exclamation-circle" color={renderColor()} size={44} />
@@ -128,7 +133,7 @@ const Oppurtunities = ({navigation, route}: any) => {
               enable={!_.isUndefined(item.contant_phone)}
               icon="phone"
               onPress={() => {
-                Linking.openURL(`tel:090078601`)
+                Linking.openURL(`tel:090078601`);
               }}
             />
           </View>

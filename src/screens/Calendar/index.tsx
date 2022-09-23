@@ -4,16 +4,13 @@ import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 import {State, useHookstate} from '@hookstate/core';
 
-// @ts-ignore
-import EventCalendar from '../../components/react-native-events-calendar/src/EventCalendar';
-
 import styles from './style';
 import {WINDOW_WIDTH} from '../../constants';
 import {SchAdditionalButtons} from '../../constants/ButtonsList';
-import {FloatButton} from '../../components';
+import {FloatButton, EventCalendar} from '../../components';
 import {AdditionalButtons} from '../../types';
 import {globalState} from '../../stores/globalAppState';
-import { events } from '../../constants/SampleArrays';
+import {events} from '../../constants/SampleArrays';
 
 const Calendar = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();

@@ -9,13 +9,13 @@ import {
   EmptyListMsg,
   SimpleLoader,
   FloatButton,
+  CstmPressable,
 } from '../../components';
 import {configurationsList} from '../../constants/SampleArrays';
 import {Configuration} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './style';
-import {CstmPressable} from '../../components';
 import {searchFromArray} from '../../utils/helperFunctions';
 
 const Configurations = ({route}: any) => {

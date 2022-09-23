@@ -43,10 +43,10 @@ const TimeSheetsScreen = ({navigation}: any) => {
     datArr[1].date = date2;
     setDateArr(datArr);
     const dates = getDatesInRange(date1, date2);
-    let Expense = 0;
+    let Hours = 0;
     timeSheetList.map(i => {
       i.date >= date1 && i.date <= date2
-        ? (Expense = Expense + i.totHrs)
+        ? (Hours = Hours + i.totHrs)
         : null;
     });
     const data: TimeSheet[] = dates.map((date, ind) => {
@@ -77,7 +77,7 @@ const TimeSheetsScreen = ({navigation}: any) => {
         setIsDate(true);
       });
     });
-    setTotHrs(Expense);
+    setTotHrs(Hours);
     setIsDate(true);
   };
 
@@ -103,7 +103,15 @@ const TimeSheetsScreen = ({navigation}: any) => {
                 onPress={ticket => {
                   navigation.navigate('Stack1', {
                     screen: 'NewTimeSheet',
-                    params: {title: "Edit Time Sheet", data: {ticket: ticket, date: item.date.toDateString(), totHrs: item.totHrs, from: "TimeSheet"}},
+                    params: {
+                      title: 'Edit Time Sheet',
+                      data: {
+                        ticket: ticket,
+                        date: item.date.toDateString(),
+                        totHrs: item.totHrs,
+                        from: 'TimeSheet',
+                      },
+                    },
                   });
                 }}
                 dataSource={item}

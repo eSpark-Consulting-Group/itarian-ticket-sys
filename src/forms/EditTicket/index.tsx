@@ -1,6 +1,7 @@
-import { useIsFocused } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
+
 import {SingleLineField} from '../../components';
 import {companyNameList, contactNameList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
@@ -19,7 +20,6 @@ interface Item {
 }
 
 export const EditTicket = ({navigation, route}: any) => {
-
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       subTitle: 'Company',
@@ -41,9 +41,12 @@ export const EditTicket = ({navigation, route}: any) => {
       searchable: false,
     },
   ]);
-  console.log("route?.params?.companyContact", route?.params?.from)
+  console.log('route?.params?.companyContact', route?.params?.from);
   useEffect(() => {
-    if (route?.params?.item?.toString() && route?.params?.from == 'EditTicket') {
+    if (
+      route?.params?.item?.toString() &&
+      route?.params?.from == 'EditTicket'
+    ) {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
@@ -51,18 +54,18 @@ export const EditTicket = ({navigation, route}: any) => {
     }
   }, [route?.params]);
 
-  const isFocues = useIsFocused()
+  const isFocues = useIsFocused();
   useEffect(() => {
     navigation.setParams({
-        ...route?.params,
-        from: 'STickets',
-        stack: 'Stack1',
-        item: null,
-        companyContact: {
-            contact: dataSource[1].selectedItem,
-            company: dataSource[0].selectedItem
-        }
-    })
+      ...route?.params,
+      from: 'STickets',
+      stack: 'Stack1',
+      item: null,
+      companyContact: {
+        contact: dataSource[1].selectedItem,
+        company: dataSource[0].selectedItem,
+      },
+    });
   }, [isFocues]);
 
   const handlePress = (item: Item, index: number) => {

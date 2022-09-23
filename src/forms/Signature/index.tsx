@@ -2,10 +2,10 @@ import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet, Image, Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
-import SignatureScreen from 'react-native-signature-canvas';
 import Images from '../../assets/images';
 import {ModalView, SingleLineField} from '../../components';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
+
 // @ts-ignore
 import Pinchable from 'react-native-pinchable';
 
@@ -48,17 +48,6 @@ export const Signature = ({navigation, route}: any) => {
           />
         </Pinchable>
         {renderFooter()}
-        {/* {image && (
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text>Signature</Text>
-            <Image source={{uri: image}} style={{height: 50, width: 50}} />
-          </View>
-        )} */}
       </ScrollView>
     </ModalView>
   );

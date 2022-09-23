@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -32,8 +31,7 @@ import {Avatar} from 'react-native-paper';
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-// import {Theme} from '../theme/colors';
-import {globalState} from '../stores/globalAppState';
+import {globalState} from '../../stores/globalAppState';
 import {
   Agenda,
   Calendar,
@@ -52,18 +50,18 @@ import {
   Settings,
   SendFeedback,
   Profile,
-} from '../screens';
-import {ParamList} from '../types';
-import {BUILD_VERSION} from '../constants';
+} from '../../screens';
+import {ParamList} from '../../types';
+import {BUILD_VERSION} from '../../constants';
 import {
   contactsList,
   opportunityFilterList,
   pBoardFilterList,
   sBoardFiterList,
-} from '../constants/SampleArrays';
-import CstmBadge from '../components/CtsmBadge';
-import Images from '../assets/images';
-import {userStore} from '../stores/userStore';
+} from '../../constants/SampleArrays';
+import {CstmBadge} from '../../components';
+import Images from '../../assets/images';
+import {userStore} from '../../stores/userStore';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -240,13 +238,6 @@ const Draw = () => {
           />
         ),
       }}>
-      <Drawer.Screen
-        name="FSLoader"
-        component={FSLoader}
-        options={{
-          drawerItemStyle: {display: 'none'},
-        }}
-      />
       <Drawer.Screen
         name="Search"
         component={Search}
@@ -660,15 +651,6 @@ const Draw = () => {
         }}
       />
     </Drawer.Navigator>
-  );
-};
-
-const FSLoader = () => {
-  const {colors} = useTheme();
-  return (
-    <View style={{backgroundColor: colors.background, ...styles.loading}}>
-      <ActivityIndicator size="large" color={colors.primary} />
-    </View>
   );
 };
 

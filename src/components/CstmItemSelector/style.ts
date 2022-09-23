@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   floatButton: {
@@ -10,5 +10,5 @@ const styles = StyleSheet.create({
     right: 15,
   },
 });
-  
+
 export default styles;

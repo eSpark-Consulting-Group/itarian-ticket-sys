@@ -1,36 +1,19 @@
-import React, {
-  useEffect,
-  useState,
-  useReducer,
-  useCallback,
-  useRef,
-} from 'react';
+import React, {useEffect, useState, useReducer} from 'react';
 import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
-import {
-  useTheme,
-  useFocusEffect,
-  Theme,
-  useIsFocused,
-} from '@react-navigation/native';
+import {useTheme, Theme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
 import Ions from 'react-native-vector-icons/Ionicons';
 import {State, useHookstate} from '@hookstate/core';
 
-import styles from './style';
-import {stopWatchList} from '../../constants/SampleArrays';
-import {Stopwatch} from '../../types';
-import {
-  EmptyListMsg,
-  SimpleLoader,
-  StopWatch as MyStopWatch,
-} from '../../components';
-import {globalState} from '../../stores/globalAppState';
-import {useUpdateEffect} from '../../utils/hooks';
-import {StopWatch} from '../../components/CstmStopwatch/stopwatch';
 //@ts-ignore
 import store from 'react-native-simple-store';
+
+import styles from './style';
+import {Stopwatch} from '../../types';
+import {EmptyListMsg, SimpleLoader, StopWatch} from '../../components';
+import {globalState} from '../../stores/globalAppState';
 
 const StopWatchScreen = ({navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -43,7 +26,6 @@ const StopWatchScreen = ({navigation}: any) => {
     JSON.parse(JSON.stringify(stopWatchDataList?.get())),
   );
   let timerStopwatch = JSON.parse(JSON.stringify(stopwatchs));
-
 
   useEffect(() => {
     // useRef value stored in .current property
@@ -76,7 +58,7 @@ const StopWatchScreen = ({navigation}: any) => {
         forceUpdate();
       }
     };
-    
+
     const handleDelete = (index: number) => {
       Alert.alert(
         'Delete StopWatch Entry?',
@@ -95,13 +77,10 @@ const StopWatchScreen = ({navigation}: any) => {
         ],
       );
       function confirmDelete() {
-        // handlePlayPause()
-        // setTimeout(() => {
         const temp = stopwatchs;
         temp.splice(index, 1);
         SetStopwatch(temp);
         forceUpdate();
-        // }, 1000)
       }
     };
 
@@ -136,7 +115,7 @@ const StopWatchScreen = ({navigation}: any) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{...styles.title, color: colors.text}}>
-                    {item.ticket_summary}
+                    {item.summary}
                   </Text>
                 </View>
                 <View

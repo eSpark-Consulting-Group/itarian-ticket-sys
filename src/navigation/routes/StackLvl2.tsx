@@ -287,6 +287,23 @@ const StackLvl2 = ({navigation, route}: any) => {
         options={({route, navigation}: any) => ({
           title: 'Configurations',
           headerStyle: {backgroundColor: colors.primary},
+          headerRight: () => (
+            <II
+              size={30}
+              name="barcode-outline"
+              color={'#ffffff'}
+              onPress={() =>
+                navigation.navigate('Stack1', {
+                  screen: 'BarcodeScanner',
+                  params: {
+                    from: 'Configurations',
+                    stack: 'Draw',
+                  },
+                })
+              }
+              style={{right: 10}}
+            />
+          ),
           headerLeft: () => (
             <II
               size={30}

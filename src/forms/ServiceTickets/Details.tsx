@@ -16,6 +16,11 @@ const Details = () => {
   const dataSource: Item[] = [
     {
       title: 'Configurations',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'ConfigurationListing',
+        });
+      },
     },
     {
       title: 'Products',
@@ -33,12 +38,27 @@ const Details = () => {
     },
     {
       title: 'Time Entries',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'TimeEntries',
+        });
+      },
     },
     {
       title: 'Expenses',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'Expenses',
+        });
+      },
     },
     {
       title: 'Open Tickets',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'TicketListing',
+        });
+      },
     },
     {
       title: 'My Schedule',

@@ -20,6 +20,8 @@ import {
   CstmItemSelector,
   AttachmentDetails,
 } from '../../components';
+import TicketListing from '../../components/Ticketlisting';
+import ConfigurationListing from '../../components/ConfigurationListing';
 
 const Stack = createNativeStackNavigator();
 
@@ -258,6 +260,40 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="TicketListing"
+        component={TicketListing}
+        options={({route, navigation}: any) => ({
+          title: 'Tickets',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ConfigurationListing"
+        component={ConfigurationListing}
+        options={({route, navigation}: any) => ({
+          title: 'Configurations',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
             />
           ),
         })}

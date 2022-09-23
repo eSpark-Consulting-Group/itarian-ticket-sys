@@ -29,12 +29,13 @@ export default function CstmTabBar(props: any) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [elevation, setElevation] = useState(0);
   const handleWidth =
-    routes?.length < 3 ? (WINDOW_WIDTH * 4) / 10 : (WINDOW_WIDTH * 3) / 10;
+    routes?.length < 3 ? WINDOW_WIDTH * 0.405 : WINDOW_WIDTH * 0.305;
   var highlight = dark ? '#000000' : '#fff';
+  const factor = routes?.length < 3 ? 1.035 : 1.045;
 
   const animateHeader = (index: any) => {
     Animated.timing(translateValue, {
-      toValue: index * 1.035 * handleWidth,
+      toValue: index * factor * handleWidth,
       // The translateX value should change depending on the chosen route
       duration: 200,
       useNativeDriver: true,

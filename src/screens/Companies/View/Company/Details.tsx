@@ -24,15 +24,35 @@ const Details = () => {
     },
     {
       title: 'Contacts',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'ContactListing',
+        });
+      },
     },
     {
       title: 'Configurations',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'ConfigurationListing',
+        });
+      },
     },
     {
       title: 'Open Tickets',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'TicketListing',
+        });
+      },
     },
     {
       title: 'Sites',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'Sites',
+        });
+      },
     },
   ];
 

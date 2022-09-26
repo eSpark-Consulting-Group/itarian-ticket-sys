@@ -19,6 +19,7 @@ import {
   UnscheduledList,
   QNATypes,
   NoteTypes,
+  CompanySites,
 } from '../types';
 import {
   boardList,
@@ -1255,3 +1256,17 @@ export const events = [
     eventType: 'Service Ticket',
   },
 ];
+
+export const ComapanySites: CompanySites[] = [
+  {
+    id: 1,
+    type: 'Main',
+    company_name: 'ACME Industries',
+  },
+  {
+    id: 2,
+    type: 'Site',
+    company_name: 'ACME Industries',
+  },
+]
+;

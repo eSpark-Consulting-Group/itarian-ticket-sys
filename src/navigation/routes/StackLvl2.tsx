@@ -20,6 +20,11 @@ import {
   CstmItemSelector,
   AttachmentDetails,
 } from '../../components';
+import TicketListing from '../../components/Ticketlisting';
+import ConfigurationListing from '../../components/ConfigurationListing';
+import { Contacts } from '../../screens';
+import ContactListing from '../../components/ContactsListing';
+import Sites from '../../components/Sites';
 
 const Stack = createNativeStackNavigator();
 
@@ -258,6 +263,91 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="TicketListing"
+        component={TicketListing}
+        options={({route, navigation}: any) => ({
+          title: 'Tickets',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ContactListing"
+        component={ContactListing}
+        options={({route, navigation}: any) => ({
+          title: 'Contacts',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+       <Stack.Screen
+        name="Sites"
+        component={Sites}
+        options={({route, navigation}: any) => ({
+          title: 'Sites',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ConfigurationListing"
+        component={ConfigurationListing}
+        options={({route, navigation}: any) => ({
+          title: 'Configurations',
+          headerStyle: {backgroundColor: colors.primary},
+          headerRight: () => (
+            <II
+              size={30}
+              name="barcode-outline"
+              color={'#ffffff'}
+              onPress={() =>
+                navigation.navigate('Stack1', {
+                  screen: 'BarcodeScanner',
+                  params: {
+                    from: 'Configurations',
+                    stack: 'Draw',
+                  },
+                })
+              }
+              style={{right: 10}}
+            />
+          ),
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
             />
           ),
         })}

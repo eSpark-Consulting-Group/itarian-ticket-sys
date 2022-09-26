@@ -39,7 +39,6 @@ const StopWatchScreen = ({navigation}: any) => {
 
     // clear on component unmount
     return () => {
-      console.log('return');
       clearInterval(timer);
     };
   }, [stopwatchs]);
@@ -164,10 +163,6 @@ const StopWatchScreen = ({navigation}: any) => {
                         start={item.isPlaying}
                         startTime={item.timer}
                         getTime={time => {
-                          console.log(
-                            'item.timer item.timer',
-                            stopwatchs[0].timer,
-                          );
                           const temp = stopwatchs; //* Force Copy Method
                           temp[index] && (temp[index].timer = time);
                           timerStopwatch = temp;
@@ -212,7 +207,6 @@ const StopWatchScreen = ({navigation}: any) => {
       </View>
     );
   };
-
   return (
     <View style={{...styles.container, backgroundColor: colors.background}}>
       {isLoading ? (

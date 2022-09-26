@@ -45,7 +45,7 @@ const TimeEntries = ({navigation}: any) => {
             renderItem={({item}) => (
               <ListItem
                 onPress={ticket => {
-                  navigation.navigate('Stack1', {
+                  navigation.navigate('Stack3', {
                     screen: 'NewTimeSheet',
                     params: {
                       title: 'Edit Time Sheet',

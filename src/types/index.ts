@@ -268,6 +268,25 @@ export type Item = {
   type?: NotesType;
 };
 
+export interface newCompanyItem {
+  title: string;
+  subTitle: string;
+  inputable?: boolean;
+  enable?: boolean;
+  rightIcon?: string;
+  rightIconRound?: string;
+  titleWidth?: number;
+  showRightSwitch?: boolean;
+  rightSwitchVal?: boolean;
+  onChangeSwitch?: (value: boolean) => void;
+  onChangeText?: (text: string) => void;
+  list?: SelectFields[];
+  selectedItem?: SelectFields;
+  searchable?: boolean;
+  headerTitle?: string;
+  isRequired?: boolean;
+}
+
 /*
 //* Enum's for all Types/Interfaces
 */

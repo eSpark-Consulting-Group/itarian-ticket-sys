@@ -33,6 +33,7 @@ const NewActivity = ({route, navigation}: any) => {
       subTitle: 'Summary',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: 'Please Select',
@@ -141,18 +142,11 @@ const NewActivity = ({route, navigation}: any) => {
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
+    isRequired?: boolean;
   }
 
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
-
-  useEffect(() => {
-    if (route?.params?.from) {
-      let newData = [...dataSource];
-      newData[9].title = user.get().user?.username;
-      setDataSource(newData);
-    }
-  }, [route?.params]);
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
@@ -193,7 +187,22 @@ const NewActivity = ({route, navigation}: any) => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -236,7 +245,7 @@ const NewActivity = ({route, navigation}: any) => {
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
-              subTitle={item.subTitle}
+              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
               title={item.title}
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}

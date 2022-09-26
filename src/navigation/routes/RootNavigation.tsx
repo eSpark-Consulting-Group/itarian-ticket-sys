@@ -78,24 +78,24 @@ const App = () => {
         globalStopwatch.set(res?.stopwatch);
       }
     });
+    store.get('bioMetric').then((res: any) => {
+      if (res) {
+        biometricState.set(res?.bioMetric);
+      }
+    });
+  }, [themeValue.get()]);
+
+  useEffect(() => {
     store.get('theme').then((res: any) => {
       if (res) {
         themeValue.set(res?.theme);
       }
     });
-    store.get('bioMetric').then((res: any) => {
-      console.log('res?.bioMetric', res?.bioMetric);
-      if (res) {
-        biometricState.set(res?.bioMetric);
-      }
-    });
-    console.log('Theme State', themeValue.get());
-  }, [themeValue.get()]);
+  }, [])
 
   const handleColdBoot = (data: ShortcutItem) => {
     const {userInfo} = data;
     shortCutScreen.set(data.type);
-    console.log('chala coldboot', userInfo?.url, data.type);
   };
 
   QuickActions.popInitialAction()
@@ -104,7 +104,6 @@ const App = () => {
     })
     .catch(err => console.log('err', err));
 
-  console.log('actions  loaded  successfully', user.get());
   return (
     <SafeAreaProvider>
       <NavigationContainer

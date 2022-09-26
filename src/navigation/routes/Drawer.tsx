@@ -97,7 +97,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </View>
         <View style={{flex: 0.7}}>
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={styles.drawerTitleStyle}>{user.get()?.user_name}</Text>
+            <Text style={styles.drawerTitleStyle}>
+              {user.get()?.user_name ?? 'N/A'}
+            </Text>
             <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
               {currStatus.get() ? 'Out of the Office' : 'In Office'}

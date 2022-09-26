@@ -6,6 +6,9 @@ import {
 import * as ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker, {types} from 'react-native-document-picker';
 import {ShortcutItem} from 'react-native-quick-actions';
+import {newCompanyItem} from '../types';
+import {onSave} from '../navigation/utils/headerFunctions';
+import {showMessage} from 'react-native-flash-message';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -155,4 +158,28 @@ export const getDatesInRange = (startDate: any, endDate: any) => {
 export const handleColdBoot = (data: ShortcutItem) => {
   const {userInfo} = data;
   Linking.openURL(userInfo?.url);
+};
+
+export const checkValidations = (
+  navigation: any,
+  route: any,
+  activeStatus: any,
+) => {
+  const Info = [...route?.params?.data];
+
+  for (let i = 0; i < Info.length; i++) {
+    if (
+      Info[i].isRequired &&
+      (Info[i].title == 'Please Select' || Info[i].title == '')
+    ) {
+      showMessage({
+        message: 'Please fill required fields',
+        type: 'warning',
+        icon: 'auto',
+      });
+      return;
+    }
+  }
+  console.log('Error Not Founded');
+  navigation.goBack();
 };

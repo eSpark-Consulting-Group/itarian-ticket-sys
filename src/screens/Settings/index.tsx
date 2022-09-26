@@ -37,27 +37,27 @@ const SettingsScreen = () => {
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
   };
-  const checkBiometricAvailable = () => {
-    FingerprintScanner.isSensorAvailable()
-      .then(biometryType => {
-        console.log('Biometric', biometryType);
-        setShowScanners(true);
-      })
-      .catch(error => {
-        setShowScanners(false);
-        Alert.alert(error.name, error.message, [
-          {
-            text: 'Open Security',
-            style: 'default',
-            onPress: () => AndroidOpenSettings.securitySettings(),
-          },
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-        ]);
-      });
-  };
+  // const checkBiometricAvailable = () => {
+  //   FingerprintScanner.isSensorAvailable()
+  //     .then(biometryType => {
+  //       console.log('Biometric', biometryType);
+  //       setShowScanners(true);
+  //     })
+  //     .catch(error => {
+  //       setShowScanners(false);
+  //       Alert.alert(error.name, error.message, [
+  //         {
+  //           text: 'Open Security',
+  //           style: 'default',
+  //           onPress: () => AndroidOpenSettings.securitySettings(),
+  //         },
+  //         {
+  //           text: 'Cancel',
+  //           style: 'cancel',
+  //         },
+  //       ]);
+  //     });
+  // };
 
   const onAuthenticBiometric = () => {
     console.log('Authentice');
@@ -68,16 +68,16 @@ const SettingsScreen = () => {
     setShowScanners(false);
   };
 
-  const onToggleBiometrics = () => {
-    if (!biometricState.get()) {
-      checkBiometricAvailable();
-    } else {
-      store.update('bioMetric', {
-        bioMetric: !biometricState.get(),
-      });
-      biometricState.set(!biometricState.get());
-    }
-  };
+  // const onToggleBiometrics = () => {
+  //   if (!biometricState.get()) {
+  //     checkBiometricAvailable();
+  //   } else {
+  //     store.update('bioMetric', {
+  //       bioMetric: !biometricState.get(),
+  //     });
+  //     biometricState.set(!biometricState.get());
+  //   }
+  // };
 
   useUpdateEffect(() => {
     // watch the swtich state for theme change
@@ -268,7 +268,7 @@ const SettingsScreen = () => {
             )}
           />
         </TouchableOpacity>
-        <Divider
+        {/* <Divider
           style={{
             backgroundColor: colors.text,
             opacity: 0.25,
@@ -290,7 +290,7 @@ const SettingsScreen = () => {
               trackColor={{true: '#5b57578f', false: '#5b57578f'}}
             />
           )}
-        />
+        /> */}
       </List.Section>
       {showScanner && (
         <BiometricVerification

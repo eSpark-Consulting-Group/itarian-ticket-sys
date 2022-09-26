@@ -54,7 +54,7 @@ const Notes = () => {
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
     return (
-      <View>
+      <View key={`compant-notes-${index}`}>
         <View style={{flexDirection: 'row', padding: 8}}>
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
             <Image source={item.img} style={styles.imageStyle} />

@@ -59,6 +59,7 @@ const Details = () => {
   const renderList = ({item, index}: {item: Item; index: number}) => {
     return (
       <SingleLineField
+        key={`company-details-list-${index}`}
         onPress={item.onPress}
         title={item.title}
         gap={false}

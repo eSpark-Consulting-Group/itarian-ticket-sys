@@ -60,7 +60,6 @@ const SettingsScreen = () => {
   // };
 
   const onAuthenticBiometric = () => {
-    console.log('Authentice');
     store.update('bioMetric', {
       bioMetric: true,
     });

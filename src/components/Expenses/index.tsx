@@ -32,7 +32,6 @@ const Expenses = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-    
       {(
         expReportList.length > 0 ? (
           <FlatList
@@ -41,7 +40,7 @@ const Expenses = ({navigation}: any) => {
               return (
                 <ListItem
                   onPress={ticket => {
-                    navigation.navigate('Stack1', {
+                    navigation.navigate('Stack3', {
                       screen: 'NewExpenseReport',
                       params: {
                         title: 'Edit Expense',
@@ -64,7 +63,6 @@ const Expenses = ({navigation}: any) => {
           <NotFound />
         )
       )}
-
       <FloatButton AdditionalButtons={actionButtons} />
     </View>
   );

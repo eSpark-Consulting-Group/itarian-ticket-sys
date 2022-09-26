@@ -100,7 +100,7 @@ export const RenderConfigurations = ({
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
-            navigation.navigate('Stack1', {
+            navigation.navigate('Stack3', {
               screen: 'Configure1',
             })
           }

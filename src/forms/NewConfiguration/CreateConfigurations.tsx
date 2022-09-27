@@ -34,6 +34,7 @@ interface Item {
   headerTitle?: string;
   onPress?: () => void;
   rightChild?: React.ReactNode;
+  isRequired?: boolean;
 }
 
 type PickerType = 'PD' | 'ED' | 'ID';
@@ -50,6 +51,7 @@ const NewConfiguration = ({route, navigation}: any) => {
       subTitle: 'Configuration Name',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       subTitle: 'Company',
@@ -221,7 +223,22 @@ const NewConfiguration = ({route, navigation}: any) => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -281,7 +298,7 @@ const NewConfiguration = ({route, navigation}: any) => {
             <SingleLineField
               key={index}
               mode={item.mode}
-              subTitle={item.subTitle}
+              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
               title={item.title}
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}

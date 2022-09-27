@@ -6,8 +6,6 @@ import {
 import * as ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker, {types} from 'react-native-document-picker';
 import {ShortcutItem} from 'react-native-quick-actions';
-import {newCompanyItem} from '../types';
-import {onSave} from '../navigation/utils/headerFunctions';
 import {showMessage} from 'react-native-flash-message';
 
 export const getNavigtionApps = async () => {
@@ -180,6 +178,11 @@ export const checkValidations = (
       return;
     }
   }
-  console.log('Error Not Founded');
+  showMessage({
+    message: 'Item added Successfully',
+    type: 'success',
+    icon: 'auto',
+  });
+  // console.log('Error Not Founded');
   navigation.goBack();
 };

@@ -165,9 +165,17 @@ const NewOpportunity = ({navigation, route}: any) => {
   }, [route?.params?.selected]);
 
   useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
     navigation?.setParams({
       ...route?.params,
-      data: dataSource,
+      data: Data,
     });
   }, [dataSource]);
 
@@ -238,7 +246,7 @@ const NewOpportunity = ({navigation, route}: any) => {
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
-              subTitle={item.subTitle}
+              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
               title={item.title}
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}

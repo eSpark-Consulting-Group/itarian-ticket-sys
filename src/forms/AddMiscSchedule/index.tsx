@@ -20,6 +20,7 @@ const AddMiscSchedule = ({route, navigation}: any) => {
       subTitle: 'Description',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: 'Please Select',
@@ -102,6 +103,7 @@ const AddMiscSchedule = ({route, navigation}: any) => {
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
+    isRequired?: boolean;
   }
 
   type Mode = 'date' | 'time';
@@ -156,7 +158,22 @@ const AddMiscSchedule = ({route, navigation}: any) => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -200,7 +217,7 @@ const AddMiscSchedule = ({route, navigation}: any) => {
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
-              subTitle={item.subTitle}
+              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
               title={item.title}
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}

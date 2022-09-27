@@ -203,9 +203,7 @@ export const RenderConfigurations = ({
         <NotFound />
       )}
       <FloatButton
-        onPress={() =>
-          navigation.navigate('Stack1', {screen: 'BarcodeScanner'})
-        }
+        onPress={() => navigation.navigate('Stack1', {screen: 'NewConfigure'})}
       />
     </>
   );

@@ -52,6 +52,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
       inputable: true,
       title: '0',
       keyboardType: 'number-pad',
+      isRequired: true,
     },
     {
       title: 'Paid by employee',
@@ -121,6 +122,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
     selectedItem?: SelectFields;
     headerTitle?: string;
     keyboardType?: KeyboardTypeOptions | undefined;
+    isRequired?: boolean;
   }
 
   const updateInput = (e: string, index: number) => {
@@ -166,7 +168,22 @@ const NewExpenseReport = ({route, navigation}: any) => {
       newData[6].title = route?.params?.data?.ticket?.summary;
       setDataSource(newData);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -195,7 +212,7 @@ const NewExpenseReport = ({route, navigation}: any) => {
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
-              subTitle={item.subTitle}
+              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
               title={item.title}
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}

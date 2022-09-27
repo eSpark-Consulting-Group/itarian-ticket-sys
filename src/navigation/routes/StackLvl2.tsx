@@ -22,9 +22,10 @@ import {
 } from '../../components';
 import TicketListing from '../../components/Ticketlisting';
 import ConfigurationListing from '../../components/ConfigurationListing';
-import { Contacts } from '../../screens';
+import {Contacts} from '../../screens';
 import ContactListing from '../../components/ContactsListing';
 import Sites from '../../components/Sites';
+import {checkValidations} from '../../utils/helperFunctions';
 
 const Stack = createNativeStackNavigator();
 
@@ -237,7 +238,7 @@ const StackLvl2 = ({navigation, route}: any) => {
               size={30}
               name="save"
               color={'#fff'}
-              onPress={() => goBack(navigation)}
+              onPress={() => checkValidations(navigation, route, activeStatus)}
             />
           ),
         })}
@@ -301,7 +302,7 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Sites"
         component={Sites}
         options={({route, navigation}: any) => ({

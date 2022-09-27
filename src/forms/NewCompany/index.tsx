@@ -143,9 +143,17 @@ const NewCompany = ({route, navigation}: any) => {
   }, [route?.params?.selected]);
 
   useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
     navigation?.setParams({
       ...route?.params,
-      data: dataSource,
+      data: Data,
     });
   }, [dataSource]);
 

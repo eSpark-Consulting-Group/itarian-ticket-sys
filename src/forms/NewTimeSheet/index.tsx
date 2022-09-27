@@ -59,7 +59,13 @@ const NewTimeSheet = ({route, navigation}: any) => {
         setShowDate(true);
       },
     },
-    {title: '', subTitle: 'Time', inputable: true, enable: false},
+    {
+      title: '',
+      subTitle: 'Time',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+    },
     {
       title: 'Please Select',
       subTitle: 'Work Role',
@@ -105,48 +111,11 @@ const NewTimeSheet = ({route, navigation}: any) => {
     headerTitle?: string;
     roundedIconEnable?: boolean;
     onRoundIconPress?: () => void;
+    isRequired?: boolean;
   }
 
   type Mode = 'date' | 'time';
   type PickerType = 'dd' | 'st' | 'et';
-
-  useEffect(() => {
-    if (
-      route?.params?.from &&
-      !route?.params?.item?.toString() &&
-      route?.params?.from != 'ServiceTickets'
-    ) {
-      let newData = [...dataSource];
-      newData[9].title = 'Johnny Bravo';
-      setDataSource(newData);
-    }
-    if (route?.params?.date) {
-      let newData = [...dataSource];
-      newData[1].title = route?.params?.date;
-      setDataSource(newData);
-    }
-    if (route?.params?.from == 'ServiceTickets') {
-      let newData = [...dataSource];
-      newData[0].title = route.params?.chargeCode;
-      setDataSource(newData);
-    }
-    if (route?.params?.data && route?.params?.data?.from == 'TimeSheet') {
-      let newData = [...dataSource];
-      newData[0].title = route?.params?.data?.ticket?.ticket_no;
-      newData[1].title = route?.params?.data?.date;
-      newData[2].title =
-        route?.params?.data?.ticket?.schedule_time?.split('-')[0] ||
-        'Please select';
-      newData[3].title =
-        route?.params?.data?.ticket?.schedule_time?.split('-')[1] ||
-        'Please select';
-      newData[4].title = route?.params?.data?.totHrs?.toString();
-      newData[5].title = route?.params?.data?.ticket?.phase;
-      newData[6].title = route?.params?.data?.ticket?.site;
-      newData[7].title = route?.params?.data?.ticket?.summary;
-      setDataSource(newData);
-    }
-  }, [route?.params]);
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
@@ -202,7 +171,49 @@ const NewTimeSheet = ({route, navigation}: any) => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+
+    if (route?.params?.date) {
+      let newData = [...dataSource];
+      newData[1].title = route?.params?.date;
+      setDataSource(newData);
+    }
+    if (route?.params?.from == 'ServiceTickets') {
+      let newData = [...dataSource];
+      newData[0].title = route.params?.chargeCode;
+      setDataSource(newData);
+    }
+    if (route?.params?.data && route?.params?.data?.from == 'TimeSheet') {
+      let newData = [...dataSource];
+      newData[0].title = route?.params?.data?.ticket?.ticket_no;
+      newData[1].title = route?.params?.data?.date;
+      newData[2].title =
+        route?.params?.data?.ticket?.schedule_time?.split('-')[0] ||
+        'Please select';
+      newData[3].title =
+        route?.params?.data?.ticket?.schedule_time?.split('-')[1] ||
+        'Please select';
+      newData[4].title = route?.params?.data?.totHrs?.toString();
+      newData[5].title = route?.params?.data?.ticket?.phase;
+      newData[6].title = route?.params?.data?.ticket?.site;
+      newData[7].title = route?.params?.data?.ticket?.summary;
+      setDataSource(newData);
+    }
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -246,7 +257,7 @@ const NewTimeSheet = ({route, navigation}: any) => {
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
-              subTitle={item.subTitle}
+              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
               title={item.title}
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}

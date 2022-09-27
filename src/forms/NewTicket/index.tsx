@@ -34,6 +34,7 @@ interface Item {
   roundedIconEnable?: boolean;
   leftIcon?: string;
   onRoundIconPress?: () => void;
+  isRequired?: boolean;
 }
 
 export default function NewTicket({route, navigation}: any) {
@@ -55,13 +56,14 @@ export default function NewTicket({route, navigation}: any) {
       mode: 'multiline',
     },
     {
-      title: 'Please select',
+      title: 'Please Select',
       subTitle: 'Service Board',
       enable: true,
       list: boardList,
       selectedItem: boardList[0],
       headerTitle: 'Service Board',
       rightIcon: 'chevron-right',
+      isRequired: true,
     },
     {
       title: 'Please Select',
@@ -100,7 +102,22 @@ export default function NewTicket({route, navigation}: any) {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   function handleAddNote() {
     navigation.navigate('Stack2', {
@@ -158,7 +175,7 @@ export default function NewTicket({route, navigation}: any) {
         <SingleLineField
           key={index}
           title={value.title}
-          subTitle={value.subTitle}
+          subTitle={value.isRequired ? value.subTitle + '*' : value.subTitle}
           onPress={
             value?.onPress ? value.onPress : () => handlePress(value, index)
           }

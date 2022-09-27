@@ -21,6 +21,7 @@ interface Item {
   onPress?: () => void;
   showRightSwitch?: boolean;
   rightSwitchVal?: boolean;
+  isRequired?: boolean;
 }
 
 type Mode = 'date' | 'time';
@@ -50,6 +51,7 @@ export const AddResource = ({navigation, route}: any) => {
       list: whereList,
       selectedItem: whereList[0],
       searchable: true,
+      isRequired: true,
     },
     {
       title: 'Please Select',
@@ -127,7 +129,22 @@ export const AddResource = ({navigation, route}: any) => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -174,7 +191,7 @@ export const AddResource = ({navigation, route}: any) => {
       {dataSource.map((item: Item, index: number) => (
         <SingleLineField
           key={index}
-          subTitle={item.subTitle}
+          subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
           title={item.title}
           enable={item.enable}
           titleWidth={item.titleWidth}

@@ -28,6 +28,7 @@ const NewOpportunity = ({navigation, route}: any) => {
       subTitle: 'Oppotunity',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: 'Please Select',
@@ -135,6 +136,7 @@ const NewOpportunity = ({navigation, route}: any) => {
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
+    isRequired?: boolean;
   }
 
   const updateInput = (e: string, index: number) => {
@@ -160,7 +162,14 @@ const NewOpportunity = ({navigation, route}: any) => {
     if (route?.params?.item?.toString() && route?.params?.item === 'Comp') {
       setCompanyName(route?.params?.selected?.name);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    navigation?.setParams({
+      ...route?.params,
+      data: dataSource,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {

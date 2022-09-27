@@ -35,6 +35,7 @@ import NewTicket from '../../forms/NewTicket';
 import AddMiscSchedule from '../../forms/AddMiscSchedule';
 import {userStore} from '../../stores/userStore';
 import {BarcodeScanner} from '../../components';
+import {checkValidations} from '../../utils/helperFunctions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -175,7 +176,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => navigation.goBack()}
+              onPress={() => checkValidations(navigation, route, activeStatus)}
             />
           ),
         })}
@@ -390,7 +391,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => navigation.goBack()}
+              onPress={() => checkValidations(navigation, route, activeStatus)}
             />
           ),
         })}

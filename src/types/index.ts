@@ -268,6 +268,13 @@ export type Item = {
   type?: NotesType;
 };
 
+export type CompanySites = {
+  id: number;
+  type: string;
+  company_name: string;
+  address?: string;
+};
+
 /*
 //* Enum's for all Types/Interfaces
 */

@@ -35,12 +35,12 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any, activeStatus?: any) => {
-  console.log(
-    'route.params',
-    route?.params?.stack,
-    'reoute?.params',
-    route?.params?.from,
-  );
+  // console.log(
+  //   'route.params',
+  //   route?.params?.stack,
+  //   'reoute?.params',
+  //   route?.params?.from,
+  // );
   if (route?.params?.notes) {
     const currDate = new Date();
     const fullDate =

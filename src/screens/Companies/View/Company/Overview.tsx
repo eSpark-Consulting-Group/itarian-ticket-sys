@@ -90,11 +90,11 @@ const Overview = () => {
       {Ds?.map((value, key) => {
         if (value?.contacts?.length && value?.contacts?.length > 0) {
           return (
-            <View key={key}>
+            <View key={`company-field-${key}`}>
               <SingleLineField title={value?.title || ''} enable={false} />
               {value?.contacts?.map((item, index) => (
                 <SingleLineField
-                  key={index}
+                  key={`company-field-${index}`}
                   title={item?.value}
                   subTitle={`${item?.type} ${
                     item?.isPrimary ? '(Primary)' : ''
@@ -111,7 +111,7 @@ const Overview = () => {
         } else {
           return (
             <SingleLineField
-              key={key}
+              key={`company-field-${key}`}
               title={value?.title || ''}
               subTitle={value?.subTitle}
               rightChild={value?.rightChild}

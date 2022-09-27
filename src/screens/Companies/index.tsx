@@ -91,7 +91,7 @@ export const RenderCompanies = ({
 
   const renderList = ({item, index}: {item: Company; index: number}) => {
     return (
-      <View style={styles.listContainer}>
+      <View key={`company-details-${index}`} style={styles.listContainer}>
         <CstmPressable
           onPress={() => navigation.navigate('Stack1', {screen: 'Company'})}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>

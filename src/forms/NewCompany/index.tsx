@@ -14,24 +14,28 @@ const NewCompany = ({route, navigation}: any) => {
       subTitle: 'New Company',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'Company ID',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'Company Phone No',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'Address 1',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
@@ -44,12 +48,14 @@ const NewCompany = ({route, navigation}: any) => {
       subTitle: 'Zip Code',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'City',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: 'Please Select',
@@ -66,30 +72,35 @@ const NewCompany = ({route, navigation}: any) => {
       list: countryList,
       selectedItem: countryList[0],
       headerTitle: 'State',
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'First Name',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'Last Name',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'Email',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: '',
       subTitle: 'Phone No.',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
   ]);
 
@@ -109,25 +120,34 @@ const NewCompany = ({route, navigation}: any) => {
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
+    isRequired?: boolean;
   }
 
   const updateInput = (e: string, index: number) => {
     console.log('Text Index', e, index);
     let newData = [...dataSource];
     newData[index].title = e;
-    console.log('New Data', newData);
+    // console.log('New Data', newData);
     setDataSource(newData);
   };
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      console.log('updateObj');
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    navigation?.setParams({
+      ...route?.params,
+      data: dataSource,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -155,7 +175,7 @@ const NewCompany = ({route, navigation}: any) => {
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
-              subTitle={item.subTitle}
+              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
               title={item.title}
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}

@@ -24,6 +24,11 @@ const Details = () => {
     },
     {
       title: 'Contacts',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'ContactListing',
+        });
+      },
     },
     {
       title: 'Configurations',
@@ -43,13 +48,18 @@ const Details = () => {
     },
     {
       title: 'Sites',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'Sites',
+        });
+      },
     },
   ];
 
   const renderList = ({item, index}: {item: Item; index: number}) => {
     return (
       <SingleLineField
-        key={index}
+        key={`company-details-list-${index}`}
         onPress={item.onPress}
         title={item.title}
         gap={false}

@@ -58,7 +58,7 @@ const TicketListing = ({route, navigation}: any) => {
               dataSource={item}
               onPress={iValue => {
                 iValue.type == 'Ticket'
-                  ? navigation.navigate('Stack1', {
+                  ? navigation.navigate('Stack3', {
                       screen: 'STickets',
                       params: {
                         title: iValue?.ticket_no?.toString(),

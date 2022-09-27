@@ -26,7 +26,7 @@ const Profile = ({route, navigation}: any) => {
         }}>
         <AvatarContainer source={Images.Avatar} />
         <Text style={{fontWeight: 'bold', color: colors.text}}>
-          {user.get()?.user?.username}
+          {user.get()?.user_name ?? 'N/A'}
         </Text>
         <Text style={{color: colors.text}}>education_c</Text>
       </View>

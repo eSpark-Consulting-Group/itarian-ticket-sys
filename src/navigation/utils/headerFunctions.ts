@@ -14,6 +14,11 @@ const saveStatus = (navigation: any, route: any, activeStatus: any) => {
       icon: 'warning',
     });
   } else {
+    showMessage({
+      message: 'Status Updated Successfully',
+      type: 'success',
+      icon: 'auto',
+    });
     activeStatus?.currentStatus.set(route.params?.status);
     activeStatus?.currentGoneTo.set({...route.params?.goneTo});
     activeStatus?.additionalInfo.set(route.params?.addInfo);
@@ -35,21 +40,22 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any, activeStatus?: any) => {
-  // console.log(
-  //   'route.params',
-  //   route?.params?.stack,
-  //   'reoute?.params',
-  //   route?.params?.from,
-  // );
+  console.log(
+    'route.params',
+    route?.params?.stack,
+    'reoute?.params',
+    route?.params,
+  );
   if (route?.params?.notes) {
     const currDate = new Date();
+    console.log('yeh Chala?', currDate.toString().slice(16, 21));
     const fullDate =
       currDate.getDate() +
       ' ' +
       currDate.toString().slice(4, 7) +
       ', ' +
       currDate.getFullYear();
-    const fullTime = currDate.getHours() + ':' + currDate.getMinutes();
+    const fullTime = currDate.toString().slice(16, 21);
     noteList.push({
       id: noteList?.length + 1,
       img: Images.AvatarHolder,
@@ -58,6 +64,11 @@ const onSave = (navigation: any, route: any, activeStatus?: any) => {
       date: route?.params?.showTime ? fullDate : '',
       note: route?.params?.notes,
       type: route?.params?.type,
+    });
+    showMessage({
+      message: 'Note added Successfully',
+      type: 'success',
+      icon: 'auto',
     });
   }
 

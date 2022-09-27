@@ -71,10 +71,10 @@ export default function ComposeNote({route, navigation}: any) {
       notes: notes,
       flag: flag,
       type: noteTypeList[currChkInd]?.text,
-      // stack: 'Stack1',
+      stack: 'Stack1',
       showTime: showTimeSt,
     });
-  }, [notes, showTimeSt]);
+  }, [notes, showTimeSt, currChkInd]);
 
   useEffect(() => {
     updatePress();

@@ -11,13 +11,14 @@ import STickets from '../../forms/ServiceTickets';
 import {globalState} from '../../stores/globalAppState';
 import {Signature} from '../../forms/Signature';
 import {SignaturePad} from '../../components';
-import { handleStopwatch } from '../utils/headerFunctions';
-import { STicketsAdditionalButtons } from '../../constants/ButtonsList';
+import {handleStopwatch} from '../utils/headerFunctions';
+import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
 import NewTimeSheet from '../../forms/NewTimeSheet';
 import NewExpenseReport from '../../forms/NewExpenseReport';
 import Configuration1 from '../../screens/Configurations/View/Configuration';
 import Contact1 from '../../screens/Contacts/View/Contacts';
 import AddTask from '../../forms/AddTask';
+import {checkValidations} from '../../utils/helperFunctions';
 
 const Stack = createNativeStackNavigator();
 
@@ -86,7 +87,7 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="STickets"
         component={STickets}
         options={({route, navigation}: any) => ({
@@ -125,7 +126,7 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="NewTimeSheet"
         component={NewTimeSheet}
         options={({route, navigation}: any) => ({
@@ -195,12 +196,12 @@ const StackLvl2 = ({navigation, route}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => navigation.goBack()}
+              onPress={() => checkValidations(navigation, route, activeStatus)}
             />
           ),
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Configure1"
         component={Configuration1}
         options={({route, navigation}) => ({

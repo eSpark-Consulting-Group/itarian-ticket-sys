@@ -9,6 +9,7 @@ import {scheduledList, ticketsList} from '../../constants/SampleArrays';
 import { ScheduledList} from '../../types';
 import {globalState} from '../../stores/globalAppState';
 import ListItem from '../../screens/Agenda/ListItem';
+import FloatButton from '../FloatButton';
 
 const Resources = ({route, navigation}: any) => {
   const activeMember: State<string> = useHookstate(globalState.agendaMember);
@@ -57,6 +58,9 @@ const Resources = ({route, navigation}: any) => {
             />
           );
         }}
+      />
+       <FloatButton
+        onPress={() => navigation?.navigate('AddResource')}
       />
     </View>
   );

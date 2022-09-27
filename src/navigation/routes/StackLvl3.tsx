@@ -17,6 +17,7 @@ import NewTimeSheet from '../../forms/NewTimeSheet';
 import NewExpenseReport from '../../forms/NewExpenseReport';
 import Configuration1 from '../../screens/Configurations/View/Configuration';
 import Contact1 from '../../screens/Contacts/View/Contacts';
+import AddTask from '../../forms/AddTask';
 
 const Stack = createNativeStackNavigator();
 
@@ -154,6 +155,31 @@ const StackLvl2 = ({navigation, route}: any) => {
         component={NewExpenseReport}
         options={({route, navigation}: any) => ({
           title: route?.params?.title || 'Add Expense',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="AddTask"
+        component={AddTask}
+        options={({route, navigation}: any) => ({
+          title: 'AddTask',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

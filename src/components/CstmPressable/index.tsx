@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Pressable,
   PressableAndroidRippleConfig,
+  PressableProps,
   TouchableWithoutFeedback,
   View,
   ViewStyle,
@@ -15,6 +16,7 @@ export const CstmPressable = ({
   style = {},
   disabled = false,
   android_ripple = {},
+  otherProps={},
 }: {
   android_disableSound?: boolean;
   children?: React.ReactNode;
@@ -22,6 +24,7 @@ export const CstmPressable = ({
   style?: ViewStyle;
   disabled?: boolean;
   android_ripple?: null | PressableAndroidRippleConfig;
+  otherProps?: PressableProps
 }) => {
   const {dark}: Theme = useTheme();
   const rippleColor = dark ? '#ffffff0e' : '#0000000e';
@@ -41,7 +44,9 @@ export const CstmPressable = ({
       android_ripple={{
         color: rippleColor,
         ...android_ripple,
-      }}>
+      }}
+      {...otherProps}
+      >
       {children}
     </Pressable>
   );

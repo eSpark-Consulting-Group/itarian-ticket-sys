@@ -60,6 +60,7 @@ const Screen = () => {
   LogBox.ignoreLogs([
     'Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date()',
     "The navigation state parsed from the URL contains routes not present in the root navigator. This usually means that the linking configuration doesn't match the navigation structure",
+    'Non-serializable values were found in the navigation state',
   ]);
   return state === true ? (
     <Provider>

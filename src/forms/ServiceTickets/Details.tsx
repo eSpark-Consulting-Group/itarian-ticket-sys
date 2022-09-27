@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {useTheme, Theme, useNavigation} from '@react-navigation/native';
+import {useTheme, Theme, useNavigation, useRoute} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
 import {GapView, SingleLineField} from '../../components';
@@ -13,6 +13,7 @@ type Item = {
 const Details = () => {
   const {colors, dark}: Theme = useTheme();
   const navigation: any = useNavigation();
+  const route: any = useRoute();
   const dataSource: Item[] = [
     {
       title: 'Configurations',
@@ -35,6 +36,11 @@ const Details = () => {
     },
     {
       title: 'Tasks',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'Tasks',
+        });
+      },
     },
     {
       title: 'Time Entries',
@@ -61,7 +67,15 @@ const Details = () => {
       },
     },
     {
-      title: 'My Schedule',
+      title: 'Resources',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'Resources',
+          params: {
+            ticket: route?.params?.title,
+          }
+        });
+      },
     },
   ];
 

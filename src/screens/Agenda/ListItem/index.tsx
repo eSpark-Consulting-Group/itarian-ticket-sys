@@ -20,11 +20,13 @@ const ListItem = ({
   renderDate = true,
   flag,
   onPress,
+  isResource=false,
 }: {
   dataSource: any;
   renderDate?: boolean;
   flag?: boolean;
   onPress?: (item: Ticket) => void;
+  isResource?: boolean;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const navigation: any = useNavigation();
@@ -54,6 +56,11 @@ const ListItem = ({
             </View>
           </View>
           <View style={{width: '75%'}}>
+            {(item2?.assigned_to && isResource) && (
+              <Text style={{fontWeight: 'bold', color: colors.text}}>
+                Assigned to: {item2.assigned_to}
+              </Text>
+            )}
             {item2.type == 'Ticket' && (
               <Text style={{fontWeight: 'bold', color: colors.text}}>
                 Ticket {item2.ticket_no}

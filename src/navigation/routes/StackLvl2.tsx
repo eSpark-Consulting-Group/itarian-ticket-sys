@@ -3,6 +3,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {State, useHookstate} from '@hookstate/core';
 
 import {onSave, goBack} from '../utils/headerFunctions';
@@ -26,6 +27,8 @@ import {Contacts} from '../../screens';
 import ContactListing from '../../components/ContactsListing';
 import Sites from '../../components/Sites';
 import {checkValidations} from '../../utils/helperFunctions';
+import Resources from '../../components/Resources';
+import { Tasks } from '../../components/Tasks';
 
 const Stack = createNativeStackNavigator();
 
@@ -350,6 +353,59 @@ const StackLvl2 = ({navigation, route}: any) => {
               color={'#fff'}
               onPress={() => goBack(navigation)}
             />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Resources"
+        component={Resources}
+        options={({route, navigation}: any) => ({
+          title: 'Resources',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <MCI
+              size={27}
+              name="calendar-plus"
+              color={'#fff'}
+              onPress={() => navigation?.navigate('AddResource')}
+            />
+          ),
+        })}
+      />
+       <Stack.Screen
+        name="Tasks"
+        component={Tasks}
+        options={({route, navigation}: any) => ({
+          title: 'Tasks',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+          headerRight: () => (
+            <>
+             {route?.params?.deleteEnabled &&
+              <MCI
+                size={27}
+                name="delete"
+                color={'#fff'}
+                onPress={() => route?.params?.onDelete()}
+              />}
+            </>
           ),
         })}
       />

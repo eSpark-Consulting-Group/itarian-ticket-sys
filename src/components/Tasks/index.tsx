@@ -50,12 +50,17 @@ export const Tasks = ({navigation, route}: any) => {
     console.log('Item deleted Called');
   };
 
+  const onClear = () => {
+    setselectedIndex([])
+  };
+
   useEffect(() => {
     selectedIndex?.length == 0 && setSelectable(false);
     navigation?.setParams({
       ...route.params,
       deleteEnabled: selectedIndex?.length != 0,
       onDelete: onDelete,
+      onClear: onClear,
     });
   }, [selectedIndex]);
 
@@ -65,7 +70,7 @@ export const Tasks = ({navigation, route}: any) => {
         <CstmPressable
           style={{padding: 10}}
           onPress={() => {
-            navigation.navigate('Stack2', {
+            !selectable ? navigation.navigate('Stack2', {
               screen: 'ComposeNote',
               params: {
                 from: 'Tasks',
@@ -77,7 +82,9 @@ export const Tasks = ({navigation, route}: any) => {
                 headerTitle: 'Note Type',
                 status: route?.params?.status,
               },
-            });
+            })
+            :
+            onLongPress(item, index);
           }}
           otherProps={{
             onLongPress: () => onLongPress(item, index),

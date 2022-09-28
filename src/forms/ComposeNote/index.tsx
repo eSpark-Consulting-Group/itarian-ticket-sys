@@ -149,7 +149,7 @@ export default function ComposeNote({route, navigation}: any) {
                 }}>
                 <MCI name="check" color={'green'} size={20} />
                 <Text style={{color: 'green'}}>
-                  Time Stamp will be adde d on save.
+                  Time Stamp will be added on save
                 </Text>
               </View>
               <>

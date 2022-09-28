@@ -36,6 +36,7 @@ interface Item {
   headerTitle?: string;
   gap?: boolean;
   onPress?: () => void;
+  isRequired?: boolean;
 }
 
 type Mode = 'date' | 'time';
@@ -54,6 +55,7 @@ const Overview = () => {
       title: item?.summary,
       subTitle: 'Summary',
       inputable: true,
+      isRequired: true,
     },
     {
       title: item?.company_name,
@@ -149,7 +151,22 @@ const Overview = () => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (item.list) {
@@ -214,7 +231,7 @@ const Overview = () => {
       {dataSource.map((item: Item, index: number) => (
         <SingleLineField
           key={index}
-          subTitle={item.subTitle}
+          subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
           title={item.title}
           inputable={item.inputable}
           onChangeText={value => {}}

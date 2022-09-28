@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
 
@@ -64,6 +64,7 @@ const NewTimeSheet = ({route, navigation}: any) => {
       subTitle: 'Time',
       inputable: true,
       enable: false,
+      keyboardType: 'number-pad',
       isRequired: true,
     },
     {
@@ -111,6 +112,7 @@ const NewTimeSheet = ({route, navigation}: any) => {
     headerTitle?: string;
     roundedIconEnable?: boolean;
     onRoundIconPress?: () => void;
+    keyboardType?: KeyboardTypeOptions | undefined;
     isRequired?: boolean;
   }
 
@@ -274,6 +276,7 @@ const NewTimeSheet = ({route, navigation}: any) => {
               }
               roundedIconEnable={item?.roundedIconEnable}
               onRoundedIconPress={item?.onRoundIconPress}
+              keyboardType={item?.keyboardType}
             />
           ))}
         </View>

@@ -35,6 +35,7 @@ interface Item {
   searchable?: boolean;
   headerTitle?: string;
   onPress?: () => void;
+  isRequired?: boolean;
 }
 
 type PickerType = 'PD' | 'ED' | 'ID';
@@ -61,6 +62,7 @@ const Overview = () => {
       subTitle: 'Configuration Name',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       subTitle: 'Company Name',
@@ -241,7 +243,22 @@ const Overview = () => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
 
   const handlePress = (item: Item, index: number) => {
     if (index != 7 && item.list) {
@@ -313,7 +330,7 @@ const Overview = () => {
         {dataSource.map((item: Item, index: number) => (
           <SingleLineField
             key={index}
-            subTitle={item.subTitle}
+            subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
             title={item.title}
             inputable={item.inputable}
             onChangeText={value => handleChangeText(value, index)}

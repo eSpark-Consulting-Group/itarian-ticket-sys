@@ -26,13 +26,14 @@ const OTPScreen = ({navigation, route}: any) => {
     }, 10000);
   }, []);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     var obj = {
       otp: otp,
       otpKey: paramsData?.otpKey,
       otpType: paramsData?.otpType,
     };
-    handleVerifyOTP(obj);
+    const result = await  handleVerifyOTP(obj);
+    if(!result) setOtp('')
   };
 
   const onResend = async () => {

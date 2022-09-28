@@ -371,14 +371,6 @@ const StackLvl2 = ({navigation, route}: any) => {
               onPress={() => goBack(navigation)}
             />
           ),
-          headerRight: () => (
-            <MCI
-              size={27}
-              name="calendar-plus"
-              color={'#fff'}
-              onPress={() => navigation?.navigate('AddResource')}
-            />
-          ),
         })}
       />
        <Stack.Screen
@@ -388,13 +380,25 @@ const StackLvl2 = ({navigation, route}: any) => {
           title: 'Tasks',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
+            <>
+              {!route?.params?.deleteEnabled ? (
+                <II
+                  size={30}
+                  name="chevron-back"
+                  style={{right: 6}}
+                  color={'#fff'}
+                  onPress={() => goBack(navigation)}
+                />
+              ) : (
+                <II
+                  size={30}
+                  name="close"
+                  style={{right: 6}}
+                  color={'#fff'}
+                  onPress={() => route?.params?.onClear()}
+                />
+              )}
+            </>
           ),
           headerRight: () => (
             <>

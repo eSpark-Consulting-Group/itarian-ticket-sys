@@ -342,7 +342,7 @@ const StackLvl2 = ({navigation, route}: any) => {
                   },
                 })
               }
-              style={{right: 10}}
+              style={{left: 5}}
             />
           ),
           headerLeft: () => (

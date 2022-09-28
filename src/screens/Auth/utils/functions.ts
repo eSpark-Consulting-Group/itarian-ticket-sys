@@ -16,6 +16,9 @@ const handleLoginUser = async (
   console.log('password:', password);
   const response = await api.post('/api/auth', {
     // email: email,
+    // testwiz@yopmail.com //?: simple
+    // test2fa2@yopmail.com //?: authenticator 2fa
+    // otptester@yopmail.com //?: sms 2fa
     email: 'testwiz@yopmail.com',
     // password: password,
     password: 'Admin123!@',

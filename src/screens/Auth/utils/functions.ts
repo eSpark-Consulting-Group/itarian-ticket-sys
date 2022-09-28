@@ -87,6 +87,14 @@ const requestSmsOtp = async (data: any, navigation: any) => {
         icon: 'auto',
       });
     }
+    if (resData?.code == 'ERR_OTP_KEY_INVALID') {
+      showMessage({
+        message: 'OTP key is invalid',
+        type: 'danger',
+        icon: 'auto',
+      });
+      navigation?.goBack();
+    }
     if (resData?.code == 'SUCCESS_OTP_VERIFICATION_CODE_SENT') {
       return true;
     } else {

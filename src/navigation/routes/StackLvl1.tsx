@@ -267,12 +267,29 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
           headerRight: () => (
-            <FA
-              size={30}
-              name="save"
-              color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
-            />
+            <>
+              <II
+                size={30}
+                name="barcode-outline"
+                color={'#ffffff'}
+                onPress={() =>
+                  navigation.navigate('Stack3', {
+                    screen: 'BarcodeScanner',
+                    params: {
+                      from: 'NewConfigure',
+                      stack: 'Stack1',
+                    },
+                  })
+                }
+                style={{right: 10}}
+              />
+              <FA
+                size={30}
+                name="save"
+                color={'#fff'}
+                onPress={() => checkValidations(navigation, route, activeStatus)}
+              />
+            </>
           ),
         })}
       />

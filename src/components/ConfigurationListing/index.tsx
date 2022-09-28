@@ -16,7 +16,7 @@ import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './styles';
 import {searchFromArray} from '../../utils/helperFunctions';
-
+import FloatButton from '../../components/FloatButton/index'
 const ConfigurationListing = ({route}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
@@ -199,6 +199,9 @@ export const RenderConfigurations = ({
       ) : (
         <NotFound />
       )}
+      <FloatButton
+        onPress={() => navigation.navigate('Stack3', {screen: 'NewConfigure'})}
+      />
     </>
   );
 };

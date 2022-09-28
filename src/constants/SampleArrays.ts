@@ -1009,8 +1009,8 @@ export const sBoardFiterList: Filter[] = [
     headerTitle: 'Site',
   },
   {
-    title: 'Contact',
-    subTitle: 'Please Select',
+    title: 'Please Select',
+    subTitle: 'Contact',
     rightIcon: 'chevron-right',
     list: contactsList,
     selectedItem: contactsList[0],
@@ -1268,5 +1268,4 @@ export const ComapanySites: CompanySites[] = [
     type: 'Site',
     company_name: 'ACME Industries',
   },
-]
-;
+];

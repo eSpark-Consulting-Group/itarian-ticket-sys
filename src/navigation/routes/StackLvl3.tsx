@@ -10,7 +10,7 @@ import {State, useHookstate} from '@hookstate/core';
 import STickets from '../../forms/ServiceTickets';
 import {globalState} from '../../stores/globalAppState';
 import {Signature} from '../../forms/Signature';
-import {SignaturePad} from '../../components';
+import {BarcodeScanner, SignaturePad} from '../../components';
 import {handleStopwatch} from '../utils/headerFunctions';
 import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
 import NewTimeSheet from '../../forms/NewTimeSheet';
@@ -19,6 +19,7 @@ import Configuration1 from '../../screens/Configurations/View/Configuration';
 import Contact1 from '../../screens/Contacts/View/Contacts';
 import AddTask from '../../forms/AddTask';
 import {checkValidations} from '../../utils/helperFunctions';
+import NewConfiguration from '../../forms/NewConfiguration/CreateConfigurations';
 
 const Stack = createNativeStackNavigator();
 
@@ -235,6 +236,74 @@ const StackLvl2 = ({navigation, route}: any) => {
             />
           ),
           headerRight: () => null,
+        })}
+      />
+       <Stack.Screen
+        name="BarcodeScanner"
+        component={BarcodeScanner}
+        options={({route, navigation}) => ({
+          title: 'Barcode Scanner',
+          headerShown: false,
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewConfigure"
+        component={NewConfiguration}
+        options={({route, navigation}) => ({
+          title: 'New Configuration',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <>
+              <II
+                size={30}
+                name="barcode-outline"
+                color={'#ffffff'}
+                onPress={() =>
+                  navigation.navigate('Stack3', {
+                    screen: 'BarcodeScanner',
+                    params: {
+                      from: 'NewConfigure',
+                      stack: 'Stack3',
+                    },
+                  })
+                }
+                style={{right: 10}}
+              />
+              <FA
+                size={30}
+                name="save"
+                color={'#fff'}
+                onPress={() => checkValidations(navigation, route, activeStatus)}
+              />
+            </>
+          ),
         })}
       />
     </Stack.Navigator>

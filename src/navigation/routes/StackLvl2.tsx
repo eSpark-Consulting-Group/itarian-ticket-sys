@@ -334,11 +334,11 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="barcode-outline"
               color={'#ffffff'}
               onPress={() =>
-                navigation.navigate('Stack1', {
+                navigation.navigate('Stack3', {
                   screen: 'BarcodeScanner',
                   params: {
-                    from: 'Configurations',
-                    stack: 'Draw',
+                    from: 'ConfigurationListing',
+                    stack: 'Stack2',
                   },
                 })
               }

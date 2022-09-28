@@ -23,7 +23,7 @@ const OTPScreen = ({navigation, route}: any) => {
   useEffect(() => {
     setTimeout(() => {
       setshowResend(true);
-    }, 5000);
+    }, 10000);
   }, []);
 
   const onSubmit = () => {
@@ -44,7 +44,7 @@ const OTPScreen = ({navigation, route}: any) => {
       setExpired(!expired);
       setTimeout(() => {
         setshowResend(true);
-      }, 5000);
+      }, 10000);
     }
   };
 

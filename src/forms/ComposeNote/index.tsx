@@ -22,7 +22,8 @@ export default function ComposeNote({route, navigation}: any) {
   const [noteTypeList, setNoteTypeList] = useState<NoteTypes[]>([]);
   const [currChkInd, setCurrChkInd] = useState<number | any>(0);
   const [loader, setLoader] = useState<boolean>(true);
-  const [stNotes, setStNotes] = useState<boolean>(false);
+  const [stack, setStack] = useState<string>('');
+  const [from, setFrom] = useState<string>('');
   const [showTimeSt, setShowTimeSt] = useState<boolean>(false);
   const [selectedStNote, setSelectedStNote] = useState(stNotesList[0]);
   const [notes, setNotes] = useState<string>('');
@@ -66,12 +67,18 @@ export default function ComposeNote({route, navigation}: any) {
   };
 
   useEffect(() => {
+    setStack(route?.params?.stack);
+    setFrom(route?.params?.from);
+  }, []);
+
+  useEffect(() => {
     navigation?.setParams({
       ...route?.params,
       notes: notes,
       flag: flag,
       type: noteTypeList[currChkInd]?.text,
-      // stack: 'Stack1',
+      stack: stack,
+      from: from,
       showTime: showTimeSt,
     });
   }, [notes, showTimeSt, currChkInd]);

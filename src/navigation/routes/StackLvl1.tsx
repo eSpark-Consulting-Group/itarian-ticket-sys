@@ -214,7 +214,14 @@ const StackLvl1 = ({route, navigation}: any) => {
               onPress={() => navigation.goBack()}
             />
           ),
-          headerRight: () => <FA size={30} name="save" color={'#fff'} />,
+          headerRight: () => (
+            <FA
+              size={30}
+              name="save"
+              color={'#fff'}
+              onPress={() => checkValidations(navigation, route, activeStatus)}
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -297,7 +304,9 @@ const StackLvl1 = ({route, navigation}: any) => {
                 size={30}
                 name="save"
                 color={'#fff'}
-                onPress={() => navigation.goBack()}
+                onPress={() =>
+                  checkValidations(navigation, route, activeStatus)
+                }
               />
             </View>
           ),
@@ -323,7 +332,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => navigation.goBack()}
+              onPress={() => checkValidations(navigation, route, activeStatus)}
             />
           ),
         })}

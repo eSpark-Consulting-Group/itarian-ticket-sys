@@ -29,6 +29,7 @@ interface Item {
   searchable?: boolean;
   onPress?: () => void;
   inputable?: boolean;
+  isRequired?: boolean;
 }
 
 export default function Overview() {
@@ -47,6 +48,7 @@ export default function Overview() {
       subTitle: 'Opportunity',
       inputable: true,
       enable: false,
+      isRequired: true,
     },
     {
       title: siteList[0].name,
@@ -138,7 +140,22 @@ export default function Overview() {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDs([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    Ds.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+      }),
+    );
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [Ds]);
 
   const handlePress = (item: Item, index: number) => {
     if (item?.list) {
@@ -184,7 +201,7 @@ export default function Overview() {
       {Ds.map((item, index) => (
         <SingleLineField
           key={index}
-          subTitle={item.subTitle}
+          subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
           inputable={item.inputable}
           title={item.title}
           enable={item.enable}

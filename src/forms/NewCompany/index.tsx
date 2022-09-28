@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 
 import {ModalView, SingleLineField} from '../../components';
@@ -28,6 +28,7 @@ const NewCompany = ({route, navigation}: any) => {
       subTitle: 'Company Phone No',
       inputable: true,
       enable: false,
+      keyboardType: 'number-pad',
       isRequired: true,
     },
     {
@@ -48,6 +49,7 @@ const NewCompany = ({route, navigation}: any) => {
       subTitle: 'Zip Code',
       inputable: true,
       enable: false,
+      keyboardType: 'number-pad',
       isRequired: true,
     },
     {
@@ -120,6 +122,7 @@ const NewCompany = ({route, navigation}: any) => {
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
+    keyboardType?: KeyboardTypeOptions | undefined;
     isRequired?: boolean;
   }
 
@@ -194,6 +197,7 @@ const NewCompany = ({route, navigation}: any) => {
               showRightSwitch={item.showRightSwitch}
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
+              keyboardType={item?.keyboardType}
               onPress={() => handlePress(item, index)}
             />
           ))}

@@ -16,7 +16,7 @@ const handleLoginUser = async (
   console.log('password:', password);
   const response = await api.post('/api/auth', {
     // email: email,
-    email: 'testwiz@yopmail.com',
+    email: 'test2fa2@yopmail.com',
     // password: password,
     password: 'Admin123!@',
     nameSpace: 'ServiceDesk',
@@ -123,6 +123,7 @@ const handleVerifyOTP = async (data: any) => {
         type: 'danger',
         icon: 'auto',
       });
+      return false;
     }
     if (resData.code == 'SUCCESS_AUTHENTICATION') {
       const {data} = resData;
@@ -141,9 +142,11 @@ const handleVerifyOTP = async (data: any) => {
       };
       store.update('user', userObj);
       userStore.user.set(userObj);
+      return true
     }
   } else {
     globalState.loader.set(false);
+    return false;
   }
 };
 

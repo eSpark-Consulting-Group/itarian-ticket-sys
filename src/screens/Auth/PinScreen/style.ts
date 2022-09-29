@@ -46,9 +46,11 @@ const styles = StyleSheet.create({
   text: {
     padding: 10,
     fontSize: 40,
+    opacity: 0.85,
   },
   icon: {
     padding: 10,
+    opacity: 0.85,
   },
 });
 

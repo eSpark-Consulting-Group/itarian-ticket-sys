@@ -66,26 +66,30 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
     };
   }, []);
 
+  // const handleScanner = () => { //! do not remove
+  //   FingerprintScanner.isSensorAvailable()
+  //     .then(biometryType => {
+  //       console.log('Biometric', biometryType);
+  //       setShowScanners(true);
+  //     })
+  //     .catch(error => {
+  //       setShowScanners(false);
+  //       Alert.alert(error.name, error.message, [
+  //         {
+  //           text: 'Open Security',
+  //           style: 'default',
+  //           onPress: () => AndroidOpenSettings.securitySettings(),
+  //         },
+  //         {
+  //           text: 'Cancel',
+  //           style: 'cancel',
+  //         },
+  //       ]);
+  //     });
+  // };
+
   const handleScanner = () => {
-    FingerprintScanner.isSensorAvailable()
-      .then(biometryType => {
-        console.log('Biometric', biometryType);
-        setShowScanners(true);
-      })
-      .catch(error => {
-        setShowScanners(false);
-        Alert.alert(error.name, error.message, [
-          {
-            text: 'Open Security',
-            style: 'default',
-            onPress: () => AndroidOpenSettings.securitySettings(),
-          },
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-        ]);
-      });
+    navigation.navigate('Pin');
   };
 
   // const handleScanner = () => {

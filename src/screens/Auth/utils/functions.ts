@@ -15,12 +15,12 @@ const handleLoginUser = async (
   console.log('email:', email);
   console.log('password:', password);
   const response = await api.post('/api/auth', {
-    email: email,
+    email: 'testwiz@yopmail.com',
     // testwiz@yopmail.com //?: simple
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
     // email: 'testwiz@yopmail.com',
-    password: password,
+    password: 'Admin123!@',
     // password: 'Admin123!@',
     nameSpace: 'ServiceDesk',
   });
@@ -145,7 +145,7 @@ const handleVerifyOTP = async (data: any) => {
       };
       store.update('user', userObj);
       userStore.user.set(userObj);
-      return true
+      return true;
     }
   } else {
     globalState.loader.set(false);

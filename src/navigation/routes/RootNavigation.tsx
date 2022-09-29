@@ -8,7 +8,7 @@ import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
 //@ts-ignore
 import store from 'react-native-simple-store';
 
-import {Login, SignUp, OTPScreen} from '../../screens/index';
+import {Login, OTPScreen, PinScreen} from '../../screens/index';
 import {DarkTheme, LightTheme} from '../../theme/colors';
 import Drawer from './Drawer';
 import {globalState} from '../../stores/globalAppState';
@@ -19,12 +19,12 @@ import {userStore} from '../../stores/userStore';
 
 export type RootStackParamList = {
   Login: undefined;
-  SignUp: undefined;
   Draw: undefined;
   Stack1: undefined;
   Stack2: {screen: string; params?: object};
   Stack3: undefined;
   OTPScreen: undefined;
+  Pin: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -91,7 +91,7 @@ const App = () => {
         themeValue.set(res?.theme);
       }
     });
-  }, [])
+  }, []);
 
   const handleColdBoot = (data: ShortcutItem) => {
     const {userInfo} = data;
@@ -122,8 +122,8 @@ const App = () => {
                 options={{headerShown: false}}
               />
               <Stack.Screen
-                name="SignUp"
-                component={SignUp}
+                name="Pin"
+                component={PinScreen}
                 options={{headerShown: false}}
               />
               <Stack.Screen

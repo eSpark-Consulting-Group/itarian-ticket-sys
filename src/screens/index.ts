@@ -1,4 +1,4 @@
-import {Login, SignUp} from './Auth';
+import {Login, PinScreen} from './Auth';
 import Agenda from './Agenda';
 import Search from './Search';
 import Calendar from './Calendar';
@@ -19,7 +19,7 @@ import Profile from './Profile';
 import OTPScreen from './Auth/OTPScreen';
 export {
   Login,
-  SignUp,
+  PinScreen,
   Agenda,
   Search,
   Calendar,
@@ -37,5 +37,5 @@ export {
   Settings,
   SendFeedback,
   Profile,
-  OTPScreen
+  OTPScreen,
 };

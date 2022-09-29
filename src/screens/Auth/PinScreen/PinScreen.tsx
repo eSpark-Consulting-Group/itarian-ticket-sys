@@ -4,13 +4,13 @@ import {View, Text} from 'react-native';
 
 import styles from './style';
 
-const SignUpScreen = () => {
+const PinScreen = () => {
   const {colors}: Theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text>SignUp Screen</Text>
+      <Text>Pin Screen</Text>
     </View>
   );
 };
 
-export default SignUpScreen;
+export default PinScreen;

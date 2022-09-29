@@ -26,6 +26,7 @@ const ConfigurationListing = ({route}: any) => {
   useEffect(() => {
     if (route.params) {
       setSearchValue(route.params.data);
+      searchFilterFunction(route?.params?.data)
     }
   }, [route.params]);
 

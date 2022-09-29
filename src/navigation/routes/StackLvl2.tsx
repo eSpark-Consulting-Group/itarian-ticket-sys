@@ -429,7 +429,7 @@ const StackLvl2 = ({navigation, route}: any) => {
                 navigation.navigate('Stack3', {
                   screen: 'BarcodeScanner',
                   params: {
-                    from: 'ConfigurationListing',
+                    from: 'ProductListing',
                     stack: 'Stack2',
                   },
                 })

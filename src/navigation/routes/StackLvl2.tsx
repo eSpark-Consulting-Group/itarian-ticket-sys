@@ -29,6 +29,7 @@ import Sites from '../../components/Sites';
 import {checkValidations} from '../../utils/helperFunctions';
 import Resources from '../../components/Resources';
 import { Tasks } from '../../components/Tasks';
+import { ProductListing } from '../../components/ProductListing';
 
 const Stack = createNativeStackNavigator();
 
@@ -413,6 +414,39 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
+      <Stack.Screen
+        name="ProductListing"
+        component={ProductListing}
+        options={({route, navigation}: any) => ({
+          title: 'Products',
+          headerStyle: {backgroundColor: colors.primary},
+          headerRight: () => (
+            <II
+              size={30}
+              name="barcode-outline"
+              color={'#ffffff'}
+              onPress={() =>
+                navigation.navigate('Stack3', {
+                  screen: 'BarcodeScanner',
+                  params: {
+                    from: 'ConfigurationListing',
+                    stack: 'Stack2',
+                  },
+                })
+              }
+              style={{left: 5}}
+            />
+          ),
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => goBack(navigation)}
+            />
+          ),
+        })} />
     </Stack.Navigator>
   );
 };

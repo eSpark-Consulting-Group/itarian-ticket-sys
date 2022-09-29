@@ -20,6 +20,8 @@ import Contact1 from '../../screens/Contacts/View/Contacts';
 import AddTask from '../../forms/AddTask';
 import {checkValidations} from '../../utils/helperFunctions';
 import NewConfiguration from '../../forms/NewConfiguration/CreateConfigurations';
+import AddProduct from '../../forms/AddProduct';
+import Product from '../../components/ProductListing/View/Product';
 
 const Stack = createNativeStackNavigator();
 
@@ -210,7 +212,7 @@ const StackLvl2 = ({navigation, route}: any) => {
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
-              size={30}
+            size={30}
               name="chevron-back"
               style={{right: 6}}
               color={'#fff'}
@@ -252,16 +254,16 @@ const StackLvl2 = ({navigation, route}: any) => {
               style={{right: 6}}
               color={'#fff'}
               onPress={() => navigation.goBack()}
-            />
-          ),
-          headerRight: () => (
-            <FA
+              />
+              ),
+              headerRight: () => (
+                <FA
               size={27}
               name="save"
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
-          ),
+            ),
         })}
       />
       <Stack.Screen
@@ -304,6 +306,66 @@ const StackLvl2 = ({navigation, route}: any) => {
               />
             </>
           ),
+        })}
+      />
+      <Stack.Screen
+        name="AddProduct"
+        component={AddProduct}
+        options={({route, navigation}: any) => ({
+          title: 'New Product',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <>
+              <II
+              size={30}
+              name="barcode-outline"
+              color={'#ffffff'}
+              onPress={() =>
+                navigation.navigate('Stack3', {
+                  screen: 'BarcodeScanner',
+                  params: {
+                    from: 'ConfigurationListing',
+                    stack: 'Stack2',
+                  },
+                })
+              }
+              style={{right: 10}}
+            />
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => checkValidations(navigation, route, activeStatus)}
+            />
+            </>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Product"
+        component={Product}
+        options={({route, navigation}) => ({
+          title: 'Product',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => <FA size={30} name="save" color={'#fff'} />,
         })}
       />
     </Stack.Navigator>

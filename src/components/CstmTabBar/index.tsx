@@ -32,7 +32,6 @@ export default function CstmTabBar(props: any) {
     routes?.length < 3 ? WINDOW_WIDTH * 0.405 : WINDOW_WIDTH * 0.305;
   var highlight = dark ? '#000000' : '#fff';
   const factor = routes?.length < 3 ? 1.035 : (WINDOW_WIDTH > 600 ? 1.025 : 1.045);
-  console.log("WINDOW_WIDTH", WINDOW_WIDTH)
   const animateHeader = (index: any) => {
     Animated.timing(translateValue, {
       toValue: index * factor * handleWidth,

@@ -144,11 +144,14 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               <MCI name="logout" size={size} color={color} />
             )}
             onPress={() => {
+              props.navigation.navigate('Login');
               user.set(false);
               dSName.set('Agenda');
               dScreen.set('Agenda');
               dNavName.set('');
-              store.delete(['user', 'dSName', 'dNavName']);
+              //       store.update('pinCode', pin);
+              // userStore.pinCode.set(pin);
+              store.delete(['user', 'dSName', 'dNavName', 'pinCode']);
             }}
           />
         </View>

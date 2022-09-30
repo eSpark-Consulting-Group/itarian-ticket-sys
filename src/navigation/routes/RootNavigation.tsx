@@ -45,6 +45,7 @@ const App = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const user: State<any> = useHookstate(userStore.user);
+  const pinCode: State<any> = useHookstate(userStore.pinCode);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
@@ -58,6 +59,11 @@ const App = () => {
   //! ---------------------------------------------------
 
   useEffect(() => {
+    store.get('pinCode').then((res: any) => {
+      if (res) {
+        pinCode.set(res);
+      }
+    });
     store.get('user').then((res: any) => {
       console.log('user', res);
       if (res) user.set(res);
@@ -84,6 +90,8 @@ const App = () => {
       }
     });
   }, [themeValue.get()]);
+
+  const userRes = user.get;
 
   useEffect(() => {
     store.get('theme').then((res: any) => {
@@ -113,53 +121,50 @@ const App = () => {
         }}
         // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
-        <Stack.Navigator>
-          {!user.get() ? (
-            <>
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Pin"
-                component={PinScreen}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="OTPScreen"
-                component={OTPScreen}
-                options={{headerShown: false}}
-              />
-            </>
-          ) : (
-            <Stack.Group
-              screenOptions={{
-                presentation: 'modal',
-                animation: 'slide_from_bottom',
-              }}>
-              <Stack.Screen
-                name="Draw"
-                component={Drawer}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Stack1"
-                component={StackLvl1}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Stack2"
-                component={StackLvl2}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Stack3"
-                component={StackLvl3}
-                options={{headerShown: false}}
-              />
-            </Stack.Group>
-          )}
+        <Stack.Navigator initialRouteName={pinCode.get() ? 'Pin' : 'Login'}>
+          <>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Pin"
+              component={PinScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="OTPScreen"
+              component={OTPScreen}
+              options={{headerShown: false}}
+            />
+          </>
+          <Stack.Group
+            screenOptions={{
+              presentation: 'modal',
+              animation: 'slide_from_bottom',
+            }}>
+            <Stack.Screen
+              name="Draw"
+              component={Drawer}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Stack1"
+              component={StackLvl1}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Stack2"
+              component={StackLvl2}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Stack3"
+              component={StackLvl3}
+              options={{headerShown: false}}
+            />
+          </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

@@ -13,4 +13,5 @@ export const userStore = hookstate({
   dateBack: '-',
   timeBack: '-',
   user: null,
+  pinCode: null,
 });

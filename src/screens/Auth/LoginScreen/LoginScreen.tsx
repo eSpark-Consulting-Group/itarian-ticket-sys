@@ -105,11 +105,11 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   //   }
   // };
 
-  QuickActions.popInitialAction()
-    .then(data => {
-      if (data != null) handleColdBoot(data);
-    })
-    .catch(err => console.log('err', err));
+  // QuickActions.popInitialAction()
+  //   .then(data => {
+  //     if (data != null) handleColdBoot(data);
+  //   })
+  //   .catch(err => console.log('err', err));
 
   return (
     <View style={{height: WINDOW_HEIGHT}}>

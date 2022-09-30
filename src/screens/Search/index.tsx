@@ -41,12 +41,14 @@ const Search = ({route}: any) => {
   useEffect(() => {
     if (route.params) {
       setSearchValue(route.params.data);
+      searchTagValue.set('configurations');
+      setTimeout(() => setIsSearching(true), 2000)
       setType('configurations');
+      searchFilterFunction(route.params.data, 'configurations');
     }
   }, [route.params]);
 
   const handleSubmit = () => {
-    setIsSearching(true);
     setLoading(true);
     searchFilterFunction(searchValue, searchTagValue.get());
     setTimeout(() => {
@@ -58,6 +60,7 @@ const Search = ({route}: any) => {
     text: string,
     domain: string = 'tickets',
   ) => {
+    setIsSearching(true);
     switch (domain) {
       case 'tickets':
         var result = await searchFromArray({
@@ -74,7 +77,6 @@ const Search = ({route}: any) => {
         });
         setFilteredContacts(result);
       case 'companies':
-        console.log('text?:', text);
         var result = await searchFromArray({
           text: text,
           list: companiesList,
@@ -87,7 +89,7 @@ const Search = ({route}: any) => {
           list: configurationsList,
           keys: ['name', 'company_name', 'model', 'serial', 'tag'],
         });
-        setFilteredConfigurations(result);
+        setFilteredConfigurations([...result]);
     }
   };
 
@@ -98,7 +100,6 @@ const Search = ({route}: any) => {
 
   useUpdateEffect(() => {
     if (clear) {
-      console.log('done');
       handleSubmit();
       setClear(false);
     }
@@ -126,7 +127,6 @@ const Search = ({route}: any) => {
   };
 
   useEffect(() => {
-    console.log('kia hai value', searchTagValue.get());
     setIsSearching(false);
   }, [searchTagValue.get()]);
 
@@ -145,7 +145,6 @@ const Search = ({route}: any) => {
     }
   };
 
-  console.log('Getting search value', searchValue);
   return (
     <View style={styles.container}>
       <View

@@ -8,33 +8,44 @@ import {color} from 'react-native-reanimated';
 import {styles} from './styles';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import FloatButton from '../FloatButton';
+import {searchFromArray} from '../../utils/helperFunctions';
+import {useUpdateEffect} from '../../utils/hooks';
+import ModalHeader from '../ModalHeader';
+import SearchBar from '../SearchBar';
+import {Loader} from '../Loader';
+import NotFound from '../NotFound';
 
 type Task = {
   id: number;
   summary?: string;
 };
+
+const tasks = [
+  {
+    id: 1,
+    summary: 'Task 1',
+  },
+  {
+    id: 2,
+    summary: 'Task 2',
+  },
+  {
+    id: 3,
+    summary: 'Task 3',
+  },
+  {
+    id: 4,
+    summary: 'Task 4',
+  },
+];
 export const Tasks = ({navigation, route}: any) => {
-  const [dataSource, setDataSource] = useState<Task[]>([
-    {
-      id: 1,
-      summary: 'Task 1',
-    },
-    {
-      id: 2,
-      summary: 'Task 2',
-    },
-    {
-      id: 3,
-      summary: 'Task 3',
-    },
-    {
-      id: 4,
-      summary: 'Task 4',
-    },
-  ]);
+  const [dataSource, setDataSource] = useState<Task[]>(tasks);
   const {dark, colors}: Theme = useTheme();
   const [selectable, setSelectable] = useState(false);
   const [selectedIndex, setselectedIndex] = useState<number[]>([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [loader, setLoader] = useState<boolean>(false);
+  const [clear, setClear] = useState(false);
 
   const onLongPress = (item: Task, index: number) => {
     setSelectable(true);
@@ -51,8 +62,35 @@ export const Tasks = ({navigation, route}: any) => {
   };
 
   const onClear = () => {
-    setselectedIndex([])
+    setselectedIndex([]);
   };
+
+  const searchFilterFunction = async (text: string) => {
+    var result = await searchFromArray({
+      text: text || '',
+      list: tasks,
+      keys: ['summary'],
+    });
+    setDataSource(result);
+  };
+
+  const handleSubmit = async () => {
+    setLoader(true);
+    await searchFilterFunction(searchValue);
+    setLoader(false);
+  };
+
+  const handleClear = () => {
+    setSearchValue('');
+    setClear(true);
+  };
+
+  useUpdateEffect(() => {
+    if (clear) {
+      handleSubmit();
+      setClear(false);
+    }
+  }, [clear]);
 
   useEffect(() => {
     selectedIndex?.length == 0 && setSelectable(false);
@@ -70,21 +108,21 @@ export const Tasks = ({navigation, route}: any) => {
         <CstmPressable
           style={{padding: 10}}
           onPress={() => {
-            !selectable ? navigation.navigate('Stack2', {
-              screen: 'ComposeNote',
-              params: {
-                from: 'Tasks',
-                item: 'GoneTo',
-                data: NoteTypes_DIR,
-                selected: {},
-                stack: 'Stack2',
-                title: route?.params?.title,
-                headerTitle: 'Note Type',
-                status: route?.params?.status,
-              },
-            })
-            :
-            onLongPress(item, index);
+            !selectable
+              ? navigation.navigate('Stack2', {
+                  screen: 'ComposeNote',
+                  params: {
+                    from: 'Tasks',
+                    item: 'GoneTo',
+                    data: NoteTypes_DIR,
+                    selected: {},
+                    stack: 'Stack2',
+                    title: route?.params?.title,
+                    headerTitle: 'Note Type',
+                    status: route?.params?.status,
+                  },
+                })
+              : onLongPress(item, index);
           }}
           otherProps={{
             onLongPress: () => onLongPress(item, index),
@@ -119,7 +157,27 @@ export const Tasks = ({navigation, route}: any) => {
   };
   return (
     <View style={{flex: 1}}>
-      <FlatList data={dataSource} renderItem={renderTask} />
+      <ModalHeader empty searchHeader>
+        <SearchBar
+          withTag={false}
+          placeholder={'Search...'}
+          fontSize={'large'}
+          value={searchValue}
+          setChangeText={value => setSearchValue(value)}
+          onSubmit={handleSubmit}
+          onClear={handleClear}
+        />
+      </ModalHeader>
+      <Loader isShow={loader} />
+      <FlatList
+        data={dataSource}
+        renderItem={renderTask}
+        ListEmptyComponent={
+          <View style={{marginTop: 50}}>
+            <NotFound label="Task" />
+          </View>
+        }
+      />
       <FloatButton
         onPress={() => navigation.navigate('Stack3', {screen: 'AddTask'})}
       />

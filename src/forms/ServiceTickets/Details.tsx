@@ -25,6 +25,11 @@ const Details = () => {
     },
     {
       title: 'Products',
+      onPress: () => {
+        navigation.navigate('Stack2', {
+          screen: 'ProductListing',
+        });
+      },
     },
     {
       title: 'Attachments',

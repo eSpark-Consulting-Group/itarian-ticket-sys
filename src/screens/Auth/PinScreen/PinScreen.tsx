@@ -6,27 +6,50 @@ import AndroidOpenSettings from 'react-native-android-open-settings';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import {State, useHookstate} from '@hookstate/core';
+// @ts-ignore
+import store from 'react-native-simple-store';
 
 import styles from './style';
 import Images from '../../../assets/images';
 import {BiometricVerification, CstmPressable} from '../../../components';
 import {useUpdateEffect} from '../../../utils/hooks';
 import {userStore} from '../../../stores/userStore';
+import {showMessage} from 'react-native-flash-message';
 
-const PinScreen = () => {
+const PinScreen = ({route, navigation}: any) => {
   const user: State<any> = useHookstate(userStore.user);
-  const [pin, setPin] = useState('');
+  const [pin, setPin] = useState<any>('');
+  const [confirmPin, setConfirmPin] = useState(false);
   const [showScanner, setShowScanners] = useState(false);
 
   const {colors, dark}: Theme = useTheme();
+  const newPin = route?.params?.newPin;
 
   const handleDigit = (digit: string) => {
     if (pin.length < 4) setPin(pin + digit);
   };
 
   useUpdateEffect(() => {
-    if (pin.length == 4) {
-      console.log('done');
+    if (pin.length == 4 && !confirmPin && newPin) {
+      store.update('pinCode', pin);
+      userStore.pinCode.set(pin);
+      setPin('');
+      setConfirmPin(true);
+      console.log('done', pin);
+    } else if (pin.length == 4) {
+      console.log('Stored Pin', userStore.pinCode.get());
+
+      if (userStore.pinCode.get() == pin) {
+        setImmediate(() => {
+          navigation.navigate('Draw');
+        });
+      } else {
+        showMessage({
+          message: 'Incorrect PIN Entered',
+          type: 'danger',
+          icon: 'auto',
+        });
+      }
     }
   }, [pin]);
 
@@ -62,6 +85,11 @@ const PinScreen = () => {
           style={styles.headerImage}
         />
       </View>
+      {newPin && (
+        <Text style={{color: colors.text, fontSize: 16, fontWeight: '500'}}>
+          {confirmPin ? 'Confirm New PIN' : 'New PIN'}
+        </Text>
+      )}
       <OTPInputView
         style={{width: '60%', height: 100, alignSelf: 'center'}}
         pinCount={4}
@@ -93,9 +121,11 @@ const PinScreen = () => {
           color: colors.text,
         }}
       />
-      <Text style={{color: colors.text, fontSize: 16, fontWeight: '500'}}>
-        Forgot PIN?
-      </Text>
+      {!newPin && (
+        <Text style={{color: colors.text, fontSize: 16, fontWeight: '500'}}>
+          Forgot PIN?
+        </Text>
+      )}
       <View style={{width: '80%', alignItems: 'center'}}>
         <View style={{...styles.row}}>
           <CstmPressable
@@ -150,15 +180,17 @@ const PinScreen = () => {
         </View>
         <View style={{...styles.row}}>
           <CstmPressable
+            disabled={newPin}
             onPress={handleScanner}
             android_ripple={{borderless: true}}>
             <II
               name="md-finger-print"
               size={36}
-              color={colors.text}
+              color={newPin ? colors.background : colors.text}
               style={styles.icon}
             />
           </CstmPressable>
+
           <CstmPressable
             onPress={() => handleDigit('0')}
             android_ripple={{borderless: true}}>

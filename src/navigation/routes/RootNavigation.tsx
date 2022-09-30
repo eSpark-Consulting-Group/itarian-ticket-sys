@@ -83,7 +83,14 @@ const App = () => {
         biometricState.set(res?.bioMetric);
       }
     });
+    store.get('pinCode').then((res: any) => {
+      if (res) {
+        userStore.pinCode.set(res);
+      }
+    });
   }, [themeValue.get()]);
+
+  const userRes = user.get;
 
   useEffect(() => {
     store.get('theme').then((res: any) => {
@@ -113,53 +120,51 @@ const App = () => {
         }}
         // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
-        <Stack.Navigator>
-          {!user.get() ? (
-            <>
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Pin"
-                component={PinScreen}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="OTPScreen"
-                component={OTPScreen}
-                options={{headerShown: false}}
-              />
-            </>
-          ) : (
-            <Stack.Group
-              screenOptions={{
-                presentation: 'modal',
-                animation: 'slide_from_bottom',
-              }}>
-              <Stack.Screen
-                name="Draw"
-                component={Drawer}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Stack1"
-                component={StackLvl1}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Stack2"
-                component={StackLvl2}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Stack3"
-                component={StackLvl3}
-                options={{headerShown: false}}
-              />
-            </Stack.Group>
-          )}
+        <Stack.Navigator
+          initialRouteName={user.get()?.sessionId ? 'Pin' : 'Login'}>
+          <>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Pin"
+              component={PinScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="OTPScreen"
+              component={OTPScreen}
+              options={{headerShown: false}}
+            />
+          </>
+          <Stack.Group
+            screenOptions={{
+              presentation: 'modal',
+              animation: 'slide_from_bottom',
+            }}>
+            <Stack.Screen
+              name="Draw"
+              component={Drawer}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Stack1"
+              component={StackLvl1}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Stack2"
+              component={StackLvl2}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Stack3"
+              component={StackLvl3}
+              options={{headerShown: false}}
+            />
+          </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

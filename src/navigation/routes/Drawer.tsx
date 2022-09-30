@@ -144,6 +144,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               <MCI name="logout" size={size} color={color} />
             )}
             onPress={() => {
+              props.navigation.navigate('Login');
               user.set(false);
               dSName.set('Agenda');
               dScreen.set('Agenda');

@@ -21,7 +21,7 @@ const handleLoginUser = async (
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
     // email,
-    // password: 'Admin123!@',
+    password: 'Admin123!@',
     // password,
     nameSpace: 'ServiceDesk',
   });

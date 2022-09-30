@@ -20,29 +20,31 @@ const PinScreen = ({route, navigation}: any) => {
   const user: State<any> = useHookstate(userStore.user);
   const [pin, setPin] = useState<any>('');
   const [confirmPin, setConfirmPin] = useState(false);
+  const [newPin, setnewPin] = useState('');
   const [showScanner, setShowScanners] = useState(false);
 
   const {colors, dark}: Theme = useTheme();
-  const newPin = route?.params?.newPin;
+  const typeNewPin = route?.params?.newPin;
 
   const handleDigit = (digit: string) => {
     if (pin.length < 4) setPin(pin + digit);
   };
 
   useUpdateEffect(() => {
-    if (pin.length == 4 && !confirmPin && newPin) {
-      store.update('pinCode', pin);
-      userStore.pinCode.set(pin);
+    if (pin.length == 4 && !confirmPin && typeNewPin) {
+      setnewPin(pin);
       setPin('');
       setConfirmPin(true);
       console.log('done', pin);
     } else if (pin.length == 4) {
       console.log('Stored Pin', userStore.pinCode.get());
-
-      if (userStore.pinCode.get() == pin) {
+      if (newPin == pin || userStore.pinCode.get() == pin) {
+        store.update('pinCode', pin);
+        userStore.pinCode.set(pin);
         setImmediate(() => {
           navigation.navigate('Draw');
         });
+        setConfirmPin(false);
       } else {
         showMessage({
           message: 'Incorrect PIN Entered',
@@ -50,6 +52,7 @@ const PinScreen = ({route, navigation}: any) => {
           icon: 'auto',
         });
       }
+      setPin('');
     }
   }, [pin]);
 
@@ -85,7 +88,7 @@ const PinScreen = ({route, navigation}: any) => {
           style={styles.headerImage}
         />
       </View>
-      {newPin && (
+      {typeNewPin && (
         <Text style={{color: colors.text, fontSize: 16, fontWeight: '500'}}>
           {confirmPin ? 'Confirm New PIN' : 'New PIN'}
         </Text>
@@ -121,7 +124,7 @@ const PinScreen = ({route, navigation}: any) => {
           color: colors.text,
         }}
       />
-      {!newPin && (
+      {!typeNewPin && (
         <Text style={{color: colors.text, fontSize: 16, fontWeight: '500'}}>
           Forgot PIN?
         </Text>
@@ -180,13 +183,13 @@ const PinScreen = ({route, navigation}: any) => {
         </View>
         <View style={{...styles.row}}>
           <CstmPressable
-            disabled={newPin}
+            disabled={typeNewPin}
             onPress={handleScanner}
             android_ripple={{borderless: true}}>
             <II
               name="md-finger-print"
               size={36}
-              color={newPin ? colors.background : colors.text}
+              color={typeNewPin ? colors.background : colors.text}
               style={styles.icon}
             />
           </CstmPressable>

@@ -40,13 +40,6 @@ const handleLoginUser = async (
       const {data} = resData;
       const {displayName, email, userId, camSessionId} = data?.sessionData;
 
-      showMessage({
-        message: 'Authentication Successful',
-        type: 'success',
-        icon: 'auto',
-        autoHide: true,
-        duration: 100,
-      });
       const userObj: any = {
         user_name: displayName,
         email: email,
@@ -56,6 +49,13 @@ const handleLoginUser = async (
         navigation.navigate('Pin', {newPin: true});
         userObj['sessionId'] = camSessionId;
       } else {
+        showMessage({
+          message: 'Authentication Successful',
+          type: 'success',
+          icon: 'auto',
+          autoHide: true,
+          duration: 100,
+        });
         navigation.navigate('Draw');
       }
       console.log('userObj', userObj);

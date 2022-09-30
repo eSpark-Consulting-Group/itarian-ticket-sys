@@ -45,6 +45,7 @@ const App = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const user: State<any> = useHookstate(userStore.user);
+  const pinCode: State<any> = useHookstate(userStore.pinCode);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
@@ -58,6 +59,11 @@ const App = () => {
   //! ---------------------------------------------------
 
   useEffect(() => {
+    store.get('pinCode').then((res: any) => {
+      if (res) {
+        pinCode.set(res);
+      }
+    });
     store.get('user').then((res: any) => {
       console.log('user', res);
       if (res) user.set(res);
@@ -81,11 +87,6 @@ const App = () => {
     store.get('bioMetric').then((res: any) => {
       if (res) {
         biometricState.set(res?.bioMetric);
-      }
-    });
-    store.get('pinCode').then((res: any) => {
-      if (res) {
-        userStore.pinCode.set(res);
       }
     });
   }, [themeValue.get()]);
@@ -120,8 +121,7 @@ const App = () => {
         }}
         // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
-        <Stack.Navigator
-          initialRouteName={user.get()?.sessionId ? 'Pin' : 'Login'}>
+        <Stack.Navigator initialRouteName={pinCode.get() ? 'Pin' : 'Login'}>
           <>
             <Stack.Screen
               name="Login"

@@ -9,16 +9,27 @@ import {scheduledList, ticketsList} from '../../constants/SampleArrays';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../types';
 import {globalState} from '../../stores/globalAppState';
 import ListItem from '../../screens/Agenda/ListItem';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { useUpdateEffect } from '../../utils/hooks';
+import ModalHeader from '../ModalHeader';
+import ModalView from '../ModalView';
+import SearchBar from '../SearchBar';
+import { Loader } from '../Loader';
 
 const TicketListing = ({route, navigation}: any) => {
   const activeMember: State<string> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
-
-
+  const [searchValue, setSearchValue] = useState('');
+  const [loader, setLoader] = useState<boolean>(false);
+  const [clear, setClear] = useState(false);
 
   useEffect(() => {
-    const schTicks = ticketsList.filter(val => val?.time_dur);
+    filteration(ticketsList)
+  }, [activeMember.get()]);
+
+  const filteration = (ticketsListArr: Ticket[]) => {
+    const schTicks = ticketsListArr.filter(val => val?.time_dur);
     const filTickets = schTicks.filter(
       val => val?.assigned_to == activeMember.get(),
     );
@@ -30,7 +41,35 @@ const TicketListing = ({route, navigation}: any) => {
       });
     }
     setFilArr(aRR);
-  }, [activeMember.get()]);
+  }
+
+  const searchFilterFunction = async (text: string) => {
+    var result = await searchFromArray({
+      text: text || '',
+      list: ticketsList,
+      keys: ['ticket_no', 'summary', 'contact', 'company', 'project'],
+    });
+    filteration(result);
+  };
+
+  const handleSubmit = async () => {
+    setLoader(true);
+    await searchFilterFunction(searchValue);
+    setLoader(false);
+  };
+
+
+  const handleClear = () => {
+    setSearchValue('');
+    setClear(true);
+  };
+
+  useUpdateEffect(() => {
+    if (clear) {
+      handleSubmit();
+      setClear(false);
+    }
+  }, [clear]);
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -39,9 +78,21 @@ const TicketListing = ({route, navigation}: any) => {
     });
   };
 
-
   return (
-    <View style={styles.container}>
+    <ModalView>
+       <ModalHeader empty searchHeader>
+        <SearchBar
+          withTag={false}
+          placeholder={'Search...'}
+          fontSize={'large'}
+          value={searchValue}
+          setChangeText={value => setSearchValue(value)}
+          onSubmit={handleSubmit}
+          onClear={handleClear}
+        />
+      </ModalHeader>
+      <Loader isShow={loader} />
+
       <FlatList
         data={filArr}
         refreshControl={
@@ -79,7 +130,7 @@ const TicketListing = ({route, navigation}: any) => {
           );
         }}
       />
-    </View>
+    </ModalView>
   );
 };
 

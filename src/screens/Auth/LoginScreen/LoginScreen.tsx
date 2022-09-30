@@ -38,6 +38,7 @@ import {globalState} from '../../../stores/globalAppState';
 import {handleColdBoot} from '../../../utils/helperFunctions';
 import {Theme, useTheme} from '@react-navigation/native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
+import {Checkbox} from 'react-native-paper';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
@@ -49,6 +50,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const loadingState: State<boolean> = useHookstate(globalState.loader);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const [showScanner, setShowScanners] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const {colors}: Theme = useTheme();
 
@@ -88,9 +90,9 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   //     });
   // };
 
-  const handleScanner = () => {
-    navigation.navigate('Pin');
-  };
+  // const handleScanner = () => {
+  //   navigation.navigate('Pin');
+  // };
 
   // const handleScanner = () => {
   //   if (biometricState.get()) {
@@ -129,7 +131,8 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
             }}
             onSubmit={values => {
               const {email, password} = values;
-              handleLoginUser(email, password, navigation);
+              handleLoginUser(email, password, rememberMe, navigation);
+              setRememberMe(false);
             }}
             validationSchema={validationSchema}>
             {({
@@ -172,6 +175,15 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                   ) : (
                     <View />
                   )}
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{flex: 0.1}} />
+                    <Checkbox
+                      status={rememberMe ? 'checked' : 'unchecked'}
+                      onPress={() => setRememberMe(!rememberMe)}
+                    />
+                    <Text style={{color: colors.text}}>Remember Me</Text>
+                    <View style={{flex: 0.1}} />
+                  </View>
                   <View style={{marginVertical: 10}}>
                     <CstmButton
                       title="Sign In"
@@ -185,8 +197,8 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               </>
             )}
           </Formik>
-          <Separator text="OR" />
-          <View style={styles.scannerBtnContainer}>
+          {/* <Separator text="OR" /> */}
+          {/* <View style={styles.scannerBtnContainer}>
             <TouchableOpacity
               onPress={handleScanner}
               style={{
@@ -203,13 +215,13 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               }}>
               Biometric Scan
             </Text>
-          </View>
+          </View> */}
         </KeyboardAvoidingView>
       </ScrollView>
 
       <Loader isShow={loadingState.get()} />
 
-      {showScanner && (
+      {/* {showScanner && (
         <BiometricVerification
           onAuthenticate={() => {
             user.set(true);
@@ -217,7 +229,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
           }}
           onCancel={() => setShowScanners(false)}
         />
-      )}
+      )} */}
     </View>
   );
 };

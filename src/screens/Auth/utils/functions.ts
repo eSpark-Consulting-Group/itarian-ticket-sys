@@ -9,6 +9,7 @@ import {userStore} from '../../../stores/userStore';
 const handleLoginUser = async (
   email: string,
   password: string,
+  remember: any,
   navigation: any,
 ) => {
   globalState.loader.set(true);
@@ -37,19 +38,28 @@ const handleLoginUser = async (
     }
     if (resData.code == 'SUCCESS_AUTHENTICATION') {
       const {data} = resData;
-      const {displayName, email, userId} = data?.sessionData;
-      showMessage({
-        message: 'Authentication Successful',
-        type: 'success',
-        icon: 'auto',
-        autoHide: true,
-        duration: 100,
-      });
+      const {displayName, email, userId, camSessionId} = data?.sessionData;
+
       const userObj: any = {
         user_name: displayName,
         email: email,
         userId: userId,
       };
+      if (remember) {
+        navigation.navigate('Pin', {newPin: true});
+        userObj['sessionId'] = camSessionId;
+      } else {
+        showMessage({
+          message: 'Authentication Successful',
+          type: 'success',
+          icon: 'auto',
+          autoHide: true,
+          duration: 100,
+        });
+        navigation.navigate('Draw');
+      }
+      console.log('userObj', userObj);
+
       store.update('user', userObj);
       userStore.user.set(userObj);
     }

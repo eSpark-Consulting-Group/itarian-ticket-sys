@@ -12,6 +12,7 @@ import {
   statusList,
 } from '../../constants/SelectionList';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
+import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
 
 interface Item {
   title: string;
@@ -90,7 +91,8 @@ export default function NewTicket({route, navigation}: any) {
       enable: false,
       rightIconRound: 'file-plus-outline',
       roundedIconEnable: true,
-      onRoundIconPress: handleAddNote,
+      onRoundIconPress: () =>
+        handleAddNote(navigation, route, NoteTypes_DIR, 'NewTicket', 'Stack2'),
     },
   ]);
 
@@ -119,40 +121,6 @@ export default function NewTicket({route, navigation}: any) {
     });
   }, [dataSource]);
 
-  function handleAddNote() {
-    navigation.navigate('Stack2', {
-      screen: 'ComposeNote',
-      params: {
-        from: 'NewTicket',
-        item: 'GoneTo',
-        data: NoteTypes_DIR,
-        stack: 'Stack2',
-        title: route?.params?.title, // used for Dynamic Headers Used
-        headerTitle: 'Note Type',
-        status: route?.params?.status,
-      },
-    });
-  }
-
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'NewTicket',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
-
   return (
     <ModalView>
       <ModalHeader
@@ -177,7 +145,17 @@ export default function NewTicket({route, navigation}: any) {
           title={value.title}
           subTitle={value.isRequired ? value.subTitle + '*' : value.subTitle}
           onPress={
-            value?.onPress ? value.onPress : () => handlePress(value, index)
+            value?.onPress
+              ? value.onPress
+              : () =>
+                  SelectItems(
+                    value,
+                    index,
+                    navigation,
+                    route,
+                    'NewTicket',
+                    'Stack1',
+                  )
           }
           enable={value.enable}
           inputable={value.inputable}

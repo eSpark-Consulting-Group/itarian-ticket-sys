@@ -6,6 +6,7 @@ import DatePicker from '@react-native-community/datetimepicker';
 import {CstmButton, ModalView, SingleLineField} from '../../components';
 import {SelectFields} from '../../types';
 import {typeList, whereList} from '../../constants/SelectionList';
+import {SelectItems} from '../../utils/helperFunctions';
 
 const AddMiscSchedule = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -175,24 +176,6 @@ const AddMiscSchedule = ({route, navigation}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'AddMiscSchedule',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -230,7 +213,17 @@ const AddMiscSchedule = ({route, navigation}: any) => {
               onChangeSwitch={() => updateSwitch(index)}
               mode={item?.mode}
               onPress={
-                item?.onPress ? item?.onPress : () => handlePress(item, index)
+                item?.onPress
+                  ? item?.onPress
+                  : () =>
+                      SelectItems(
+                        item,
+                        index,
+                        navigation,
+                        route,
+                        'AddMiscSchedule',
+                        'Stack1',
+                      )
               }
             />
           ))}

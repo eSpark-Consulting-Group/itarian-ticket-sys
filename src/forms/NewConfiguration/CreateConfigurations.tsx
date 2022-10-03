@@ -14,6 +14,7 @@ import {
   typeList,
   vendorNameList,
 } from '../../constants/SelectionList';
+import {SelectItems} from '../../utils/helperFunctions';
 
 interface Item {
   title: string;
@@ -240,25 +241,6 @@ const NewConfiguration = ({route, navigation}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'NewConfigure',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
-
   const onChangeDate = (event: any, date: any) => {
     setShowDate(false);
     let time = date.toString().substring(16, 21);
@@ -310,7 +292,17 @@ const NewConfiguration = ({route, navigation}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={() => updateSwitch(index)}
               onPress={
-                item?.onPress ? item?.onPress : () => handlePress(item, index)
+                item?.onPress
+                  ? item?.onPress
+                  : () =>
+                      SelectItems(
+                        item,
+                        index,
+                        navigation,
+                        route,
+                        'NewConfigure',
+                        'Stack1',
+                      )
               }
               rightChild={item?.rightChild}
             />

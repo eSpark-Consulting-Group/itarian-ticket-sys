@@ -5,6 +5,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 import {ModalView, SingleLineField} from '../../components';
 import {SelectFields} from '../../types';
 import {countryList, siteList, stateList} from '../../constants/SelectionList';
+import {SelectItems} from '../../utils/helperFunctions';
 
 const NewCompany = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -160,25 +161,6 @@ const NewCompany = ({route, navigation}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'NewCompany',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
-
   return (
     <ModalView bgColor={colors.card}>
       <ScrollView style={{flex: 1}}>
@@ -198,7 +180,16 @@ const NewCompany = ({route, navigation}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               keyboardType={item?.keyboardType}
-              onPress={() => handlePress(item, index)}
+              onPress={() =>
+                SelectItems(
+                  item,
+                  index,
+                  navigation,
+                  route,
+                  'NewCompany',
+                  'Stack1',
+                )
+              }
             />
           ))}
         </View>

@@ -22,6 +22,7 @@ import {
   NoteTypes_ACIT,
   noteList as dataSource,
 } from '../../../../constants/SampleArrays';
+import {handleAddNote} from '../../../../utils/helperFunctions';
 
 interface Item {
   id: number;
@@ -102,19 +103,13 @@ const Notes = () => {
             color={colors.text}
             style={{opacity: 0.8}}
             onPress={() =>
-              navigation.navigate('Stack2', {
-                screen: 'ComposeNote',
-                params: {
-                  from: 'Company',
-                  item: 'GoneTo',
-                  data: NoteTypes_ACIT,
-                  selected: {},
-                  stack: 'Stack1',
-                  title: route?.params?.title,
-                  headerTitle: 'Note Type',
-                  status: route?.params?.status,
-                },
-              })
+              handleAddNote(
+                navigation,
+                route,
+                NoteTypes_ACIT,
+                'Company',
+                'Stack1',
+              )
             }
           />
           <GapView mode="horizontal" length={30} />

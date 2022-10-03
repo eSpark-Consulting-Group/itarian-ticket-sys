@@ -14,8 +14,9 @@ import {
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
 import {NotesAdditionalButtons} from '../../constants/ButtonsList';
-import {AdditionalButtons, NoteTypes} from '../../types';
+import {AdditionalButtons, NoteTypes, SelectFields} from '../../types';
 import {stNotesList} from '../../constants/SelectionList';
+import {selectStandardNote} from '../../utils/helperFunctions';
 
 export default function ComposeNote({route, navigation}: any) {
   const {colors, dark} = useTheme();
@@ -36,40 +37,15 @@ export default function ComposeNote({route, navigation}: any) {
   useEffect(() => {
     setNoteTypeList(route?.params?.data);
     setLoader(false);
+    updateActionButtons();
+    setStack(route?.params?.stack);
+    setFrom(route?.params?.from);
   }, []);
 
   useEffect(() => {
     setSelectedStNote(route?.params?.selected);
     setNotes(route?.params?.selected?.name);
-    console.log('Received Params', route?.params);
   }, [route?.params?.selected]);
-
-  const updatePress = () => {
-    let tempArr = [...actionButtons];
-    tempArr[0].onPress = handlePress;
-    tempArr[1].onPress = () => setShowTimeSt(true);
-    setActionButtons(tempArr);
-  };
-
-  const handlePress = () => {
-    navigation.navigate('Stack2', {
-      screen: 'CstmItemSelector',
-      params: {
-        ...route?.params,
-        from: 'ComposeNote',
-        item: stNotesList[0].id,
-        data: stNotesList,
-        selected: selectedStNote,
-        stack: 'Stack2',
-        headerTitle: 'Standard Notes',
-      },
-    });
-  };
-
-  useEffect(() => {
-    setStack(route?.params?.stack);
-    setFrom(route?.params?.from);
-  }, []);
 
   useEffect(() => {
     navigation?.setParams({
@@ -83,9 +59,15 @@ export default function ComposeNote({route, navigation}: any) {
     });
   }, [notes, showTimeSt, currChkInd]);
 
-  useEffect(() => {
-    updatePress();
-  }, []);
+  const updateActionButtons = () => {
+    const showStNotes = () => {
+      selectStandardNote(navigation, route, stNotesList, selectedStNote);
+    };
+    let tempArr = [...actionButtons];
+    tempArr[0].onPress = showStNotes;
+    tempArr[1].onPress = () => setShowTimeSt(true);
+    setActionButtons(tempArr);
+  };
 
   const renderNoteTypes = (item: NoteTypes, index: number) => {
     return (

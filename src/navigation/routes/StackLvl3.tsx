@@ -27,7 +27,7 @@ const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
   const {colors}: Theme = useTheme();
-  const activeStatus: State<any> = useHookstate(globalState);
+  const globalStates: State<any> = useHookstate(globalState);
 
   return (
     <Stack.Navigator
@@ -199,7 +199,7 @@ const StackLvl2 = ({navigation, route}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -212,7 +212,7 @@ const StackLvl2 = ({navigation, route}: any) => {
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
-            size={30}
+              size={30}
               name="chevron-back"
               style={{right: 6}}
               color={'#fff'}
@@ -240,7 +240,7 @@ const StackLvl2 = ({navigation, route}: any) => {
           headerRight: () => null,
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="BarcodeScanner"
         component={BarcodeScanner}
         options={({route, navigation}) => ({
@@ -254,16 +254,16 @@ const StackLvl2 = ({navigation, route}: any) => {
               style={{right: 6}}
               color={'#fff'}
               onPress={() => navigation.goBack()}
-              />
-              ),
-              headerRight: () => (
-                <FA
+            />
+          ),
+          headerRight: () => (
+            <FA
               size={27}
               name="save"
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
-            ),
+          ),
         })}
       />
       <Stack.Screen
@@ -302,7 +302,9 @@ const StackLvl2 = ({navigation, route}: any) => {
                 size={30}
                 name="save"
                 color={'#fff'}
-                onPress={() => checkValidations(navigation, route, activeStatus)}
+                onPress={() =>
+                  checkValidations(navigation, route, globalStates)
+                }
               />
             </>
           ),
@@ -326,26 +328,28 @@ const StackLvl2 = ({navigation, route}: any) => {
           headerRight: () => (
             <>
               <II
-              size={30}
-              name="barcode-outline"
-              color={'#ffffff'}
-              onPress={() =>
-                navigation.navigate('Stack3', {
-                  screen: 'BarcodeScanner',
-                  params: {
-                    from: 'ConfigurationListing',
-                    stack: 'Stack2',
-                  },
-                })
-              }
-              style={{right: 10}}
-            />
-            <FA
-              size={27}
-              name="save"
-              color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
-            />
+                size={30}
+                name="barcode-outline"
+                color={'#ffffff'}
+                onPress={() =>
+                  navigation.navigate('Stack3', {
+                    screen: 'BarcodeScanner',
+                    params: {
+                      from: 'ConfigurationListing',
+                      stack: 'Stack2',
+                    },
+                  })
+                }
+                style={{right: 10}}
+              />
+              <FA
+                size={27}
+                name="save"
+                color={'#fff'}
+                onPress={() =>
+                  checkValidations(navigation, route, globalStates)
+                }
+              />
             </>
           ),
         })}

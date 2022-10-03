@@ -28,14 +28,14 @@ import ContactListing from '../../components/ContactsListing';
 import Sites from '../../components/Sites';
 import {checkValidations} from '../../utils/helperFunctions';
 import Resources from '../../components/Resources';
-import { Tasks } from '../../components/Tasks';
-import { ProductListing } from '../../components/ProductListing';
+import {Tasks} from '../../components/Tasks';
+import {ProductListing} from '../../components/ProductListing';
 
 const Stack = createNativeStackNavigator();
 
 const StackLvl2 = ({navigation, route}: any) => {
   const {colors}: Theme = useTheme();
-  const activeStatus: State<any> = useHookstate(globalState);
+  const globalStates: State<any> = useHookstate(globalState);
 
   return (
     <Stack.Navigator
@@ -66,7 +66,7 @@ const StackLvl2 = ({navigation, route}: any) => {
               size={30}
               name="checkmark"
               color={'#fff'}
-              onPress={() => onSave(navigation, route, activeStatus)}
+              onPress={() => onSave(navigation, route, globalStates)}
             />
           ),
         })}
@@ -242,7 +242,7 @@ const StackLvl2 = ({navigation, route}: any) => {
               size={30}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -374,7 +374,7 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Tasks"
         component={Tasks}
         options={({route, navigation}: any) => ({
@@ -403,13 +403,14 @@ const StackLvl2 = ({navigation, route}: any) => {
           ),
           headerRight: () => (
             <>
-             {route?.params?.deleteEnabled &&
-              <MCI
-                size={27}
-                name="delete"
-                color={'#fff'}
-                onPress={() => route?.params?.onDelete()}
-              />}
+              {route?.params?.deleteEnabled && (
+                <MCI
+                  size={27}
+                  name="delete"
+                  color={'#fff'}
+                  onPress={() => route?.params?.onDelete()}
+                />
+              )}
             </>
           ),
         })}
@@ -446,7 +447,8 @@ const StackLvl2 = ({navigation, route}: any) => {
               onPress={() => goBack(navigation)}
             />
           ),
-        })} />
+        })}
+      />
     </Stack.Navigator>
   );
 };

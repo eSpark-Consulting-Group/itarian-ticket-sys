@@ -7,6 +7,7 @@ import * as ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker, {types} from 'react-native-document-picker';
 import {ShortcutItem} from 'react-native-quick-actions';
 import {showMessage} from 'react-native-flash-message';
+import {NoteTypes, SelectFields} from '../types';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -161,7 +162,7 @@ export const handleColdBoot = (data: ShortcutItem) => {
 export const checkValidations = (
   navigation: any,
   route: any,
-  activeStatus: any,
+  globalStates: any,
 ) => {
   const Info = [...route?.params?.data];
 
@@ -185,4 +186,73 @@ export const checkValidations = (
   });
   // console.log('Error Not Founded');
   navigation.goBack();
+};
+
+export const selectStandardNote = (
+  navigation: any,
+  route: any,
+  notesList: SelectFields[],
+  selectedNote: object,
+) => {
+  navigation.navigate('Stack2', {
+    screen: 'CstmItemSelector',
+    params: {
+      ...route?.params,
+      from: 'ComposeNote',
+      item: notesList[0].id,
+      data: notesList,
+      selected: selectedNote,
+      stack: 'Stack2',
+      headerTitle: 'Standard Notes',
+    },
+  });
+};
+
+export const SelectItems = (
+  item: any,
+  index: number,
+  navigation: any,
+  route: any,
+  from: string,
+  stack: string,
+) => {
+  if (item?.list) {
+    navigation.navigate('Stack2', {
+      screen: 'CstmItemSelector',
+      params: {
+        ...route?.params,
+        from: from,
+        item: index,
+        data: item.list,
+        selected: item.selectedItem,
+        stack: stack,
+        title: route?.params?.title,
+        headerTitle: item.headerTitle,
+        searchable: item.searchable,
+      },
+    });
+  }
+};
+
+export const handleAddNote = (
+  navigation: any,
+  route: any,
+  data: NoteTypes[],
+  from: string,
+  stack: string,
+  flag?: boolean,
+) => {
+  navigation.navigate('Stack2', {
+    screen: 'ComposeNote',
+    params: {
+      from: from,
+      item: 'GoneTo',
+      data: data,
+      stack: stack,
+      showFlag: flag,
+      title: route?.params?.title, // used for Dynamic Headers Used
+      headerTitle: 'Note Type',
+      status: route?.params?.status,
+    },
+  });
 };

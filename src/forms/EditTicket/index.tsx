@@ -5,6 +5,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {SingleLineField} from '../../components';
 import {companyNameList, contactNameList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
+import {SelectItems} from '../../utils/helperFunctions';
 
 interface Item {
   headerTitle?: string;
@@ -68,23 +69,6 @@ export const EditTicket = ({navigation, route}: any) => {
     });
   }, [isFocues]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          from: 'EditTicket',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack2',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
   return (
     <ScrollView
       style={{flex: 1}}
@@ -97,7 +81,9 @@ export const EditTicket = ({navigation, route}: any) => {
           enable={item.enable}
           titleWidth={item.titleWidth}
           rightIcon={item.rightIcon}
-          onPress={() => handlePress(item, index)}
+          onPress={() =>
+            SelectItems(item, index, navigation, route, 'EditTicket', 'Stack2')
+          }
         />
       ))}
     </ScrollView>

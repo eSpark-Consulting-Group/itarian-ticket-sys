@@ -61,7 +61,7 @@ export type RootStackParamList = {
 
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
-  const activeStatus: State<any> = useHookstate(userStore);
+  const globalStates: State<any> = useHookstate(userStore);
 
   return (
     <Stack.Navigator
@@ -95,7 +95,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => saveStatus(navigation, route, activeStatus)}
+              onPress={() => saveStatus(navigation, route, globalStates)}
             />
           ),
         })}
@@ -176,7 +176,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -219,7 +219,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={30}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -287,7 +287,9 @@ const StackLvl1 = ({route, navigation}: any) => {
                 size={30}
                 name="save"
                 color={'#fff'}
-                onPress={() => checkValidations(navigation, route, activeStatus)}
+                onPress={() =>
+                  checkValidations(navigation, route, globalStates)
+                }
               />
             </>
           ),
@@ -322,7 +324,7 @@ const StackLvl1 = ({route, navigation}: any) => {
                 name="save"
                 color={'#fff'}
                 onPress={() =>
-                  checkValidations(navigation, route, activeStatus)
+                  checkValidations(navigation, route, globalStates)
                 }
               />
             </View>
@@ -349,7 +351,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -374,7 +376,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -399,7 +401,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -424,7 +426,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -449,7 +451,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -474,7 +476,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}
@@ -499,7 +501,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, activeStatus)}
+              onPress={() => checkValidations(navigation, route, globalStates)}
             />
           ),
         })}

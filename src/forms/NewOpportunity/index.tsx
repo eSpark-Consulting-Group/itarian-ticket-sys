@@ -16,6 +16,7 @@ import {
   statusList,
   typeList,
 } from '../../constants/SelectionList';
+import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -100,18 +101,13 @@ const NewOpportunity = ({navigation, route}: any) => {
       roundedIconEnable: true,
       enable: false,
       onRoundedIconPress: () =>
-        navigation.navigate('Stack2', {
-          screen: 'ComposeNote',
-          params: {
-            from: 'NewOpportunity',
-            item: 'GoneTo',
-            data: NoteTypes_ACIT,
-            stack: 'Stack2',
-            title: route?.params?.title, // used for Dynamic Headers Used
-            headerTitle: 'Note Type',
-            status: route?.params?.status,
-          },
-        }),
+        handleAddNote(
+          navigation,
+          route,
+          NoteTypes_ACIT,
+          'NewOpportunity',
+          'Stack2',
+        ),
     },
   ]);
 
@@ -179,25 +175,6 @@ const NewOpportunity = ({navigation, route}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'NewOpportunity',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
-
   const handleSelectCompany = () => {
     navigation.navigate('Stack2', {
       screen: 'CstmItemSelector',
@@ -257,7 +234,17 @@ const NewOpportunity = ({navigation, route}: any) => {
               roundedIconEnable={item.roundedIconEnable}
               onRoundedIconPress={item.onRoundedIconPress}
               onPress={
-                item.onPress ? item.onPress : () => handlePress(item, index)
+                item.onPress
+                  ? item.onPress
+                  : () =>
+                      SelectItems(
+                        item,
+                        index,
+                        navigation,
+                        route,
+                        'NewOpportunity',
+                        'Stack1',
+                      )
               }
             />
           ))}

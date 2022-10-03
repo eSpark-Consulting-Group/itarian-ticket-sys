@@ -17,6 +17,7 @@ import {
 import {AddExpenseAdditionalButtons} from '../../constants/ButtonsList';
 import {cameraPicker, imagePicker} from '../../utils/helperFunctions';
 import {SelectFields} from '../../types';
+import {SelectItems} from '../../utils/helperFunctions';
 
 const NewExpenseReport = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -185,23 +186,6 @@ const NewExpenseReport = ({route, navigation}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          from: 'NewExpenseReport',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-        },
-      });
-    }
-  };
-
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -225,7 +209,17 @@ const NewExpenseReport = ({route, navigation}: any) => {
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
               onPress={
-                item?.onPress ? item.onPress : () => handlePress(item, index)
+                item?.onPress
+                  ? item.onPress
+                  : () =>
+                      SelectItems(
+                        item,
+                        index,
+                        navigation,
+                        route,
+                        'NewExpenseReport',
+                        'Stack1',
+                      )
               }
               rightChild={item?.rightChild}
               keyboardType={item?.keyboardType}

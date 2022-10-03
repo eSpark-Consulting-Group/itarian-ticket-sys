@@ -22,6 +22,7 @@ import {
   NoteTypes_ACIT,
 } from '../../../../constants/SampleArrays';
 import {RootStackParamList} from '../../../../navigation/routes/RootNavigation';
+import {handleAddNote} from '../../../../utils/helperFunctions';
 
 interface Item {
   id: number;
@@ -94,20 +95,14 @@ export default function Notes() {
             color={colors.text}
             style={{opacity: 0.8}}
             onPress={() =>
-              navigation.navigate('Stack2', {
-                screen: 'ComposeNote',
-                params: {
-                  from: 'Opportunity',
-                  item: 'GoneTo',
-                  data: NoteTypes_ACIT,
-                  showFlag: true,
-                  selected: null,
-                  stack: 'Stack1',
-                  title: route?.params?.title,
-                  headerTitle: 'Note Type',
-                  status: route?.params?.status,
-                },
-              })
+              handleAddNote(
+                navigation,
+                route,
+                NoteTypes_ACIT,
+                'Opportunity',
+                'Stack1',
+                true,
+              )
             }
           />
           <GapView mode="horizontal" length={30} />

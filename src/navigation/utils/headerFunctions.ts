@@ -5,7 +5,7 @@ import {noteList, stopWatchList} from '../../constants/SampleArrays';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {globalState} from '../../stores/globalAppState';
 
-const saveStatus = (navigation: any, route: any, activeStatus: any) => {
+const saveStatus = (navigation: any, route: any, globalStates: any) => {
   console.log('route.params', route?.params);
   if (route.params?.status && route.params?.backDate == '-') {
     showMessage({
@@ -19,11 +19,11 @@ const saveStatus = (navigation: any, route: any, activeStatus: any) => {
       type: 'success',
       icon: 'auto',
     });
-    activeStatus?.currentStatus.set(route.params?.status);
-    activeStatus?.currentGoneTo.set({...route.params?.goneTo});
-    activeStatus?.additionalInfo.set(route.params?.addInfo);
-    activeStatus?.dateBack.set(route.params?.backDate);
-    activeStatus?.timeBack.set(route.params?.backTime);
+    globalStates?.currentStatus.set(route.params?.status);
+    globalStates?.currentGoneTo.set({...route.params?.goneTo});
+    globalStates?.additionalInfo.set(route.params?.addInfo);
+    globalStates?.dateBack.set(route.params?.backDate);
+    globalStates?.timeBack.set(route.params?.backTime);
     navigation.navigate({
       name: 'Profile',
       params: {status: route.params.status},
@@ -39,7 +39,7 @@ const goBack = (navigation: any) => {
 };
 
 // Function for Save ItemSelector Value
-const onSave = (navigation: any, route: any, activeStatus?: any) => {
+const onSave = (navigation: any, route: any, globalStates?: any) => {
   console.log(
     'route.params',
     route?.params?.stack,
@@ -78,11 +78,11 @@ const onSave = (navigation: any, route: any, activeStatus?: any) => {
     route?.params?.from != 'PBoard'
   ) {
     if (route?.params?.from == 'Agenda') {
-      activeStatus?.agendaMember.set(
+      globalStates?.agendaMember.set(
         JSON.parse(JSON.stringify(route.params?.selected.name)),
       );
     } else if (route?.params?.from == 'Calendar') {
-      activeStatus?.calendarMember.set(
+      globalStates?.calendarMember.set(
         JSON.parse(JSON.stringify(route.params?.selected.name)),
       );
     }

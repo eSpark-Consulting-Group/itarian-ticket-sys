@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-import {WINDOW_WIDTH} from '../../constants';
+import {SCREEN_WIDTH, WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   divider_2: {
-    width: moderateScale(225, 0),
+    width: moderateScale(SCREEN_WIDTH * 0.55, 0),
     transform: [{scaleY: 6}],
   },
 });

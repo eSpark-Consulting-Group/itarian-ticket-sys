@@ -14,7 +14,7 @@ import {
   RoundedIcon,
   SingleLineField,
 } from '../../components';
-import {SCREEN_HEIGHT} from '../../constants';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import {TaxTypeList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
 
@@ -64,7 +64,7 @@ export const AddTaxType = ({navigation, route}: any) => {
         keyboardType: 'number-pad',
         rightIconRound: 'delete',
         roundedIconEnable: true,
-        inputWidth: 300,
+        inputWidth: SCREEN_WIDTH * 0.78,
         enable: false,
         roundIconStyle: {top: 15},
       },

@@ -125,7 +125,7 @@ const StopWatchScreen = ({navigation}: any) => {
                   <View
                     style={{
                       ...styles.horizontalItemStyles,
-                      flex: 0.35,
+                      flex: 0.15,
                       padding: 8,
                     }}>
                     <TouchableOpacity

@@ -8,7 +8,7 @@ import {color} from 'react-native-reanimated';
 import {styles} from './styles';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import FloatButton from '../FloatButton';
-import {searchFromArray} from '../../utils/helperFunctions';
+import {handleAddNote, searchFromArray} from '../../utils/helperFunctions';
 import {useUpdateEffect} from '../../utils/hooks';
 import ModalHeader from '../ModalHeader';
 import SearchBar from '../SearchBar';
@@ -109,19 +109,13 @@ export const Tasks = ({navigation, route}: any) => {
           style={{padding: 10}}
           onPress={() => {
             !selectable
-              ? navigation.navigate('Stack2', {
-                  screen: 'ComposeNote',
-                  params: {
-                    from: 'Tasks',
-                    item: 'GoneTo',
-                    data: NoteTypes_DIR,
-                    selected: {},
-                    stack: 'Stack2',
-                    title: route?.params?.title,
-                    headerTitle: 'Note Type',
-                    status: route?.params?.status,
-                  },
-                })
+              ? handleAddNote(
+                  navigation,
+                  route,
+                  NoteTypes_DIR,
+                  'Tasks',
+                  'Stack2',
+                )
               : onLongPress(item, index);
           }}
           otherProps={{

@@ -11,6 +11,7 @@ import {
   workRoleList,
 } from '../../constants/SelectionList';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
+import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
 
 const NewTimeSheet = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -88,7 +89,14 @@ const NewTimeSheet = ({route, navigation}: any) => {
       enable: false,
       rightIconRound: 'file-plus-outline',
       roundedIconEnable: true,
-      onRoundIconPress: handleAddNote,
+      onRoundIconPress: () =>
+        handleAddNote(
+          navigation,
+          route,
+          NoteTypes_DIR,
+          'NewTimeSheet',
+          'Stack1',
+        ),
     },
   ]);
 
@@ -150,21 +158,6 @@ const NewTimeSheet = ({route, navigation}: any) => {
     }
   };
 
-  function handleAddNote() {
-    navigation.navigate('Stack2', {
-      screen: 'ComposeNote',
-      params: {
-        from: 'NewTimeSheet',
-        item: 'GoneTo',
-        data: NoteTypes_DIR,
-        stack: 'Stack1',
-        title: route?.params?.title, // used for Dynamic Headers Used
-        headerTitle: 'Note Type',
-        status: route?.params?.status,
-      },
-    });
-  }
-
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
@@ -217,25 +210,6 @@ const NewTimeSheet = ({route, navigation}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'NewTimeSheet',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
-
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -272,7 +246,17 @@ const NewTimeSheet = ({route, navigation}: any) => {
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
               onPress={
-                item?.onPress ? item.onPress : () => handlePress(item, index)
+                item?.onPress
+                  ? item.onPress
+                  : () =>
+                      SelectItems(
+                        item,
+                        index,
+                        navigation,
+                        route,
+                        'NewTimeSheet',
+                        'Stack1',
+                      )
               }
               roundedIconEnable={item?.roundedIconEnable}
               onRoundedIconPress={item?.onRoundIconPress}

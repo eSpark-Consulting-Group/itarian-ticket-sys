@@ -16,6 +16,7 @@ import {
   whereList,
 } from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
+import {SelectItems} from '../../utils/helperFunctions';
 
 const NewActivity = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -204,25 +205,6 @@ const NewActivity = ({route, navigation}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'NewActivity',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
-
   return (
     <ModalView bgColor={colors.card}>
       {showDate && (
@@ -258,7 +240,17 @@ const NewActivity = ({route, navigation}: any) => {
               onChangeSwitch={item.onChangeSwitch}
               mode={item?.mode}
               onPress={
-                item?.onPress ? item.onPress : () => handlePress(item, index)
+                item?.onPress
+                  ? item.onPress
+                  : () =>
+                      SelectItems(
+                        item,
+                        index,
+                        navigation,
+                        route,
+                        'NewActivity',
+                        'Stack1',
+                      )
               }
             />
           ))}

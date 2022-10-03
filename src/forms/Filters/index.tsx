@@ -3,8 +3,15 @@ import {StyleSheet, ScrollView} from 'react-native';
 
 import {SingleLineField} from '../../components';
 import {Filter} from '../../types';
+import {SelectItems} from '../../utils/helperFunctions';
 
-export default function App({route, navigation}: {route: any, navigation: any}) {
+export default function App({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) {
   var {dataSource: dSource, title} = route?.params;
   const [dataSource, setDataSource] = useState(dSource);
 
@@ -14,19 +21,18 @@ export default function App({route, navigation}: {route: any, navigation: any}) 
       filter: dataSource,
       stack: route?.params?.FilterStack,
       from: route?.params?.FilterFrom,
-    })
+    });
   }, []);
 
   const updateSwitch = (index: number) => {
     let tempArr: Filter[] = [...dataSource];
     tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
-    tempArr[index].value = tempArr[index].rightSwitchVal ? "John Doe" : null;
+    tempArr[index].value = tempArr[index].rightSwitchVal ? 'John Doe' : null;
     setDataSource(tempArr);
   };
 
-
-   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
-   useEffect(() => {
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
@@ -35,34 +41,15 @@ export default function App({route, navigation}: {route: any, navigation: any}) 
       setDataSource([...obj]);
     }
 
-    if (route?.params?.from == "Filters") {
+    if (route?.params?.from == 'Filters') {
       navigation.setParams({
         ...route?.params,
         filter: dataSource,
         stack: route?.params?.FilterStack,
         from: route?.params?.FilterFrom,
-      })
-    }
-  }, [route?.params]);
-
-  const handlePress = (item: Filter, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'Filters',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
       });
     }
-  };
+  }, [route?.params]);
 
   return (
     <ScrollView
@@ -81,7 +68,9 @@ export default function App({route, navigation}: {route: any, navigation: any}) 
           onChangeSwitch={() => updateSwitch(index)}
           leftIcon={item.leftIcon}
           leftIconStyles={{opacity: 1}}
-          onPress={() => handlePress(item, index)}
+          onPress={() =>
+            SelectItems(item, index, navigation, route, 'Filters', 'Stack1')
+          }
         />
       ))}
     </ScrollView>

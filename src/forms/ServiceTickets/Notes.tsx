@@ -19,6 +19,7 @@ import {
 } from '../../constants/SampleArrays';
 import {Item} from '../../types';
 import {CstmMenu} from '../../components/CstmMenu';
+import {handleAddNote} from '../../utils/helperFunctions';
 
 const Notes = () => {
   const {colors, dark}: Theme = useTheme();
@@ -83,19 +84,13 @@ const Notes = () => {
             color={colors.text}
             style={{opacity: 0.8}}
             onPress={() =>
-              navigation.navigate('Stack2', {
-                screen: 'ComposeNote',
-                params: {
-                  from: 'STickets',
-                  item: 'GoneTo',
-                  data: NoteTypes_DIR,
-                  selected: {},
-                  stack: 'Stack1',
-                  title: route?.params?.title,
-                  headerTitle: 'Note Type',
-                  status: route?.params?.status,
-                },
-              })
+              handleAddNote(
+                navigation,
+                route,
+                NoteTypes_DIR,
+                'STickets',
+                'Stack1',
+              )
             }
           />
           <GapView mode="horizontal" length={30} />

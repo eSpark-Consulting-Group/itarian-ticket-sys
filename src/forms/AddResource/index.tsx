@@ -6,6 +6,7 @@ import {SingleLineField} from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {whereList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
+import {SelectItems} from '../../utils/helperFunctions';
 
 interface Item {
   headerTitle?: string;
@@ -146,25 +147,6 @@ export const AddResource = ({navigation, route}: any) => {
     });
   }, [dataSource]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'AddResource',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack2',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
-    }
-  };
-
   return (
     <ScrollView
       style={{flex: 1}}
@@ -197,7 +179,17 @@ export const AddResource = ({navigation, route}: any) => {
           titleWidth={item.titleWidth}
           rightIcon={item.rightIcon}
           onPress={
-            item?.onPress ? item.onPress : () => handlePress(item, index)
+            item?.onPress
+              ? item.onPress
+              : () =>
+                  SelectItems(
+                    item,
+                    index,
+                    navigation,
+                    route,
+                    'AddResource',
+                    'Stack2',
+                  )
           }
           showRightSwitch={item.showRightSwitch}
           rightSwitchVal={item.rightSwitchVal}

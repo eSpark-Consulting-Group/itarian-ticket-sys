@@ -17,6 +17,7 @@ import {
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import {TaxTypeList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
+import {SelectItems} from '../../utils/helperFunctions';
 
 interface Item {
   title: string;
@@ -81,22 +82,8 @@ export const AddTaxType = ({navigation, route}: any) => {
     }
   }, [route?.params]);
 
-  const handlePress = (item: Item, index: any) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'AddTaxType',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack2',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-        },
-      });
-    }
+  const selectItems = (item: Item, index: any) => {
+    SelectItems(item, index, navigation, route, 'AddTaxType', 'Stack2');
   };
 
   const updateInput = (e: string, index: any) => {
@@ -173,7 +160,7 @@ export const AddTaxType = ({navigation, route}: any) => {
                 onPress={
                   item?.onPress
                     ? item.onPress
-                    : () => handlePress(item, `${`[${ind}][${index}]`}`)
+                    : () => selectItems(item, `${`[${ind}][${index}]`}`)
                 }
                 rightChild={item?.rightChild}
                 gap={item?.gap}

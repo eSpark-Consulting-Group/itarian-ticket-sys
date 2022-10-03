@@ -76,6 +76,7 @@ export const SignaturePad = ({route, navigation}: any) => {
 
           .m-signature-pad {
             height: ${WINDOW_HEIGHT - 170}px;
+            margin: 0px !important;
           }
           `}
           descriptionText={`Please Tap Clear if you need to make corrections. Once approved, \n This Signature cannot be modified. You may, however, add more`}

@@ -20,9 +20,9 @@ const handleLoginUser = async (
     // testwiz@yopmail.com //?: simple
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
-    // email: 'testwiz@yopmail.com',
+    // email,
     password: 'Admin123!@',
-    // password: 'Admin123!@',
+    // password,
     nameSpace: 'ServiceDesk',
   });
   if (response.ok) {

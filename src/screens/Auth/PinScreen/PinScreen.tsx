@@ -21,10 +21,11 @@ const PinScreen = ({route, navigation}: any) => {
   const [pin, setPin] = useState<any>('');
   const [confirmPin, setConfirmPin] = useState(false);
   const [newPin, setnewPin] = useState('');
+  const [typeNewPin, setTypeNewPin] = useState(route?.params?.newPin);
   const [showScanner, setShowScanners] = useState(false);
 
   const {colors, dark}: Theme = useTheme();
-  const typeNewPin = route?.params?.newPin;
+  // const typeNewPin = route?.params?.newPin;
 
   const handleDigit = (digit: string) => {
     if (pin.length < 4) setPin(pin + digit);
@@ -125,9 +126,14 @@ const PinScreen = ({route, navigation}: any) => {
         }}
       />
       {!typeNewPin && (
-        <Text style={{color: colors.text, fontSize: 16, fontWeight: '500'}}>
-          Forgot PIN?
-        </Text>
+        <CstmPressable
+          onPress={() => setTypeNewPin(true)}
+          // android_ripple={{borderless: true}}
+        >
+          <Text style={{color: colors.text, fontSize: 16, fontWeight: '500'}}>
+            Forgot PIN?
+          </Text>
+        </CstmPressable>
       )}
       <View style={{width: '80%', alignItems: 'center'}}>
         <View style={{...styles.row}}>

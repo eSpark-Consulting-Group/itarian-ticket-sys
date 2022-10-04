@@ -5,6 +5,7 @@ import store from 'react-native-simple-store';
 import {api} from '../../../api';
 import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
+import { encodedUserDataToken } from '../../../utils/helperFunctions';
 
 const handleLoginUser = async (
   email: string,
@@ -15,40 +16,32 @@ const handleLoginUser = async (
   globalState.loader.set(true);
   console.log('email:', email);
   console.log('password:', password);
-  const response = await api.post('/api/auth', {
-    email: 'testwiz@yopmail.com',
+  api.setHeaders({
+    'Authorization': `Basic YWNjb3VudDpmYXZlby1hcGk=` ,
+    })
+  const response = await api.post('/tenant/login', {
+    email: 'test9@yopmail.com', //?: faveo
     // testwiz@yopmail.com //?: simple
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
     // email,
-    password: 'Admin123!@',
+    password: 'admin1',
     // password,
-    nameSpace: 'ServiceDesk',
+    // nameSpace: 'ServiceDesk',
   });
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    // console.log("handleLoginUser", response.data);
-    if (resData.code == 'ERR_USER_NOT_FOUND') {
-      showMessage({
-        message: 'Incorrect Email or Password',
-        type: 'danger',
-        icon: 'auto',
-      });
-    }
-    if (resData.code == 'SUCCESS_AUTHENTICATION') {
-      const {data} = resData;
-      const {displayName, email, userId, camSessionId} = data?.sessionData;
-
-      const userObj: any = {
-        user_name: displayName,
-        email: email,
-        userId: userId,
-      };
-      if (remember) {
-        navigation.navigate('Pin', {newPin: true});
-        userObj['sessionId'] = camSessionId;
-      } else {
+    const {status, apiKey, subDomain, companyName}: any = response?.data
+      if(status == "success") {
+        const userObj: any = {
+          user_name: companyName,
+          email: subDomain,
+          userId: apiKey,
+          token: encodedUserDataToken(subDomain, apiKey)
+        };
+        store.update('user', userObj);
+        userStore.user.set(userObj);
         showMessage({
           message: 'Authentication Successful',
           type: 'success',
@@ -57,27 +50,62 @@ const handleLoginUser = async (
           duration: 100,
         });
         navigation.navigate('Draw');
-      }
-      console.log('userObj', userObj);
-
-      store.update('user', userObj);
-      userStore.user.set(userObj);
-    }
-
-    if (resData.code == 'OTP_REQUIRED') {
-      if (resData?.data?.otpType == 'sms') {
-        const result = await requestSmsOtp(resData?.data, navigation);
-        if (result) {
-          navigation?.navigate('OTPScreen', {
-            data: resData?.data,
+      }else {
+          showMessage({
+            message: 'Incorrect Email or Password',
+            type: 'danger',
+            icon: 'auto',
           });
-        }
-      } else {
-        navigation?.navigate('OTPScreen', {
-          data: resData?.data,
-        });
       }
-    }
+
+    // if (resData.code == 'ERR_USER_NOT_FOUND') {
+    //   showMessage({
+    //     message: 'Incorrect Email or Password',
+    //     type: 'danger',
+    //     icon: 'auto',
+    //   });
+    // }
+    // if (resData.code == 'SUCCESS_AUTHENTICATION') {
+    //   const {data} = resData;
+    //   const {displayName, email, userId, camSessionId} = data?.sessionData; 
+    //   console.log("data?.sessionData", data)
+    //   const userObj: any = {
+    //     user_name: displayName,
+    //     email: email,
+    //     userId: userId,
+    //   };
+    //   if (remember) {
+    //     navigation.navigate('Pin', {newPin: true});
+    //     userObj['sessionId'] = camSessionId;
+    //   } else {
+        // showMessage({
+        //   message: 'Authentication Successful',
+        //   type: 'success',
+        //   icon: 'auto',
+        //   autoHide: true,
+        //   duration: 100,
+        // });
+        // navigation.navigate('Draw');
+    //   }
+    //   console.log('userObj', userObj);
+
+    //   store.update('user', userObj);
+    //   userStore.user.set(userObj);
+    // }
+    // if (resData.code == 'OTP_REQUIRED') {
+    //   if (resData?.data?.otpType == 'sms') {
+    //     const result = await requestSmsOtp(resData?.data, navigation);
+    //     if (result) {
+    //       navigation?.navigate('OTPScreen', {
+    //         data: resData?.data,
+    //       });
+    //     }
+    //   } else {
+    //     navigation?.navigate('OTPScreen', {
+    //       data: resData?.data,
+    //     });
+    //   }
+    // }
   } else {
     globalState.loader.set(false);
   }

@@ -1,4 +1,4 @@
-import Images from '../assets/images';
+import Images from '../assets/Images';
 import {
   Activity,
   Company,

@@ -60,7 +60,7 @@ import {
   sBoardFiterList,
 } from '../../constants/SampleArrays';
 import {CstmBadge} from '../../components';
-import Images from '../../assets/images';
+import Images from '../../assets/Images';
 import {userStore} from '../../stores/userStore';
 
 const Drawer = createDrawerNavigator<ParamList>();
@@ -75,7 +75,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 
   const {colors}: Theme = useTheme();
-
+  
   return (
     <SafeAreaView
       style={{...styles.container, backgroundColor: colors.primary}}>
@@ -173,6 +173,7 @@ const Draw = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
+  const users: State<any> = useHookstate(userStore.users);
   const [currMember, setcurrMember] = useState<any>(contactsList[0]);
   const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
   const [filterCount, setFilterCount] = useState<any>('0');
@@ -307,7 +308,7 @@ const Draw = () => {
                   params: {
                     from: 'Agenda',
                     item: 'GoneTo',
-                    data: contactsList,
+                    data: users.get() || [],
                     selected: currMember,
                     stack: 'Draw',
                     headerTitle: 'Select Member',

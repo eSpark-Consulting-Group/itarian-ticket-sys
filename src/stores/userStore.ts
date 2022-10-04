@@ -14,4 +14,5 @@ export const userStore = hookstate({
   timeBack: '-',
   user: null,
   pinCode: null,
+  users: []
 });

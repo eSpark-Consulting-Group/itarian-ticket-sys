@@ -65,8 +65,7 @@ const App = () => {
       }
     });
     store.get('user').then((res: any) => {
-      console.log('user', res);
-      if (res) user.set(res);
+      // if (res) user.set(res);
     });
     store.get('dSName').then((res: any) => {
       if (res) {

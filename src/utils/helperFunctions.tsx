@@ -8,6 +8,7 @@ import DocumentPicker, {types} from 'react-native-document-picker';
 import {ShortcutItem} from 'react-native-quick-actions';
 import {showMessage} from 'react-native-flash-message';
 import {NoteTypes, SelectFields} from '../types';
+import { Buffer } from "buffer";
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -256,3 +257,7 @@ export const handleAddNote = (
     },
   });
 };
+
+export const encodedUserDataToken = (subDomain: string, apiKey: string) => {
+  return Buffer.from(`${subDomain}:${apiKey}`, 'binary').toString('base64')
+}

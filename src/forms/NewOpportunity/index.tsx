@@ -7,7 +7,6 @@ import {ModalHeader, ModalView, SingleLineField} from '../../components';
 import {NoteTypes_ACIT} from '../../constants/SampleArrays';
 import {SelectFields} from '../../types';
 import {
-  companyNameList,
   priorityList,
   probabilityList,
   ratingList,
@@ -17,9 +16,12 @@ import {
   typeList,
 } from '../../constants/SelectionList';
 import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
+import { companyStore } from '../../stores/companyStore';
+import { useHookstate } from '@hookstate/core';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
+  const companies: any = useHookstate(companyStore.companies)?.get()
 
   const [showDate, setShowDate] = useState(false);
   const [companyName, setCompanyName] = useState('Select Company');
@@ -182,8 +184,8 @@ const NewOpportunity = ({navigation, route}: any) => {
         ...route?.params,
         from: 'NewOpportunity',
         item: 'Comp',
-        data: companyNameList,
-        selected: companyNameList[0],
+        data: companies,
+        selected: companies[0],
         stack: 'Stack1',
         // title: 'New Shit',
         headerTitle: 'Select Company',

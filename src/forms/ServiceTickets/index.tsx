@@ -12,7 +12,6 @@ import {
 } from '../../components';
 import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
 import {
-  companyNameList,
   contactNameList,
   templateList,
 } from '../../constants/SelectionList';
@@ -22,6 +21,7 @@ import {redirectToMap} from '../../utils/helperFunctions';
 import Details from './Details';
 import Notes from './Notes';
 import Overview from './Overview';
+import { companyStore } from '../../stores/companyStore';
 
 if (
   Platform.OS === 'android' &&
@@ -31,12 +31,13 @@ if (
 }
 
 const App = ({navigation, route}: any) => {
+  const companies: any = useHookstate(companyStore.companies)?.get()
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
     STicketsAdditionalButtons,
   );
   const [companyContact, setCompanyContact] = useState<any>({
     contact: contactNameList[0],
-    company: companyNameList[0],
+    company: companies[0],
   });
   const dNavName: State<string> = useHookstate(
     globalState.defaultnNavigationName,

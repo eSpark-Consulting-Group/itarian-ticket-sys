@@ -3,9 +3,11 @@ import {ScrollView} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 
 import {SingleLineField} from '../../components';
-import {companyNameList, contactNameList} from '../../constants/SelectionList';
+import {contactNameList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
 import {SelectItems} from '../../utils/helperFunctions';
+import { useHookstate } from '@hookstate/core';
+import { companyStore } from '../../stores/companyStore';
 
 interface Item {
   headerTitle?: string;
@@ -21,6 +23,7 @@ interface Item {
 }
 
 export const EditTicket = ({navigation, route}: any) => {
+  const companies: any = useHookstate(companyStore.companies)?.get()
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       subTitle: 'Company',
@@ -28,7 +31,7 @@ export const EditTicket = ({navigation, route}: any) => {
       rightIcon: 'chevron-right',
       title: route?.params?.companyContact?.company?.name,
       headerTitle: 'Company',
-      list: companyNameList,
+      list: companies,
       selectedItem: route?.params?.companyContact?.company,
       searchable: true,
     },

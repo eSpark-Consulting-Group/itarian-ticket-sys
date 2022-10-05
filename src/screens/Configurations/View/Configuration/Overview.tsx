@@ -7,7 +7,6 @@ import DatePicker from '@react-native-community/datetimepicker';
 import {SingleLineField} from '../../../../components';
 import {QNATypes, SelectFields} from '../../../../types';
 import {
-  companyNameList,
   configQuesList,
   contactNameList,
   installerNameList,
@@ -15,6 +14,8 @@ import {
   siteNameList,
   vendorNameList,
 } from '../../../../constants/SelectionList';
+import { companyStore } from '../../../../stores/companyStore';
+import { useHookstate } from '@hookstate/core';
 
 interface Item {
   title: string;
@@ -53,6 +54,7 @@ const Overview = () => {
     {text: 'Some Test Notes'},
     {text: 'Some Test Vendor Notes'},
   ];
+  const companies: any = useHookstate(companyStore.companies)?.get()
 
   const [showDate, setShowDate] = useState(false);
   const [pickerType, setpickerType] = useState<PickerType>('PD');
@@ -66,10 +68,10 @@ const Overview = () => {
     },
     {
       subTitle: 'Company Name',
-      title: 'Chris Craft Boots',
+      title: companies[0]?.name,
       rightIcon: 'chevron-right',
-      list: companyNameList,
-      selectedItem: {id: 0, name: 'Chris Craft Boots'},
+      list: companies,
+      selectedItem: companies[0],
       searchable: true,
       headerTitle: 'Company Name',
     },

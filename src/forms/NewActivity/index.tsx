@@ -8,7 +8,6 @@ import {ModalView, SingleLineField} from '../../components';
 import {globalState} from '../../stores/globalAppState';
 import {userStore} from '../../stores/userStore';
 import {
-  companyNameList,
   contactNameList,
   resourceList,
   statusList,
@@ -17,6 +16,7 @@ import {
 } from '../../constants/SelectionList';
 import {SelectFields} from '../../types';
 import {SelectItems} from '../../utils/helperFunctions';
+import { companyStore } from '../../stores/companyStore';
 
 const NewActivity = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -27,6 +27,7 @@ const NewActivity = ({route, navigation}: any) => {
   const [StartTime, setStartTime] = useState(null);
   const [endTime, setendTime] = useState(null);
   const user: State<any> = useHookstate(userStore.user);
+  const companies: any = useHookstate(companyStore.companies)?.get()
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -40,8 +41,8 @@ const NewActivity = ({route, navigation}: any) => {
       title: 'Please Select',
       subTitle: 'Company ',
       rightIcon: 'chevron-right',
-      list: companyNameList,
-      selectedItem: companyNameList[0],
+      list: companies,
+      selectedItem: companies[0],
       searchable: true,
       headerTitle: 'Company',
     },

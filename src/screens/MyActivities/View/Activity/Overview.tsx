@@ -13,13 +13,14 @@ import DatePicker from '@react-native-community/datetimepicker';
 import {SingleLineField} from '../../../../components';
 import {Activity, SelectFields} from '../../../../types';
 import {
-  companyNameList,
   contactNameList,
   resourceList,
   statusList,
   typeList,
   whereList,
 } from '../../../../constants/SelectionList';
+import { companyStore } from '../../../../stores/companyStore';
+import { useHookstate } from '@hookstate/core';
 
 interface Item {
   title: string;
@@ -50,6 +51,7 @@ const Overview = () => {
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');
   const [pickerType, setpickerType] = useState<PickerType>('dd');
+  const companies: any = useHookstate(companyStore.companies)?.get()
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: item?.summary,
@@ -61,8 +63,8 @@ const Overview = () => {
       title: item?.company_name,
       subTitle: 'Company',
       rightIcon: 'chevron-right',
-      list: companyNameList,
-      selectedItem: companyNameList[0],
+      list: companies,
+      selectedItem: companies[0],
       headerTitle: 'Companies',
     },
     {

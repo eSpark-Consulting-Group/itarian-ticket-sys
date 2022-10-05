@@ -7,7 +7,6 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ModalView, SingleLineField} from '../../components';
 import {SelectFields} from '../../types';
 import {
-  companyNameList,
   contactNameList,
   manufacturerNameList,
   statusList,
@@ -15,6 +14,8 @@ import {
   vendorNameList,
 } from '../../constants/SelectionList';
 import {SelectItems} from '../../utils/helperFunctions';
+import { companyStore } from '../../stores/companyStore';
+import { useHookstate } from '@hookstate/core';
 
 interface Item {
   title: string;
@@ -46,6 +47,8 @@ const NewConfiguration = ({route, navigation}: any) => {
   const [needsRenewal, setNeedsRenewal] = useState(false);
   const [showDate, setShowDate] = useState(false);
   const [pickerType, setpickerType] = useState<PickerType>('PD');
+  const companies: any = useHookstate(companyStore.companies)?.get()
+
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: '',
@@ -58,8 +61,8 @@ const NewConfiguration = ({route, navigation}: any) => {
       subTitle: 'Company',
       title: 'Please Select',
       rightIcon: 'chevron-right',
-      list: companyNameList,
-      selectedItem: companyNameList[0],
+      list: companies,
+      selectedItem: companies[0],
       headerTitle: 'Company Name',
       searchable: true,
     },

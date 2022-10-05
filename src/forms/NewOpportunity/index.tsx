@@ -7,21 +7,22 @@ import {ModalHeader, ModalView, SingleLineField} from '../../components';
 import {NoteTypes_ACIT} from '../../constants/SampleArrays';
 import {SelectFields} from '../../types';
 import {
-  priorityList,
   probabilityList,
   ratingList,
   salesRepList,
   stageList,
-  statusList,
   typeList,
 } from '../../constants/SelectionList';
 import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
 import { companyStore } from '../../stores/companyStore';
 import { useHookstate } from '@hookstate/core';
+import { globalState } from '../../stores/globalAppState';
 
 const NewOpportunity = ({navigation, route}: any) => {
   const {colors, dark}: Theme = useTheme();
   const companies: any = useHookstate(companyStore.companies)?.get()
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
+  const ticketPriorities: any = useHookstate(globalState?.ticketPriorities).get()
 
   const [showDate, setShowDate] = useState(false);
   const [companyName, setCompanyName] = useState('Select Company');
@@ -45,16 +46,16 @@ const NewOpportunity = ({navigation, route}: any) => {
       title: 'Please Select',
       subTitle: 'Priority',
       rightIcon: 'chevron-right',
-      list: priorityList,
-      selectedItem: priorityList[0],
+      list: ticketPriorities,
+      selectedItem: ticketPriorities[0],
       headerTitle: 'Priority',
     },
     {
       title: 'Please Select',
       subTitle: 'Status',
       rightIcon: 'chevron-right',
-      list: statusList,
-      selectedItem: statusList[0],
+      list: ticketStatus,
+      selectedItem: ticketStatus[0],
       headerTitle: 'Status',
     },
     {

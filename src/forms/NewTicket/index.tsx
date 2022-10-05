@@ -9,10 +9,11 @@ import {
   boardList,
   contactNameList,
   resourceList,
-  statusList,
 } from '../../constants/SelectionList';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
+import { globalState } from '../../stores/globalAppState';
+import { useHookstate } from '@hookstate/core';
 
 interface Item {
   title: string;
@@ -40,6 +41,8 @@ interface Item {
 
 export default function NewTicket({route, navigation}: any) {
   const {colors, dark} = useTheme();
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
+
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'Tim Smith',
@@ -70,8 +73,8 @@ export default function NewTicket({route, navigation}: any) {
       title: 'Please Select',
       subTitle: 'Status',
       enable: true,
-      list: statusList,
-      selectedItem: statusList[0],
+      list: ticketStatus,
+      selectedItem: ticketStatus[0],
       headerTitle: 'Status',
       rightIcon: 'chevron-right',
     },

@@ -8,12 +8,13 @@ import {
   customFieldList,
   itemList,
   siteList,
-  statusList,
   subTypesList,
   typesList,
 } from '../../constants/SelectionList';
 import {PriorityField, SingleLineField} from '../../components';
 import {SelectFields} from '../../types/index';
+import { useHookstate } from '@hookstate/core';
+import { globalState } from '../../stores/globalAppState';
 
 interface Item {
   headerTitle?: string;
@@ -28,87 +29,88 @@ interface Item {
   searchable?: boolean;
 }
 
-const dataSource: Item[] = [
-  {
-    title: 'Custom Fields 1',
-    leftIcon: 'clipboard-text-outline',
-    rightIcon: 'chevron-right',
-    headerTitle: 'Custom Field',
-    list: customFieldList,
-    selectedItem: customFieldList[0],
-    searchable: true,
-  },
-  {
-    title: 'Site 1',
-    subTitle: 'Site',
-    rightIcon: 'chevron-right',
-    headerTitle: 'Site',
-    list: siteList,
-    selectedItem: {name: 'Site 1', id: 1},
-    searchable: false,
-  },
-  {
-    title: '123 Elm Street Tampa, Fl 32364 United States',
-    titleWidth: moderateScale(130),
-    subTitle: 'Address',
-    enable: false,
-  },
-  {
-    title: 'Board 1',
-    subTitle: 'Board',
-    headerTitle: 'Board',
-    rightIcon: 'chevron-right',
-    list: boardList,
-    selectedItem: {name: 'Board 1', id: 1},
-    searchable: false,
-  },
-  {
-    title: 'Status 1',
-    subTitle: 'Status',
-    headerTitle: 'Status',
-    rightIcon: 'chevron-right',
-    list: statusList,
-    selectedItem: {name: 'Status 1', id: 1},
-    searchable: false,
-  },
-  {
-    title: 'The Sale of Agreements',
-    subTitle: 'Agreement',
-    enable: false,
-  },
-  {
-    title: 'Type 1',
-    subTitle: 'Type',
-    headerTitle: 'Type',
-    rightIcon: 'chevron-right',
-    list: typesList,
-    selectedItem: {name: 'Type 1', id: 1},
-    searchable: false,
-  },
-  {
-    title: 'Subtype 1',
-    subTitle: 'Subtype',
-    headerTitle: 'SubType',
-    rightIcon: 'chevron-right',
-    list: subTypesList,
-    selectedItem: {name: 'Subtype 1', id: 1},
-    searchable: false,
-  },
-  {
-    title: 'Item 1',
-    subTitle: 'Item',
-    headerTitle: 'Item',
-    rightIcon: 'chevron-right',
-    list: itemList,
-    selectedItem: {name: 'Item 1', id: 1},
-    searchable: false,
-  },
-];
+
 
 const Overview = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
-
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
+  const dataSource: Item[] = [
+    {
+      title: 'Custom Fields 1',
+      leftIcon: 'clipboard-text-outline',
+      rightIcon: 'chevron-right',
+      headerTitle: 'Custom Field',
+      list: customFieldList,
+      selectedItem: customFieldList[0],
+      searchable: true,
+    },
+    {
+      title: 'Site 1',
+      subTitle: 'Site',
+      rightIcon: 'chevron-right',
+      headerTitle: 'Site',
+      list: siteList,
+      selectedItem: {name: 'Site 1', id: 1},
+      searchable: false,
+    },
+    {
+      title: '123 Elm Street Tampa, Fl 32364 United States',
+      titleWidth: moderateScale(130),
+      subTitle: 'Address',
+      enable: false,
+    },
+    {
+      title: 'Board 1',
+      subTitle: 'Board',
+      headerTitle: 'Board',
+      rightIcon: 'chevron-right',
+      list: boardList,
+      selectedItem: {name: 'Board 1', id: 1},
+      searchable: false,
+    },
+    {
+      title: ticketStatus[0]?.name || "Please Select",
+      subTitle: 'Status',
+      headerTitle: 'Status',
+      rightIcon: 'chevron-right',
+      list: ticketStatus,
+      selectedItem: ticketStatus[0],
+      searchable: false,
+    },
+    {
+      title: 'The Sale of Agreements',
+      subTitle: 'Agreement',
+      enable: false,
+    },
+    {
+      title: 'Type 1',
+      subTitle: 'Type',
+      headerTitle: 'Type',
+      rightIcon: 'chevron-right',
+      list: typesList,
+      selectedItem: {name: 'Type 1', id: 1},
+      searchable: false,
+    },
+    {
+      title: 'Subtype 1',
+      subTitle: 'Subtype',
+      headerTitle: 'SubType',
+      rightIcon: 'chevron-right',
+      list: subTypesList,
+      selectedItem: {name: 'Subtype 1', id: 1},
+      searchable: false,
+    },
+    {
+      title: 'Item 1',
+      subTitle: 'Item',
+      headerTitle: 'Item',
+      rightIcon: 'chevron-right',
+      list: itemList,
+      selectedItem: {name: 'Item 1', id: 1},
+      searchable: false,
+    },
+  ];
   const [Ds, setDs] = useState<Item[]>(dataSource);
 
   useEffect(() => {

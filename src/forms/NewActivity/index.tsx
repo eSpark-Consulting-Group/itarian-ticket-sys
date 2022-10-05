@@ -10,7 +10,6 @@ import {userStore} from '../../stores/userStore';
 import {
   contactNameList,
   resourceList,
-  statusList,
   typeList,
   whereList,
 } from '../../constants/SelectionList';
@@ -28,6 +27,7 @@ const NewActivity = ({route, navigation}: any) => {
   const [endTime, setendTime] = useState(null);
   const user: State<any> = useHookstate(userStore.user);
   const companies: any = useHookstate(companyStore.companies)?.get()
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -105,8 +105,8 @@ const NewActivity = ({route, navigation}: any) => {
       title: 'Please Select',
       subTitle: 'Status',
       rightIcon: 'chevron-right',
-      list: statusList,
-      selectedItem: statusList[0],
+      list: ticketStatus,
+      selectedItem: ticketStatus[0],
       headerTitle: 'Status',
     },
     {

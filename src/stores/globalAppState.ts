@@ -77,4 +77,6 @@ export const globalState = hookstate({
   shortCutScreen: null,
   agendaMember: 'John Doe',
   calendarMember: 'John Doe',
+  ticketStatus: [],
+  ticketPriorities: []
 });

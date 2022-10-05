@@ -9,13 +9,13 @@ import {SelectFields} from '../../types';
 import {
   contactNameList,
   manufacturerNameList,
-  statusList,
   typeList,
   vendorNameList,
 } from '../../constants/SelectionList';
 import {SelectItems} from '../../utils/helperFunctions';
 import { companyStore } from '../../stores/companyStore';
 import { useHookstate } from '@hookstate/core';
+import { globalState } from '../../stores/globalAppState';
 
 interface Item {
   title: string;
@@ -48,6 +48,7 @@ const NewConfiguration = ({route, navigation}: any) => {
   const [showDate, setShowDate] = useState(false);
   const [pickerType, setpickerType] = useState<PickerType>('PD');
   const companies: any = useHookstate(companyStore.companies)?.get()
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -78,8 +79,8 @@ const NewConfiguration = ({route, navigation}: any) => {
       subTitle: 'Status',
       title: 'Please Select',
       rightIcon: 'chevron-right',
-      list: statusList,
-      selectedItem: statusList[0],
+      list: ticketStatus,
+      selectedItem: ticketStatus[0],
       headerTitle: 'Status',
     },
     {

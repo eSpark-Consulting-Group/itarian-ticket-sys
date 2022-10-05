@@ -15,12 +15,12 @@ import {Activity, SelectFields} from '../../../../types';
 import {
   contactNameList,
   resourceList,
-  statusList,
   typeList,
   whereList,
 } from '../../../../constants/SelectionList';
 import { companyStore } from '../../../../stores/companyStore';
 import { useHookstate } from '@hookstate/core';
+import { globalState } from '../../../../stores/globalAppState';
 
 interface Item {
   title: string;
@@ -52,6 +52,8 @@ const Overview = () => {
   const [mode, setMode] = useState<Mode>('date');
   const [pickerType, setpickerType] = useState<PickerType>('dd');
   const companies: any = useHookstate(companyStore.companies)?.get()
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
+
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: item?.summary,
@@ -126,8 +128,8 @@ const Overview = () => {
       title: 'Status',
       subTitle: 'Status',
       rightIcon: 'chevron-right',
-      list: statusList,
-      selectedItem: statusList[0],
+      list: ticketStatus,
+      selectedItem: ticketStatus[0],
       headerTitle: 'Status',
     },
     {

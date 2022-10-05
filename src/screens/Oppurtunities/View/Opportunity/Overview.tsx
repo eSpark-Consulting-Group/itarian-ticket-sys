@@ -5,16 +5,16 @@ import DatePicker from '@react-native-community/datetimepicker';
 
 import {SingleLineField} from '../../../../components';
 import {
-  priorityList,
   probabilityList,
   ratingList,
   salesRepList,
   siteList,
   stageList,
-  statusList,
   typeList,
 } from '../../../../constants/SelectionList';
 import {SelectFields} from '../../../../types';
+import { globalState } from '../../../../stores/globalAppState';
+import { useHookstate } from '@hookstate/core';
 
 interface Item {
   headerTitle?: string;
@@ -35,6 +35,8 @@ interface Item {
 export default function Overview() {
   const navigation: any = useNavigation();
   const route: any = useRoute();
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
+  const ticketPriorities: any = useHookstate(globalState?.ticketPriorities).get()
 
   const [showDate, setShowDate] = useState(false);
   const [Ds, setDs] = useState<Item[]>([
@@ -69,21 +71,21 @@ export default function Overview() {
       },
     },
     {
-      title: priorityList[0].name,
+      title: ticketPriorities[0].name,
       subTitle: 'Priority',
       rightIcon: 'chevron-right',
       headerTitle: 'Priority',
-      list: priorityList,
-      selectedItem: priorityList[0],
+      list: ticketPriorities,
+      selectedItem: ticketPriorities[0],
       searchable: false,
     },
     {
-      title: statusList[0].name,
+      title: ticketStatus[0].name,
       subTitle: 'Status',
       rightIcon: 'chevron-right',
       headerTitle: 'Status',
-      list: statusList,
-      selectedItem: statusList[0],
+      list: ticketStatus,
+      selectedItem: ticketStatus[0],
       searchable: false,
     },
     {

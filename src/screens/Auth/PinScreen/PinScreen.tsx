@@ -15,6 +15,7 @@ import {BiometricVerification, CstmPressable} from '../../../components';
 import {useUpdateEffect} from '../../../utils/hooks';
 import {userStore} from '../../../stores/userStore';
 import {showMessage} from 'react-native-flash-message';
+import {alert_Dur} from '../../../constants';
 
 const PinScreen = ({route, navigation}: any) => {
   const user: State<any> = useHookstate(userStore.user);
@@ -51,6 +52,7 @@ const PinScreen = ({route, navigation}: any) => {
           message: 'Incorrect PIN Entered',
           type: 'danger',
           icon: 'auto',
+          duration: alert_Dur,
         });
       }
       setPin('');

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {Divider, Menu} from 'react-native-paper';
@@ -24,7 +24,6 @@ export const CstmMenu = ({
   onChange: (value: string) => void;
 }) => {
   const {colors, dark}: Theme = useTheme();
-  const [range, setRange] = useState<any>('Last 30 Days');
   const solidColor = dark ? '#000000' : '#ffffff';
 
   return (
@@ -45,7 +44,6 @@ export const CstmMenu = ({
                 dark={dark}
                 onPress={() => {
                   hideMenu();
-                  setRange(item.text);
                   onChange(item.text);
                 }}
               />

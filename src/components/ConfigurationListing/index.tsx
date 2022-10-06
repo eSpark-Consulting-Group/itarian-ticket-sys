@@ -16,9 +16,9 @@ import {useUpdateEffect} from '../../utils/hooks';
 
 import styles from './styles';
 import {searchFromArray} from '../../utils/helperFunctions';
-import FloatButton from '../../components/FloatButton/index'
+import FloatButton from '../../components/FloatButton/index';
 const ConfigurationListing = ({route}: any) => {
-  const {colors, dark}: Theme = useTheme();
+  const {dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
@@ -26,7 +26,7 @@ const ConfigurationListing = ({route}: any) => {
   useEffect(() => {
     if (route.params) {
       setSearchValue(route.params.data);
-      searchFilterFunction(route?.params?.data)
+      searchFilterFunction(route?.params?.data);
     }
   }, [route.params]);
 

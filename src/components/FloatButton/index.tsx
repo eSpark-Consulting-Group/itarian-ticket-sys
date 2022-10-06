@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {FAB} from 'react-native-paper';
 
 import styles from './style';

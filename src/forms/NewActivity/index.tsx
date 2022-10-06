@@ -2,11 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {View, ScrollView} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import DatePicker from '@react-native-community/datetimepicker';
-import {State, useHookstate} from '@hookstate/core';
 
 import {ModalView, SingleLineField} from '../../components';
-import {globalState} from '../../stores/globalAppState';
-import {userStore} from '../../stores/userStore';
 import {
   companyNameList,
   contactNameList,
@@ -23,10 +20,6 @@ const NewActivity = ({route, navigation}: any) => {
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');
   const [pickerType, setpickerType] = useState<PickerType>('dd');
-
-  const [StartTime, setStartTime] = useState(null);
-  const [endTime, setendTime] = useState(null);
-  const user: State<any> = useHookstate(userStore.user);
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -166,12 +159,10 @@ const NewActivity = ({route, navigation}: any) => {
           setDataSource([...dataSource]);
           break;
         case 'st':
-          setStartTime(date?.toISOString());
           dataSource[4].title = time;
           setDataSource([...dataSource]);
           break;
         case 'et':
-          setendTime(date?.toISOString());
           dataSource[5].title = time;
           setDataSource([...dataSource]);
         default:

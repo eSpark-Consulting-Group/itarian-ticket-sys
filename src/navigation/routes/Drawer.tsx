@@ -550,7 +550,7 @@ const Draw = () => {
                       dataSource: opportunityFilterList,
                       title: '30 Dec 2022',
                       FilterStack: 'Draw',
-                      FilterFrom: 'PBoard',
+                      FilterFrom: 'Opportunities',
                     },
                   })
                 }

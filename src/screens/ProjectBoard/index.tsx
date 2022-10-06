@@ -57,7 +57,13 @@ const ProjectBoard = ({route, navigation}: any) => {
           onPress={() => {
             navigation.navigate('Stack1', {
               screen: 'STickets',
-              params: {title: item.ticket_no?.toString()},
+              params: {
+                title: item.ticket_no?.toString(),
+                ticket_info: {
+                  id: item?.ticket_no?.toString(),
+                  summary: item?.summary,
+                },
+              },
             });
           }}>
           <View

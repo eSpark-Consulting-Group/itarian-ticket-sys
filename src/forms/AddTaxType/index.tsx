@@ -1,19 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {
   View,
-  Text,
   ScrollView,
   KeyboardTypeOptions,
   StyleSheet,
   ViewStyle,
 } from 'react-native';
 
-import {
-  CstmButton,
-  EmptyListMsg,
-  RoundedIcon,
-  SingleLineField,
-} from '../../components';
+import {EmptyListMsg, SingleLineField} from '../../components';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import {TaxTypeList} from '../../constants/SelectionList';
 import {SelectFields} from '../../types';

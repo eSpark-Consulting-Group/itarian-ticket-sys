@@ -1,5 +1,11 @@
 import React, {ReactNode} from 'react';
-import {StyleSheet, Text, View, ViewStyle, KeyboardTypeOptions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+  KeyboardTypeOptions,
+} from 'react-native';
 import {Switch} from 'react-native-paper';
 import {Theme, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -39,7 +45,7 @@ interface Props {
   halfWidth?: boolean;
   keyboardType?: KeyboardTypeOptions | undefined;
   inputWidth?: number | undefined;
-  roundIconStyle?: ViewStyle
+  roundIconStyle?: ViewStyle;
 }
 
 const SingleLineField = ({
@@ -67,7 +73,7 @@ const SingleLineField = ({
   leftIconStyles = {},
   fieldPadding = 10,
   halfWidth = false,
-  keyboardType='default',
+  keyboardType = 'default',
   inputWidth = undefined,
   roundIconStyle = {},
 }: Props) => {
@@ -121,7 +127,12 @@ const SingleLineField = ({
               )}
               {inputable ? (
                 mode == 'none' ? (
-                  <CstmTitleInput width={inputWidth} value={title} onChangeText={onChangeText} keyboardType={keyboardType} />
+                  <CstmTitleInput
+                    width={inputWidth}
+                    value={title}
+                    onChangeText={onChangeText}
+                    keyboardType={keyboardType}
+                  />
                 ) : (
                   <CstmMultiLine
                     value={title}
@@ -183,15 +194,6 @@ const SingleLineField = ({
 export default SingleLineField;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  priorityBox: {
-    backgroundColor: 'yellow',
-    borderWidth: 1,
-    height: 10,
-    width: 10,
-  },
   title: {
     fontSize: 16,
     fontWeight: '600',
@@ -199,12 +201,5 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     opacity: 0.6,
-  },
-  input: {
-    height: 40,
-    borderWidth: 2,
-    borderRadius: 6,
-    padding: 10,
-    width: '100%',
   },
 });

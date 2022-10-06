@@ -80,7 +80,7 @@ const Sites = () => {
         />
       </ModalHeader>
       <Loader isShow={loader} />
-      <FlatList 
+      <FlatList
         data={Ds}
         renderItem={({item, index}: any) => {
           return (
@@ -111,23 +111,3 @@ const Sites = () => {
 };
 
 export default Sites;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  priorityBox: {
-    backgroundColor: 'yellow',
-    borderWidth: 1,
-    height: 10,
-    width: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    opacity: 0.8,
-  },
-  subTitle: {
-    opacity: 0.6,
-  },
-});

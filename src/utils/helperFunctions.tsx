@@ -8,6 +8,7 @@ import DocumentPicker, {types} from 'react-native-document-picker';
 import {ShortcutItem} from 'react-native-quick-actions';
 import {showMessage} from 'react-native-flash-message';
 import {NoteTypes, SelectFields} from '../types';
+import {alert_Dur} from '../constants';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -175,6 +176,7 @@ export const checkValidations = (
         message: 'Please fill required fields',
         type: 'warning',
         icon: 'auto',
+        duration: alert_Dur,
       });
       return;
     }
@@ -183,6 +185,7 @@ export const checkValidations = (
     message: 'Item added Successfully',
     type: 'success',
     icon: 'auto',
+    duration: alert_Dur,
   });
   // console.log('Error Not Founded');
   navigation.goBack();

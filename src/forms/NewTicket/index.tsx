@@ -8,7 +8,6 @@ import {SelectFields} from '../../types';
 import {
   boardList,
   contactNameList,
-  resourceList,
   statusList,
 } from '../../constants/SelectionList';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';

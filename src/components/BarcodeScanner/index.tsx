@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Dimensions, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 const BarcodeScanner = ({navigation, route}: any) => {
-  const [show, setShow] = useState(false);
-
   return (
     <QRCodeScanner
       onRead={e => {
@@ -41,20 +39,17 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.1,
     backgroundColor: 'black',
   },
-
   headerText: {
     fontWeight: 'bold',
     fontSize: 20,
     color: '#eee',
     paddingBottom: 10,
   },
-
   footerContainer: {
     padding: 10,
     borderRadius: 10,
     backgroundColor: '#28648f',
   },
-
   footerText: {
     fontSize: 20,
     color: '#eee',

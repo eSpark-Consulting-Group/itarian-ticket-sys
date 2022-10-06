@@ -20,7 +20,7 @@ const CstmSwitchSelector = ({
   selectionColor: string;
 }) => {
   const [getSelectionMode, setSelectionMode] = useState(selectionMode);
-  const {colors, dark} = useTheme();
+  const {colors} = useTheme();
 
   const updatedSwitchData = (val: number) => {
     setSelectionMode(val);

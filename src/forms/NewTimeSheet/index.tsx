@@ -18,8 +18,6 @@ const NewTimeSheet = ({route, navigation}: any) => {
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');
   const [pickerType, setpickerType] = useState<PickerType>('dd');
-  const [StartTime, setStartTime] = useState(null);
-  const [endTime, setendTime] = useState(null);
 
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -144,12 +142,10 @@ const NewTimeSheet = ({route, navigation}: any) => {
           setDataSource([...dataSource]);
           break;
         case 'st':
-          setStartTime(date?.toISOString());
           dataSource[2].title = time;
           setDataSource([...dataSource]);
           break;
         case 'et':
-          setendTime(date?.toISOString());
           dataSource[3].title = time;
           setDataSource([...dataSource]);
         default:

@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Modal, ActivityIndicator} from 'react-native';
 
 export const Loader = ({isShow = false}: {isShow: boolean}) => {
-  const {dark, colors}: Theme = useTheme();
+  const {colors}: Theme = useTheme();
   return (
     <View
       style={{

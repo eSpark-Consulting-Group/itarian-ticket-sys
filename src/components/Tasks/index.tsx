@@ -1,10 +1,9 @@
 import {Theme, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Alert} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {CstmPressable} from '../CstmPressable';
 import {Checkbox, Divider} from 'react-native-paper';
 import {DarkTheme, LightTheme} from '../../theme/colors';
-import {color} from 'react-native-reanimated';
 import {styles} from './styles';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import FloatButton from '../FloatButton';

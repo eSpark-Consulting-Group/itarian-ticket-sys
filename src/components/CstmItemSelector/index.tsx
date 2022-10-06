@@ -13,33 +13,29 @@ import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
-import { searchFromArray } from '../../utils/helperFunctions';
+import {searchFromArray} from '../../utils/helperFunctions';
 
 const CstmItemSelector = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+  const {colors}: Theme = useTheme();
   const themeValue: State<string> = useHookstate(globalState.theme);
   const [currChkInd, setCurrChkInd] = useState<number | any>(null);
   const [loader, setLoader] = useState<boolean>(true);
   const [list, setList] = useState<SelectFields[] | []>([]);
   const [searchValue, setSearchValue] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [clear, setClear] = useState(false);
 
   const handleSubmit = () => {
-    setIsLoading(true);
     searchFilterFunction(searchValue);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    setTimeout(() => {}, 3000);
   };
 
   const searchFilterFunction = async (text: string) => {
-      var result = await searchFromArray({
-        text: text || '',
-        list: route?.params?.data,
-        keys: ['name'],
-      });
-      setList(result);
+    var result = await searchFromArray({
+      text: text || '',
+      list: route?.params?.data,
+      keys: ['name'],
+    });
+    setList(result);
   };
 
   const handleClear = () => {

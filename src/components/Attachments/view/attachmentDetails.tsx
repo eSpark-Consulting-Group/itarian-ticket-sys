@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {Image} from 'react-native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {SingleLineField} from '../../FormFields';

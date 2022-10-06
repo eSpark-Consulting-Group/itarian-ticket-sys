@@ -4,7 +4,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import {ModalView, SingleLineField} from '../../components';
 import {SelectFields} from '../../types';
-import {countryList, siteList, stateList} from '../../constants/SelectionList';
+import {countryList, stateList} from '../../constants/SelectionList';
 import {SelectItems} from '../../utils/helperFunctions';
 
 const NewCompany = ({route, navigation}: any) => {

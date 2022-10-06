@@ -1,6 +1,6 @@
 //Function for My Status screen header's right button
 import {Alert} from 'react-native';
-import Images from '../../assets/Images';
+import Images from '../../assets/images';
 import {noteList, stopWatchList} from '../../constants/SampleArrays';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {globalState} from '../../stores/globalAppState';

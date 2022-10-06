@@ -60,7 +60,7 @@ import {
   sBoardFiterList,
 } from '../../constants/SampleArrays';
 import {CstmBadge} from '../../components';
-import Images from '../../assets/Images';
+import Images from '../../assets/images';
 import {userStore} from '../../stores/userStore';
 import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
 

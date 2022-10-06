@@ -10,7 +10,7 @@ import {State, useHookstate} from '@hookstate/core';
 import store from 'react-native-simple-store';
 
 import styles from './style';
-import Images from '../../../assets/Images';
+import Images from '../../../assets/images';
 import {BiometricVerification, CstmPressable} from '../../../components';
 import {useUpdateEffect} from '../../../utils/hooks';
 import {userStore} from '../../../stores/userStore';

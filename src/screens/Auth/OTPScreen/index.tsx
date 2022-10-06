@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
-import Images from '../../../assets/Images';
+import Images from '../../../assets/images';
 import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../../../constants';
 import styles from './style';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
@@ -32,8 +32,8 @@ const OTPScreen = ({navigation, route}: any) => {
       otpKey: paramsData?.otpKey,
       otpType: paramsData?.otpType,
     };
-    const result = await  handleVerifyOTP(obj);
-    if(!result) setOtp('')
+    const result = await handleVerifyOTP(obj);
+    if (!result) setOtp('');
   };
 
   const onResend = async () => {

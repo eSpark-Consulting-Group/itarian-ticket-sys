@@ -62,6 +62,7 @@ import {
 import {CstmBadge} from '../../components';
 import Images from '../../assets/Images';
 import {userStore} from '../../stores/userStore';
+import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -207,6 +208,7 @@ const Draw = () => {
       setcurrMember(currMember);
       setCalCurrMember(calCurrMember);
     }
+    badgeApiCallForGlobalList()
   }, []);
 
   return (

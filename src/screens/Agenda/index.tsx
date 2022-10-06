@@ -4,15 +4,11 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import ScheduledTab from './Scheduled';
 import UnscheduledTab from './Unscheduled';
-import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
 
 const Tab = createMaterialTopTabNavigator();
 
 const AgendaScreen = ({route}: any) => {
   const {colors}: Theme = useTheme();
-  useEffect(() => {
-    badgeApiCallForGlobalList()
-  }, [])
   return (
     <Tab.Navigator
       screenOptions={{

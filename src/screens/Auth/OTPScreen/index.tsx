@@ -32,8 +32,8 @@ const OTPScreen = ({navigation, route}: any) => {
       otpKey: paramsData?.otpKey,
       otpType: paramsData?.otpType,
     };
-    const result = await  handleVerifyOTP(obj);
-    if(!result) setOtp('')
+    const result = await handleVerifyOTP(obj);
+    if (!result) setOtp('');
   };
 
   const onResend = async () => {

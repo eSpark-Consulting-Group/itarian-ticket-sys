@@ -62,7 +62,7 @@ import {
 import {CstmBadge} from '../../components';
 import Images from '../../assets/images';
 import {userStore} from '../../stores/userStore';
-import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
+import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -76,7 +76,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   );
 
   const {colors}: Theme = useTheme();
-  
+
   return (
     <SafeAreaView
       style={{...styles.container, backgroundColor: colors.primary}}>
@@ -208,7 +208,7 @@ const Draw = () => {
       setcurrMember(currMember);
       setCalCurrMember(calCurrMember);
     }
-    badgeApiCallForGlobalList()
+    badgeApiCallForGlobalList();
   }, []);
 
   return (

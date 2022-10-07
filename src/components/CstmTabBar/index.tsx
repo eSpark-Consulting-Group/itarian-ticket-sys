@@ -1,13 +1,5 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {
-  Animated,
-  LayoutAnimation,
-  Platform,
-  StyleSheet,
-  Text,
-  UIManager,
-  View,
-} from 'react-native';
+import {Animated, StyleSheet, Text, View} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import _ from 'lodash';
 
@@ -22,7 +14,6 @@ interface Item {
 }
 
 export default function CstmTabBar(props: any) {
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
   const {dark, colors}: Theme = useTheme();
   const {routes, index: routeIndex} = props.navigationState;
   const [translateValue] = useState(new Animated.Value(0));
@@ -31,7 +22,8 @@ export default function CstmTabBar(props: any) {
   const handleWidth =
     routes?.length < 3 ? WINDOW_WIDTH * 0.405 : WINDOW_WIDTH * 0.305;
   var highlight = dark ? '#000000' : '#fff';
-  const factor = routes?.length < 3 ? 1.035 : (WINDOW_WIDTH > 600 ? 1.025 : 1.045);
+  const factor =
+    routes?.length < 3 ? 1.035 : WINDOW_WIDTH > 600 ? 1.025 : 1.045;
   const animateHeader = (index: any) => {
     Animated.timing(translateValue, {
       toValue: index * factor * handleWidth,
@@ -49,8 +41,6 @@ export default function CstmTabBar(props: any) {
   }, [routeIndex]);
 
   const renderList = (item: Item, index: number) => {
-    const pressColor = dark ? '#ffffff0e' : '#0000000e';
-
     const handleTabNavigation = (hitIndex: number) => {
       animateHeader(hitIndex);
       switch (hitIndex) {

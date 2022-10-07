@@ -30,9 +30,6 @@ const PriorityField = () => {
 export default PriorityField;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   priorityBox: {
     backgroundColor: 'yellow',
     borderWidth: 1,

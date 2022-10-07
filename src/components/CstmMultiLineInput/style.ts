@@ -2,9 +2,6 @@ import {StyleSheet} from 'react-native';
 import {moderateVerticalScale} from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
-  container: {
-    overflow: 'hidden',
-  },
   labelStyle: {
     height: moderateVerticalScale(25, 0),
     opacity: 0.7,

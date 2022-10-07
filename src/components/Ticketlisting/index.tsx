@@ -3,18 +3,17 @@ import {View, FlatList, RefreshControl} from 'react-native';
 
 import {State, useHookstate} from '@hookstate/core';
 
-import styles from './styles';
-import {FloatButton, NotFound} from '../../components';
+import {NotFound} from '../../components';
 import {scheduledList, ticketsList} from '../../constants/SampleArrays';
-import {AdditionalButtons, ScheduledList, Ticket} from '../../types';
+import {ScheduledList, Ticket} from '../../types';
 import {globalState} from '../../stores/globalAppState';
 import ListItem from '../../screens/Agenda/ListItem';
-import { searchFromArray } from '../../utils/helperFunctions';
-import { useUpdateEffect } from '../../utils/hooks';
+import {searchFromArray} from '../../utils/helperFunctions';
+import {useUpdateEffect} from '../../utils/hooks';
 import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
-import { Loader } from '../Loader';
+import {Loader} from '../Loader';
 
 const TicketListing = ({route, navigation}: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
@@ -41,7 +40,7 @@ const TicketListing = ({route, navigation}: any) => {
       });
     }
     setFilArr(aRR);
-  }
+  };
 
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
@@ -57,7 +56,6 @@ const TicketListing = ({route, navigation}: any) => {
     await searchFilterFunction(searchValue);
     setLoader(false);
   };
-
 
   const handleClear = () => {
     setSearchValue('');
@@ -80,7 +78,7 @@ const TicketListing = ({route, navigation}: any) => {
 
   return (
     <ModalView>
-       <ModalHeader empty searchHeader>
+      <ModalHeader empty searchHeader>
         <SearchBar
           withTag={false}
           placeholder={'Search...'}

@@ -9,6 +9,7 @@ import {
   boardList,
   contactNameList,
   resourceList,
+  statusList,
 } from '../../constants/SelectionList';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import {handleAddNote, SelectItems} from '../../utils/helperFunctions';

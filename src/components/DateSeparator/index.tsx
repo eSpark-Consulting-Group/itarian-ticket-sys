@@ -5,7 +5,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 import styles from './style';
 import {Divider} from 'react-native-paper';
 
-const DateSeperator = ({text}: {text: string}) => {
+const DateSeparator = ({text}: {text: string}) => {
   const {colors}: Theme = useTheme();
 
   return (
@@ -29,4 +29,4 @@ const DateSeperator = ({text}: {text: string}) => {
   );
 };
 
-export default DateSeperator;
+export default DateSeparator;

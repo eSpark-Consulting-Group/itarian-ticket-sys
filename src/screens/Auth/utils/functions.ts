@@ -3,6 +3,7 @@ import {showMessage} from 'react-native-flash-message';
 import store from 'react-native-simple-store';
 
 import {api} from '../../../api';
+import {alert_Dur} from '../../../constants';
 import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 import { encodedUserDataToken } from '../../../utils/helperFunctions';
@@ -47,7 +48,7 @@ const handleLoginUser = async (
           type: 'success',
           icon: 'auto',
           autoHide: true,
-          duration: 100,
+          duration: alert_Dur,
         });
         navigation.navigate('Draw');
       }else {
@@ -126,6 +127,7 @@ const requestSmsOtp = async (data: any, navigation: any) => {
         message: 'Too many login attempts try again after 1 hour',
         type: 'danger',
         icon: 'auto',
+        duration: alert_Dur,
       });
     }
     if (resData?.code == 'ERR_OTP_KEY_INVALID') {
@@ -133,6 +135,7 @@ const requestSmsOtp = async (data: any, navigation: any) => {
         message: 'OTP key is invalid',
         type: 'danger',
         icon: 'auto',
+        duration: alert_Dur,
       });
       navigation?.goBack();
     }
@@ -163,6 +166,7 @@ const handleVerifyOTP = async (data: any) => {
         message: 'You enter invalid OTP!',
         type: 'danger',
         icon: 'auto',
+        duration: alert_Dur,
       });
       return false;
     }
@@ -174,7 +178,7 @@ const handleVerifyOTP = async (data: any) => {
         type: 'success',
         icon: 'auto',
         autoHide: true,
-        duration: 100,
+        duration: alert_Dur,
       });
       const userObj: any = {
         user_name: displayName,

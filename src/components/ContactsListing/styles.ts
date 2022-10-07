@@ -38,15 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   horizontalAdjuster: {width: 14},
-  iconStyle: {
-    borderWidth: 1,
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: {
-    padding: 8,
-  },
   dividerStyle: {
     opacity: 0.2,
     transform: [{scale: 2}],

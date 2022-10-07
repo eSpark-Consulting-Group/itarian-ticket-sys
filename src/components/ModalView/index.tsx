@@ -9,7 +9,7 @@ const ModalView = ({
   children?: ReactNode;
   bgColor?: string;
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const {colors}: Theme = useTheme();
 
   return (
     <View

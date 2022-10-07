@@ -19,7 +19,7 @@ import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
 
 const ContactListing = () => {
-  const {colors, dark}: Theme = useTheme();
+  const {dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);

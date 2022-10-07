@@ -4,6 +4,7 @@ import Images from '../../assets/images';
 import {noteList, stopWatchList} from '../../constants/SampleArrays';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {globalState} from '../../stores/globalAppState';
+import {alert_Dur} from '../../constants';
 
 const saveStatus = (navigation: any, route: any, globalStates: any) => {
   console.log('route.params', route?.params);
@@ -12,12 +13,14 @@ const saveStatus = (navigation: any, route: any, globalStates: any) => {
       message: 'Please select Date Back',
       type: 'warning',
       icon: 'warning',
+      duration: alert_Dur,
     });
   } else {
     showMessage({
       message: 'Status Updated Successfully',
       type: 'success',
       icon: 'auto',
+      duration: alert_Dur,
     });
     globalStates?.currentStatus.set(route.params?.status);
     globalStates?.currentGoneTo.set({...route.params?.goneTo});
@@ -69,6 +72,7 @@ const onSave = (navigation: any, route: any, globalStates?: any) => {
       message: 'Note added Successfully',
       type: 'success',
       icon: 'auto',
+      duration: alert_Dur,
     });
   }
 

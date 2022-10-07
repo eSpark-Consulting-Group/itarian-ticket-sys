@@ -12,7 +12,7 @@ import {AdditionalButtons, ScheduledList} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
 
 const UnscheduledTab = ({navigation}: any) => {
-  const activeMember: State<string> = useHookstate(globalState.agendaMember);
+  const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
@@ -39,7 +39,7 @@ const UnscheduledTab = ({navigation}: any) => {
   useEffect(() => {
     const schTicks = ticketsList.filter(val => !val?.time_dur);
     const filTickets = schTicks.filter(
-      val => val?.assigned_to == activeMember.get(),
+      val => val?.assigned_to == activeMember.get()?.name,
     );
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
@@ -49,7 +49,7 @@ const UnscheduledTab = ({navigation}: any) => {
       });
     }
     setFilArr(aRR);
-  }, [activeMember.get()]);
+  }, [activeMember.get()?.name]);
 
   const onRefresh = () => {
     setIsFetching(true);

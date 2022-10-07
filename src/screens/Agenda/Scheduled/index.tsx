@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, RefreshControl} from 'react-native';
+import {View, FlatList, RefreshControl, Text} from 'react-native';
 
 import {State, useHookstate} from '@hookstate/core';
 
@@ -10,11 +10,16 @@ import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
 import {SchAdditionalButtons} from '../../../constants/ButtonsList';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
+import { ticketStore } from '../../../stores/ticketStore';
+import { Theme, useTheme } from '@react-navigation/native';
+import { getTicketsByUserId } from '../utils/functions';
 
 const ScheduledTab = ({route, navigation}: any) => {
-  const activeMember: State<string> = useHookstate(globalState.agendaMember);
+  const activeMember: State<any> = useHookstate(globalState.agendaMember);
+  const tickets: any = useHookstate(ticketStore.tickets).get();
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
+  const {colors}: Theme = useTheme();
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
 
@@ -42,8 +47,9 @@ const ScheduledTab = ({route, navigation}: any) => {
 
   useEffect(() => {
     const schTicks = ticketsList.filter(val => val?.time_dur);
+    getTicketsByUserId(activeMember.get()?.id)
     const filTickets = schTicks.filter(
-      val => val?.assigned_to == activeMember.get(),
+      val => val?.assigned_to == activeMember.get()?.name,
     );
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
@@ -53,7 +59,7 @@ const ScheduledTab = ({route, navigation}: any) => {
       });
     }
     setFilArr(aRR);
-  }, [activeMember.get()]);
+  }, [activeMember.get()?.name]);
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -69,7 +75,7 @@ const ScheduledTab = ({route, navigation}: any) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={filArr}
+        data={tickets || []}
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
         }
@@ -81,7 +87,7 @@ const ScheduledTab = ({route, navigation}: any) => {
         renderItem={({item}) => {
           return (
             <ListItem
-              dataSource={item}
+              dataSource={{id: scheduledList[0].id, date: scheduledList[0].date, data: [ticketsList[0]]}}
               onPress={iValue => {
                 iValue.type == 'Ticket'
                   ? navigation.navigate('Stack1', {

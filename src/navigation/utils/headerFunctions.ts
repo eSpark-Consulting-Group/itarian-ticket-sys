@@ -79,7 +79,7 @@ const onSave = (navigation: any, route: any, globalStates?: any) => {
   ) {
     if (route?.params?.from == 'Agenda') {
       globalStates?.agendaMember.set(
-        JSON.parse(JSON.stringify(route.params?.selected.name)),
+        JSON.parse(JSON.stringify(route.params?.selected)),
       );
     } else if (route?.params?.from == 'Calendar') {
       globalStates?.calendarMember.set(

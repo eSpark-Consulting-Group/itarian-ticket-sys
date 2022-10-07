@@ -2,6 +2,7 @@ import {showMessage} from 'react-native-flash-message';
 
 import {api} from '../../../api';
 import { globalState } from '../../../stores/globalAppState';
+import { ticketStore } from '../../../stores/ticketStore';
 import {userStore} from '../../../stores/userStore';
 
 const getAllUsers = async () => {
@@ -29,5 +30,23 @@ const getAllUsers = async () => {
    }
 }
 
+const getTicketsByUserId = async (userId: string) => {
+    const user: any = userStore.get()?.user
+    const USER_TOKEN = user?.token
+    console.log(`Basic ${USER_TOKEN}`)
+    api.setHeaders({
+    'Authorization': `Basic ${USER_TOKEN}` ,
+    })
+   try {
+    const result: any = await api.get(`/users/${userId}?include=tickets`)
+    if(result?.ok) {
+        const data = result?.data?.included
+        ticketStore?.tickets?.set(data || [])
+    }
+   } catch (error) {
+    console.log("error getTicketsByUserId", error);
+   }
+}
 
-export {getAllUsers}
+
+export {getAllUsers, getTicketsByUserId}

@@ -17,7 +17,7 @@ import SearchBar from '../SearchBar';
 import { Loader } from '../Loader';
 
 const TicketListing = ({route, navigation}: any) => {
-  const activeMember: State<string> = useHookstate(globalState.agendaMember);
+  const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -26,12 +26,12 @@ const TicketListing = ({route, navigation}: any) => {
 
   useEffect(() => {
     filteration(ticketsList)
-  }, [activeMember.get()]);
+  }, [activeMember.get()?.name]);
 
   const filteration = (ticketsListArr: Ticket[]) => {
     const schTicks = ticketsListArr.filter(val => val?.time_dur);
     const filTickets = schTicks.filter(
-      val => val?.assigned_to == activeMember.get(),
+      val => val?.assigned_to == activeMember.get()?.name,
     );
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {

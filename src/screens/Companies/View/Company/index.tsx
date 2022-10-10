@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
@@ -15,11 +16,13 @@ if (
 }
 
 const Company = () => {
+  const routes: any = useRoute()
+  const companyDetails: any = routes?.params?.companyDetails 
   return (
     <ModalView>
       <ModalHeader
         icon="office-building-marker-outline"
-        title="Acme IT Solutions"
+        title={companyDetails?.name}
       />
       <TabComp />
     </ModalView>

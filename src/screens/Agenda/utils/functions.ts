@@ -18,9 +18,10 @@ const getAllUsers = async () => {
         const data = result?.data?.data?.map((val: any) => {
             return {
                 id: val?.id,
-                email: val?.attributes?.email,
                 company_name: val?.attributes?.company,
-                name: val?.attributes?.user_name
+                email: val?.attributes?.email,
+                name: val?.attributes?.user_name,
+                ...val?.attributes,
             }
         })
         userStore?.users?.set(data)

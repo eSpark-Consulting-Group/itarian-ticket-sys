@@ -8,6 +8,8 @@ import {ContactList, SelectFields} from '../../../../types';
 import {redirectToMap} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
 import {contactsList} from '../../../../constants/SampleArrays';
+import { useRoute } from '@react-navigation/native';
+import _ from 'lodash';
 
 interface Item {
   headerTitle?: string;
@@ -29,23 +31,27 @@ const Overview = () => {
     globalState.defaultnNavigationName,
   );
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
+  const routes: any = useRoute()
+  const companyDetails: any = routes?.params?.companyDetails 
   const dataSource: Item[] = [
     {
-      title: '(815)-555-1234',
+      title: companyDetails?.phone_number || 'N/A',
       headerTitle: 'Company Phone No.',
       rightChild: (
         <RoundedIcon
-          onPress={() => Linking.openURL(`tel:090078601`)}
-          icon="phone"
+            enable={companyDetails?.phone_number}
+            icon={'phone'}
+            onPress={() => Linking.openURL(`tel:${companyDetails?.phone_number}`)}
         />
       ),
       enable: false,
     },
     {
-      title: '645 Elm Street Tampa, Fl 32364',
+      title: companyDetails?.address || 'N/A',
       headerTitle: 'Company Address',
       rightChild: (
         <RoundedIcon
+          enable={false}
           icon="map-marker-outline"
           onPress={() => redirectToMap(34.923264, -120.429214, defaultNav)}
         />
@@ -54,7 +60,7 @@ const Overview = () => {
       titleWidth: moderateScale(130),
     },
     {
-      title: 'Tim Smith',
+      title: companyDetails?.mainuser?.user_name || 'N/A',
       leftIcon: 'account',
       headerTitle: 'Company Address',
       enable: false,

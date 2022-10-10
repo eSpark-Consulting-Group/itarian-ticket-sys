@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {Linking, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
+import {useTheme, Theme, useRoute} from '@react-navigation/native';
 
 import {RoundedIcon, SingleLineField} from '../../../../components';
 import {contactsList} from '../../../../constants/SampleArrays';
 import {ContactList} from '../../../../types';
+import _ from 'lodash';
 
 interface Item {
   headerTitle?: string;
@@ -22,28 +23,34 @@ interface Item {
 }
 export default function Communications() {
   const {colors}: Theme = useTheme();
+  const routes: any = useRoute()
+  const contactDetails = routes?.params?.contactDetails
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: 'Emails',
+      subTitle: 'Email',
       rightChild: (
         <RoundedIcon
-          onPress={() => Linking.openURL('mailto:support@example.com')}
+          enable={!_.isNull(contactDetails?.email)}
+          onPress={() => Linking.openURL(`mailto:${contactDetails?.email}`)}
           icon="email-outline"
         />
       ),
       enable: false,
-      contacts: contactsList[1].email_address,
+      title: contactDetails?.email || ''
+      // contacts: contactsList[1].email_address,
     },
     {
-      title: 'Phone numbers',
+      subTitle: 'Phone number',
       rightChild: (
         <RoundedIcon
-          onPress={() => Linking.openURL(`tel:090078601`)}
-          icon="phone"
+          enable={!_.isNull(contactDetails.phone_number)}
+          icon={'phone'}
+          onPress={() => Linking.openURL(`tel:${contactDetails?.phone_number}`)}
         />
       ),
       enable: false,
-      contacts: contactsList[1].phone_no,
+      title: contactDetails.phone_number || 'N/A',
+      // contacts: contactsList[1].phone_no,
     },
   ]);
 

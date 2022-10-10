@@ -19,6 +19,8 @@ import {
 } from '../../constants/SampleArrays';
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
+import { companyStore } from '../../stores/companyStore';
 
 const Search = ({route}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -35,6 +37,8 @@ const Search = ({route}: any) => {
   const [filteredTickets, setFilteredTickets] = useState(
     ticketsList.filter(val => val?.type == 'Ticket'),
   );
+  const users = useHookstate(userStore.users).get();
+  const companies = useHookstate(companyStore.companies).get()
 
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
 
@@ -72,14 +76,14 @@ const Search = ({route}: any) => {
       case 'contacts':
         var result = await searchFromArray({
           text: text,
-          list: contactsList,
+          list: users,
           keys: ['name', 'company_name'],
         });
         setFilteredContacts(result);
       case 'companies':
         var result = await searchFromArray({
           text: text,
-          list: companiesList,
+          list: companies,
           keys: ['name', 'id'],
         });
         setFilteredCompanies(result);

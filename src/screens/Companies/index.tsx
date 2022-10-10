@@ -103,7 +103,7 @@ export const RenderCompanies = ({
     return (
       <View key={`company-details-${index}`} style={styles.listContainer}>
         <CstmPressable
-          onPress={() => navigation.navigate('Stack1', {screen: 'Company'})}
+          onPress={() => navigation.navigate('Stack1', {screen: 'Company', params: {companyDetails: item}})}
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={{padding: moderateScale(15)}}>
             <Text

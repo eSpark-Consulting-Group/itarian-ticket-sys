@@ -17,14 +17,17 @@ import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
+import { State, useHookstate } from '@hookstate/core';
 
 const Contacts = () => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
+  const users = useHookstate(userStore.users).get();
 
-  const [filteredContacts, setFilteredContacts] = useState(contactsList);
+  const [filteredContacts, setFilteredContacts] = useState(users);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -37,7 +40,7 @@ const Contacts = () => {
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
       text: text,
-      list: contactsList,
+      list: users,
       keys: ['name', 'company_name'],
     });
     setFilteredContacts(result);
@@ -90,13 +93,14 @@ export const RenderContacts = ({
   const {colors, dark}: Theme = useTheme();
   const navigation: any = useNavigation();
 
-  const renderList = ({item, index}: {item: Contact; index: number}) => {
+  const renderList = ({item, index}: {item: any; index: number}) => {
     return (
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'Contact1',
+              params: {contactDetails: item}
             })
           }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
@@ -120,21 +124,21 @@ export const RenderContacts = ({
                     color: colors.text,
                     ...styles.subtitleStyle,
                   }}>
-                  {item.company_name}
+                  {item?.company_name || 'N/A'}
                 </Text>
               </View>
             </View>
             <View style={styles.iconsContainer}>
               <RoundedIcon
-                enable={!_.isNull(item.phone_no)}
+                enable={!_.isNull(item.phone_number)}
                 icon={'phone'}
-                onPress={() => Linking.openURL(`tel:090078601`)}
+                onPress={() => Linking.openURL(`tel:${item?.phone_number}`)}
               />
               <View style={styles.horizontalAdjuster} />
               <RoundedIcon
-                enable={!_.isNull(item.email_address)}
+                enable={!_.isNull(item?.email)}
                 icon={'email-outline'}
-                onPress={() => Linking.openURL('mailto:support@example.com')}
+                onPress={() => Linking.openURL(`mailto:${item?.email}`)}
               />
             </View>
           </View>

@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
@@ -14,11 +15,13 @@ if (
 }
 
 export default function App() {
+  const routes: any = useRoute()
+  const contactDetails = routes?.params?.contactDetails
   return (
     <ModalView>
       <ModalHeader
-        title="John Doe"
-        subTitle="Acme Company Ltd"
+        title={contactDetails?.user_name}
+        subTitle={contactDetails?.company_name || "N/A"}
         subIcon="office-building-marker-outline"
       />
       <TabComp />

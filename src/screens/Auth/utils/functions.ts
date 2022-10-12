@@ -6,7 +6,7 @@ import {api} from '../../../api';
 import {alert_Dur} from '../../../constants';
 import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
-import { encodedUserDataToken } from '../../../utils/helperFunctions';
+import {encodedUserDataToken} from '../../../utils/helperFunctions';
 
 const handleLoginUser = async (
   email: string,
@@ -18,97 +18,104 @@ const handleLoginUser = async (
   console.log('email:', email);
   console.log('password:', password);
   api.setHeaders({
-    'Authorization': `Basic YWNjb3VudDpmYXZlby1hcGk=` ,
-    })
+    Authorization: `Basic YWNjb3VudDpmYXZlby1hcGk=`,
+  });
   const response = await api.post('/tenant/login', {
-    email: 'test9@yopmail.com', //?: faveo
+    email, //?: faveo
     // testwiz@yopmail.com //?: simple
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
+    // test9@yopmail.com
     // email,
-    password: 'admin1',
+    password,
     // password,
+    // admin1
     // nameSpace: 'ServiceDesk',
   });
   if (response.ok) {
     const resData: any = response.data;
     globalState.loader.set(false);
-    const {status, apiKey, subDomain, companyName}: any = response?.data
-      if(status == "success") {
-        const userObj: any = {
-          user_name: companyName,
-          email: subDomain,
-          userId: apiKey,
-          token: encodedUserDataToken(subDomain, apiKey)
-        };
-        store.update('user', userObj);
-        userStore.user.set(userObj);
+    const {status, apiKey, subDomain, companyName}: any = response?.data;
+    if (status == 'success') {
+      const userObj: any = {
+        user_name: companyName,
+        email: subDomain,
+        userId: apiKey,
+        token: encodedUserDataToken(subDomain, apiKey),
+      };
+      store.update('user', userObj);
+      userStore.user.set(userObj);
+      showMessage({
+        message: 'Authentication Successful',
+        type: 'success',
+        icon: 'auto',
+        autoHide: true,
+        duration: alert_Dur,
+      });
+      navigation.navigate('Draw');
+    } else {
+      showMessage({
+        message: 'Incorrect Email or Password',
+        type: 'danger',
+        icon: 'auto',
+      });
+    }
+    if (resData.code == 'ERR_USER_NOT_FOUND') {
+      showMessage({
+        message: 'Incorrect Email or Password',
+        type: 'danger',
+        icon: 'auto',
+      });
+    }
+    if (resData.code == 'SUCCESS_AUTHENTICATION') {
+      const {data} = resData;
+      const {displayName, email, userId, camSessionId} = data?.sessionData;
+      console.log('data?.sessionData', data);
+      const userObj: any = {
+        user_name: displayName,
+        email: email,
+        userId: userId,
+      };
+      if (remember) {
+        navigation.navigate('Pin', {newPin: true});
+        userObj['sessionId'] = camSessionId;
+      } else {
         showMessage({
           message: 'Authentication Successful',
           type: 'success',
           icon: 'auto',
           autoHide: true,
-          duration: alert_Dur,
+          duration: 100,
         });
         navigation.navigate('Draw');
-      }else {
-          showMessage({
-            message: 'Incorrect Email or Password',
-            type: 'danger',
-            icon: 'auto',
-          });
       }
+      console.log('userObj', userObj);
 
-    // if (resData.code == 'ERR_USER_NOT_FOUND') {
-    //   showMessage({
-    //     message: 'Incorrect Email or Password',
-    //     type: 'danger',
-    //     icon: 'auto',
-    //   });
-    // }
-    // if (resData.code == 'SUCCESS_AUTHENTICATION') {
-    //   const {data} = resData;
-    //   const {displayName, email, userId, camSessionId} = data?.sessionData; 
-    //   console.log("data?.sessionData", data)
-    //   const userObj: any = {
-    //     user_name: displayName,
-    //     email: email,
-    //     userId: userId,
-    //   };
-    //   if (remember) {
-    //     navigation.navigate('Pin', {newPin: true});
-    //     userObj['sessionId'] = camSessionId;
-    //   } else {
-        // showMessage({
-        //   message: 'Authentication Successful',
-        //   type: 'success',
-        //   icon: 'auto',
-        //   autoHide: true,
-        //   duration: 100,
-        // });
-        // navigation.navigate('Draw');
-    //   }
-    //   console.log('userObj', userObj);
-
-    //   store.update('user', userObj);
-    //   userStore.user.set(userObj);
-    // }
-    // if (resData.code == 'OTP_REQUIRED') {
-    //   if (resData?.data?.otpType == 'sms') {
-    //     const result = await requestSmsOtp(resData?.data, navigation);
-    //     if (result) {
-    //       navigation?.navigate('OTPScreen', {
-    //         data: resData?.data,
-    //       });
-    //     }
-    //   } else {
-    //     navigation?.navigate('OTPScreen', {
-    //       data: resData?.data,
-    //     });
-    //   }
-    // }
+      store.update('user', userObj);
+      userStore.user.set(userObj);
+    }
+    if (resData.code == 'OTP_REQUIRED') {
+      if (resData?.data?.otpType == 'sms') {
+        const result = await requestSmsOtp(resData?.data, navigation);
+        if (result) {
+          navigation?.navigate('OTPScreen', {
+            data: resData?.data,
+          });
+        }
+      } else {
+        navigation?.navigate('OTPScreen', {
+          data: resData?.data,
+        });
+      }
+    }
   } else {
     globalState.loader.set(false);
+    showMessage({
+      message: 'Incorrect Email or Password',
+      type: 'danger',
+      icon: 'auto',
+      duration: alert_Dur,
+    });
   }
 };
 

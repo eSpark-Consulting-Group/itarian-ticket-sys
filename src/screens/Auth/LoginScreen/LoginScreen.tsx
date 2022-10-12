@@ -48,6 +48,7 @@ const validationSchema = Yup.object().shape({
 const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   const user: State<any> = useHookstate(userStore.user);
   const loadingState: State<boolean> = useHookstate(globalState.loader);
+  const processed: State<boolean> = useHookstate(globalState.authProcessed);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
   const [showScanner, setShowScanners] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -129,10 +130,11 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               email: '',
               password: '',
             }}
-            onSubmit={values => {
+            onSubmit={(values, {resetForm}) => {
               const {email, password} = values;
               handleLoginUser(email, password, rememberMe, navigation);
               setRememberMe(false);
+              processed.get() && resetForm();
             }}
             validationSchema={validationSchema}>
             {({

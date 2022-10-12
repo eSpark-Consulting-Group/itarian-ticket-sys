@@ -4,6 +4,7 @@ export const globalState = hookstate({
   theme: 'light',
   searchTag: 'tickets',
   loader: false,
+  authProcessed: false,
   useBiometric: false,
   stopwatch: [
     {
@@ -78,5 +79,5 @@ export const globalState = hookstate({
   agendaMember: {name: 'John Doe'},
   calendarMember: 'John Doe',
   ticketStatus: [],
-  ticketPriorities: []
+  ticketPriorities: [],
 });

@@ -31,7 +31,7 @@ import {
 import QuickActions from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
 
-import Images from '../../../assets/images';
+import Images from '../../../assets/Images';
 import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';

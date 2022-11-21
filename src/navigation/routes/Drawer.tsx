@@ -60,7 +60,7 @@ import {
   sBoardFiterList,
 } from '../../constants/SampleArrays';
 import {CstmBadge} from '../../components';
-import Images from '../../assets/Images';
+import Images from '../../assets/images';
 import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
 
@@ -278,20 +278,7 @@ const Draw = () => {
         component={Agenda}
         options={{
           headerTitle: () => (
-            <View>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 20,
-                  fontFamily: 'sans-serif-medium',
-                  textAlign: 'center',
-                }}>
-                Tickets
-              </Text>
-              <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
-                {currMember?.name}
-              </Text>
-            </View>
+            <CstmHeader title="Tickets" subTitle={currMember?.name} />
           ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Tickets</Text>
@@ -378,6 +365,7 @@ const Draw = () => {
         component={Companies}
         options={{
           headerRight: noHeader,
+          headerTitle: () => <CstmHeader title="Organizations" />,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Organizations</Text>
           ),
@@ -394,6 +382,7 @@ const Draw = () => {
         name="Contacts"
         component={Contacts}
         options={{
+          headerTitle: () => <CstmHeader title="Users" />,
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Users</Text>
           ),
@@ -650,6 +639,27 @@ const Draw = () => {
         }}
       />
     </Drawer.Navigator>
+  );
+};
+
+const CstmHeader = ({title, subTitle}: {title: string; subTitle?: string}) => {
+  return (
+    <View>
+      <Text
+        style={{
+          color: '#fff',
+          fontSize: 20,
+          fontFamily: 'sans-serif-medium',
+          textAlign: 'center',
+        }}>
+        {title}
+      </Text>
+      {subTitle && (
+        <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
+          {subTitle}
+        </Text>
+      )}
+    </View>
   );
 };
 

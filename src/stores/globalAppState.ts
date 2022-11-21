@@ -73,7 +73,7 @@ export const globalState = hookstate({
     },
   ],
   defaultScreenId: 'Agenda',
-  defaultScreenName: 'Agenda',
+  defaultScreenName: 'Tickets',
   defaultnNavigationName: '',
   shortCutScreen: null,
   agendaMember: {name: 'John Doe'},

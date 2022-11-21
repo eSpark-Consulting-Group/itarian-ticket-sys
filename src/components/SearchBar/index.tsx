@@ -54,24 +54,19 @@ const SearchBar = ({
   function setCheck(value: string): void {
     switch (value) {
       case 'tickets':
-        setCheckValue('tickets');
+        setCheckValue(value);
         setVisible(false);
-        searchTagValue.set('tickets');
+        searchTagValue.set(value);
         return;
-      case 'companies':
-        setCheckValue('companies');
+      case 'organizations':
+        setCheckValue(value);
         setVisible(false);
-        searchTagValue.set('companies');
+        searchTagValue.set(value);
         return;
-      case 'contacts':
-        setCheckValue('contacts');
+      case 'users':
+        setCheckValue(value);
         setVisible(false);
-        searchTagValue.set('contacts');
-        return;
-      case 'configurations':
-        setCheckValue('configurations');
-        setVisible(false);
-        searchTagValue.set('configurations');
+        searchTagValue.set(value);
         return;
       default:
         return;
@@ -84,14 +79,12 @@ const SearchBar = ({
         return (
           <Ionicons name="pricetags-outline" color={colors.primary} size={22} />
         );
-      case 'companies':
+      case 'organizations':
         return (
           <MCI name="office-building-marker" size={22} color={colors.primary} />
         );
-      case 'contacts':
+      case 'users':
         return <AD name="contacts" size={22} color={colors.primary} />;
-      case 'configurations':
-        return <MCI name="puzzle-outline" size={22} color={colors.primary} />;
       default:
         return (
           <Ionicons name="pricetags-outline" color={colors.primary} size={22} />
@@ -103,12 +96,10 @@ const SearchBar = ({
     switch (value) {
       case 'tickets':
         return 'Search Tickets';
-      case 'companies':
-        return 'Search Companies';
-      case 'contacts':
-        return 'Search Contacts';
-      case 'configurations':
-        return 'Search Configurations';
+      case 'organizations':
+        return 'Search Organizations';
+      case 'users':
+        return 'Search Users';
       default:
         return 'Search Tickets';
     }
@@ -171,9 +162,9 @@ const SearchBar = ({
               }
             />
             <MenuItem
-              itemName="Companies"
+              itemName="Organizations"
               textColor={colors.text}
-              onPress={() => setCheck('companies')}
+              onPress={() => setCheck('organizations')}
               leftIcon={
                 <MCI
                   name="office-building-marker"
@@ -181,33 +172,21 @@ const SearchBar = ({
                   color={colors.primary}
                 />
               }
-              checkVisible={check == 'companies'}
+              checkVisible={check == 'organizations'}
               rightIcon={
                 <Feather name="check" color={colors.primary} size={20} />
               }
             />
             <MenuItem
-              itemName="Contacts"
+              itemName="Users"
               textColor={colors.text}
-              onPress={() => setCheck('contacts')}
+              onPress={() => setCheck('users')}
               leftIcon={<AD name="contacts" size={22} color={colors.primary} />}
-              checkVisible={check == 'contacts'}
+              checkVisible={check == 'users'}
               rightIcon={
                 <Feather name="check" color={colors.primary} size={20} />
               }
             />
-            {/* <MenuItem
-              itemName="Configurations"
-              textColor={colors.text}
-              onPress={() => setCheck('configurations')}
-              leftIcon={
-                <MCI name="puzzle-outline" size={22} color={colors.primary} />
-              }
-              checkVisible={check == 'configurations'}
-              rightIcon={
-                <Feather name="check" color={colors.primary} size={20} />
-              }
-            /> */}
           </Menu>
         </View>
       )}

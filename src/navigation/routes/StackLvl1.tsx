@@ -143,7 +143,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="Company"
         component={Company}
         options={({route, navigation}) => ({
-          title: 'Company',
+          title: 'Organization',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -160,7 +160,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="NewCompany"
         component={NewCompany}
         options={({route, navigation}) => ({
-          title: 'New Company',
+          title: 'New Organization',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -185,7 +185,7 @@ const StackLvl1 = ({route, navigation}: any) => {
         name="Contact1"
         component={Contact1}
         options={({route, navigation}) => ({
-          title: 'Contact',
+          title: 'User',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -199,7 +199,7 @@ const StackLvl1 = ({route, navigation}: any) => {
           headerRight: () => null,
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Configure1"
         component={Configuration1}
         options={({route, navigation}) => ({
@@ -223,7 +223,7 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
         })}
-      />
+      /> */}
       <Stack.Screen
         name="Filters"
         component={Filters}
@@ -251,7 +251,7 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="NewConfigure"
         component={NewConfiguration}
         options={({route, navigation}) => ({
@@ -294,8 +294,8 @@ const StackLvl1 = ({route, navigation}: any) => {
             </>
           ),
         })}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="Activities"
         component={Activities}
         options={({route, navigation}) => ({
@@ -455,7 +455,7 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
         })}
-      />
+      /> */}
       <Stack.Screen
         name="NewTicket"
         component={NewTicket}
@@ -481,7 +481,7 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="AddMiscSchedule"
         component={AddMiscSchedule}
         options={({route, navigation}) => ({
@@ -531,7 +531,7 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
         })}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

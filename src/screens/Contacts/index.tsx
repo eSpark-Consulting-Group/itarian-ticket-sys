@@ -17,8 +17,8 @@ import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
-import { userStore } from '../../stores/userStore';
-import { State, useHookstate } from '@hookstate/core';
+import {userStore} from '../../stores/userStore';
+import {State, useHookstate} from '@hookstate/core';
 
 const Contacts = () => {
   const {colors, dark}: Theme = useTheme();
@@ -100,7 +100,7 @@ export const RenderContacts = ({
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'Contact1',
-              params: {contactDetails: item}
+              params: {contactDetails: item},
             })
           }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
@@ -169,7 +169,7 @@ export const RenderContacts = ({
 const NotFound = (): JSX.Element => {
   return (
     <View style={styles.content}>
-      <EmptyListMsg label="Contacts" />
+      <EmptyListMsg label="Users" />
     </View>
   );
 };

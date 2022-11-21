@@ -5,7 +5,7 @@ import {useTheme, Theme} from '@react-navigation/native';
 import {AvatarContainer, SingleLineField} from '../../components';
 
 import {State, useHookstate} from '@hookstate/core';
-import Images from '../../assets/Images';
+import Images from '../../assets/images';
 import {userStore} from '../../stores/userStore';
 
 const Profile = ({route, navigation}: any) => {

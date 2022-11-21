@@ -1,4 +1,4 @@
-import Images from '../assets/Images';
+import Images from '../assets/images';
 import {
   Activity,
   Company,
@@ -903,60 +903,60 @@ export const stopWatchList: Stopwatch[] = [
 export const screenItemList: ScreenItems[] = [
   {
     id: 'Agenda',
-    name: 'Agenda',
+    name: 'Tickets',
   },
   {
     id: 'Search',
     name: 'Search',
   },
-  {
-    id: 'Calendar',
-    name: 'Calendar',
-  },
+  // {
+  //   id: 'Calendar',
+  //   name: 'Calendar',
+  // },
   {
     id: 'Companies',
-    name: 'Companies',
+    name: 'Organizations',
   },
   {
     id: 'Contacts',
-    name: 'Contacts',
+    name: 'Users',
   },
-  {
-    id: 'Configurations',
-    name: 'Configurations',
-  },
-  {
-    id: 'SBoard',
-    name: 'Service Board',
-  },
-  {
-    id: 'PBoard',
-    name: 'Project Board',
-  },
-  {
-    id: 'Opportunities',
-    name: 'Opportunities',
-  },
-  {
-    id: 'MyActivities',
-    name: 'My Activities',
-  },
-  {
-    id: 'IOBoard',
-    name: 'In/Out Board',
-  },
-  {
-    id: 'ExpReports',
-    name: 'Expense Reports',
-  },
-  {
-    id: 'TimeSheets',
-    name: 'Time Sheets',
-  },
-  {
-    id: 'StopWatch',
-    name: 'StopWatch',
-  },
+  // {
+  //   id: 'Configurations',
+  //   name: 'Configurations',
+  // },
+  // {
+  //   id: 'SBoard',
+  //   name: 'Service Board',
+  // },
+  // {
+  //   id: 'PBoard',
+  //   name: 'Project Board',
+  // },
+  // {
+  //   id: 'Opportunities',
+  //   name: 'Opportunities',
+  // },
+  // {
+  //   id: 'MyActivities',
+  //   name: 'My Activities',
+  // },
+  // {
+  //   id: 'IOBoard',
+  //   name: 'In/Out Board',
+  // },
+  // {
+  //   id: 'ExpReports',
+  //   name: 'Expense Reports',
+  // },
+  // {
+  //   id: 'TimeSheets',
+  //   name: 'Time Sheets',
+  // },
+  // {
+  //   id: 'StopWatch',
+  //   name: 'StopWatch',
+  // },
 ];
 
 export const sBoardFiterList: Filter[] = [

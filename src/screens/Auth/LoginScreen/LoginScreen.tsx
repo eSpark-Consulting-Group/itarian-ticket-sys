@@ -31,7 +31,7 @@ import {
 import QuickActions from 'react-native-quick-actions';
 import {WINDOW_HEIGHT} from '../../../constants';
 
-import Images from '../../../assets/Images';
+import Images from '../../../assets/images';
 import {userStore} from '../../../stores/userStore';
 import {handleLoginUser} from '../utils/functions';
 import {globalState} from '../../../stores/globalAppState';
@@ -183,6 +183,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{flex: 0.1}} />
                     <Checkbox
+                      color={colors.primary}
                       status={rememberMe ? 'checked' : 'unchecked'}
                       onPress={() => setRememberMe(!rememberMe)}
                     />

@@ -19,8 +19,8 @@ import {
 } from '../../constants/SampleArrays';
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
-import { userStore } from '../../stores/userStore';
-import { companyStore } from '../../stores/companyStore';
+import {userStore} from '../../stores/userStore';
+import {companyStore} from '../../stores/companyStore';
 
 const Search = ({route}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -38,7 +38,7 @@ const Search = ({route}: any) => {
     ticketsList.filter(val => val?.type == 'Ticket'),
   );
   const users = useHookstate(userStore.users).get();
-  const companies = useHookstate(companyStore.companies).get()
+  const companies = useHookstate(companyStore.companies).get();
 
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
 
@@ -46,7 +46,7 @@ const Search = ({route}: any) => {
     if (route.params) {
       setSearchValue(route.params.data);
       searchTagValue.set('configurations');
-      setTimeout(() => setIsSearching(true), 2000)
+      setTimeout(() => setIsSearching(true), 2000);
       setType('configurations');
       searchFilterFunction(route.params.data, 'configurations');
     }
@@ -73,27 +73,20 @@ const Search = ({route}: any) => {
           keys: ['ticket_no', 'summary', 'contact', 'company', 'project'],
         });
         setFilteredTickets(result);
-      case 'contacts':
+      case 'users':
         var result = await searchFromArray({
           text: text,
           list: users,
           keys: ['name', 'company_name'],
         });
         setFilteredContacts(result);
-      case 'companies':
+      case 'organizations':
         var result = await searchFromArray({
           text: text,
           list: companies,
           keys: ['name', 'id'],
         });
         setFilteredCompanies(result);
-      case 'configurations':
-        var result = await searchFromArray({
-          text: text,
-          list: configurationsList,
-          keys: ['name', 'company_name', 'model', 'serial', 'tag'],
-        });
-        setFilteredConfigurations([...result]);
     }
   };
 
@@ -124,7 +117,7 @@ const Search = ({route}: any) => {
             color: colors.text,
             ...styles.emptySearchCriteria,
           }}>
-          {`Locate Companies, Contacts,\n Configurations, or Tickets.`}
+          {`Locate Organizations, Users,\n or Tickets.`}
         </Text>
       </>
     );
@@ -138,12 +131,10 @@ const Search = ({route}: any) => {
     switch (searchTagValue.get()) {
       case 'tickets':
         return <RenderTickets listData={filteredTickets} />;
-      case 'contacts':
+      case 'users':
         return <RenderContacts listData={filteredContacts} />;
-      case 'companies':
+      case 'organizations':
         return <RenderCompanies listData={filteredCompanies} />;
-      case 'configurations':
-        return <RenderConfigurations listData={filteredConfigurations} />;
       default:
         return;
     }

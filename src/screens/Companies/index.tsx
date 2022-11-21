@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {Theme, useIsFocused, useNavigation, useTheme} from '@react-navigation/native';
+import {
+  Theme,
+  useIsFocused,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
 import {moderateScale} from 'react-native-size-matters';
 import {Divider} from 'react-native-paper';
 
@@ -15,25 +20,25 @@ import styles from './style';
 import {Company} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
-import { getAllCompanies } from './utils/functions';
-import { State, useHookstate } from '@hookstate/core';
-import { companyStore } from '../../stores/companyStore';
+import {getAllCompanies} from './utils/functions';
+import {State, useHookstate} from '@hookstate/core';
+import {companyStore} from '../../stores/companyStore';
 
 const Companies = () => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
-  const companies: State<any> = useHookstate(companyStore.companies)
+  const companies: State<any> = useHookstate(companyStore.companies);
   const [filteredCompanies, setFilteredCompanies] = useState(companies.get());
 
   useEffect(() => {
-    getAllCompanies()
+    getAllCompanies();
   }, []);
 
   useEffect(() => {
-    setFilteredCompanies(companies.get())
-  },[companies])
+    setFilteredCompanies(companies.get());
+  }, [companies]);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -65,7 +70,6 @@ const Companies = () => {
     }
   }, [clear]);
 
-
   return (
     <View style={styles.container}>
       <View
@@ -91,11 +95,7 @@ const Companies = () => {
     </View>
   );
 };
-export const RenderCompanies = ({
-  listData = [],
-}: {
-  listData?: Company[];
-}) => {
+export const RenderCompanies = ({listData = []}: {listData?: Company[]}) => {
   const {colors, dark}: Theme = useTheme();
   const navigation: any = useNavigation();
 
@@ -103,7 +103,12 @@ export const RenderCompanies = ({
     return (
       <View key={`company-details-${index}`} style={styles.listContainer}>
         <CstmPressable
-          onPress={() => navigation.navigate('Stack1', {screen: 'Company', params: {companyDetails: item}})}
+          onPress={() =>
+            navigation.navigate('Stack1', {
+              screen: 'Company',
+              params: {companyDetails: item},
+            })
+          }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
           <View style={{padding: moderateScale(15)}}>
             <Text
@@ -140,7 +145,7 @@ export const RenderCompanies = ({
 const NotFound = (): JSX.Element => {
   return (
     <View style={styles.content}>
-      <EmptyListMsg label="Companies" />
+      <EmptyListMsg label="Organizations" />
     </View>
   );
 };

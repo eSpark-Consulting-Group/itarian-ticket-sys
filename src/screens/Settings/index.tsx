@@ -37,6 +37,7 @@ const SettingsScreen = () => {
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
   };
+
   // const checkBiometricAvailable = () => {
   //   FingerprintScanner.isSensorAvailable()
   //     .then(biometryType => {

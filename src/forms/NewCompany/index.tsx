@@ -4,7 +4,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import {ModalView, SingleLineField} from '../../components';
 import {SelectFields} from '../../types';
-import {countryList, stateList} from '../../constants/SelectionList';
+import {contactNameList, countryList, stateList} from '../../constants/SelectionList';
 import {SelectItems} from '../../utils/helperFunctions';
 
 const NewCompany = ({route, navigation}: any) => {
@@ -12,14 +12,7 @@ const NewCompany = ({route, navigation}: any) => {
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: '',
-      subTitle: 'New Company',
-      inputable: true,
-      enable: false,
-      isRequired: true,
-    },
-    {
-      title: '',
-      subTitle: 'Company ID',
+      subTitle: 'Company Name',
       inputable: true,
       enable: false,
       isRequired: true,
@@ -34,77 +27,96 @@ const NewCompany = ({route, navigation}: any) => {
     },
     {
       title: '',
-      subTitle: 'Address 1',
-      inputable: true,
-      enable: false,
-      isRequired: true,
-    },
-    {
-      title: '',
-      subTitle: 'Address 2',
-      inputable: true,
-      enable: false,
-    },
-    {
-      title: '',
-      subTitle: 'Zip Code',
-      inputable: true,
-      enable: false,
-      keyboardType: 'number-pad',
-      isRequired: true,
-    },
-    {
-      title: '',
-      subTitle: 'City',
+      subTitle: 'Company Email',
       inputable: true,
       enable: false,
       isRequired: true,
     },
     {
       title: 'Please Select',
-      subTitle: 'State',
+      subTitle: 'Main User',
+      list: contactNameList,
+      selectedItem: contactNameList[0],
+      headerTitle: 'Member',
       rightIcon: 'chevron-right',
-      list: stateList,
-      selectedItem: stateList[0],
-      headerTitle: 'State',
-    },
-    {
-      title: 'Please Select',
-      subTitle: 'Country',
-      rightIcon: 'chevron-right',
-      list: countryList,
-      selectedItem: countryList[0],
-      headerTitle: 'State',
       isRequired: true,
     },
     {
       title: '',
-      subTitle: 'First Name',
+      subTitle: 'Address',
       inputable: true,
       enable: false,
       isRequired: true,
+      mode: 'multiline'
     },
     {
       title: '',
-      subTitle: 'Last Name',
+      subTitle: 'Internal Notes',
       inputable: true,
       enable: false,
       isRequired: true,
+      mode: 'multiline'
     },
-    {
-      title: '',
-      subTitle: 'Email',
-      inputable: true,
-      enable: false,
-      isRequired: true,
-    },
-    {
-      title: '',
-      subTitle: 'Phone No.',
-      inputable: true,
-      enable: false,
-      isRequired: true,
-    },
+    // {
+    //   title: '',
+    //   subTitle: 'Zip Code',
+    //   inputable: true,
+    //   enable: false,
+    //   keyboardType: 'number-pad',
+    //   isRequired: true,
+    // },
+    // {
+    //   title: '',
+    //   subTitle: 'City',
+    //   inputable: true,
+    //   enable: false,
+    //   isRequired: true,
+    // },
+    // {
+    //   title: 'Please Select',
+    //   subTitle: 'State',
+    //   rightIcon: 'chevron-right',
+    //   list: stateList,
+    //   selectedItem: stateList[0],
+    //   headerTitle: 'State',
+    // },
+    // {
+    //   title: 'Please Select',
+    //   subTitle: 'Country',
+    //   rightIcon: 'chevron-right',
+    //   list: countryList,
+    //   selectedItem: countryList[0],
+    //   headerTitle: 'State',
+    //   isRequired: true,
+    // },
+    // {
+    //   title: '',
+    //   subTitle: 'First Name',
+    //   inputable: true,
+    //   enable: false,
+    //   isRequired: true,
+    // },
+    // {
+    //   title: '',
+    //   subTitle: 'Last Name',
+    //   inputable: true,
+    //   enable: false,
+    //   isRequired: true,
+    // },
+    // {
+    //   title: '',
+    //   subTitle: 'Email',
+    //   inputable: true,
+    //   enable: false,
+    //   isRequired: true,
+    // },
+    // {
+    //   title: '',
+    //   subTitle: 'Phone No.',
+    //   inputable: true,
+    //   enable: false,
+    //   isRequired: true,
+    // },
   ]);
 
   interface Item {
@@ -125,6 +137,7 @@ const NewCompany = ({route, navigation}: any) => {
     headerTitle?: string;
     keyboardType?: KeyboardTypeOptions | undefined;
     isRequired?: boolean;
+    mode?: 'none' | 'multiline';
   }
 
   const updateInput = (e: string, index: number) => {
@@ -180,6 +193,7 @@ const NewCompany = ({route, navigation}: any) => {
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={item.onChangeSwitch}
               keyboardType={item?.keyboardType}
+              mode={item?.mode}
               onPress={() =>
                 SelectItems(
                   item,

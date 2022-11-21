@@ -8,6 +8,7 @@ import {SelectFields} from '../../types';
 import {
   boardList,
   contactNameList,
+  priorityList,
   resourceList,
   statusList,
 } from '../../constants/SelectionList';
@@ -15,6 +16,7 @@ import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
 import { globalState } from '../../stores/globalAppState';
 import { useHookstate } from '@hookstate/core';
+import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
   title: string;
@@ -44,59 +46,65 @@ export default function NewTicket({route, navigation}: any) {
   const {colors, dark} = useTheme();
   const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
 
+  const [showDate, setShowDate] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: 'Tim Smith',
-      leftIcon: 'account',
-      rightIcon: 'chevron-right',
-      list: contactNameList,
-      selectedItem: contactNameList[0],
-      headerTitle: 'Member',
+      title: '',
+      subTitle: 'Subject',
+      inputable: true,
+      enable: false,
     },
     {
       title: '',
-      subTitle: 'Summary',
+      subTitle: 'Details',
       inputable: true,
       enable: false,
       mode: 'multiline',
     },
     {
       title: 'Please Select',
-      subTitle: 'Service Board',
-      enable: true,
-      list: boardList,
-      selectedItem: boardList[0],
-      headerTitle: 'Service Board',
+      subTitle: 'Assigned to',
+      list: contactNameList,
+      selectedItem: contactNameList[0],
+      headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
     },
     {
       title: 'Please Select',
-      subTitle: 'Status',
-      enable: true,
-      list: ticketStatus,
-      selectedItem: ticketStatus[0],
-      headerTitle: 'Status',
-      rightIcon: 'chevron-right',
-    },
-    {
-      title: 'Add Resource',
-      enable: true,
-      headerTitle: 'Add Resource',
+      subTitle: 'Due Date ',
+      rightIcon: 'calendar',
       onPress: () => {
-        navigation?.navigate('Stack2', {
-          screen: 'AddResource',
-        });
+        setShowDate(true);
       },
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Sla Plan',
+      enable: true,
+      list: boardList,
+      selectedItem: boardList[0],
+      headerTitle: 'Sla Plans',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Priority',
+      enable: true,
+      list: priorityList,
+      selectedItem: priorityList[0],
+      headerTitle: 'Priority',
       rightIcon: 'chevron-right',
     },
     {
-      title: 'Add Note',
-      enable: false,
-      rightIconRound: 'file-plus-outline',
-      roundedIconEnable: true,
-      onRoundIconPress: () =>
-        handleAddNote(navigation, route, NoteTypes_DIR, 'NewTicket', 'Stack2'),
+      title: 'Please Select',
+      subTitle: 'Help Topic',
+      enable: true,
+      list: priorityList,
+      selectedItem: priorityList[0],
+      headerTitle: 'Priority',
+      rightIcon: 'chevron-right',
     },
   ]);
 
@@ -125,9 +133,19 @@ export default function NewTicket({route, navigation}: any) {
     });
   }, [dataSource]);
 
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+    let time = date.toString().substring(16, 21);
+
+    if (event?.type == 'set') {
+          dataSource[3].title = date?.toDateString();
+          setDataSource([...dataSource]);
+    }
+  };
+
   return (
     <ModalView>
-      <ModalHeader
+      {/* <ModalHeader
         title="Acme Company Ltd"
         subTitle="63 Elm Street, Tampa Bay, FL 023912"
         icon="office-building-marker-outline"
@@ -141,8 +159,17 @@ export default function NewTicket({route, navigation}: any) {
             style={{opacity: 0.6}}
           />
         }
-      />
+      /> */}
 
+    {showDate && (
+        <DatePicker
+          mode={'date'}
+          value={new Date()}
+          minimumDate={new Date()}
+          onChange={onChangeDate}
+          positiveButtonLabel={'Set Due Date'}
+        />
+      )}
       {dataSource?.map((value: Item, index: number) => (
         <SingleLineField
           key={index}

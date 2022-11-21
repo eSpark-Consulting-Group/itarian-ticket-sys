@@ -196,7 +196,7 @@ const SearchBar = ({
                 <Feather name="check" color={colors.primary} size={20} />
               }
             />
-            <MenuItem
+            {/* <MenuItem
               itemName="Configurations"
               textColor={colors.text}
               onPress={() => setCheck('configurations')}
@@ -207,7 +207,7 @@ const SearchBar = ({
               rightIcon={
                 <Feather name="check" color={colors.primary} size={20} />
               }
-            />
+            /> */}
           </Menu>
         </View>
       )}

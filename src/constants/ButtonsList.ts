@@ -13,18 +13,18 @@ const AdditionalButtonStyle = {
 //? -------- Float Action Additional Buttons for Multiple Screens
 
 export const SchAdditionalButtons: Array<AdditionalButtons> = [
-  {
-    icon: 'clipboard-plus-outline',
-    label: 'Add Activity',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-  {
-    icon: 'calendar-plus',
-    label: 'Add Misc Schedule',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
+  // {
+  //   icon: 'clipboard-plus-outline',
+  //   label: 'Add Activity',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
+  // {
+  //   icon: 'calendar-plus',
+  //   label: 'Add Misc Schedule',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
   {
     icon: 'tag-plus-outline',
     label: 'Add Ticket',
@@ -34,18 +34,18 @@ export const SchAdditionalButtons: Array<AdditionalButtons> = [
 ];
 
 export const UnschAdditionalButtons: Array<AdditionalButtons> = [
-  {
-    icon: 'clipboard-plus',
-    label: 'Add Activity',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-  {
-    icon: 'calendar-plus',
-    label: 'Add Misc Schedule',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
+  // {
+  //   icon: 'clipboard-plus',
+  //   label: 'Add Activity',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
+  // {
+  //   icon: 'calendar-plus',
+  //   label: 'Add Misc Schedule',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
   {
     icon: 'tag-plus-outline',
     label: 'Add Ticket',
@@ -70,36 +70,36 @@ export const ExpenseAdditionalButtons: Array<AdditionalButtons> = [
 ];
 
 export const STicketsAdditionalButtons: Array<AdditionalButtons> = [
-  {
-    icon: 'file-sign',
-    label: 'Add Signature',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-  {
-    icon: 'calendar-plus',
-    label: 'Add Resource',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
+  // {
+  //   icon: 'file-sign',
+  //   label: 'Add Signature',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
+  // {
+  //   icon: 'calendar-plus',
+  //   label: 'Add Resource',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
   {
     icon: 'tag-plus-outline',
     label: 'Add Ticket',
     onPress: () => {},
     ...AdditionalButtonStyle,
   },
-  {
-    icon: 'currency-usd',
-    label: 'Add Expense',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-  {
-    icon: 'timetable',
-    label: 'Add Time',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
+  // {
+  //   icon: 'currency-usd',
+  //   label: 'Add Expense',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
+  // {
+  //   icon: 'timetable',
+  //   label: 'Add Time',
+  //   onPress: () => {},
+  //   ...AdditionalButtonStyle,
+  // },
 ];
 
 export const AddExpenseAdditionalButtons: Array<AdditionalButtons> = [

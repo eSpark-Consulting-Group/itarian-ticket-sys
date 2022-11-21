@@ -30,12 +30,12 @@ const Profile = ({route, navigation}: any) => {
         </Text>
         <Text style={{color: colors.text}}>education_c</Text>
       </View>
-      <SingleLineField
+      {/* <SingleLineField
         subTitle="My Status"
         title={currStatus.get() == false ? 'In Office' : 'Out of the Office'}
         onPress={() => navigation.navigate('Stack1', {screen: 'MyStatus'})}
         rightIcon="chevron-right"
-      />
+      /> */}
     </View>
   );
 };

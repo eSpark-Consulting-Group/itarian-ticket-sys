@@ -33,16 +33,16 @@ export default Company;
 
 const renderScene = SceneMap({
   first: Overview,
-  second: Notes,
-  third: Details,
+  // second: Notes,
+  second: Details,
 });
 
 function TabComp() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Overview'},
-    {key: 'second', title: 'Notes'},
-    {key: 'third', title: 'Details'},
+    // {key: 'second', title: 'Notes'},
+    {key: 'second', title: 'Details'},
   ]);
 
   return (

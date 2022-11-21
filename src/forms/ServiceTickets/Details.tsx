@@ -15,62 +15,62 @@ const Details = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const dataSource: Item[] = [
-    {
-      title: 'Configurations',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'ConfigurationListing',
-        });
-      },
-    },
-    {
-      title: 'Products',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'ProductListing',
-        });
-      },
-    },
-    {
-      title: 'Attachments',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'Attachments',
-        });
-      },
-    },
-    {
-      title: 'Tasks',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'Tasks',
-        });
-      },
-    },
-    {
-      title: 'Time Entries',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'TimeEntries',
-        });
-      },
-    },
-    {
-      title: 'Expenses',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'Expenses',
-        });
-      },
-    },
-    {
-      title: 'Open Tickets',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'TicketListing',
-        });
-      },
-    },
+    // {
+    //   title: 'Configurations',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'ConfigurationListing',
+    //     });
+    //   },
+    // },
+    // {
+    //   title: 'Products',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'ProductListing',
+    //     });
+    //   },
+    // },
+    // {
+    //   title: 'Attachments',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'Attachments',
+    //     });
+    //   },
+    // },
+    // {
+    //   title: 'Tasks',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'Tasks',
+    //     });
+    //   },
+    // },
+    // {
+    //   title: 'Time Entries',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'TimeEntries',
+    //     });
+    //   },
+    // },
+    // {
+    //   title: 'Expenses',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'Expenses',
+    //     });
+    //   },
+    // },
+    // {
+    //   title: 'Open Tickets',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'TicketListing',
+    //     });
+    //   },
+    // },
     {
       title: 'Resources',
       onPress: () => {

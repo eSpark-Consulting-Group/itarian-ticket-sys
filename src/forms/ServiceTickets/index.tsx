@@ -46,44 +46,44 @@ const App = ({navigation, route}: any) => {
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
+    // tempArr[0].onPress = () => {
+    //   navigation.navigate('Stack2', {
+    //     screen: 'CstmItemSelector',
+    //     params: {
+    //       ...route?.params,
+    //       from: 'Signature',
+    //       data: templateList,
+    //       selected: null,
+    //       stack: 'Stack3',
+    //       title: route?.params?.title,
+    //       headerTitle: 'Signoff template',
+    //     },
+    //   });
+    // };
+    // tempArr[0].onPress = () => {
+    //   navigation.navigate('Stack2', {
+    //     screen: 'AddResource',
+    //   });
+    // };
     tempArr[0].onPress = () => {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'Signature',
-          data: templateList,
-          selected: null,
-          stack: 'Stack3',
-          title: route?.params?.title,
-          headerTitle: 'Signoff template',
-        },
-      });
-    };
-    tempArr[1].onPress = () => {
-      navigation.navigate('Stack2', {
-        screen: 'AddResource',
-      });
-    };
-    tempArr[2].onPress = () => {
       navigation.navigate('Stack1', {
         screen: 'NewTicket',
       });
     };
-    tempArr[3].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'NewExpenseReport',
-      });
-    };
-    tempArr[4].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'NewTimeSheet',
-        params: {
-          from: 'ServiceTickets',
-          chargeCode: route?.params?.title,
-        },
-      });
-    };
+    // tempArr[3].onPress = () => {
+    //   navigation.navigate('Stack1', {
+    //     screen: 'NewExpenseReport',
+    //   });
+    // };
+    // tempArr[4].onPress = () => {
+    //   navigation.navigate('Stack1', {
+    //     screen: 'NewTimeSheet',
+    //     params: {
+    //       from: 'ServiceTickets',
+    //       chargeCode: route?.params?.title,
+    //     },
+    //   });
+    // };
     setActionButtons(tempArr);
   };
 
@@ -131,16 +131,16 @@ export default App;
 
 const renderScene = SceneMap({
   first: Overview,
-  second: Notes,
-  third: Details,
+  // second: Notes,
+  second: Details,
 });
 
 function TabComp() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Overview'},
-    {key: 'second', title: 'Notes'},
-    {key: 'third', title: 'Details'},
+    // {key: 'second', title: 'Notes'},
+    {key: 'second', title: 'Details'},
   ]);
 
   return (

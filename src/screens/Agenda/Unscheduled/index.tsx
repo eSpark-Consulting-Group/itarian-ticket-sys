@@ -23,16 +23,15 @@ const UnscheduledTab = ({navigation}: any) => {
     let tempArr = [...actionButtons];
     tempArr[0].onPress = () => {
       navigation.navigate('Stack1', {
-        screen: 'NewActivity',
-        params: {from: 'agenda'},
+        screen: 'NewTicket',
       });
     };
-    tempArr[1].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'AddMiscSchedule',
-        params: {from: 'agenda'},
-      });
-    };
+    // tempArr[1].onPress = () => {
+    //   navigation.navigate('Stack1', {
+    //     screen: 'AddMiscSchedule',
+    //     params: {from: 'agenda'},
+    //   });
+    // };
     setActionButtons(tempArr);
   };
 

@@ -11,33 +11,34 @@ import {SchAdditionalButtons} from '../../../constants/ButtonsList';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
 import { ticketStore } from '../../../stores/ticketStore';
-import { Theme, useTheme } from '@react-navigation/native';
+import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 import { getTicketsByUserId } from '../utils/functions';
 
-const ScheduledTab = ({route, navigation}: any) => {
+const ScheduledTab = ({route}: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const tickets: any = useHookstate(ticketStore.tickets).get();
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const {colors}: Theme = useTheme();
+  const navigation = useNavigation()
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
+    // tempArr[0].onPress = () => {
+    //   navigation.navigate('Stack1', {
+    //     screen: 'NewActivity',
+    //     params: {from: 'agenda'},
+    //   });
+    // };
+    // tempArr[1].onPress = () => {
+    //   navigation.navigate('Stack1', {
+    //     screen: 'AddMiscSchedule',
+    //     params: {from: 'agenda'},
+    //   });
+    // };
     tempArr[0].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'NewActivity',
-        params: {from: 'agenda'},
-      });
-    };
-    tempArr[1].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'AddMiscSchedule',
-        params: {from: 'agenda'},
-      });
-    };
-    tempArr[2].onPress = () => {
       navigation.navigate('Stack1', {
         screen: 'NewTicket',
       });

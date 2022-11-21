@@ -117,12 +117,12 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-              <II
+              {/* <II
                 size={30}
                 name="stopwatch-outline"
                 color={'#fff'}
                 onPress={() => handleStopwatch(route?.params)}
-              />
+              /> */}
               <View style={{width: 15}} />
               <MI
                 onPress={() =>

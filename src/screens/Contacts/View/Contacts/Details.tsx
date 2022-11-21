@@ -21,14 +21,14 @@ export default function Details() {
   };
 
   const dataSource: Item[] = [
-    {
-      title: 'Configurations',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'ConfigurationListing',
-        });
-      },
-    },
+    // {
+    //   title: 'Configurations',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'ConfigurationListing',
+    //     });
+    //   },
+    // },
     {
       title: 'Open Tickets',
       onPress: () => {

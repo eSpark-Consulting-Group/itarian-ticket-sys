@@ -126,7 +126,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               props.navigation.navigate('Settings');
             }}
           />
-          <DrawerItem
+          {/* <DrawerItem
             label={'Send Feedback'}
             inactiveTintColor={'#fff'}
             labelStyle={styles.footerDrawerStyle}
@@ -136,7 +136,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             onPress={() => {
               props.navigation.navigate('Feedback');
             }}
-          />
+          /> */}
           <DrawerItem
             label={'Logout'}
             inactiveTintColor={'#fff'}
@@ -248,23 +248,23 @@ const Draw = () => {
         name="Search"
         component={Search}
         options={{
-          headerRight: () => (
-            <Ionicons
-              size={30}
-              name="barcode-outline"
-              color={'#ffffff'}
-              onPress={() =>
-                navigation.navigate('Stack1', {
-                  screen: 'BarcodeScanner',
-                  params: {
-                    from: 'Search',
-                    stack: 'Draw',
-                  },
-                })
-              }
-              style={{right: 10}}
-            />
-          ),
+          // headerRight: () => (
+          //   <Ionicons
+          //     size={30}
+          //     name="barcode-outline"
+          //     color={'#ffffff'}
+          //     onPress={() =>
+          //       navigation.navigate('Stack1', {
+          //         screen: 'BarcodeScanner',
+          //         params: {
+          //           from: 'Search',
+          //           stack: 'Draw',
+          //         },
+          //       })
+          //     }
+          //     style={{right: 10}}
+          //   />
+          // ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Search</Text>
           ),
@@ -286,7 +286,7 @@ const Draw = () => {
                   fontFamily: 'sans-serif-medium',
                   textAlign: 'center',
                 }}>
-                Agenda
+                Tickets
               </Text>
               <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
                 {currMember?.name}
@@ -294,7 +294,7 @@ const Draw = () => {
             </View>
           ),
           drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Agenda</Text>
+            <Text style={{right: 20, color}}>Tickets</Text>
           ),
           drawerIcon: ({color, size, focused}) => (
             <MCI name="calendar" size={size} color={color} />
@@ -323,7 +323,7 @@ const Draw = () => {
           ),
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Calendar"
         component={Calendar}
         options={{
@@ -372,14 +372,14 @@ const Draw = () => {
             />
           ),
         }}
-      />
+      /> */}
       <Drawer.Screen
         name="Companies"
         component={Companies}
         options={{
           headerRight: noHeader,
           drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Companies</Text>
+            <Text style={{right: 20, color}}>Organizations</Text>
           ),
           drawerIcon: ({color, size, focused}) => (
             <MCI
@@ -395,7 +395,7 @@ const Draw = () => {
         component={Contacts}
         options={{
           drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Contacts</Text>
+            <Text style={{right: 20, color}}>Users</Text>
           ),
           drawerIcon: ({color, size, focused}) => (
             <AD name="contacts" size={size} color={color} />
@@ -403,7 +403,7 @@ const Draw = () => {
           headerRight: noHeader,
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Configurations"
         component={Configurations}
         options={{
@@ -468,13 +468,6 @@ const Draw = () => {
                   });
                 }}
               />
-              {/* {console.log(
-                'filterVariables filterVariables filterVariables',
-                route?.params?.filter?.filter((val: any) => {
-                  if (val?.key && val?.value != null)
-                    return {key: val.key, value: val?.value};
-                })?.length,
-              )} */}
               <CstmBadge qty={filterCount || '0'} />
             </View>
           ),
@@ -621,7 +614,7 @@ const Draw = () => {
           ),
           headerRight: noHeader,
         }}
-      />
+      /> */}
       <Drawer.Screen
         name="Profile"
         component={Profile}

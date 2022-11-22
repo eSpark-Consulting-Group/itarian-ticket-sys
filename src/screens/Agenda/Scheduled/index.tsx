@@ -10,9 +10,9 @@ import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
 import {SchAdditionalButtons} from '../../../constants/ButtonsList';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
-import { ticketStore } from '../../../stores/ticketStore';
-import { Theme, useNavigation, useTheme } from '@react-navigation/native';
-import { getTicketsByUserId } from '../utils/functions';
+import {ticketStore} from '../../../stores/ticketStore';
+import {Theme, useNavigation, useTheme} from '@react-navigation/native';
+import {getTicketsByUserId} from '../utils/functions';
 
 const ScheduledTab = ({route}: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
@@ -20,7 +20,7 @@ const ScheduledTab = ({route}: any) => {
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const {colors}: Theme = useTheme();
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>();
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
 
@@ -48,7 +48,7 @@ const ScheduledTab = ({route}: any) => {
 
   useEffect(() => {
     const schTicks = ticketsList.filter(val => val?.time_dur);
-    getTicketsByUserId(activeMember.get()?.id)
+    getTicketsByUserId(activeMember.get()?.id);
     const filTickets = schTicks.filter(
       val => val?.assigned_to == activeMember.get()?.name,
     );
@@ -88,7 +88,11 @@ const ScheduledTab = ({route}: any) => {
         renderItem={({item}) => {
           return (
             <ListItem
-              dataSource={{id: scheduledList[0].id, date: scheduledList[0].date, data: [ticketsList[0]]}}
+              dataSource={{
+                id: scheduledList[0].id,
+                date: scheduledList[0].date,
+                data: [ticketsList[0]],
+              }}
               onPress={iValue => {
                 iValue.type == 'Ticket'
                   ? navigation.navigate('Stack1', {

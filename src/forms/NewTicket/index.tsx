@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -14,8 +14,8 @@ import {
 } from '../../constants/SelectionList';
 import {NoteTypes_DIR} from '../../constants/SampleArrays';
 import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
-import { globalState } from '../../stores/globalAppState';
-import { useHookstate } from '@hookstate/core';
+import {globalState} from '../../stores/globalAppState';
+import {useHookstate} from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
 
 interface Item {
@@ -44,7 +44,7 @@ interface Item {
 
 export default function NewTicket({route, navigation}: any) {
   const {colors, dark} = useTheme();
-  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
+  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get();
 
   const [showDate, setShowDate] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
@@ -138,8 +138,8 @@ export default function NewTicket({route, navigation}: any) {
     let time = date.toString().substring(16, 21);
 
     if (event?.type == 'set') {
-          dataSource[3].title = date?.toDateString();
-          setDataSource([...dataSource]);
+      dataSource[3].title = date?.toDateString();
+      setDataSource([...dataSource]);
     }
   };
 
@@ -161,7 +161,7 @@ export default function NewTicket({route, navigation}: any) {
         }
       /> */}
 
-    {showDate && (
+      {showDate && (
         <DatePicker
           mode={'date'}
           value={new Date()}
@@ -170,34 +170,36 @@ export default function NewTicket({route, navigation}: any) {
           positiveButtonLabel={'Set Due Date'}
         />
       )}
-      {dataSource?.map((value: Item, index: number) => (
-        <SingleLineField
-          key={index}
-          title={value.title}
-          subTitle={value.isRequired ? value.subTitle + '*' : value.subTitle}
-          onPress={
-            value?.onPress
-              ? value.onPress
-              : () =>
-                  SelectItems(
-                    value,
-                    index,
-                    navigation,
-                    route,
-                    'NewTicket',
-                    'Stack1',
-                  )
-          }
-          enable={value.enable}
-          inputable={value.inputable}
-          mode={value.mode}
-          rightIcon={value.rightIcon}
-          rightIconRound={value.rightIconRound}
-          roundedIconEnable={value.roundedIconEnable}
-          onRoundedIconPress={value.onRoundIconPress}
-          leftIcon={value.leftIcon}
-        />
-      ))}
+      <ScrollView>
+        {dataSource?.map((value: Item, index: number) => (
+          <SingleLineField
+            key={index}
+            title={value.title}
+            subTitle={value.isRequired ? value.subTitle + '*' : value.subTitle}
+            onPress={
+              value?.onPress
+                ? value.onPress
+                : () =>
+                    SelectItems(
+                      value,
+                      index,
+                      navigation,
+                      route,
+                      'NewTicket',
+                      'Stack1',
+                    )
+            }
+            enable={value.enable}
+            inputable={value.inputable}
+            mode={value.mode}
+            rightIcon={value.rightIcon}
+            rightIconRound={value.rightIconRound}
+            roundedIconEnable={value.roundedIconEnable}
+            onRoundedIconPress={value.onRoundIconPress}
+            leftIcon={value.leftIcon}
+          />
+        ))}
+      </ScrollView>
     </ModalView>
   );
 }

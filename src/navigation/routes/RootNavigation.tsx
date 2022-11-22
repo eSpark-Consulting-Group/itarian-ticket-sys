@@ -111,6 +111,8 @@ const App = () => {
     })
     .catch(err => console.log('err', err));
 
+  const pinWiseInitial = pinCode.get() ? 'Pin' : 'Login';
+
   return (
     <SafeAreaProvider>
       <NavigationContainer
@@ -120,7 +122,7 @@ const App = () => {
         }}
         // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
-        <Stack.Navigator initialRouteName={pinCode.get() ? 'Pin' : 'Login'}>
+        <Stack.Navigator initialRouteName={pinWiseInitial}>
           <>
             <Stack.Screen
               name="Login"

@@ -76,6 +76,7 @@ const CstmItemSelector = ({route, navigation}: any) => {
       ...route?.params,
       selected: route?.params?.data[selectedInd],
     });
+    console.log('route params', route?.params);
     setCurrChkInd(ind);
   };
 

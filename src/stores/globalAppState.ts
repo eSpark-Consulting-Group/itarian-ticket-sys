@@ -76,8 +76,8 @@ export const globalState = hookstate({
   defaultScreenName: 'Tickets',
   defaultnNavigationName: '',
   shortCutScreen: null,
-  agendaMember: {name: 'John Doe'},
-  calendarMember: 'John Doe',
+  agendaMember: {name: 'Select Member'},
+  calendarMember: 'Select Member',
   ticketStatus: [],
   ticketPriorities: [],
 });

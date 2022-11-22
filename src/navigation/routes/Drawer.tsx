@@ -170,14 +170,17 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 };
 
 const Draw = () => {
-  const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
   const navigation: any = useNavigation();
   const route: any = useRoute();
+
+  const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const users: State<any> = useHookstate(userStore.users);
+
   const [currMember, setcurrMember] = useState<any>(contactsList[0]);
   const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
   const [filterCount, setFilterCount] = useState<any>('0');
+
   const {colors}: Theme = useTheme();
 
   const noHeader = (): null => null;

@@ -20,13 +20,13 @@ export type ContactList = {
 export type Contact = {
   id: number;
   name: string;
-  company_name: string;
-  phone_no?: Array<ContactList> | undefined | null;
-  email_address?: Array<ContactList> | undefined | null;
-  inOffice?: boolean;
-  backDate?: string | undefined | null;
-  backTime?: string | undefined | null;
-  goneTo?: string | undefined | null;
+  // company_name: string;
+  // phone_no?: Array<ContactList> | undefined | null;
+  // email_address?: Array<ContactList> | undefined | null;
+  // inOffice?: boolean;
+  // backDate?: string | undefined | null;
+  // backTime?: string | undefined | null;
+  // goneTo?: string | undefined | null;
 };
 
 export type Configuration = {

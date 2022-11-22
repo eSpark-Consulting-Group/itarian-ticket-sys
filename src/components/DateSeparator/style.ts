@@ -4,7 +4,6 @@ import {SCREEN_WIDTH, WINDOW_WIDTH} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: WINDOW_WIDTH * 0.95,
     flexDirection: 'row',
     alignItems: 'center',

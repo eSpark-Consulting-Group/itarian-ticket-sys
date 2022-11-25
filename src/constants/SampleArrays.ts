@@ -261,7 +261,259 @@ export const companiesList: Array<Company> = [
 export const contactsList: Contact[] = [
   {
     id: 1,
-    name: 'Select a Member',
+    name: 'John Doe',
+    company_name: 'ACME Industries',
+    phone_no: [
+      {
+        isPrimary: true,
+        type: 'Direct',
+        value: '+555 555 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Mobile',
+        value: '+555 000 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Home',
+        value: '+555 000 5555',
+      },
+    ],
+    email_address: null,
+    inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
+  },
+  {
+    id: 2,
+    name: 'Blake Wesker',
+    company_name: 'Monsters INC',
+    phone_no: [
+      {
+        isPrimary: true,
+        type: 'Direct',
+        value: '+555 555 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Mobile',
+        value: '+555 000 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Home',
+        value: '+555 000 5555',
+      },
+    ],
+    email_address: [
+      {
+        isPrimary: true,
+        type: 'Email',
+        value: 'email@example.com',
+      },
+      {
+        isPrimary: false,
+        type: 'Home Email',
+        value: 'emailhome@example.com',
+      },
+    ],
+    inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
+  },
+  {
+    id: 3,
+    name: 'Bob Kins',
+    company_name: 'Bethesda Studios',
+    phone_no: [
+      {
+        isPrimary: true,
+        type: 'Direct',
+        value: '+555 555 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Mobile',
+        value: '+555 000 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Home',
+        value: '+555 000 5555',
+      },
+    ],
+    email_address: [
+      {
+        isPrimary: true,
+        type: 'Email',
+        value: 'email@example.com',
+      },
+    ],
+    inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
+  },
+  {
+    id: 4,
+    name: 'Kevin Spacey',
+    company_name: 'Walt Disney',
+    phone_no: null,
+    email_address: [
+      {
+        isPrimary: true,
+        type: 'Email',
+        value: 'email@example.com',
+      },
+    ],
+    backDate: '17 August 2022',
+    backTime: '05:00 PM',
+    goneTo: 'Gone for the day',
+  },
+  {
+    id: 5,
+    name: 'Brad Coops',
+    company_name: 'XYZ Company',
+    phone_no: [
+      {
+        isPrimary: true,
+        type: 'Direct',
+        value: '+555 555 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Mobile',
+        value: '+555 000 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Home',
+        value: '+555 000 5555',
+      },
+    ],
+    email_address: [
+      {
+        isPrimary: true,
+        type: 'Email',
+        value: 'email@example.com',
+      },
+    ],
+    inOffice: true,
+    backDate: null,
+    backTime: null,
+    goneTo: null,
+  },
+  {
+    id: 6,
+    name: 'Jimmy Neutron',
+    company_name: 'Coca Cola Ltd',
+    phone_no: [
+      {
+        isPrimary: true,
+        type: 'Direct',
+        value: '+555 555 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Mobile',
+        value: '+555 000 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Home',
+        value: '+555 000 5555',
+      },
+    ],
+    email_address: [
+      {
+        isPrimary: true,
+        type: 'Email',
+        value: 'email@example.com',
+      },
+    ],
+    inOffice: false,
+    backDate: '18 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Client',
+  },
+  {
+    id: 7,
+    name: 'Zeeshan Akram',
+    company_name: 'K-Electric Corp',
+    phone_no: null,
+    email_address: null,
+    inOffice: false,
+    backDate: '16 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Appointment',
+  },
+  {
+    id: 8,
+    name: 'Hardeep Vishnam',
+    company_name: 'Star Trek Enterprises',
+    phone_no: [
+      {
+        isPrimary: true,
+        type: 'Direct',
+        value: '+555 555 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Mobile',
+        value: '+555 000 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Home',
+        value: '+555 000 5555',
+      },
+    ],
+    email_address: [
+      {
+        isPrimary: true,
+        type: 'Email',
+        value: 'email@example.com',
+      },
+    ],
+    backDate: '20 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Others',
+  },
+  {
+    id: 9,
+    name: 'Carl Johnson',
+    company_name: 'Star Trek Enterprises',
+    phone_no: [
+      {
+        isPrimary: true,
+        type: 'Direct',
+        value: '+555 555 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Mobile',
+        value: '+555 000 5555',
+      },
+      {
+        isPrimary: false,
+        type: 'Home',
+        value: '+555 000 5555',
+      },
+    ],
+    email_address: [
+      {
+        isPrimary: true,
+        type: 'Email',
+        value: 'email@example.com',
+      },
+    ],
+    inOffice: false,
+    backDate: '25 August 2022',
+    backTime: '08:00 PM',
+    goneTo: 'Gone for the day',
   },
 ];
 

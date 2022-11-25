@@ -1,7 +1,24 @@
 {
   "java.configuration.updateBuildConfiguration": "interactive",
-  "cSpell.words": [
-    "apisauce",
-    "FAVEO"
-  ]
+  "cSpell.words": ["apisauce", "FAVEO"],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#003d5b",
+    "activityBar.background": "#003d5b",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#df0096",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#003d5b",
+    "statusBar.background": "#001b28",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#003d5b",
+    "statusBarItem.remoteBackground": "#001b28",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#001b28",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#001b2899",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#001B28"
 }

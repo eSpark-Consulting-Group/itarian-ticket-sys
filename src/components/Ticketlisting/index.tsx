@@ -24,7 +24,7 @@ const TicketListing = ({route, navigation}: any) => {
   const [clear, setClear] = useState(false);
 
   useEffect(() => {
-    filteration(ticketsList)
+    filteration(ticketsList);
   }, [activeMember.get()?.name]);
 
   const filteration = (ticketsListArr: Ticket[]) => {
@@ -93,11 +93,12 @@ const TicketListing = ({route, navigation}: any) => {
 
       <FlatList
         data={filArr}
+        contentContainerStyle={{flex: 1}}
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
         }
         ListEmptyComponent={
-          <View style={{marginTop: 50}}>
+          <View style={{alignSelf: 'center'}}>
             <NotFound label="Tickets" />
           </View>
         }

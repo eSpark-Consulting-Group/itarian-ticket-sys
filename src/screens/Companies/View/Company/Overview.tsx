@@ -8,7 +8,7 @@ import {ContactList, SelectFields} from '../../../../types';
 import {redirectToMap} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
 import {contactsList} from '../../../../constants/SampleArrays';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import _ from 'lodash';
 
 interface Item {
@@ -31,17 +31,17 @@ const Overview = () => {
     globalState.defaultnNavigationName,
   );
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
-  const routes: any = useRoute()
-  const companyDetails: any = routes?.params?.companyDetails 
+  const routes: any = useRoute();
+  const companyDetails: any = routes?.params?.companyDetails;
   const dataSource: Item[] = [
     {
       title: companyDetails?.phone_number || 'N/A',
       headerTitle: 'Company Phone No.',
       rightChild: (
         <RoundedIcon
-            enable={companyDetails?.phone_number}
-            icon={'phone'}
-            onPress={() => Linking.openURL(`tel:${companyDetails?.phone_number}`)}
+          enable={companyDetails?.phone_number}
+          icon={'phone'}
+          onPress={() => Linking.openURL(`tel:${companyDetails?.phone_number}`)}
         />
       ),
       enable: false,

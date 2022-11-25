@@ -293,7 +293,7 @@ const StackLvl2 = ({navigation, route}: any) => {
         name="ContactListing"
         component={ContactListing}
         options={({route, navigation}: any) => ({
-          title: 'Contacts',
+          title: 'Users',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

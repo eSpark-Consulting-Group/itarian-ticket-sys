@@ -275,6 +275,17 @@ export type CompanySites = {
   address?: string;
 };
 
+/**
+ * @types for canny.io
+ */
+
+export type CannyCategory = {
+  apiKey: string;
+  boardID?: string;
+  limit?: number;
+  skip?: number;
+};
+
 /*
 //* Enum's for all Types/Interfaces
 */

@@ -1,13 +1,18 @@
 import React, {useRef, useState, useEffect, useReducer} from 'react';
-import {View, Keyboard} from 'react-native';
+import {View, Keyboard, ScrollView} from 'react-native';
 
 import styles from './style';
-import {CstmButton, CstmDropDown, CstmMultiLine} from '../../components';
+import {
+  CstmButton,
+  CstmDropDown,
+  CstmInput,
+  CstmMultiLine,
+  CstmTitleInput,
+  GapView,
+} from '../../components';
 
 const SendFeedbackScreen = () => {
-  const [ideaToggle, setIdeaToggle] = useState(false);
-  const [errorToggle, setErrorToggle] = useState(false);
-  const [feedToggle, setFeedToggle] = useState(false);
+  const [categoryToggle, setCategoryToggle] = useState(false);
   const iskeyboardShown = useRef(false);
 
   const handleLabel = (value: string, type: string) => {
@@ -31,31 +36,11 @@ const SendFeedbackScreen = () => {
 
   const handleToggle = (type: string) => {
     switch (type) {
-      case 'idea':
-        if (ideaToggle) {
-          setIdeaToggle(false);
+      case 'category':
+        if (categoryToggle) {
+          setCategoryToggle(false);
         } else {
-          setIdeaToggle(true);
-          setFeedToggle(false);
-          setErrorToggle(false);
-        }
-        return;
-      case 'feed':
-        if (feedToggle) {
-          setFeedToggle(false);
-        } else {
-          setIdeaToggle(false);
-          setFeedToggle(true);
-          setErrorToggle(false);
-        }
-        return;
-      case 'error':
-        if (errorToggle) {
-          setErrorToggle(false);
-        } else {
-          setIdeaToggle(false);
-          setFeedToggle(false);
-          setErrorToggle(true);
+          setCategoryToggle(true);
         }
         return;
       default:
@@ -70,62 +55,48 @@ const SendFeedbackScreen = () => {
     'Professionalism',
     'Ease of Access',
   ];
-  let cantFindData = [
-    'How to Add Company?',
-    'How to view your tickets?',
-    'How to Mark your self out of Office?',
-    'Where to Find Contacts?',
-  ];
-  let errorData = [
-    'Tickets no Listed.',
-    'Not able to view Contacts',
-    'Oppurtunities not Added',
-  ];
 
   const dropDownDataSource = [
     {
       data: ideaData,
-      type: 'idea',
-      toggleValue: ideaToggle,
-      title: 'I have an Idea',
-    },
-    {
-      data: cantFindData,
-      type: 'feed',
-      toggleValue: feedToggle,
-      title: "I can't find something",
-    },
-    {
-      data: errorData,
-      type: 'error',
-      toggleValue: errorToggle,
-      title: 'I have encountered an error',
+      type: 'category',
+      toggleValue: categoryToggle,
+      title: 'Select Category',
     },
   ];
 
   return (
-    <View
-      style={{
-        ...styles.container,
-      }}>
-      {dropDownDataSource.map((val, int) => (
-        <CstmDropDown
-          key={int}
-          dataSource={val.data}
-          handleLabel={handleLabel}
-          type={val.type}
-          toggleValue={val.toggleValue}
-          handleToggle={handleToggle}
-          title={val.title}
+    <>
+      <ScrollView
+        style={{
+          ...styles.container,
+        }}>
+        {dropDownDataSource.map((val, int) => (
+          <CstmDropDown
+            key={int}
+            dataSource={val.data}
+            handleLabel={handleLabel}
+            type={val.type}
+            toggleValue={val.toggleValue}
+            handleToggle={handleToggle}
+            title={val.title}
+          />
+        ))}
+        <CstmTitleInput title="Title" placeholder="Enter a Short Title" />
+        <GapView mode="vertical" />
+        <CstmMultiLine
+          title="Details"
+          placeholder="Any, Additional Details..."
         />
-      ))}
-      <CstmMultiLine title="Share Your Feedback" />
-      <CstmButton
-        loader={false}
-        title="Send Feedback"
-        onPress={() => console.log('Sent the Feedback')}
-      />
-    </View>
+      </ScrollView>
+      <View>
+        <CstmButton
+          loader={false}
+          title="Create Post"
+          onPress={() => console.log('Sent the Feedback')}
+        />
+      </View>
+    </>
   );
 };
 

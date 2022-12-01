@@ -11,12 +11,14 @@ const CstmTitleInput = ({
   onChangeText,
   width = '100%',
   keyboardType = 'default',
+  placeholder,
 }: {
   title?: string;
   value?: string;
   onChangeText?: (text: string) => void;
   width?: string | number;
   keyboardType?: KeyboardTypeOptions | undefined;
+  placeholder?: string;
 }) => {
   const {colors, dark}: Theme = useTheme();
   const [val, setVal] = useState();
@@ -29,15 +31,16 @@ const CstmTitleInput = ({
           <Text style={{color: colors.text, opacity: 0.8}}>{title}</Text>
         </>
       )}
-      <GapView mode="vertical" />
+      <GapView mode="vertical" length={5} />
       <TextInput
+        placeholder={placeholder}
         keyboardType={keyboardType}
         value={val ?? value}
         style={{
           ...styles.input,
           width: '100%',
           color: colors.text,
-          borderColor: colors.text + '73',
+          borderColor: colors.text + '77',
         }}
         onChangeText={onChangeText}
         underlineColorAndroid="transparent"

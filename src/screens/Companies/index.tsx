@@ -79,7 +79,7 @@ const Companies = () => {
         }}>
         <SearchBar
           withTag={false}
-          placeholder={'Search Companies'}
+          placeholder={'Search Organizations'}
           fontSize={'large'}
           value={searchValue}
           setChangeText={value => setSearchValue(value)}

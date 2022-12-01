@@ -65,7 +65,7 @@ const ContactListing = () => {
         }}>
         <SearchBar
           withTag={false}
-          placeholder={'Search Contacts'}
+          placeholder={'Search Users'}
           fontSize={'large'}
           value={searchValue}
           setChangeText={value => setSearchValue(value)}

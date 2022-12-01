@@ -20,7 +20,7 @@ const ListItem = ({
   renderDate = true,
   flag,
   onPress,
-  isResource=false,
+  isResource = false,
 }: {
   dataSource: any;
   renderDate?: boolean;
@@ -56,7 +56,7 @@ const ListItem = ({
             </View>
           </View>
           <View style={{width: '75%'}}>
-            {(item2?.assigned_to && isResource) && (
+            {item2?.assigned_to && isResource && (
               <Text style={{fontWeight: 'bold', color: colors.text}}>
                 Assigned to: {item2.assigned_to}
               </Text>

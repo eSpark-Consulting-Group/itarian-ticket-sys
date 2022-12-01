@@ -7,10 +7,7 @@ import MI from 'react-native-vector-icons/MaterialIcons';
 import {Theme, useTheme} from '@react-navigation/native';
 import {State, useHookstate} from '@hookstate/core';
 
-import {
-  goBack,
-  saveStatus,
-} from '../utils/headerFunctions';
+import {goBack, saveStatus} from '../utils/headerFunctions';
 
 import STickets from '../../forms/ServiceTickets';
 import Contact1 from '../../screens/Contacts/View/Contacts';
@@ -18,6 +15,7 @@ import Company from '../../screens/Companies/View/Company';
 import NewCompany from '../../forms/NewCompany';
 import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
 import NewTicket from '../../forms/NewTicket';
+import CreatePost from '../../forms/CreatePost';
 import {userStore} from '../../stores/userStore';
 import {checkValidations} from '../../utils/helperFunctions';
 
@@ -31,6 +29,7 @@ export type RootStackParamList = {
   Contact1: undefined;
   Activities: undefined;
   NewTicket: undefined;
+  CreatePost: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -194,6 +193,23 @@ const StackLvl1 = ({route, navigation}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => checkValidations(navigation, route, globalStates)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePost}
+        options={({route, navigation}) => ({
+          title: 'Create Post',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
             />
           ),
         })}

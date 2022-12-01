@@ -1,102 +1,138 @@
-import React, {useRef, useState, useEffect, useReducer} from 'react';
-import {View, Keyboard, ScrollView} from 'react-native';
+import React, {useRef, useState, useEffect} from 'react';
+import {View, Keyboard, ScrollView, Text, FlatList} from 'react-native';
+import {useTheme, useNavigation} from '@react-navigation/native';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';
-import {
-  CstmButton,
-  CstmDropDown,
-  CstmInput,
-  CstmMultiLine,
-  CstmTitleInput,
-  GapView,
-} from '../../components';
+import {CstmPressable, FloatButton, GapView, Loader} from '../../components';
+import {SCREEN_WIDTH} from '../../constants';
+
+const posts = [
+  {
+    user: 'Faraz',
+    title: 'Post #1',
+    subTitle:
+      'Proident esse ut exercitation consectetur nulla reprehenderit quis culpa nostrud.',
+    status: 'Open',
+  },
+  {
+    user: 'Wirad',
+    title: 'Post #1',
+    subTitle:
+      'Proident elit ad id labore eiusmod labore exercitation sit do irure esse occaecat.',
+    status: 'In Progress',
+  },
+  {
+    user: 'Mudassir',
+    title: 'Post #1',
+    subTitle: 'Est reprehenderit elit quis qui duis incididunt consequat.',
+    status: 'Completed',
+  },
+];
 
 const SendFeedbackScreen = () => {
-  const [categoryToggle, setCategoryToggle] = useState(false);
-  const iskeyboardShown = useRef(false);
+  const {dark, colors} = useTheme();
+  const navigation: any = useNavigation();
 
-  const handleLabel = (value: string, type: string) => {
-    // 👇️ take parameter passed from Child component
-    console.log('kia ha value && type', value, type);
+  const renderList = (item: any, index: number) => {
+    return (
+      <CstmPressable
+        style={{
+          flexDirection: 'row',
+          marginVertical: 10,
+          padding: 20,
+          borderRadius: 5,
+          borderWidth: 2,
+          borderColor: colors.primary,
+          elevation: 2,
+          backgroundColor: colors.background,
+        }}>
+        <View style={{flex: 0.2}}>
+          <View
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderWidth: 2,
+              borderColor: colors.primary,
+            }}>
+            <Text
+              style={{fontSize: 20, fontWeight: 'bold', color: colors.primary}}>
+              {item.user.substring(0, 1)}
+            </Text>
+          </View>
+        </View>
+        <View style={{flex: 0.6}}>
+          <Text style={{color: colors.text}} numberOfLines={2}>
+            {item.subTitle}
+          </Text>
+          <Text style={{color: colors.text, fontWeight: 'bold'}}>
+            Status: {item.status}
+          </Text>
+        </View>
+        <View
+          style={{
+            flex: 0.3,
+            flexDirection: 'row',
+            alignSelf: 'flex-end',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              borderWidth: 1,
+              borderRadius: 6,
+              paddingHorizontal: 4,
+              borderColor: colors.primary,
+              elevation: 1,
+              backgroundColor: colors.background,
+            }}>
+            <MCI
+              name="arrow-up-thick"
+              color={colors.text}
+              style={{alignSelf: 'center', margin: 2}}
+            />
+            <Text style={{textAlignVertical: 'center', color: colors.text}}>
+              99
+            </Text>
+          </View>
+          <GapView mode="horizontal" />
+          <View
+            style={{
+              flexDirection: 'row',
+              borderWidth: 1,
+              paddingHorizontal: 4,
+              borderRadius: 6,
+              borderColor: colors.primary,
+              elevation: 1,
+              backgroundColor: colors.background,
+            }}>
+            <MCI
+              name="chat"
+              color={colors.text}
+              style={{alignSelf: 'center', margin: 2}}
+            />
+            <Text style={{textAlignVertical: 'center', color: colors.text}}>
+              99
+            </Text>
+          </View>
+        </View>
+      </CstmPressable>
+    );
   };
-
-  useEffect(() => {
-    let show = Keyboard.addListener('keyboardDidShow', () => {
-      iskeyboardShown.current = true;
-    });
-    let hide = Keyboard.addListener('keyboardDidHide', () => {
-      iskeyboardShown.current = false;
-    });
-
-    return () => {
-      show.remove();
-      hide.remove();
-    };
-  }, [iskeyboardShown.current]);
-
-  const handleToggle = (type: string) => {
-    switch (type) {
-      case 'category':
-        if (categoryToggle) {
-          setCategoryToggle(false);
-        } else {
-          setCategoryToggle(true);
-        }
-        return;
-      default:
-        return;
-    }
-  };
-
-  let ideaData = [
-    'Service',
-    'Support',
-    '24/7 Response Time',
-    'Professionalism',
-    'Ease of Access',
-  ];
-
-  const dropDownDataSource = [
-    {
-      data: ideaData,
-      type: 'category',
-      toggleValue: categoryToggle,
-      title: 'Select Category',
-    },
-  ];
 
   return (
-    <>
-      <ScrollView
-        style={{
-          ...styles.container,
-        }}>
-        {dropDownDataSource.map((val, int) => (
-          <CstmDropDown
-            key={int}
-            dataSource={val.data}
-            handleLabel={handleLabel}
-            type={val.type}
-            toggleValue={val.toggleValue}
-            handleToggle={handleToggle}
-            title={val.title}
-          />
-        ))}
-        <CstmTitleInput title="Title" placeholder="Enter a Short Title" />
-        <GapView mode="vertical" />
-        <CstmMultiLine
-          title="Details"
-          placeholder="Any, Additional Details..."
-        />
-      </ScrollView>
-      <View>
-        <CstmButton
-          loader={false}
-          title="Create Post"
-          onPress={() => console.log('Sent the Feedback')}
-        />
-      </View>
-    </>
+    <View style={{flex: 1, paddingHorizontal: 15, paddingTop: 15}}>
+      <FlatList
+        data={posts}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item, index}) => renderList(item, index)}
+      />
+      <FloatButton
+        onPress={() => navigation.navigate('Stack1', {screen: 'CreatePost'})}
+      />
+    </View>
   );
 };
 

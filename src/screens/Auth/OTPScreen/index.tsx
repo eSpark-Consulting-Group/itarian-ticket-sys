@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
-import Images from '../../../assets/images';
+import Images from '../../../assets/Images';
 import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../../../constants';
 import styles from './style';
 import OTPInputView from '@twotalltotems/react-native-otp-input';

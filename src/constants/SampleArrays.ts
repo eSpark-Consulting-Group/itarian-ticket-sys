@@ -1,10 +1,8 @@
-import Images from '../assets/images';
+import Images from '../assets/Images';
 import {
   Activity,
   Company,
-  Configuration,
   Contact,
-  ExpReportList,
   Filter,
   Item,
   ModalFormArrayType,
@@ -517,48 +515,6 @@ export const contactsList: Contact[] = [
   },
 ];
 
-export const configurationsList: Configuration[] = [
-  {
-    name: '#90234',
-    company_name: 'ACE Chemicals',
-    tag: 'T24',
-    model: '2020',
-    serial: 'S/N129455',
-  },
-  {
-    name: '550-212',
-    company_name: 'iTarian LLC',
-    tag: 'T2',
-    model: '2011',
-    serial: 'S/N129444',
-  },
-  {
-    name: '05211',
-    company_name: 'Ezlo Innovation',
-    tag: 'T1',
-    model: '2009',
-    serial: 'S/N129412',
-  },
-  {
-    name: '1101',
-    company_name: 'Hammer Technologies',
-    tag: 'T64',
-    model: '2007',
-    serial: 'S/N129416',
-  },
-  {
-    name: '#23',
-    company_name: 'Stark Industries',
-    tag: 'T33',
-    model: '2017',
-    serial: 'S/N129546',
-  },
-  {name: '253/23', company_name: 'Lorem Ipsum Inc', model: '2019'},
-  {name: 'testA12', company_name: 'XYZ Comapany', serial: 'S/N121232'},
-  {name: 'Mach-5', company_name: 'Racer Motor Company'},
-  {name: 'JF-17', company_name: 'Pakistan Air Force'},
-  {name: 'F-25', company_name: 'US Air Force', tag: 'T90'},
-];
 
 export const activitiesList: Array<Activity> = [
   {
@@ -607,54 +563,6 @@ export const activitiesList: Array<Activity> = [
   },
 ];
 
-export const expReportList: Array<ExpReportList> = [
-  {
-    id: 1,
-    date: new Date(2022, 8, 9),
-    totExp: 723,
-    data: [
-      {
-        id: 1,
-        ticket_no: '#15340',
-        summary: 'Config Service History # 2',
-        totExp: '$119.00',
-        expType: 'Parts ',
-        type: 'Ticket',
-      },
-      {
-        id: 2,
-        ticket_no: '#15346',
-        summary: 'Weekly Team Meeting',
-        totExp: '$456.00',
-        expType: 'Miscellaneous',
-        type: 'Ticket',
-      },
-      {
-        id: 3,
-        ticket_no: '#16357',
-        summary: 'New Server Installation',
-        totExp: '$148.00',
-        expType: 'Equipments',
-        type: 'Ticket',
-      },
-    ],
-  },
-  {
-    id: 2,
-    date: new Date(2022, 8, 14),
-    totExp: 1123,
-    data: [
-      {
-        id: 4,
-        ticket_no: '#18464',
-        summary: 'Products for Exchange Server',
-        totExp: '$1123.00',
-        expType: 'Products',
-        type: 'Ticket',
-      },
-    ],
-  },
-];
 
 export const timeSheetList: Array<TimeSheet> = [
   {
@@ -909,10 +817,6 @@ export const screenItemList: ScreenItems[] = [
     id: 'Search',
     name: 'Search',
   },
-  // {
-  //   id: 'Calendar',
-  //   name: 'Calendar',
-  // },
   {
     id: 'Companies',
     name: 'Organizations',
@@ -921,42 +825,6 @@ export const screenItemList: ScreenItems[] = [
     id: 'Contacts',
     name: 'Users',
   },
-  // {
-  //   id: 'Configurations',
-  //   name: 'Configurations',
-  // },
-  // {
-  //   id: 'SBoard',
-  //   name: 'Service Board',
-  // },
-  // {
-  //   id: 'PBoard',
-  //   name: 'Project Board',
-  // },
-  // {
-  //   id: 'Opportunities',
-  //   name: 'Opportunities',
-  // },
-  // {
-  //   id: 'MyActivities',
-  //   name: 'My Activities',
-  // },
-  // {
-  //   id: 'IOBoard',
-  //   name: 'In/Out Board',
-  // },
-  // {
-  //   id: 'ExpReports',
-  //   name: 'Expense Reports',
-  // },
-  // {
-  //   id: 'TimeSheets',
-  //   name: 'Time Sheets',
-  // },
-  // {
-  //   id: 'StopWatch',
-  //   name: 'StopWatch',
-  // },
 ];
 
 export const sBoardFiterList: Filter[] = [

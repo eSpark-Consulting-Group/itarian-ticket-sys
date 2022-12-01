@@ -24,7 +24,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
-import FA5 from 'react-native-vector-icons/FontAwesome5';
 import {State, useHookstate} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar} from 'react-native-paper';
@@ -34,19 +33,9 @@ import store from 'react-native-simple-store';
 import {globalState} from '../../stores/globalAppState';
 import {
   Agenda,
-  Calendar,
   Companies,
-  Configurations,
   Contacts,
-  ExpenseReports,
-  InOutBoard,
-  MyActivities,
-  Oppurtunities,
-  ProjectBoard,
   Search,
-  ServiceBoard,
-  StopWatch,
-  TimeSheets,
   Settings,
   SendFeedback,
   Profile,
@@ -55,12 +44,8 @@ import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
 import {
   contactsList,
-  opportunityFilterList,
-  pBoardFilterList,
-  sBoardFiterList,
 } from '../../constants/SampleArrays';
-import {CstmBadge} from '../../components';
-import Images from '../../assets/images';
+import Images from '../../assets/Images';
 import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
 
@@ -150,8 +135,6 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               dSName.set('Agenda');
               dScreen.set('Agenda');
               dNavName.set('');
-              //       store.update('pinCode', pin);
-              // userStore.pinCode.set(pin);
               store.delete(['user', 'dSName', 'dNavName', 'pinCode']);
             }}
           />
@@ -194,8 +177,6 @@ const Draw = () => {
     if (route?.params?.item) {
       if (route?.params?.from == 'Agenda') {
         setcurrMember(route?.params?.selected);
-      } else if (route?.params?.from == 'Calendar') {
-        setCalCurrMember(route?.params?.selected);
       } else {
         setcurrMember(currMember);
         setCalCurrMember(calCurrMember);
@@ -251,23 +232,6 @@ const Draw = () => {
         name="Search"
         component={Search}
         options={{
-          // headerRight: () => (
-          //   <Ionicons
-          //     size={30}
-          //     name="barcode-outline"
-          //     color={'#ffffff'}
-          //     onPress={() =>
-          //       navigation.navigate('Stack1', {
-          //         screen: 'BarcodeScanner',
-          //         params: {
-          //           from: 'Search',
-          //           stack: 'Draw',
-          //         },
-          //       })
-          //     }
-          //     style={{right: 10}}
-          //   />
-          // ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Search</Text>
           ),
@@ -320,56 +284,6 @@ const Draw = () => {
           ),
         }}
       />
-      {/* <Drawer.Screen
-        name="Calendar"
-        component={Calendar}
-        options={{
-          headerTitle: () => (
-            <View>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 20,
-                  fontFamily: 'sans-serif-medium',
-                  textAlign: 'center',
-                }}>
-                Calendar
-              </Text>
-              <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
-                {calCurrMember?.name}
-              </Text>
-            </View>
-          ),
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Calendar</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <Ionicons name="calendar" size={size} color={color} />
-          ),
-          headerRight: () => (
-            <FA
-              size={30}
-              name="user"
-              color={'#fff'}
-              onPress={() =>
-                navigation.navigate('Stack2', {
-                  screen: 'CstmItemSelector',
-                  params: {
-                    from: 'Calendar',
-                    item: 'GoneTo',
-                    data: contactsList,
-                    selected: calCurrMember,
-                    stack: 'Draw',
-                    headerTitle: 'Select Member',
-                    searchable: true,
-                  },
-                })
-              }
-              style={{right: 10}}
-            />
-          ),
-        }}
-      /> */}
       <Drawer.Screen
         name="Companies"
         component={Companies}
@@ -402,218 +316,6 @@ const Draw = () => {
           headerRight: noHeader,
         }}
       />
-      {/* <Drawer.Screen
-        name="Configurations"
-        component={Configurations}
-        options={{
-          headerRight: () => (
-            <Ionicons
-              size={30}
-              name="barcode-outline"
-              color={'#ffffff'}
-              onPress={() =>
-                navigation.navigate('Stack1', {
-                  screen: 'BarcodeScanner',
-                  params: {
-                    from: 'Configurations',
-                    stack: 'Draw',
-                  },
-                })
-              }
-              style={{right: 10}}
-            />
-          ),
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Configurations</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <MCI name="puzzle-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="SBoard"
-        component={ServiceBoard}
-        options={{
-          headerTitle: () => (
-            <View>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 20,
-                  fontFamily: 'sans-serif-medium',
-                }}>
-                Service Board
-              </Text>
-              <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
-                My Services
-              </Text>
-            </View>
-          ),
-          headerRight: () => (
-            <View style={{flexDirection: 'row', right: 10}}>
-              <AD
-                size={30}
-                name="filter"
-                color={'#ffffff'}
-                onPress={() => {
-                  navigation.navigate('Stack1', {
-                    screen: 'Filters',
-                    params: {
-                      dataSource: sBoardFiterList,
-                      FilterStack: 'Draw',
-                      FilterFrom: 'SBoard',
-                    },
-                  });
-                }}
-              />
-              <CstmBadge qty={filterCount || '0'} />
-            </View>
-          ),
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Service Board</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <MCI name="headset" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="PBoard"
-        component={ProjectBoard}
-        options={({route, navigation}) => ({
-          title: 'Project Board',
-          headerRight: () => (
-            <View style={{flexDirection: 'row', right: 10}}>
-              <AD
-                size={30}
-                name="filter"
-                color={'#ffffff'}
-                onPress={() => {
-                  navigation.navigate('Stack1', {
-                    screen: 'Filters',
-                    params: {
-                      dataSource: pBoardFilterList,
-                      FilterStack: 'Draw',
-                      FilterFrom: 'PBoard',
-                    },
-                  });
-                }}
-              />
-              <CstmBadge qty={filterCount || '0'} />
-            </View>
-          ),
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Project Board</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <AD name="areachart" size={size} color={color} />
-          ),
-        })}
-      />
-      <Drawer.Screen
-        name="MyActivities"
-        component={MyActivities}
-        options={{
-          title: 'My Activities',
-          headerRight: noHeader,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>My Activities</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <MCI name="clipboard-text-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Opportunities"
-        component={Oppurtunities}
-        options={({navigation, route}) => ({
-          headerRight: () => (
-            <View style={{flexDirection: 'row', right: 10}}>
-              <AD
-                size={30}
-                name="filter"
-                color={'#ffffff'}
-                onPress={() =>
-                  navigation.navigate('Stack1', {
-                    screen: 'Filters',
-                    params: {
-                      dataSource: opportunityFilterList,
-                      title: '30 Dec 2022',
-                      FilterStack: 'Draw',
-                      FilterFrom: 'Opportunities',
-                    },
-                  })
-                }
-              />
-              <CstmBadge qty={filterCount || '0'} />
-            </View>
-          ),
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Opportunities</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <MCI name="briefcase-outline" size={size} color={color} />
-          ),
-        })}
-      />
-      <Drawer.Screen
-        name="IOBoard"
-        component={InOutBoard}
-        options={{
-          title: 'In/Out Board',
-          headerRight: noHeader,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>In/Out Board</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <MCI name="checkbox-marked-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="ExpReports"
-        component={ExpenseReports}
-        options={{
-          title: 'Expense Reports',
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Expense Reports</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <FA5 name="coins" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="TimeSheets"
-        component={TimeSheets}
-        options={{
-          title: 'Time Sheets',
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Time Sheets</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <MCI name="clipboard-clock-outline" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="StopWatch"
-        component={StopWatch}
-        options={{
-          headerTitle: 'Stopwatch',
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Stopwatch</Text>
-          ),
-          drawerIcon: ({color, size, focused}) => (
-            <Ionicons name="ios-stopwatch" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      /> */}
       <Drawer.Screen
         name="Profile"
         component={Profile}

@@ -16,22 +16,6 @@ const Details = () => {
   const route: any = useRoute();
   const dataSource: Item[] = [
     // {
-    //   title: 'Configurations',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'ConfigurationListing',
-    //     });
-    //   },
-    // },
-    // {
-    //   title: 'Products',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'ProductListing',
-    //     });
-    //   },
-    // },
-    // {
     //   title: 'Attachments',
     //   onPress: () => {
     //     navigation.navigate('Stack2', {

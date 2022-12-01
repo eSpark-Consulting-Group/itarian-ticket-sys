@@ -54,20 +54,6 @@ export const UnschAdditionalButtons: Array<AdditionalButtons> = [
   },
 ];
 
-export const ExpenseAdditionalButtons: Array<AdditionalButtons> = [
-  {
-    icon: 'currency-usd',
-    label: 'Add Expense',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-  {
-    icon: 'calendar-plus',
-    label: 'Submit Report	',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-];
 
 export const STicketsAdditionalButtons: Array<AdditionalButtons> = [
   // {

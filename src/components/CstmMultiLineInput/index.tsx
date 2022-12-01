@@ -31,7 +31,7 @@ const CstmMultiLine = ({
             }}>
             {title}
           </Text>
-          <GapView mode="vertical" />
+          {/* <GapView mode="vertical" /> */}
         </>
       )}
       <TextInput

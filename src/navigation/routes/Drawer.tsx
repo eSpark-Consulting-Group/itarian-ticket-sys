@@ -126,7 +126,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               props.navigation.navigate('Settings');
             }}
           />
-          {/* <DrawerItem
+          <DrawerItem
             label={'Send Feedback'}
             inactiveTintColor={'#fff'}
             labelStyle={styles.footerDrawerStyle}
@@ -136,7 +136,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             onPress={() => {
               props.navigation.navigate('Feedback');
             }}
-          /> */}
+          />
           <DrawerItem
             label={'Logout'}
             inactiveTintColor={'#fff'}
@@ -281,7 +281,14 @@ const Draw = () => {
         component={Agenda}
         options={{
           headerTitle: () => (
-            <CstmHeader title="Tickets" subTitle={currMember?.name} />
+            <CstmHeader
+              title="Tickets"
+              subTitle={
+                currMember?.name == 'John Doe'
+                  ? 'Select Member'
+                  : currMember?.name
+              }
+            />
           ),
           drawerLabel: ({color, focused}) => (
             <Text style={{right: 20, color}}>Tickets</Text>

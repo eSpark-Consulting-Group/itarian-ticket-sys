@@ -7,7 +7,7 @@ export const LightTheme: Theme = {
     primary: '#28648f',
     background: '#f1f1f1',
     card: '#ffffff',
-    text: 'rgb(28, 28, 30)',
+    text: '#000000',
     border: '#28648f',
     notification: '#ffffff',
   },
@@ -18,7 +18,7 @@ export const DarkTheme: Theme = {
   dark: true,
   colors: {
     primary: '#28648f',
-    background: 'rgb(28, 28, 30)',
+    background: '#000000',
     border: '#28648f',
     text: '#ffffff',
     card: '#000000',

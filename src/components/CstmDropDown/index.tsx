@@ -14,14 +14,17 @@ const CstmDropDown = ({
   handleToggle,
   title,
 }: {
-  dataSource: string[];
-  handleLabel?: (value: string, type: string) => void;
+  dataSource: any[];
+  handleLabel?: (value: {}, type: string) => void;
   type: string;
   toggleValue: boolean;
   handleToggle?: (type: string) => void;
   title?: string;
 }) => {
-  const [label, setLabel] = useState('');
+  const [label, setLabel] = useState<{name?: string; id?: string}>({
+    name: '',
+    id: '',
+  });
   const {colors, dark}: Theme = useTheme();
   const borderColor = dark ? '#ffffff80' : '#00000080';
 
@@ -29,7 +32,7 @@ const CstmDropDown = ({
     handleLabel?.(label, type); //? to Send the Selected Label to parent
   }, [label]);
 
-  const renderList = ({item, index}: {item: string; index: number}) => {
+  const renderList = ({item, index}: {item: any; index: number}) => {
     return (
       <TouchableOpacity
         style={{backgroundColor: colors.primary}}
@@ -39,7 +42,9 @@ const CstmDropDown = ({
         }}>
         <View
           style={{backgroundColor: colors.background, ...styles.itemContainer}}>
-          <Text style={{color: colors.text, ...styles.itemText}}>{item}</Text>
+          <Text style={{color: colors.text, ...styles.itemText}}>
+            {item.name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -62,7 +67,7 @@ const CstmDropDown = ({
           }}>
           <View style={styles.dropdownLabelInner}>
             <Text style={{color: colors.text, ...styles.dropDownText}}>
-              {label == '' ? 'Select an Item...' : label}
+              {label.name == '' ? 'Select an Item...' : label.name}
             </Text>
             {toggleValue ? (
               <MI name="arrow-drop-up" color={colors.text} size={22} />

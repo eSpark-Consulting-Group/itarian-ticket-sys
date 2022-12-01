@@ -33,6 +33,7 @@ import NewOpportunity from '../../forms/NewOpportunity';
 import NewTimeSheet from '../../forms/NewTimeSheet';
 import NewTicket from '../../forms/NewTicket';
 import AddMiscSchedule from '../../forms/AddMiscSchedule';
+import CreatePost from '../../forms/CreatePost';
 import {userStore} from '../../stores/userStore';
 import {BarcodeScanner} from '../../components';
 import {checkValidations} from '../../utils/helperFunctions';
@@ -57,6 +58,7 @@ export type RootStackParamList = {
   NewTicket: undefined;
   AddMiscSchedule: undefined;
   BarcodeScanner: undefined;
+  CreatePost: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -477,6 +479,23 @@ const StackLvl1 = ({route, navigation}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => checkValidations(navigation, route, globalStates)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePost}
+        options={({route, navigation}) => ({
+          title: 'Create Post',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
             />
           ),
         })}

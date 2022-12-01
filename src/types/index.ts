@@ -280,7 +280,6 @@ export type CompanySites = {
  */
 
 export type CannyCategory = {
-  apiKey: string;
   boardID?: string;
   limit?: number;
   skip?: number;

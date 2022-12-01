@@ -9,7 +9,6 @@ import {globalState} from '../../stores/globalAppState';
 
 import {RenderContacts} from '../Contacts';
 import {RenderCompanies} from '../Companies';
-import {RenderConfigurations} from '../Configurations';
 import {RenderTickets} from '../Agenda/ListItem';
 import {
   companiesList,

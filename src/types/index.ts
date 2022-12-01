@@ -29,14 +29,6 @@ export type Contact = {
   goneTo?: string | undefined | null;
 };
 
-export type Configuration = {
-  name: string;
-  company_name: string;
-  tag?: string | null | undefined;
-  model?: string | null | undefined;
-  serial?: string | null | undefined;
-};
-
 export type Activity = {
   summary: string;
   company_name: string;
@@ -193,18 +185,8 @@ export type ParamList = {
     status: boolean;
   };
   Forms: undefined;
-  Calendar: undefined;
   Companies: undefined;
   Contacts: undefined;
-  Configurations: undefined;
-  SBoard: undefined;
-  PBoard: undefined;
-  MyActivities: undefined;
-  Opportunities: undefined;
-  IOBoard: undefined;
-  ExpReports: undefined;
-  TimeSheets: undefined;
-  StopWatch: undefined;
   Settings: undefined;
   Feedback: undefined;
 };

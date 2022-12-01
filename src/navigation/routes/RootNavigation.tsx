@@ -29,22 +29,10 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const config: any = {
-  screens: {
-    Draw: {
-      screens: {
-        SBoard: 'D/SB',
-        TimeSheets: 'D/TS',
-        ExpReports: 'D/ER',
-      },
-    },
-  },
-};
 
 const App = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
-  const user: State<any> = useHookstate(userStore.user);
   const pinCode: State<any> = useHookstate(userStore.pinCode);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
@@ -78,11 +66,6 @@ const App = () => {
         dNavName.set(res?.dNavName);
       }
     });
-    store.get('stopwatch').then((res: any) => {
-      if (res) {
-        globalStopwatch.set(res?.stopwatch);
-      }
-    });
     store.get('bioMetric').then((res: any) => {
       if (res) {
         biometricState.set(res?.bioMetric);
@@ -90,7 +73,6 @@ const App = () => {
     });
   }, [themeValue.get()]);
 
-  const userRes = user.get;
 
   useEffect(() => {
     store.get('theme').then((res: any) => {
@@ -101,7 +83,6 @@ const App = () => {
   }, []);
 
   const handleColdBoot = (data: ShortcutItem) => {
-    const {userInfo} = data;
     shortCutScreen.set(data.type);
   };
 
@@ -118,7 +99,6 @@ const App = () => {
       <NavigationContainer
         linking={{
           prefixes: ['app://'],
-          config,
         }}
         // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>

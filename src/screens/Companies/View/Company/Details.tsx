@@ -30,14 +30,6 @@ const Details = () => {
         });
       },
     },
-    // {
-    //   title: 'Configurations',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'ConfigurationListing',
-    //     });
-    //   },
-    // },
     {
       title: 'Open Tickets',
       onPress: () => {

@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet, Image, Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
-import Images from '../../assets/images';
+import Images from '../../assets/Images';
 import {ModalView, SingleLineField} from '../../components';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 

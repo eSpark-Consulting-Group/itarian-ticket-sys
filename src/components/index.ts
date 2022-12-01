@@ -23,7 +23,6 @@ import GapView from './GapView';
 import {PriorityField, SingleLineField} from './FormFields';
 import {StopWatch, Timer} from './CstmStopwatch';
 import NotFound from './NotFound';
-import BarcodeScanner from './BarcodeScanner';
 import BiometricVerification from './BiometricVerification';
 import Separator from './Separator';
 import TimeEntries from './TimeEntries';
@@ -65,7 +64,6 @@ export {
   NotFound,
   StopWatch,
   Timer,
-  BarcodeScanner,
   BiometricVerification,
   Separator,
   TimeEntries,

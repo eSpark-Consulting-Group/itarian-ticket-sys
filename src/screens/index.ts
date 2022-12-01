@@ -1,20 +1,10 @@
 import {Login, PinScreen} from './Auth';
 import Agenda from './Agenda';
 import Search from './Search';
-import Calendar from './Calendar';
 import Companies from './Companies';
-import Configurations from './Configurations';
 import Contacts from './Contacts';
-import Oppurtunities from './Oppurtunities';
-import ProjectBoard from './ProjectBoard';
-import ServiceBoard from './ServiceBoard';
-import MyActivities from './MyActivities';
-import InOutBoard from './InOutBoard';
-import StopWatch from './StopWatch';
-import TimeSheets from './TimeSheets';
-import ExpenseReports from './ExpenseReports';
 import Settings from './Settings';
-import SendFeedback from './SendFeedback';
+import SendFeedback from './SendFeedback/index';
 import Profile from './Profile';
 import OTPScreen from './Auth/OTPScreen';
 export {
@@ -22,18 +12,8 @@ export {
   PinScreen,
   Agenda,
   Search,
-  Calendar,
   Companies,
-  Configurations,
   Contacts,
-  Oppurtunities,
-  ProjectBoard,
-  ServiceBoard,
-  MyActivities,
-  InOutBoard,
-  StopWatch,
-  TimeSheets,
-  ExpenseReports,
   Settings,
   SendFeedback,
   Profile,

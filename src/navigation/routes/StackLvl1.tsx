@@ -11,6 +11,7 @@ import {goBack, saveStatus} from '../utils/headerFunctions';
 
 import STickets from '../../forms/ServiceTickets';
 import Contact1 from '../../screens/Contacts/View/Contacts';
+import TeamDetails from '../../screens/Teams/View/Teams';
 import Company from '../../screens/Companies/View/Company';
 import NewCompany from '../../forms/NewCompany';
 import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
@@ -30,6 +31,7 @@ export type RootStackParamList = {
   Activities: undefined;
   NewTicket: undefined;
   CreatePost: undefined;
+  TeamDetails: undefined;
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -202,6 +204,23 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={CreatePost}
         options={({route, navigation}) => ({
           title: 'Create Post',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="TeamDetails"
+        component={TeamDetails}
+        options={({route, navigation}) => ({
+          title: 'Teams Details',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

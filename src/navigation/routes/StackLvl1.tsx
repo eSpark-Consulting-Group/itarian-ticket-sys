@@ -18,6 +18,7 @@ import NewTicket from '../../forms/NewTicket';
 import CreatePost from '../../forms/CreatePost';
 import {userStore} from '../../stores/userStore';
 import {checkValidations} from '../../utils/helperFunctions';
+import {Post} from '../../screens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,6 +31,7 @@ export type RootStackParamList = {
   Activities: undefined;
   NewTicket: undefined;
   CreatePost: undefined;
+  Post: {id: string};
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -210,6 +212,31 @@ const StackLvl1 = ({route, navigation}: any) => {
               style={{right: 6}}
               color={'#fff'}
               onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Post"
+        component={Post}
+        options={({route, navigation}) => ({
+          title: 'View Post',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => console.log('abc')}
             />
           ),
         })}

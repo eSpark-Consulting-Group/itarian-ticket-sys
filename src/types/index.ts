@@ -267,6 +267,18 @@ export type CannyCategory = {
   skip?: number;
 };
 
+export type CannyPosts = {
+  boardID?: string;
+  authorID?: string;
+  companyID?: string;
+  tagIDs?: string[];
+  limit?: number;
+  search?: string;
+  skip?: number;
+  sort?: string;
+  status?: string;
+};
+
 /*
 //* Enum's for all Types/Interfaces
 */

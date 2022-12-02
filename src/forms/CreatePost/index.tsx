@@ -38,9 +38,9 @@ const CreatePost = () => {
 
   useEffect(() => {
     // call the function
+    setLoading(true);
     getCategories()
       .then(res => {
-        setLoading(true);
         if (res.ok) {
           const {categories}: any = res?.data;
           console.log('data', categories);

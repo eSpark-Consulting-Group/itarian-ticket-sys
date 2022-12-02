@@ -189,6 +189,7 @@ export type ParamList = {
   Contacts: undefined;
   Settings: undefined;
   Feedback: undefined;
+  Teams: undefined;
 };
 
 export type Stopwatch = {

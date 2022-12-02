@@ -43,9 +43,7 @@ import {
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
-import {
-  contactsList,
-} from '../../constants/SampleArrays';
+import {contactsList} from '../../constants/SampleArrays';
 import Images from '../../assets/Images';
 import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
@@ -199,6 +197,7 @@ const Draw = () => {
   return (
     <Drawer.Navigator
       initialRouteName={shortCutScreen?.get() || dScreen.get()}
+      // initialRouteName={'Feedback'}
       useLegacyImplementation={true}
       backBehavior="history"
       drawerContent={props => <DrawerContent {...props} />}

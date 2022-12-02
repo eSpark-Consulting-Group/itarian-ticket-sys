@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Platform, UIManager} from 'react-native';
 
@@ -12,11 +12,13 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export default function App() {
-  const routes: any = useRoute()
+const App = () => {
+  const routes: any = useRoute();
   return (
     <ModalView>
       <Details />
     </ModalView>
   );
-}
+};
+
+export default App;

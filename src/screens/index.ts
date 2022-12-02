@@ -7,6 +7,7 @@ import Settings from './Settings';
 import SendFeedback from './SendFeedback/index';
 import Profile from './Profile';
 import OTPScreen from './Auth/OTPScreen';
+import Teams from './Teams';
 export {
   Login,
   PinScreen,
@@ -18,4 +19,5 @@ export {
   SendFeedback,
   Profile,
   OTPScreen,
+  Teams
 };

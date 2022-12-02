@@ -39,6 +39,7 @@ import {
   Settings,
   SendFeedback,
   Profile,
+  Teams,
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -316,6 +317,21 @@ const Draw = () => {
           headerRight: noHeader,
         }}
       />
+
+      <Drawer.Screen
+        name="Teams"
+        component={Teams}
+        options={{
+          headerTitle: () => <CstmHeader title="Teams" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Teams</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <FA name="group" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />      
       <Drawer.Screen
         name="Profile"
         component={Profile}

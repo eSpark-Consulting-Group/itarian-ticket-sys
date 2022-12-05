@@ -8,7 +8,7 @@ import DocumentPicker, {types} from 'react-native-document-picker';
 import {ShortcutItem} from 'react-native-quick-actions';
 import {showMessage} from 'react-native-flash-message';
 import {NoteTypes, SelectFields} from '../types';
-import { Buffer } from "buffer";
+import {Buffer} from 'buffer';
 import {alert_Dur} from '../constants';
 
 export const getNavigtionApps = async () => {
@@ -161,13 +161,14 @@ export const handleColdBoot = (data: ShortcutItem) => {
   Linking.openURL(userInfo?.url);
 };
 
-export const checkValidations = (
+export const checkValidations = async (
   navigation: any,
   route: any,
   globalStates: any,
+  apiCall?: any,
+  data?: any,
 ) => {
   const Info = [...route?.params?.data];
-
   for (let i = 0; i < Info.length; i++) {
     if (
       Info[i].isRequired &&
@@ -182,14 +183,29 @@ export const checkValidations = (
       return;
     }
   }
-  showMessage({
-    message: 'Item added Successfully',
-    type: 'success',
-    icon: 'auto',
-    duration: alert_Dur,
-  });
-  // console.log('Error Not Founded');
-  navigation.goBack();
+
+  try {
+    const result = await apiCall(data)
+    if(result?.status) {
+      showMessage({
+        message: 'Item added Successfully',
+        type: 'success',
+        icon: 'auto',
+        duration: alert_Dur,
+      });
+      // console.log('Error Not Founded');
+      navigation.goBack();
+    }else {
+      showMessage({
+        message: result?.message?.toString(),
+        type: 'danger',
+        icon: 'auto',
+        duration: alert_Dur,
+      });
+    }
+  } catch (error) {
+    
+  }
 };
 
 export const selectStandardNote = (
@@ -262,5 +278,18 @@ export const handleAddNote = (
 };
 
 export const encodedUserDataToken = (subDomain: string, apiKey: string) => {
-  return Buffer.from(`${subDomain}:${apiKey}`, 'binary').toString('base64')
-}
+  return Buffer.from(`${subDomain}:${apiKey}`, 'binary').toString('base64');
+};
+
+export const dataFormatter = (array: any = []) => {
+  var dataObj: any = {};
+  [...array]?.map(val => {
+    dataObj[val?.subTitle?.replace(' ', '') ?? val?.title.replace(' ', '')] =
+      !val?.subTitle
+        ? val?.rightSwitchVal
+        : val?.selectedItem
+        ? val?.selectedItem
+        : val?.title;
+  });
+  return dataObj;
+};

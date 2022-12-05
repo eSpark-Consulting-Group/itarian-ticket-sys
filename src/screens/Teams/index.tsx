@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Linking, Alert} from 'react-native';
-import {Theme, useNavigation, useTheme} from '@react-navigation/native';
+import {View, Text, FlatList, Linking, Alert, NavigatorIOSProps} from 'react-native';
+import {NavigationProp, Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import _ from 'lodash';
@@ -12,6 +12,7 @@ import {
   SimpleLoader,
   EmptyListMsg,
   CstmPressable,
+  FloatButton,
 } from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
@@ -22,14 +23,13 @@ import {State, useHookstate} from '@hookstate/core';
 import { getAllTeams } from './utils/functions';
 import { teamStore } from '../../stores/teamStore';
 
-const Teams = () => {
+const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
   const users = useHookstate(teamStore.teams);
   const [filteredContacts, setFilteredContacts] = useState(users.get());
-  console.log("result getAllTeams", filteredContacts)
 
   useEffect(() => {
     getAllTeams()
@@ -91,6 +91,9 @@ const Teams = () => {
       ) : (
         <RenderContacts listData={filteredContacts} />
       )}
+      <FloatButton 
+       onPress={() => navigation.navigate('Stack1', {screen: 'NewTeam'})}
+      />
     </View>
   );
 };
@@ -101,11 +104,10 @@ export const RenderContacts = ({
   listData?: Contact[];
 }) => {
   const {colors, dark}: Theme = useTheme();
-  const navigation: any = useNavigation();
+  const navigation: NavigationProp<any,any> = useNavigation();
 
   const renderList = ({item, index}: {item: any; index: number}) => {
-    console.log("item item item", item)
-    return (
+     return (
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>

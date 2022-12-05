@@ -1,4 +1,6 @@
+import { showMessage } from "react-native-flash-message"
 import { api } from "../../../api"
+import { alert_Dur } from "../../../constants"
 import { teamStore } from "../../../stores/teamStore"
 import { userStore } from "../../../stores/userStore"
 
@@ -18,4 +20,45 @@ const getAllTeams = async () => {
    }
 }
 
-export {getAllTeams}
+const addTeam = async (data: any) => {
+    const user: any = userStore.get()?.user
+    const USER_TOKEN = user?.token
+    api.setHeaders({
+    'Authorization': `Basic ${USER_TOKEN}` ,
+    })
+   try {
+    const result: any = await api.post('/teams', data)
+    console.log("result addTeam", result);
+    if(result?.ok) {
+        getAllTeams()
+       return {status: true}
+    }
+   } catch (error) {
+       console.log("error addTeam", error);
+       return {status: true, message: error}
+   }
+}
+
+const deleteTeams = async (id: number) => {
+    const user: any = userStore.get()?.user
+    const USER_TOKEN = user?.token
+    api.setHeaders({
+    'Authorization': `Basic ${USER_TOKEN}` ,
+    })
+   try {
+    const result: any = await api.delete(`/teams/${id}`)
+    if(result?.ok) {
+        getAllTeams();
+        showMessage({
+            message: "Teams deleted successfully",
+            type: 'success',
+            duration: alert_Dur
+        })
+        return {status: true}
+    }
+   } catch (error) {
+       console.log("error getAllUsers", error);
+       return {status: false}
+   }
+}
+export {getAllTeams, addTeam, deleteTeams}

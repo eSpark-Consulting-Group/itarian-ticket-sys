@@ -18,8 +18,10 @@ import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
 import NewTicket from '../../forms/NewTicket';
 import CreatePost from '../../forms/CreatePost';
 import {userStore} from '../../stores/userStore';
-import {checkValidations} from '../../utils/helperFunctions';
+import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
 import {Post} from '../../screens';
+import NewTeam from '../../forms/NewTeam';
+import {addTeam} from '../../screens/Teams/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -34,12 +36,12 @@ export type RootStackParamList = {
   CreatePost: undefined;
   Post: {id: string};
   TeamDetails: undefined;
+  NewTeam: {title: string};
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
   const {colors}: Theme = useTheme();
   const globalStates: State<any> = useHookstate(userStore);
-
   return (
     <Stack.Navigator
       screenOptions={{
@@ -256,6 +258,52 @@ const StackLvl1 = ({route, navigation}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => console.log('abc')}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewTeam"
+        component={NewTeam}
+        options={({route, navigation}: any) => ({
+          title: 'New Team',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data)
+                const obj = {
+                  data: {
+                    type: 'teams',
+                    attributes: {
+                      name: data?.TeamName,
+                      status: data?.Status,
+                      admin_notes: data?.AdminNotes,
+                    },
+                    relationships: {
+                      teamlead: {
+                        data: {
+                          type: 'users',
+                          id: data?.TeamLead?.id,
+                        },
+                      },
+                    },
+                  },
+                };
+                checkValidations(navigation, route, globalStates, addTeam, obj);
+              }}
             />
           ),
         })}

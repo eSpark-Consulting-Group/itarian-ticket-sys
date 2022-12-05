@@ -42,12 +42,6 @@ const goBack = (navigation: any) => {
 
 // Function for Save ItemSelector Value
 const onSave = (navigation: any, route: any, globalStates?: any) => {
-  console.log(
-    'route.params',
-    route?.params?.stack,
-    'reoute?.params',
-    route?.params,
-  );
   if (route?.params?.notes) {
     const currDate = new Date();
     console.log('yeh Chala?', currDate.toString().slice(16, 21));

@@ -20,6 +20,7 @@ const getCategories = async (req?: CannyCategory) => {
 
 const getPosts = async (req?: CannyPosts) => {
   const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  console.log('kia mili hai query', data);
   try {
     console.log('chla');
     const res = await cannyApi.post('/posts/list', data);
@@ -41,4 +42,15 @@ const getPostbyId = async (req?: {id?: string}) => {
   }
 };
 
-export {getCategories, getPosts, getPostbyId};
+const getCommentsByPostId = async (req?: {postID?: string}) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/comments/list', data);
+    return res;
+  } catch (err) {
+    console.log('Error on fetch post comments', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+export {getCategories, getPosts, getPostbyId, getCommentsByPostId};

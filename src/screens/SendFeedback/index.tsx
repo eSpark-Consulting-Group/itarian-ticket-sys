@@ -6,6 +6,7 @@ import {
   Text,
   FlatList,
   RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import {useTheme, useNavigation} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -20,26 +21,35 @@ import {
 } from '../../components';
 import {getPosts} from './utils';
 import {CannyPosts} from '../../types';
+import {SCREEN_HEIGHT} from '../../constants';
 
 const SendFeedbackScreen = () => {
   const {dark, colors} = useTheme();
   const navigation: any = useNavigation();
   const [loading, setLoading] = useState(false);
   const [postsData, setPostsData] = useState<any>([]);
+  const [limit, setLimit] = useState<number>(10);
+  const [itemsLoader, setItemsLoader] = useState(false);
 
   useEffect(() => {
     // call the function
     fetchPosts();
+    return () => {
+      setLimit(10);
+    };
   }, []);
 
-  const fetchPosts = (req?: CannyPosts) => {
+  const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
     setLoading(true);
     console.log(req);
-    getPosts()
+    if (bottomLoader) {
+      setItemsLoader(true);
+    }
+    getPosts(req)
       .then(res => {
         if (res.ok) {
           const {posts}: any = res?.data;
-          console.log('data', posts);
+          // console.log('data', posts);
           handlePosts(posts);
         }
       })
@@ -47,12 +57,14 @@ const SendFeedbackScreen = () => {
       .catch(err => {
         console.log(err);
         setLoading(false);
+        setItemsLoader(false);
       });
   };
 
   const handlePosts = (data: any[]) => {
     setPostsData(data);
     setLoading(false);
+    setItemsLoader(false);
   };
 
   const renderList = (item: any, index: number) => {
@@ -93,7 +105,7 @@ const SendFeedbackScreen = () => {
             {item.details}
           </Text>
           <Text style={{color: colors.text, fontWeight: 'bold'}}>
-            Status: {item.status}
+            Status: {item.status.toUpperCase()}
           </Text>
         </View>
         <View
@@ -118,7 +130,7 @@ const SendFeedbackScreen = () => {
               style={{alignSelf: 'center', margin: 2}}
             />
             <Text style={{textAlignVertical: 'center', color: colors.text}}>
-              99
+              {item.score}
             </Text>
           </View>
           <GapView mode="horizontal" />
@@ -138,7 +150,7 @@ const SendFeedbackScreen = () => {
               style={{alignSelf: 'center', margin: 2}}
             />
             <Text style={{textAlignVertical: 'center', color: colors.text}}>
-              99
+              {item.commentCount}
             </Text>
           </View>
         </View>
@@ -156,7 +168,26 @@ const SendFeedbackScreen = () => {
         }
         contentContainerStyle={{flex: postsData.length > 0 ? 0 : 1}}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={<NotFound label="Posts Found" />}
+        ListEmptyComponent={<NotFound label="Posts" />}
+        onEndReachedThreshold={0.01}
+        onEndReached={() => {
+          fetchPosts({limit: limit + 10}, true);
+          setLimit(state => state + 10);
+        }}
+        ListFooterComponent={() => {
+          console.log(itemsLoader);
+          return (
+            <View>
+              {itemsLoader && (
+                <ActivityIndicator
+                  size={'large'}
+                  color={colors.primary}
+                  style={{height: SCREEN_HEIGHT * 0.07}}
+                />
+              )}
+            </View>
+          );
+        }}
         renderItem={({item, index}) => renderList(item, index)}
       />
       <FloatButton

@@ -330,7 +330,7 @@ const Draw = () => {
           ),
           headerRight: noHeader,
         }}
-      />      
+      />
       <Drawer.Screen
         name="Profile"
         component={Profile}

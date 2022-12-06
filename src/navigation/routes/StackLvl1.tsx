@@ -21,7 +21,7 @@ import {userStore} from '../../stores/userStore';
 import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
 import {Post} from '../../screens';
 import NewTeam from '../../forms/NewTeam';
-import {addTeam} from '../../screens/Teams/utils/functions';
+import {addTeam, updateTeam} from '../../screens/Teams/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -223,7 +223,7 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="TeamDetails"
         component={TeamDetails}
-        options={({route, navigation}) => ({
+        options={({route, navigation}: any) => ({
           title: 'Teams Details',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -233,6 +233,36 @@ const StackLvl1 = ({route, navigation}: any) => {
               style={{right: 6}}
               color={'#fff'}
               onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    id: data?.id,
+                    type: 'teams',
+                    attributes: {
+                      name: data?.TeamName,
+                      status: Boolean(data?.Status),
+                      admin_notes: data?.AdminNotes,
+                    },
+                    relationships: {
+                      teamlead: {
+                        data: {
+                          type: 'users',
+                          id: data?.TeamLead[0]?.id,
+                        },
+                      },
+                    },
+                  },
+                };
+                checkValidations(navigation, route, globalStates, updateTeam, obj, "Team updated successfully");
+              }}
             />
           ),
         })}
@@ -283,7 +313,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => {
-                const data = dataFormatter(route?.params?.data)
+                const data = dataFormatter(route?.params?.data);
                 const obj = {
                   data: {
                     type: 'teams',

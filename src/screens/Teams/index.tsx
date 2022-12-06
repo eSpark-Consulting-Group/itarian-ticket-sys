@@ -50,8 +50,8 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
       text: text,
-      list: users,
-      keys: ['name', 'company_name'],
+      list: users?.get(),
+      keys: ['attributes.name'],
     });
     setFilteredContacts(result);
   };
@@ -68,6 +68,8 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
       setClear(false);
     }
   }, [clear]);
+
+  console.log("TEAMS TEAMS", users?.get());
 
   return (
     <View style={styles.container}>

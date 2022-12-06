@@ -1,5 +1,7 @@
 import React, {useRef, useState, useEffect} from 'react';
-import {View, Keyboard, ScrollView} from 'react-native';
+import {View, Keyboard, ScrollView, Text} from 'react-native';
+import {useTheme} from '@react-navigation/native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import styles from '../../screens/SendFeedback/style';
 import {
@@ -11,9 +13,10 @@ import {
   Loader,
 } from '../../components';
 import {getCategories} from '../../screens/SendFeedback/utils';
-import {CannyCategory} from '../../types';
+import {moderateVerticalScale} from 'react-native-size-matters';
 
 const CreatePost = () => {
+  const {colors, dark} = useTheme();
   const [loading, setLoading] = useState(false);
   const [categoryToggle, setCategoryToggle] = useState(false);
   const [categoryData, setCategoryData] = useState<any>([]);
@@ -96,6 +99,35 @@ const CreatePost = () => {
     },
   ];
 
+  const ImageContainer = () => {
+    return (
+      <View style={{marginTop: 10}}>
+        <Text
+          style={{
+            color: colors.text,
+            height: moderateVerticalScale(25, 0),
+            opacity: 0.7,
+            fontSize: 14,
+            fontFamily: 'sans-serif-medium',
+          }}>
+          Select Image
+        </Text>
+        <View style={{backgroundColor: colors.primary}}>
+          <Text
+            style={{
+              color: colors.text,
+              height: moderateVerticalScale(25, 0),
+              opacity: 0.7,
+              fontSize: 14,
+              fontFamily: 'sans-serif-medium',
+            }}>
+            Upload Image
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <>
       <Loader isShow={loading} />
@@ -134,6 +166,7 @@ const CreatePost = () => {
             })
           }
         />
+        <ImageContainer />
       </ScrollView>
       <View>
         <CstmButton

@@ -129,14 +129,21 @@ export const searchFromArray = async ({
     // Inserted text is not blank
     // Filter the masterDataSource
     // Update FilteredDataSource
-    const newData = list?.filter((item: any) => {
+    const newData = list?.map((obj: any) => {
+      return flatten(obj)
+    })
+    ?.filter((item: any) => {
       const itemData = keys
         ?.map((value: any) => `${item[value]?.toUpperCase()}`)
         ?.join(' ');
+      
       const textData = text.toUpperCase();
       return itemData?.indexOf(textData) > -1;
     });
-    return newData;
+    console.log("newData newData", newData);
+    return newData?.map((value: object) => {
+      return expandFlatten(value, ".")
+    });
   } else {
     // Inserted text is blank
     // Update FilteredDataSource with masterDataSource
@@ -167,6 +174,7 @@ export const checkValidations = async (
   globalStates: any,
   apiCall?: any,
   data?: any,
+  message?: string
 ) => {
   const Info = [...route?.params?.data];
   for (let i = 0; i < Info.length; i++) {
@@ -188,7 +196,7 @@ export const checkValidations = async (
     const result = await apiCall(data)
     if(result?.status) {
       showMessage({
-        message: 'Item added Successfully',
+        message: message ?? 'Item added Successfully',
         type: 'success',
         icon: 'auto',
         duration: alert_Dur,
@@ -293,3 +301,55 @@ export const dataFormatter = (array: any = []) => {
   });
   return dataObj;
 };
+
+function traverseAndFlatten(currentNode: any, target: any, flattenedKey?: string) {
+  for (var key in currentNode) {
+      if (currentNode.hasOwnProperty(key)) {
+          var newKey;
+          if (flattenedKey === undefined) {
+              newKey = key;
+          } else {
+              newKey = flattenedKey + '.' + key;
+          }
+
+          var value = currentNode[key];
+          if (typeof value === "object") {
+              traverseAndFlatten(value, target, newKey);
+          } else {
+              target[newKey] = value;
+          }
+      }
+  }
+};
+
+export function flatten(obj: any) {
+  var flattenedObject = {};
+  traverseAndFlatten(obj, flattenedObject);
+  return flattenedObject;
+}
+
+export function expandFlatten(target: any, keySeparator: any) {
+  var result = {};
+  for (var key in target) {
+      if (target.hasOwnProperty(key)) {
+        var nestedKeys = key.split(keySeparator);
+        // Get the last subKey
+        var leaf = nestedKeys[nestedKeys.length - 1];
+        // Get all subKeys except for the last
+        var branch = nestedKeys.slice(0, nestedKeys.length - 1);
+        
+        var currentTarget: any = result;
+        for (var i = 0; i < branch.length; i += 1) {
+          var subKey = nestedKeys[i];
+          // If this is the first time visiting this branch, we need to instantiate it
+          if (currentTarget[subKey] === undefined) {
+            currentTarget[subKey] = {};
+          }
+          // Visit the branch
+          currentTarget = currentTarget[subKey];
+        }
+        currentTarget[leaf] = target[key];
+      }
+  }
+  return result;
+}

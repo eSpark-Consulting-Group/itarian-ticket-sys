@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
-import {CstmButton, GapView, SingleLineField} from '../../../../components';
+import {CstmButton, GapView, Loader, SingleLineField} from '../../../../components';
 import {SelectFields} from '../../../../types';
 import {userStore} from '../../../../stores/userStore';
 import {State, useHookstate} from '@hookstate/core';
@@ -49,6 +49,7 @@ export default function Details() {
   const navigation: any = useNavigation();
   const teamDetails = routes?.params?.teamDetails;
   const users: State<any> = useHookstate(userStore.users);
+  const [loader, setLoader] = useState(false)
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: "Status",
@@ -116,14 +117,62 @@ export default function Details() {
         keyboardType={item?.keyboardType}
         mode={item?.mode}
         onPress={() =>
-          SelectItems(item, index, navigation, routes, 'NewTeam', 'Stack1')
+          SelectItems(item, index, navigation, routes, 'TeamDetails', 'Stack1')
         }
       />
     );
   };
 
+  const deleteTeamFunc = (id: number) => {
+    setLoader(true)
+    deleteTeams(id)
+    .then(res => {
+      setLoader(false)
+      if(res?.status) {
+        navigation?.goBack()
+      }
+    })
+    .catch((err) => {
+      console.log("delete teams failed", err)
+      setLoader(false)
+    })
+  
+  }
+
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (routes?.params?.item?.toString() && routes?.params?.item != 'GoneTo') {
+      var obj: any = [...dataSource];
+      obj[routes?.params?.item].title = routes?.params?.selected?.name;
+      obj[routes?.params?.item].selectedItem = routes?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [routes?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal
+      }),
+    );
+    Data[Data?.length] = {
+      title: teamDetails?.id,
+      subTitle: "id",
+    }
+    navigation?.setParams({
+      ...routes?.params,
+      data: Data,
+    });
+  }, [dataSource]);
+
   return (
     <View style={{flex: 1}}>
+      <Loader isShow={loader} />
       <GapView />
       <FlatList
         data={dataSource}
@@ -133,15 +182,7 @@ export default function Details() {
         )}
       />
       <View style={{position: 'absolute', bottom: 0, width: SCREEN_WIDTH}}>
-        <CstmButton title='Delete' onPress={() => {
-          deleteTeams(teamDetails?.id)
-          .then(res => {
-            console.log("attributes", res);
-            if(res?.status) {
-              navigation?.goBack()
-            }
-          })
-        }} />
+        <CstmButton title='Delete' onPress={() => deleteTeamFunc(teamDetails?.id)} />
       </View>
     </View>
   );

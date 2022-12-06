@@ -336,15 +336,6 @@ const Draw = () => {
         component={Profile}
         initialParams={{status: false}}
         options={{
-          headerLeft: () => (
-            <Ionicons
-              size={30}
-              name="close"
-              color={'#fff'}
-              onPress={() => navigation.navigate('Agenda')}
-              style={{left: 10}}
-            />
-          ),
           headerRight: noHeader,
           drawerItemStyle: {display: 'none'},
         }}

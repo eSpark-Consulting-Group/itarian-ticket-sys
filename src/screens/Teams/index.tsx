@@ -32,8 +32,14 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const [filteredContacts, setFilteredContacts] = useState(users.get());
 
   useEffect(() => {
-    getAllTeams()
+    fetchRecords()
   }, [])
+
+  const fetchRecords = async () => {
+    setLoading(true);
+    await getAllTeams()
+    setLoading(false);
+  }
 
   useEffect(() => {
     setFilteredContacts(users.get())

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   KeyboardTypeOptions,
+  Alert,
 } from 'react-native';
 import {
   useTheme,
@@ -13,7 +14,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
-import {CstmButton, GapView, Loader, SingleLineField} from '../../../../components';
+import {CstmButton, FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
 import {SelectFields} from '../../../../types';
 import {userStore} from '../../../../stores/userStore';
 import {State, useHookstate} from '@hookstate/core';
@@ -54,7 +55,7 @@ export default function Details() {
     {
       title: "Status",
       enable: true,
-      rightSwitchVal: teamDetails?.attributes?.status,
+      rightSwitchVal: Boolean(teamDetails?.attributes?.status),
       showRightSwitch: true,
     },
     {
@@ -181,9 +182,24 @@ export default function Details() {
           <Divider style={{backgroundColor: colors.background, height: 1.5}} />
         )}
       />
-      <View style={{position: 'absolute', bottom: 0, width: SCREEN_WIDTH}}>
-        <CstmButton title='Delete' onPress={() => deleteTeamFunc(teamDetails?.id)} />
-      </View>
+      <FloatButton icon='delete' onPress={() => {
+          Alert.alert(
+            'Delete Team?',
+            'Are you sure you want to delete this team permanently',
+            [
+              {
+                text: 'Yes',
+                style: 'default',
+                onPress: () => deleteTeamFunc(teamDetails?.id),
+              },
+              {
+                text: 'No',
+                style: 'cancel',
+                onPress: () => console.log('Pressed Cancel on Delete'),
+              },
+            ],
+          );
+      }}/> 
     </View>
   );
 }

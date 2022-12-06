@@ -1,8 +1,6 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
-  Keyboard,
-  ScrollView,
   Text,
   FlatList,
   RefreshControl,
@@ -11,7 +9,6 @@ import {
 import {useTheme, useNavigation} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import styles from './style';
 import {
   CstmPressable,
   FloatButton,
@@ -40,10 +37,11 @@ const SendFeedbackScreen = () => {
   }, []);
 
   const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
-    setLoading(true);
     console.log(req);
     if (bottomLoader) {
       setItemsLoader(true);
+    } else {
+      setLoading(true);
     }
     getPosts(req)
       .then(res => {
@@ -73,7 +71,7 @@ const SendFeedbackScreen = () => {
         style={{
           flexDirection: 'row',
           marginVertical: 10,
-          padding: 20,
+          paddingVertical: 20,
           borderRadius: 5,
           borderWidth: 2,
           borderColor: colors.primary,
@@ -83,7 +81,12 @@ const SendFeedbackScreen = () => {
         onPress={() =>
           navigation.navigate('Stack1', {screen: 'Post', params: {id: item.id}})
         }>
-        <View style={{flex: 0.2}}>
+        <View
+          style={{
+            flex: 0.25,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <View
             style={{
               width: 50,
@@ -91,16 +94,14 @@ const SendFeedbackScreen = () => {
               borderRadius: 50,
               alignItems: 'center',
               justifyContent: 'center',
-              borderWidth: 2,
-              borderColor: colors.primary,
+              backgroundColor: colors.primary,
             }}>
-            <Text
-              style={{fontSize: 20, fontWeight: 'bold', color: colors.primary}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: '#ffffff'}}>
               {item.author.name.substring(0, 1).toUpperCase()}
             </Text>
           </View>
         </View>
-        <View style={{flex: 0.6}}>
+        <View style={{flex: 0.7}}>
           <Text style={{color: colors.text}} numberOfLines={2}>
             {item.details}
           </Text>
@@ -110,7 +111,6 @@ const SendFeedbackScreen = () => {
         </View>
         <View
           style={{
-            flex: 0.3,
             flexDirection: 'row',
             alignSelf: 'flex-end',
           }}>
@@ -122,14 +122,14 @@ const SendFeedbackScreen = () => {
               paddingHorizontal: 4,
               borderColor: colors.primary,
               elevation: 1,
-              backgroundColor: colors.background,
+              backgroundColor: colors.primary,
             }}>
             <MCI
               name="arrow-up-thick"
-              color={colors.text}
+              color={'#ffffff'}
               style={{alignSelf: 'center', margin: 2}}
             />
-            <Text style={{textAlignVertical: 'center', color: colors.text}}>
+            <Text style={{textAlignVertical: 'center', color: '#ffffff'}}>
               {item.score}
             </Text>
           </View>
@@ -142,14 +142,14 @@ const SendFeedbackScreen = () => {
               borderRadius: 6,
               borderColor: colors.primary,
               elevation: 1,
-              backgroundColor: colors.background,
+              backgroundColor: colors.primary,
             }}>
             <MCI
               name="chat"
-              color={colors.text}
+              color={'#ffffff'}
               style={{alignSelf: 'center', margin: 2}}
             />
-            <Text style={{textAlignVertical: 'center', color: colors.text}}>
+            <Text style={{textAlignVertical: 'center', color: '#ffffff'}}>
               {item.commentCount}
             </Text>
           </View>
@@ -159,13 +159,14 @@ const SendFeedbackScreen = () => {
   };
 
   return (
-    <View style={{flex: 1, paddingHorizontal: 15, paddingTop: 15}}>
+    <View style={{flex: 1}}>
       <Loader isShow={loading} />
       <FlatList
         data={postsData}
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={() => fetchPosts()} />
         }
+        style={{paddingTop: 10, paddingHorizontal: 15}}
         contentContainerStyle={{flex: postsData.length > 0 ? 0 : 1}}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<NotFound label="Posts" />}
@@ -175,14 +176,13 @@ const SendFeedbackScreen = () => {
           setLimit(state => state + 10);
         }}
         ListFooterComponent={() => {
-          console.log(itemsLoader);
           return (
-            <View>
+            <View style={{height: itemsLoader ? SCREEN_HEIGHT * 0.07 : 0}}>
               {itemsLoader && (
                 <ActivityIndicator
                   size={'large'}
                   color={colors.primary}
-                  style={{height: SCREEN_HEIGHT * 0.07}}
+                  style={{height: '100%'}}
                 />
               )}
             </View>

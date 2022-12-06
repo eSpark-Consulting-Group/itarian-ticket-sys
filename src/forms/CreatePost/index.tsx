@@ -1,5 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 import {View, Keyboard, ScrollView} from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import styles from '../../screens/SendFeedback/style';
 import {
@@ -11,7 +12,6 @@ import {
   Loader,
 } from '../../components';
 import {getCategories} from '../../screens/SendFeedback/utils';
-import {CannyCategory} from '../../types';
 
 const CreatePost = () => {
   const [loading, setLoading] = useState(false);

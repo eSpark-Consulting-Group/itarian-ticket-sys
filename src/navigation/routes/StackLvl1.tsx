@@ -283,7 +283,7 @@ const StackLvl1 = ({route, navigation}: any) => {
               name="save"
               color={'#fff'}
               onPress={() => {
-                const data = dataFormatter(route?.params?.data)
+                const data = dataFormatter(route?.params?.data);
                 const obj = {
                   data: {
                     type: 'teams',

@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  ScrollView,
+} from 'react-native';
 import {useRoute, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -83,7 +90,6 @@ export default function Post() {
     return (
       <View
         style={{
-          // flex: 1,
           padding: 15,
           backgroundColor: colors.card,
         }}>
@@ -139,10 +145,15 @@ export default function Post() {
               <MCI
                 name="chat"
                 size={20}
-                style={{alignSelf: 'center', margin: 2}}
+                style={{
+                  alignSelf: 'center',
+                  margin: 2,
+                  color: colors.text + '88',
+                }}
               />
               <Text
                 style={{
+                  color: colors.text + '88',
                   fontSize: 16,
                   textAlignVertical: 'center',
                   fontWeight: 'bold',
@@ -156,13 +167,18 @@ export default function Post() {
                 <MCI
                   name="arrow-up-thick"
                   size={22}
-                  style={{alignSelf: 'center', margin: 2}}
+                  style={{
+                    alignSelf: 'center',
+                    margin: 2,
+                    color: colors.text + '88',
+                  }}
                 />
                 <Text
                   style={{
                     fontSize: 16,
                     textAlignVertical: 'center',
                     fontWeight: 'bold',
+                    color: colors.text + '88',
                   }}>
                   {postDetail?.score}
                 </Text>
@@ -173,7 +189,11 @@ export default function Post() {
             <MCI
               name="dots-horizontal"
               size={22}
-              style={{alignSelf: 'center', margin: 2}}
+              style={{
+                alignSelf: 'center',
+                margin: 2,
+                color: colors.text + '88',
+              }}
             />
           </CstmPressable>
         </View>
@@ -181,29 +201,38 @@ export default function Post() {
     );
   };
 
-  const CommentBox = (): JSX.Element => {
+  const PostView = (): JSX.Element => {
     return (
       <FlatList
-        style={{flex: 1, paddingVertical: 15}}
+        style={{
+          backgroundColor: colors.background,
+        }}
+        scrollEnabled={false}
         data={commDetail?.comments}
+        ListHeaderComponent={<PostBox />}
+        ListHeaderComponentStyle={{marginBottom: 8}}
         renderItem={renderComments}
-        ListFooterComponent={() => <View style={{height: 25}} />}
+        ListFooterComponent={() => <GapView />}
         ItemSeparatorComponent={() => (
           <View style={{backgroundColor: colors.background}}>
-            <GapView length={5} />
+            <GapView length={1} />
           </View>
         )}
       />
     );
   };
 
-  const renderComments = ({item, index}: {item: any; index: number}) => {
+  const CommentComponent = ({item, index}: {item: any; index?: number}) => {
+    let replyCount = 0;
+    {
+      commDetail?.comments?.map((item2: any, index: number) => {
+        if (item2.parentID === item.id) {
+          replyCount++;
+        }
+      });
+    }
     return (
-      <View
-        style={{
-          padding: 15,
-          backgroundColor: colors.card,
-        }}>
+      <View style={{paddingHorizontal: 15}}>
         <View
           style={{
             flexDirection: 'row',
@@ -254,44 +283,125 @@ export default function Post() {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{flexDirection: 'row'}}>
             <CstmPressable
-              style={{flexDirection: 'row'}}
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
               android_ripple={{borderless: true}}>
-              <MCI
-                name="chat"
-                size={16}
-                style={{alignSelf: 'center', margin: 2}}
-              />
+              <View style={{flexDirection: 'row'}}>
+                <MCI
+                  name="chat"
+                  size={16}
+                  style={{
+                    alignSelf: 'center',
+                    color: colors.text + '88',
+                    padding: 2,
+                  }}
+                />
+                <Text
+                  style={{
+                    color: colors.text + '88',
+                    fontSize: 12,
+                    padding: 2,
+                    textAlignVertical: 'center',
+                  }}>
+                  {replyCount}
+                </Text>
+              </View>
             </CstmPressable>
             <GapView mode="horizontal" length={20} />
-            <CstmPressable android_ripple={{borderless: true}}>
+            <CstmPressable
+              android_ripple={{borderless: true}}
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
               <View style={{flexDirection: 'row'}}>
                 <MCI
                   name="arrow-up-thick"
-                  size={18}
-                  style={{alignSelf: 'center', margin: 4}}
+                  size={16}
+                  style={{
+                    alignSelf: 'center',
+                    color: colors.text + '88',
+                    padding: 2,
+                  }}
                 />
+                <Text
+                  style={{
+                    color: colors.text + '88',
+                    fontSize: 12,
+                    textAlignVertical: 'center',
+                    padding: 2,
+                  }}>
+                  {item?.likeCount}
+                </Text>
               </View>
             </CstmPressable>
           </View>
-          <CstmPressable android_ripple={{borderless: true}}>
+          <CstmPressable
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            android_ripple={{borderless: true}}>
             <MCI
               name="dots-horizontal"
               size={22}
-              style={{alignSelf: 'center', margin: 2}}
+              style={{
+                alignSelf: 'center',
+                color: colors.text + '88',
+              }}
             />
           </CstmPressable>
         </View>
+        <GapView />
       </View>
     );
   };
 
+  const renderComments = ({item, index}: {item: any; index: number}) => {
+    return (
+      <>
+        {item.parentID == null && (
+          <View
+            style={{
+              paddingVertical: 15,
+              backgroundColor: colors.card,
+            }}>
+            <CommentComponent item={item} />
+            {commDetail?.comments.map((item2: any, index: number) => {
+              if (item2.parentID === item.id) {
+                return (
+                  <View key={item2.id + index}>
+                    <View
+                      style={{
+                        marginLeft: 25,
+                        borderLeftWidth: 3,
+                        borderLeftColor: colors.background,
+                      }}>
+                      <CommentComponent item={item2} />
+                    </View>
+                  </View>
+                );
+              }
+            })}
+          </View>
+        )}
+      </>
+    );
+  };
+
   return (
-    <View style={{flex: 1}}>
+    <>
       <Loader isShow={loading && commLoad} />
-      <View style={{flex: 1, paddingTop: 10}}>
-        <PostBox />
-        <CommentBox />
-      </View>
-    </View>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            paddingTop: 10,
+          }}>
+          {!loading && !commLoad && <PostView />}
+        </View>
+      </ScrollView>
+    </>
   );
 }

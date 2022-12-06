@@ -27,7 +27,7 @@ export const CstmPressable = ({
   otherProps?: PressableProps;
 }) => {
   const {dark}: Theme = useTheme();
-  const rippleColor = dark ? '#ffffff0e' : '#0000000e';
+  const rippleColor = dark ? '#ffffff1a' : '#0000000e';
 
   return disabled ? (
     <View>

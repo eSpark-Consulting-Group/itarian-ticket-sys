@@ -140,7 +140,7 @@ export const searchFromArray = async ({
       const textData = text.toUpperCase();
       return itemData?.indexOf(textData) > -1;
     });
-    console.log("newData newData", newData);
+    
     return newData?.map((value: object) => {
       return expandFlatten(value, ".")
     });

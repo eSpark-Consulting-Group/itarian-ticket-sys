@@ -54,7 +54,7 @@ export default function Details() {
     {
       title: "Status",
       enable: true,
-      rightSwitchVal: teamDetails?.attributes?.status,
+      rightSwitchVal: Boolean(teamDetails?.attributes?.status),
       showRightSwitch: true,
     },
     {

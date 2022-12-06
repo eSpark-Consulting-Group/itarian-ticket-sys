@@ -261,7 +261,14 @@ const StackLvl1 = ({route, navigation}: any) => {
                     },
                   },
                 };
-                checkValidations(navigation, route, globalStates, updateTeam, obj, "Team updated successfully");
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  updateTeam,
+                  obj,
+                  'Team updated successfully',
+                );
               }}
             />
           ),

@@ -69,7 +69,7 @@ export default function Post() {
     setCommDetail(data);
   };
 
-  const renderImageList = ({item, index}: {item: any; index: number}) => {
+  const renderImageList = ({item, index}: {item: string; index: number}) => {
     return (
       <View style={{flexDirection: 'row', backgroundColor: colors.card}}>
         <Image

@@ -1,11 +1,11 @@
 /**
  *
  * @param req
- * @returns res
+ * @returns response
  */
 
 import {cannyApi, cannyApiKey} from '../../../api';
-import {CannyCategory, CannyPosts} from '../../../types';
+import {CannyCategory, CannyPosts, Canny_CreatePost} from '../../../types';
 
 const getCategories = async (req?: CannyCategory) => {
   const data: {apiKey: string & CannyCategory} = {...req, apiKey: cannyApiKey};
@@ -53,4 +53,15 @@ const getCommentsByPostId = async (req?: {postID?: string}) => {
   }
 };
 
-export {getCategories, getPosts, getPostbyId, getCommentsByPostId};
+const createPost = async (req?: Canny_CreatePost) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/posts/create', data);
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+export {getCategories, getPosts, getPostbyId, getCommentsByPostId, createPost};

@@ -5,6 +5,7 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import {useTheme, useNavigation} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -19,6 +20,7 @@ import {
 import {getPosts} from './utils';
 import {CannyPosts} from '../../types';
 import {SCREEN_HEIGHT} from '../../constants';
+import moment from 'moment';
 
 const SendFeedbackScreen = () => {
   const {dark, colors} = useTheme();
@@ -87,25 +89,75 @@ const SendFeedbackScreen = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <View
-            style={{
-              width: 50,
-              height: 50,
-              borderRadius: 50,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: colors.primary,
-            }}>
-            <Text style={{fontSize: 20, fontWeight: 'bold', color: '#ffffff'}}>
-              {item.author.name.substring(0, 1).toUpperCase()}
-            </Text>
-          </View>
+          {item.author.avatarURL ? (
+            <Image
+              source={{uri: item.author.avatarURL}}
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: colors.primary,
+              }}
+            />
+          ) : (
+            <View
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: colors.primary,
+              }}>
+              <Text
+                style={{fontSize: 20, fontWeight: 'bold', color: '#ffffff'}}>
+                {item.author.name.substring(0, 1).toUpperCase()}
+              </Text>
+            </View>
+          )}
         </View>
         <View style={{flex: 0.7}}>
-          <Text style={{color: colors.text}} numberOfLines={2}>
-            {item.details}
+          <Text
+            style={{
+              color: colors.text,
+              fontFamily: 'sans-serif',
+              fontSize: 16,
+              fontWeight: 'bold',
+            }}
+            numberOfLines={2}>
+            {item.title}
           </Text>
-          <Text style={{color: colors.text, fontWeight: 'bold'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: 'sans-serif',
+              }}>
+              {item.author.name}
+            </Text>
+            <View
+              style={{
+                width: 4,
+                height: 4,
+                borderRadius: 5,
+                backgroundColor: 'grey',
+                alignSelf: 'center',
+                top: 1,
+                margin: 8,
+              }}
+            />
+            <Text
+              style={{
+                color: colors.text,
+                fontSize: 12,
+                textAlignVertical: 'center',
+              }}>
+              {moment(item?.created).format('MMM DD')}
+            </Text>
+          </View>
+          <Text style={{color: colors.text, fontFamily: 'sans-serif-medium'}}>
             Status: {item.status.toUpperCase()}
           </Text>
         </View>

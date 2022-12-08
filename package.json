@@ -46,6 +46,7 @@
     "react-native-fingerprint-scanner": "^6.0.0",
     "react-native-flash-message": "^0.3.1",
     "react-native-gesture-handler": "^2.4.2",
+    "react-native-get-random-values": "^1.8.0",
     "react-native-gradle-plugin": "^0.70.1",
     "react-native-image-crop-picker": "^0.37.3",
     "react-native-pager-view": "^5.4.24",
@@ -62,6 +63,7 @@
     "react-native-tab-view": "^3.1.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-webview": "^11.23.1",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

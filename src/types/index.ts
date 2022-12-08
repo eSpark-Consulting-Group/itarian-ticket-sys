@@ -280,6 +280,20 @@ export type CannyPosts = {
   status?: string;
 };
 
+export type Canny_CreatePost = {
+  authorID: string;
+  boardID: string;
+  details: string;
+  title: string;
+  imageURLs?: string[];
+  byID?: string;
+  categoryID?: string;
+  customFields?: object;
+  eta?: string;
+  etaPublic?: boolean;
+  ownerID?: string;
+};
+
 /*
 //* Enum's for all Types/Interfaces
 */

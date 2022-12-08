@@ -95,7 +95,7 @@ const SingleLineField = ({
         <View>
           {subTitle ? (
             <>
-              <Text style={{...styles.subTitle, color: colors.text}}>
+              <Text style={{...styles.subTitle, color: colors.text, textTransform: 'capitalize'}}>
                 {subTitle}
               </Text>
               <GapView mode="vertical" length={4} />

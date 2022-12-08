@@ -39,9 +39,10 @@ const handleLoginUser = async (
     if (status == 'success') {
       const userObj: any = {
         user_name: companyName,
-        email: subDomain,
+        subDomain: subDomain,
         userId: apiKey,
         token: encodedUserDataToken(subDomain, apiKey),
+        email: 'test9@yopmail.com'
       };
       store.update('user', userObj);
       userStore.user.set(userObj);

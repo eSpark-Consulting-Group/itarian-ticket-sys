@@ -10,8 +10,8 @@ import {
   stateList,
 } from '../../constants/SelectionList';
 import {SelectItems} from '../../utils/helperFunctions';
-import { State, useHookstate } from '@hookstate/core';
-import { userStore } from '../../stores/userStore';
+import {State, useHookstate} from '@hookstate/core';
+import {userStore} from '../../stores/userStore';
 
 const NewTeam = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -23,7 +23,7 @@ const NewTeam = ({route, navigation}: any) => {
       rightSwitchVal: false,
       showRightSwitch: true,
     },
-    { 
+    {
       title: '',
       subTitle: 'Team Name',
       inputable: true,
@@ -33,7 +33,10 @@ const NewTeam = ({route, navigation}: any) => {
     {
       title: 'Please Select',
       subTitle: 'Team Lead',
-      list: users.get() || [],
+      list:
+        users.get()?.filter((value: any) => {
+          return value?.role != 'user';
+        }) || [],
       selectedItem: users.get()[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
@@ -94,7 +97,7 @@ const NewTeam = ({route, navigation}: any) => {
         subTitle: item.subTitle,
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
-        rightSwitchVal: item.rightSwitchVal
+        rightSwitchVal: item.rightSwitchVal,
       }),
     );
     navigation?.setParams({
@@ -108,7 +111,7 @@ const NewTeam = ({route, navigation}: any) => {
     tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
     setDataSource(tempArr);
   };
-  
+
   return (
     <ModalView bgColor={colors.card}>
       <ScrollView style={{flex: 1}}>
@@ -130,14 +133,7 @@ const NewTeam = ({route, navigation}: any) => {
               keyboardType={item?.keyboardType}
               mode={item?.mode}
               onPress={() =>
-                SelectItems(
-                  item,
-                  index,
-                  navigation,
-                  route,
-                  'NewTeam',
-                  'Stack1',
-                )
+                SelectItems(item, index, navigation, route, 'NewTeam', 'Stack1')
               }
             />
           ))}

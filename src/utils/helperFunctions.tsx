@@ -10,7 +10,6 @@ import {showMessage} from 'react-native-flash-message';
 import {NoteTypes, SelectFields} from '../types';
 import {Buffer} from 'buffer';
 import {alert_Dur} from '../constants';
-
 export const getNavigtionApps = async () => {
   const Androidpackages = [
     {package: 'com.waze', name: 'Waze'},
@@ -129,20 +128,21 @@ export const searchFromArray = async ({
     // Inserted text is not blank
     // Filter the masterDataSource
     // Update FilteredDataSource
-    const newData = list?.map((obj: any) => {
-      return flatten(obj)
-    })
-    ?.filter((item: any) => {
-      const itemData = keys
-        ?.map((value: any) => `${item[value]?.toUpperCase()}`)
-        ?.join(' ');
-      
-      const textData = text.toUpperCase();
-      return itemData?.indexOf(textData) > -1;
-    });
-    
+    const newData = list
+      ?.map((obj: any) => {
+        return flatten(obj);
+      })
+      ?.filter((item: any) => {
+        const itemData = keys
+          ?.map((value: any) => `${item[value]?.toUpperCase()}`)
+          ?.join(' ');
+
+        const textData = text.toUpperCase();
+        return itemData?.indexOf(textData) > -1;
+      });
+
     return newData?.map((value: object) => {
-      return expandFlatten(value, ".")
+      return expandFlatten(value, '.');
     });
   } else {
     // Inserted text is blank
@@ -171,12 +171,13 @@ export const handleColdBoot = (data: ShortcutItem) => {
 export const checkValidations = async (
   navigation: any,
   route: any,
-  globalStates: any,
+  globalStates?: any,
   apiCall?: any,
   data?: any,
-  message?: string
+  message?: string,
+  isGoback: boolean = true,
 ) => {
-  const Info = [...route?.params?.data];
+  const Info = [...(route?.params?.data ?? [])];
   for (let i = 0; i < Info.length; i++) {
     if (
       Info[i].isRequired &&
@@ -193,8 +194,8 @@ export const checkValidations = async (
   }
 
   try {
-    const result = await apiCall(data)
-    if(result?.status) {
+    const result = await apiCall(data);
+    if (result?.status) {
       showMessage({
         message: message ?? 'Item added Successfully',
         type: 'success',
@@ -202,8 +203,8 @@ export const checkValidations = async (
         duration: alert_Dur,
       });
       // console.log('Error Not Founded');
-      navigation.goBack();
-    }else {
+      isGoback && navigation.goBack();
+    } else {
       showMessage({
         message: result?.message?.toString(),
         type: 'danger',
@@ -211,9 +212,7 @@ export const checkValidations = async (
         duration: alert_Dur,
       });
     }
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 };
 
 export const selectStandardNote = (
@@ -289,38 +288,43 @@ export const encodedUserDataToken = (subDomain: string, apiKey: string) => {
   return Buffer.from(`${subDomain}:${apiKey}`, 'binary').toString('base64');
 };
 
-export const dataFormatter = (array: any = []) => {
+export const dataFormatter = (array: any = [], replacer: string = '') => {
   var dataObj: any = {};
   [...array]?.map(val => {
-    dataObj[val?.subTitle?.replace(' ', '') ?? val?.title.replace(' ', '')] =
-      !val?.subTitle
-        ? val?.rightSwitchVal
-        : val?.selectedItem
-        ? val?.selectedItem
-        : val?.title;
+    dataObj[
+      val?.subTitle?.replace(' ', replacer) ?? val?.title.replace(' ', replacer)
+    ] = !val?.subTitle
+      ? val?.rightSwitchVal
+      : val?.selectedItem
+      ? val?.selectedItem
+      : val?.title;
   });
   return dataObj;
 };
 
-function traverseAndFlatten(currentNode: any, target: any, flattenedKey?: string) {
+function traverseAndFlatten(
+  currentNode: any,
+  target: any,
+  flattenedKey?: string,
+) {
   for (var key in currentNode) {
-      if (currentNode.hasOwnProperty(key)) {
-          var newKey;
-          if (flattenedKey === undefined) {
-              newKey = key;
-          } else {
-              newKey = flattenedKey + '.' + key;
-          }
-
-          var value = currentNode[key];
-          if (typeof value === "object") {
-              traverseAndFlatten(value, target, newKey);
-          } else {
-              target[newKey] = value;
-          }
+    if (currentNode.hasOwnProperty(key)) {
+      var newKey;
+      if (flattenedKey === undefined) {
+        newKey = key;
+      } else {
+        newKey = flattenedKey + '.' + key;
       }
+
+      var value = currentNode[key];
+      if (typeof value === 'object') {
+        traverseAndFlatten(value, target, newKey);
+      } else {
+        target[newKey] = value;
+      }
+    }
   }
-};
+}
 
 export function flatten(obj: any) {
   var flattenedObject = {};
@@ -331,25 +335,25 @@ export function flatten(obj: any) {
 export function expandFlatten(target: any, keySeparator: any) {
   var result = {};
   for (var key in target) {
-      if (target.hasOwnProperty(key)) {
-        var nestedKeys = key.split(keySeparator);
-        // Get the last subKey
-        var leaf = nestedKeys[nestedKeys.length - 1];
-        // Get all subKeys except for the last
-        var branch = nestedKeys.slice(0, nestedKeys.length - 1);
-        
-        var currentTarget: any = result;
-        for (var i = 0; i < branch.length; i += 1) {
-          var subKey = nestedKeys[i];
-          // If this is the first time visiting this branch, we need to instantiate it
-          if (currentTarget[subKey] === undefined) {
-            currentTarget[subKey] = {};
-          }
-          // Visit the branch
-          currentTarget = currentTarget[subKey];
+    if (target.hasOwnProperty(key)) {
+      var nestedKeys = key.split(keySeparator);
+      // Get the last subKey
+      var leaf = nestedKeys[nestedKeys.length - 1];
+      // Get all subKeys except for the last
+      var branch = nestedKeys.slice(0, nestedKeys.length - 1);
+
+      var currentTarget: any = result;
+      for (var i = 0; i < branch.length; i += 1) {
+        var subKey = nestedKeys[i];
+        // If this is the first time visiting this branch, we need to instantiate it
+        if (currentTarget[subKey] === undefined) {
+          currentTarget[subKey] = {};
         }
-        currentTarget[leaf] = target[key];
+        // Visit the branch
+        currentTarget = currentTarget[subKey];
       }
+      currentTarget[leaf] = target[key];
+    }
   }
   return result;
 }

@@ -1,41 +1,73 @@
 import React, {useRef, useState, useEffect} from 'react';
-import {View, Keyboard, ScrollView, Text} from 'react-native';
+import {
+  View,
+  Keyboard,
+  ScrollView,
+  Text,
+  FlatList,
+  Image,
+  LayoutAnimation,
+  Platform,
+  UIManager,
+} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
+import {moderateVerticalScale} from 'react-native-size-matters';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import 'react-native-get-random-values';
+// @ts-ignore
+import {v4 as uuid} from 'uuid';
 
 import styles from '../../screens/SendFeedback/style';
 import {
   CstmButton,
   CstmDropDown,
   CstmMultiLine,
+  CstmPressable,
   CstmTitleInput,
   GapView,
   Loader,
 } from '../../components';
-import {getCategories} from '../../screens/SendFeedback/utils';
-import {moderateVerticalScale} from 'react-native-size-matters';
+import {createPost, getCategories} from '../../screens/SendFeedback/utils';
+import {Canny_CreatePost} from '../../types';
+import {showMessage} from 'react-native-flash-message';
+
+interface ImageType {
+  id: number;
+  uri: string;
+}
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 const CreatePost = () => {
   const {colors, dark} = useTheme();
   const [loading, setLoading] = useState(false);
   const [categoryToggle, setCategoryToggle] = useState(false);
   const [categoryData, setCategoryData] = useState<any>([]);
+  const [imageData, setImageData] = useState<ImageType[]>([]);
   const [postData, setPostData] = useState<{
-    category: {id: string; name: string};
+    categoryID?: string;
     title: string;
     details: string;
+    imageURLs?: string[];
   }>({
-    category: {id: '', name: ''},
+    categoryID: '',
     title: '',
     details: '',
+    imageURLs: [],
   });
   const iskeyboardShown = useRef(false);
 
-  const handleLabel = (value: {}, type: string) => {
+  const handleLabel = (value: {id?: string; name?: string}, type: string) => {
     // 👇️ take parameter passed from Child component
-    console.log('kia ha value && type', value);
+    const {id} = value;
+    console.log('kia ha value', value);
     setPostData((state: any) => {
-      return {...state, category: value};
+      return {...state, categoryID: id};
     });
   };
 
@@ -99,6 +131,64 @@ const CreatePost = () => {
     },
   ];
 
+  const handleDeleteImage = (id: number) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    const tempArr = [...imageData].filter(item => item.id !== id);
+    setImageData(tempArr);
+  };
+
+  const renderImages = ({item, index}: {item: any; index: number}) => {
+    return (
+      <View
+        style={{
+          borderWidth: 2,
+          borderColor: colors.primary,
+        }}>
+        <View
+          style={{
+            position: 'absolute',
+            height: 20,
+            width: 20,
+            borderRadius: 20,
+            backgroundColor: colors.primary,
+            zIndex: 99,
+            top: -10,
+            right: -10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Ionicons
+            name="close"
+            color={'#fff'}
+            onPress={() => handleDeleteImage(item.id)}
+          />
+        </View>
+        <Image
+          style={{
+            width: 80,
+            height: 80,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          source={item}
+        />
+      </View>
+    );
+  };
+
+  const handleUploadImage = () => {
+    ImagePicker.openPicker({})
+      .then(image => {
+        const field = image.path;
+        console.log({uri: image.path});
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setImageData((state: ImageType[]) => {
+          return [...state, {uri: field, id: uuid()}];
+        });
+      })
+      .catch(err => console.log('err', err));
+  };
+
   const ImageContainer = () => {
     return (
       <View style={{marginTop: 10}}>
@@ -112,20 +202,89 @@ const CreatePost = () => {
           }}>
           Select Image
         </Text>
-        <View style={{backgroundColor: colors.primary}}>
-          <Text
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <View
             style={{
-              color: colors.text,
-              height: moderateVerticalScale(25, 0),
-              opacity: 0.7,
-              fontSize: 14,
-              fontFamily: 'sans-serif-medium',
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: colors.primary,
             }}>
-            Upload Image
-          </Text>
+            <CstmPressable
+              style={{
+                padding: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={() => handleUploadImage()}>
+              <Text
+                style={{
+                  color: colors.text,
+                  textAlignVertical: 'center',
+                  height: moderateVerticalScale(25, 0),
+                  opacity: 0.7,
+                  fontSize: 14,
+                  fontFamily: 'sans-serif-medium',
+                }}>
+                Upload Image
+              </Text>
+            </CstmPressable>
+          </View>
+        </View>
+        <GapView mode="vertical" />
+        <View>
+          <FlatList
+            data={imageData}
+            horizontal
+            contentContainerStyle={{padding: 10}}
+            ItemSeparatorComponent={() => (
+              <GapView mode="horizontal" length={15} />
+            )}
+            showsHorizontalScrollIndicator={false}
+            renderItem={renderImages}
+          />
         </View>
       </View>
     );
+  };
+
+  const handleCreatePost = () => {
+    setLoading(true);
+    const tempArr = [...imageData];
+    const finalArr: string[] = tempArr.reduce(
+      (accumulator: string[], {uri}) => [...accumulator, uri],
+      [],
+    );
+    postData.imageURLs = finalArr;
+    const req: Canny_CreatePost = {
+      ...postData,
+      boardID: '63185908b6e18a2a54582097',
+      authorID: '6391eb3af8764e24a1536991',
+    };
+    console.log('Sending Request Body', req);
+
+    createPost(req)
+      .then(res => {
+        if (res.ok) {
+          console.log(res?.data);
+          setLoading(false);
+          showMessage({
+            message: 'Succesfully Created Post',
+            type: 'success',
+          });
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+        setLoading(false);
+        showMessage({
+          message: err,
+          type: 'danger',
+        });
+      });
   };
 
   return (
@@ -156,7 +315,7 @@ const CreatePost = () => {
             })
           }
         />
-        <GapView mode="vertical" />
+        <GapView mode="vertical" length={25} />
         <CstmMultiLine
           title="Details"
           placeholder="Any, Additional Details..."
@@ -166,13 +325,14 @@ const CreatePost = () => {
             })
           }
         />
+        <GapView mode="vertical" length={20} />
         <ImageContainer />
       </ScrollView>
       <View>
         <CstmButton
           loader={false}
           title="Create Post"
-          onPress={() => console.log('Create Post', postData)}
+          onPress={() => handleCreatePost()}
         />
       </View>
     </>

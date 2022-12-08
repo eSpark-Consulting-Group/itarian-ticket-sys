@@ -33,6 +33,7 @@ const CstmTitleInput = ({
       )}
       <GapView mode="vertical" length={5} />
       <TextInput
+        placeholderTextColor={colors.text + '55'}
         placeholder={placeholder}
         keyboardType={keyboardType}
         value={val ?? value}

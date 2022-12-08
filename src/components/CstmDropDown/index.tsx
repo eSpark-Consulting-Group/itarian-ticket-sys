@@ -83,7 +83,11 @@ const CstmDropDown = ({
             ...styles.dropDownContainer,
             borderColor: borderColor,
           }}>
-          <FlatList data={dataSource} renderItem={renderList} />
+          <FlatList
+            data={dataSource}
+            nestedScrollEnabled
+            renderItem={renderList}
+          />
         </View>
       )}
       <View style={{height: 10}} />

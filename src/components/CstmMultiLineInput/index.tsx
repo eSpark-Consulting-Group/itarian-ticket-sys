@@ -37,6 +37,7 @@ const CstmMultiLine = ({
       <TextInput
         multiline
         value={value}
+        placeholderTextColor={colors.text + '55'}
         style={{
           color: colors.text,
           width: '100%',

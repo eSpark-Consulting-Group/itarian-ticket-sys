@@ -25,7 +25,7 @@ const updateUser = async (id: number, data: any) => {
   });
   try {
     const result: any = await api.patch(`/users/${id}`, data);
-    console.log("result.data", result);
+    console.log("result.data", result?.data);
     if (result?.ok) {
             
     }

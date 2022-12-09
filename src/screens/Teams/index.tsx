@@ -21,15 +21,15 @@ import {searchFromArray} from '../../utils/helperFunctions';
 import {userStore} from '../../stores/userStore';
 import {State, useHookstate} from '@hookstate/core';
 import { getAllTeams } from './utils/functions';
-import { teamStore } from '../../stores/teamStore';
+import { globalState } from '../../stores/globalAppState';
 
 const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
-  const users = useHookstate(teamStore.teams);
-  const [filteredContacts, setFilteredContacts] = useState(users.get());
+  const teams = useHookstate(globalState.teams);
+  const [filteredContacts, setFilteredContacts] = useState(teams.get());
 
   useEffect(() => {
     fetchRecords()
@@ -42,8 +42,8 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   }
 
   useEffect(() => {
-    setFilteredContacts(users.get())
-  }, [users])
+    setFilteredContacts(teams.get())
+  }, [teams])
 
   const handleSubmit = () => {
     setLoading(true);
@@ -56,7 +56,7 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
       text: text,
-      list: users?.get(),
+      list: teams?.get(),
       keys: ['attributes.name'],
     });
     setFilteredContacts(result);
@@ -75,8 +75,6 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
     }
   }, [clear]);
 
-  console.log("TEAMS TEAMS", users?.get());
-
   return (
     <View style={styles.container}>
       <View
@@ -86,7 +84,7 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
         }}>
         <SearchBar
           withTag={false}
-          placeholder={'Search Users'}
+          placeholder={'Search Teams'}
           fontSize={'large'}
           value={searchValue}
           setChangeText={value => setSearchValue(value)}

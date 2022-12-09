@@ -1,7 +1,7 @@
 import {showMessage} from 'react-native-flash-message';
 import {api} from '../../../api';
 import {alert_Dur} from '../../../constants';
-import {teamStore} from '../../../stores/teamStore';
+import { globalState } from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
 const getAllTeams = async () => {
@@ -13,7 +13,7 @@ const getAllTeams = async () => {
   try {
     const result: any = await api.get('/teams');
     if (result?.ok) {
-      teamStore?.teams?.set(result?.data?.data);
+      globalState?.teams?.set(result?.data?.data);
     }
   } catch (error) {
     console.log('error getAllUsers', error);

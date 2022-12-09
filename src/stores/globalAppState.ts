@@ -80,4 +80,6 @@ export const globalState = hookstate({
   calendarMember: 'Select Member',
   ticketStatus: [],
   ticketPriorities: [],
+  teams: [],
+  slaPlans: [],
 });

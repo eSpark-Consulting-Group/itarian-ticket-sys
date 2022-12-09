@@ -1,14 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {Text, View, FlatList, Image, ScrollView} from 'react-native';
 import {useRoute, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+// @ts-ignore
+import Pinchable from 'react-native-pinchable';
 
 import {
   getPostbyId as getPostDetails,
@@ -16,6 +11,7 @@ import {
 } from '../../utils';
 import {CstmPressable, GapView, Loader} from '../../../../components';
 import moment from 'moment';
+import {WINDOW_HEIGHT} from '../../../../constants';
 
 export default function Post() {
   const {colors, dark} = useTheme();
@@ -71,17 +67,22 @@ export default function Post() {
 
   const renderImageList = ({item, index}: {item: string; index: number}) => {
     return (
-      <View style={{flexDirection: 'row', backgroundColor: colors.card}}>
-        <Image
-          source={{uri: item}}
-          style={{
-            flex: 1,
-            width: 100,
-            height: 100,
-          }}
-          resizeMode="contain"
-        />
-        <GapView mode="horizontal" length={5} />
+      <View
+        style={{
+          marginTop: 10,
+          height: WINDOW_HEIGHT * 0.2,
+          width: WINDOW_HEIGHT * 0.2,
+        }}>
+        <Pinchable>
+          <Image
+            source={{uri: item}}
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            resizeMode="cover"
+          />
+        </Pinchable>
       </View>
     );
   };
@@ -135,7 +136,14 @@ export default function Post() {
         <Text style={{color: colors.text, opacity: 0.7}}>
           {postDetail?.details}
         </Text>
-        <FlatList data={postDetail?.imageURLs} renderItem={renderImageList} />
+        <FlatList
+          horizontal
+          ItemSeparatorComponent={() => (
+            <GapView mode="horizontal" length={10} />
+          )}
+          data={postDetail?.imageURLs}
+          renderItem={renderImageList}
+        />
         <GapView mode="vertical" length={15} />
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{flexDirection: 'row'}}>
@@ -185,6 +193,7 @@ export default function Post() {
               </View>
             </CstmPressable>
           </View>
+
           <CstmPressable android_ripple={{borderless: true}}>
             <MCI
               name="dots-horizontal"
@@ -212,6 +221,23 @@ export default function Post() {
         ListHeaderComponent={<PostBox />}
         ListHeaderComponentStyle={{marginBottom: 8}}
         renderItem={renderComments}
+        ListEmptyComponent={
+          <View
+            style={{
+              height: WINDOW_HEIGHT * 0.3,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{
+                color: colors.text + '88',
+                fontSize: 20,
+                fontFamily: 'sans-serif-medium',
+              }}>
+              No Comments Yet!
+            </Text>
+          </View>
+        }
         ListFooterComponent={() => <GapView />}
         ItemSeparatorComponent={() => (
           <View style={{backgroundColor: colors.background}}>

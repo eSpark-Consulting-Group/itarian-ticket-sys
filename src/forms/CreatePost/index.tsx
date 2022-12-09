@@ -17,6 +17,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import 'react-native-get-random-values';
 // @ts-ignore
 import {v4 as uuid} from 'uuid';
+//@ts-ignore
+import sign from 'jwt-encode';
 
 import styles from '../../screens/SendFeedback/style';
 import {
@@ -74,6 +76,11 @@ const CreatePost = () => {
 
   useEffect(() => {
     // call the function
+    // const data = {
+    //   name: 'chilli milli',
+    // };
+    // const jwt = sign(data, 'secret');
+    // console.log('kia aaya', jwt);
     setLoading(true);
     getCategories()
       .then(res => {

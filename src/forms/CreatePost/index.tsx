@@ -10,7 +10,7 @@ import {
   Platform,
   UIManager,
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -44,6 +44,7 @@ if (Platform.OS === 'android') {
 }
 
 const CreatePost = () => {
+  const navigation: any = useNavigation();
   const {colors, dark} = useTheme();
   const [loading, setLoading] = useState(false);
   const [categoryToggle, setCategoryToggle] = useState(false);
@@ -177,14 +178,67 @@ const CreatePost = () => {
   };
 
   const handleUploadImage = () => {
+    setLoading(true);
     ImagePicker.openPicker({})
       .then(image => {
         const field = image.path;
-        console.log({uri: image.path});
+        console.log({uri: field});
+
+        //? function to upload image to Canny.io (returns Canny.io image url)
+        (function (field: string) {
+          const imageType =
+            'image/' + field.split('.')[field.split('.').length - 1];
+          const imageName = field.split('/')[field.split('/').length - 1];
+          console.log(
+            'chala ha',
+            field.split('.')[field.split('.').length - 1],
+          );
+          const formData = new FormData();
+          formData.append('imageFile', {
+            uri: field,
+            type: imageType === 'png' ? 'image/png' : 'image/jpeg',
+            name: imageName,
+          });
+          formData.append(
+            'imageType',
+            imageType === 'png' ? 'image/png' : 'image/jpeg',
+          );
+          var config = {
+            method: 'POST',
+            body: formData,
+          };
+          fetch('https://feedback.itarian.com/api/images/upload', config)
+            .then(response => response.json())
+            .then((result: {imageURL: string; error: string}) => {
+              setLoading(false);
+              console.log('upload hoa image', result);
+              if (result.imageURL) {
+                console.log('upload hoa image', result.imageURL);
+                setImageData((state: ImageType[]) => {
+                  return [...state, {uri: result?.imageURL, id: uuid()}];
+                });
+              }
+              if (result.error) {
+                setLoading(false);
+                showMessage({
+                  message: result.error,
+                  type: 'danger',
+                  icon: 'auto',
+                });
+              }
+            })
+            .catch(error => {
+              setLoading(false);
+              console.log('error', error);
+              showMessage({
+                message: error[0],
+                type: 'danger',
+                icon: 'auto',
+              });
+            });
+        })(field);
+
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setImageData((state: ImageType[]) => {
-          return [...state, {uri: field, id: uuid()}];
-        });
       })
       .catch(err => console.log('err', err));
   };
@@ -265,15 +319,16 @@ const CreatePost = () => {
       authorID: '6391eb3af8764e24a1536991',
     };
     console.log('Sending Request Body', req);
-
     createPost(req)
       .then(res => {
         if (res.ok) {
           console.log(res?.data);
           setLoading(false);
+          navigation.goBack();
           showMessage({
             message: 'Succesfully Created Post',
             type: 'success',
+            icon: 'auto',
           });
         }
       })
@@ -283,6 +338,7 @@ const CreatePost = () => {
         showMessage({
           message: err,
           type: 'danger',
+          icon: 'auto',
         });
       });
   };

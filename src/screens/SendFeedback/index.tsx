@@ -21,6 +21,7 @@ import {getPosts} from './utils';
 import {CannyPosts} from '../../types';
 import {SCREEN_HEIGHT} from '../../constants';
 import moment from 'moment';
+import {Divider, Menu} from 'react-native-paper';
 
 const SendFeedbackScreen = () => {
   const {dark, colors} = useTheme();

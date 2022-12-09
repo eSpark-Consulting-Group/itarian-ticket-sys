@@ -29,7 +29,6 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-
 const App = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
@@ -72,7 +71,6 @@ const App = () => {
       }
     });
   }, [themeValue.get()]);
-
 
   useEffect(() => {
     store.get('theme').then((res: any) => {

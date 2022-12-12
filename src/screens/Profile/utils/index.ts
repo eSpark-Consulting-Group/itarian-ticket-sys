@@ -1,4 +1,6 @@
+import { showMessage } from 'react-native-flash-message';
 import {api} from '../../../api';
+import { alert_Dur } from '../../../constants';
 import {userStore} from '../../../stores/userStore';
 
 const filterUser = async (params: string = '') => {
@@ -25,9 +27,12 @@ const updateUser = async (id: number, data: any) => {
   });
   try {
     const result: any = await api.patch(`/users/${id}`, data);
-    console.log("result.data", result?.data);
     if (result?.ok) {
-            
+      showMessage({
+        message: 'profile updated successfully',
+        type: 'success',
+        duration: alert_Dur,
+      });
     }
   } catch (error) {
     console.log('error getAllUsers', error);

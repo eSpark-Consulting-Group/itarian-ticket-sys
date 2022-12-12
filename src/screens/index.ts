@@ -9,6 +9,8 @@ import Profile from './Profile';
 import OTPScreen from './Auth/OTPScreen';
 import Post from './SendFeedback/View/Post';
 import Teams from './Teams';
+import TicketPriorities from './TicketPriorities';
+
 export {
   Login,
   PinScreen,
@@ -22,4 +24,5 @@ export {
   OTPScreen,
   Post,
   Teams,
+  TicketPriorities
 };

@@ -24,21 +24,6 @@ const Details = () => {
     //   },
     // },
     // {
-    //   title: 'Tasks',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'Tasks',
-    //     });
-    //   },
-    // },
-    // {
-    //   title: 'Time Entries',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'TimeEntries',
-    //     });
-    //   },
-    // },
     // {
     //   title: 'Expenses',
     //   onPress: () => {

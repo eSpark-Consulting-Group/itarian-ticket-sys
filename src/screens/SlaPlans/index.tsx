@@ -75,8 +75,6 @@ const SlaPlans = ({navigation}: {navigation: NavigationProp<any,any> }) => {
     }
   }, [clear]);
 
-  console.log("slaPlans slaPlans", slaPlans?.get());
-
   return (
     <View style={styles.container}>
       <View
@@ -97,16 +95,16 @@ const SlaPlans = ({navigation}: {navigation: NavigationProp<any,any> }) => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderContacts listData={filteredContacts} />
+        <RenderSlaPLans listData={filteredContacts} />
       )}
       <FloatButton 
-       onPress={() => navigation.navigate('Stack1', {screen: 'NewTeam'})}
+       onPress={() => navigation.navigate('Stack1', {screen: 'NewSlaPlans'})}
       />
     </View>
   );
 };
 
-export const RenderContacts = ({
+export const RenderSlaPLans = ({
   listData = contactsList,
 }: {
   listData?: Contact[];

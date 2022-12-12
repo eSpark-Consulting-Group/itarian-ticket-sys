@@ -7,7 +7,6 @@ import {State, useHookstate} from '@hookstate/core';
 
 import {onSave, goBack} from '../utils/headerFunctions';
 import ComposeNote from '../../forms/ComposeNote';
-import QNAs from '../../forms/QNAs';
 import {globalState} from '../../stores/globalAppState';
 import {EditTicket} from '../../forms/EditTicket';
 import {AddResource} from '../../forms/AddResource';
@@ -67,31 +66,6 @@ const StackLvl2 = ({navigation, route}: any) => {
         component={ComposeNote}
         options={({route, navigation}: any) => ({
           title: 'Compose Note',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-          headerRight: () => (
-            <FA
-              size={27}
-              name="save"
-              color={'#fff'}
-              onPress={() => onSave(navigation, route)}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="QNA"
-        component={QNAs}
-        options={({route, navigation}: any) => ({
-          title: 'Configuration Questions',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

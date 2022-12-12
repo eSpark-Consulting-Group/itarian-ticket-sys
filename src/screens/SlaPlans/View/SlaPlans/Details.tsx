@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   View,
-  Text,
-  StyleSheet,
   FlatList,
   KeyboardTypeOptions,
   Alert,
@@ -14,13 +12,10 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
-import {CstmButton, FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
+import {FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
 import {SelectFields} from '../../../../types';
-import {userStore} from '../../../../stores/userStore';
-import {State, useHookstate} from '@hookstate/core';
 import {SelectItems} from '../../../../utils/helperFunctions';
-import { SCREEN_WIDTH } from '../../../../constants';
-import { deleteTeams } from '../../utils/functions';
+import { deleteSlaPlan } from '../../utils/functions';
 
 interface Item {
   title: string;
@@ -49,7 +44,6 @@ export default function Details() {
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const teamDetails = routes?.params?.teamDetails;
-  const users: State<any> = useHookstate(userStore.users);
   const [loader, setLoader] = useState(false)
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -59,29 +53,28 @@ export default function Details() {
       showRightSwitch: true,
     },
     {
-      subTitle: 'Name',
+      subTitle: 'name',
       title: teamDetails?.attributes?.name ?? '',
       inputable: true,
       enable: false,
       isRequired: true,
     },
     {
-      title: teamDetails?.attributes?.teamlead?.user_name ?? 'Please Select',
+      title: teamDetails?.attributes?.grace_period ?? '',
       subTitle: 'grace period',
-      inputable: true,
+      inputable: false,
       enable: false,
-      isRequired: true,
+      isRequired: false,
     },
     {
-      title: teamDetails?.attributes?.admin_notes ?? '',
-      subTitle: 'Admin Notes',
+      title: teamDetails?.attributes?.admin_note ?? '',
+      subTitle: 'admin note',
       inputable: true,
       enable: false,
       isRequired: true,
       mode: 'multiline',
     },
   ]);
-
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -120,7 +113,7 @@ export default function Details() {
 
   const deleteTeamFunc = (id: number) => {
     setLoader(true)
-    deleteTeams(id)
+    deleteSlaPlan(id)
     .then(res => {
       setLoader(false)
       if(res?.status) {
@@ -176,10 +169,11 @@ export default function Details() {
           <Divider style={{backgroundColor: colors.background, height: 1.5}} />
         )}
       />
+      {dataSource[1].title != "Default" &&
       <FloatButton icon='delete' onPress={() => {
           Alert.alert(
-            'Delete Team?',
-            'Are you sure you want to delete this Sla Plan permanently',
+            'Delete Sla Plan?',
+            'Are you sure you want to delete this Sla Plan permanently?',
             [
               {
                 text: 'Yes',
@@ -193,9 +187,7 @@ export default function Details() {
               },
             ],
           );
-      }}/> 
+      }}/> }
     </View>
   );
 }
-
-const styles = StyleSheet.create({});

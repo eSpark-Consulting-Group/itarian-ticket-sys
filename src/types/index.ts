@@ -190,6 +190,7 @@ export type ParamList = {
   Settings: undefined;
   Feedback: undefined;
   Teams: undefined;
+  SlaPlan: undefined;
 };
 
 export type Stopwatch = {

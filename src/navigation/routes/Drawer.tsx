@@ -49,6 +49,7 @@ import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
 import { checkValidations, dataFormatter } from '../../utils/helperFunctions';
 import { updateUser } from '../../screens/Profile/utils';
+import SlaPlans from '../../screens/SlaPlans';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -318,7 +319,6 @@ const Draw = () => {
           headerRight: noHeader,
         }}
       />
-
       <Drawer.Screen
         name="Teams"
         component={Teams}
@@ -329,6 +329,20 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <FA name="group" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />
+      <Drawer.Screen
+        name="SlaPlan"
+        component={SlaPlans}
+        options={{
+          headerTitle: () => <CstmHeader title="Sla Plan" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Sla Plan</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="clock" size={size} color={color} />
           ),
           headerRight: noHeader,
         }}

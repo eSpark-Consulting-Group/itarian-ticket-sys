@@ -12,6 +12,7 @@ import {goBack, saveStatus} from '../utils/headerFunctions';
 import STickets from '../../forms/ServiceTickets';
 import Contact1 from '../../screens/Contacts/View/Contacts';
 import TeamDetails from '../../screens/Teams/View/Teams';
+import SlaPlanDetails from '../../screens/SlaPlans/View/SlaPlans/Details';
 import Company from '../../screens/Companies/View/Company';
 import NewCompany from '../../forms/NewCompany';
 import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
@@ -36,6 +37,7 @@ export type RootStackParamList = {
   CreatePost: undefined;
   Post: {id: string};
   TeamDetails: undefined;
+  SlaPlanDetails: undefined;
   NewTeam: {title: string};
 };
 
@@ -225,6 +227,61 @@ const StackLvl1 = ({route, navigation}: any) => {
         component={TeamDetails}
         options={({route, navigation}: any) => ({
           title: 'Teams Details',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    id: data?.id,
+                    type: 'teams',
+                    attributes: {
+                      name: data?.TeamName,
+                      status: Boolean(data?.Status),
+                      admin_notes: data?.AdminNotes,
+                    },
+                    relationships: {
+                      teamlead: {
+                        data: {
+                          type: 'users',
+                          id: data?.TeamLead[0]?.id,
+                        },
+                      },
+                    },
+                  },
+                };
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  updateTeam,
+                  obj,
+                  'Team updated successfully',
+                );
+              }}
+            />
+          ),
+        })}
+      />
+
+    <Stack.Screen
+        name="SlaPlanDetails"
+        component={SlaPlanDetails}
+        options={({route, navigation}: any) => ({
+          title: 'SlaPlan Details',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

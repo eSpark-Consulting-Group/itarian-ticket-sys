@@ -184,6 +184,7 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                     <View style={{flex: 0.1}} />
                     <Checkbox
                       color={colors.primary}
+                      uncheckedColor={'#949494'}
                       status={rememberMe ? 'checked' : 'unchecked'}
                       onPress={() => setRememberMe(!rememberMe)}
                     />

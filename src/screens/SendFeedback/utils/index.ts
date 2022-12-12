@@ -5,7 +5,12 @@
  */
 
 import {cannyApi, cannyApiKey} from '../../../api';
-import {CannyCategory, CannyPosts, Canny_CreatePost} from '../../../types';
+import {
+  CannyCategory,
+  CannyPosts,
+  Canny_CreatePost,
+  Canny_CreateUser,
+} from '../../../types';
 
 const getCategories = async (req?: CannyCategory) => {
   const data: {apiKey: string & CannyCategory} = {...req, apiKey: cannyApiKey};
@@ -64,4 +69,34 @@ const createPost = async (req?: Canny_CreatePost) => {
   }
 };
 
-export {getCategories, getPosts, getPostbyId, getCommentsByPostId, createPost};
+const getUserByUserId = async (req?: {userID?: string}) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/users/retrieve', data);
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+const createUser = async (req?: Canny_CreateUser) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/users/create_or_update', data);
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+export {
+  getCategories,
+  getPosts,
+  getPostbyId,
+  getCommentsByPostId,
+  createPost,
+  getUserByUserId,
+  createUser,
+};

@@ -42,10 +42,12 @@ const handleLoginUser = async (
         subDomain: subDomain,
         userId: apiKey,
         token: encodedUserDataToken(subDomain, apiKey),
-        email: 'test9@yopmail.com'
+        email: 'test9@yopmail.com',
       };
+      console.log('use', userObj);
+
       store.update('user', userObj);
-      userStore.user.set(userObj);
+      userStore?.user?.set(userObj);
       showMessage({
         message: 'Authentication Successful',
         type: 'success',

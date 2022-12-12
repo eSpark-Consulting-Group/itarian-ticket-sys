@@ -1,4 +1,5 @@
 import {ViewStyle} from 'react-native';
+import {User} from './globalState';
 
 /*
 //* Types for all list Data
@@ -295,6 +296,16 @@ export type Canny_CreatePost = {
   ownerID?: string;
 };
 
+export type Canny_CreateUser = {
+  avatarURL?: string;
+  companies?: any[];
+  created?: Date;
+  customFields?: {};
+  email?: string;
+  name: string;
+  userID: string;
+};
+
 /*
 //* Enum's for all Types/Interfaces
 */
@@ -308,3 +319,5 @@ export enum NotesType {
   Informational = 'Informational',
   Technical = 'Technical',
 }
+
+export type {User};

@@ -9,7 +9,11 @@ import {
 } from 'react-native';
 import {useTheme, useNavigation} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useHookstate, State} from '@hookstate/core';
+import moment from 'moment';
 
+import {userStore} from '../../stores/userStore';
+import {User} from '../../types';
 import {
   CstmPressable,
   FloatButton,
@@ -17,11 +21,9 @@ import {
   Loader,
   NotFound,
 } from '../../components';
-import {getPosts} from './utils';
+import {getPosts, getUserByUserId} from './utils';
 import {CannyPosts} from '../../types';
 import {SCREEN_HEIGHT} from '../../constants';
-import moment from 'moment';
-import {Divider, Menu} from 'react-native-paper';
 
 const SendFeedbackScreen = () => {
   const {dark, colors} = useTheme();
@@ -31,13 +33,34 @@ const SendFeedbackScreen = () => {
   const [limit, setLimit] = useState<number>(10);
   const [itemsLoader, setItemsLoader] = useState(false);
 
+  const userObj: State<User> = useHookstate(userStore);
+  console.log('kia ha user oject=====>>>>', userObj?.user?.userId?.get());
+
   useEffect(() => {
     // call the function
-    fetchPosts();
+    fetchUser('7884157c-1332-4f10-95a6-b9a22ca5507b');
+    // fetchPosts();
     return () => {
       setLimit(10);
     };
   }, []);
+
+  const fetchUser = async (userId: string) => {
+    getUserByUserId({userID: userId})
+      .then(res => {
+        if (res?.ok) {
+          console.log('response', res.data);
+          //* User found
+          //todo: Show post and store in state userId of User
+        } else {
+          console.log('error', res?.data);
+          //! no User Found
+          //todo: Create User then show posts
+        }
+      })
+      .catch();
+    console.log('user', userId);
+  };
 
   const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
     console.log(req);

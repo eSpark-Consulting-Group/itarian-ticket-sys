@@ -9,6 +9,7 @@ import Profile from './Profile';
 import OTPScreen from './Auth/OTPScreen';
 import Post from './SendFeedback/View/Post';
 import Teams from './Teams';
+import SlaPlans from './SlaPlans';
 export {
   Login,
   PinScreen,
@@ -22,4 +23,5 @@ export {
   OTPScreen,
   Post,
   Teams,
+  SlaPlans,
 };

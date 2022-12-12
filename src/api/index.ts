@@ -10,7 +10,7 @@ import {
 import {userStore} from '../stores/userStore';
 
 export const cannyApiKey = 'e0379baa-ed8d-0b13-ef80-0d9f679adc79'; //! Do not remove (secret api key for canny.io)
-const user: any = userStore.get()?.user;
+const user: any = userStore?.user?.get();
 const USER_TOKEN = user?.token;
 
 export const api = create({

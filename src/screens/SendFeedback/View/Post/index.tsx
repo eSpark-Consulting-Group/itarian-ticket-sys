@@ -4,13 +4,13 @@ import {useRoute, useTheme} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 // @ts-ignore
 import Pinchable from 'react-native-pinchable';
+import moment from 'moment';
 
 import {
   getPostbyId as getPostDetails,
   getCommentsByPostId as getComments,
 } from '../../utils';
 import {CstmPressable, GapView, Loader} from '../../../../components';
-import moment from 'moment';
 import {WINDOW_HEIGHT} from '../../../../constants';
 
 export default function Post() {
@@ -64,6 +64,8 @@ export default function Post() {
     setCommLoad(false);
     setCommDetail(data);
   };
+
+  const handleAddVote = () => {};
 
   const renderImageList = ({item, index}: {item: string; index: number}) => {
     return (
@@ -170,7 +172,9 @@ export default function Post() {
               </Text>
             </CstmPressable>
             <GapView mode="horizontal" length={20} />
-            <CstmPressable android_ripple={{borderless: true}}>
+            <CstmPressable
+              android_ripple={{borderless: true}}
+              onPress={() => handleAddVote()}>
               <View style={{flexDirection: 'row'}}>
                 <MCI
                   name="arrow-up-thick"

@@ -1,11 +1,11 @@
 import {showMessage} from 'react-native-flash-message';
 import {api} from '../../../api';
 import {alert_Dur} from '../../../constants';
-import { globalState } from '../../../stores/globalAppState';
+import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
 const getAllTeams = async () => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -21,7 +21,7 @@ const getAllTeams = async () => {
 };
 
 const addTeam = async (data: any) => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -40,7 +40,7 @@ const addTeam = async (data: any) => {
 };
 
 const deleteTeams = async (id: number) => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -63,7 +63,7 @@ const deleteTeams = async (id: number) => {
 };
 
 const updateTeam = async (data: any) => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,

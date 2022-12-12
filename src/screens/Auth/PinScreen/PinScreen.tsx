@@ -16,9 +16,10 @@ import {useUpdateEffect} from '../../../utils/hooks';
 import {userStore} from '../../../stores/userStore';
 import {showMessage} from 'react-native-flash-message';
 import {alert_Dur} from '../../../constants';
+import {User} from '../../../types';
 
 const PinScreen = ({route, navigation}: any) => {
-  const user: State<any> = useHookstate(userStore.user);
+  const user: State<User> = useHookstate(userStore);
   const [pin, setPin] = useState<any>('');
   const [confirmPin, setConfirmPin] = useState(false);
   const [newPin, setnewPin] = useState('');
@@ -39,10 +40,10 @@ const PinScreen = ({route, navigation}: any) => {
       setConfirmPin(true);
       console.log('done', pin);
     } else if (pin.length == 4) {
-      console.log('Stored Pin', userStore.pinCode.get());
-      if (newPin == pin || userStore.pinCode.get() == pin) {
+      console.log('Stored Pin', user?.pinCode?.get());
+      if (newPin == pin || user?.pinCode?.get() == pin) {
         store.update('pinCode', pin);
-        userStore.pinCode.set(pin);
+        user?.pinCode?.set(pin);
         setImmediate(() => {
           navigation.navigate('Draw');
         });
@@ -222,7 +223,7 @@ const PinScreen = ({route, navigation}: any) => {
       {showScanner && (
         <BiometricVerification
           onAuthenticate={() => {
-            user.set(true);
+            // user.set(true);
             setShowScanners(false);
           }}
           onCancel={() => setShowScanners(false)}

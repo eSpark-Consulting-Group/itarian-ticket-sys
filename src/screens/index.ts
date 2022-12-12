@@ -10,7 +10,7 @@ import OTPScreen from './Auth/OTPScreen';
 import Post from './SendFeedback/View/Post';
 import Teams from './Teams';
 import TicketPriorities from './TicketPriorities';
-
+import SlaPlans from './SlaPlans';
 export {
   Login,
   PinScreen,
@@ -24,5 +24,6 @@ export {
   OTPScreen,
   Post,
   Teams,
-  TicketPriorities
+  TicketPriorities,
+  SlaPlans
 };

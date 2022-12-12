@@ -12,7 +12,13 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
-import {FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
+import {
+  CstmButton,
+  FloatButton,
+  GapView,
+  Loader,
+  SingleLineField,
+} from '../../../../components';
 import {SelectFields} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
 import { deleteSlaPlan } from '../../utils/functions';
@@ -47,7 +53,7 @@ export default function Details() {
   const [loader, setLoader] = useState(false)
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: "Status",
+      title: 'Status',
       enable: true,
       rightSwitchVal: Boolean(teamDetails?.attributes?.status),
       showRightSwitch: true,
@@ -145,13 +151,13 @@ export default function Details() {
         subTitle: item.subTitle,
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
-        rightSwitchVal: item.rightSwitchVal
+        rightSwitchVal: item.rightSwitchVal,
       }),
     );
     Data[Data?.length] = {
       title: teamDetails?.id,
-      subTitle: "id",
-    }
+      subTitle: 'id',
+    };
     navigation?.setParams({
       ...routes?.params,
       data: Data,

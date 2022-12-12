@@ -12,7 +12,7 @@ export const badgeApiCallForGlobalList = () => {
 };
 
 const getTicketStatus = async () => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   console.log(`Basic ${USER_TOKEN}`);
   api.setHeaders({
@@ -35,7 +35,7 @@ const getTicketStatus = async () => {
 };
 
 const getTicketPriorities = async () => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   console.log(`Basic ${USER_TOKEN}`);
   api.setHeaders({

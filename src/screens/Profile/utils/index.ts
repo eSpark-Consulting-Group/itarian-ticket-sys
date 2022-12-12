@@ -4,7 +4,7 @@ import { alert_Dur } from '../../../constants';
 import {userStore} from '../../../stores/userStore';
 
 const filterUser = async (params: string = '') => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -12,7 +12,7 @@ const filterUser = async (params: string = '') => {
   try {
     const result: any = await api.get(`/users?${params}`);
     if (result?.ok) {
-      return result?.data?.data[0]
+      return result?.data?.data[0];
     }
   } catch (error) {
     console.log('error getAllUsers', error);
@@ -20,7 +20,7 @@ const filterUser = async (params: string = '') => {
 };
 
 const updateUser = async (id: number, data: any) => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,

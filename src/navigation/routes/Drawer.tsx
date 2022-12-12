@@ -42,6 +42,7 @@ import {
   Profile,
   Teams,
   TicketPriorities,
+  SlaPlans,
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -49,9 +50,8 @@ import {contactsList} from '../../constants/SampleArrays';
 import Images from '../../assets/Images';
 import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
-import { checkValidations, dataFormatter } from '../../utils/helperFunctions';
-import { updateUser } from '../../screens/Profile/utils';
-import SlaPlans from '../../screens/SlaPlans';
+import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
+import {updateUser} from '../../screens/Profile/utils';
 
 const Drawer = createDrawerNavigator<ParamList>();
 

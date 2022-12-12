@@ -1,11 +1,11 @@
 import {showMessage} from 'react-native-flash-message';
 import {api} from '../../../api';
 import {alert_Dur} from '../../../constants';
-import { globalState } from '../../../stores/globalAppState';
+import {globalState} from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
 const getAllSlaPlans = async () => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -21,7 +21,7 @@ const getAllSlaPlans = async () => {
 };
 
 const addSlaPlans = async (data: any) => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -40,7 +40,7 @@ const addSlaPlans = async (data: any) => {
 };
 
 const deleteSlaPlan = async (id: number) => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -63,7 +63,7 @@ const deleteSlaPlan = async (id: number) => {
 };
 
 const updateSlaPlan = async (data: any) => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,

@@ -62,6 +62,8 @@ const SendFeedbackScreen = () => {
     console.log('user', userId);
   };
 
+  const handleCreateUser = async () => {};
+
   const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
     console.log(req);
     if (bottomLoader) {

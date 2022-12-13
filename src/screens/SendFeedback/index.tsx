@@ -13,7 +13,7 @@ import {useHookstate, State} from '@hookstate/core';
 import moment from 'moment';
 
 import {userStore} from '../../stores/userStore';
-import {User} from '../../types';
+import {Canny_CreateUser, User} from '../../types';
 import {
   CstmPressable,
   FloatButton,
@@ -32,6 +32,7 @@ const SendFeedbackScreen = () => {
   const [postsData, setPostsData] = useState<any>([]);
   const [limit, setLimit] = useState<number>(10);
   const [itemsLoader, setItemsLoader] = useState(false);
+  const [cannyUser, setCannyUser] = useState<Canny_CreateUser>();
 
   const userObj: State<User> = useHookstate(userStore);
   console.log('kia ha user oject=====>>>>', userObj?.user?.userId?.get());
@@ -50,6 +51,8 @@ const SendFeedbackScreen = () => {
       .then(res => {
         if (res?.ok) {
           console.log('response', res.data);
+          setCannyUser(res?.data);
+          fetchPosts();
           //* User found
           //todo: Show post and store in state userId of User
         } else {
@@ -62,10 +65,7 @@ const SendFeedbackScreen = () => {
     console.log('user', userId);
   };
 
-  const handleCreateUser = async () => {
-    try {
-    } catch (err) {}
-  };
+  const handleCreateUser = async () => {};
 
   const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
     console.log(req);

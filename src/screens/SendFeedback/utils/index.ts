@@ -72,7 +72,7 @@ const createPost = async (req?: Canny_CreatePost) => {
 const getUserByUserId = async (req?: {userID?: string}) => {
   const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
   try {
-    const res = await cannyApi.post('/users/retrieve', data);
+    const res = await cannyApi.post<Canny_CreateUser>('/users/retrieve', data);
     return res;
   } catch (err) {
     console.log('Error on create post', err);

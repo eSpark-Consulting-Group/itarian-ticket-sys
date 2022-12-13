@@ -36,7 +36,7 @@ const Profile = ({route, navigation}: any) => {
   const [userData, setUserData] = useState<Item[]>([
     {
       title: '',
-      subTitle: 'first Name',
+      subTitle: 'first name',
       inputable: true,
     },
     {
@@ -66,7 +66,7 @@ const Profile = ({route, navigation}: any) => {
     },
   ]);
 
-  useEffect(() => {
+  const fetchUserDetails = () => {
     filterUser(`filter[email][]=${user?.get()?.email}`).then(res => {
       const dataSource: Item[] = [...userData];
       dataSource[0].title = res?.attributes?.first_name?.toString();
@@ -78,6 +78,10 @@ const Profile = ({route, navigation}: any) => {
       setUserObj(res);
       setUserData(dataSource);
     });
+  }
+
+  useEffect(() => {
+    fetchUserDetails()
   }, [user]);
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
@@ -128,14 +132,15 @@ const Profile = ({route, navigation}: any) => {
       />
       <FloatButton
         icon="content-save-outline"
-        onPress={() => {
+        onPress={async () => {
           const data = dataFormatter(userData, '_');
+          console.log("data data data", data);
+          
           const dataObj = {
             data: {
               id: userObj?.id,
               type: 'users',
               attributes: {
-                provider_id: null,
                 email: user.get()?.email ?? '',
                 user_name: userObj?.attributes?.user_name,
                 last_name: data?.last_name,
@@ -151,10 +156,8 @@ const Profile = ({route, navigation}: any) => {
               },
             },
           };
-
-          console.log('dataObj', dataObj);
-
-          updateUser(userObj?.id, dataObj);
+          await updateUser(userObj?.id, dataObj);
+          fetchUserDetails()
         }}
       />
     </View>

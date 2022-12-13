@@ -1,34 +1,50 @@
 import React, {useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
-import {State, useHookstate} from '@hookstate/core';
+
 import {ModalView, SingleLineField} from '../../components';
-import {userStore} from '../../stores/userStore';
 import {SelectFields} from '../../types';
+import {SelectItems} from '../../utils/helperFunctions';
+import {State, useHookstate} from '@hookstate/core';
+import {userStore} from '../../stores/userStore';
 
-const AddTask = ({route, navigation}: any) => {
+const NewSlaPlans = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
-  const [showDate, setShowDate] = useState(false);
-  const [mode, setMode] = useState<Mode>('date');
-  const [pickerType, setpickerType] = useState<PickerType>('dd');
-
-  const [StartTime, setStartTime] = useState(null);
-  const [endTime, setendTime] = useState(null);
-  const user: State<any> = useHookstate(userStore.user);
-
+  const users: State<any> = useHookstate(userStore.users);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
+      title: 'Status',
+      enable: false,
+      rightSwitchVal: false,
+      showRightSwitch: true,
+    },
+    {
       title: '',
-      subTitle: 'Summary',
+      subTitle: 'name',
       inputable: true,
       enable: false,
       isRequired: true,
     },
-    ]);
+    {
+      title: '',
+      subTitle: 'grace period',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+    },
+    {
+      title: '',
+      subTitle: 'admin note',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+      mode: 'multiline',
+    },
+  ]);
 
   interface Item {
     title: string;
-    subTitle: string;
+    subTitle?: string;
     inputable?: boolean;
     enable?: boolean;
     rightIcon?: string;
@@ -38,23 +54,30 @@ const AddTask = ({route, navigation}: any) => {
     rightSwitchVal?: boolean;
     onChangeSwitch?: (value: boolean) => void;
     onChangeText?: (text: string) => void;
-    mode?: 'none' | 'multiline';
-    onPress?: () => void;
     list?: SelectFields[];
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
+    keyboardType?: KeyboardTypeOptions | undefined;
     isRequired?: boolean;
+    mode?: 'none' | 'multiline';
   }
-
-  type Mode = 'date' | 'time';
-  type PickerType = 'dd' | 'st' | 'et';
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
     setDataSource(newData);
   };
+
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [route?.params?.selected]);
 
   useEffect(() => {
     const Data: Item[] = [];
@@ -63,6 +86,8 @@ const AddTask = ({route, navigation}: any) => {
         title: item.title,
         subTitle: item.subTitle,
         isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal,
       }),
     );
     navigation?.setParams({
@@ -71,7 +96,11 @@ const AddTask = ({route, navigation}: any) => {
     });
   }, [dataSource]);
 
-  
+  const updateSwitch = (index: number) => {
+    let tempArr: Item[] = [...dataSource];
+    tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
+    setDataSource(tempArr);
+  };
 
   return (
     <ModalView bgColor={colors.card}>
@@ -90,8 +119,12 @@ const AddTask = ({route, navigation}: any) => {
               rightIcon={item.rightIcon}
               showRightSwitch={item.showRightSwitch}
               rightSwitchVal={item.rightSwitchVal}
-              onChangeSwitch={item.onChangeSwitch}
+              onChangeSwitch={() => updateSwitch(index)}
+              keyboardType={item?.keyboardType}
               mode={item?.mode}
+              onPress={() =>
+                SelectItems(item, index, navigation, route, 'NewSlaPlans', 'Stack1')
+              }
             />
           ))}
         </View>
@@ -100,4 +133,4 @@ const AddTask = ({route, navigation}: any) => {
   );
 };
 
-export default AddTask;
+export default NewSlaPlans;

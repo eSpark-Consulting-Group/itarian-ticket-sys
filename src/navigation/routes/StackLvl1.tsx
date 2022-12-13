@@ -23,6 +23,10 @@ import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
 import {Post} from '../../screens';
 import NewTeam from '../../forms/NewTeam';
 import {addTeam, updateTeam} from '../../screens/Teams/utils/functions';
+import NewSlaPlans from '../../forms/NewSlaPlans';
+import { addSlaPlans, updateSlaPlan } from '../../screens/SlaPlans/utils/functions';
+import TicketPriorityDetails from '../../screens/TicketPriorities/View/TicketPriorities/index';
+import NewTicketPriorities from '../../forms/NewTicketPriorities';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -38,7 +42,10 @@ export type RootStackParamList = {
   Post: {id: string};
   TeamDetails: undefined;
   SlaPlanDetails: undefined;
+  TicketPriorityDetails: undefined;
   NewTeam: {title: string};
+  NewSlaPlans: {title: string};
+  NewTicketPriorities: {title: string};
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -276,8 +283,7 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
-
-    <Stack.Screen
+      <Stack.Screen
         name="SlaPlanDetails"
         component={SlaPlanDetails}
         options={({route, navigation}: any) => ({
@@ -292,43 +298,90 @@ const StackLvl1 = ({route, navigation}: any) => {
               onPress={() => navigation.goBack()}
             />
           ),
-          headerRight: () => (
-            <FA
-              size={27}
-              name="save"
-              color={'#fff'}
-              onPress={() => {
-                const data = dataFormatter(route?.params?.data);
-                const obj = {
-                  data: {
-                    id: data?.id,
-                    type: 'teams',
-                    attributes: {
-                      name: data?.TeamName,
-                      status: Boolean(data?.Status),
-                      admin_notes: data?.AdminNotes,
-                    },
-                    relationships: {
-                      teamlead: {
-                        data: {
-                          type: 'users',
-                          id: data?.TeamLead[0]?.id,
-                        },
+          headerRight: () => {
+            console.log("route?.params?.data", route?.params?.data);
+            return (
+              (route?.params?.data?.length > 2 && route?.params?.data[1]?.title != "Default") && 
+              <FA
+                size={27}
+                name="save"
+                color={'#fff'}
+                onPress={() => {
+                  const data = dataFormatter(route?.params?.data, '_');
+                  const obj = {
+                    data: {
+                      id: data?.id,
+                      type: 'slaplans',
+                      attributes: {
+                        name: data?.name,
+                        status: data?.Status,
+                        grace_period: data?.grace_period,
+                        admin_note: data?.admin_note,
                       },
                     },
-                  },
-                };
-                checkValidations(
-                  navigation,
-                  route,
-                  globalStates,
-                  updateTeam,
-                  obj,
-                  'Team updated successfully',
-                );
-              }}
+                  };
+                  checkValidations(
+                    navigation,
+                    route,
+                    globalStates,
+                    updateSlaPlan,
+                    obj,
+                    'SlaPlan updated successfully',
+                  );
+                }}
+              />
+            )
+          },
+        })}
+      />
+       <Stack.Screen
+        name="TicketPriorityDetails"
+        component={TicketPriorityDetails}
+        options={({route, navigation}: any) => ({
+          title: 'Ticket Priority Details',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
             />
           ),
+          headerRight: () => {
+            return (
+              (route?.params?.data?.length > 2 && route?.params?.data[1]?.title != "Default") && 
+              <FA
+                size={27}
+                name="save"
+                color={'#fff'}
+                onPress={() => {
+                  const data = dataFormatter(route?.params?.data, '_');
+                  const obj = {
+                    data: {
+                      id: data?.id,
+                      type: 'slaplans',
+                      attributes: {
+                        name: data?.name,
+                        status: data?.Status,
+                        grace_period: data?.grace_period,
+                        admin_note: data?.admin_note,
+                      },
+                    },
+                  };
+                  checkValidations(
+                    navigation,
+                    route,
+                    globalStates,
+                    updateSlaPlan,
+                    obj,
+                    'SlaPlan updated successfully',
+                  );
+                }}
+              />
+            )
+          },
         })}
       />
       <Stack.Screen
@@ -397,6 +450,85 @@ const StackLvl1 = ({route, navigation}: any) => {
                   },
                 };
                 checkValidations(navigation, route, globalStates, addTeam, obj);
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewSlaPlans"
+        component={NewSlaPlans}
+        options={({route, navigation}: any) => ({
+          title: 'New Sla Plans',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj = {
+                  data: {
+                    type: 'slaplans',
+                    attributes: {
+                      name: data?.name,
+                      status: data?.Status,
+                      grace_period: data?.grace_period,
+                      admin_note: data?.admin_note,
+                    },
+                  },
+                };
+                console.log("obj obj", obj);
+                checkValidations(navigation, route, globalStates, addSlaPlans, obj);
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewTicketPriorities"
+        component={NewTicketPriorities}
+        options={({route, navigation}: any) => ({
+          title: 'New Ticket Priorities',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj = {
+                  data: {
+                    type: 'slaplans',
+                    attributes: {
+                      name: data?.name,
+                      status: data?.Status,
+                      // grace_period: data?.grace_period,
+                      admin_note: data?.admin_note,
+                    },
+                  },
+                };
+                checkValidations(navigation, route, globalStates, addSlaPlans, obj);
               }}
             />
           ),

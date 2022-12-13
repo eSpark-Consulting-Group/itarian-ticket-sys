@@ -24,6 +24,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
+import OI from 'react-native-vector-icons/Octicons';
 import {State, useHookstate} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar} from 'react-native-paper';
@@ -40,6 +41,7 @@ import {
   SendFeedback,
   Profile,
   Teams,
+  TicketPriorities,
   SlaPlans,
 } from '../../screens';
 import {ParamList} from '../../types';
@@ -370,6 +372,20 @@ const Draw = () => {
         options={{
           headerRight: noHeader,
           drawerItemStyle: {display: 'none'},
+        }}
+      />
+      <Drawer.Screen
+        name="TicketPriorities"
+        component={TicketPriorities}
+        options={{
+          headerTitle: () => <CstmHeader title="Ticket Priorities" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Ticket Priorities</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <OI name="north-star" size={size} color={color} />
+          ),
+          headerRight: noHeader,
         }}
       />
     </Drawer.Navigator>

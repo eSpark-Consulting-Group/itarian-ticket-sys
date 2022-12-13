@@ -193,6 +193,7 @@ export type ParamList = {
   Teams: undefined;
   SlaPlan: undefined;
   TicketPriorities: undefined;
+  Departments: undefined;
 };
 
 export type Stopwatch = {

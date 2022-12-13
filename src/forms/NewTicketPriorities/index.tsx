@@ -19,7 +19,7 @@ const NewTicketPriorities = ({route, navigation}: any) => {
         showRightSwitch: true,
       },
       {
-        title: "Is Public",
+        title: "IsPublic",
         enable: true,
         rightSwitchVal: true,
         showRightSwitch: true,

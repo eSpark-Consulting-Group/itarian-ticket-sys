@@ -24,9 +24,15 @@ import {Post} from '../../screens';
 import NewTeam from '../../forms/NewTeam';
 import {addTeam, updateTeam} from '../../screens/Teams/utils/functions';
 import NewSlaPlans from '../../forms/NewSlaPlans';
-import { addSlaPlans, updateSlaPlan } from '../../screens/SlaPlans/utils/functions';
+import {
+  addSlaPlans,
+  updateSlaPlan,
+} from '../../screens/SlaPlans/utils/functions';
 import TicketPriorityDetails from '../../screens/TicketPriorities/View/TicketPriorities/index';
 import NewTicketPriorities from '../../forms/NewTicketPriorities';
+import DepartmentDetails  from '../../screens/Departments/View/Department/index'
+import {addTicketPriorities, updateTicketPriorities} from '../../screens/TicketPriorities/utils/functions';
+import { updateDepartment } from '../../screens/Departments/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -43,6 +49,7 @@ export type RootStackParamList = {
   TeamDetails: undefined;
   SlaPlanDetails: undefined;
   TicketPriorityDetails: undefined;
+  DepartmentDetails: undefined;
   NewTeam: {title: string};
   NewSlaPlans: {title: string};
   NewTicketPriorities: {title: string};
@@ -299,42 +306,44 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
           headerRight: () => {
-            console.log("route?.params?.data", route?.params?.data);
+            console.log('route?.params?.data', route?.params?.data);
             return (
-              (route?.params?.data?.length > 2 && route?.params?.data[1]?.title != "Default") && 
-              <FA
-                size={27}
-                name="save"
-                color={'#fff'}
-                onPress={() => {
-                  const data = dataFormatter(route?.params?.data, '_');
-                  const obj = {
-                    data: {
-                      id: data?.id,
-                      type: 'slaplans',
-                      attributes: {
-                        name: data?.name,
-                        status: data?.Status,
-                        grace_period: data?.grace_period,
-                        admin_note: data?.admin_note,
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'slaplans',
+                        attributes: {
+                          name: data?.name,
+                          status: data?.Status,
+                          grace_period: data?.grace_period,
+                          admin_note: data?.admin_note,
+                        },
                       },
-                    },
-                  };
-                  checkValidations(
-                    navigation,
-                    route,
-                    globalStates,
-                    updateSlaPlan,
-                    obj,
-                    'SlaPlan updated successfully',
-                  );
-                }}
-              />
-            )
+                    };
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateSlaPlan,
+                      obj,
+                      'SlaPlan updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
           },
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="TicketPriorityDetails"
         component={TicketPriorityDetails}
         options={({route, navigation}: any) => ({
@@ -351,36 +360,95 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => {
             return (
-              (route?.params?.data?.length > 2 && route?.params?.data[1]?.title != "Default") && 
-              <FA
-                size={27}
-                name="save"
-                color={'#fff'}
-                onPress={() => {
-                  const data = dataFormatter(route?.params?.data, '_');
-                  const obj = {
-                    data: {
-                      id: data?.id,
-                      type: 'slaplans',
-                      attributes: {
-                        name: data?.name,
-                        status: data?.Status,
-                        grace_period: data?.grace_period,
-                        admin_note: data?.admin_note,
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'ticketpriorities',
+                        attributes: {
+                          name: data?.name,
+                          description: data?.description,
+                          status: data?.Status,
+                          color: data?.color,
+                          is_public: data?.IsPublic,
+                        },
                       },
-                    },
-                  };
-                  checkValidations(
-                    navigation,
-                    route,
-                    globalStates,
-                    updateSlaPlan,
-                    obj,
-                    'SlaPlan updated successfully',
-                  );
-                }}
-              />
-            )
+                    };
+                    
+                    console.log("obj obj updateTicketPriorities", obj);
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateTicketPriorities,
+                      obj,
+                      'Ticket Priority updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="DepartmentDetails"
+        component={DepartmentDetails}
+        options={({route, navigation}: any) => ({
+          title: 'Department Details',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => {
+            return (
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'departments',
+                        attributes: {
+                          name: data?.name,
+                          description: data?.description,
+                          status: data?.Status,
+                          color: data?.color,
+                          is_public: data?.IsPublic,
+                        },
+                      },
+                    };
+                    
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateDepartment,
+                      obj,
+                      'Depart updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
           },
         })}
       />
@@ -488,8 +556,14 @@ const StackLvl1 = ({route, navigation}: any) => {
                     },
                   },
                 };
-                console.log("obj obj", obj);
-                checkValidations(navigation, route, globalStates, addSlaPlans, obj);
+                console.log('obj obj', obj);
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addSlaPlans,
+                  obj,
+                );
               }}
             />
           ),
@@ -519,16 +593,23 @@ const StackLvl1 = ({route, navigation}: any) => {
                 const data = dataFormatter(route?.params?.data, '_');
                 const obj = {
                   data: {
-                    type: 'slaplans',
+                    type: 'ticketpriorities',
                     attributes: {
                       name: data?.name,
+                      description: data?.description,
                       status: data?.Status,
-                      // grace_period: data?.grace_period,
-                      admin_note: data?.admin_note,
+                      color: data?.color,
+                      is_public: data?.IsPublic,
                     },
                   },
                 };
-                checkValidations(navigation, route, globalStates, addSlaPlans, obj);
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addTicketPriorities,
+                  obj,
+                );
               }}
             />
           ),

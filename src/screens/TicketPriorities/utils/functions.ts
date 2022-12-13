@@ -5,7 +5,7 @@ import { globalState } from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
 const getAllTicketPriorities = async () => {
-  const user: any = userStore.get()?.user;
+  const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
@@ -20,14 +20,14 @@ const getAllTicketPriorities = async () => {
   }
 };
 
-const addSlaPlans = async (data: any) => {
-  const user: any = userStore.get()?.user;
+const addTicketPriorities = async (data: any) => {
+  const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.post('/slaplans', data);
+    const result: any = await api.post('/ticketpriorities', data);
     console.log('result addSlaPlans', result);
     if (result?.ok) {
       getAllTicketPriorities();
@@ -39,14 +39,14 @@ const addSlaPlans = async (data: any) => {
   }
 };
 
-const deleteSlaPlan = async (id: number) => {
-  const user: any = userStore.get()?.user;
+const deletePriorities = async (id: number) => {
+  const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.delete(`/slaplans/${id}`);
+    const result: any = await api.delete(`/ticketpriorities/${id}`);
     if (result?.ok) {
       getAllTicketPriorities();
       showMessage({
@@ -62,14 +62,14 @@ const deleteSlaPlan = async (id: number) => {
   }
 };
 
-const updateSlaPlan = async (data: any) => {
-  const user: any = userStore.get()?.user;
+const updateTicketPriorities = async (data: any) => {
+  const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.patch(`/slaplans/${data?.data?.id}`, data);
+    const result: any = await api.patch(`/ticketpriorities/${data?.data?.id}`, data);
     console.log('result updateSlaPlan', result);
     if (result?.ok) {
       getAllTicketPriorities();
@@ -81,4 +81,4 @@ const updateSlaPlan = async (data: any) => {
   }
 };
 
-export {getAllTicketPriorities, addSlaPlans, deleteSlaPlan, updateSlaPlan};
+export {getAllTicketPriorities, addTicketPriorities, deletePriorities, updateTicketPriorities};

@@ -43,6 +43,7 @@ import {
   Teams,
   TicketPriorities,
   SlaPlans,
+  Departments,
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -384,6 +385,20 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <OI name="north-star" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />
+      <Drawer.Screen
+        name="Departments"
+        component={Departments}
+        options={{
+          headerTitle: () => <CstmHeader title="Departments" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Departments</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="home-group" size={size} color={color} />
           ),
           headerRight: noHeader,
         }}

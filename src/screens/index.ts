@@ -11,6 +11,7 @@ import Post from './SendFeedback/View/Post';
 import Teams from './Teams';
 import TicketPriorities from './TicketPriorities';
 import SlaPlans from './SlaPlans';
+import Departments from './Departments';
 export {
   Login,
   PinScreen,
@@ -25,5 +26,6 @@ export {
   Post,
   Teams,
   TicketPriorities,
-  SlaPlans
+  SlaPlans,
+  Departments
 };

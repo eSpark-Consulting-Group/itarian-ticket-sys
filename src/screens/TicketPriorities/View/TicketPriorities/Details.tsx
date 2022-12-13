@@ -15,7 +15,7 @@ import {Divider} from 'react-native-paper';
 import {FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
 import {SelectFields} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
-import { deleteSlaPlan } from '../../utils/functions';
+import { deletePriorities } from '../../utils/functions';
 
 interface Item {
   title: string;
@@ -53,7 +53,7 @@ export default function Details() {
       showRightSwitch: true,
     },
     {
-      title: "Is Public",
+      title: "IsPublic",
       enable: true,
       rightSwitchVal: Boolean(ticketPriorityDetails?.attributes?.is_public),
       showRightSwitch: true,
@@ -117,9 +117,9 @@ export default function Details() {
     );
   };
 
-  const deleteTeamFunc = (id: number) => {
+  const deleteFunc = (id: number) => {
     setLoader(true)
-    deleteSlaPlan(id)
+    deletePriorities(id)
     .then(res => {
       setLoader(false)
       if(res?.status) {
@@ -184,7 +184,7 @@ export default function Details() {
               {
                 text: 'Yes',
                 style: 'default',
-                onPress: () => deleteTeamFunc(ticketPriorityDetails?.id),
+                onPress: () => deleteFunc(ticketPriorityDetails?.id),
               },
               {
                 text: 'No',

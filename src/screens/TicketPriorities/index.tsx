@@ -81,7 +81,7 @@ const TicketPriorities = ({navigation}: {navigation: NavigationProp<any,any> }) 
         }}>
         <SearchBar
           withTag={false}
-          placeholder={'Search Sla Plan'}
+          placeholder={'Search Ticket Priority'}
           fontSize={'large'}
           value={searchValue}
           setChangeText={value => setSearchValue(value)}
@@ -157,7 +157,7 @@ export const RenderTickets = ({
 const NotFound = (): JSX.Element => {
   return (
     <View style={styles.content}>
-      <EmptyListMsg label="Sla Plans" />
+      <EmptyListMsg label="Ticket Priority" />
     </View>
   );
 };

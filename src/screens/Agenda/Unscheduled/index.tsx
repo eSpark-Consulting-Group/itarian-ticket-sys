@@ -26,12 +26,6 @@ const UnscheduledTab = ({navigation}: any) => {
         screen: 'NewTicket',
       });
     };
-    // tempArr[1].onPress = () => {
-    //   navigation.navigate('Stack1', {
-    //     screen: 'AddMiscSchedule',
-    //     params: {from: 'agenda'},
-    //   });
-    // };
     setActionButtons(tempArr);
   };
 

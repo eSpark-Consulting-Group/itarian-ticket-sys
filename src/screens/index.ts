@@ -9,6 +9,7 @@ import Profile from './Profile';
 import OTPScreen from './Auth/OTPScreen';
 import Post from './SendFeedback/View/Post';
 import Teams from './Teams';
+import TicketPriorities from './TicketPriorities';
 import SlaPlans from './SlaPlans';
 export {
   Login,
@@ -23,5 +24,6 @@ export {
   OTPScreen,
   Post,
   Teams,
-  SlaPlans,
+  TicketPriorities,
+  SlaPlans
 };

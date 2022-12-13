@@ -82,4 +82,5 @@ export const globalState = hookstate({
   ticketPriorities: [],
   teams: [],
   slaPlans: [],
+  ticketpriorities: []
 });

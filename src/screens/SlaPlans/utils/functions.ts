@@ -20,64 +20,65 @@ const getAllSlaPlans = async () => {
   }
 };
 
-const addTeam = async (data: any) => {
+const addSlaPlans = async (data: any) => {
   const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.post('/teams', data);
-    console.log('result addTeam', result);
+    const result: any = await api.post('/slaplans', data);
+    console.log('result addSlaPlans', result);
     if (result?.ok) {
       getAllSlaPlans();
       return {status: true};
     }
   } catch (error) {
-    console.log('error addTeam', error);
+    console.log('error addSlaPlans', error);
     return {status: true, message: error};
   }
 };
 
-const deleteTeams = async (id: number) => {
+const deleteSlaPlan = async (id: number) => {
   const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.delete(`/teams/${id}`);
+    const result: any = await api.delete(`/slaplans/${id}`);
     if (result?.ok) {
       getAllSlaPlans();
       showMessage({
-        message: 'Teams deleted successfully',
+        message: 'SlaPlan deleted successfully',
         type: 'success',
         duration: alert_Dur,
       });
       return {status: true};
     }
   } catch (error) {
-    console.log('error getAllUsers', error);
+    console.log('error deleteSlaPlan', error);
     return {status: false};
   }
 };
 
-const updateTeam = async (data: any) => {
+const updateSlaPlan = async (data: any) => {
   const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.patch(`/teams/${data?.data?.id}`, data);
-    console.log('result updateTeam', result);
+    const result: any = await api.patch(`/slaplans/${data?.data?.id}`, data);
+    console.log('result updateSlaPlan', result);
     if (result?.ok) {
       getAllSlaPlans();
       return {status: true};
     }
   } catch (error) {
-    console.log('error updateTeam', error);
+    console.log('error updateSlaPlan', error);
     return {status: true, message: error};
   }
 };
-export {getAllSlaPlans, addTeam, deleteTeams, updateTeam};
+
+export {getAllSlaPlans, addSlaPlans, deleteSlaPlan, updateSlaPlan};

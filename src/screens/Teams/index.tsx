@@ -95,7 +95,7 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderContacts listData={filteredContacts} />
+        <RenderTeams listData={filteredContacts} />
       )}
       <FloatButton 
        onPress={() => navigation.navigate('Stack1', {screen: 'NewTeam'})}
@@ -104,7 +104,7 @@ const Teams = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   );
 };
 
-export const RenderContacts = ({
+export const RenderTeams = ({
   listData = contactsList,
 }: {
   listData?: Contact[];

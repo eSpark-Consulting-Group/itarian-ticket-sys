@@ -307,6 +307,16 @@ export type Canny_CreateUser = {
   userID: string;
 };
 
+export type Vote = {
+  userID: string;
+  postID: string;
+};
+
+export type Vote_CD = {
+  voterID: string;
+  postID: string;
+};
+
 /*
 //* Enum's for all Types/Interfaces
 */

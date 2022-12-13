@@ -21,7 +21,7 @@ import {
   Loader,
   NotFound,
 } from '../../components';
-import {getPosts, getUserByUserId} from './utils';
+import {getPosts, getUserByUserId, createUser} from './utils';
 import {CannyPosts} from '../../types';
 import {SCREEN_HEIGHT} from '../../constants';
 
@@ -33,46 +33,78 @@ const SendFeedbackScreen = () => {
   const [limit, setLimit] = useState<number>(10);
   const [itemsLoader, setItemsLoader] = useState(false);
   const [cannyUser, setCannyUser] = useState<Canny_CreateUser>();
-
   const userObj: State<User> = useHookstate(userStore);
-  console.log('kia ha user oject=====>>>>', userObj?.user?.userId?.get());
+  const {email, user_name, userId}: any = userObj?.user.get();
 
   useEffect(() => {
     // call the function
-    fetchUser('7884157c-1332-4f10-95a6-b9a22ca5507b');
-    // fetchPosts();
+    // Test wiz userID: '7884157c-1332-4f10-95a6-b9a22ca5507b'
+    console.log('what is the userId', userId);
+    fetchUser(userId);
     return () => {
       setLimit(10);
     };
   }, []);
 
-  const fetchUser = async (userId: string) => {
-    getUserByUserId({userID: userId})
-      .then(res => {
-        if (res?.ok) {
-          console.log('response', res.data);
-          setCannyUser(res?.data);
-          fetchPosts();
-          //* User found
-          //todo: Show post and store in state userId of User
-        } else {
-          console.log('error', res?.data);
-          //! no User Found
-          //todo: Create User then show posts
-        }
-      })
-      .catch();
-    console.log('user', userId);
+  const fetchUser = async (userId?: string) => {
+    console.log(userId);
+    if (userId) {
+      setLoading(true);
+      getUserByUserId({userID: userId})
+        .then(res => {
+          if (res?.ok) {
+            console.log('User already created!', res?.data);
+            setCannyUser(res?.data);
+            fetchPosts();
+            //* User found
+            //todo: Show post and store in state userId of User
+          } else {
+            if (res?.data?.error === 'invalid userID') {
+              setPostsData([]);
+              handleCreateUser();
+              //! No User Found
+              //todo: Create User then show posts
+            }
+            console.log('error', res?.data);
+          }
+        })
+        .catch(err => {
+          console.log('user', err);
+          setLoading(false);
+        });
+    }
   };
 
-  const handleCreateUser = async () => {};
+  const handleCreateUser = async () => {
+    const data: Canny_CreateUser = {
+      email: email,
+      name: user_name,
+      userID: userId,
+    };
+    createUser(data)
+      .then(res => {
+        if (res?.ok) {
+          console.log('User Created Sucessfully', res?.data);
+          setCannyUser(res?.data);
+          fetchPosts();
+          //* User Created Sucessfully
+          //todo: Show posts now and store userId
+        } else {
+          //! User not Created Sucessfully
+          console.log('error', res?.data);
+          setLoading(false);
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        console.log('Error on Api CreateUser');
+      });
+  };
 
   const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
     console.log(req);
     if (bottomLoader) {
       setItemsLoader(true);
-    } else {
-      setLoading(true);
     }
     getPosts(req)
       .then(res => {
@@ -109,9 +141,12 @@ const SendFeedbackScreen = () => {
           elevation: 2,
           backgroundColor: colors.background,
         }}
-        onPress={() =>
-          navigation.navigate('Stack1', {screen: 'Post', params: {id: item.id}})
-        }>
+        onPress={() => {
+          navigation.navigate('Stack1', {
+            screen: 'Post',
+            params: {id: item.id, userInfo: cannyUser},
+          });
+        }}>
         <View
           style={{
             flex: 0.25,

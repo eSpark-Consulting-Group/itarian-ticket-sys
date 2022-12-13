@@ -10,6 +10,8 @@ import {
   CannyPosts,
   Canny_CreatePost,
   Canny_CreateUser,
+  Vote,
+  Vote_CD,
 } from '../../../types';
 
 const getCategories = async (req?: CannyCategory) => {
@@ -72,7 +74,10 @@ const createPost = async (req?: Canny_CreatePost) => {
 const getUserByUserId = async (req?: {userID?: string}) => {
   const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
   try {
-    const res = await cannyApi.post<Canny_CreateUser>('/users/retrieve', data);
+    const res = await cannyApi.post<Canny_CreateUser & {error: string}>(
+      '/users/retrieve',
+      data,
+    );
     return res;
   } catch (err) {
     console.log('Error on create post', err);
@@ -83,7 +88,46 @@ const getUserByUserId = async (req?: {userID?: string}) => {
 const createUser = async (req?: Canny_CreateUser) => {
   const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
   try {
-    const res = await cannyApi.post('/users/create_or_update', data);
+    const res = await cannyApi.post<Canny_CreateUser>(
+      '/users/create_or_update',
+      data,
+    );
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+const fetchVotes = async (req?: Vote) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post<{hasMore: boolean; votes: any[]}>(
+      '/votes/list',
+      data,
+    );
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+const createVote = async (req?: Vote_CD) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/votes/create', data);
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+const deleteVote = async (req?: Vote_CD) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/votes/delete', data);
     return res;
   } catch (err) {
     console.log('Error on create post', err);
@@ -99,4 +143,7 @@ export {
   createPost,
   getUserByUserId,
   createUser,
+  fetchVotes,
+  createVote,
+  deleteVote,
 };

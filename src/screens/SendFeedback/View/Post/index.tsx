@@ -9,9 +9,13 @@ import moment from 'moment';
 import {
   getPostbyId as getPostDetails,
   getCommentsByPostId as getComments,
+  fetchVotes,
+  createVote,
+  deleteVote,
 } from '../../utils';
 import {CstmPressable, GapView, Loader} from '../../../../components';
 import {WINDOW_HEIGHT} from '../../../../constants';
+import {Vote, Vote_CD} from '../../../../types';
 
 export default function Post() {
   const {colors, dark} = useTheme();
@@ -20,21 +24,26 @@ export default function Post() {
   const [commLoad, setCommLoad] = useState(false);
   const [postDetail, setPostDetail] = useState<any>({});
   const [commDetail, setCommDetail] = useState<any>({});
+  const [userVoted, setUserVoted] = useState<boolean>(false);
+  const {id, userInfo} = route?.params;
 
   useEffect(() => {
-    const {id} = route?.params;
-    console.log(id);
-    fetchPostDetail(id);
+    console.log(id, userInfo);
+    fetchPostDetail(id, false);
     fetchPostComments(id);
+    //? will fetch votes for current user for the current post
   }, [route?.params]);
 
-  const fetchPostDetail = (id: string) => {
+  const fetchPostDetail = (id: string, voteFlag?: boolean) => {
     // call the function
-    setLoading(true);
+    if (!voteFlag) {
+      setLoading(true);
+    }
     getPostDetails({id})
       .then(res => {
         if (res.ok) {
           handlePostDetails(res?.data);
+          fetchPostVotes({postID: id, userID: userInfo.id});
         }
       })
       // make sure to catch any error
@@ -53,6 +62,42 @@ export default function Post() {
       .catch(console.error);
   };
 
+  const fetchPostVotes = (req: Vote) => {
+    console.log(req);
+    fetchVotes(req)
+      .then(res => {
+        if (res.ok) {
+          console.log(res?.data);
+          if (res?.data?.votes) {
+            setUserVoted(res?.data?.votes?.length > 0 ? true : false);
+          }
+        }
+      })
+      .catch(err => console.log('err fetch vote', err));
+  };
+
+  const handleCreateVote = (req: Vote_CD) => {
+    createVote(req)
+      .then(res => {
+        if (res.ok) {
+          console.log('Created a Vote for the Post/Comment', res?.data);
+          fetchPostDetail(id, true);
+        }
+      })
+      .catch(err => console.log('err create vote', err));
+  };
+
+  const handleDeleteVote = (req: Vote_CD) => {
+    deleteVote(req)
+      .then(res => {
+        if (res.ok) {
+          console.log('Deleted a Vote for the Post/Comment', res?.data);
+          fetchPostDetail(id, true);
+        }
+      })
+      .catch(err => console.log('err delete vote', err));
+  };
+
   const handlePostDetails = (data: any) => {
     console.log('byID==>>', data);
     setPostDetail(data);
@@ -64,8 +109,6 @@ export default function Post() {
     setCommLoad(false);
     setCommDetail(data);
   };
-
-  const handleAddVote = () => {};
 
   const renderImageList = ({item, index}: {item: string; index: number}) => {
     return (
@@ -174,7 +217,11 @@ export default function Post() {
             <GapView mode="horizontal" length={20} />
             <CstmPressable
               android_ripple={{borderless: true}}
-              onPress={() => handleAddVote()}>
+              onPress={() =>
+                userVoted
+                  ? handleDeleteVote({postID: id, voterID: userInfo.id})
+                  : handleCreateVote({postID: id, voterID: userInfo.id})
+              }>
               <View style={{flexDirection: 'row'}}>
                 <MCI
                   name="arrow-up-thick"
@@ -182,7 +229,7 @@ export default function Post() {
                   style={{
                     alignSelf: 'center',
                     margin: 2,
-                    color: colors.text + '88',
+                    color: userVoted ? colors.primary : colors.text + '88',
                   }}
                 />
                 <Text
@@ -190,7 +237,7 @@ export default function Post() {
                     fontSize: 16,
                     textAlignVertical: 'center',
                     fontWeight: 'bold',
-                    color: colors.text + '88',
+                    color: userVoted ? colors.primary : colors.text + '88',
                   }}>
                   {postDetail?.score}
                 </Text>

@@ -19,31 +19,9 @@ import {
   Loader,
   SingleLineField,
 } from '../../../../components';
-import {SelectFields} from '../../../../types';
+import {SelectFields, DataItem as Item} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
 import { deleteSlaPlan } from '../../utils/functions';
-
-interface Item {
-  title: string;
-  subTitle?: string;
-  inputable?: boolean;
-  enable?: boolean;
-  rightIcon?: string;
-  rightIconRound?: string;
-  titleWidth?: number;
-  showRightSwitch?: boolean;
-  rightSwitchVal?: boolean;
-  onChangeSwitch?: (value: boolean) => void;
-  onChangeText?: (text: string) => void;
-  list?: SelectFields[];
-  selectedItem?: SelectFields;
-  searchable?: boolean;
-  headerTitle?: string;
-  keyboardType?: KeyboardTypeOptions | undefined;
-  isRequired?: boolean;
-  mode?: 'none' | 'multiline';
-  onPress?: () => void;
-}
 
 export default function Details() {
   const {colors, dark}: Theme = useTheme();
@@ -66,11 +44,13 @@ export default function Details() {
       isRequired: true,
     },
     {
-      title: teamDetails?.attributes?.grace_period ?? '',
-      subTitle: 'grace period',
-      inputable: false,
+      title: ((teamDetails?.attributes?.grace_period?.split(' ')[0])/6).toLocaleString() ?? '',
+      subTitle: 'grace period (multiple of 6)',
+      inputable: true,
       enable: false,
-      isRequired: false,
+      isRequired: true,
+      keyboardType: 'number-pad',
+      key: 'grace period',
     },
     {
       title: teamDetails?.attributes?.admin_note ?? '',
@@ -152,6 +132,7 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
+        key: item?.key
       }),
     );
     Data[Data?.length] = {

@@ -27,14 +27,14 @@ const addDepartment = async (data: any) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.post('/ticketpriorities', data);
-    console.log('result addSlaPlans', result);
+    const result: any = await api.post('/departments', data);
+    console.log('result departments', result);
     if (result?.ok) {
       getAlldepartments();
       return {status: true};
     }
   } catch (error) {
-    console.log('error addSlaPlans', error);
+    console.log('error departments', error);
     return {status: true, message: error};
   }
 };
@@ -46,18 +46,18 @@ const deleteDepartment = async (id: number) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.delete(`/ticketpriorities/${id}`);
+    const result: any = await api.delete(`/departments/${id}`);
     if (result?.ok) {
       getAlldepartments();
       showMessage({
-        message: 'SlaPlan deleted successfully',
+        message: 'Department deleted successfully',
         type: 'success',
         duration: alert_Dur,
       });
       return {status: true};
     }
   } catch (error) {
-    console.log('error deleteSlaPlan', error);
+    console.log('error departments', error);
     return {status: false};
   }
 };
@@ -69,14 +69,14 @@ const updateDepartment = async (data: any) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.patch(`/ticketpriorities/${data?.data?.id}`, data);
-    console.log('result updateSlaPlan', result);
+    const result: any = await api.patch(`/departments/${data?.data?.id}`, data);
+    console.log('result departments', result);
     if (result?.ok) {
       getAlldepartments();
       return {status: true};
     }
   } catch (error) {
-    console.log('error updateSlaPlan', error);
+    console.log('error departments', error);
     return {status: true, message: error};
   }
 };

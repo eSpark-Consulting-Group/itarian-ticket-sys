@@ -1,4 +1,4 @@
-import {ViewStyle} from 'react-native';
+import {KeyboardTypeOptions, ViewStyle} from 'react-native';
 import {User} from './globalState';
 
 /*
@@ -194,6 +194,7 @@ export type ParamList = {
   SlaPlan: undefined;
   TicketPriorities: undefined;
   Departments: undefined;
+  Locations: undefined;
 };
 
 export type Stopwatch = {
@@ -330,6 +331,28 @@ export enum NotesType {
   Comment = 'Comment',
   Informational = 'Informational',
   Technical = 'Technical',
+}
+
+export interface DataItem {
+  title: string;
+  subTitle?: string;
+  inputable?: boolean;
+  enable?: boolean;
+  rightIcon?: string;
+  rightIconRound?: string;
+  titleWidth?: number;
+  showRightSwitch?: boolean;
+  rightSwitchVal?: boolean;
+  onChangeSwitch?: (value: boolean) => void;
+  onChangeText?: (text: string) => void;
+  list?: SelectFields[];
+  selectedItem?: SelectFields;
+  searchable?: boolean;
+  headerTitle?: string;
+  keyboardType?: KeyboardTypeOptions | undefined;
+  isRequired?: boolean;
+  mode?: 'none' | 'multiline';
+  key?: string;
 }
 
 export type {User};

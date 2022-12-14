@@ -12,6 +12,8 @@ import Teams from './Teams';
 import TicketPriorities from './TicketPriorities';
 import SlaPlans from './SlaPlans';
 import Departments from './Departments';
+import Locations from './Locations';
+
 export {
   Login,
   PinScreen,
@@ -27,5 +29,6 @@ export {
   Teams,
   TicketPriorities,
   SlaPlans,
-  Departments
+  Departments,
+  Locations
 };

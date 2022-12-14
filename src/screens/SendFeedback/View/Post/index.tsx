@@ -1,6 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {Text, View, FlatList, Image, ScrollView} from 'react-native';
-import {useRoute, useTheme} from '@react-navigation/native';
+import {
+  useRoute,
+  useTheme,
+  useNavigation,
+  useFocusEffect,
+} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 // @ts-ignore
 import Pinchable from 'react-native-pinchable';
@@ -19,20 +24,24 @@ import {Vote, Vote_CD} from '../../../../types';
 
 export default function Post() {
   const {colors, dark} = useTheme();
+  const navigation: any = useNavigation();
   const route: any = useRoute();
   const [loading, setLoading] = useState(false);
   const [commLoad, setCommLoad] = useState(false);
   const [postDetail, setPostDetail] = useState<any>({});
   const [commDetail, setCommDetail] = useState<any>({});
-  const [userVoted, setUserVoted] = useState<boolean>(false);
+  const [userVoted, setuserVoted] = useState<boolean>(false);
   const {id, userInfo} = route?.params;
 
-  useEffect(() => {
-    console.log(id, userInfo);
-    fetchPostDetail(id, false);
-    fetchPostComments(id);
-    //? will fetch votes for current user for the current post
-  }, [route?.params]);
+  useFocusEffect(
+    useCallback(() => {
+      console.log(id, userInfo);
+      fetchPostDetail(id, false);
+      fetchPostComments(id);
+      fetchPostVotes({postID: id, userID: userInfo.id});
+      //? will fetch votes for current user for the current post
+    }, [route?.params]),
+  );
 
   const fetchPostDetail = (id: string, voteFlag?: boolean) => {
     // call the function
@@ -43,7 +52,6 @@ export default function Post() {
       .then(res => {
         if (res.ok) {
           handlePostDetails(res?.data);
-          fetchPostVotes({postID: id, userID: userInfo.id});
         }
       })
       // make sure to catch any error
@@ -69,7 +77,8 @@ export default function Post() {
         if (res.ok) {
           console.log(res?.data);
           if (res?.data?.votes) {
-            setUserVoted(res?.data?.votes?.length > 0 ? true : false);
+            setuserVoted(true);
+            setLoading(false);
           }
         }
       })
@@ -82,6 +91,7 @@ export default function Post() {
         if (res.ok) {
           console.log('Created a Vote for the Post/Comment', res?.data);
           fetchPostDetail(id, true);
+          setuserVoted(true);
         }
       })
       .catch(err => console.log('err create vote', err));
@@ -93,6 +103,7 @@ export default function Post() {
         if (res.ok) {
           console.log('Deleted a Vote for the Post/Comment', res?.data);
           fetchPostDetail(id, true);
+          setuserVoted(false);
         }
       })
       .catch(err => console.log('err delete vote', err));
@@ -101,7 +112,6 @@ export default function Post() {
   const handlePostDetails = (data: any) => {
     console.log('byID==>>', data);
     setPostDetail(data);
-    setLoading(false);
   };
 
   const handlePostComments = (data: any) => {
@@ -110,13 +120,22 @@ export default function Post() {
     setCommDetail(data);
   };
 
-  const renderImageList = ({item, index}: {item: string; index: number}) => {
+  const renderImageList = ({
+    item,
+    index,
+    flag,
+  }: {
+    item: string;
+    index: number;
+    flag?: boolean;
+  }) => {
     return (
       <View
         style={{
           marginTop: 10,
-          height: WINDOW_HEIGHT * 0.2,
-          width: WINDOW_HEIGHT * 0.2,
+          height: flag ? WINDOW_HEIGHT * 0.15 : WINDOW_HEIGHT * 0.2,
+          width: flag ? WINDOW_HEIGHT * 0.15 : WINDOW_HEIGHT * 0.2,
+          backgroundColor: 'pink',
         }}>
         <Pinchable>
           <Image
@@ -194,7 +213,13 @@ export default function Post() {
           <View style={{flexDirection: 'row'}}>
             <CstmPressable
               style={{flexDirection: 'row'}}
-              android_ripple={{borderless: true}}>
+              android_ripple={{borderless: true}}
+              onPress={() =>
+                navigation.navigate('Stack2', {
+                  screen: 'CreateComment',
+                  params: {...route?.params},
+                })
+              }>
               <MCI
                 name="chat"
                 size={20}
@@ -218,7 +243,7 @@ export default function Post() {
             <CstmPressable
               android_ripple={{borderless: true}}
               onPress={() =>
-                userVoted
+                userVoted == true
                   ? handleDeleteVote({postID: id, voterID: userInfo.id})
                   : handleCreateVote({postID: id, voterID: userInfo.id})
               }>
@@ -229,7 +254,8 @@ export default function Post() {
                   style={{
                     alignSelf: 'center',
                     margin: 2,
-                    color: userVoted ? colors.primary : colors.text + '88',
+                    color:
+                      userVoted == true ? colors.primary : colors.text + '88',
                   }}
                 />
                 <Text
@@ -237,7 +263,8 @@ export default function Post() {
                     fontSize: 16,
                     textAlignVertical: 'center',
                     fontWeight: 'bold',
-                    color: userVoted ? colors.primary : colors.text + '88',
+                    color:
+                      userVoted == true ? colors.primary : colors.text + '88',
                   }}>
                   {postDetail?.score}
                 </Text>
@@ -356,6 +383,16 @@ export default function Post() {
           }}>
           {item?.value}
         </Text>
+        <FlatList
+          horizontal
+          ItemSeparatorComponent={() => (
+            <GapView mode="horizontal" length={10} />
+          )}
+          data={item?.imageURLs}
+          renderItem={({item, index}) =>
+            renderImageList({item, index, flag: true})
+          }
+        />
         <GapView />
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{flexDirection: 'row'}}>
@@ -364,7 +401,17 @@ export default function Post() {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              android_ripple={{borderless: true}}>
+              android_ripple={{borderless: true}}
+              onPress={() => {
+                console.log('==xx>>>', item);
+                navigation.navigate('Stack2', {
+                  screen: 'CreateComment',
+                  params: {
+                    ...route?.params,
+                    parentID: item.parentID === null ? item.id : item.parentID,
+                  },
+                });
+              }}>
               <View style={{flexDirection: 'row'}}>
                 <MCI
                   name="chat"
@@ -392,6 +439,9 @@ export default function Post() {
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
+              }}
+              onPress={() => {
+                console.log('comment item', item);
               }}>
               <View style={{flexDirection: 'row'}}>
                 <MCI

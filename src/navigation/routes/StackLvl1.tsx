@@ -30,9 +30,12 @@ import {
 } from '../../screens/SlaPlans/utils/functions';
 import TicketPriorityDetails from '../../screens/TicketPriorities/View/TicketPriorities/index';
 import NewTicketPriorities from '../../forms/NewTicketPriorities';
-import DepartmentDetails  from '../../screens/Departments/View/Department/index'
-import {addTicketPriorities, updateTicketPriorities} from '../../screens/TicketPriorities/utils/functions';
-import { updateDepartment } from '../../screens/Departments/utils/functions';
+import DepartmentDetails from '../../screens/Departments/View/Department/index';
+import {
+  addTicketPriorities,
+  updateTicketPriorities,
+} from '../../screens/TicketPriorities/utils/functions';
+import {updateDepartment} from '../../screens/Departments/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -381,8 +384,8 @@ const StackLvl1 = ({route, navigation}: any) => {
                         },
                       },
                     };
-                    
-                    console.log("obj obj updateTicketPriorities", obj);
+
+                    console.log('obj obj updateTicketPriorities', obj);
                     checkValidations(
                       navigation,
                       route,
@@ -436,7 +439,7 @@ const StackLvl1 = ({route, navigation}: any) => {
                         },
                       },
                     };
-                    
+
                     checkValidations(
                       navigation,
                       route,

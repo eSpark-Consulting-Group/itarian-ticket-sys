@@ -42,7 +42,7 @@ import {
 } from '../../screens/Departments/utils/functions';
 import NewDepartment from '../../forms/NewDepartment';
 import NewLocation from '../../forms/NewLocation';
-import { addLocation } from '../../screens/Locations/utils/functions';
+import {addLocation} from '../../screens/Locations/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

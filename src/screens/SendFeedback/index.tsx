@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,11 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
-import {useTheme, useNavigation} from '@react-navigation/native';
+import {
+  useTheme,
+  useNavigation,
+  useFocusEffect,
+} from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useHookstate, State} from '@hookstate/core';
 import moment from 'moment';
@@ -36,15 +40,27 @@ const SendFeedbackScreen = () => {
   const userObj: State<User> = useHookstate(userStore);
   const {email, user_name, userId}: any = userObj?.user.get();
 
-  useEffect(() => {
-    // call the function
-    // Test wiz userID: '7884157c-1332-4f10-95a6-b9a22ca5507b'
-    console.log('what is the userId', userId);
-    fetchUser(userId);
-    return () => {
-      setLimit(10);
-    };
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      // call the function
+      // Test wiz userID: '7884157c-1332-4f10-95a6-b9a22ca5507b'
+      console.log('what is the userId', userId);
+      fetchUser(userId);
+      return () => {
+        setLimit(10);
+      };
+    }, []),
+  );
+
+  // useEffect(() => {
+  //   // call the function
+  //   // Test wiz userID: '7884157c-1332-4f10-95a6-b9a22ca5507b'
+  //   console.log('what is the userId', userId);
+  //   fetchUser(userId);
+  //   return () => {
+  //     setLimit(10);
+  //   };
+  // }, []);
 
   const fetchUser = async (userId?: string) => {
     console.log(userId);
@@ -110,7 +126,6 @@ const SendFeedbackScreen = () => {
       .then(res => {
         if (res.ok) {
           const {posts}: any = res?.data;
-          // console.log('data', posts);
           handlePosts(posts);
         }
       })

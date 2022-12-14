@@ -31,11 +31,18 @@ import {
 import TicketPriorityDetails from '../../screens/TicketPriorities/View/TicketPriorities/index';
 import NewTicketPriorities from '../../forms/NewTicketPriorities';
 import DepartmentDetails from '../../screens/Departments/View/Department/index';
+import LocationDetails from '../../screens/Locations/View/Location/Details';
 import {
   addTicketPriorities,
   updateTicketPriorities,
 } from '../../screens/TicketPriorities/utils/functions';
-import {updateDepartment} from '../../screens/Departments/utils/functions';
+import {
+  addDepartment,
+  updateDepartment,
+} from '../../screens/Departments/utils/functions';
+import NewDepartment from '../../forms/NewDepartment';
+import NewLocation from '../../forms/NewLocation';
+import {addLocation} from '../../screens/Locations/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -53,9 +60,12 @@ export type RootStackParamList = {
   SlaPlanDetails: undefined;
   TicketPriorityDetails: undefined;
   DepartmentDetails: undefined;
+  LocationDetails: undefined;
   NewTeam: {title: string};
   NewSlaPlans: {title: string};
   NewTicketPriorities: {title: string};
+  NewDepartment: {title: string};
+  NewLocation: {title: string};
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -326,7 +336,9 @@ const StackLvl1 = ({route, navigation}: any) => {
                         attributes: {
                           name: data?.name,
                           status: data?.Status,
-                          grace_period: data?.grace_period,
+                          grace_period: `${
+                            Number(data?.grace_period) * 6
+                          } Hours`,
                           admin_note: data?.admin_note,
                         },
                       },
@@ -432,13 +444,26 @@ const StackLvl1 = ({route, navigation}: any) => {
                         type: 'departments',
                         attributes: {
                           name: data?.name,
-                          description: data?.description,
-                          status: data?.Status,
-                          color: data?.color,
+                          is_default: data?.IsDefault,
                           is_public: data?.IsPublic,
+                        },
+                        relationships: {
+                          mainstaff: {
+                            data: {
+                              type: 'users',
+                              id: data?.Manager?.id,
+                            },
+                          },
+                          slaplan: {
+                            data: {
+                              type: 'slaplans',
+                              id: data?.Sla_Plan?.id,
+                            },
+                          },
                         },
                       },
                     };
+                    console.log('obj obj', obj);
 
                     checkValidations(
                       navigation,
@@ -446,7 +471,74 @@ const StackLvl1 = ({route, navigation}: any) => {
                       globalStates,
                       updateDepartment,
                       obj,
-                      'Depart updated successfully',
+                      'Department updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="LocationDetails"
+        component={LocationDetails}
+        options={({route, navigation}: any) => ({
+          title: 'Location Details',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => {
+            return (
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'departments',
+                        attributes: {
+                          name: data?.name,
+                          is_default: data?.IsDefault,
+                          is_public: data?.IsPublic,
+                        },
+                        relationships: {
+                          mainstaff: {
+                            data: {
+                              type: 'users',
+                              id: data?.Manager?.id,
+                            },
+                          },
+                          slaplan: {
+                            data: {
+                              type: 'slaplans',
+                              id: data?.Sla_Plan?.id,
+                            },
+                          },
+                        },
+                      },
+                    };
+                    console.log('obj obj', obj);
+
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateDepartment,
+                      obj,
+                      'Location updated successfully',
                     );
                   }}
                 />
@@ -554,12 +646,12 @@ const StackLvl1 = ({route, navigation}: any) => {
                     attributes: {
                       name: data?.name,
                       status: data?.Status,
-                      grace_period: data?.grace_period,
+                      grace_period: `${Number(data?.grace_period) * 6} Hours`,
                       admin_note: data?.admin_note,
                     },
                   },
                 };
-                console.log('obj obj', obj);
+                console.log('obj obj', obj, data);
                 checkValidations(
                   navigation,
                   route,
@@ -611,6 +703,113 @@ const StackLvl1 = ({route, navigation}: any) => {
                   route,
                   globalStates,
                   addTicketPriorities,
+                  obj,
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewDepartment"
+        component={NewDepartment}
+        options={({route, navigation}: any) => ({
+          title: 'New Department',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj = {
+                  data: {
+                    type: 'departments',
+                    attributes: {
+                      name: data?.name,
+                      is_default: data?.IsDefault,
+                      is_public: data?.IsPublic,
+                    },
+                    relationships: {
+                      mainstaff: {
+                        data: {
+                          type: 'users',
+                          id: data?.Manager?.id,
+                        },
+                      },
+                      slaplan: {
+                        data: {
+                          type: 'slaplans',
+                          id: data?.Sla_Plan?.id,
+                        },
+                      },
+                    },
+                  },
+                };
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addDepartment,
+                  obj,
+                );
+              }}
+            />
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="NewLocation"
+        component={NewLocation}
+        options={({route, navigation}: any) => ({
+          title: 'New Location',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj = {
+                  data: {
+                    type: 'locations',
+                    attributes: {
+                      title: data?.title,
+                      country: data?.country,
+                      state: data?.state,
+                      phone: data?.phone,
+                      city: data?.city,
+                      pin_code: data?.pin_code,
+                      address: data?.address,
+                    },
+                  },
+                };
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addLocation,
                   obj,
                 );
               }}

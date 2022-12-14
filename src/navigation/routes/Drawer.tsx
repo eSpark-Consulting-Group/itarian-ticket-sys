@@ -25,6 +25,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import OI from 'react-native-vector-icons/Octicons';
+import EI from 'react-native-vector-icons/Entypo'
 import {State, useHookstate} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar} from 'react-native-paper';
@@ -44,6 +45,7 @@ import {
   TicketPriorities,
   SlaPlans,
   Departments,
+  Locations
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -53,6 +55,7 @@ import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
 import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
 import {updateUser} from '../../screens/Profile/utils';
+
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -399,6 +402,20 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <MCI name="home-group" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />
+      <Drawer.Screen
+        name="Locations"
+        component={Locations}
+        options={{
+          headerTitle: () => <CstmHeader title="Locations" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Locations</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <EI name="location" size={size} color={color} />
           ),
           headerRight: noHeader,
         }}

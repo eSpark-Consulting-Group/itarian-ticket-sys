@@ -52,7 +52,7 @@ export default function Details() {
   const [loader, setLoader] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: 'isDefault',
+      title: 'IsDefault',
       enable: true,
       rightSwitchVal: Boolean(departmentDetails?.attributes?.is_default),
       showRightSwitch: true,
@@ -80,7 +80,7 @@ export default function Details() {
         ?.filter(
           (value: any) =>
             value?.id == departmentDetails?.attributes?.mainstaff?.id,
-        ),
+        )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -100,10 +100,10 @@ export default function Details() {
         ?.filter(
           (value: any) =>
             value?.id == departmentDetails?.attributes?.slaplan?.id,
-        ),
+        )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
-      isRequired: false,
+      isRequired: true,
     },
   ]);
 
@@ -137,7 +137,14 @@ export default function Details() {
         keyboardType={item?.keyboardType}
         mode={item?.mode}
         onPress={() =>
-          SelectItems(item, index, navigation, routes, 'DepartmentDetails', 'Stack1')
+          SelectItems(
+            item,
+            index,
+            navigation,
+            routes,
+            'DepartmentDetails',
+            'Stack1',
+          )
         }
       />
     );
@@ -189,8 +196,6 @@ export default function Details() {
     });
   }, [dataSource]);
 
-  console.log('slaplans slaplans', slaplans.get());
-
   return (
     <View style={{flex: 1}}>
       <Loader isShow={loader} />
@@ -207,8 +212,8 @@ export default function Details() {
           icon="delete"
           onPress={() => {
             Alert.alert(
-              'Delete Sla Plan?',
-              'Are you sure you want to delete this Sla Plan permanently?',
+              'Delete Department?',
+              'Are you sure you want to delete this Department permanently?',
               [
                 {
                   text: 'Yes',

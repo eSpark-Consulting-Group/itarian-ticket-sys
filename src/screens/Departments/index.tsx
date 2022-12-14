@@ -99,7 +99,7 @@ const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
         <RenderDepartment listData={filteredContacts} />
       )}
       <FloatButton 
-       onPress={() => navigation.navigate('Stack1', {screen: 'DepartmentDetails'})}
+       onPress={() => navigation.navigate('Stack1', {screen: 'NewDepartment'})}
       />
     </View>
   );

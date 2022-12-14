@@ -10,6 +10,7 @@ import {showMessage} from 'react-native-flash-message';
 import {NoteTypes, SelectFields} from '../types';
 import {Buffer} from 'buffer';
 import {alert_Dur} from '../constants';
+
 export const getNavigtionApps = async () => {
   const Androidpackages = [
     {package: 'com.waze', name: 'Waze'},
@@ -292,7 +293,7 @@ export const dataFormatter = (array: any = [], replacer: string = '') => {
   var dataObj: any = {};
   [...array]?.map(val => {
     dataObj[
-      val?.subTitle?.replace(' ', replacer) ?? val?.title.replace(' ', replacer)
+      (val?.key?.replace(' ', replacer)) ?? (val?.subTitle?.replace(' ', replacer) ?? val?.title.replace(' ', replacer))
     ] = !val?.subTitle
       ? val?.rightSwitchVal
       : val?.selectedItem

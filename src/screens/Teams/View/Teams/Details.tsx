@@ -73,7 +73,7 @@ export default function Details() {
         .get()
         ?.filter(
           (value: any) => value?.id == teamDetails?.attributes?.teamlead?.id,
-        ),
+        )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,

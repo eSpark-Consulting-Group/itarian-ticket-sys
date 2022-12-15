@@ -31,7 +31,8 @@ import {
 import TicketPriorityDetails from '../../screens/TicketPriorities/View/TicketPriorities/index';
 import NewTicketPriorities from '../../forms/NewTicketPriorities';
 import DepartmentDetails from '../../screens/Departments/View/Department/index';
-import LocationDetails from '../../screens/Locations/View/Location/Details';
+import LocationDetails from '../../screens/Locations/View/Location/index';
+import HelpTopicDetails from '../../screens/HelpTopic/View/HelpTopic/index';
 import {
   addTicketPriorities,
   updateTicketPriorities,
@@ -42,7 +43,11 @@ import {
 } from '../../screens/Departments/utils/functions';
 import NewDepartment from '../../forms/NewDepartment';
 import NewLocation from '../../forms/NewLocation';
-import {addLocation} from '../../screens/Locations/utils/functions';
+import {
+  addLocation,
+  updateLocation,
+} from '../../screens/Locations/utils/functions';
+import NewHelpTopic from '../../forms/NewHelpTopic';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -61,11 +66,13 @@ export type RootStackParamList = {
   TicketPriorityDetails: undefined;
   DepartmentDetails: undefined;
   LocationDetails: undefined;
+  HelpTopicDetails: undefined;
   NewTeam: {title: string};
   NewSlaPlans: {title: string};
   NewTicketPriorities: {title: string};
   NewDepartment: {title: string};
   NewLocation: {title: string};
+  NewHelpTopic: {title: string};
 };
 
 const StackLvl1 = ({route, navigation}: any) => {
@@ -506,36 +513,80 @@ const StackLvl1 = ({route, navigation}: any) => {
                     const obj = {
                       data: {
                         id: data?.id,
-                        type: 'departments',
+                        type: 'locations',
                         attributes: {
-                          name: data?.name,
-                          is_default: data?.IsDefault,
-                          is_public: data?.IsPublic,
-                        },
-                        relationships: {
-                          mainstaff: {
-                            data: {
-                              type: 'users',
-                              id: data?.Manager?.id,
-                            },
-                          },
-                          slaplan: {
-                            data: {
-                              type: 'slaplans',
-                              id: data?.Sla_Plan?.id,
-                            },
-                          },
+                          title: data?.title,
+                          country: data?.country,
+                          state: data?.state,
+                          phone: data?.phone,
+                          city: data?.city,
+                          pin_code: data?.pin_code,
+                          address: data?.address,
                         },
                       },
                     };
-                    console.log('obj obj', obj);
                     checkValidations(
                       navigation,
                       route,
                       globalStates,
-                      updateDepartment,
+                      updateLocation,
                       obj,
                       'Location updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="HelpTopicDetails"
+        component={HelpTopicDetails}
+        options={({route, navigation}: any) => ({
+          title: 'HelpTopic Details',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => {
+            return (
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'locations',
+                        attributes: {
+                          title: data?.title,
+                          country: data?.country,
+                          state: data?.state,
+                          phone: data?.phone,
+                          city: data?.city,
+                          pin_code: data?.pin_code,
+                          address: data?.address,
+                        },
+                      },
+                    };
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateLocation,
+                      obj,
+                      'HelpTopic updated successfully',
                     );
                   }}
                 />
@@ -757,12 +808,59 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
-
       <Stack.Screen
         name="NewLocation"
         component={NewLocation}
         options={({route, navigation}: any) => ({
           title: 'New Location',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj = {
+                  data: {
+                    type: 'locations',
+                    attributes: {
+                      title: data?.title,
+                      country: data?.country,
+                      state: data?.state,
+                      phone: data?.phone,
+                      city: data?.city,
+                      pin_code: data?.pin_code,
+                      address: data?.address,
+                    },
+                  },
+                };
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addLocation,
+                  obj,
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewHelpTopic"
+        component={NewHelpTopic}
+        options={({route, navigation}: any) => ({
+          title: 'New HelpTopic',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II

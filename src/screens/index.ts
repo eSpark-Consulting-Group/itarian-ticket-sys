@@ -13,6 +13,7 @@ import TicketPriorities from './TicketPriorities';
 import SlaPlans from './SlaPlans';
 import Departments from './Departments';
 import Locations from './Locations';
+import HelpTopics from './HelpTopic';
 
 export {
   Login,
@@ -30,5 +31,6 @@ export {
   TicketPriorities,
   SlaPlans,
   Departments,
-  Locations
+  Locations,
+  HelpTopics
 };

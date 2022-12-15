@@ -13,34 +13,14 @@ import {
   Loader,
   SingleLineField,
 } from '../../../../components';
-import {SelectFields} from '../../../../types';
+import {DataItem as Item} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
 import {deleteDepartment} from '../../utils/functions';
 import {State, useHookstate} from '@hookstate/core';
 import {userStore} from '../../../../stores/userStore';
 import {globalState} from '../../../../stores/globalAppState';
 
-interface Item {
-  title: string;
-  subTitle?: string;
-  inputable?: boolean;
-  enable?: boolean;
-  rightIcon?: string;
-  rightIconRound?: string;
-  titleWidth?: number;
-  showRightSwitch?: boolean;
-  rightSwitchVal?: boolean;
-  onChangeSwitch?: (value: boolean) => void;
-  onChangeText?: (text: string) => void;
-  list?: SelectFields[];
-  selectedItem?: SelectFields;
-  searchable?: boolean;
-  headerTitle?: string;
-  keyboardType?: KeyboardTypeOptions | undefined;
-  isRequired?: boolean;
-  mode?: 'none' | 'multiline';
-  onPress?: () => void;
-}
+
 
 export default function Details() {
   const {colors, dark}: Theme = useTheme();

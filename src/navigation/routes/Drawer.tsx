@@ -45,7 +45,8 @@ import {
   TicketPriorities,
   SlaPlans,
   Departments,
-  Locations
+  Locations,
+  HelpTopics
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -416,6 +417,20 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <EI name="location" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />
+      <Drawer.Screen
+        name="HelpTopics"
+        component={HelpTopics}
+        options={{
+          headerTitle: () => <CstmHeader title="Help Topics" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Help Topics</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <Ionicons name="newspaper-outline" size={size} color={color} />
           ),
           headerRight: noHeader,
         }}

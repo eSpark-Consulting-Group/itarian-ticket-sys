@@ -403,7 +403,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                         },
                       },
                     };
-
                     console.log('obj obj updateTicketPriorities', obj);
                     checkValidations(
                       navigation,
@@ -471,7 +470,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                       },
                     };
                     console.log('obj obj', obj);
-
                     checkValidations(
                       navigation,
                       route,
@@ -542,7 +540,7 @@ const StackLvl1 = ({route, navigation}: any) => {
           },
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="HelpTopicDetails"
         component={HelpTopicDetails}
         options={({route, navigation}: any) => ({
@@ -610,14 +608,6 @@ const StackLvl1 = ({route, navigation}: any) => {
               style={{right: 6}}
               color={'#fff'}
               onPress={() => navigation.goBack()}
-            />
-          ),
-          headerRight: () => (
-            <FA
-              size={27}
-              name="save"
-              color={'#fff'}
-              onPress={() => console.log('abc')}
             />
           ),
         })}
@@ -866,7 +856,7 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
         })}
       />
-        <Stack.Screen
+      <Stack.Screen
         name="NewHelpTopic"
         component={NewHelpTopic}
         options={({route, navigation}: any) => ({

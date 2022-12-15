@@ -1,5 +1,13 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {Text, View, FlatList, Image, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  Image,
+  ScrollView,
+  Modal,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {
   useRoute,
   useTheme,
@@ -7,6 +15,7 @@ import {
   useFocusEffect,
 } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import EI from 'react-native-vector-icons/Entypo';
 // @ts-ignore
 import Pinchable from 'react-native-pinchable';
 import moment from 'moment';
@@ -30,6 +39,7 @@ export default function Post() {
   const [commLoad, setCommLoad] = useState(false);
   const [postDetail, setPostDetail] = useState<any>({});
   const [commDetail, setCommDetail] = useState<any>({});
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [userVoted, setuserVoted] = useState<boolean>(false);
   const {id, userInfo} = route?.params;
 
@@ -43,7 +53,11 @@ export default function Post() {
     }, [route?.params]),
   );
 
-  const fetchPostDetail = (id: string, voteFlag?: boolean) => {
+  const fetchPostDetail = (
+    id: string,
+    voteFlag?: boolean,
+    voteValue?: boolean,
+  ) => {
     // call the function
     if (!voteFlag) {
       setLoading(true);
@@ -52,6 +66,9 @@ export default function Post() {
       .then(res => {
         if (res.ok) {
           handlePostDetails(res?.data);
+          if (voteFlag) {
+            if (voteValue !== undefined) setuserVoted(voteValue);
+          }
         }
       })
       // make sure to catch any error
@@ -76,9 +93,14 @@ export default function Post() {
       .then(res => {
         if (res.ok) {
           console.log(res?.data);
-          if (res?.data?.votes) {
-            setuserVoted(true);
-            setLoading(false);
+          if (res.data !== undefined) {
+            if (res?.data?.votes.length > 0) {
+              console.log('user has not voted');
+              setLoading(false);
+              setuserVoted(true);
+            } else {
+              setLoading(false);
+            }
           }
         }
       })
@@ -90,8 +112,7 @@ export default function Post() {
       .then(res => {
         if (res.ok) {
           console.log('Created a Vote for the Post/Comment', res?.data);
-          fetchPostDetail(id, true);
-          setuserVoted(true);
+          fetchPostDetail(id, true, true);
         }
       })
       .catch(err => console.log('err create vote', err));
@@ -102,8 +123,7 @@ export default function Post() {
       .then(res => {
         if (res.ok) {
           console.log('Deleted a Vote for the Post/Comment', res?.data);
-          fetchPostDetail(id, true);
-          setuserVoted(false);
+          fetchPostDetail(id, true, false);
         }
       })
       .catch(err => console.log('err delete vote', err));
@@ -209,8 +229,13 @@ export default function Post() {
           renderItem={renderImageList}
         />
         <GapView mode="vertical" length={15} />
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View style={{flexDirection: 'row'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <CstmPressable
               style={{flexDirection: 'row'}}
               android_ripple={{borderless: true}}
@@ -222,13 +247,13 @@ export default function Post() {
               }>
               <MCI
                 name="chat"
-                size={20}
+                size={18}
                 style={{
                   alignSelf: 'center',
-                  margin: 2,
                   color: colors.text + '88',
                 }}
               />
+              <GapView mode="horizontal" length={5} />
               <Text
                 style={{
                   color: colors.text + '88',
@@ -247,22 +272,27 @@ export default function Post() {
                   ? handleDeleteVote({postID: id, voterID: userInfo.id})
                   : handleCreateVote({postID: id, voterID: userInfo.id})
               }>
-              <View style={{flexDirection: 'row'}}>
-                <MCI
-                  name="arrow-up-thick"
-                  size={22}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingHorizontal: 5,
+                }}>
+                <EI
+                  name="arrow-bold-up"
+                  size={18}
                   style={{
                     alignSelf: 'center',
-                    margin: 2,
                     color:
                       userVoted == true ? colors.primary : colors.text + '88',
                   }}
                 />
+                <GapView mode="horizontal" length={5} />
                 <Text
                   style={{
                     fontSize: 16,
                     textAlignVertical: 'center',
                     fontWeight: 'bold',
+
                     color:
                       userVoted == true ? colors.primary : colors.text + '88',
                   }}>
@@ -470,7 +500,8 @@ export default function Post() {
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            android_ripple={{borderless: true}}>
+            android_ripple={{borderless: true}}
+            onPress={() => setModalVisible(true)}>
             <MCI
               name="dots-horizontal"
               size={22}
@@ -520,7 +551,7 @@ export default function Post() {
 
   return (
     <>
-      <Loader isShow={loading && commLoad} />
+      <Loader isShow={loading || commLoad} />
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -529,6 +560,73 @@ export default function Post() {
           {!loading && !commLoad && <PostView />}
         </View>
       </ScrollView>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <TouchableWithoutFeedback
+            style={{
+              flex: 1,
+            }}
+            onPress={() => setModalVisible(false)}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: '#000',
+                opacity: 0.4,
+              }}
+            />
+          </TouchableWithoutFeedback>
+          <View
+            style={{
+              backgroundColor: colors.card,
+              padding: 10,
+              justifyContent: 'center',
+            }}>
+            <View
+              style={{
+                borderRadius: 10,
+              }}>
+              <CstmPressable
+                onPress={() => setModalVisible(false)}
+                android_ripple={{borderless: true}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: 10,
+                  }}>
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: 16,
+                      fontFamily: 'sans-serif-medium',
+                    }}
+                    onPress={() => setModalVisible(false)}>
+                    Delete Comment
+                  </Text>
+                  <MCI
+                    name="delete-outline"
+                    size={22}
+                    style={{
+                      alignSelf: 'center',
+                      color: colors.text,
+                    }}
+                  />
+                </View>
+              </CstmPressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }

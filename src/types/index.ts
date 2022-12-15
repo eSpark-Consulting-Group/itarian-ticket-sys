@@ -195,6 +195,7 @@ export type ParamList = {
   TicketPriorities: undefined;
   Departments: undefined;
   Locations: undefined;
+  HelpTopics: undefined;
 };
 
 export type Stopwatch = {

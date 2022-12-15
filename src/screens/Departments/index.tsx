@@ -28,7 +28,7 @@ const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
   const departments = useHookstate(globalState.departments);
-  const [filteredContacts, setFilteredContacts] = useState(departments.get());
+  const [filteredData, setFilteredData] = useState(departments.get());
 
   useEffect(() => {
     fetchRecords()
@@ -43,7 +43,7 @@ const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   }
 
   useEffect(() => {
-    setFilteredContacts(departments.get())
+    setFilteredData(departments.get())
   }, [departments])
 
   const handleSubmit = () => {
@@ -60,7 +60,7 @@ const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
       list: departments?.get(),
       keys: ['attributes.name'],
     });
-    setFilteredContacts(result);
+    setFilteredData(result);
   };
 
   const handleClear = () => {
@@ -96,7 +96,7 @@ const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderDepartment listData={filteredContacts} />
+        <RenderDepartment listData={filteredData} />
       )}
       <FloatButton 
        onPress={() => navigation.navigate('Stack1', {screen: 'NewDepartment'})}

@@ -3,12 +3,7 @@ import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 
 import {ModalView, SingleLineField} from '../../components';
-import {SelectFields} from '../../types';
-import {
-  contactNameList,
-  countryList,
-  stateList,
-} from '../../constants/SelectionList';
+import {SelectFields, DataItem as Item} from '../../types';
 import {SelectItems} from '../../utils/helperFunctions';
 import {State, useHookstate} from '@hookstate/core';
 import {userStore} from '../../stores/userStore';
@@ -51,27 +46,6 @@ const NewTeam = ({route, navigation}: any) => {
       mode: 'multiline',
     },
   ]);
-
-  interface Item {
-    title: string;
-    subTitle?: string;
-    inputable?: boolean;
-    enable?: boolean;
-    rightIcon?: string;
-    rightIconRound?: string;
-    titleWidth?: number;
-    showRightSwitch?: boolean;
-    rightSwitchVal?: boolean;
-    onChangeSwitch?: (value: boolean) => void;
-    onChangeText?: (text: string) => void;
-    list?: SelectFields[];
-    selectedItem?: SelectFields;
-    searchable?: boolean;
-    headerTitle?: string;
-    keyboardType?: KeyboardTypeOptions | undefined;
-    isRequired?: boolean;
-    mode?: 'none' | 'multiline';
-  }
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];

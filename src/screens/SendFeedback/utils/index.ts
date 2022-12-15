@@ -8,6 +8,7 @@ import {cannyApi, cannyApiKey} from '../../../api';
 import {
   CannyCategory,
   CannyPosts,
+  Canny_CreateComment,
   Canny_CreatePost,
   Canny_CreateUser,
   Vote,
@@ -135,6 +136,17 @@ const deleteVote = async (req?: Vote_CD) => {
   }
 };
 
+const createComment = async (req?: Canny_CreateComment) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/comments/create', data);
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
 export {
   getCategories,
   getPosts,
@@ -146,4 +158,5 @@ export {
   fetchVotes,
   createVote,
   deleteVote,
+  createComment,
 };

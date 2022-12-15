@@ -20,6 +20,7 @@ import TicketListing from '../../components/Ticketlisting';
 import ContactListing from '../../components/ContactsListing';
 import {checkValidations} from '../../utils/helperFunctions';
 import Resources from '../../components/Resources';
+import {CreateComment} from '../../forms/CreateComment';
 
 const Stack = createNativeStackNavigator();
 
@@ -225,6 +226,23 @@ const StackLvl2 = ({navigation, route}: any) => {
               style={{right: 6}}
               color={'#fff'}
               onPress={() => goBack(navigation)}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="CreateComment"
+        component={CreateComment}
+        options={({route, navigation}) => ({
+          title: 'Create Comment',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
             />
           ),
         })}

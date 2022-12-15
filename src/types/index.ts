@@ -320,6 +320,14 @@ export type Vote_CD = {
   postID: string;
 };
 
+export type Canny_CreateComment = {
+  authorID: string;
+  postID: string;
+  parentID?: string;
+  value: string | null;
+  imageURLs?: string[];
+};
+
 /*
 //* Enum's for all Types/Interfaces
 */

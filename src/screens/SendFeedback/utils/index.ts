@@ -147,6 +147,17 @@ const createComment = async (req?: Canny_CreateComment) => {
   }
 };
 
+const deleteComment = async (req?: {commentID: string}) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/comments/delete', data);
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
 export {
   getCategories,
   getPosts,
@@ -159,4 +170,5 @@ export {
   createVote,
   deleteVote,
   createComment,
+  deleteComment,
 };

@@ -32,6 +32,8 @@ const addSlaPlans = async (data: any) => {
     if (result?.ok) {
       getAllSlaPlans();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error addSlaPlans', error);
@@ -55,6 +57,8 @@ const deleteSlaPlan = async (id: number) => {
         duration: alert_Dur,
       });
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error deleteSlaPlan', error);
@@ -74,6 +78,8 @@ const updateSlaPlan = async (data: any) => {
     if (result?.ok) {
       getAllSlaPlans();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error updateSlaPlan', error);

@@ -207,7 +207,7 @@ export const checkValidations = async (
       isGoback && navigation.goBack();
     } else {
       showMessage({
-        message: result?.message?.toString(),
+        message: result?.message?.data?.errors[0]?.detail ?? "Something went wrong",
         type: 'danger',
         icon: 'auto',
         duration: alert_Dur,

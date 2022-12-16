@@ -362,6 +362,10 @@ export interface DataItem {
   isRequired?: boolean;
   mode?: 'none' | 'multiline';
   key?: string;
+  onPress?: () => void;
+  roundedIconEnable?: boolean;
+  leftIcon?: string;
+  onRoundIconPress?: () => void;
 }
 
 export type {User};

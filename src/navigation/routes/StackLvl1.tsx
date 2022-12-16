@@ -48,6 +48,7 @@ import {
   updateLocation,
 } from '../../screens/Locations/utils/functions';
 import NewHelpTopic from '../../forms/NewHelpTopic';
+import {addHelpTopic, updateHelpTopic} from '../../screens/HelpTopic/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -567,24 +568,51 @@ const StackLvl1 = ({route, navigation}: any) => {
                     const data = dataFormatter(route?.params?.data, '_');
                     const obj = {
                       data: {
+                        type: 'helptopics',
                         id: data?.id,
-                        type: 'locations',
                         attributes: {
-                          title: data?.title,
-                          country: data?.country,
-                          state: data?.state,
-                          phone: data?.phone,
-                          city: data?.city,
-                          pin_code: data?.pin_code,
-                          address: data?.address,
+                          name: data?.name,
+                          parent_name: data?.parent_name?.name,
+                          internal_notes: data?.internal_notes,
+                          status: data?.status,
+                          is_public: data?.is_public,
+                        },
+                        relationships: {
+                          slaplan: {
+                            data: {
+                              type: 'slaplans',
+                              id: data?.slaplan?.id,
+                            },
+                          },
+                          staff: {
+                            data: {
+                              type: 'users',
+                              id: data?.staff?.id,
+                            },
+                          },
+                          ticketpriority: {
+                            data: {
+                              type: 'ticketpriorities',
+                              id: data?.ticketpriority?.id,
+                            },
+                          },
+                          helptopicdepartment: {
+                            data: {
+                              type: 'departments',
+                              id: data?.helptopicdepartment?.id,
+                            },
+                          },
                         },
                       },
                     };
+                    if (!data?.parent_name?.name) {
+                      delete obj.data.attributes.parent_name;
+                    }
                     checkValidations(
                       navigation,
                       route,
                       globalStates,
-                      updateLocation,
+                      updateHelpTopic,
                       obj,
                       'HelpTopic updated successfully',
                     );
@@ -880,23 +908,51 @@ const StackLvl1 = ({route, navigation}: any) => {
                 const data = dataFormatter(route?.params?.data, '_');
                 const obj = {
                   data: {
-                    type: 'locations',
+                    type: 'helptopics',
                     attributes: {
-                      title: data?.title,
-                      country: data?.country,
-                      state: data?.state,
-                      phone: data?.phone,
-                      city: data?.city,
-                      pin_code: data?.pin_code,
-                      address: data?.address,
+                      name: data?.name,
+                      parent_name: data?.parent_name?.name,
+                      internal_notes: data?.internal_notes,
+                      status: data?.status,
+                      is_public: data?.is_public,
+                    },
+                    relationships: {
+                      slaplan: {
+                        data: {
+                          type: 'slaplans',
+                          id: data?.slaplan?.id,
+                        },
+                      },
+                      staff: {
+                        data: {
+                          type: 'users',
+                          id: data?.staff?.id,
+                        },
+                      },
+                      ticketpriority: {
+                        data: {
+                          type: 'ticketpriorities',
+                          id: data?.ticketpriority?.id,
+                        },
+                      },
+                      helptopicdepartment: {
+                        data: {
+                          type: 'departments',
+                          id: data?.helptopicdepartment?.id,
+                        },
+                      },
                     },
                   },
                 };
+                if (!data?.parent_name?.name) {
+                  delete obj.data.attributes.parent_name;
+                }
+                console.log('obj obj obj', obj);
                 checkValidations(
                   navigation,
                   route,
                   globalStates,
-                  addLocation,
+                  addHelpTopic,
                   obj,
                 );
               }}

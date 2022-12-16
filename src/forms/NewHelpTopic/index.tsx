@@ -15,6 +15,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
   const slaplans: State<any> = useHookstate(globalState.slaPlans);
   const departments: State<any> = useHookstate(globalState.departments);
   const ticketPriorities: State<any> = useHookstate(globalState.ticketPriorities);
+  const helpTopics: State<any> = useHookstate(globalState.helpTopics);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'status',
@@ -36,12 +37,20 @@ const NewHelpTopic = ({route, navigation}: any) => {
       inputable: true,
       enable: false,
       isRequired: true,
+      key: 'name'
     },
     {
-      subTitle: 'parent name',
-      title: '',
-      inputable: true,
-      enable: false,
+      title: 'Please Select',
+      subTitle: 'Parent Topic',
+      list: helpTopics.get().map((value: any) => {
+        return {
+          ...value?.attributes,
+          id: value?.id,
+        };
+      }) || [],
+      selectedItem: undefined,
+      headerTitle: 'Parent Topic',
+      rightIcon: 'chevron-right',
       isRequired: false,
       key: 'parent_name',
     },
@@ -53,6 +62,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'staff',
     },
     {
       title: 'Please Select',
@@ -68,6 +78,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
       headerTitle: 'SLA Plan',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'slaplan'
     },
     {
       title: 'Please Select',
@@ -83,6 +94,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
       headerTitle: 'Departments',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'helptopicdepartment'
     },
     {
       title: 'Please Select',
@@ -92,6 +104,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
       headerTitle: 'Ticket Priority',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'ticketpriority'
     },
     {
       subTitle: 'Internal Notes',
@@ -129,6 +142,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
+        key: item?.key
       }),
     );
     navigation?.setParams({

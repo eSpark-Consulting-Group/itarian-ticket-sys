@@ -20,8 +20,6 @@ import {State, useHookstate} from '@hookstate/core';
 import {userStore} from '../../../../stores/userStore';
 import {globalState} from '../../../../stores/globalAppState';
 
-
-
 export default function Details() {
   const {colors, dark}: Theme = useTheme();
   const routes: any = useRoute();
@@ -30,7 +28,10 @@ export default function Details() {
   const users: State<any> = useHookstate(userStore.users);
   const slaplans: State<any> = useHookstate(globalState.slaPlans);
   const departments: State<any> = useHookstate(globalState.departments);
-  const ticketPriorities: State<any> = useHookstate(globalState.ticketPriorities);
+  const ticketPriorities: State<any> = useHookstate(
+    globalState.ticketPriorities,
+  );
+  const helpTopics: State<any> = useHookstate(globalState.helpTopics);
   const [loader, setLoader] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -55,27 +56,38 @@ export default function Details() {
       isRequired: true,
     },
     {
-      subTitle: 'parent name',
-      title: helpTopicDetails?.attributes?.parent_name ?? '',
-      inputable: true,
-      enable: false,
+      title: helpTopicDetails?.attributes?.parent_name?.name ?? 'Please Select',
+      subTitle: 'Parent Name',
+      list:
+        helpTopics.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: helpTopics
+        .get()
+        ?.filter(
+          (value: any) => value?.id == helpTopicDetails?.attributes?.parent_name?.id,
+        )[0],
+      headerTitle: 'Member',
+      rightIcon: 'chevron-right',
       isRequired: false,
-      key: 'parent_name',
+      key: 'parent_name'
     },
     {
-      title:
-      helpTopicDetails?.attributes?.staff?.user_name ?? 'Please Select',
+      title: helpTopicDetails?.attributes?.staff?.user_name ?? 'Please Select',
       subTitle: 'Staff',
       list: users.get() || [],
       selectedItem: users
         .get()
         ?.filter(
-          (value: any) =>
-            value?.id == helpTopicDetails?.attributes?.staff?.id,
+          (value: any) => value?.id == helpTopicDetails?.attributes?.staff?.id,
         )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'staff'
     },
     {
       title: helpTopicDetails?.attributes?.slaplan?.name ?? 'Please Select',
@@ -96,12 +108,15 @@ export default function Details() {
       headerTitle: 'SLA Plan',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'slaplan'
     },
     {
-      title: helpTopicDetails?.attributes?.helptopicdepartment?.name ?? 'Please Select',
+      title:
+        helpTopicDetails?.attributes?.helptopicdepartment?.name ??
+        'Please Select',
       subTitle: 'Department',
       list:
-      departments.get().map((value: any) => {
+        departments.get().map((value: any) => {
           return {
             ...value?.attributes,
             id: value?.id,
@@ -116,11 +131,13 @@ export default function Details() {
       headerTitle: 'Departments',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'helptopicdepartment'
     },
     {
-      title: helpTopicDetails?.attributes?.ticketpriority?.name ?? 'Please Select',
+      title:
+        helpTopicDetails?.attributes?.ticketpriority?.name ?? 'Please Select',
       subTitle: 'Ticket Priority',
-      list: ticketPriorities.get()|| [],
+      list: ticketPriorities.get() || [],
       selectedItem: ticketPriorities
         .get()
         ?.filter(
@@ -130,6 +147,7 @@ export default function Details() {
       headerTitle: 'Ticket Priority',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'ticketpriority'
     },
     {
       subTitle: 'Internal Notes',
@@ -138,7 +156,7 @@ export default function Details() {
       enable: false,
       isRequired: false,
       key: 'internal_notes',
-      mode: 'multiline'
+      mode: 'multiline',
     },
   ]);
 
@@ -219,6 +237,7 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
+        key: item?.key
       }),
     );
     Data[Data?.length] = {

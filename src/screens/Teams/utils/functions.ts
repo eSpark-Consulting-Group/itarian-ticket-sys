@@ -32,6 +32,8 @@ const addTeam = async (data: any) => {
     if (result?.ok) {
       getAllTeams();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error addTeam', error);
@@ -55,6 +57,8 @@ const deleteTeams = async (id: number) => {
         duration: alert_Dur,
       });
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error getAllUsers', error);
@@ -74,10 +78,13 @@ const updateTeam = async (data: any) => {
     if (result?.ok) {
       getAllTeams();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error updateTeam', error);
     return {status: true, message: error};
   }
 };
+
 export {getAllTeams, addTeam, deleteTeams, updateTeam};

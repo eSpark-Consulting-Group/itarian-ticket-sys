@@ -32,6 +32,8 @@ const addDepartment = async (data: any) => {
     if (result?.ok) {
       getAlldepartments();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error departments', error);
@@ -55,6 +57,8 @@ const deleteDepartment = async (id: number) => {
         duration: alert_Dur,
       });
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error departments', error);
@@ -74,6 +78,8 @@ const updateDepartment = async (data: any) => {
     if (result?.ok) {
       getAlldepartments();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error departments', error);

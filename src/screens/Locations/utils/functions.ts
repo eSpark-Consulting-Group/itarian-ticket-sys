@@ -32,6 +32,8 @@ const addLocation = async (data: any) => {
     if (result?.ok) {
       getAllLocations();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error addLocation', error);
@@ -55,6 +57,8 @@ const deleteLocation = async (id: number) => {
         duration: alert_Dur,
       });
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error DeleteLocation', error);
@@ -74,6 +78,8 @@ const updateLocation = async (data: any) => {
     if (result?.ok) {
       getAllLocations();
       return {status: true};
+    }else {
+      return {status: false, message: result};
     }
   } catch (error) {
     console.log('error Location', error);

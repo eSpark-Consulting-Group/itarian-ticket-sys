@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {
   Text,
   View,
@@ -7,6 +7,10 @@ import {
   ScrollView,
   Modal,
   TouchableWithoutFeedback,
+  UIManager,
+  Platform,
+  LayoutAnimation,
+  Animated,
 } from 'react-native';
 import {
   useRoute,
@@ -15,7 +19,6 @@ import {
   useFocusEffect,
 } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
-import EI from 'react-native-vector-icons/Entypo';
 // @ts-ignore
 import Pinchable from 'react-native-pinchable';
 import moment from 'moment';
@@ -26,10 +29,17 @@ import {
   fetchVotes,
   createVote,
   deleteVote,
+  deleteComment,
 } from '../../utils';
 import {CstmPressable, GapView, Loader} from '../../../../components';
-import {WINDOW_HEIGHT} from '../../../../constants';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../../../constants';
 import {Vote, Vote_CD} from '../../../../types';
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 export default function Post() {
   const {colors, dark} = useTheme();
@@ -41,6 +51,9 @@ export default function Post() {
   const [commDetail, setCommDetail] = useState<any>({});
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [userVoted, setuserVoted] = useState<boolean>(false);
+  const [selectedCommentId, setSelectedCommentId] = useState<string>('');
+  const transAnim = useRef(new Animated.Value(100)).current;
+
   const {id, userInfo} = route?.params;
 
   useFocusEffect(
@@ -52,6 +65,26 @@ export default function Post() {
       //? will fetch votes for current user for the current post
     }, [route?.params]),
   );
+
+  const showMenu = () => {
+    // Will change transAnim value to 0 in 2 seconds
+    setModalVisible(true);
+    Animated.timing(transAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const hideMenu = () => {
+    // Will change transAnim value to 100 in 2 seconds
+    setModalVisible(false);
+    Animated.timing(transAnim, {
+      toValue: 100,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const fetchPostDetail = (
     id: string,
@@ -81,6 +114,7 @@ export default function Post() {
     getComments({postID})
       .then(res => {
         if (res.ok) {
+          hideMenu();
           handlePostComments(res?.data);
         }
       }) // make sure to catch any error
@@ -140,6 +174,30 @@ export default function Post() {
     setCommDetail(data);
   };
 
+  const handleDeleteComment = () => {
+    deleteComment({commentID: selectedCommentId})
+      .then(res => {
+        if (res.ok) {
+          console.log('Successfully Deleted', res.data);
+          fetchPostComments(id);
+        }
+      })
+      .catch(err => {
+        console.log('error on deletion of comment', err);
+      });
+  };
+
+  const openModal = (data: any, currentUser: any) => {
+    console.log('the current logged in user?', currentUser);
+    console.log('the selected comment/post info', data);
+    if (currentUser.id === data?.author?.id) {
+      setSelectedCommentId(data?.id);
+      showMenu();
+    } else {
+      console.log('User did not create the post/comment');
+    }
+  };
+
   const renderImageList = ({
     item,
     index,
@@ -155,7 +213,6 @@ export default function Post() {
           marginTop: 10,
           height: flag ? WINDOW_HEIGHT * 0.15 : WINDOW_HEIGHT * 0.2,
           width: flag ? WINDOW_HEIGHT * 0.15 : WINDOW_HEIGHT * 0.2,
-          backgroundColor: 'pink',
         }}>
         <Pinchable>
           <Image
@@ -277,8 +334,8 @@ export default function Post() {
                   flexDirection: 'row',
                   paddingHorizontal: 5,
                 }}>
-                <EI
-                  name="arrow-bold-up"
+                <MCI
+                  name="arrow-up-thick"
                   size={18}
                   style={{
                     alignSelf: 'center',
@@ -501,7 +558,9 @@ export default function Post() {
               justifyContent: 'center',
             }}
             android_ripple={{borderless: true}}
-            onPress={() => setModalVisible(true)}>
+            onPress={() => {
+              openModal(item, userInfo);
+            }}>
             <MCI
               name="dots-horizontal"
               size={22}
@@ -560,73 +619,73 @@ export default function Post() {
           {!loading && !commLoad && <PostView />}
         </View>
       </ScrollView>
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
+      {modalVisible && (
         <View
           style={{
-            flex: 1,
+            backgroundColor: '#00000080',
+            width: WINDOW_WIDTH,
+            height: WINDOW_HEIGHT,
+            position: 'absolute',
           }}>
-          <TouchableWithoutFeedback
-            style={{
-              flex: 1,
-            }}
-            onPress={() => setModalVisible(false)}>
+          <TouchableWithoutFeedback onPress={() => hideMenu()}>
             <View
               style={{
-                flex: 1,
-                backgroundColor: '#000',
-                opacity: 0.4,
+                width: WINDOW_WIDTH,
+                height: WINDOW_HEIGHT,
               }}
             />
           </TouchableWithoutFeedback>
-          <View
-            style={{
-              backgroundColor: colors.card,
-              padding: 10,
-              justifyContent: 'center',
-            }}>
+        </View>
+      )}
+      <Animated.View
+        style={{
+          bottom: 0,
+          position: 'absolute',
+          padding: 10,
+          justifyContent: 'center',
+          width: WINDOW_WIDTH,
+          transform: [{translateY: transAnim}],
+          backgroundColor: dark ? colors.background : colors.card,
+        }}>
+        <View
+          style={{
+            backgroundColor: 'transparent',
+            borderRadius: 10,
+          }}>
+          <CstmPressable
+            onPress={() => {
+              handleDeleteComment();
+            }}
+            style={{borderRadius: 10}}
+            android_ripple={{borderless: true}}>
             <View
               style={{
                 borderRadius: 10,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: 10,
               }}>
-              <CstmPressable
-                onPress={() => setModalVisible(false)}
-                android_ripple={{borderless: true}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: 10,
-                  }}>
-                  <Text
-                    style={{
-                      color: colors.text,
-                      fontSize: 16,
-                      fontFamily: 'sans-serif-medium',
-                    }}
-                    onPress={() => setModalVisible(false)}>
-                    Delete Comment
-                  </Text>
-                  <MCI
-                    name="delete-outline"
-                    size={22}
-                    style={{
-                      alignSelf: 'center',
-                      color: colors.text,
-                    }}
-                  />
-                </View>
-              </CstmPressable>
+              <Text
+                style={{
+                  color: colors.text,
+                  fontSize: 16,
+                  fontFamily: 'sans-serif-medium',
+                }}>
+                Delete Comment
+              </Text>
+              <MCI
+                name="delete-outline"
+                size={22}
+                style={{
+                  alignSelf: 'center',
+                  color: colors.text,
+                }}
+              />
             </View>
-          </View>
+          </CstmPressable>
         </View>
-      </Modal>
+      </Animated.View>
     </>
   );
 }

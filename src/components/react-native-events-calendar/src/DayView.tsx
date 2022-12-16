@@ -197,7 +197,6 @@ export default class DayView extends React.PureComponent<MyProps, any> {
           case 'Project':
             bgColor = 'lightyellow';
             break;
-
           default:
             break;
         }

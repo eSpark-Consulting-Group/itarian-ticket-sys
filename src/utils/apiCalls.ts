@@ -1,6 +1,8 @@
 import {api} from '../api';
 import {getAllUsers} from '../screens/Agenda/utils/functions';
 import {getAllCompanies} from '../screens/Companies/utils/functions';
+import { getAllHelpTopics } from '../screens/HelpTopic/utils/functions';
+import { getAllSlaPlans } from '../screens/SlaPlans/utils/functions';
 import {globalState} from '../stores/globalAppState';
 import {userStore} from '../stores/userStore';
 
@@ -9,6 +11,8 @@ export const badgeApiCallForGlobalList = () => {
   getAllCompanies();
   getTicketStatus();
   getTicketPriorities();
+  getAllSlaPlans();
+  getAllHelpTopics();
 };
 
 const getTicketStatus = async () => {

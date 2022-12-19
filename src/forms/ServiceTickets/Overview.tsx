@@ -1,117 +1,115 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
 
-import {
-  boardList,
-  customFieldList,
-  itemList,
-  siteList,
-  subTypesList,
-  typesList,
-} from '../../constants/SelectionList';
-import {PriorityField, SingleLineField} from '../../components';
-import {SelectFields} from '../../types/index';
-import { useHookstate } from '@hookstate/core';
-import { globalState } from '../../stores/globalAppState';
+import DatePicker from '@react-native-community/datetimepicker';
+import {SingleLineField} from '../../components';
+import {DataItem as Item} from '../../types/index';
+import {useHookstate} from '@hookstate/core';
+import {globalState} from '../../stores/globalAppState';
+import {userStore} from '../../stores/userStore';
+import {SelectItems} from '../../utils/helperFunctions';
 
-interface Item {
-  headerTitle?: string;
-  title: string;
-  subTitle?: string;
-  enable?: boolean;
-  rightIcon?: string;
-  titleWidth?: number;
-  list?: SelectFields[];
-  selectedItem?: SelectFields;
-  leftIcon?: string;
-  searchable?: boolean;
-}
-
-
-
-const Overview = () => {
+const Overview = ({ticketDetails}: any) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
-  const ticketStatus: any = useHookstate(globalState?.ticketStatus).get()
-  const dataSource: Item[] = [
+  const ticketPriorities: any = useHookstate(globalState?.ticketPriorities);
+  const slaPlans: any = useHookstate(globalState?.slaPlans);
+  const helpTopics: any = useHookstate(globalState?.helpTopics);
+  const users: any = useHookstate(userStore?.users);
+  const [showDate, setShowDate] = useState(false);
+  console.log("ticketDetails ticketDetails", ticketDetails);
+  
+  const [Ds, setDs] = useState<Item[]>([
     {
-      title: 'Custom Fields 1',
-      leftIcon: 'clipboard-text-outline',
-      rightIcon: 'chevron-right',
-      headerTitle: 'Custom Field',
-      list: customFieldList,
-      selectedItem: customFieldList[0],
-      searchable: true,
-    },
-    {
-      title: 'Site 1',
-      subTitle: 'Site',
-      rightIcon: 'chevron-right',
-      headerTitle: 'Site',
-      list: siteList,
-      selectedItem: {name: 'Site 1', id: 1},
-      searchable: false,
-    },
-    {
-      title: '123 Elm Street Tampa, Fl 32364 United States',
-      titleWidth: moderateScale(130),
-      subTitle: 'Address',
+      title: ticketDetails?.attributes?.subject,
+      subTitle: 'Subject',
+      inputable: true,
       enable: false,
+      isRequired: true,
+      key: 'subject',
     },
     {
-      title: 'Board 1',
-      subTitle: 'Board',
-      headerTitle: 'Board',
-      rightIcon: 'chevron-right',
-      list: boardList,
-      selectedItem: {name: 'Board 1', id: 1},
-      searchable: false,
-    },
-    {
-      title: ticketStatus[0]?.name || "Please Select",
-      subTitle: 'Status',
-      headerTitle: 'Status',
-      rightIcon: 'chevron-right',
-      list: ticketStatus,
-      selectedItem: ticketStatus[0],
-      searchable: false,
-    },
-    {
-      title: 'The Sale of Agreements',
-      subTitle: 'Agreement',
+      title: ticketDetails?.attributes?.detail,
+      subTitle: 'Details',
+      inputable: true,
       enable: false,
+      mode: 'multiline',
+      isRequired: true,
+      key: 'detail',
     },
     {
-      title: 'Type 1',
-      subTitle: 'Type',
-      headerTitle: 'Type',
-      rightIcon: 'chevron-right',
-      list: typesList,
-      selectedItem: {name: 'Type 1', id: 1},
-      searchable: false,
+      title: ticketDetails?.attributes?.duedate,
+      subTitle: 'Due Date ',
+      rightIcon: 'calendar',
+      onPress: () => {
+        setShowDate(true);
+      },
+      key: 'duedate',
     },
     {
-      title: 'Subtype 1',
-      subTitle: 'Subtype',
-      headerTitle: 'SubType',
+      title: 'Please Select',
+      subTitle: 'User',
+      list: users?.get() ?? [],
+      selectedItem: undefined,
+      headerTitle: 'Member',
       rightIcon: 'chevron-right',
-      list: subTypesList,
-      selectedItem: {name: 'Subtype 1', id: 1},
-      searchable: false,
+      isRequired: true,
+      key: 'user',
     },
     {
-      title: 'Item 1',
-      subTitle: 'Item',
-      headerTitle: 'Item',
+      title: 'Please Select',
+      subTitle: 'Help Topic',
+      list:
+        helpTopics.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: undefined,
+      headerTitle: 'Parent Topic',
       rightIcon: 'chevron-right',
-      list: itemList,
-      selectedItem: {name: 'Item 1', id: 1},
-      searchable: false,
+      isRequired: true,
+      key: 'helptopic',
     },
-  ];
-  const [Ds, setDs] = useState<Item[]>(dataSource);
+    {
+      title: 'Please Select',
+      subTitle: 'Staff',
+      list: users.get() || [],
+      selectedItem: undefined,
+      headerTitle: 'Member',
+      rightIcon: 'chevron-right',
+      isRequired: false,
+      key: 'staff',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Sla Plan',
+      list:
+        slaPlans.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: undefined,
+      headerTitle: 'SLA Plan',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'slaplan',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Ticket Priority',
+      list: ticketPriorities.get() || [],
+      selectedItem: undefined,
+      headerTitle: 'Ticket Priority',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'ticketpriority',
+    },
+  ]);
 
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
@@ -122,22 +120,12 @@ const Overview = () => {
     }
   }, [route?.params]);
 
-  const handlePress = (item: Item, index: number) => {
-    if (item?.list) {
-      navigation.navigate('Stack2', {
-        screen: 'CstmItemSelector',
-        params: {
-          ...route?.params,
-          from: 'STickets',
-          item: index,
-          data: item.list,
-          selected: item.selectedItem,
-          stack: 'Stack1',
-          title: route?.params?.title,
-          headerTitle: item.headerTitle,
-          searchable: item.searchable,
-        },
-      });
+  const onChangeDate = (event: any, date: any) => {
+    setShowDate(false);
+    let time = date?.toString()?.substring(16, 21);
+    if (event?.type == 'set') {
+      Ds[2].title = date?.toDateString();
+      setDs([...Ds]);
     }
   };
 
@@ -145,16 +133,41 @@ const Overview = () => {
     <ScrollView
       style={styles.container}
       contentContainerStyle={{alignItems: 'center'}}>
-      <PriorityField />
+      {showDate && (
+        <DatePicker
+          mode={'date'}
+          value={new Date()}
+          minimumDate={new Date()}
+          onChange={onChangeDate}
+          positiveButtonLabel={'Set Due Date'}
+        />
+      )}
       {Ds.map((item: Item, index: number) => (
         <SingleLineField
           key={index}
-          subTitle={item.subTitle}
           title={item.title}
+          subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
+          onPress={
+            item?.onPress
+              ? item.onPress
+              : () =>
+                  SelectItems(
+                    item,
+                    index,
+                    navigation,
+                    route,
+                    'STickets',
+                    'Stack1',
+                  )
+          }
           enable={item.enable}
-          titleWidth={item.titleWidth}
+          inputable={item.inputable}
+          mode={item.mode}
           rightIcon={item.rightIcon}
-          onPress={() => handlePress(item, index)}
+          rightIconRound={item.rightIconRound}
+          roundedIconEnable={item.roundedIconEnable}
+          onRoundedIconPress={item.onRoundIconPress}
+          leftIcon={item.leftIcon}
         />
       ))}
     </ScrollView>

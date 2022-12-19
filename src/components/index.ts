@@ -32,7 +32,7 @@ import CstmBadge from './CtsmBadge';
 import {Loader} from './Loader';
 import EventCalendar from './react-native-events-calendar/src/EventCalendar';
 import {CstmMenu} from './CstmMenu';
-
+import TicketComponent from './TicketComponent';
 export {
   CstmButton,
   CstmInput,
@@ -70,4 +70,5 @@ export {
   Loader,
   EventCalendar,
   CstmMenu,
+  TicketComponent
 };

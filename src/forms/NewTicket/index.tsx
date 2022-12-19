@@ -20,11 +20,10 @@ import DatePicker from '@react-native-community/datetimepicker';
 import { userStore } from '../../stores/userStore';
 
 export default function NewTicket({route, navigation}: any) {
-  const {colors, dark} = useTheme();
-  const ticketPriorities: any = useHookstate(globalState?.ticketPriorities).get();
-  const slaPlans: any = useHookstate(globalState?.slaPlans).get();
-  const helpTopics: any = useHookstate(globalState?.helpTopics).get();
-  const users: any = useHookstate(userStore?.users).get()
+  const ticketPriorities: any = useHookstate(globalState?.ticketPriorities)
+  const slaPlans: any = useHookstate(globalState?.slaPlans)
+  const helpTopics: any = useHookstate(globalState?.helpTopics)
+  const users: any = useHookstate(userStore?.users)
   
   const [showDate, setShowDate] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
@@ -47,48 +46,73 @@ export default function NewTicket({route, navigation}: any) {
     },
     {
       title: 'Please Select',
-      subTitle: 'Assigned to',
-      list: contactNameList,
-      selectedItem: contactNameList[0],
-      headerTitle: 'Member',
-      rightIcon: 'chevron-right',
-      isRequired: true,
-    },
-    {
-      title: 'Please Select',
       subTitle: 'Due Date ',
       rightIcon: 'calendar',
       onPress: () => {
         setShowDate(true);
       },
+      key: 'duedate'
     },
     {
       title: 'Please Select',
-      subTitle: 'Sla Plan',
-      enable: true,
-      list: boardList,
-      selectedItem: boardList[0],
-      headerTitle: 'Sla Plans',
+      subTitle: 'User',
+      list: users?.get() ?? [],
+      selectedItem: undefined,
+      headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
-    },
-    {
-      title: 'Please Select',
-      subTitle: 'Priority',
-      enable: true,
-      list: priorityList,
-      selectedItem: priorityList[0],
-      headerTitle: 'Priority',
-      rightIcon: 'chevron-right',
+      key: 'user'
     },
     {
       title: 'Please Select',
       subTitle: 'Help Topic',
-      enable: true,
-      list: priorityList,
-      selectedItem: priorityList[0],
-      headerTitle: 'Priority',
+      list: helpTopics.get().map((value: any) => {
+        return {
+          ...value?.attributes,
+          id: value?.id,
+        };
+      }) || [],
+      selectedItem: undefined,
+      headerTitle: 'Parent Topic',
       rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'helptopic',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Staff',
+      list: users.get() || [],
+      selectedItem: undefined,
+      headerTitle: 'Member',
+      rightIcon: 'chevron-right',
+      isRequired: false,
+      key: 'staff',
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Sla Plan',
+      list:
+        slaPlans.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: undefined,
+      headerTitle: 'SLA Plan',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'slaplan'
+    },
+    {
+      title: 'Please Select',
+      subTitle: 'Ticket Priority',
+      list: ticketPriorities.get()|| [],
+      selectedItem: undefined,
+      headerTitle: 'Ticket Priority',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'ticketpriority'
     },
   ]);
 
@@ -109,6 +133,9 @@ export default function NewTicket({route, navigation}: any) {
         title: item.title,
         subTitle: item.subTitle,
         isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal,
+        key: item?.key
       }),
     );
     navigation?.setParams({
@@ -122,29 +149,19 @@ export default function NewTicket({route, navigation}: any) {
     let time = date.toString().substring(16, 21);
 
     if (event?.type == 'set') {
-      dataSource[3].title = date?.toDateString();
+      dataSource[2].title = date?.toDateString();
       setDataSource([...dataSource]);
     }
   };
 
+  const updateInput = (e: string, index: number) => {
+    let newData = [...dataSource];
+    newData[index].title = e;
+    setDataSource(newData);
+  };
+
   return (
     <ModalView>
-      {/* <ModalHeader
-        title="Acme Company Ltd"
-        subTitle="63 Elm Street, Tampa Bay, FL 023912"
-        icon="office-building-marker-outline"
-        disabled={false}
-        onPress={() => console.log('Press hoa')}
-        right={
-          <MCI
-            name={'chevron-right'}
-            size={30}
-            color={colors.text}
-            style={{opacity: 0.6}}
-          />
-        }
-      /> */}
-
       {showDate && (
         <DatePicker
           mode={'date'}
@@ -160,6 +177,7 @@ export default function NewTicket({route, navigation}: any) {
             key={index}
             title={value.title}
             subTitle={value.isRequired ? value.subTitle + '*' : value.subTitle}
+            onChangeText={e => updateInput(e, index)}
             onPress={
               value?.onPress
                 ? value.onPress

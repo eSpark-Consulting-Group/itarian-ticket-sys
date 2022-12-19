@@ -68,6 +68,8 @@ const Profile = ({route, navigation}: any) => {
 
   const fetchUserDetails = () => {
     filterUser(`filter[email][]=${user?.get()?.email}`).then(res => {
+      console.log("res res res res", res);
+      
       const dataSource: Item[] = [...userData];
       dataSource[0].title = res?.attributes?.first_name?.toString();
       dataSource[1].title = res?.attributes?.last_name?.toString();

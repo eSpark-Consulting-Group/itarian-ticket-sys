@@ -17,11 +17,12 @@ const handleLoginUser = async (
   globalState.loader.set(true);
   console.log('email:', email);
   console.log('password:', password);
+  const emailValue = 'heroadmin@yopmail.com';
   api.setHeaders({
     Authorization: `Basic YWNjb3VudDpmYXZlby1hcGk=`,
   });
   const response = await api.post('/tenant/login', {
-    email: 'test9@yopmail.com', //?: faveo
+    email: emailValue, //?: faveo
     // testwiz@yopmail.com //?: simple
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
@@ -30,10 +31,11 @@ const handleLoginUser = async (
     password: 'admin1',
     // password,
     // admin1
-    // nameSpace: 'ServiceDesk',
+    nameSpace: 'ServiceDesk',
   });
   if (response.ok) {
     const resData: any = response.data;
+    console.log('yahahaha', response.data);
     globalState.loader.set(false);
     const {status, apiKey, subDomain, companyName}: any = response?.data;
     if (status == 'success') {
@@ -42,7 +44,7 @@ const handleLoginUser = async (
         subDomain: subDomain,
         userId: apiKey,
         token: encodedUserDataToken(subDomain, apiKey),
-        email: 'test9@yopmail.com',
+        email: emailValue,
       };
       console.log('use', userObj);
 

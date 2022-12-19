@@ -286,6 +286,17 @@ export type CannyPosts = {
   status?: string;
 };
 
+export type CannyBoards = {
+  created: Date;
+  id: string;
+  isPrivate: boolean;
+  name: string;
+  postCount: number;
+  privateComments: null;
+  token: string;
+  url: string;
+};
+
 export type Canny_CreatePost = {
   authorID: string;
   boardID: string;

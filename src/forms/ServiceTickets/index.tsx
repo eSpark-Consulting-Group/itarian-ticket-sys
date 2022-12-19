@@ -1,27 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Platform, UIManager, Linking} from 'react-native';
 import {State, useHookstate} from '@hookstate/core';
-import {TabView, SceneMap} from 'react-native-tab-view';
 
 import {
   ModalHeader,
   ModalView,
   RoundedIcon,
-  CstmTabBar,
   FloatButton,
 } from '../../components';
 import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
-import {
-  contactNameList,
-  templateList,
-} from '../../constants/SelectionList';
+import {contactNameList} from '../../constants/SelectionList';
 import {globalState} from '../../stores/globalAppState';
-import {AdditionalButtons, SelectFields} from '../../types';
+import {AdditionalButtons} from '../../types';
 import {redirectToMap} from '../../utils/helperFunctions';
-import Details from './Details';
-import Notes from './Notes';
+import {companyStore} from '../../stores/companyStore';
 import Overview from './Overview';
-import { companyStore } from '../../stores/companyStore';
 
 if (
   Platform.OS === 'android' &&
@@ -31,7 +24,7 @@ if (
 }
 
 const App = ({navigation, route}: any) => {
-  const companies: any = useHookstate(companyStore.companies)?.get()
+  const companies: any = useHookstate(companyStore.companies)?.get();
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
     STicketsAdditionalButtons,
   );
@@ -43,33 +36,14 @@ const App = ({navigation, route}: any) => {
     globalState.defaultnNavigationName,
   );
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
-
+  
   const updatePress = () => {
     let tempArr = [...actionButtons];
-    // tempArr[0].onPress = () => {
-    //   navigation.navigate('Stack2', {
-    //     screen: 'CstmItemSelector',
-    //     params: {
-    //       ...route?.params,
-    //       from: 'Signature',
-    //       data: templateList,
-    //       selected: null,
-    //       stack: 'Stack3',
-    //       title: route?.params?.title,
-    //       headerTitle: 'Signoff template',
-    //     },
-    //   });
-    // };
     tempArr[0].onPress = () => {
       navigation.navigate('Stack1', {
         screen: 'NewTicket',
       });
     };
-    // tempArr[3].onPress = () => {
-    //   navigation.navigate('Stack1', {
-    //     screen: 'NewExpenseReport',
-    //   });
-    // };
     setActionButtons(tempArr);
   };
 
@@ -107,37 +81,13 @@ const App = ({navigation, route}: any) => {
           </>
         }
       />
-      <TabComp />
+      <Overview ticketDetails={route?.params?.ticket_info?.data} />
       <FloatButton AdditionalButtons={actionButtons} />
     </ModalView>
   );
 };
 
 export default App;
-
-const renderScene = SceneMap({
-  first: Overview,
-  // second: Notes,
-  second: Details,
-});
-
-function TabComp() {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    {key: 'first', title: 'Overview'},
-    // {key: 'second', title: 'Notes'},
-    {key: 'second', title: 'Details'},
-  ]);
-
-  return (
-    <TabView
-      navigationState={{index, routes}}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      renderTabBar={props => <CstmTabBar {...props} />}
-    />
-  );
-}
 
 const styles = StyleSheet.create({
   adjuster: {

@@ -49,4 +49,26 @@ const getTicketsByUserId = async (userId: string) => {
   }
 };
 
-export {getAllUsers, getTicketsByUserId};
+const addTicket = async (data: any) => {
+  const user: any = userStore?.user?.get();
+  const activeMember: any = globalState?.agendaMember?.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.post('/tickets', data);
+    console.log('result addTicket', result);
+    if (result?.ok) {
+      getTicketsByUserId(activeMember?.id);
+      return {status: true};
+    } else {
+      return {status: false, message: result};
+    }
+  } catch (error) {
+    console.log('error addTicket', error);
+    return {status: true, message: error};
+  }
+};
+
+export {getAllUsers, getTicketsByUserId, addTicket};

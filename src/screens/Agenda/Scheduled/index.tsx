@@ -5,7 +5,7 @@ import {State, useHookstate} from '@hookstate/core';
 
 import styles from './style';
 import ListItem from '../ListItem';
-import {FloatButton, NotFound} from '../../../components';
+import {FloatButton, NotFound, TicketComponent} from '../../../components';
 import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
 import {SchAdditionalButtons} from '../../../constants/ButtonsList';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
@@ -13,6 +13,7 @@ import {globalState} from '../../../stores/globalAppState';
 import {ticketStore} from '../../../stores/ticketStore';
 import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {getTicketsByUserId} from '../utils/functions';
+import {userStore} from '../../../stores/userStore';
 
 const ScheduledTab = ({route}: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
@@ -23,15 +24,10 @@ const ScheduledTab = ({route}: any) => {
   const navigation = useNavigation<any>();
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
+  const user: any = useHookstate(userStore.user).get();
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
-    // tempArr[0].onPress = () => {
-    //   navigation.navigate('Stack1', {
-    //     screen: 'NewActivity',
-    //     params: {from: 'agenda'},
-    //   });
-    // };
     tempArr[0].onPress = () => {
       navigation.navigate('Stack1', {
         screen: 'NewTicket',
@@ -39,6 +35,7 @@ const ScheduledTab = ({route}: any) => {
     };
     setActionButtons(tempArr);
   };
+  // console.log("activeMember.get()?.id ??", activeMember.get()?.id, user);
 
   useEffect(() => {
     const schTicks = ticketsList.filter(val => val?.time_dur);
@@ -80,32 +77,24 @@ const ScheduledTab = ({route}: any) => {
             <NotFound label="Tickets" />
           </View>
         }
-        renderItem={({item}) => {
+        renderItem={({item, index}) => {
+          console.log('item', item);
           return (
-            <ListItem
-              dataSource={{
-                id: scheduledList[0].id,
-                date: scheduledList[0].date,
-                data: [ticketsList[0]],
-              }}
-              onPress={iValue => {
-                iValue.type == 'Ticket'
-                  ? navigation.navigate('Stack1', {
-                      screen: 'STickets',
-                      params: {
-                        title: iValue?.ticket_no?.toString(),
-                        ticket_info: {
-                          id: iValue.ticket_no?.toString(),
-                          summary: iValue.summary,
-                        },
-                      },
-                    })
-                  : navigation.navigate('Stack1', {
-                      screen: 'Activities',
-                      params: {
-                        data: iValue,
-                      },
-                    });
+            <TicketComponent
+              item2={item}
+              ind={index}
+              onPress={() => {
+                navigation.navigate('Stack1', {
+                  screen: 'STickets',
+                  params: {
+                    title: `Ticket# ${item?.id?.toString()}`,
+                    ticket_info: {
+                      id: item.id?.toString(),
+                      summary: item?.attributes?.detail,
+                      data: item
+                    },
+                  },
+                });
               }}
             />
           );

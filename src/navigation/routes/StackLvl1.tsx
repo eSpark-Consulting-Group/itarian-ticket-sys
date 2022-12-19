@@ -48,7 +48,12 @@ import {
   updateLocation,
 } from '../../screens/Locations/utils/functions';
 import NewHelpTopic from '../../forms/NewHelpTopic';
-import {addHelpTopic, updateHelpTopic} from '../../screens/HelpTopic/utils/functions';
+import {
+  addHelpTopic,
+  updateHelpTopic,
+} from '../../screens/HelpTopic/utils/functions';
+import moment from 'moment';
+import { addTicket } from '../../screens/Agenda/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -218,7 +223,7 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewTicket"
         component={NewTicket}
-        options={({route, navigation}) => ({
+        options={({route, navigation}: any) => ({
           title: 'New Ticket',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -235,7 +240,58 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, globalStates)}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj: any = {
+                    data: {
+                      type: 'tickets',
+                      attributes: {
+                        duedate: data?.duedate != "Please Select" ?  moment(data?.duedate).format('YYYY-MM-DD hh:mm:ss') :  moment().format('YYYY-MM-DD hh:mm:ss'),
+                        ticket_thread: {
+                          subject: data?.subject,
+                          detail: data?.detail,
+                        },
+                      },
+                      relationships: {
+                        slaplan: {
+                          data: {
+                            type: 'slaplans',
+                            id: data?.slaplan?.id,
+                          },
+                        },
+                        user: {
+                          data: {
+                            type: 'users',
+                            id: data?.user?.id,
+                          },
+                        },
+                        staff: {
+                          data: {
+                            type: 'users',
+                            id: data?.staff?.id,
+                          },
+                        },
+                        helptopic: {
+                          data: {
+                            type: 'helptopics',
+                            id: data?.helptopic?.id,
+                          },
+                        },
+                        ticketpriority: {
+                          data: {
+                            type: 'ticketpriorities',
+                            id: data?.ticketpriority?.id,
+                          },
+                        },
+                      },
+                    },
+                };
+                if (!obj?.data?.relationships?.staff?.data?.id) {
+                  delete obj?.data?.relationships?.staff;
+                }
+                console.log('obj obj NewTicket', obj.data.attributes, '\n','relationships', obj?.data?.relationships);
+                checkValidations(navigation, route, globalStates, addTicket, obj);
+              }}
             />
           ),
         })}
@@ -327,7 +383,6 @@ const StackLvl1 = ({route, navigation}: any) => {
             />
           ),
           headerRight: () => {
-            console.log('route?.params?.data', route?.params?.data);
             return (
               route?.params?.data?.length > 2 &&
               route?.params?.data[1]?.title != 'Default' && (
@@ -404,7 +459,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                         },
                       },
                     };
-                    console.log('obj obj updateTicketPriorities', obj);
                     checkValidations(
                       navigation,
                       route,
@@ -470,7 +524,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                         },
                       },
                     };
-                    console.log('obj obj', obj);
                     checkValidations(
                       navigation,
                       route,
@@ -719,7 +772,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                     },
                   },
                 };
-                console.log('obj obj', obj, data);
                 checkValidations(
                   navigation,
                   route,
@@ -947,7 +999,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                 if (!data?.parent_name?.name) {
                   delete obj.data.attributes.parent_name;
                 }
-                console.log('obj obj obj', obj);
                 checkValidations(
                   navigation,
                   route,

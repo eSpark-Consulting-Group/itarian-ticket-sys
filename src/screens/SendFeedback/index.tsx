@@ -30,7 +30,7 @@ import {
 } from '../../components';
 import {getPosts, getUserByUserId, createUser, getBoards} from './utils';
 import {CannyPosts} from '../../types';
-import {SCREEN_HEIGHT} from '../../constants';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../../constants';
 
 const SendFeedbackScreen = () => {
   const {dark, colors} = useTheme();
@@ -359,6 +359,8 @@ const SendFeedbackScreen = () => {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
+              height: WINDOW_HEIGHT * 0.05,
+              marginBottom: 5,
             }}>
             <CstmPressable
               android_ripple={{borderless: true}}
@@ -371,6 +373,7 @@ const SendFeedbackScreen = () => {
               }}>
               <Ionicons
                 name="md-chevron-back-sharp"
+                style={{alignSelf: 'center', textAlignVertical: 'center'}}
                 color={colors.primary}
                 size={28}
               />
@@ -380,12 +383,11 @@ const SendFeedbackScreen = () => {
               style={{
                 color: colors.text,
                 fontFamily: 'sans-serif',
-                fontSize: 18,
+                fontSize: 20,
               }}>
               Posts
             </Text>
           </View>
-          <GapView length={4} />
           <Divider style={{height: 2, backgroundColor: colors.primary}} />
         </View>
         <FlatList
@@ -396,7 +398,12 @@ const SendFeedbackScreen = () => {
           style={{paddingTop: 10, paddingHorizontal: 15}}
           contentContainerStyle={{flex: postsData.length > 0 ? 0 : 1}}
           showsVerticalScrollIndicator={false}
-          ListEmptyComponent={<NotFound label="Posts" />}
+          ListEmptyComponent={
+            <NotFound
+              label="Posts"
+              display={loading || postsData.length !== 0 ? 'none' : 'flex'}
+            />
+          }
           onEndReachedThreshold={0.01}
           onEndReached={() => {
             fetchPosts({limit: limit + 10}, true);
@@ -426,24 +433,24 @@ const SendFeedbackScreen = () => {
 
   const BoardsListComponent = () => {
     return (
-      <View>
+      <>
         <View style={{paddingTop: 10, paddingHorizontal: 15}}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              padding: 2,
+              height: WINDOW_HEIGHT * 0.05,
+              marginBottom: 5,
             }}>
             <Text
               style={{
                 color: colors.text,
                 fontFamily: 'sans-serif',
-                fontSize: 18,
+                fontSize: 20,
               }}>
               Boards
             </Text>
           </View>
-          <GapView mode="vertical" length={5} />
           <Divider style={{height: 2, backgroundColor: colors.primary}} />
         </View>
         <FlatList
@@ -459,10 +466,15 @@ const SendFeedbackScreen = () => {
             flex: boardsData.length > 0 ? 0 : 1,
           }}
           showsVerticalScrollIndicator={false}
-          ListEmptyComponent={<NotFound label="Boards" />}
+          ListEmptyComponent={
+            <NotFound
+              label="Boards"
+              display={loading || boardsData.length !== 0 ? 'none' : 'flex'}
+            />
+          }
           renderItem={({item, index}) => renderBoardsList(item, index)}
         />
-      </View>
+      </>
     );
   };
 

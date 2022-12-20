@@ -19,11 +19,12 @@ export default function CstmTabBar(props: any) {
   const [translateValue] = useState(new Animated.Value(0));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [elevation, setElevation] = useState(0);
+  var highlight = dark ? '#000000' : '#fff';
+
   const handleWidth =
     routes?.length < 3 ? WINDOW_WIDTH * 0.405 : WINDOW_WIDTH * 0.305;
-  var highlight = dark ? '#000000' : '#fff';
-  const factor =
-    routes?.length < 3 ? 1.035 : WINDOW_WIDTH > 600 ? 1.025 : 1.045;
+  const factor = routes?.length < 3 ? 1.03 : WINDOW_WIDTH > 600 ? 1.025 : 1.045;
+
   const animateHeader = (index: any) => {
     Animated.timing(translateValue, {
       toValue: index * factor * handleWidth,
@@ -61,7 +62,7 @@ export default function CstmTabBar(props: any) {
         key={item?.key}
         style={{
           flexDirection: 'row',
-          backgroundColor: colors.background,
+          // backgroundColor: colors.background,
           zIndex: -1,
         }}>
         <CstmPressable
@@ -74,7 +75,6 @@ export default function CstmTabBar(props: any) {
               width: handleWidth,
               ...styles.itemStyle,
               backgroundColor: colors.background,
-              // elevation,
             }}>
             <Text style={{...styles.textStyle, color: colors.text}}>
               {item.title}
@@ -91,7 +91,7 @@ export default function CstmTabBar(props: any) {
       <View
         style={{
           ...styles.container,
-          backgroundColor: dark ? colors.background : '#EEEEEE',
+          backgroundColor: colors.background,
         }}>
         <View>
           <View

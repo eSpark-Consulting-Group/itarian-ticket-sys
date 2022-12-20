@@ -3,12 +3,7 @@ import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 
 import {ModalView, SingleLineField} from '../../components';
-import {DataItem as Item, SelectFields} from '../../types';
-import {
-  contactNameList,
-  countryList,
-  stateList,
-} from '../../constants/SelectionList';
+import {DataItem as Item} from '../../types';
 import {SelectItems} from '../../utils/helperFunctions';
 import {State, useHookstate} from '@hookstate/core';
 import {userStore} from '../../stores/userStore';
@@ -124,7 +119,14 @@ const NewDepartment = ({route, navigation}: any) => {
               keyboardType={item?.keyboardType}
               mode={item?.mode}
               onPress={() =>
-                SelectItems(item, index, navigation, route, 'NewDepartment', 'Stack1')
+                SelectItems(
+                  item,
+                  index,
+                  navigation,
+                  route,
+                  'NewDepartment',
+                  'Stack1',
+                )
               }
             />
           ))}

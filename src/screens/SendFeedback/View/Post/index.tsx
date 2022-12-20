@@ -228,47 +228,72 @@ export default function Post() {
     );
   };
 
-  const PostBox = (): JSX.Element => {
+  const PostBox = ({
+    display = 'none',
+  }: {
+    display?: 'flex' | 'none';
+  }): JSX.Element => {
     return (
       <View
         style={{
           padding: 15,
           backgroundColor: colors.card,
+          display,
         }}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'space-between',
           }}>
           <View
             style={{
-              backgroundColor: colors.primary,
-              justifyContent: 'center',
+              flexDirection: 'row',
               alignItems: 'center',
-              width: 30,
-              height: 30,
-              borderRadius: 30,
             }}>
-            <Text style={{color: '#fff', fontWeight: 'bold'}}>
-              {postDetail?.author?.name.substring(0, 1).toUpperCase()}
+            <View
+              style={{
+                backgroundColor: colors.primary,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 30,
+                height: 30,
+                borderRadius: 30,
+              }}>
+              <Text style={{color: '#fff', fontWeight: 'bold'}}>
+                {postDetail?.author?.name.substring(0, 1).toUpperCase()}
+              </Text>
+            </View>
+            <GapView mode="horizontal" length={5} />
+            <Text style={{color: colors.text}}>{postDetail?.author?.name}</Text>
+            <View
+              style={{
+                width: 4,
+                height: 4,
+                borderRadius: 5,
+                backgroundColor: 'grey',
+                alignSelf: 'center',
+                margin: 4,
+                marginTop: 8,
+              }}
+            />
+            <Text style={{color: colors.text}}>
+              {moment(postDetail?.created).fromNow()}
             </Text>
           </View>
-          <GapView mode="horizontal" length={5} />
-          <Text style={{color: colors.text}}>{postDetail?.author?.name}</Text>
-          <View
-            style={{
-              width: 4,
-              height: 4,
-              borderRadius: 5,
-              backgroundColor: 'grey',
-              alignSelf: 'center',
-              margin: 4,
-              marginTop: 8,
-            }}
-          />
-          <Text style={{color: colors.text}}>
-            {moment(postDetail?.created).fromNow()}
-          </Text>
+          <CstmPressable
+            style={{display: 'none'}}
+            android_ripple={{borderless: true}}>
+            <MCI
+              name="dots-horizontal"
+              size={22}
+              style={{
+                alignSelf: 'center',
+                margin: 2,
+                color: colors.text + '88',
+              }}
+            />
+          </CstmPressable>
         </View>
         <Text style={{color: colors.text, fontSize: 24}}>
           {postDetail?.title}
@@ -358,18 +383,6 @@ export default function Post() {
               </View>
             </CstmPressable>
           </View>
-
-          <CstmPressable android_ripple={{borderless: true}}>
-            <MCI
-              name="dots-horizontal"
-              size={22}
-              style={{
-                alignSelf: 'center',
-                margin: 2,
-                color: colors.text + '88',
-              }}
-            />
-          </CstmPressable>
         </View>
       </View>
     );
@@ -383,7 +396,7 @@ export default function Post() {
         }}
         scrollEnabled={false}
         data={commDetail?.comments}
-        ListHeaderComponent={<PostBox />}
+        ListHeaderComponent={<PostBox display={postDetail ? 'flex' : 'none'} />}
         ListHeaderComponentStyle={{marginBottom: 8}}
         renderItem={renderComments}
         ListEmptyComponent={
@@ -428,38 +441,66 @@ export default function Post() {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'space-between',
           }}>
           <View
             style={{
-              backgroundColor: colors.primary,
-              justifyContent: 'center',
+              flexDirection: 'row',
               alignItems: 'center',
-              width: 20,
-              height: 20,
-              borderRadius: 20,
             }}>
-            <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 10}}>
-              {item?.author?.name.substring(0, 1).toUpperCase()}
+            <View
+              style={{
+                backgroundColor: colors.primary,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 20,
+                height: 20,
+                borderRadius: 20,
+              }}>
+              <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 10}}>
+                {item?.author?.name.substring(0, 1).toUpperCase()}
+              </Text>
+            </View>
+            <GapView mode="horizontal" length={5} />
+            <Text style={{color: colors.text, fontSize: 12}}>
+              {item?.author?.name}
+            </Text>
+            <View
+              style={{
+                width: 4,
+                height: 4,
+                borderRadius: 5,
+                backgroundColor: 'grey',
+                alignSelf: 'center',
+                margin: 4,
+                marginTop: 8,
+              }}
+            />
+            <Text style={{color: colors.text, fontSize: 12}}>
+              {moment(item?.created).fromNow()}
             </Text>
           </View>
-          <GapView mode="horizontal" length={5} />
-          <Text style={{color: colors.text, fontSize: 12}}>
-            {item?.author?.name}
-          </Text>
-          <View
-            style={{
-              width: 4,
-              height: 4,
-              borderRadius: 5,
-              backgroundColor: 'grey',
-              alignSelf: 'center',
-              margin: 4,
-              marginTop: 8,
-            }}
-          />
-          <Text style={{color: colors.text, fontSize: 12}}>
-            {moment(item?.created).fromNow()}
-          </Text>
+          <View>
+            <CstmPressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                display: userInfo.id === item?.author?.id ? 'flex' : 'none',
+              }}
+              android_ripple={{borderless: true}}
+              onPress={() => {
+                openModal(item, userInfo);
+              }}>
+              <MCI
+                name="dots-horizontal"
+                size={22}
+                style={{
+                  alignSelf: 'center',
+                  color: colors.text + '88',
+                }}
+              />
+            </CstmPressable>
+          </View>
         </View>
         <GapView />
         <Text
@@ -552,24 +593,6 @@ export default function Post() {
               </View>
             </CstmPressable>
           </View>
-          <CstmPressable
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            android_ripple={{borderless: true}}
-            onPress={() => {
-              openModal(item, userInfo);
-            }}>
-            <MCI
-              name="dots-horizontal"
-              size={22}
-              style={{
-                alignSelf: 'center',
-                color: colors.text + '88',
-              }}
-            />
-          </CstmPressable>
         </View>
         <GapView />
       </View>

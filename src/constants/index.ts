@@ -1,6 +1,6 @@
 import {Dimensions} from 'react-native';
 
-export const BUILD_VERSION = '0.8.10';
+export const BUILD_VERSION = '0.11.0';
 
 export const alert_Dur = 1000;
 

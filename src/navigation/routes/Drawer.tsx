@@ -68,12 +68,11 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   const dNavName: State<string> = useHookstate(
     globalState.defaultnNavigationName,
   );
-  const tickets: State<any> = useHookstate(
-    ticketStore.tickets,
-  );
+  const tickets: State<any> = useHookstate(ticketStore.tickets);
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
 
   const {colors}: Theme = useTheme();
+  const {index} = props.state;
 
   return (
     <SafeAreaView
@@ -114,6 +113,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
       <View style={styles.footer}>
         <View>
           <DrawerItem
+            focused={index == 7 ? true : false}
+            activeBackgroundColor={'#ffffff1a'}
+            activeTintColor={'#fff'}
             label={'Settings'}
             inactiveTintColor={'#fff'}
             icon={({color, size, focused}) => (
@@ -125,7 +127,10 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             }}
           />
           <DrawerItem
-            label={'Send Feedback'}
+            focused={index == 8 ? true : false}
+            activeBackgroundColor={'#ffffff1a'}
+            activeTintColor={'#fff'}
+            label={'Feedback'}
             inactiveTintColor={'#fff'}
             labelStyle={styles.footerDrawerStyle}
             icon={({color, size, focused}) => (
@@ -149,7 +154,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               dScreen.set('Agenda');
               dNavName.set('');
               tickets?.set([]);
-              activeMember?.set(null)
+              activeMember?.set(null);
               store.delete(['user', 'dSName', 'dNavName', 'pinCode']);
             }}
           />
@@ -213,7 +218,6 @@ const Draw = () => {
   return (
     <Drawer.Navigator
       initialRouteName={shortCutScreen?.get() || dScreen.get()}
-      // initialRouteName={'Feedback'}
       useLegacyImplementation={true}
       backBehavior="history"
       drawerContent={props => <DrawerContent {...props} />}

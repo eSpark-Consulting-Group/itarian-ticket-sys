@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 
-import {ModalView, SingleLineField} from '../../components';
+import {GapView, ModalView, SingleLineField} from '../../components';
 import {SelectFields, DataItem as Item} from '../../types';
 import {SelectItems} from '../../utils/helperFunctions';
 import {State, useHookstate} from '@hookstate/core';
@@ -87,31 +87,30 @@ const NewTeam = ({route, navigation}: any) => {
   };
 
   return (
-    <ModalView bgColor={colors.card}>
+    <ModalView>
       <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
-          {dataSource.map((item, index) => (
-            <SingleLineField
-              key={index}
-              subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
-              title={item.title}
-              inputable={item.inputable}
-              onChangeText={e => updateInput(e, index)}
-              enable={item.enable}
-              rightIconRound={item.rightIconRound}
-              titleWidth={item.titleWidth}
-              rightIcon={item.rightIcon}
-              showRightSwitch={item.showRightSwitch}
-              rightSwitchVal={item.rightSwitchVal}
-              onChangeSwitch={() => updateSwitch(index)}
-              keyboardType={item?.keyboardType}
-              mode={item?.mode}
-              onPress={() =>
-                SelectItems(item, index, navigation, route, 'NewTeam', 'Stack1')
-              }
-            />
-          ))}
-        </View>
+        {dataSource.map((item, index) => (
+          <SingleLineField
+            key={index}
+            subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
+            title={item.title}
+            inputable={item.inputable}
+            onChangeText={e => updateInput(e, index)}
+            enable={item.enable}
+            rightIconRound={item.rightIconRound}
+            titleWidth={item.titleWidth}
+            rightIcon={item.rightIcon}
+            showRightSwitch={item.showRightSwitch}
+            rightSwitchVal={item.rightSwitchVal}
+            onChangeSwitch={() => updateSwitch(index)}
+            keyboardType={item?.keyboardType}
+            mode={item?.mode}
+            onPress={() =>
+              SelectItems(item, index, navigation, route, 'NewTeam', 'Stack1')
+            }
+          />
+        ))}
+        <GapView />
       </ScrollView>
     </ModalView>
   );

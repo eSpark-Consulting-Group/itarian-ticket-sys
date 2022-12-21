@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, RefreshControl, Text} from 'react-native';
+import {View, FlatList, RefreshControl} from 'react-native';
 
 import {State, useHookstate} from '@hookstate/core';
 
@@ -11,7 +11,7 @@ import {SchAdditionalButtons} from '../../../constants/ButtonsList';
 import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
 import {globalState} from '../../../stores/globalAppState';
 import {ticketStore} from '../../../stores/ticketStore';
-import {Theme, useNavigation, useTheme} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {getTicketsByUserId} from '../utils/functions';
 import {userStore} from '../../../stores/userStore';
 
@@ -20,7 +20,6 @@ const ScheduledTab = ({route}: any) => {
   const tickets: any = useHookstate(ticketStore.tickets).get();
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
-  const {colors}: Theme = useTheme();
   const navigation = useNavigation<any>();
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
@@ -35,7 +34,7 @@ const ScheduledTab = ({route}: any) => {
     };
     setActionButtons(tempArr);
   };
-  // console.log("activeMember.get()?.id ??", activeMember.get()?.id, user);
+  console.log("activeMember.get()?.id ??", activeMember.get()?.id);
 
   useEffect(() => {
     const schTicks = ticketsList.filter(val => val?.time_dur);
@@ -53,16 +52,16 @@ const ScheduledTab = ({route}: any) => {
     setFilArr(aRR);
   }, [activeMember.get()?.name]);
 
+  useEffect(() => {
+    updatePress();
+  }, []);
+
   const onRefresh = () => {
     setIsFetching(true);
     setImmediate(() => {
       setIsFetching(false);
     });
   };
-
-  useEffect(() => {
-    updatePress();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -78,7 +77,6 @@ const ScheduledTab = ({route}: any) => {
           </View>
         }
         renderItem={({item, index}) => {
-          console.log('item', item);
           return (
             <TicketComponent
               item2={item}

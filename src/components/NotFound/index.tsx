@@ -5,12 +5,14 @@ import EmptyListMsg from '../EmptyListMsg';
 const NotFound = ({
   label,
   iconName = 'selection-search',
+  display = 'flex',
 }: {
   label: string;
   iconName?: string;
+  display?: 'flex' | 'none';
 }): JSX.Element => {
   return (
-    <View style={styles.content}>
+    <View style={{...styles.content, display}}>
       <EmptyListMsg iconName={iconName} label={label} />
     </View>
   );

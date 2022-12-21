@@ -6,6 +6,7 @@
 
 import {cannyApi, cannyApiKey} from '../../../api';
 import {
+  CannyBoards,
   CannyCategory,
   CannyPosts,
   Canny_CreateComment,
@@ -22,6 +23,20 @@ const getCategories = async (req?: CannyCategory) => {
     return res;
   } catch (err) {
     console.log('Error on fetch categories', err);
+    throw new Error('Error ' + err);
+  }
+};
+
+const getBoards = async () => {
+  const data: {apiKey: string} = {apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post<{boards: CannyBoards[]}>(
+      '/boards/list',
+      data,
+    );
+    return res;
+  } catch (err) {
+    console.log('Error on Fetching Boards', err);
     throw new Error('Error ' + err);
   }
 };
@@ -147,8 +162,20 @@ const createComment = async (req?: Canny_CreateComment) => {
   }
 };
 
+const deleteComment = async (req?: {commentID: string}) => {
+  const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
+  try {
+    const res = await cannyApi.post('/comments/delete', data);
+    return res;
+  } catch (err) {
+    console.log('Error on create post', err);
+    throw new Error('Error ' + err);
+  }
+};
+
 export {
   getCategories,
+  getBoards,
   getPosts,
   getPostbyId,
   getCommentsByPostId,
@@ -159,4 +186,5 @@ export {
   createVote,
   deleteVote,
   createComment,
+  deleteComment,
 };

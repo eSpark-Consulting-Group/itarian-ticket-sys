@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   RefreshControl,
   ActivityIndicator,
   Image,
+  LayoutAnimation,
 } from 'react-native';
 import {
   useTheme,
@@ -13,11 +14,13 @@ import {
   useFocusEffect,
 } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useHookstate, State} from '@hookstate/core';
 import moment from 'moment';
+import {Divider} from 'react-native-paper';
 
 import {userStore} from '../../stores/userStore';
-import {Canny_CreateUser, User} from '../../types';
+import {CannyBoards, Canny_CreateUser, User} from '../../types';
 import {
   CstmPressable,
   FloatButton,
@@ -25,15 +28,17 @@ import {
   Loader,
   NotFound,
 } from '../../components';
-import {getPosts, getUserByUserId, createUser} from './utils';
+import {getPosts, getUserByUserId, createUser, getBoards} from './utils';
 import {CannyPosts} from '../../types';
-import {SCREEN_HEIGHT} from '../../constants';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../../constants';
 
 const SendFeedbackScreen = () => {
   const {dark, colors} = useTheme();
   const navigation: any = useNavigation();
   const [loading, setLoading] = useState(false);
+  const [showPosts, setShowPosts] = useState<boolean>(false);
   const [postsData, setPostsData] = useState<any>([]);
+  const [boardsData, setBoardsData] = useState<CannyBoards[]>([]);
   const [limit, setLimit] = useState<number>(10);
   const [itemsLoader, setItemsLoader] = useState(false);
   const [cannyUser, setCannyUser] = useState<Canny_CreateUser>();
@@ -52,16 +57,6 @@ const SendFeedbackScreen = () => {
     }, []),
   );
 
-  // useEffect(() => {
-  //   // call the function
-  //   // Test wiz userID: '7884157c-1332-4f10-95a6-b9a22ca5507b'
-  //   console.log('what is the userId', userId);
-  //   fetchUser(userId);
-  //   return () => {
-  //     setLimit(10);
-  //   };
-  // }, []);
-
   const fetchUser = async (userId?: string) => {
     console.log(userId);
     if (userId) {
@@ -71,7 +66,8 @@ const SendFeedbackScreen = () => {
           if (res?.ok) {
             console.log('User already created!', res?.data);
             setCannyUser(res?.data);
-            fetchPosts();
+            // fetchPosts();
+            fetchBoards();
             //* User found
             //todo: Show post and store in state userId of User
           } else {
@@ -81,7 +77,7 @@ const SendFeedbackScreen = () => {
               //! No User Found
               //todo: Create User then show posts
             }
-            console.log('error', res?.data);
+            console.log('No User Found', res?.data);
           }
         })
         .catch(err => {
@@ -97,17 +93,19 @@ const SendFeedbackScreen = () => {
       name: user_name,
       userID: userId,
     };
+    console.log(data);
     createUser(data)
       .then(res => {
         if (res?.ok) {
           console.log('User Created Sucessfully', res?.data);
           setCannyUser(res?.data);
-          fetchPosts();
+          // fetchPosts();
+          fetchBoards();
           //* User Created Sucessfully
           //todo: Show posts now and store userId
         } else {
           //! User not Created Sucessfully
-          console.log('error', res?.data);
+          console.log('User not Created Sucessfully', res?.data);
           setLoading(false);
         }
       })
@@ -117,10 +115,30 @@ const SendFeedbackScreen = () => {
       });
   };
 
+  const fetchBoards = () => {
+    setLoading(true);
+    getBoards()
+      .then(res => {
+        if (res.ok) {
+          if (res.data) {
+            console.log('Boards fetched', res.data);
+            setBoardsData(res?.data?.boards);
+          }
+          setLoading(false);
+        }
+      })
+      .catch(err => {
+        console.log('boards fetching failed', err);
+        setLoading(false);
+      });
+  };
+
   const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
-    console.log(req);
+    console.log('Fetch posts ki request', req);
     if (bottomLoader) {
       setItemsLoader(true);
+    } else {
+      setLoading(true);
     }
     getPosts(req)
       .then(res => {
@@ -141,9 +159,10 @@ const SendFeedbackScreen = () => {
     setPostsData(data);
     setLoading(false);
     setItemsLoader(false);
+    setShowPosts(true);
   };
 
-  const renderList = (item: any, index: number) => {
+  const renderPostList = (item: any, index: number) => {
     return (
       <CstmPressable
         style={{
@@ -289,41 +308,180 @@ const SendFeedbackScreen = () => {
     );
   };
 
+  const renderBoardsList = (item: CannyBoards, index: number) => {
+    return (
+      <CstmPressable
+        style={{
+          marginVertical: 10,
+          paddingVertical: 20,
+          borderWidth: 2,
+          borderRadius: 5,
+          borderColor: colors.primary,
+          backgroundColor: colors.background,
+          elevation: 2,
+        }}
+        onPress={() => {
+          fetchPosts({boardID: item.id});
+          setShowPosts(true);
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+          console.log(item.id);
+        }}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+          }}>
+          <Text
+            style={{
+              color: colors.text,
+              fontFamily: 'sans-serif',
+              fontSize: 16,
+              fontWeight: 'bold',
+            }}
+            numberOfLines={2}>
+            {item.name}
+          </Text>
+          <Text style={{color: colors.text, fontFamily: 'sans-serif-medium'}}>
+            Posts: {item.postCount}
+          </Text>
+        </View>
+      </CstmPressable>
+    );
+  };
+
+  const PostsListComponent = () => {
+    return (
+      <>
+        <View style={{paddingTop: 10, paddingHorizontal: 15}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: WINDOW_HEIGHT * 0.05,
+              marginBottom: 5,
+            }}>
+            <CstmPressable
+              android_ripple={{borderless: true}}
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                );
+                setPostsData([]);
+                setShowPosts(false);
+              }}>
+              <Ionicons
+                name="md-chevron-back-sharp"
+                style={{alignSelf: 'center', textAlignVertical: 'center'}}
+                color={colors.primary}
+                size={28}
+              />
+            </CstmPressable>
+            <GapView mode="horizontal" />
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: 'sans-serif',
+                fontSize: 20,
+              }}>
+              Posts
+            </Text>
+          </View>
+          <Divider style={{height: 2, backgroundColor: colors.primary}} />
+        </View>
+        <FlatList
+          data={postsData}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={() => fetchPosts()} />
+          }
+          style={{paddingTop: 10, paddingHorizontal: 15}}
+          contentContainerStyle={{flex: postsData.length > 0 ? 0 : 1}}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <NotFound
+              label="Posts"
+              display={loading || postsData.length !== 0 ? 'none' : 'flex'}
+            />
+          }
+          onEndReachedThreshold={0.01}
+          onEndReached={() => {
+            fetchPosts({limit: limit + 10}, true);
+            setLimit(state => state + 10);
+          }}
+          ListFooterComponent={() => {
+            return (
+              <View style={{height: itemsLoader ? SCREEN_HEIGHT * 0.07 : 10}}>
+                {itemsLoader && (
+                  <ActivityIndicator
+                    size={'large'}
+                    color={colors.primary}
+                    style={{height: '100%'}}
+                  />
+                )}
+              </View>
+            );
+          }}
+          renderItem={({item, index}) => renderPostList(item, index)}
+        />
+        <FloatButton
+          onPress={() => navigation.navigate('Stack1', {screen: 'CreatePost'})}
+        />
+      </>
+    );
+  };
+
+  const BoardsListComponent = () => {
+    return (
+      <>
+        <View style={{paddingTop: 10, paddingHorizontal: 15}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: WINDOW_HEIGHT * 0.05,
+              marginBottom: 5,
+            }}>
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: 'sans-serif',
+                fontSize: 20,
+              }}>
+              Boards
+            </Text>
+          </View>
+          <Divider style={{height: 2, backgroundColor: colors.primary}} />
+        </View>
+        <FlatList
+          data={boardsData}
+          style={{paddingTop: 10, paddingHorizontal: 15}}
+          refreshControl={
+            <RefreshControl
+              refreshing={false}
+              onRefresh={() => fetchBoards()}
+            />
+          }
+          contentContainerStyle={{
+            flex: boardsData.length > 0 ? 0 : 1,
+          }}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <NotFound
+              label="Boards"
+              display={loading || boardsData.length !== 0 ? 'none' : 'flex'}
+            />
+          }
+          renderItem={({item, index}) => renderBoardsList(item, index)}
+        />
+      </>
+    );
+  };
+
   return (
     <View style={{flex: 1}}>
       <Loader isShow={loading} />
-      <FlatList
-        data={postsData}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={() => fetchPosts()} />
-        }
-        style={{paddingTop: 10, paddingHorizontal: 15}}
-        contentContainerStyle={{flex: postsData.length > 0 ? 0 : 1}}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={<NotFound label="Posts" />}
-        onEndReachedThreshold={0.01}
-        onEndReached={() => {
-          fetchPosts({limit: limit + 10}, true);
-          setLimit(state => state + 10);
-        }}
-        ListFooterComponent={() => {
-          return (
-            <View style={{height: itemsLoader ? SCREEN_HEIGHT * 0.07 : 0}}>
-              {itemsLoader && (
-                <ActivityIndicator
-                  size={'large'}
-                  color={colors.primary}
-                  style={{height: '100%'}}
-                />
-              )}
-            </View>
-          );
-        }}
-        renderItem={({item, index}) => renderList(item, index)}
-      />
-      <FloatButton
-        onPress={() => navigation.navigate('Stack1', {screen: 'CreatePost'})}
-      />
+      {showPosts ? <PostsListComponent /> : <BoardsListComponent />}
     </View>
   );
 };

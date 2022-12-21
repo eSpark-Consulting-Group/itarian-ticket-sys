@@ -1,6 +1,7 @@
 import {showMessage} from 'react-native-flash-message';
 
 import {api} from '../../../api';
+import { alert_Dur } from '../../../constants';
 import {globalState} from '../../../stores/globalAppState';
 import {ticketStore} from '../../../stores/ticketStore';
 import {userStore} from '../../../stores/userStore';
@@ -71,4 +72,51 @@ const addTicket = async (data: any) => {
   }
 };
 
-export {getAllUsers, getTicketsByUserId, addTicket};
+const deleteTicket = async (id: number) => {
+  const user: any = userStore?.user?.get();
+  const activeMember: any = globalState?.agendaMember?.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.delete(`/tickets/${id}`);
+    if (result?.ok) {
+      getTicketsByUserId(activeMember?.id);
+      showMessage({
+        message: 'Ticket deleted successfully',
+        type: 'success',
+        duration: alert_Dur,
+      });
+      return {status: true};
+    }else {
+      return {status: false, message: result};
+    }
+  } catch (error) {
+    console.log('error deleteTickets', error);
+    return {status: false};
+  }
+};
+
+const updateTicket = async (data: any) => {
+  const user: any = userStore?.user?.get();
+  const activeMember: any = globalState?.agendaMember?.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.patch(`/tickets/${data?.data?.id}`, data);
+    console.log('result updatetickets', result);
+    if (result?.ok) {
+      getTicketsByUserId(activeMember?.id);
+      return {status: true};
+    }else {
+      return {status: false, message: result};
+    }
+  } catch (error) {
+    console.log('error updatetickets', error);
+    return {status: true, message: error};
+  }
+};
+export {getAllUsers, getTicketsByUserId, addTicket, updateTicket, deleteTicket};

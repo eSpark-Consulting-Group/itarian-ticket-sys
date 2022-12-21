@@ -63,7 +63,7 @@ const App = ({navigation, route}: any) => {
 
   return (
     <ModalView>
-      <ModalHeader
+      {/* <ModalHeader
         icon="office-building-marker-outline"
         title={companyContact.company?.name}
         subTitle={companyContact?.contact?.name}
@@ -80,7 +80,7 @@ const App = ({navigation, route}: any) => {
             />
           </>
         }
-      />
+      /> */}
       <Overview ticketDetails={route?.params?.ticket_info?.data} />
       <FloatButton AdditionalButtons={actionButtons} />
     </ModalView>

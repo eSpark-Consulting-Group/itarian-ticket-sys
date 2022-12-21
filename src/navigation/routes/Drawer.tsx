@@ -25,7 +25,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import OI from 'react-native-vector-icons/Octicons';
-import EI from 'react-native-vector-icons/Entypo'
+import EI from 'react-native-vector-icons/Entypo';
 import {State, useHookstate} from '@hookstate/core';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import {Avatar} from 'react-native-paper';
@@ -46,7 +46,7 @@ import {
   SlaPlans,
   Departments,
   Locations,
-  HelpTopics
+  HelpTopics,
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -56,7 +56,7 @@ import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
 import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
 import {updateUser} from '../../screens/Profile/utils';
-
+import {ticketStore} from '../../stores/ticketStore';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -68,6 +68,10 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   const dNavName: State<string> = useHookstate(
     globalState.defaultnNavigationName,
   );
+  const tickets: State<any> = useHookstate(
+    ticketStore.tickets,
+  );
+  const activeMember: State<any> = useHookstate(globalState.agendaMember);
 
   const {colors}: Theme = useTheme();
 
@@ -144,6 +148,8 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
               dSName.set('Agenda');
               dScreen.set('Agenda');
               dNavName.set('');
+              tickets?.set([]);
+              activeMember?.set(null)
               store.delete(['user', 'dSName', 'dNavName', 'pinCode']);
             }}
           />

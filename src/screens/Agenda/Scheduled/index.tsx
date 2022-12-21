@@ -25,6 +25,17 @@ const ScheduledTab = ({route}: any) => {
     useState<AdditionalButtons[]>(SchAdditionalButtons);
   const user: any = useHookstate(userStore.user).get();
 
+  const updatePress = () => {
+    let tempArr = [...actionButtons];
+    tempArr[0].onPress = () => {
+      navigation.navigate('Stack1', {
+        screen: 'NewTicket',
+      });
+    };
+    setActionButtons(tempArr);
+  };
+  console.log("activeMember.get()?.id ??", activeMember.get()?.id);
+
   useEffect(() => {
     const schTicks = ticketsList.filter(val => val?.time_dur);
     getTicketsByUserId(activeMember.get()?.id);
@@ -40,16 +51,6 @@ const ScheduledTab = ({route}: any) => {
     }
     setFilArr(aRR);
   }, [activeMember.get()?.name]);
-
-  const updatePress = () => {
-    let tempArr = [...actionButtons];
-    tempArr[0].onPress = () => {
-      navigation.navigate('Stack1', {
-        screen: 'NewTicket',
-      });
-    };
-    setActionButtons(tempArr);
-  };
 
   useEffect(() => {
     updatePress();
@@ -76,7 +77,6 @@ const ScheduledTab = ({route}: any) => {
           </View>
         }
         renderItem={({item, index}) => {
-          console.log('item', item);
           return (
             <TicketComponent
               item2={item}
@@ -89,7 +89,7 @@ const ScheduledTab = ({route}: any) => {
                     ticket_info: {
                       id: item.id?.toString(),
                       summary: item?.attributes?.detail,
-                      data: item,
+                      data: item
                     },
                   },
                 });

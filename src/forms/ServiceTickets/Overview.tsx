@@ -48,17 +48,21 @@ const Overview = ({ticketDetails}: any) => {
       key: 'duedate',
     },
     {
-      title: 'Please Select',
+      title: ticketDetails?.attributes?.user?.user_name ??  'Please Select',
       subTitle: 'User',
       list: users?.get() ?? [],
-      selectedItem: undefined,
+      selectedItem: users
+      .get()
+      ?.filter(
+        (value: any) => value?.id == ticketDetails?.attributes?.user?.id,
+      )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
       key: 'user',
     },
     {
-      title: 'Please Select',
+      title: ticketDetails?.attributes?.helptopic?.name ?? 'Please Select',
       subTitle: 'Help Topic',
       list:
         helpTopics.get().map((value: any) => {
@@ -67,24 +71,32 @@ const Overview = ({ticketDetails}: any) => {
             id: value?.id,
           };
         }) || [],
-      selectedItem: undefined,
+      selectedItem: helpTopics
+      .get()
+      ?.filter(
+        (value: any) => value?.id == ticketDetails?.attributes?.helptopic?.id,
+      )[0],
       headerTitle: 'Parent Topic',
       rightIcon: 'chevron-right',
       isRequired: true,
       key: 'helptopic',
     },
     {
-      title: 'Please Select',
+      title: ticketDetails?.attributes?.staff?.user_name ?? 'Please Select',
       subTitle: 'Staff',
       list: users.get() || [],
-      selectedItem: undefined,
+      selectedItem: users
+      .get()
+      ?.filter(
+        (value: any) => value?.id == ticketDetails?.attributes?.staff?.id,
+      )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: false,
       key: 'staff',
     },
     {
-      title: 'Please Select',
+      title: ticketDetails?.attributes?.slaplan?.name ?? 'Please Select',
       subTitle: 'Sla Plan',
       list:
         slaPlans.get().map((value: any) => {
@@ -93,17 +105,25 @@ const Overview = ({ticketDetails}: any) => {
             id: value?.id,
           };
         }) || [],
-      selectedItem: undefined,
+      selectedItem: slaPlans
+      .get()
+      ?.filter(
+        (value: any) => value?.id == ticketDetails?.attributes?.slaplan?.id,
+      )[0],
       headerTitle: 'SLA Plan',
       rightIcon: 'chevron-right',
       isRequired: true,
       key: 'slaplan',
     },
     {
-      title: 'Please Select',
+      title: ticketDetails?.attributes?.ticketpriority?.name ?? 'Please Select',
       subTitle: 'Ticket Priority',
       list: ticketPriorities.get() || [],
-      selectedItem: undefined,
+      selectedItem: ticketPriorities
+      .get()
+      ?.filter(
+        (value: any) => value?.id == ticketDetails?.attributes?.ticketpriority?.id,
+      )[0],
       headerTitle: 'Ticket Priority',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -128,6 +148,13 @@ const Overview = ({ticketDetails}: any) => {
       setDs([...Ds]);
     }
   };
+
+  console.log("users", users
+  .get()
+  ?.filter(
+    (value: any) => value?.id == ticketDetails?.attributes?.user?.id,
+  )[0]);
+  
 
   return (
     <ScrollView

@@ -53,7 +53,7 @@ import {
   updateHelpTopic,
 } from '../../screens/HelpTopic/utils/functions';
 import moment from 'moment';
-import { addTicket } from '../../screens/Agenda/utils/functions';
+import {addTicket, updateTicket} from '../../screens/Agenda/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -124,7 +124,7 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="STickets"
         component={STickets}
-        options={({route, navigation}) => ({
+        options={({route, navigation}: any) => ({
           title: route?.params?.title,
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -138,22 +138,84 @@ const StackLvl1 = ({route, navigation}: any) => {
           ),
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-              {/* <II
-                size={30}
-                name="stopwatch-outline"
-                color={'#fff'}
-                onPress={() => handleStopwatch(route?.params)}
-              /> */}
               <View style={{width: 15}} />
-              <MI
-                onPress={() =>
-                  navigation.navigate('Stack2', {
-                    screen: 'EditTicket',
-                    params: route?.params,
-                  })
-                }
+              <FA
+                onPress={() => {
+                  const data = dataFormatter(route?.params?.data, '_');
+                  const obj: any = {
+                    data: {
+                      id: data?.id,
+                      type: 'tickets',
+                      attributes: {
+                        duedate:
+                          data?.duedate != 'Please Select'
+                            ? moment(data?.duedate).format(
+                                'YYYY-MM-DD hh:mm:ss',
+                              )
+                            : moment().format('YYYY-MM-DD hh:mm:ss'),
+                        ticket_thread: {
+                          subject: data?.subject,
+                          detail: data?.detail,
+                        },
+                      },
+                      relationships: {
+                        slaplan: {
+                          data: {
+                            type: 'slaplans',
+                            id: data?.slaplan?.id,
+                          },
+                        },
+                        user: {
+                          data: {
+                            type: 'users',
+                            id: data?.user?.id,
+                          },
+                        },
+                        staff: {
+                          data: {
+                            type: 'users',
+                            id: data?.staff?.id,
+                          },
+                        },
+                        helptopic: {
+                          data: {
+                            type: 'helptopics',
+                            id: data?.helptopic?.id,
+                          },
+                        },
+                        ticketpriority: {
+                          data: {
+                            type: 'ticketpriorities',
+                            id: data?.ticketpriority?.id,
+                          },
+                        },
+                      },
+                    },
+                  };
+                  if (!obj?.data?.relationships?.staff?.data?.id) {
+                    delete obj?.data?.relationships?.staff;
+                  }
+                  console.log(
+                    'obj obj NewTicket',
+                    obj.data.attributes,
+                    '\n',
+                    'relationships',
+                    obj?.data?.relationships,
+                    "data", '\n',
+                    data, '\n',
+                    "route?.params?.data", '\n',
+                    route?.params?.data
+                  );
+                  checkValidations(
+                    navigation,
+                    route,
+                    globalStates,
+                    updateTicket,
+                    obj,
+                  );
+                }}
                 size={30}
-                name="edit"
+                name="save"
                 color={'#fff'}
               />
             </View>
@@ -243,54 +305,69 @@ const StackLvl1 = ({route, navigation}: any) => {
               onPress={() => {
                 const data = dataFormatter(route?.params?.data, '_');
                 const obj: any = {
-                    data: {
-                      type: 'tickets',
-                      attributes: {
-                        duedate: data?.duedate != "Please Select" ?  moment(data?.duedate).format('YYYY-MM-DD hh:mm:ss') :  moment().format('YYYY-MM-DD hh:mm:ss'),
-                        ticket_thread: {
-                          subject: data?.subject,
-                          detail: data?.detail,
+                  data: {
+                    type: 'tickets',
+                    attributes: {
+                      duedate:
+                        data?.duedate != 'Please Select'
+                          ? moment(data?.duedate).format('YYYY-MM-DD hh:mm:ss')
+                          : moment().format('YYYY-MM-DD hh:mm:ss'),
+                      ticket_thread: {
+                        subject: data?.subject,
+                        detail: data?.detail,
+                      },
+                    },
+                    relationships: {
+                      slaplan: {
+                        data: {
+                          type: 'slaplans',
+                          id: data?.slaplan?.id,
                         },
                       },
-                      relationships: {
-                        slaplan: {
-                          data: {
-                            type: 'slaplans',
-                            id: data?.slaplan?.id,
-                          },
+                      user: {
+                        data: {
+                          type: 'users',
+                          id: data?.user?.id,
                         },
-                        user: {
-                          data: {
-                            type: 'users',
-                            id: data?.user?.id,
-                          },
+                      },
+                      staff: {
+                        data: {
+                          type: 'users',
+                          id: data?.staff?.id,
                         },
-                        staff: {
-                          data: {
-                            type: 'users',
-                            id: data?.staff?.id,
-                          },
+                      },
+                      helptopic: {
+                        data: {
+                          type: 'helptopics',
+                          id: data?.helptopic?.id,
                         },
-                        helptopic: {
-                          data: {
-                            type: 'helptopics',
-                            id: data?.helptopic?.id,
-                          },
-                        },
-                        ticketpriority: {
-                          data: {
-                            type: 'ticketpriorities',
-                            id: data?.ticketpriority?.id,
-                          },
+                      },
+                      ticketpriority: {
+                        data: {
+                          type: 'ticketpriorities',
+                          id: data?.ticketpriority?.id,
                         },
                       },
                     },
+                  },
                 };
                 if (!obj?.data?.relationships?.staff?.data?.id) {
                   delete obj?.data?.relationships?.staff;
                 }
-                console.log('obj obj NewTicket', obj.data.attributes, '\n','relationships', obj?.data?.relationships);
-                checkValidations(navigation, route, globalStates, addTicket, obj);
+                console.log(
+                  'obj obj NewTicket',
+                  obj.data.attributes,
+                  '\n',
+                  'relationships',
+                  obj?.data?.relationships,
+                );
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addTicket,
+                  obj,
+                );
               }}
             />
           ),

@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 import {useHookstate, State} from '@hookstate/core';
 
-import {SearchBar, SimpleLoader} from '../../components';
+import {
+  NotFound,
+  SearchBar,
+  SimpleLoader,
+  TicketComponent,
+} from '../../components';
 import styles from './style';
 import {globalState} from '../../stores/globalAppState';
 
@@ -13,33 +18,36 @@ import {RenderTickets} from '../Agenda/ListItem';
 import {
   companiesList,
   contactsList,
-  configurationsList,
-  ticketsList,
 } from '../../constants/SampleArrays';
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
 import {userStore} from '../../stores/userStore';
 import {companyStore} from '../../stores/companyStore';
+import {ticketStore} from '../../stores/ticketStore';
+import { getTicketsByUserId } from '../Agenda/utils/functions';
 
-const Search = ({route}: any) => {
+const Search = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [type, setType] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [clear, setClear] = useState(false);
+  const tickets: any = useHookstate(ticketStore.tickets).get();
 
   const [filteredCompanies, setFilteredCompanies] = useState(companiesList);
   const [filteredContacts, setFilteredContacts] = useState(contactsList);
-  const [filteredConfigurations, setFilteredConfigurations] =
-    useState(configurationsList);
-  const [filteredTickets, setFilteredTickets] = useState(
-    ticketsList.filter(val => val?.type == 'Ticket'),
-  );
+  const [filteredTickets, setFilteredTickets] = useState(tickets);
+
   const users = useHookstate(userStore.users).get();
   const companies = useHookstate(companyStore.companies).get();
 
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
+
+  useEffect(() => {
+    getTicketsByUserId('4')
+    setFilteredTickets(tickets)
+  }, [])
 
   useEffect(() => {
     if (route.params) {
@@ -68,9 +76,10 @@ const Search = ({route}: any) => {
       case 'tickets':
         var result = await searchFromArray({
           text: text || '',
-          list: ticketsList.filter(val => val?.type == 'Ticket'),
-          keys: ['ticket_no', 'summary', 'contact', 'company', 'project'],
+          list: tickets,
+          keys: ['attributes.detail', 'attributes.subject'],
         });
+        console.log('tickets tickets', result);
         setFilteredTickets(result);
       case 'users':
         var result = await searchFromArray({
@@ -126,10 +135,44 @@ const Search = ({route}: any) => {
     setIsSearching(false);
   }, [searchTagValue.get()]);
 
+  console.log("filteredTickets filteredTickets", filteredTickets);
+  
   const handleRenderList = () => {
     switch (searchTagValue.get()) {
       case 'tickets':
-        return <RenderTickets listData={filteredTickets} />;
+        return (
+          <FlatList
+            data={filteredTickets || []}
+            contentContainerStyle={{flex: 1}}
+            ListEmptyComponent={
+              <View style={{alignSelf: 'center'}}>
+                <NotFound label="Tickets" />
+              </View>
+            }
+            renderItem={({item, index}: any) => {
+              console.log('item', item);
+              return (
+                <TicketComponent
+                  item2={item}
+                  ind={index}
+                  onPress={() => {
+                    navigation.navigate('Stack1', {
+                      screen: 'STickets',
+                      params: {
+                        title: `Ticket# ${item?.id?.toString()}`,
+                        ticket_info: {
+                          id: item.id?.toString(),
+                          summary: item?.attributes?.detail,
+                          data: item,
+                        },
+                      },
+                    });
+                  }}
+                />
+              );
+            }}
+          />
+        );
       case 'users':
         return <RenderContacts listData={filteredContacts} />;
       case 'organizations':
@@ -139,6 +182,8 @@ const Search = ({route}: any) => {
     }
   };
 
+  // console.log("filteredTickets filteredTickets", filteredTickets, '\n', 'tickets', tickets);
+  
   return (
     <View style={styles.container}>
       <View

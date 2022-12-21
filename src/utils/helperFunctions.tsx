@@ -141,6 +141,13 @@ export const searchFromArray = async ({
         const textData = text.toUpperCase();
         return itemData?.indexOf(textData) > -1;
       });
+    console.log(
+      'newData',
+      newData,
+      newData?.map((value: object) => {
+        return expandFlatten(value, '.');
+      }),
+    );
 
     return newData?.map((value: object) => {
       return expandFlatten(value, '.');
@@ -207,7 +214,8 @@ export const checkValidations = async (
       isGoback && navigation.goBack();
     } else {
       showMessage({
-        message: result?.message?.data?.errors[0]?.detail ?? "Something went wrong",
+        message:
+          result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
         type: 'danger',
         icon: 'auto',
         duration: alert_Dur,
@@ -293,7 +301,9 @@ export const dataFormatter = (array: any = [], replacer: string = '') => {
   var dataObj: any = {};
   [...array]?.map(val => {
     dataObj[
-      (val?.key?.replace(' ', replacer)) ?? (val?.subTitle?.replace(' ', replacer) ?? val?.title.replace(' ', replacer))
+      val?.key?.replace(' ', replacer) ??
+        val?.subTitle?.replace(' ', replacer) ??
+        val?.title.replace(' ', replacer)
     ] = !val?.subTitle
       ? val?.rightSwitchVal
       : val?.selectedItem

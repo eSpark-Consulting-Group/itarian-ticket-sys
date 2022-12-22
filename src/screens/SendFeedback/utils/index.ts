@@ -43,9 +43,8 @@ const getBoards = async () => {
 
 const getPosts = async (req?: CannyPosts) => {
   const data: {apiKey: string} = {...req, apiKey: cannyApiKey};
-  console.log('kia mili hai query', data);
+  console.log('request body for fetch posts??', data);
   try {
-    console.log('chla');
     const res = await cannyApi.post('/posts/list', data);
     return res;
   } catch (err) {

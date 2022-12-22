@@ -337,6 +337,21 @@ function traverseAndFlatten(
   }
 }
 
+export function removeDuplicates(array1: any, array2: any) {
+  const result: any = [];
+  for (const obj of array1) {
+    if (!result.find((o: any) => o.id === obj.id)) {
+      result.push(obj);
+    }
+  }
+  for (const obj of array2) {
+    if (!result.find((o: any) => o.id === obj.id)) {
+      result.push(obj);
+    }
+  }
+  return result;
+}
+
 export function flatten(obj: any) {
   var flattenedObject = {};
   traverseAndFlatten(obj, flattenedObject);

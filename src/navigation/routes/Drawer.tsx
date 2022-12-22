@@ -54,8 +54,6 @@ import {contactsList} from '../../constants/SampleArrays';
 import Images from '../../assets/Images';
 import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
-import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
-import {updateUser} from '../../screens/Profile/utils';
 import {ticketStore} from '../../stores/ticketStore';
 
 const Drawer = createDrawerNavigator<ParamList>();

@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Image,
   LayoutAnimation,
+  TextInput,
 } from 'react-native';
 import {
   useTheme,
@@ -30,7 +31,9 @@ import {
 } from '../../components';
 import {getPosts, getUserByUserId, createUser, getBoards} from './utils';
 import {CannyPosts} from '../../types';
-import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../../constants';
+import {SCREEN_HEIGHT, WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants';
+import {useUpdateEffect} from '../../utils/hooks';
+import {removeDuplicates} from '../../utils/helperFunctions';
 
 const SendFeedbackScreen = () => {
   const {dark, colors} = useTheme();
@@ -39,22 +42,29 @@ const SendFeedbackScreen = () => {
   const [showPosts, setShowPosts] = useState<boolean>(false);
   const [postsData, setPostsData] = useState<any>([]);
   const [boardsData, setBoardsData] = useState<CannyBoards[]>([]);
-  const [limit, setLimit] = useState<number>(10);
+  const [skip, setSkip] = useState<number>(0);
   const [itemsLoader, setItemsLoader] = useState(false);
+  const [searchPosts, setSearchPosts] = useState('');
   const [cannyUser, setCannyUser] = useState<Canny_CreateUser>();
   const userObj: State<User> = useHookstate(userStore);
+
   const {email, user_name, userId}: any = userObj?.user.get();
+
+  useEffect(() => {
+    setShowPosts(false);
+    fetchUser(userId);
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
-      // call the function
-      // Test wiz userID: '7884157c-1332-4f10-95a6-b9a22ca5507b'
-      console.log('what is the userId', userId);
-      fetchUser(userId);
+      setSkip(0);
+      if (showPosts) {
+        fetchPosts();
+      }
       return () => {
-        setLimit(10);
+        setPostsData([]);
       };
-    }, []),
+    }, [showPosts]),
   );
 
   const fetchUser = async (userId?: string) => {
@@ -64,7 +74,7 @@ const SendFeedbackScreen = () => {
       getUserByUserId({userID: userId})
         .then(res => {
           if (res?.ok) {
-            console.log('User already created!', res?.data);
+            // console.log('User already created!', res?.data);
             setCannyUser(res?.data);
             // fetchPosts();
             fetchBoards();
@@ -77,11 +87,11 @@ const SendFeedbackScreen = () => {
               //! No User Found
               //todo: Create User then show posts
             }
-            console.log('No User Found', res?.data);
+            // console.log('No User Found', res?.data);
           }
         })
         .catch(err => {
-          console.log('user', err);
+          // console.log('user', err);
           setLoading(false);
         });
     }
@@ -93,25 +103,24 @@ const SendFeedbackScreen = () => {
       name: user_name,
       userID: userId,
     };
-    console.log(data);
+    // console.log(data);
     createUser(data)
       .then(res => {
         if (res?.ok) {
-          console.log('User Created Sucessfully', res?.data);
+          // console.log('User Created Sucessfully', res?.data);
           setCannyUser(res?.data);
-          // fetchPosts();
           fetchBoards();
           //* User Created Sucessfully
           //todo: Show posts now and store userId
         } else {
           //! User not Created Sucessfully
-          console.log('User not Created Sucessfully', res?.data);
+          // console.log('User not Created Sucessfully', res?.data);
           setLoading(false);
         }
       })
       .catch(err => {
         setLoading(false);
-        console.log('Error on Api CreateUser');
+        // console.log('Error on Api CreateUser');
       });
   };
 
@@ -121,14 +130,14 @@ const SendFeedbackScreen = () => {
       .then(res => {
         if (res.ok) {
           if (res.data) {
-            console.log('Boards fetched', res.data);
+            // console.log('Boards fetched', res.data);
             setBoardsData(res?.data?.boards);
           }
           setLoading(false);
         }
       })
       .catch(err => {
-        console.log('boards fetching failed', err);
+        // console.log('boards fetching failed', err);
         setLoading(false);
       });
   };
@@ -144,23 +153,37 @@ const SendFeedbackScreen = () => {
       .then(res => {
         if (res.ok) {
           const {posts}: any = res?.data;
+          // console.log('Gotten posts', posts);
           handlePosts(posts);
         }
       })
       // make sure to catch any error
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         setLoading(false);
         setItemsLoader(false);
       });
   };
 
   const handlePosts = (data: any[]) => {
-    setPostsData(data);
+    const listData = removeDuplicates(postsData, data);
+    console.log(listData, '00000000000000000000000000');
+    setPostsData(listData);
+
     setLoading(false);
     setItemsLoader(false);
-    setShowPosts(true);
   };
+
+  const resetLoad = () => {
+    setPostsData([]);
+    setSkip(0);
+    fetchPosts({}, false);
+  };
+
+  // useUpdateEffect(() => {
+  //   console.log('-----------------------------------------------------');
+  //   fetchPosts({limit: 10, skip: skip}, true);
+  // }, [skip]);
 
   const renderPostList = (item: any, index: number) => {
     return (
@@ -318,13 +341,14 @@ const SendFeedbackScreen = () => {
           borderRadius: 5,
           borderColor: colors.primary,
           backgroundColor: colors.background,
-          elevation: 2,
         }}
         onPress={() => {
+          setPostsData([]);
+          setSkip(0);
           fetchPosts({boardID: item.id});
           setShowPosts(true);
           LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-          console.log(item.id);
+          // console.log(item.id);
         }}>
         <View
           style={{
@@ -358,67 +382,109 @@ const SendFeedbackScreen = () => {
           <View
             style={{
               flexDirection: 'row',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              height: WINDOW_HEIGHT * 0.05,
+              height: WINDOW_HEIGHT * 0.06,
               marginBottom: 5,
             }}>
-            <CstmPressable
-              android_ripple={{borderless: true}}
-              onPress={() => {
-                LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut,
-                );
-                setPostsData([]);
-                setShowPosts(false);
-              }}>
-              <Ionicons
-                name="md-chevron-back-sharp"
-                style={{alignSelf: 'center', textAlignVertical: 'center'}}
-                color={colors.primary}
-                size={28}
+            <View>
+              <TextInput
+                underlineColorAndroid={'transparent'}
+                autoCorrect={false}
+                scrollEnabled={false}
+                multiline={false}
+                selectionColor={colors.primary}
+                style={{
+                  height: '100%',
+                  width: WINDOW_WIDTH * 0.8,
+                  fontSize: 18,
+                  color: colors.text,
+                  textDecorationLine: 'none',
+                  display: 'none',
+                }}
+                onChangeText={text => setSearchPosts(text)}
+                value={searchPosts}
+                placeholder="Search Posts..."
+                onSubmitEditing={() => console.log('yeh')}
               />
-            </CstmPressable>
-            <GapView mode="horizontal" />
-            <Text
-              style={{
-                color: colors.text,
-                fontFamily: 'sans-serif',
-                fontSize: 20,
-              }}>
-              Posts
-            </Text>
+              <View style={{flexDirection: 'row', display: 'flex'}}>
+                <CstmPressable
+                  android_ripple={{borderless: true}}
+                  onPress={() => {
+                    LayoutAnimation.configureNext(
+                      LayoutAnimation.Presets.easeInEaseOut,
+                    );
+                    setPostsData([]);
+                    setShowPosts(false);
+                  }}>
+                  <Ionicons
+                    name="md-chevron-back-sharp"
+                    style={{alignSelf: 'center', textAlignVertical: 'center'}}
+                    color={colors.primary}
+                    size={28}
+                  />
+                </CstmPressable>
+                <GapView mode="horizontal" />
+                <Text
+                  style={{
+                    color: colors.text,
+                    fontFamily: 'sans-serif',
+                    fontSize: 20,
+                  }}>
+                  Posts
+                </Text>
+              </View>
+            </View>
+            <View style={{marginRight: 10}}>
+              <CstmPressable
+                android_ripple={{borderless: true}}
+                onPress={() => {
+                  LayoutAnimation.configureNext(
+                    LayoutAnimation.Presets.easeInEaseOut,
+                  );
+                }}>
+                <Ionicons
+                  name="search"
+                  style={{alignSelf: 'center', textAlignVertical: 'center'}}
+                  color={colors.primary}
+                  size={28}
+                />
+              </CstmPressable>
+            </View>
           </View>
           <Divider style={{height: 2, backgroundColor: colors.primary}} />
         </View>
         <FlatList
           data={postsData}
           refreshControl={
-            <RefreshControl refreshing={false} onRefresh={() => fetchPosts()} />
+            <RefreshControl refreshing={false} onRefresh={() => resetLoad()} />
           }
           style={{paddingTop: 10, paddingHorizontal: 15}}
           contentContainerStyle={{flex: postsData.length > 0 ? 0 : 1}}
-          showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={true}
           ListEmptyComponent={
             <NotFound
               label="Posts"
               display={loading || postsData.length !== 0 ? 'none' : 'flex'}
             />
           }
-          onEndReachedThreshold={0.01}
           onEndReached={() => {
-            fetchPosts({limit: limit + 10}, true);
-            setLimit(state => state + 10);
+            if (postsData.length > 8) {
+              fetchPosts({skip: skip + 10}, true);
+              setSkip(state => state + 10);
+            }
           }}
           ListFooterComponent={() => {
             return (
               <View style={{height: itemsLoader ? SCREEN_HEIGHT * 0.07 : 10}}>
-                {itemsLoader && (
-                  <ActivityIndicator
-                    size={'large'}
-                    color={colors.primary}
-                    style={{height: '100%'}}
-                  />
-                )}
+                <ActivityIndicator
+                  size={'large'}
+                  color={colors.primary}
+                  style={{
+                    height: '100%',
+                    display: itemsLoader ? 'flex' : 'none',
+                  }}
+                />
               </View>
             );
           }}
@@ -430,6 +496,8 @@ const SendFeedbackScreen = () => {
       </>
     );
   };
+
+  console.log(showPosts, 'ppp');
 
   const BoardsListComponent = () => {
     return (
@@ -481,7 +549,7 @@ const SendFeedbackScreen = () => {
   return (
     <View style={{flex: 1}}>
       <Loader isShow={loading} />
-      {showPosts ? <PostsListComponent /> : <BoardsListComponent />}
+      {showPosts ? PostsListComponent() : <BoardsListComponent />}
     </View>
   );
 };

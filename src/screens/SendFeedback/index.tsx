@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import {
 } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MatIcons from 'react-native-vector-icons/MaterialIcons';
 import {useHookstate, State} from '@hookstate/core';
 import moment from 'moment';
 import {Divider} from 'react-native-paper';
@@ -46,7 +47,9 @@ const SendFeedbackScreen = () => {
   const [itemsLoader, setItemsLoader] = useState(false);
   const [searchPosts, setSearchPosts] = useState('');
   const [cannyUser, setCannyUser] = useState<Canny_CreateUser>();
+  const [showSearch, setShowSearch] = useState<boolean>();
   const userObj: State<User> = useHookstate(userStore);
+  const searchRef = useRef<TextInput>(null);
 
   const {email, user_name, userId}: any = userObj?.user.get();
 
@@ -142,7 +145,11 @@ const SendFeedbackScreen = () => {
       });
   };
 
-  const fetchPosts = (req?: CannyPosts, bottomLoader?: boolean) => {
+  const fetchPosts = (
+    req?: CannyPosts,
+    bottomLoader?: boolean,
+    searchFlag?: boolean,
+  ) => {
     console.log('Fetch posts ki request', req);
     if (bottomLoader) {
       setItemsLoader(true);
@@ -154,7 +161,7 @@ const SendFeedbackScreen = () => {
         if (res.ok) {
           const {posts}: any = res?.data;
           // console.log('Gotten posts', posts);
-          handlePosts(posts);
+          handlePosts(posts, searchFlag);
         }
       })
       // make sure to catch any error
@@ -165,19 +172,30 @@ const SendFeedbackScreen = () => {
       });
   };
 
-  const handlePosts = (data: any[]) => {
-    const listData = removeDuplicates(postsData, data);
-    console.log(listData, '00000000000000000000000000');
-    setPostsData(listData);
-
-    setLoading(false);
-    setItemsLoader(false);
+  const handlePosts = (data: any[], flag: boolean = false) => {
+    console.log(postsData, 'posts 00000000000000000000000000');
+    console.log(data, 'data xxxxxxxxxxxxxxxxxxxxxxxxx');
+    if (flag) {
+      setPostsData(data);
+      setLoading(false);
+      setItemsLoader(false);
+    } else {
+      const listData = removeDuplicates(postsData, data);
+      setPostsData(listData);
+      setLoading(false);
+      setItemsLoader(false);
+    }
   };
 
   const resetLoad = () => {
     setPostsData([]);
     setSkip(0);
-    fetchPosts({}, false);
+    fetchPosts({limit: 10, skip: 0}, false);
+  };
+
+  const clearPostSearch = () => {
+    searchRef.current?.clear();
+    setSearchPosts('');
   };
 
   // useUpdateEffect(() => {
@@ -388,26 +406,62 @@ const SendFeedbackScreen = () => {
               marginBottom: 5,
             }}>
             <View>
-              <TextInput
-                underlineColorAndroid={'transparent'}
-                autoCorrect={false}
-                scrollEnabled={false}
-                multiline={false}
-                selectionColor={colors.primary}
+              <View
                 style={{
-                  height: '100%',
-                  width: WINDOW_WIDTH * 0.8,
-                  fontSize: 18,
-                  color: colors.text,
-                  textDecorationLine: 'none',
-                  display: 'none',
-                }}
-                onChangeText={text => setSearchPosts(text)}
-                value={searchPosts}
-                placeholder="Search Posts..."
-                onSubmitEditing={() => console.log('yeh')}
-              />
-              <View style={{flexDirection: 'row', display: 'flex'}}>
+                  flexDirection: 'row',
+                  display: showSearch ? 'flex' : 'none',
+                  alignItems: 'center',
+                }}>
+                <TextInput
+                  ref={searchRef}
+                  underlineColorAndroid={'transparent'}
+                  autoCorrect={false}
+                  scrollEnabled={false}
+                  multiline={false}
+                  returnKeyType="search"
+                  selectionColor={colors.primary}
+                  style={{
+                    height: '100%',
+                    width: WINDOW_WIDTH * 0.75,
+                    fontSize: 18,
+                    color: colors.text,
+                    textDecorationLine: 'none',
+                  }}
+                  onChangeText={text => setSearchPosts(text)}
+                  value={searchPosts}
+                  placeholder="Search Posts..."
+                  onSubmitEditing={() => {
+                    fetchPosts({search: searchPosts}, false, true);
+                  }}
+                />
+                <CstmPressable
+                  android_ripple={{borderless: true}}
+                  onPress={() => {
+                    LayoutAnimation.configureNext(
+                      LayoutAnimation.Presets.easeInEaseOut,
+                    );
+                    clearPostSearch();
+                    if (searchPosts != '') {
+                      fetchPosts({limit: 10}, false);
+                    }
+                  }}>
+                  <Ionicons
+                    name="md-close"
+                    style={{
+                      alignSelf: 'center',
+                      textAlignVertical: 'center',
+                      opacity: 0.5,
+                    }}
+                    color={colors.text}
+                    size={20}
+                  />
+                </CstmPressable>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  display: showSearch ? 'none' : 'flex',
+                }}>
                 <CstmPressable
                   android_ripple={{borderless: true}}
                   onPress={() => {
@@ -415,7 +469,9 @@ const SendFeedbackScreen = () => {
                       LayoutAnimation.Presets.easeInEaseOut,
                     );
                     setPostsData([]);
+
                     setShowPosts(false);
+                    clearPostSearch();
                   }}>
                   <Ionicons
                     name="md-chevron-back-sharp"
@@ -442,9 +498,11 @@ const SendFeedbackScreen = () => {
                   LayoutAnimation.configureNext(
                     LayoutAnimation.Presets.easeInEaseOut,
                   );
+                  setShowSearch(!showSearch);
+                  clearPostSearch();
                 }}>
-                <Ionicons
-                  name="search"
+                <MatIcons
+                  name={showSearch ? 'search-off' : 'search'}
                   style={{alignSelf: 'center', textAlignVertical: 'center'}}
                   color={colors.primary}
                   size={28}
@@ -497,8 +555,6 @@ const SendFeedbackScreen = () => {
     );
   };
 
-  console.log(showPosts, 'ppp');
-
   const BoardsListComponent = () => {
     return (
       <>
@@ -507,7 +563,7 @@ const SendFeedbackScreen = () => {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              height: WINDOW_HEIGHT * 0.05,
+              height: WINDOW_HEIGHT * 0.06,
               marginBottom: 5,
             }}>
             <Text

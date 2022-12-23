@@ -149,12 +149,27 @@ const Overview = ({ticketDetails}: any) => {
     }
   };
 
-  console.log("users", users
-  .get()
-  ?.filter(
-    (value: any) => value?.id == ticketDetails?.attributes?.user?.id,
-  )[0]);
-  
+  useEffect(() => {
+    const Data: Item[] = [];
+    Ds.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal,
+        key: item.key
+      }),
+    );
+    Data[Data?.length] = {
+      title: ticketDetails?.id,
+      subTitle: "id",
+    }
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [Ds]);
 
   return (
     <ScrollView

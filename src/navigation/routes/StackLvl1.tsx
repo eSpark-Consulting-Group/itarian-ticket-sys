@@ -196,7 +196,7 @@ const StackLvl1 = ({route, navigation}: any) => {
                     delete obj?.data?.relationships?.staff;
                   }
                   console.log(
-                    'obj obj NewTicket',
+                    'obj obj attributes',
                     obj.data.attributes,
                     '\n',
                     'relationships',
@@ -208,7 +208,7 @@ const StackLvl1 = ({route, navigation}: any) => {
                   );
                   checkValidations(
                     navigation,
-                    route,
+                    route,  
                     globalStates,
                     updateTicket,
                     obj,

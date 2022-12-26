@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
-import MI from 'react-native-vector-icons/MaterialIcons';
 import {Theme, useTheme} from '@react-navigation/native';
 import {State, useHookstate} from '@hookstate/core';
 
@@ -201,10 +200,13 @@ const StackLvl1 = ({route, navigation}: any) => {
                     '\n',
                     'relationships',
                     obj?.data?.relationships,
-                    "data", '\n',
-                    data, '\n',
-                    "route?.params?.data", '\n',
-                    route?.params?.data
+                    'data',
+                    '\n',
+                    data,
+                    '\n',
+                    'route?.params?.data',
+                    '\n',
+                    route?.params?.data,
                   );
                   checkValidations(
                     navigation,

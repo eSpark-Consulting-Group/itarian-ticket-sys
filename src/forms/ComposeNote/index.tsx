@@ -14,7 +14,7 @@ import {
 } from '../../components';
 import {WINDOW_WIDTH} from '../../constants';
 import {NotesAdditionalButtons} from '../../constants/ButtonsList';
-import {AdditionalButtons, NoteTypes, SelectFields} from '../../types';
+import {AdditionalButtons, NoteTypes} from '../../types';
 import {stNotesList} from '../../constants/SelectionList';
 import {selectStandardNote} from '../../utils/helperFunctions';
 

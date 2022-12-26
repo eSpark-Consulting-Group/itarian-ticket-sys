@@ -1,18 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Platform, UIManager, Linking} from 'react-native';
-import {State, useHookstate} from '@hookstate/core';
+import {Platform, UIManager} from 'react-native';
+import {useHookstate} from '@hookstate/core';
 
-import {
-  ModalHeader,
-  ModalView,
-  RoundedIcon,
-  FloatButton,
-} from '../../components';
+import {ModalView, FloatButton} from '../../components';
 import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
 import {contactNameList} from '../../constants/SelectionList';
-import {globalState} from '../../stores/globalAppState';
 import {AdditionalButtons} from '../../types';
-import {redirectToMap} from '../../utils/helperFunctions';
 import {companyStore} from '../../stores/companyStore';
 import Overview from './Overview';
 
@@ -32,11 +25,7 @@ const App = ({navigation, route}: any) => {
     contact: contactNameList[0],
     company: companies[0],
   });
-  const dNavName: State<string> = useHookstate(
-    globalState.defaultnNavigationName,
-  );
-  const [defaultNav, setdefaultNav] = useState(dNavName.get());
-  
+
   const updatePress = () => {
     let tempArr = [...actionButtons];
     tempArr[0].onPress = () => {
@@ -63,24 +52,6 @@ const App = ({navigation, route}: any) => {
 
   return (
     <ModalView>
-      {/* <ModalHeader
-        icon="office-building-marker-outline"
-        title={companyContact.company?.name}
-        subTitle={companyContact?.contact?.name}
-        right={
-          <>
-            <RoundedIcon
-              icon="phone"
-              onPress={() => Linking.openURL(`tel:090078601`)}
-            />
-            <View style={styles.adjuster} />
-            <RoundedIcon
-              icon="map-marker-outline"
-              onPress={() => redirectToMap(34.923264, -120.429214, defaultNav)}
-            />
-          </>
-        }
-      /> */}
       <Overview ticketDetails={route?.params?.ticket_info?.data} />
       <FloatButton AdditionalButtons={actionButtons} />
     </ModalView>
@@ -88,9 +59,3 @@ const App = ({navigation, route}: any) => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  adjuster: {
-    width: 18,
-  },
-});

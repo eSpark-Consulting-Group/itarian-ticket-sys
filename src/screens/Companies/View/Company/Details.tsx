@@ -22,14 +22,6 @@ const Details = () => {
         });
       },
     },
-    {
-      title: 'Open Tickets',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'TicketListing',
-        });
-      },
-    },
   ];
 
   const renderList = ({item, index}: {item: Item; index: number}) => {

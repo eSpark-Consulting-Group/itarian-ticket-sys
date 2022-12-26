@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, Linking} from 'react-native';
 import {Theme, useNavigation, useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
@@ -12,6 +12,7 @@ import {
   SimpleLoader,
   EmptyListMsg,
   CstmPressable,
+  FloatButton,
 } from '../../components';
 import {contactsList} from '../../constants/SampleArrays';
 import {Contact} from '../../types';
@@ -25,9 +26,13 @@ const Contacts = () => {
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
-  const users = useHookstate(userStore.users).get();
+  const users = useHookstate(userStore.users)
 
-  const [filteredContacts, setFilteredContacts] = useState(users);
+  const [filteredContacts, setFilteredContacts] = useState(users.get());
+
+  useEffect(() => {
+    setFilteredContacts(users.get());
+  }, [users]);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -40,7 +45,7 @@ const Contacts = () => {
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
       text: text,
-      list: users,
+      list: users.get(),
       keys: ['name', 'company_name'],
     });
     setFilteredContacts(result);
@@ -110,7 +115,7 @@ export const RenderContacts = ({
                 style={{
                   color: colors.text,
                 }}>
-                {item.name}
+                {item?.name}
               </Text>
               <View style={{flexDirection: 'row'}}>
                 <MCI
@@ -130,7 +135,7 @@ export const RenderContacts = ({
             </View>
             <View style={styles.iconsContainer}>
               <RoundedIcon
-                enable={!_.isNull(item.phone_number)}
+                enable={!_.isNull(item?.phone_number)}
                 icon={'phone'}
                 onPress={() => Linking.openURL(`tel:${item?.phone_number}`)}
               />
@@ -162,6 +167,9 @@ export const RenderContacts = ({
       ) : (
         <NotFound />
       )}
+      <FloatButton
+        onPress={() => navigation.navigate('Stack1', {screen: 'NewUser'})}
+      />
     </>
   );
 };

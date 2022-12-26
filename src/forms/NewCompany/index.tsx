@@ -3,12 +3,15 @@ import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
 import {Theme, useTheme} from '@react-navigation/native';
 
 import {ModalView, SingleLineField} from '../../components';
-import {SelectFields} from '../../types';
-import {contactNameList} from '../../constants/SelectionList';
+import {DataItem as Item} from '../../types';
+
 import {SelectItems} from '../../utils/helperFunctions';
+import {userStore} from '../../stores/userStore';
+import {useHookstate} from '@hookstate/core';
 
 const NewCompany = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
+  const users: any = useHookstate(userStore?.users);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: '',
@@ -16,6 +19,7 @@ const NewCompany = ({route, navigation}: any) => {
       inputable: true,
       enable: false,
       isRequired: true,
+      key: 'name',
     },
     {
       title: '',
@@ -24,22 +28,25 @@ const NewCompany = ({route, navigation}: any) => {
       enable: false,
       keyboardType: 'number-pad',
       isRequired: true,
+      key: 'phone_number',
     },
     {
       title: '',
-      subTitle: 'Company Email',
+      subTitle: 'Website',
       inputable: true,
       enable: false,
       isRequired: true,
+      key: 'website',
     },
     {
       title: 'Please Select',
       subTitle: 'Main User',
-      list: contactNameList,
-      selectedItem: contactNameList[0],
+      list: users.get()?.filter((val: any) => val?.role == 'user') || [],
+      selectedItem: undefined,
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
+      key: 'mainuser',
     },
     {
       title: '',
@@ -47,7 +54,8 @@ const NewCompany = ({route, navigation}: any) => {
       inputable: true,
       enable: false,
       isRequired: true,
-      mode: 'multiline'
+      mode: 'multiline',
+      key: 'address',
     },
     {
       title: '',
@@ -55,96 +63,15 @@ const NewCompany = ({route, navigation}: any) => {
       inputable: true,
       enable: false,
       isRequired: true,
-      mode: 'multiline'
+      mode: 'multiline',
+      key: 'internal_notes',
     },
-    // {
-    //   title: '',
-    //   subTitle: 'Zip Code',
-    //   inputable: true,
-    //   enable: false,
-    //   keyboardType: 'number-pad',
-    //   isRequired: true,
-    // },
-    // {
-    //   title: '',
-    //   subTitle: 'City',
-    //   inputable: true,
-    //   enable: false,
-    //   isRequired: true,
-    // },
-    // {
-    //   title: 'Please Select',
-    //   subTitle: 'State',
-    //   rightIcon: 'chevron-right',
-    //   list: stateList,
-    //   selectedItem: stateList[0],
-    //   headerTitle: 'State',
-    // },
-    // {
-    //   title: 'Please Select',
-    //   subTitle: 'Country',
-    //   rightIcon: 'chevron-right',
-    //   list: countryList,
-    //   selectedItem: countryList[0],
-    //   headerTitle: 'State',
-    //   isRequired: true,
-    // },
-    // {
-    //   title: '',
-    //   subTitle: 'First Name',
-    //   inputable: true,
-    //   enable: false,
-    //   isRequired: true,
-    // },
-    // {
-    //   title: '',
-    //   subTitle: 'Last Name',
-    //   inputable: true,
-    //   enable: false,
-    //   isRequired: true,
-    // },
-    // {
-    //   title: '',
-    //   subTitle: 'Email',
-    //   inputable: true,
-    //   enable: false,
-    //   isRequired: true,
-    // },
-    // {
-    //   title: '',
-    //   subTitle: 'Phone No.',
-    //   inputable: true,
-    //   enable: false,
-    //   isRequired: true,
-    // },
   ]);
-
-  interface Item {
-    title: string;
-    subTitle: string;
-    inputable?: boolean;
-    enable?: boolean;
-    rightIcon?: string;
-    rightIconRound?: string;
-    titleWidth?: number;
-    showRightSwitch?: boolean;
-    rightSwitchVal?: boolean;
-    onChangeSwitch?: (value: boolean) => void;
-    onChangeText?: (text: string) => void;
-    list?: SelectFields[];
-    selectedItem?: SelectFields;
-    searchable?: boolean;
-    headerTitle?: string;
-    keyboardType?: KeyboardTypeOptions | undefined;
-    isRequired?: boolean;
-    mode?: 'none' | 'multiline';
-  }
 
   const updateInput = (e: string, index: number) => {
     console.log('Text Index', e, index);
     let newData = [...dataSource];
     newData[index].title = e;
-    // console.log('New Data', newData);
     setDataSource(newData);
   };
 
@@ -166,6 +93,9 @@ const NewCompany = ({route, navigation}: any) => {
         title: item.title,
         subTitle: item.subTitle,
         isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal,
+        key: item.key,
       }),
     );
     navigation?.setParams({

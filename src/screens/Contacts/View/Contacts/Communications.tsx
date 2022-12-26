@@ -1,97 +1,192 @@
-import React, {useState} from 'react';
-import {Linking, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useTheme, Theme, useRoute} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Linking, ScrollView, StyleSheet, Text, Alert} from 'react-native';
+import {
+  useTheme,
+  Theme,
+  useRoute,
+  useNavigation,
+} from '@react-navigation/native';
 
-import {RoundedIcon, SingleLineField} from '../../../../components';
-import {contactsList} from '../../../../constants/SampleArrays';
-import {ContactList} from '../../../../types';
+import {
+  FloatButton,
+  Loader,
+  SingleLineField,
+} from '../../../../components';
+import { DataItem as Item } from '../../../../types';
 import _ from 'lodash';
+import {SelectItems} from '../../../../utils/helperFunctions';
+import {deleteUser} from '../../utils/functions';
 
-interface Item {
-  headerTitle?: string;
-  title: string | null | undefined;
-  subTitle?: string;
-  enable?: boolean;
-  rightIcon?: string;
-  titleWidth?: number;
-  leftIcon?: string;
-  searchable?: boolean;
-  rightChild?: React.ReactNode;
-  rightIconRound?: string;
-  roundedIconEnable?: boolean;
-  contacts?: ContactList[] | null | undefined;
-}
 export default function Communications() {
   const {colors}: Theme = useTheme();
-  const routes: any = useRoute()
-  const contactDetails = routes?.params?.contactDetails
+  const route: any = useRoute();
+  const navigation: any = useNavigation();
+  const contactDetails = route?.params?.contactDetails;
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      subTitle: 'Email',
-      rightChild: (
-        <RoundedIcon
-          enable={!_.isNull(contactDetails?.email)}
-          onPress={() => Linking.openURL(`mailto:${contactDetails?.email}`)}
-          icon="email-outline"
-        />
-      ),
-      enable: false,
-      title: contactDetails?.email || ''
-      // contacts: contactsList[1].email_address,
+      title: 'Is Active',
+      enable: true,
+      rightSwitchVal: Boolean(contactDetails?.is_active),
+      showRightSwitch: true,
+      key: 'is_active',
     },
     {
-      subTitle: 'Phone number',
-      rightChild: (
-        <RoundedIcon
-          enable={!_.isNull(contactDetails.phone_number)}
-          icon={'phone'}
-          onPress={() => Linking.openURL(`tel:${contactDetails?.phone_number}`)}
-        />
-      ),
+      title: contactDetails?.email ?? '',
+      subTitle: 'Email',
+      inputable: false,
       enable: false,
-      title: contactDetails.phone_number || 'N/A',
-      // contacts: contactsList[1].phone_no,
+      isRequired: true,
+      key: 'email',
+    },
+    {
+      title: contactDetails?.user_name ?? '',
+      subTitle: 'User Name',
+      inputable: true,
+      enable: false,
+      keyboardType: 'number-pad',
+      isRequired: true,
+      key: 'user_name',
+    },
+    {
+      title: contactDetails?.first_name ?? '',
+      subTitle: 'First Name',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+      key: 'first_name',
+    },
+    {
+      title: contactDetails?.last_name ?? '',
+      subTitle: 'Last Name',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+      key: 'last_name',
+    },
+    {
+      title: contactDetails?.phone_number ?? '',
+      subTitle: 'Phone Number',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+      keyboardType: 'number-pad',
+      key: 'phone_number',
     },
   ]);
+  const [loader, setLoader] = useState(false);
+
+  const updateInput = (e: string, index: number) => {
+    let newData = [...dataSource];
+    newData[index].title = e;
+    setDataSource(newData);
+  };
+
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      var obj: any = [...dataSource];
+      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [route?.params?.selected]);
+
+  const updateSwitch = (index: number) => {
+    let tempArr: Item[] = [...dataSource];
+    tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
+    setDataSource(tempArr);
+  };
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal,
+        key: item.key,
+      }),
+    );
+
+    Data[Data?.length] = {
+      title: contactDetails?.id,
+      subTitle: 'id',
+    };
+
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [dataSource]);
+
+  const deleteUserFunc = (id: number) => {
+    setLoader(true);
+    console.log('companyDetails', id);
+    deleteUser(id)
+      .then(res => {
+        setLoader(false);
+        if (res?.status) {
+          navigation?.goBack();
+        }
+      })
+      .catch(err => {
+        console.log('delete Organization failed', err);
+        setLoader(false);
+      });
+  };
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{alignItems: 'center'}}>
-      {dataSource?.map((value, key) => {
-        if (value?.contacts?.length && value?.contacts?.length > 0) {
-          return (
-            <View key={key}>
-              <SingleLineField title={value?.title || ''} enable={false} />
-              {value?.contacts?.map((item, index) => (
-                <SingleLineField
-                  key={index}
-                  title={item?.value}
-                  subTitle={`${item?.type} ${
-                    item?.isPrimary ? '(Primary)' : ''
-                  }`}
-                  rightChild={value?.rightChild}
-                  enable={value?.enable}
-                  leftIcon={value.leftIcon}
-                  titleWidth={value?.titleWidth}
-                  gap={false}
-                />
-              ))}
-            </View>
+    <>
+      <Loader isShow={loader} />
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{alignItems: 'center'}}>
+        {dataSource?.map((item, index) => (
+          <SingleLineField
+            key={index}
+            subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
+            title={item.title}
+            inputable={item.inputable}
+            onChangeText={e => updateInput(e, index)}
+            enable={item.enable}
+            rightIconRound={item.rightIconRound}
+            titleWidth={item.titleWidth}
+            rightIcon={item.rightIcon}
+            showRightSwitch={item.showRightSwitch}
+            rightSwitchVal={item.rightSwitchVal}
+            keyboardType={item?.keyboardType}
+            mode={item?.mode}
+            onChangeSwitch={() => updateSwitch(index)}
+            onPress={() =>
+              SelectItems(item, index, navigation, route, 'NewUser', 'Stack1')
+            }
+          />
+        ))}
+      </ScrollView>
+      <FloatButton
+        icon="delete"
+        onPress={() => {
+          Alert.alert(
+            'Delete Organization?',
+            'Are you sure you want to delete this Organization permanently',
+            [
+              {
+                text: 'Yes',
+                style: 'default',
+                onPress: () => deleteUserFunc(contactDetails?.id),
+              },
+              {
+                text: 'No',
+                style: 'cancel',
+                onPress: () => console.log('Pressed Cancel on Delete'),
+              },
+            ],
           );
-        } else {
-          return (
-            <SingleLineField
-              key={key}
-              title={value?.title || ''}
-              subTitle={value?.subTitle}
-              rightChild={value?.rightChild}
-              enable={value?.enable}
-            />
-          );
-        }
-      })}
-    </ScrollView>
+        }}
+      />
+    </>
   );
 }
 

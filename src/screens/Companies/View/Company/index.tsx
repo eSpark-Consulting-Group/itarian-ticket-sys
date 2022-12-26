@@ -1,9 +1,16 @@
-import {useRoute} from '@react-navigation/native';
-import React from 'react';
-import {StyleSheet, Platform, UIManager} from 'react-native';
+import {useRoute, useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Platform, UIManager, Alert} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
-import {ModalHeader, ModalView, CstmTabBar} from '../../../../components';
+import {
+  ModalHeader,
+  ModalView,
+  CstmTabBar,
+  FloatButton,
+  Loader,
+} from '../../../../components';
+import {deleteOrganization, updateOrganization} from '../../utils/functions';
 import Details from './Details';
 import Overview from './Overview';
 
@@ -16,14 +23,55 @@ if (
 
 const Company = () => {
   const routes: any = useRoute();
+  const navigation: any = useNavigation();
   const companyDetails: any = routes?.params?.companyDetails;
+  const [loader, setLoader] = useState(false);
+
+  const deleteOrganizationFunc = (id: number) => {
+    setLoader(true);
+    console.log('companyDetails', id);
+    deleteOrganization(id)
+      .then(res => {
+        setLoader(false);
+        if (res?.status) {
+          navigation?.goBack();
+        }
+      })
+      .catch(err => {
+        console.log('delete Organization failed', err);
+        setLoader(false);
+      });
+  };
+
   return (
     <ModalView>
       <ModalHeader
         icon="office-building-marker-outline"
         title={companyDetails?.name}
       />
-      <TabComp />
+      <Loader isShow={loader} />
+      <Overview />
+      <FloatButton
+        icon="delete"
+        onPress={() => {
+          Alert.alert(
+            'Delete Organization?',
+            'Are you sure you want to delete this Organization permanently',
+            [
+              {
+                text: 'Yes',
+                style: 'default',
+                onPress: () => deleteOrganizationFunc(companyDetails?.id),
+              },
+              {
+                text: 'No',
+                style: 'cancel',
+                onPress: () => console.log('Pressed Cancel on Delete'),
+              },
+            ],
+          );
+        }}
+      />
     </ModalView>
   );
 };

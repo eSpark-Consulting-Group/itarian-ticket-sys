@@ -53,6 +53,12 @@ import {
 } from '../../screens/HelpTopic/utils/functions';
 import moment from 'moment';
 import {addTicket, updateTicket} from '../../screens/Agenda/utils/functions';
+import {
+  addOrganization,
+  updateOrganization,
+} from '../../screens/Companies/utils/functions';
+import NewContact from '../../forms/NewUser';
+import {addUser, updateUser} from '../../screens/Contacts/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -61,6 +67,7 @@ export type RootStackParamList = {
   STickets: {title: string};
   Company: {title: string};
   NewCompany: {title: string};
+  NewUser: {title: string};
   Contact1: undefined;
   Activities: undefined;
   NewTicket: undefined;
@@ -194,20 +201,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                   if (!obj?.data?.relationships?.staff?.data?.id) {
                     delete obj?.data?.relationships?.staff;
                   }
-                  console.log(
-                    'obj obj NewTicket',
-                    obj.data.attributes,
-                    '\n',
-                    'relationships',
-                    obj?.data?.relationships,
-                    'data',
-                    '\n',
-                    data,
-                    '\n',
-                    'route?.params?.data',
-                    '\n',
-                    route?.params?.data,
-                  );
                   checkValidations(
                     navigation,
                     route,
@@ -227,25 +220,8 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="Company"
         component={Company}
-        options={({route, navigation}) => ({
+        options={({route, navigation}: any) => ({
           title: 'Organization',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="NewCompany"
-        component={NewCompany}
-        options={({route, navigation}) => ({
-          title: 'New Organization',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
             <II
@@ -261,7 +237,146 @@ const StackLvl1 = ({route, navigation}: any) => {
               size={27}
               name="save"
               color={'#fff'}
-              onPress={() => checkValidations(navigation, route, globalStates)}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    id: data?.id,
+                    type: 'organizations',
+                    attributes: {
+                      name: data?.name,
+                      phone_number: data?.phone_number,
+                      website: data?.website,
+                      address: data?.address,
+                      internal_notes: data?.internal_notes,
+                    },
+                    relationships: {
+                      mainuser: {
+                        data: {
+                          type: 'users',
+                          id: data?.mainuser?.id,
+                        },
+                      },
+                    },
+                  },
+                };
+
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  updateOrganization,
+                  obj,
+                  'Organization updated successfully',
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewCompany"
+        component={NewCompany}
+        options={({route, navigation}: any) => ({
+          title: 'New Organization',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation?.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    type: 'organizations',
+                    attributes: {
+                      name: data?.name,
+                      phone_number: data?.phone_number,
+                      website: data?.website,
+                      address: data?.address,
+                      internal_notes: data?.internal_notes,
+                    },
+                    relationships: {
+                      mainuser: {
+                        data: {
+                          type: 'users',
+                          id: data?.mainuser?.id,
+                        },
+                      },
+                    },
+                  },
+                };
+
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addOrganization,
+                  obj,
+                  'Organization added successfully',
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewUser"
+        component={NewContact}
+        options={({route, navigation}: any) => ({
+          title: 'New User',
+          headerStyle: {backgroundColor: colors.primary},
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{right: 6}}
+              color={'#fff'}
+              onPress={() => navigation?.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    type: 'users',
+                    attributes: {
+                      provider_id: null,
+                      email: data?.email,
+                      user_name: data?.user_name,
+                      last_name: data?.last_name,
+                      first_name: data?.first_name,
+                      role: 'user',
+                      password: data?.password,
+                      is_active: data?.is_active,
+                      phone_number: data?.phone_number,
+                    },
+                  },
+                };
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addUser,
+                  obj,
+                  'User added successfully',
+                );
+              }}
             />
           ),
         })}
@@ -269,7 +384,7 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="Contact1"
         component={Contact1}
-        options={({route, navigation}) => ({
+        options={({route, navigation}: any) => ({
           title: 'User',
           headerStyle: {backgroundColor: colors.primary},
           headerLeft: () => (
@@ -281,7 +396,41 @@ const StackLvl1 = ({route, navigation}: any) => {
               onPress={() => navigation.goBack()}
             />
           ),
-          headerRight: () => null,
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    type: 'users',
+                    id: data.id,
+                    attributes: {
+                      provider_id: null,
+                      email: data?.email,
+                      user_name: data?.user_name,
+                      last_name: data?.last_name,
+                      first_name: data?.first_name,
+                      role: 'user',
+                      password: data?.password,
+                      is_active: data?.is_active,
+                      phone_number: data?.phone_number,
+                    },
+                  },
+                };
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  updateUser,
+                  obj,
+                  'User updated successfully',
+                );
+              }}
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -356,13 +505,6 @@ const StackLvl1 = ({route, navigation}: any) => {
                 if (!obj?.data?.relationships?.staff?.data?.id) {
                   delete obj?.data?.relationships?.staff;
                 }
-                console.log(
-                  'obj obj NewTicket',
-                  obj.data.attributes,
-                  '\n',
-                  'relationships',
-                  obj?.data?.relationships,
-                );
                 checkValidations(
                   navigation,
                   route,

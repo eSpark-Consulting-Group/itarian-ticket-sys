@@ -259,6 +259,8 @@ export interface DataItem {
   roundedIconEnable?: boolean;
   leftIcon?: string;
   onRoundIconPress?: () => void;
+  rightChild?: React.ReactNode;
+  contacts?: ContactList[] | null | undefined;
 }
 
 export type {User};

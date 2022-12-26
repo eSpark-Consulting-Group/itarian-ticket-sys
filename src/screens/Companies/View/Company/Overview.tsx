@@ -1,30 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, ScrollView, Linking, View} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {useHookstate, State} from '@hookstate/core';
 
-import {RoundedIcon, SingleLineField} from '../../../../components';
-import {ContactList, SelectFields} from '../../../../types';
-import {redirectToMap} from '../../../../utils/helperFunctions';
+import {SingleLineField} from '../../../../components';
+import {DataItem as Item} from '../../../../types';
+import {SelectItems} from '../../../../utils/helperFunctions';
 import {globalState} from '../../../../stores/globalAppState';
-import {contactsList} from '../../../../constants/SampleArrays';
-import {useRoute} from '@react-navigation/native';
+import {useRoute, useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
-
-interface Item {
-  headerTitle?: string;
-  title: string;
-  subTitle?: string;
-  enable?: boolean;
-  rightIcon?: string;
-  titleWidth?: number;
-  list?: SelectFields[];
-  selectedItem?: SelectFields;
-  leftIcon?: string;
-  searchable?: boolean;
-  rightChild?: React.ReactNode;
-  contacts?: ContactList[] | null | undefined;
-}
+import {userStore} from '../../../../stores/userStore';
 
 const Overview = () => {
   const dNavName: State<string> = useHookstate(
@@ -32,102 +17,135 @@ const Overview = () => {
   );
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
   const routes: any = useRoute();
+  const navigation: any = useNavigation();
   const companyDetails: any = routes?.params?.companyDetails;
-  const dataSource: Item[] = [
+  const users: any = useHookstate(userStore?.users);
+  const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: companyDetails?.phone_number || 'N/A',
-      headerTitle: 'Company Phone No.',
-      rightChild: (
-        <RoundedIcon
-          enable={companyDetails?.phone_number}
-          icon={'phone'}
-          onPress={() => Linking.openURL(`tel:${companyDetails?.phone_number}`)}
-        />
-      ),
+      title: companyDetails?.name,
+      subTitle: 'Company Name',
+      inputable: true,
       enable: false,
+      isRequired: true,
+      key: 'name',
     },
     {
-      title: companyDetails?.address || 'N/A',
-      headerTitle: 'Company Address',
-      rightChild: (
-        <RoundedIcon
-          enable={false}
-          icon="map-marker-outline"
-          onPress={() => redirectToMap(34.923264, -120.429214, defaultNav)}
-        />
-      ),
+      title: companyDetails?.phone_number,
+      subTitle: 'Company Phone No',
+      inputable: true,
       enable: false,
-      titleWidth: moderateScale(130),
+      keyboardType: 'number-pad',
+      isRequired: true,
+      key: 'phone_number',
     },
     {
-      title: companyDetails?.mainuser?.user_name || 'N/A',
-      leftIcon: 'account',
-      headerTitle: 'Company Address',
+      title: companyDetails?.website,
+      subTitle: 'Website',
+      inputable: true,
       enable: false,
+      isRequired: true,
+      key: 'website',
     },
     {
-      title: 'Emails',
-      contacts: contactsList[1].email_address,
-      rightChild: (
-        <RoundedIcon
-          onPress={() => Linking.openURL('mailto:support@example.com')}
-          icon="email-outline"
-        />
-      ),
-      enable: false,
+      title: companyDetails?.mainuser?.user_name ?? 'Please Select',
+      subTitle: 'Main User',
+      list: users.get()?.filter((val: any) => val?.role == 'user') || [],
+      selectedItem: users
+        .get()
+        ?.filter((value: any) => value?.id == companyDetails?.mainuser?.id)[0],
+      headerTitle: 'Member',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'mainuser',
     },
     {
-      title: 'Phone numbers',
-      rightChild: (
-        <RoundedIcon
-          onPress={() => Linking.openURL(`tel:090078601`)}
-          icon="phone"
-        />
-      ),
+      title: companyDetails?.address,
+      subTitle: 'Address',
+      inputable: true,
       enable: false,
-      contacts: contactsList[1].phone_no,
+      isRequired: true,
+      mode: 'multiline',
+      key: 'address',
     },
-  ];
-  const [Ds, setDs] = useState<Item[]>(dataSource);
+    {
+      title: companyDetails?.internal_notes,
+      subTitle: 'Internal Notes',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+      mode: 'multiline',
+      key: 'internal_notes',
+    },
+  ]);
+
+  const updateInput = (e: string, index: number) => {
+    console.log('Text Index', e, index);
+    let newData = [...dataSource];
+    newData[index].title = e;
+    setDataSource(newData);
+  };
+
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (routes?.params?.item?.toString() && routes?.params?.item != 'GoneTo') {
+      console.log('updateObj');
+      var obj: any = [...dataSource];
+      obj[routes?.params?.item].title = routes?.params?.selected?.name;
+      obj[routes?.params?.item].selectedItem = routes?.params?.selected;
+      setDataSource([...obj]);
+    }
+  }, [routes?.params?.selected]);
+
+  useEffect(() => {
+    const Data: Item[] = [];
+    dataSource.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal,
+        key: item.key,
+      }),
+    );
+
+    Data[Data?.length] = {
+      title: companyDetails?.id,
+      subTitle: 'id',
+    };
+
+    navigation?.setParams({
+      ...routes?.params,
+      data: Data,
+    });
+   
+  }, [dataSource]);
+
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={{alignItems: 'center'}}>
-      {Ds?.map((value, key) => {
-        if (value?.contacts?.length && value?.contacts?.length > 0) {
-          return (
-            <View key={`company-field-${key}`}>
-              <SingleLineField title={value?.title || ''} enable={false} />
-              {value?.contacts?.map((item, index) => (
-                <SingleLineField
-                  key={`company-field-${index}`}
-                  title={item?.value}
-                  subTitle={`${item?.type} ${
-                    item?.isPrimary ? '(Primary)' : ''
-                  }`}
-                  rightChild={value?.rightChild}
-                  enable={value?.enable}
-                  leftIcon={value.leftIcon}
-                  titleWidth={value?.titleWidth}
-                  gap={false}
-                />
-              ))}
-            </View>
-          );
-        } else {
-          return (
-            <SingleLineField
-              key={`company-field-${key}`}
-              title={value?.title || ''}
-              subTitle={value?.subTitle}
-              rightChild={value?.rightChild}
-              enable={value?.enable}
-              titleWidth={value?.titleWidth}
-              leftIcon={value.leftIcon}
-            />
-          );
-        }
-      })}
+      {dataSource?.map((item, index) => (
+        <SingleLineField
+          key={index}
+          subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
+          title={item.title}
+          inputable={item.inputable}
+          onChangeText={e => updateInput(e, index)}
+          enable={item.enable}
+          rightIconRound={item.rightIconRound}
+          titleWidth={item.titleWidth}
+          rightIcon={item.rightIcon}
+          showRightSwitch={item.showRightSwitch}
+          rightSwitchVal={item.rightSwitchVal}
+          onChangeSwitch={item.onChangeSwitch}
+          keyboardType={item?.keyboardType}
+          mode={item?.mode}
+          onPress={() =>
+            SelectItems(item, index, navigation, routes, 'Company', 'Stack1')
+          }
+        />
+      ))}
     </ScrollView>
   );
 };

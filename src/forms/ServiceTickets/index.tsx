@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Platform, UIManager, Linking} from 'react-native';
+import {StyleSheet, View, Platform, UIManager, Linking, Alert} from 'react-native';
 import {State, useHookstate} from '@hookstate/core';
 
 import {
@@ -7,6 +7,7 @@ import {
   ModalView,
   RoundedIcon,
   FloatButton,
+  Loader,
 } from '../../components';
 import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
 import {contactNameList} from '../../constants/SelectionList';
@@ -15,6 +16,7 @@ import {AdditionalButtons} from '../../types';
 import {redirectToMap} from '../../utils/helperFunctions';
 import {companyStore} from '../../stores/companyStore';
 import Overview from './Overview';
+import { deleteTicket } from '../../screens/Agenda/utils/functions';
 
 if (
   Platform.OS === 'android' &&
@@ -36,7 +38,8 @@ const App = ({navigation, route}: any) => {
     globalState.defaultnNavigationName,
   );
   const [defaultNav, setdefaultNav] = useState(dNavName.get());
-  
+  const [loader, setLoader] = useState(false)
+
   const updatePress = () => {
     let tempArr = [...actionButtons];
     tempArr[0].onPress = () => {
@@ -61,8 +64,25 @@ const App = ({navigation, route}: any) => {
     });
   }, []);
 
+  const deleteTicketFunc = (id: number) => {
+    setLoader(true)
+    deleteTicket(id)
+    .then(res => {
+      setLoader(false)
+      if(res?.status) {
+        navigation?.goBack()
+      }
+    })
+    .catch((err) => {
+      console.log("delete Tickets failed", err)
+      setLoader(false)
+    })
+  
+  }
+
   return (
     <ModalView>
+      <Loader isShow={loader} />
       {/* <ModalHeader
         icon="office-building-marker-outline"
         title={companyContact.company?.name}
@@ -82,7 +102,24 @@ const App = ({navigation, route}: any) => {
         }
       /> */}
       <Overview ticketDetails={route?.params?.ticket_info?.data} />
-      <FloatButton AdditionalButtons={actionButtons} />
+      <FloatButton icon='delete' onPress={() => {
+          Alert.alert(
+            'Delete Ticket?',
+            'Are you sure you want to delete this ticket permanently',
+            [
+              {
+                text: 'Yes',
+                style: 'default',
+                onPress: () => deleteTicketFunc(route?.params?.ticket_info?.data?.id),
+              },
+              {
+                text: 'No',
+                style: 'cancel',
+                onPress: () => console.log('Pressed Cancel on Delete'),
+              },
+            ],
+          );
+      }}/> 
     </ModalView>
   );
 };

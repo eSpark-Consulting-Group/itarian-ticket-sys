@@ -171,6 +171,12 @@ const Overview = ({ticketDetails}: any) => {
     });
   }, [Ds]);
 
+  const updateInput = (e: string, index: number) => {
+    let newData = [...Ds];
+    newData[index].title = e;
+    setDs(newData);
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -202,6 +208,7 @@ const Overview = ({ticketDetails}: any) => {
                     'Stack1',
                   )
           }
+          onChangeText={e => updateInput(e, index)}
           enable={item.enable}
           inputable={item.inputable}
           mode={item.mode}

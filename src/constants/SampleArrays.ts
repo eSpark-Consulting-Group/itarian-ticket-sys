@@ -1,34 +1,17 @@
 import Images from '../assets/Images';
 import {
-  Activity,
   Company,
   Contact,
-  Filter,
   Item,
-  ModalFormArrayType,
-  Opportunity,
   ScheduledList,
   ScreenItems,
   SelectFields,
   NotesType,
   Stopwatch,
   Ticket,
-  TimeSheet,
-  UnscheduledList,
-  QNATypes,
   NoteTypes,
   CompanySites,
 } from '../types';
-import {
-  boardList,
-  companyNameList,
-  contactNameList,
-  priorityList,
-  siteList,
-  statusList,
-  subTypesList,
-  typeList,
-} from './SelectionList';
 
 /*
 //* Sample Array List Disposable in the Future
@@ -515,70 +498,6 @@ export const contactsList: Contact[] = [
   },
 ];
 
-
-export const activitiesList: Array<Activity> = [
-  {
-    summary: 'Process Bills',
-    company_name: 'Ezlo Innovations',
-    date: 'Aug 29, 2022',
-    start_time: '9:30 AM',
-    end_time: '10:00 AM',
-    closed: false,
-  },
-  {
-    summary: 'Visit Potential Prospect (C)',
-    company_name: 'XYZ Company Incorporated',
-    date: 'Aug 28, 2022',
-    start_time: '10:30 AM',
-    end_time: '11:00 AM',
-    company_contact: '+555 5555 555',
-    closed: true,
-  },
-  {
-    summary: 'B2B Reports',
-    company_name: 'Zoom Electronics',
-    date: 'Aug 1, 2022',
-    start_time: '09:30 PM',
-    end_time: '11:00 PM',
-    company_contact: '+555 5555 555',
-    closed: false,
-  },
-  {
-    summary: 'Inspection',
-    company_name: 'Coca Cola Ltd',
-    date: 'Aug 25, 2022',
-    start_time: '10:00 AM',
-    end_time: '11:45 AM',
-    company_contact: '+555 5555 555',
-    closed: false,
-  },
-  {
-    summary: 'Inspection (c)',
-    company_name: 'Coca Cola Ltd',
-    date: 'Jul 25, 2022',
-    start_time: '10:00 AM',
-    end_time: '11:45 AM',
-    company_contact: '+555 5555 555',
-    closed: true,
-  },
-];
-
-
-export const timeSheetList: Array<TimeSheet> = [
-  {
-    id: 1,
-    date: new Date(2022, 7, 29),
-    totHrs: 2.5,
-    data: ticketsList,
-  },
-  {
-    id: 2,
-    date: new Date(2022, 7, 25),
-    totHrs: 3.5,
-    data: ticketsList,
-  },
-];
-
 export const scheduledList: Array<ScheduledList> = [
   {
     id: 1,
@@ -589,68 +508,6 @@ export const scheduledList: Array<ScheduledList> = [
     id: 2,
     date: new Date(2022, 10, 14),
     data: ticketsList.filter(val => val?.time_dur),
-  },
-];
-
-export const unscheduledList: Array<UnscheduledList> = [
-  {
-    id: 3,
-    date: new Date(2022, 10, 13),
-    data: ticketsList.filter(val => !val?.time_dur),
-  },
-  {
-    id: 4,
-    date: new Date(2022, 10, 15),
-    data: ticketsList.filter(val => !val?.time_dur),
-  },
-];
-
-export const StatusFormArray: Array<ModalFormArrayType> = [
-  {
-    formName: 'My Status',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Are you out of the office?',
-      switchRight: true,
-    },
-  },
-  {
-    formName: 'My Status',
-    type: 'inlined',
-    data: {
-      pressEnable: true,
-      visible: false,
-      headingLeft: 'Gone To',
-      subHeadingLeft: 'Please Select',
-      navigateTo: 'Gone To',
-      onPress: () => console.log('Inlined Pressed'),
-    },
-  },
-  {
-    formName: 'My Status',
-    type: 'multiline',
-    data: {
-      headingLeft: 'Additional Info',
-      visible: false,
-    },
-  },
-  {
-    formName: 'My Status',
-    type: 'inlined',
-    data: {
-      headingLeft: 'Date Back',
-      subHeadingLeft: '--',
-      headingRight: 'Time Back',
-      subHeadingRight: '--',
-      subIconRight: 'timer-outline',
-      subIconLeft: 'calendar-outline',
-      pressEnable: true,
-      pressEnableRight: true,
-      visible: false,
-      input_Val: '',
-      select_Date: false,
-      select_Time: false,
-    },
   },
 ];
 
@@ -695,49 +552,6 @@ export const NoteTypes_ACIT: NoteTypes[] = [
   {
     text: NotesType.Technical,
     highlight: false,
-  },
-];
-
-export const opportunitiesList: Opportunity[] = [
-  {
-    name: 'New Site Wiring',
-    contact: 'Tim Smith',
-    contant_phone: '+1 555 5555',
-    priority: 'high',
-    sales_Rep: 'Mark Hamill',
-    company: 'Acme IT Solutions',
-    status: 'Customer Approved',
-    close_date: '30 Dec 2021',
-  },
-  {
-    name: 'Treasure Hunting',
-    contact: 'Nathan Drake',
-    // contant_phone: '+1 555 5555',
-    priority: 'critical',
-    sales_Rep: 'Victor Sullivan',
-    company: 'Acme IT Solutions',
-    status: 'Customer Approved',
-    close_date: '24 Apr 2009',
-  },
-  {
-    name: 'Purchasing Tools',
-    contact: 'Chloe Frazer',
-    contant_phone: '+1 555 5555',
-    priority: 'low',
-    sales_Rep: 'Nadine Ross',
-    company: 'Acme IT Solutions',
-    status: 'Customer Approved',
-    close_date: '11 Nov 2017',
-  },
-  {
-    name: 'Re-arranging Items',
-    contact: 'Rafe Adler',
-    contant_phone: '+1 555 5555',
-    priority: 'normal',
-    sales_Rep: 'Jim Barns',
-    company: 'Acme IT Solutions',
-    status: 'Customer Approved',
-    close_date: '22 Jul 2018',
   },
 ];
 
@@ -827,157 +641,6 @@ export const screenItemList: ScreenItems[] = [
   },
 ];
 
-export const sBoardFiterList: Filter[] = [
-  {
-    title: 'My Tickets Only',
-    showRightSwitch: true,
-    enable: false,
-    rightSwitchVal: false,
-    key: 'assigned_to',
-    value: null,
-  },
-  {
-    title: 'All',
-    subTitle: 'Service Board',
-    rightIcon: 'chevron-right',
-    list: boardList,
-    selectedItem: boardList[0],
-    headerTitle: 'Service Board',
-  },
-  {
-    title: 'All',
-    subTitle: 'Status',
-    enable: false,
-  },
-  {
-    title: 'Please Select',
-    subTitle: 'Priority',
-    rightIcon: 'chevron-right',
-    list: priorityList,
-    selectedItem: priorityList[0],
-    headerTitle: 'Priority',
-  },
-  {
-    title: 'Please Select',
-    subTitle: 'Company',
-    rightIcon: 'chevron-right',
-    list: companyNameList,
-    selectedItem: companyNameList[0],
-    headerTitle: 'Company',
-    searchable: true,
-    key: 'company_name',
-    value: null,
-  },
-  {
-    title: 'Please Select',
-    subTitle: 'Site',
-    enable: false,
-    list: siteList,
-    selectedItem: siteList[0],
-    headerTitle: 'Site',
-  },
-  {
-    title: 'Please Select',
-    subTitle: 'Contact',
-    rightIcon: 'chevron-right',
-    list: contactsList,
-    selectedItem: contactsList[0],
-    headerTitle: 'Contact',
-  },
-  {
-    title: 'All',
-    subTitle: 'Type',
-    enable: false,
-  },
-  {
-    title: 'All',
-    subTitle: 'Subtype',
-    enable: false,
-  },
-  {
-    title: 'All',
-    subTitle: 'Item',
-    enable: false,
-  },
-];
-
-export const pBoardFilterList: Filter[] = [
-  {
-    title: 'My Tickets Only',
-    showRightSwitch: true,
-    enable: false,
-    rightSwitchVal: false,
-    key: 'assigned_to',
-    value: null,
-  },
-  {
-    title: 'Service Projects',
-    subTitle: 'Project Board',
-    rightIcon: 'chevron-right',
-    list: boardList,
-    selectedItem: boardList[0],
-    headerTitle: 'Service Projects',
-    key: 'project',
-    value: null,
-  },
-  {
-    title: 'All',
-    subTitle: 'Status',
-    rightIcon: 'chevron-right',
-    list: statusList,
-    selectedItem: statusList[0],
-    headerTitle: 'Status',
-    key: 'status',
-    value: null,
-  },
-];
-
-export const opportunityFilterList: Filter[] = [
-  {
-    title: 'My Opportunities',
-    showRightSwitch: true,
-    enable: false,
-    rightSwitchVal: false,
-  },
-  {
-    title: 'John Doe',
-    subTitle: 'Contact',
-    rightIcon: 'chevron-right',
-    list: contactNameList,
-    selectedItem: contactNameList[0],
-    headerTitle: 'Contact',
-    searchable: true,
-    key: 'contact',
-    value: null,
-  },
-  {
-    title: 'All',
-    subTitle: 'Status',
-    rightIcon: 'chevron-right',
-    list: statusList,
-    selectedItem: statusList[0],
-    headerTitle: 'Status',
-    key: 'status',
-    value: null,
-  },
-  {
-    subTitle: 'Close Date',
-    title: '',
-    leftIcon: 'calendar',
-    enable: false,
-    key: 'close_date',
-    value: null,
-  },
-  {
-    title: 'All',
-    subTitle: 'Type',
-    rightIcon: 'chevron-right',
-    list: typeList,
-    selectedItem: typeList[0],
-    headerTitle: 'Type',
-  },
-];
-
 export const noteList: Item[] = [
   {
     id: 1,
@@ -1055,73 +718,6 @@ export const noteList: Item[] = [
     date: '19 Nov, 2021',
     note: 'Sit anim laborum laboris reprehenderit tempor anim magna ut. Sunt eiusmod Lorem veniam exercitation pariatur sit occaecat sunt non eu deserunt aliquip dolor.',
     type: NotesType.Informational,
-  },
-];
-
-export const events = [
-  {
-    start: '2022-09-07 10:00:00',
-    end: '2022-09-07 12:00:00',
-    title: 'Ticket #15378',
-    summary: 'The System is down',
-    eventType: 'Service Ticket',
-  },
-  {
-    start: '2022-09-07 12:30:00',
-    end: '2022-09-07 13:30:00',
-    title: 'Lunch',
-    eventType: 'Activity',
-  },
-  {
-    start: '2022-09-07 16:10:00',
-    end: '2022-09-07 16:40:00',
-    title: 'Ticket #15490',
-    summary: 'Printer not working',
-    eventType: 'Service Ticket',
-  },
-  {
-    start: '2022-09-07 14:30:00',
-    end: '2022-09-07 16:00:00',
-    title: 'Ticket #15490',
-    summary: 'Reception workstation install',
-    eventType: 'Service Ticket',
-  },
-
-  {
-    start: '2022-09-06 16:10:00',
-    end: '2022-09-06 16:40:00',
-    title: 'Ticket #14645',
-    summary: '3412 Piedmont Rd NE, GA 3032',
-    eventType: 'Service Ticket',
-  },
-  {
-    start: '2022-09-06 12:45:00',
-    end: '2022-09-06 13:45:00',
-    title: 'Ticket #12420',
-    summary: '3412 Piedmont Rd NE, GA 3032',
-    eventType: 'Service Ticket',
-  },
-  {
-    start: '2022-09-06 11:30:00',
-    end: '2022-09-06 12:30:00',
-    title: 'Ticket #16456',
-    summary: '3412 Piedmont Rd NE, GA 3032',
-    eventType: 'Service Ticket',
-  },
-
-  {
-    start: '2022-07-09 15:10:00',
-    end: '2022-07-09 15:40:00',
-    title: 'Ticket #13675',
-    summary: '3412 Piedmont Rd NE, GA 3032',
-    eventType: 'Service Ticket',
-  },
-  {
-    start: '2022-07-09 13:10:00',
-    end: '2022-07-09 14:45:00',
-    title: 'Ticket #15673',
-    summary: '3412 Piedmont Rd NE, GA 3032',
-    eventType: 'Service Ticket',
   },
 ];
 

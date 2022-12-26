@@ -224,26 +224,6 @@ export const checkValidations = async (
   } catch (error) {}
 };
 
-export const selectStandardNote = (
-  navigation: any,
-  route: any,
-  notesList: SelectFields[],
-  selectedNote: object,
-) => {
-  navigation.navigate('Stack2', {
-    screen: 'CstmItemSelector',
-    params: {
-      ...route?.params,
-      from: 'ComposeNote',
-      item: notesList[0].id,
-      data: notesList,
-      selected: selectedNote,
-      stack: 'Stack2',
-      headerTitle: 'Standard Notes',
-    },
-  });
-};
-
 export const SelectItems = (
   item: any,
   index: number,
@@ -268,29 +248,6 @@ export const SelectItems = (
       },
     });
   }
-};
-
-export const handleAddNote = (
-  navigation: any,
-  route: any,
-  data: NoteTypes[],
-  from: string,
-  stack: string,
-  flag?: boolean,
-) => {
-  navigation.navigate('Stack2', {
-    screen: 'ComposeNote',
-    params: {
-      from: from,
-      item: 'GoneTo',
-      data: data,
-      stack: stack,
-      showFlag: flag,
-      title: route?.params?.title, // used for Dynamic Headers Used
-      headerTitle: 'Note Type',
-      status: route?.params?.status,
-    },
-  });
 };
 
 export const encodedUserDataToken = (subDomain: string, apiKey: string) => {

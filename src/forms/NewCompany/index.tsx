@@ -4,11 +4,7 @@ import {Theme, useTheme} from '@react-navigation/native';
 
 import {ModalView, SingleLineField} from '../../components';
 import {DataItem as Item} from '../../types';
-import {
-  contactNameList,
-  countryList,
-  stateList,
-} from '../../constants/SelectionList';
+
 import {SelectItems} from '../../utils/helperFunctions';
 import {userStore} from '../../stores/userStore';
 import {useHookstate} from '@hookstate/core';

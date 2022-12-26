@@ -1,6 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {useTheme, Theme, useNavigation, useRoute} from '@react-navigation/native';
+import {
+  useTheme,
+  Theme,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 
 import {GapView, SingleLineField} from '../../components';
@@ -15,31 +20,6 @@ const Details = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const dataSource: Item[] = [
-    // {
-    //   title: 'Attachments',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'Attachments',
-    //     });
-    //   },
-    // },
-    // {
-    // {
-    //   title: 'Expenses',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'Expenses',
-    //     });
-    //   },
-    // },
-    // {
-    //   title: 'Open Tickets',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'TicketListing',
-    //     });
-    //   },
-    // },
     {
       title: 'Resources',
       onPress: () => {
@@ -47,7 +27,7 @@ const Details = () => {
           screen: 'Resources',
           params: {
             ticket: route?.params?.title,
-          }
+          },
         });
       },
     },
@@ -81,5 +61,3 @@ const Details = () => {
 };
 
 export default Details;
-
-const styles = StyleSheet.create({});

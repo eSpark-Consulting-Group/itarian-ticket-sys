@@ -1,22 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import {ModalHeader, ModalView, SingleLineField} from '../../components';
-import {SelectFields, DataItem as Item} from '../../types';
-import {
-  boardList,
-  contactNameList,
-  priorityList,
-  resourceList,
-  statusList,
-} from '../../constants/SelectionList';
-import {NoteTypes_DIR} from '../../constants/SampleArrays';
-import {handleAddNote, SelectItems} from '../../utils/helperFunctions';
-import {globalState} from '../../stores/globalAppState';
 import {useHookstate} from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
+
+import { ModalView, SingleLineField} from '../../components';
+import { DataItem as Item} from '../../types';
+import { SelectItems} from '../../utils/helperFunctions';
+import {globalState} from '../../stores/globalAppState';
 import { userStore } from '../../stores/userStore';
 
 export default function NewTicket({route, navigation}: any) {

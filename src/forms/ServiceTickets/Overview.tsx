@@ -149,12 +149,33 @@ const Overview = ({ticketDetails}: any) => {
     }
   };
 
-  console.log("users", users
-  .get()
-  ?.filter(
-    (value: any) => value?.id == ticketDetails?.attributes?.user?.id,
-  )[0]);
-  
+  useEffect(() => {
+    const Data: Item[] = [];
+    Ds.map(item =>
+      Data.push({
+        title: item.title,
+        subTitle: item.subTitle,
+        isRequired: item.isRequired,
+        selectedItem: item.selectedItem,
+        rightSwitchVal: item.rightSwitchVal,
+        key: item.key
+      }),
+    );
+    Data[Data?.length] = {
+      title: ticketDetails?.id,
+      subTitle: "id",
+    }
+    navigation?.setParams({
+      ...route?.params,
+      data: Data,
+    });
+  }, [Ds]);
+
+  const updateInput = (e: string, index: number) => {
+    let newData = [...Ds];
+    newData[index].title = e;
+    setDs(newData);
+  };
 
   return (
     <ScrollView
@@ -187,6 +208,7 @@ const Overview = ({ticketDetails}: any) => {
                     'Stack1',
                   )
           }
+          onChangeText={e => updateInput(e, index)}
           enable={item.enable}
           inputable={item.inputable}
           mode={item.mode}

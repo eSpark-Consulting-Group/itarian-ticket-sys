@@ -30,14 +30,14 @@ const Details = () => {
         });
       },
     },
-    {
-      title: 'Open Tickets',
-      onPress: () => {
-        navigation.navigate('Stack2', {
-          screen: 'TicketListing',
-        });
-      },
-    },
+    // {
+    //   title: 'Open Tickets',
+    //   onPress: () => {
+    //     navigation.navigate('Stack2', {
+    //       screen: 'TicketListing',
+    //     });
+    //   },
+    // },
     // {
     //   title: 'Sites',
     //   onPress: () => {

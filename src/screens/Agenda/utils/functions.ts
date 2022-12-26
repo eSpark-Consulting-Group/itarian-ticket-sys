@@ -119,4 +119,5 @@ const updateTicket = async (data: any) => {
     return {status: true, message: error};
   }
 };
+
 export {getAllUsers, getTicketsByUserId, addTicket, updateTicket, deleteTicket};

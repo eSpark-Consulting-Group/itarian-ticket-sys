@@ -6,16 +6,10 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import {State, useHookstate} from '@hookstate/core';
 
 import {onSave, goBack} from '../utils/headerFunctions';
-import ComposeNote from '../../forms/ComposeNote';
 import {globalState} from '../../stores/globalAppState';
 import {EditTicket} from '../../forms/EditTicket';
 import {AddResource} from '../../forms/AddResource';
-
-import {
-  Attachments,
-  CstmItemSelector,
-  AttachmentDetails,
-} from '../../components';
+import {CstmItemSelector} from '../../components';
 import TicketListing from '../../components/Ticketlisting';
 import ContactListing from '../../components/ContactsListing';
 import {checkValidations} from '../../utils/helperFunctions';
@@ -58,73 +52,6 @@ const StackLvl2 = ({navigation, route}: any) => {
               name="checkmark"
               color={'#fff'}
               onPress={() => onSave(navigation, route, globalStates)}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="ComposeNote"
-        component={ComposeNote}
-        options={({route, navigation}: any) => ({
-          title: 'Compose Note',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-          headerRight: () => (
-            <FA
-              size={27}
-              name="save"
-              color={'#fff'}
-              onPress={() => onSave(navigation, route)}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="Attachments"
-        component={Attachments}
-        options={({route, navigation}: any) => ({
-          title: 'Attachments',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="AttachmentDetails"
-        component={AttachmentDetails}
-        options={({route, navigation}: any) => ({
-          title: 'Attachments',
-          headerStyle: {backgroundColor: colors.primary},
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{right: 6}}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-          headerRight: () => (
-            <FA
-              size={27}
-              name="save"
-              color={'#fff'}
-              onPress={() => onSave(navigation, route)}
             />
           ),
         })}

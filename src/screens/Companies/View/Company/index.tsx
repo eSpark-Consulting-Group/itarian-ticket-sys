@@ -1,11 +1,10 @@
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Platform, UIManager} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
 import {ModalHeader, ModalView, CstmTabBar} from '../../../../components';
 import Details from './Details';
-import Notes from './Notes';
 import Overview from './Overview';
 
 if (
@@ -16,8 +15,8 @@ if (
 }
 
 const Company = () => {
-  const routes: any = useRoute()
-  const companyDetails: any = routes?.params?.companyDetails 
+  const routes: any = useRoute();
+  const companyDetails: any = routes?.params?.companyDetails;
   return (
     <ModalView>
       <ModalHeader
@@ -33,7 +32,6 @@ export default Company;
 
 const renderScene = SceneMap({
   first: Overview,
-  // second: Notes,
   second: Details,
 });
 
@@ -41,7 +39,6 @@ function TabComp() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Overview'},
-    // {key: 'second', title: 'Notes'},
     {key: 'second', title: 'Details'},
   ]);
 
@@ -54,9 +51,3 @@ function TabComp() {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  adjuster: {
-    width: 18,
-  },
-});

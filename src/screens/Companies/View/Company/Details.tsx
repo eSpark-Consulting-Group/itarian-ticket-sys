@@ -14,14 +14,6 @@ const Details = () => {
   const {colors}: Theme = useTheme();
   const navigation: any = useNavigation();
   const dataSource: Item[] = [
-    // {
-    //   title: 'Attachments',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'Attachments',
-    //     });
-    //   },
-    // },
     {
       title: 'Contacts',
       onPress: () => {
@@ -38,14 +30,6 @@ const Details = () => {
         });
       },
     },
-    // {
-    //   title: 'Sites',
-    //   onPress: () => {
-    //     navigation.navigate('Stack2', {
-    //       screen: 'Sites',
-    //     });
-    //   },
-    // },
   ];
 
   const renderList = ({item, index}: {item: Item; index: number}) => {

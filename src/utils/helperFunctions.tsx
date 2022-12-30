@@ -135,10 +135,14 @@ export const searchFromArray = async ({
       })
       ?.filter((item: any) => {
         const itemData = keys
-          ?.map((value: any) => `${item[value]?.toUpperCase()}`)
+          ?.map((value: any) => {
+            console.log("item[value]", item[value]);
+            
+            return `${item[value]?.toString()?.toUpperCase()}`
+          })
           ?.join(' ');
 
-        const textData = text.toUpperCase();
+        const textData = text?.toString()?.toUpperCase();
         return itemData?.indexOf(textData) > -1;
       });
     console.log(

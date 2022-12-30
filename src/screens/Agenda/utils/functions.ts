@@ -32,6 +32,24 @@ const getAllUsers = async () => {
   }
 };
 
+const getAllTickets = async () => {
+  const user: any = userStore?.user?.get();
+  const USER_TOKEN = user?.token;
+  console.log(`Basic ${USER_TOKEN}`);
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.get(`/tickets`);
+    if (result?.ok) {
+      const data = result?.data?.data;
+      ticketStore?.AllTickets?.set(data || []);
+    }
+  } catch (error) {
+    console.log('error getAllTickets', error);
+  }
+}
+
 const getTicketsByUserId = async (userId: string) => {
   const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
@@ -120,4 +138,4 @@ const updateTicket = async (data: any) => {
   }
 };
 
-export {getAllUsers, getTicketsByUserId, addTicket, updateTicket, deleteTicket};
+export {getAllUsers, getTicketsByUserId, addTicket, updateTicket, deleteTicket, getAllTickets};

@@ -115,7 +115,7 @@ export const RenderCompanies = ({listData = []}: {listData?: Company[]}) => {
               style={{
                 color: colors.text,
               }}>
-              {item.name}
+              {item?.name}
             </Text>
           </View>
         </CstmPressable>

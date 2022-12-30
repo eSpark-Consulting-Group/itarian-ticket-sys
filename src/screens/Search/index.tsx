@@ -24,7 +24,7 @@ import {searchFromArray} from '../../utils/helperFunctions';
 import {userStore} from '../../stores/userStore';
 import {companyStore} from '../../stores/companyStore';
 import {ticketStore} from '../../stores/ticketStore';
-import { getTicketsByUserId } from '../Agenda/utils/functions';
+import { getAllTickets, getTicketsByUserId } from '../Agenda/utils/functions';
 
 const Search = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -33,11 +33,11 @@ const Search = ({route, navigation}: any) => {
   const [loading, setLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [clear, setClear] = useState(false);
-  const tickets: any = useHookstate(ticketStore.tickets).get();
+  const tickets: any = useHookstate(ticketStore.AllTickets);
 
   const [filteredCompanies, setFilteredCompanies] = useState(companiesList);
   const [filteredContacts, setFilteredContacts] = useState(contactsList);
-  const [filteredTickets, setFilteredTickets] = useState(tickets);
+  const [filteredTickets, setFilteredTickets] = useState(tickets?.get());
 
   const users = useHookstate(userStore.users).get();
   const companies = useHookstate(companyStore.companies).get();
@@ -46,7 +46,8 @@ const Search = ({route, navigation}: any) => {
 
   useEffect(() => {
     getTicketsByUserId('4')
-    setFilteredTickets(tickets)
+    setFilteredTickets(tickets?.get())
+    getAllTickets()
   }, [])
 
   useEffect(() => {
@@ -76,10 +77,9 @@ const Search = ({route, navigation}: any) => {
       case 'tickets':
         var result = await searchFromArray({
           text: text || '',
-          list: tickets,
-          keys: ['attributes.detail', 'attributes.subject'],
+          list: tickets?.get(),
+          keys: ['attributes.detail', 'attributes.subject', 'attributes.id'],
         });
-        console.log('tickets tickets', result);
         setFilteredTickets(result);
       case 'users':
         var result = await searchFromArray({
@@ -135,8 +135,6 @@ const Search = ({route, navigation}: any) => {
     setIsSearching(false);
   }, [searchTagValue.get()]);
 
-  console.log("filteredTickets filteredTickets", filteredTickets);
-  
   const handleRenderList = () => {
     switch (searchTagValue.get()) {
       case 'tickets':
@@ -150,7 +148,6 @@ const Search = ({route, navigation}: any) => {
               </View>
             }
             renderItem={({item, index}: any) => {
-              console.log('item', item);
               return (
                 <TicketComponent
                   item2={item}
@@ -182,8 +179,6 @@ const Search = ({route, navigation}: any) => {
     }
   };
 
-  // console.log("filteredTickets filteredTickets", filteredTickets, '\n', 'tickets', tickets);
-  
   return (
     <View style={styles.container}>
       <View

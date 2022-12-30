@@ -7,15 +7,13 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 
-import {
-  FloatButton,
-  Loader,
-  SingleLineField,
-} from '../../../../components';
-import { DataItem as Item } from '../../../../types';
+import {FloatButton, Loader, SingleLineField} from '../../../../components';
+import {DataItem as Item} from '../../../../types';
 import _ from 'lodash';
 import {SelectItems} from '../../../../utils/helperFunctions';
 import {deleteUser} from '../../utils/functions';
+import {showMessage} from 'react-native-flash-message';
+import {alert_Dur} from '../../../../constants';
 
 export default function Communications() {
   const {colors}: Theme = useTheme();
@@ -126,9 +124,21 @@ export default function Communications() {
     console.log('companyDetails', id);
     deleteUser(id)
       .then(res => {
+        console.log('res res ', res?.message?.data?.errors);
+
         setLoader(false);
         if (res?.status) {
           navigation?.goBack();
+        } else {
+          showMessage({
+            message:
+              res?.message?.data?.errors[0]?.detail ??
+              res?.message?.data?.errors[0]?.title ??
+              'Something went wrong',
+            type: 'danger',
+            icon: 'auto',
+            duration: alert_Dur,
+          });
         }
       })
       .catch(err => {

@@ -92,7 +92,7 @@ const SendFeedbackScreen = () => {
             //* User found
             //todo: Show post and store in state userId of User
           } else {
-            if (res?.data?.error === 'invalid Email') {
+            if (res?.data?.error === 'invalid email') {
               setPostsData([]);
               handleCreateUser();
               showMessage({
@@ -102,8 +102,8 @@ const SendFeedbackScreen = () => {
               });
               //! No User Found
               //todo: Create User then show posts
-              console.log('No User Found', res?.data);
             }
+            console.log('No User Found', res?.data);
           }
         })
         .catch(err => {
@@ -123,7 +123,7 @@ const SendFeedbackScreen = () => {
     createUser(data)
       .then(res => {
         if (res?.ok) {
-          // console.log('User Created Sucessfully', res?.data);
+          console.log('User Created Sucessfully', res?.data);
           setCannyUser(res?.data);
           fetchBoards();
           //* User Created Sucessfully

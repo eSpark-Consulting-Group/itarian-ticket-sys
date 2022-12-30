@@ -1,9 +1,9 @@
-import {Theme, useTheme} from '@react-navigation/native';
+import { Theme, useTheme } from '@react-navigation/native';
 import React from 'react';
-import {View, Modal, ActivityIndicator} from 'react-native';
+import { View, Modal, ActivityIndicator } from 'react-native';
 
-export const Loader = ({isShow = false}: {isShow: boolean}) => {
-  const {colors}: Theme = useTheme();
+export const Loader = ({ isShow = false }: { isShow: boolean }) => {
+  const { colors }: Theme = useTheme();
   return (
     <View
       style={{
@@ -14,7 +14,7 @@ export const Loader = ({isShow = false}: {isShow: boolean}) => {
         left: 0,
         right: 0,
       }}>
-      <Modal transparent={true} visible={isShow}>
+      <Modal statusBarTranslucent transparent={true} visible={isShow}>
         <View
           style={{
             flex: 1,

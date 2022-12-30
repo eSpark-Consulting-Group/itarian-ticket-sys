@@ -27,6 +27,7 @@ interface Item {
 
 type Mode = 'date' | 'time';
 type PickerType = 'sd' | 'ed' | 'st' | 'et';
+
 export const AddResource = ({navigation, route}: any) => {
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');

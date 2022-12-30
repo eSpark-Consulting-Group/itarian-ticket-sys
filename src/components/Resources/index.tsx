@@ -13,7 +13,6 @@ import ListItem from '../../screens/Agenda/ListItem';
 import FloatButton from '../FloatButton';
 import {searchFromArray} from '../../utils/helperFunctions';
 import {useUpdateEffect} from '../../utils/hooks';
-import ModalHeader from '../ModalHeader';
 import SearchBar from '../SearchBar';
 import {Loader} from '../Loader';
 

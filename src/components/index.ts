@@ -7,28 +7,22 @@ import ModalView from './ModalView';
 import ModalField from './ModalField';
 import EmptyListMsg from './EmptyListMsg';
 import DateSeparator from './DateSeparator';
-import CstmSwitchSelector from './CstmSwitchSelector';
 import FloatButton from './FloatButton';
 import SimpleLoader from './SimpleLoader';
-import OutlineBtn from './OutlineBtn';
 import CstmDropDown from './CstmDropDown';
 import CstmMultiLine from './CstmMultiLineInput';
 import CstmTitleInput from './CstmTitleInput';
-import DateRangeSelector from './DateRangeSelector';
 import ModalHeader from './ModalHeader';
 import RoundedIcon from './roundedIcon';
 import CstmTabBar from './CstmTabBar';
 import {CstmPressable} from './CstmPressable';
 import GapView from './GapView';
-import {PriorityField, SingleLineField} from './FormFields';
+import {SingleLineField} from './FormFields';
 import {StopWatch, Timer} from './CstmStopwatch';
 import NotFound from './NotFound';
 import BiometricVerification from './BiometricVerification';
 import Separator from './Separator';
-import {Attachments} from './Attachments';
-import {AttachmentDetails} from './Attachments/view/attachmentDetails';
 import CstmItemSelector from './CstmItemSelector';
-import CstmBadge from './CtsmBadge';
 import {Loader} from './Loader';
 import EventCalendar from './react-native-events-calendar/src/EventCalendar';
 import {CstmMenu} from './CstmMenu';
@@ -43,18 +37,14 @@ export {
   ModalField,
   EmptyListMsg,
   DateSeparator,
-  CstmSwitchSelector,
   FloatButton,
   SimpleLoader,
-  OutlineBtn,
   CstmDropDown,
   CstmMultiLine,
-  DateRangeSelector,
   ModalHeader,
   RoundedIcon,
   CstmTabBar,
   GapView,
-  PriorityField,
   SingleLineField,
   CstmTitleInput,
   CstmPressable,
@@ -63,12 +53,9 @@ export {
   Timer,
   BiometricVerification,
   Separator,
-  Attachments,
   CstmItemSelector,
-  AttachmentDetails,
-  CstmBadge,
   Loader,
   EventCalendar,
   CstmMenu,
-  TicketComponent
+  TicketComponent,
 };

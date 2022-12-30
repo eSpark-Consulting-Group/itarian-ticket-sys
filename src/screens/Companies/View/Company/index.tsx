@@ -1,6 +1,6 @@
 import {useRoute, useNavigation} from '@react-navigation/native';
-import React, { useState } from 'react';
-import {StyleSheet, Platform, UIManager, Alert} from 'react-native';
+import React, {useState} from 'react';
+import {Platform, UIManager, Alert} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
 import {
@@ -10,7 +10,7 @@ import {
   FloatButton,
   Loader,
 } from '../../../../components';
-import { deleteOrganization, updateOrganization } from '../../utils/functions';
+import {deleteOrganization, updateOrganization} from '../../utils/functions';
 import Details from './Details';
 import Overview from './Overview';
 
@@ -25,7 +25,7 @@ const Company = () => {
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const companyDetails: any = routes?.params?.companyDetails;
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
 
   const deleteOrganizationFunc = (id: number) => {
     setLoader(true);
@@ -80,7 +80,6 @@ export default Company;
 
 const renderScene = SceneMap({
   first: Overview,
-  // second: Notes,
   second: Details,
 });
 
@@ -88,7 +87,6 @@ function TabComp() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Overview'},
-    // {key: 'second', title: 'Notes'},
     {key: 'second', title: 'Details'},
   ]);
 
@@ -101,9 +99,3 @@ function TabComp() {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  adjuster: {
-    width: 18,
-  },
-});

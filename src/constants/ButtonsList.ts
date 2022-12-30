@@ -39,30 +39,6 @@ export const STicketsAdditionalButtons: Array<AdditionalButtons> = [
   },
 ];
 
-export const AddExpenseAdditionalButtons: Array<AdditionalButtons> = [
-  {
-    icon: 'cash-plus',
-    label: 'Add Tax Type',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-];
-
-export const TimeSheetAdditionalButtons: Array<AdditionalButtons> = [
-  {
-    icon: 'clock-plus-outline',
-    label: 'Add Time',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-  {
-    icon: 'calendar-plus',
-    label: 'Submit Time Sheet',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-];
-
 export const NotesAdditionalButtons: Array<AdditionalButtons> = [
   {
     icon: 'clipboard-plus',
@@ -94,21 +70,6 @@ export const AttachmentAdditionalButtons: Array<AdditionalButtons> = [
   {
     icon: 'camera-outline',
     label: 'Take Photo',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-];
-
-export const ActivityAdditionalButtons: Array<AdditionalButtons> = [
-  {
-    icon: 'currency-usd',
-    label: 'Add Expense',
-    onPress: () => {},
-    ...AdditionalButtonStyle,
-  },
-  {
-    icon: 'clock-plus-outline',
-    label: 'Add Time',
     onPress: () => {},
     ...AdditionalButtonStyle,
   },

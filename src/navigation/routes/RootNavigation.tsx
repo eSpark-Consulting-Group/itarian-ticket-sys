@@ -16,6 +16,7 @@ import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import StackLvl3 from './StackLvl3';
 import {userStore} from '../../stores/userStore';
+import AppStatusBar from '../../components/AppStatusBar';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -39,8 +40,6 @@ const App = () => {
   const dNavName: State<string> = useHookstate(
     globalState.defaultnNavigationName,
   );
-  const globalStopwatch: State<any> = useHookstate(globalState.stopwatch);
-
   //! ----------------------------------------------------
 
   //! ---------------------------------------------------
@@ -94,6 +93,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
+      <AppStatusBar backgroundColor={LightTheme?.colors.primary} barStyle="light-content" />
       <NavigationContainer
         linking={{
           prefixes: ['app://'],

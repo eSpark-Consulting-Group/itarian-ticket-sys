@@ -11,9 +11,11 @@ import { encodedUserDataToken } from '../../../utils/helperFunctions';
 const credentialsObj = {
   // email: 'heroadmin@yopmail.com',
   // password: 'admin1'
-  email: 'heroadmin22@yopmail.com',
+  email: 'tcomp4@yopmail.com',
   password: 'admin123',
 };
+
+const tenant_Auth = 'Basic YWNjb3VudDpmYXZlby1hcGk=';
 
 const handleLoginUser = async (
   email: string,
@@ -26,7 +28,7 @@ const handleLoginUser = async (
   console.log('password:', password);
   const emailValue = 'heroadmin@yopmail.com';
   api.setHeaders({
-    Authorization: `Basic YWNjb3VudDpmYXZlby1hcGk=`,
+    Authorization: tenant_Auth,
   });
   const response = await api.post('/tenant/login', {
     email: credentialsObj.email, //?: faveo

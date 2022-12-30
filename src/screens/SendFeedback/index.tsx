@@ -35,6 +35,7 @@ import { CannyPosts } from '../../types';
 import { SCREEN_HEIGHT, WINDOW_HEIGHT, WINDOW_WIDTH } from '../../constants';
 import { useUpdateEffect } from '../../utils/hooks';
 import { removeDuplicates } from '../../utils/helperFunctions';
+import { showMessage } from 'react-native-flash-message';
 
 const SendFeedbackScreen = () => {
   const { dark, colors } = useTheme();
@@ -83,12 +84,22 @@ const SendFeedbackScreen = () => {
             console.log('User already created!', res?.data);
             setCannyUser(res?.data);
             fetchBoards();
+            showMessage({
+              message: 'User Found',
+              autoHide: true,
+              type: 'info',
+            });
             //* User found
             //todo: Show post and store in state userId of User
           } else {
             if (res?.data?.error === 'invalid Email') {
               setPostsData([]);
               handleCreateUser();
+              showMessage({
+                message: 'User Not Found, Creating...',
+                autoHide: true,
+                type: 'info',
+              });
               //! No User Found
               //todo: Create User then show posts
               console.log('No User Found', res?.data);

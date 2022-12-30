@@ -1,12 +1,19 @@
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-import {api} from '../../../api';
-import {alert_Dur} from '../../../constants';
-import {globalState} from '../../../stores/globalAppState';
-import {userStore} from '../../../stores/userStore';
-import {encodedUserDataToken} from '../../../utils/helperFunctions';
+import { api } from '../../../api';
+import { alert_Dur } from '../../../constants';
+import { globalState } from '../../../stores/globalAppState';
+import { userStore } from '../../../stores/userStore';
+import { encodedUserDataToken } from '../../../utils/helperFunctions';
+
+const credentialsObj = {
+  // email: 'heroadmin@yopmail.com',
+  // password: 'admin1'
+  email: 'heroadmin22@yopmail.com',
+  password: 'admin123',
+};
 
 const handleLoginUser = async (
   email: string,
@@ -22,22 +29,20 @@ const handleLoginUser = async (
     Authorization: `Basic YWNjb3VudDpmYXZlby1hcGk=`,
   });
   const response = await api.post('/tenant/login', {
-    email: 'heroadmin@yopmail.com', //?: faveo
+    email: credentialsObj.email, //?: faveo
     // testwiz@yopmail.com //?: simple
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
     // test9@yopmail.com
     // email,
-    password: 'admin1',
-    // password,
-    // admin1
+    password: credentialsObj.password,
     nameSpace: 'ServiceDesk',
   });
   if (response.ok) {
     const resData: any = response.data;
     console.log('yahahaha', response.data);
     globalState.loader.set(false);
-    const {status, apiKey, subDomain, companyName}: any = response?.data;
+    const { status, apiKey, subDomain, companyName }: any = response?.data;
     if (status == 'success') {
       const userObj: any = {
         user_name: companyName,
@@ -73,8 +78,8 @@ const handleLoginUser = async (
       });
     }
     if (resData.code == 'SUCCESS_AUTHENTICATION') {
-      const {data} = resData;
-      const {displayName, email, userId, camSessionId} = data?.sessionData;
+      const { data } = resData;
+      const { displayName, email, userId, camSessionId } = data?.sessionData;
       console.log('data?.sessionData', data);
       const userObj: any = {
         user_name: displayName,
@@ -82,7 +87,7 @@ const handleLoginUser = async (
         userId: userId,
       };
       if (remember) {
-        navigation.navigate('Pin', {newPin: true});
+        navigation.navigate('Pin', { newPin: true });
         userObj['sessionId'] = camSessionId;
       } else {
         showMessage({
@@ -183,8 +188,8 @@ const handleVerifyOTP = async (data: any) => {
       return false;
     }
     if (resData.code == 'SUCCESS_AUTHENTICATION') {
-      const {data} = resData;
-      const {displayName, email, userId} = data?.sessionData;
+      const { data } = resData;
+      const { displayName, email, userId } = data?.sessionData;
       showMessage({
         message: 'Authentication Successful',
         type: 'success',
@@ -207,4 +212,4 @@ const handleVerifyOTP = async (data: any) => {
   }
 };
 
-export {handleLoginUser, handleVerifyOTP, requestSmsOtp};
+export { handleLoginUser, handleVerifyOTP, requestSmsOtp };

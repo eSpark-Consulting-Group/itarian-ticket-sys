@@ -569,7 +569,7 @@ const StackLvl1 = ({route, navigation}: any) => {
                       teamlead: {
                         data: {
                           type: 'users',
-                          id: data?.TeamLead[0]?.id,
+                          id: data?.TeamLead?.id,
                         },
                       },
                     },

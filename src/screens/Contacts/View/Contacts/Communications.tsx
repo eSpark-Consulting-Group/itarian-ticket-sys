@@ -31,7 +31,7 @@ export default function Communications() {
     {
       title: contactDetails?.email ?? '',
       subTitle: 'Email',
-      inputable: false,
+      inputable:  contactDetails?.email ? false : true,
       enable: false,
       isRequired: true,
       key: 'email',

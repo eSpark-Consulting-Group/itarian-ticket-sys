@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -17,12 +17,12 @@ import {
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MatIcons from 'react-native-vector-icons/MaterialIcons';
-import {useHookstate, State} from '@hookstate/core';
+import { useHookstate, State } from '@hookstate/core';
 import moment from 'moment';
-import {Divider} from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 
-import {userStore} from '../../stores/userStore';
-import {CannyBoards, Canny_CreateUser, User} from '../../types';
+import { userStore } from '../../stores/userStore';
+import { CannyBoards, Canny_CreateUser, User } from '../../types';
 import {
   CstmPressable,
   FloatButton,
@@ -30,14 +30,15 @@ import {
   Loader,
   NotFound,
 } from '../../components';
-import {getPosts, getUserByUserId, createUser, getBoards} from './utils';
-import {CannyPosts} from '../../types';
-import {SCREEN_HEIGHT, WINDOW_HEIGHT, WINDOW_WIDTH} from '../../constants';
-import {useUpdateEffect} from '../../utils/hooks';
-import {removeDuplicates} from '../../utils/helperFunctions';
+import { getPosts, getUserByEmail, createUser, getBoards } from './utils';
+import { CannyPosts } from '../../types';
+import { SCREEN_HEIGHT, WINDOW_HEIGHT, WINDOW_WIDTH } from '../../constants';
+import { useUpdateEffect } from '../../utils/hooks';
+import { removeDuplicates } from '../../utils/helperFunctions';
+import { showMessage } from 'react-native-flash-message';
 
 const SendFeedbackScreen = () => {
-  const {dark, colors} = useTheme();
+  const { dark, colors } = useTheme();
   const navigation: any = useNavigation();
   const [loading, setLoading] = useState(false);
   const [showPosts, setShowPosts] = useState<boolean>(false);
@@ -51,11 +52,14 @@ const SendFeedbackScreen = () => {
   const userObj: State<User> = useHookstate(userStore);
   const searchRef = useRef<TextInput>(null);
 
-  const {email, user_name, userId}: any = userObj?.user.get();
+  const { email, user_name, userId }: any = userObj?.user.get();
 
   useEffect(() => {
     setShowPosts(false);
-    fetchUser(userId);
+    fetchUser(email);
+    console.log('email of logged in user:?', email);
+    console.log('user_name of logged in user:?', user_name);
+    console.log('userId of logged in user:?', userId);
   }, []);
 
   useFocusEffect(
@@ -70,31 +74,40 @@ const SendFeedbackScreen = () => {
     }, [showPosts]),
   );
 
-  const fetchUser = async (userId?: string) => {
-    console.log(userId);
-    if (userId) {
+  const fetchUser = async (email?: string) => {
+    console.log(email);
+    if (email) {
       setLoading(true);
-      getUserByUserId({userID: userId})
+      getUserByEmail({ email: email })
         .then(res => {
           if (res?.ok) {
-            // console.log('User already created!', res?.data);
+            console.log('User already created!', res?.data);
             setCannyUser(res?.data);
-            // fetchPosts();
             fetchBoards();
+            showMessage({
+              message: 'User Found',
+              autoHide: true,
+              type: 'info',
+            });
             //* User found
             //todo: Show post and store in state userId of User
           } else {
-            if (res?.data?.error === 'invalid userID') {
+            if (res?.data?.error === 'invalid email') {
               setPostsData([]);
               handleCreateUser();
+              showMessage({
+                message: 'User Not Found, Creating...',
+                autoHide: true,
+                type: 'info',
+              });
               //! No User Found
               //todo: Create User then show posts
             }
-            // console.log('No User Found', res?.data);
+            console.log('No User Found', res?.data);
           }
         })
         .catch(err => {
-          // console.log('user', err);
+          console.log('user', err);
           setLoading(false);
         });
     }
@@ -110,14 +123,17 @@ const SendFeedbackScreen = () => {
     createUser(data)
       .then(res => {
         if (res?.ok) {
-          // console.log('User Created Sucessfully', res?.data);
+          console.log('User Created Sucessfully', res?.data);
           setCannyUser(res?.data);
           fetchBoards();
           //* User Created Sucessfully
           //todo: Show posts now and store userId
         } else {
           //! User not Created Sucessfully
-          // console.log('User not Created Sucessfully', res?.data);
+          if (res?.data?.error === 'wrong user id supplied') {
+            console.log('User already Existed', res?.data);
+          }
+          console.log('User not Created Sucessfully');
           setLoading(false);
         }
       })
@@ -159,7 +175,7 @@ const SendFeedbackScreen = () => {
     getPosts(req)
       .then(res => {
         if (res.ok) {
-          const {posts}: any = res?.data;
+          const { posts }: any = res?.data;
           // console.log('Gotten posts', posts);
           handlePosts(posts, searchFlag);
         }
@@ -190,7 +206,7 @@ const SendFeedbackScreen = () => {
   const resetLoad = () => {
     setPostsData([]);
     setSkip(0);
-    fetchPosts({limit: 10, skip: 0}, false);
+    fetchPosts({ limit: 10, skip: 0 }, false);
   };
 
   const clearPostSearch = () => {
@@ -219,7 +235,7 @@ const SendFeedbackScreen = () => {
         onPress={() => {
           navigation.navigate('Stack1', {
             screen: 'Post',
-            params: {id: item.id, userInfo: cannyUser},
+            params: { id: item.id, userInfo: cannyUser },
           });
         }}>
         <View
@@ -230,7 +246,7 @@ const SendFeedbackScreen = () => {
           }}>
           {item.author.avatarURL ? (
             <Image
-              source={{uri: item.author.avatarURL}}
+              source={{ uri: item.author.avatarURL }}
               style={{
                 width: 50,
                 height: 50,
@@ -251,13 +267,13 @@ const SendFeedbackScreen = () => {
                 backgroundColor: colors.primary,
               }}>
               <Text
-                style={{fontSize: 20, fontWeight: 'bold', color: '#ffffff'}}>
+                style={{ fontSize: 20, fontWeight: 'bold', color: '#ffffff' }}>
                 {item.author.name.substring(0, 1).toUpperCase()}
               </Text>
             </View>
           )}
         </View>
-        <View style={{flex: 0.7}}>
+        <View style={{ flex: 0.7 }}>
           <Text
             style={{
               color: colors.text,
@@ -268,7 +284,7 @@ const SendFeedbackScreen = () => {
             numberOfLines={2}>
             {item.title}
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text
               style={{
                 color: colors.text,
@@ -296,7 +312,7 @@ const SendFeedbackScreen = () => {
               {moment(item?.created).format('MMM DD')}
             </Text>
           </View>
-          <Text style={{color: colors.text, fontFamily: 'sans-serif-medium'}}>
+          <Text style={{ color: colors.text, fontFamily: 'sans-serif-medium' }}>
             Status: {item.status.toUpperCase()}
           </Text>
         </View>
@@ -318,9 +334,9 @@ const SendFeedbackScreen = () => {
             <MCI
               name="arrow-up-thick"
               color={'#ffffff'}
-              style={{alignSelf: 'center', margin: 2}}
+              style={{ alignSelf: 'center', margin: 2 }}
             />
-            <Text style={{textAlignVertical: 'center', color: '#ffffff'}}>
+            <Text style={{ textAlignVertical: 'center', color: '#ffffff' }}>
               {item.score}
             </Text>
           </View>
@@ -338,9 +354,9 @@ const SendFeedbackScreen = () => {
             <MCI
               name="chat"
               color={'#ffffff'}
-              style={{alignSelf: 'center', margin: 2}}
+              style={{ alignSelf: 'center', margin: 2 }}
             />
-            <Text style={{textAlignVertical: 'center', color: '#ffffff'}}>
+            <Text style={{ textAlignVertical: 'center', color: '#ffffff' }}>
               {item.commentCount}
             </Text>
           </View>
@@ -363,7 +379,7 @@ const SendFeedbackScreen = () => {
         onPress={() => {
           setPostsData([]);
           setSkip(0);
-          fetchPosts({boardID: item.id});
+          fetchPosts({ boardID: item.id });
           setShowPosts(true);
           LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
           // console.log(item.id);
@@ -385,7 +401,7 @@ const SendFeedbackScreen = () => {
             numberOfLines={2}>
             {item.name}
           </Text>
-          <Text style={{color: colors.text, fontFamily: 'sans-serif-medium'}}>
+          <Text style={{ color: colors.text, fontFamily: 'sans-serif-medium' }}>
             Posts: {item.postCount}
           </Text>
         </View>
@@ -396,7 +412,7 @@ const SendFeedbackScreen = () => {
   const PostsListComponent = () => {
     return (
       <>
-        <View style={{paddingTop: 10, paddingHorizontal: 15}}>
+        <View style={{ paddingTop: 10, paddingHorizontal: 15 }}>
           <View
             style={{
               flexDirection: 'row',
@@ -431,18 +447,18 @@ const SendFeedbackScreen = () => {
                   value={searchPosts}
                   placeholder="Search Posts..."
                   onSubmitEditing={() => {
-                    fetchPosts({search: searchPosts}, false, true);
+                    fetchPosts({ search: searchPosts }, false, true);
                   }}
                 />
                 <CstmPressable
-                  android_ripple={{borderless: true}}
+                  android_ripple={{ borderless: true }}
                   onPress={() => {
                     LayoutAnimation.configureNext(
                       LayoutAnimation.Presets.easeInEaseOut,
                     );
                     clearPostSearch();
                     if (searchPosts != '') {
-                      fetchPosts({limit: 10}, false);
+                      fetchPosts({ limit: 10 }, false);
                     }
                   }}>
                   <Ionicons
@@ -463,7 +479,7 @@ const SendFeedbackScreen = () => {
                   display: showSearch ? 'none' : 'flex',
                 }}>
                 <CstmPressable
-                  android_ripple={{borderless: true}}
+                  android_ripple={{ borderless: true }}
                   onPress={() => {
                     LayoutAnimation.configureNext(
                       LayoutAnimation.Presets.easeInEaseOut,
@@ -475,7 +491,7 @@ const SendFeedbackScreen = () => {
                   }}>
                   <Ionicons
                     name="md-chevron-back-sharp"
-                    style={{alignSelf: 'center', textAlignVertical: 'center'}}
+                    style={{ alignSelf: 'center', textAlignVertical: 'center' }}
                     color={colors.primary}
                     size={28}
                   />
@@ -491,9 +507,9 @@ const SendFeedbackScreen = () => {
                 </Text>
               </View>
             </View>
-            <View style={{marginRight: 10}}>
+            <View style={{ marginRight: 10 }}>
               <CstmPressable
-                android_ripple={{borderless: true}}
+                android_ripple={{ borderless: true }}
                 onPress={() => {
                   LayoutAnimation.configureNext(
                     LayoutAnimation.Presets.easeInEaseOut,
@@ -503,22 +519,22 @@ const SendFeedbackScreen = () => {
                 }}>
                 <MatIcons
                   name={showSearch ? 'search-off' : 'search'}
-                  style={{alignSelf: 'center', textAlignVertical: 'center'}}
+                  style={{ alignSelf: 'center', textAlignVertical: 'center' }}
                   color={colors.primary}
                   size={28}
                 />
               </CstmPressable>
             </View>
           </View>
-          <Divider style={{height: 2, backgroundColor: colors.primary}} />
+          <Divider style={{ height: 2, backgroundColor: colors.primary }} />
         </View>
         <FlatList
           data={postsData}
           refreshControl={
             <RefreshControl refreshing={false} onRefresh={() => resetLoad()} />
           }
-          style={{paddingTop: 10, paddingHorizontal: 15}}
-          contentContainerStyle={{flex: postsData.length > 0 ? 0 : 1}}
+          style={{ paddingTop: 10, paddingHorizontal: 15 }}
+          contentContainerStyle={{ flex: postsData.length > 0 ? 0 : 1 }}
           showsVerticalScrollIndicator={true}
           ListEmptyComponent={
             <NotFound
@@ -528,13 +544,13 @@ const SendFeedbackScreen = () => {
           }
           onEndReached={() => {
             if (postsData.length > 8) {
-              fetchPosts({skip: skip + 10}, true);
+              fetchPosts({ skip: skip + 10 }, true);
               setSkip(state => state + 10);
             }
           }}
           ListFooterComponent={() => {
             return (
-              <View style={{height: itemsLoader ? SCREEN_HEIGHT * 0.07 : 10}}>
+              <View style={{ height: itemsLoader ? SCREEN_HEIGHT * 0.07 : 10 }}>
                 <ActivityIndicator
                   size={'large'}
                   color={colors.primary}
@@ -546,10 +562,12 @@ const SendFeedbackScreen = () => {
               </View>
             );
           }}
-          renderItem={({item, index}) => renderPostList(item, index)}
+          renderItem={({ item, index }) => renderPostList(item, index)}
         />
         <FloatButton
-          onPress={() => navigation.navigate('Stack1', {screen: 'CreatePost'})}
+          onPress={() =>
+            navigation.navigate('Stack1', { screen: 'CreatePost' })
+          }
         />
       </>
     );
@@ -558,7 +576,7 @@ const SendFeedbackScreen = () => {
   const BoardsListComponent = () => {
     return (
       <>
-        <View style={{paddingTop: 10, paddingHorizontal: 15}}>
+        <View style={{ paddingTop: 10, paddingHorizontal: 15 }}>
           <View
             style={{
               flexDirection: 'row',
@@ -575,11 +593,11 @@ const SendFeedbackScreen = () => {
               Boards
             </Text>
           </View>
-          <Divider style={{height: 2, backgroundColor: colors.primary}} />
+          <Divider style={{ height: 2, backgroundColor: colors.primary }} />
         </View>
         <FlatList
           data={boardsData}
-          style={{paddingTop: 10, paddingHorizontal: 15}}
+          style={{ paddingTop: 10, paddingHorizontal: 15 }}
           refreshControl={
             <RefreshControl
               refreshing={false}
@@ -596,14 +614,14 @@ const SendFeedbackScreen = () => {
               display={loading || boardsData.length !== 0 ? 'none' : 'flex'}
             />
           }
-          renderItem={({item, index}) => renderBoardsList(item, index)}
+          renderItem={({ item, index }) => renderBoardsList(item, index)}
         />
       </>
     );
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Loader isShow={loading} />
       {showPosts ? PostsListComponent() : <BoardsListComponent />}
     </View>

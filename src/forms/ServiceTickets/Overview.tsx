@@ -138,7 +138,7 @@ const Overview = ({ticketDetails}: any) => {
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDs([...obj]);
     }
-  }, [route?.params]);
+  }, [route?.params?.selected]);
 
   const onChangeDate = (event: any, date: any) => {
     setShowDate(false);

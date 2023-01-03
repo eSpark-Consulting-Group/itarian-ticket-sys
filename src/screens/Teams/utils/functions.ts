@@ -74,7 +74,7 @@ const updateTeam = async (data: any) => {
   });
   try {
     const result: any = await api.patch(`/teams/${data?.data?.id}`, data);
-    console.log('result updateTeam', result);
+    console.log('result updateTeam', data?.data?.relationships?.teamlead, '\n', result);
     if (result?.ok) {
       getAllTeams();
       return {status: true};

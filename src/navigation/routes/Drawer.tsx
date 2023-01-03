@@ -177,9 +177,9 @@ const Draw = () => {
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const users: State<any> = useHookstate(userStore.users);
-
-  const [currMember, setcurrMember] = useState<any>(contactsList[0]);
-  const [calCurrMember, setCalCurrMember] = useState<any>(contactsList[0]);
+  const user: State<any> = useHookstate(userStore.user);
+  const [currMember, setcurrMember] = useState<any>(null);
+  const [calCurrMember, setCalCurrMember] = useState<any>(null);
   const [filterCount, setFilterCount] = useState<any>('0');
 
   const {colors}: Theme = useTheme();
@@ -201,7 +201,7 @@ const Draw = () => {
       }
     }
   }, [route?.params]);
-
+  
   useEffect(() => {
     if (route?.params?.selected) {
       setcurrMember(route?.params?.selected);
@@ -212,6 +212,8 @@ const Draw = () => {
     }
     badgeApiCallForGlobalList();
   }, []);
+
+  console.log("currMember", currMember, user.get());
 
   return (
     <Drawer.Navigator
@@ -266,7 +268,7 @@ const Draw = () => {
             <CstmHeader
               title="Tickets"
               subTitle={
-                currMember?.name == 'John Doe'
+                !currMember
                   ? 'Select Member'
                   : currMember?.name
               }

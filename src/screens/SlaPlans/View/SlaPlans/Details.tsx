@@ -61,6 +61,7 @@ export default function Details() {
       mode: 'multiline',
     },
   ]);
+  
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;

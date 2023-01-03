@@ -5,7 +5,6 @@ import {TabView, SceneMap} from 'react-native-tab-view';
 
 import {ModalHeader, ModalView, CstmTabBar} from '../../../../components';
 import Communications from './Communications';
-import Details from './Details';
 
 if (
   Platform.OS === 'android' &&
@@ -24,30 +23,8 @@ export default function App() {
         subTitle={contactDetails?.company_name || "N/A"}
         subIcon="office-building-marker-outline"
       />
-      <TabComp />
+      <Communications />
     </ModalView>
-  );
-}
-
-const renderScene = SceneMap({
-  first: Communications,
-  second: Details,
-});
-
-function TabComp() {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    {key: 'first', title: 'Communications'},
-    {key: 'second', title: 'Details'},
-  ]);
-
-  return (
-    <TabView
-      navigationState={{index, routes}}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      renderTabBar={props => <CstmTabBar {...props} />}
-    />
   );
 }
 

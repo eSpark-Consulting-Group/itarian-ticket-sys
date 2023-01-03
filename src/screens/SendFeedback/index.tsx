@@ -220,6 +220,7 @@ const SendFeedbackScreen = () => {
   // }, [skip]);
 
   const renderPostList = (item: any, index: number) => {
+    console.log('....????????', item.author);
     return (
       <CstmPressable
         style={{
@@ -244,9 +245,9 @@ const SendFeedbackScreen = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          {item.author.avatarURL ? (
+          {item?.author?.avatarURL ? (
             <Image
-              source={{ uri: item.author.avatarURL }}
+              source={{ uri: item?.author?.avatarURL }}
               style={{
                 width: 50,
                 height: 50,
@@ -268,7 +269,7 @@ const SendFeedbackScreen = () => {
               }}>
               <Text
                 style={{ fontSize: 20, fontWeight: 'bold', color: '#ffffff' }}>
-                {item.author.name.substring(0, 1).toUpperCase()}
+                {item?.author?.name.substring(0, 1).toUpperCase()}
               </Text>
             </View>
           )}
@@ -290,7 +291,7 @@ const SendFeedbackScreen = () => {
                 color: colors.text,
                 fontFamily: 'sans-serif',
               }}>
-              {item.author.name}
+              {item?.author?.name}
             </Text>
             <View
               style={{
@@ -313,7 +314,7 @@ const SendFeedbackScreen = () => {
             </Text>
           </View>
           <Text style={{ color: colors.text, fontFamily: 'sans-serif-medium' }}>
-            Status: {item.status.toUpperCase()}
+            Status: {item?.status?.toUpperCase()}
           </Text>
         </View>
         <View
@@ -445,6 +446,7 @@ const SendFeedbackScreen = () => {
                   }}
                   onChangeText={text => setSearchPosts(text)}
                   value={searchPosts}
+                  placeholderTextColor={colors.text + '55'}
                   placeholder="Search Posts..."
                   onSubmitEditing={() => {
                     fetchPosts({ search: searchPosts }, false, true);

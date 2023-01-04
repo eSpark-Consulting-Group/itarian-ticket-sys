@@ -55,6 +55,7 @@ import Images from '../../assets/Images';
 import {userStore} from '../../stores/userStore';
 import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
 import {ticketStore} from '../../stores/ticketStore';
+import { filterUser } from '../../screens/Profile/utils';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -173,7 +174,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 const Draw = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
-
+  const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const users: State<any> = useHookstate(userStore.users);
@@ -207,13 +208,14 @@ const Draw = () => {
       setcurrMember(route?.params?.selected);
       setCalCurrMember(route?.params?.selected);
     } else {
-      setcurrMember(currMember);
+      filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
+        setcurrMember(currMember ?? res?.attributes);
+        !currMember && activeMember?.set(res?.attributes)
+      });
       setCalCurrMember(calCurrMember);
     }
     badgeApiCallForGlobalList();
   }, []);
-
-  console.log("currMember", currMember, user.get());
 
   return (
     <Drawer.Navigator

@@ -22,4 +22,5 @@ export const userStore: User = hookstate({
   },
   pinCode: null,
   users: [],
+  userDetails: null
 });

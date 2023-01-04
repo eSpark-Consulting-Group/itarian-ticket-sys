@@ -7,6 +7,7 @@ import {DataItem as Item, SelectFields} from '../../types';
 import {SelectItems} from '../../utils/helperFunctions';
 import {State, useHookstate} from '@hookstate/core';
 import {userStore} from '../../stores/userStore';
+import { GracePeriodList } from '../../constants/SelectionList';
 
 const NewSlaPlans = ({route, navigation}: any) => {
   const {colors, dark}: Theme = useTheme();
@@ -26,13 +27,14 @@ const NewSlaPlans = ({route, navigation}: any) => {
       isRequired: true,
     },
     {
-      title: '',
-      subTitle: 'grace period (multiple of 6)',
-      inputable: true,
-      enable: false,
-      isRequired: true,
-      keyboardType: 'number-pad',
-      key: 'grace period',
+      title: 'Please Select',
+      subTitle: 'Grace Period',
+      list: GracePeriodList || [],
+      selectedItem: undefined,
+      headerTitle: 'Parent Topic',
+      rightIcon: 'chevron-right',
+      isRequired: false,
+      key: 'grace_period',
     },
     {
       title: '',

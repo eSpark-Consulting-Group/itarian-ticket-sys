@@ -4,33 +4,33 @@ import {alert_Dur} from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import {userStore} from '../../../stores/userStore';
 
-const getAllTicketPriorities = async () => {
+const getAllCannedResponse = async () => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.get('/ticketpriorities');
+    const result: any = await api.get('/cannedresponses');
     if (result?.ok) {
-      globalState?.ticketpriorities?.set(result?.data?.data);
+      globalState?.cannedResponse?.set(result?.data?.data);
     }
   } catch (error) {
     console.log('error getAllUsers', error);
   }
 };
 
-const addTicketPriorities = async (data: any) => {
+const addCannedResponse = async (data: any) => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.post('/ticketpriorities', data);
+    const result: any = await api.post('/cannedresponses', data);
     console.log('result addSlaPlans', result);
     if (result?.ok) {
-      getAllTicketPriorities();
+      getAllCannedResponse();
       return {status: true};
     }else {
       return {status: false, message: result};
@@ -41,16 +41,16 @@ const addTicketPriorities = async (data: any) => {
   }
 };
 
-const deletePriorities = async (id: number) => {
+const deleteCannedResponse = async (id: number) => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.delete(`/ticketpriorities/${id}`);
+    const result: any = await api.delete(`/cannedresponses/${id}`);
     if (result?.ok) {
-      getAllTicketPriorities();
+      getAllCannedResponse();
       showMessage({
         message: 'SlaPlan deleted successfully',
         type: 'success',
@@ -66,17 +66,17 @@ const deletePriorities = async (id: number) => {
   }
 };
 
-const updateTicketPriorities = async (data: any) => {
+const updateCannedResponse = async (data: any) => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.patch(`/ticketpriorities/${data?.data?.id}`, data);
+    const result: any = await api.patch(`/cannedresponses/${data?.data?.id}`, data);
     console.log('result updateSlaPlan', result);
     if (result?.ok) {
-      getAllTicketPriorities();
+      getAllCannedResponse();
       return {status: true};
     }else {
       return {status: false, message: result};
@@ -87,4 +87,4 @@ const updateTicketPriorities = async (data: any) => {
   }
 };
 
-export {getAllTicketPriorities, addTicketPriorities, deletePriorities, updateTicketPriorities};
+export {getAllCannedResponse, addCannedResponse, deleteCannedResponse, updateCannedResponse};

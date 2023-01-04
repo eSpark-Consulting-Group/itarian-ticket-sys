@@ -1,18 +1,24 @@
+import { State } from '@hookstate/core';
 import {api} from '../api';
 import {getAllUsers} from '../screens/Agenda/utils/functions';
 import {getAllCompanies} from '../screens/Companies/utils/functions';
 import { getAllHelpTopics } from '../screens/HelpTopic/utils/functions';
+import { filterUser } from '../screens/Profile/utils';
 import { getAllSlaPlans } from '../screens/SlaPlans/utils/functions';
 import {globalState} from '../stores/globalAppState';
 import {userStore} from '../stores/userStore';
 
 export const badgeApiCallForGlobalList = () => {
+  const user: State<any> = userStore?.user;
   getAllUsers();
   getAllCompanies();
   getTicketStatus();
   getTicketPriorities();
   getAllSlaPlans();
   getAllHelpTopics();
+  filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
+    userStore?.userDetails?.set(res)
+  });
 };
 
 const getTicketStatus = async () => {

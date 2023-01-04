@@ -34,9 +34,9 @@ const ScheduledTab = ({route}: any) => {
     };
     setActionButtons(tempArr);
   };
-  console.log("activeMember.get()?.id ??", activeMember.get()?.id);
-
+  
   useEffect(() => {
+    console.log("activeMember.get()?.id ??", activeMember.get()?.id);
     const schTicks = ticketsList.filter(val => val?.time_dur);
     getTicketsByUserId(activeMember.get()?.id);
     const filTickets = schTicks.filter(

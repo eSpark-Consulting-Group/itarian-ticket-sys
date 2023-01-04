@@ -10,7 +10,7 @@ import { encodedUserDataToken } from '../../../utils/helperFunctions';
 
 const credentialsObj = {
   email: 'heroadmin@yopmail.com',
-  password: 'admin1'
+  password: 'admin1',
   // email: 'tcomp4@yopmail.com',
   // password: 'admin123',
 };

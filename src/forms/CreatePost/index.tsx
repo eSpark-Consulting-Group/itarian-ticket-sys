@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
   Keyboard,
@@ -10,13 +10,13 @@ import {
   Platform,
   UIManager,
 } from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
-import {moderateVerticalScale} from 'react-native-size-matters';
+import { moderateVerticalScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import 'react-native-get-random-values';
 // @ts-ignore
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 //@ts-ignore
 import sign from 'jwt-encode';
 
@@ -30,9 +30,9 @@ import {
   GapView,
   Loader,
 } from '../../components';
-import {createPost, getCategories} from '../../screens/SendFeedback/utils';
-import {Canny_CreatePost} from '../../types';
-import {showMessage} from 'react-native-flash-message';
+import { createPost, getCategories } from '../../screens/SendFeedback/utils';
+import { Canny_CreatePost } from '../../types';
+import { showMessage } from 'react-native-flash-message';
 
 interface ImageType {
   id: number;
@@ -45,9 +45,11 @@ if (Platform.OS === 'android') {
   }
 }
 
+const duration = 2000;
+
 const CreatePost = () => {
   const navigation: any = useNavigation();
-  const {colors, dark} = useTheme();
+  const { colors, dark } = useTheme();
   const [loading, setLoading] = useState(false);
   const [categoryToggle, setCategoryToggle] = useState(false);
   const [categoryData, setCategoryData] = useState<any>([]);
@@ -65,12 +67,12 @@ const CreatePost = () => {
   });
   const iskeyboardShown = useRef(false);
 
-  const handleLabel = (value: {id?: string; name?: string}, type: string) => {
+  const handleLabel = (value: { id?: string; name?: string }, type: string) => {
     // 👇️ take parameter passed from Child component
-    const {id} = value;
+    const { id } = value;
     console.log('kia ha value', value);
     setPostData((state: any) => {
-      return {...state, categoryID: id};
+      return { ...state, categoryID: id };
     });
   };
 
@@ -85,7 +87,7 @@ const CreatePost = () => {
     getCategories()
       .then(res => {
         if (res.ok) {
-          const {categories}: any = res?.data;
+          const { categories }: any = res?.data;
           console.log('data', categories);
           handleCategories(categories);
         }
@@ -96,7 +98,7 @@ const CreatePost = () => {
 
   const handleCategories = (data: any[]) => {
     const tempArr = data.map(item => {
-      return {name: item.name, id: item.id};
+      return { name: item.name, id: item.id };
     });
     setCategoryData(tempArr);
     setLoading(false);
@@ -145,7 +147,7 @@ const CreatePost = () => {
     setImageData(tempArr);
   };
 
-  const renderImages = ({item, index}: {item: any; index: number}) => {
+  const renderImages = ({ item, index }: { item: any; index: number }) => {
     return (
       <View
         style={{
@@ -189,7 +191,7 @@ const CreatePost = () => {
     ImagePicker.openPicker({})
       .then(image => {
         const field = image.path;
-        console.log({uri: field});
+        console.log({ uri: field });
 
         //? function to upload image to Canny.io (returns Canny.io image url)
         (function (field: string) {
@@ -216,13 +218,13 @@ const CreatePost = () => {
           };
           fetch('https://feedback.itarian.com/api/images/upload', config)
             .then(response => response.json())
-            .then((result: {imageURL: string; error: string}) => {
+            .then((result: { imageURL: string; error: string }) => {
               setLoading(false);
               console.log('upload hoa image', result);
               if (result.imageURL) {
                 console.log('upload hoa image', result.imageURL);
                 setImageData((state: ImageType[]) => {
-                  return [...state, {uri: result?.imageURL, id: uuid()}];
+                  return [...state, { uri: result?.imageURL, id: uuid() }];
                 });
               }
               if (result.error) {
@@ -231,6 +233,7 @@ const CreatePost = () => {
                   message: result.error,
                   type: 'danger',
                   icon: 'auto',
+                  duration,
                 });
               }
             })
@@ -241,6 +244,7 @@ const CreatePost = () => {
                 message: error[0],
                 type: 'danger',
                 icon: 'auto',
+                duration,
               });
             });
         })(field);
@@ -252,7 +256,7 @@ const CreatePost = () => {
 
   const ImageContainer = () => {
     return (
-      <View style={{marginTop: 10}}>
+      <View style={{ marginTop: 10 }}>
         <Text
           style={{
             color: colors.text,
@@ -300,7 +304,7 @@ const CreatePost = () => {
           <FlatList
             data={imageData}
             horizontal
-            contentContainerStyle={{padding: 10}}
+            contentContainerStyle={{ padding: 10 }}
             ItemSeparatorComponent={() => (
               <GapView mode="horizontal" length={15} />
             )}
@@ -316,7 +320,7 @@ const CreatePost = () => {
     setLoading(true);
     const tempArr = [...imageData];
     const finalArr: string[] = tempArr.reduce(
-      (accumulator: string[], {uri}) => [...accumulator, uri],
+      (accumulator: string[], { uri }) => [...accumulator, uri],
       [],
     );
     postData.imageURLs = finalArr;
@@ -346,6 +350,7 @@ const CreatePost = () => {
           message: err,
           type: 'danger',
           icon: 'auto',
+          duration,
         });
       });
   };
@@ -374,7 +379,7 @@ const CreatePost = () => {
           value={postData.title}
           onChangeText={text =>
             setPostData((state: any) => {
-              return {...state, title: text};
+              return { ...state, title: text };
             })
           }
         />
@@ -384,7 +389,7 @@ const CreatePost = () => {
           placeholder="Any, Additional Details..."
           onChangeText={text =>
             setPostData((state: any) => {
-              return {...state, details: text};
+              return { ...state, details: text };
             })
           }
         />

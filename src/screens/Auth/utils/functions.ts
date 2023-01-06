@@ -9,6 +9,7 @@ import { userStore } from '../../../stores/userStore';
 import { encodedUserDataToken } from '../../../utils/helperFunctions';
 
 const credentialsObj = {
+  // email: 'faraz.espark@gmail.com',
   email: 'heroadmin@yopmail.com',
   password: 'admin1',
   // email: 'tcomp4@yopmail.com',

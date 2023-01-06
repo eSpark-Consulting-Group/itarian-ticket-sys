@@ -15,6 +15,7 @@ import Departments from './Departments';
 import Locations from './Locations';
 import HelpTopics from './HelpTopic';
 import CannedResponse from './CannedResponse';
+import Groups from './Groups';
 
 export {
   Login,
@@ -34,5 +35,6 @@ export {
   Departments,
   Locations,
   HelpTopics,
-  CannedResponse
+  CannedResponse,
+  Groups
 };

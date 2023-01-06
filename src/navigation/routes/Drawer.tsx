@@ -48,6 +48,7 @@ import {
   Locations,
   HelpTopics,
   CannedResponse,
+  Groups,
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -458,6 +459,20 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <FA name="certificate" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />
+      <Drawer.Screen
+        name="Groups"
+        component={Groups}
+        options={{
+          headerTitle: () => <CstmHeader title="Groups" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Groups</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <MCI name="group" size={size} color={color} />
           ),
           headerRight: noHeader,
         }}

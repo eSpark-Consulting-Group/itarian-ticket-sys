@@ -13,74 +13,36 @@ import {
 } from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import {FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
-import {SelectFields} from '../../../../types';
+import {DataItem as Item} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
-import { deletePriorities } from '../../utils/functions';
-
-interface Item {
-  title: string;
-  subTitle?: string;
-  inputable?: boolean;
-  enable?: boolean;
-  rightIcon?: string;
-  rightIconRound?: string;
-  titleWidth?: number;
-  showRightSwitch?: boolean;
-  rightSwitchVal?: boolean;
-  onChangeSwitch?: (value: boolean) => void;
-  onChangeText?: (text: string) => void;
-  list?: SelectFields[];
-  selectedItem?: SelectFields;
-  searchable?: boolean;
-  headerTitle?: string;
-  keyboardType?: KeyboardTypeOptions | undefined;
-  isRequired?: boolean;
-  mode?: 'none' | 'multiline';
-  onPress?: () => void;
-}
+import { deleteCannedResponse } from '../../utils/functions';
 
 export default function Details() {
   const {colors, dark}: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
-  const ticketPriorityDetails = routes?.params?.ticketPriorityDetails;
+  const cannedResponseDetails = routes?.params?.cannedResponseDetails;
   const [loader, setLoader] = useState(false)
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: "Status",
-      enable: true,
-      rightSwitchVal: Boolean(ticketPriorityDetails?.attributes?.status),
-      showRightSwitch: true,
-    },
-    {
-      title: "IsPublic",
-      enable: true,
-      rightSwitchVal: Boolean(ticketPriorityDetails?.attributes?.is_public),
-      showRightSwitch: true,
-    },
-    {
-      subTitle: 'name',
-      title: ticketPriorityDetails?.attributes?.name ?? '',
+      title: cannedResponseDetails?.attributes?.title ?? '',
+      subTitle: 'Title',
       inputable: true,
       enable: false,
       isRequired: true,
+      key: 'title',
     },
     {
-      title: ticketPriorityDetails?.attributes?.color ?? '',
-      subTitle: 'color',
-      inputable: false,
-      enable: false,
-      isRequired: false,
-    },
-    {
-      title: ticketPriorityDetails?.attributes?.description ?? '',
-      subTitle: 'description',
+      title: cannedResponseDetails?.attributes?.message ?? '',
+      subTitle: 'Message',
       inputable: true,
       enable: false,
       isRequired: true,
       mode: 'multiline',
+      key: 'message',
     },
   ]);
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -119,7 +81,7 @@ export default function Details() {
 
   const deleteFunc = (id: number) => {
     setLoader(true)
-    deletePriorities(id)
+    deleteCannedResponse(id)
     .then(res => {
       setLoader(false)
       if(res?.status) {
@@ -127,7 +89,6 @@ export default function Details() {
       }
     })
     .catch((err) => {
-      console.log("delete teams failed", err)
       setLoader(false)
     })
   
@@ -151,11 +112,12 @@ export default function Details() {
         subTitle: item.subTitle,
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
-        rightSwitchVal: item.rightSwitchVal
+        rightSwitchVal: item.rightSwitchVal,
+        key: item?.key
       }),
     );
     Data[Data?.length] = {
-      title: ticketPriorityDetails?.id,
+      title: cannedResponseDetails?.id,
       subTitle: "id",
     }
     navigation?.setParams({
@@ -178,13 +140,13 @@ export default function Details() {
       {dataSource[1].title != "Default" &&
       <FloatButton icon='delete' onPress={() => {
           Alert.alert(
-            'Delete Sla Plan?',
-            'Are you sure you want to delete this Sla Plan permanently?',
+            'Delete CannedResponse?',
+            'Are you sure you want to delete this CannedResponse permanently?',
             [
               {
                 text: 'Yes',
                 style: 'default',
-                onPress: () => deleteFunc(ticketPriorityDetails?.id),
+                onPress: () => deleteFunc(cannedResponseDetails?.id),
               },
               {
                 text: 'No',

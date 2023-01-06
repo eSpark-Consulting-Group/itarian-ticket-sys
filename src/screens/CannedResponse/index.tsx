@@ -17,16 +17,16 @@ import {Contact} from '../../types';
 import {useUpdateEffect} from '../../utils/hooks';
 import {searchFromArray} from '../../utils/helperFunctions';
 import {State, useHookstate} from '@hookstate/core';
-import { getAllTicketPriorities } from './utils/functions';
+import { getAllCannedResponse } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 
-const TicketPriorities = ({navigation}: {navigation: NavigationProp<any,any> }) => {
+const CannedResponse = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const {colors, dark}: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
-  const ticketpriorities = useHookstate(globalState.ticketpriorities);
-  const [filteredContacts, setFilteredContacts] = useState(ticketpriorities.get());
+  const cannedResponse = useHookstate(globalState.cannedResponse);
+  const [filteredContacts, setFilteredContacts] = useState(cannedResponse.get());
 
   useEffect(() => {
     fetchRecords()
@@ -34,13 +34,13 @@ const TicketPriorities = ({navigation}: {navigation: NavigationProp<any,any> }) 
 
   const fetchRecords = async () => {
     setLoading(true);
-    await getAllTicketPriorities()
+    await getAllCannedResponse()
     setLoading(false);
   }
 
   useEffect(() => {
-    setFilteredContacts(ticketpriorities.get())
-  }, [ticketpriorities])
+    setFilteredContacts(cannedResponse.get())
+  }, [cannedResponse])
 
   const handleSubmit = () => {
     setLoading(true);
@@ -53,8 +53,8 @@ const TicketPriorities = ({navigation}: {navigation: NavigationProp<any,any> }) 
   const searchFilterFunction = async (text: string) => {
     var result = await searchFromArray({
       text: text,
-      list: ticketpriorities?.get(),
-      keys: ['attributes.name'],
+      list: cannedResponse?.get(),
+      keys: ['attributes.title', 'attributes.message'],
     });
     setFilteredContacts(result);
   };
@@ -71,7 +71,7 @@ const TicketPriorities = ({navigation}: {navigation: NavigationProp<any,any> }) 
     }
   }, [clear]);
 
-  console.log('done ticketpriorities', ticketpriorities.get());
+  console.log('done cannedResponse', cannedResponse.get());
   return (
     <View style={styles.container}>
       <View
@@ -81,7 +81,7 @@ const TicketPriorities = ({navigation}: {navigation: NavigationProp<any,any> }) 
         }}>
         <SearchBar
           withTag={false}
-          placeholder={'Search Ticket Priority'}
+          placeholder={'Search Canned Response'}
           fontSize={'large'}
           value={searchValue}
           setChangeText={value => setSearchValue(value)}
@@ -92,16 +92,16 @@ const TicketPriorities = ({navigation}: {navigation: NavigationProp<any,any> }) 
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderTickets listData={filteredContacts} />
+        <RenderCannedResponse listData={filteredContacts} />
       )}
       <FloatButton 
-       onPress={() => navigation.navigate('Stack1', {screen: 'NewTicketPriorities'})}
+       onPress={() => navigation.navigate('Stack1', {screen: 'NewCannedResponse'})}
       />
     </View>
   );
 };
 
-export const RenderTickets = ({
+export const RenderCannedResponse = ({
   listData = contactsList,
 }: {
   listData?: Contact[];
@@ -115,8 +115,8 @@ export const RenderTickets = ({
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
-              screen: 'TicketPriorityDetails',
-              params: {ticketPriorityDetails: item},
+              screen: 'CannedResponseDetails',
+              params: {cannedResponseDetails: item},
             })
           }
           android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
@@ -126,7 +126,7 @@ export const RenderTickets = ({
                 style={{
                   color: colors.text,
                 }}>
-                {item?.attributes?.name}
+                {item?.attributes?.title}
               </Text>
             </View>
           </View>
@@ -157,9 +157,9 @@ export const RenderTickets = ({
 const NotFound = (): JSX.Element => {
   return (
     <View style={styles.content}>
-      <EmptyListMsg label="Ticket Priority" />
+      <EmptyListMsg label="Canned Response" />
     </View>
   );
 };
 
-export default TicketPriorities;
+export default CannedResponse;

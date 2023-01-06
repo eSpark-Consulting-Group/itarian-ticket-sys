@@ -1,12 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { Alert, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
-import {Theme, useTheme} from '@react-navigation/native';
-import {State, useHookstate} from '@hookstate/core';
+import { Theme, useTheme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
 
-import {goBack, saveStatus} from '../utils/headerFunctions';
+import { goBack, saveStatus } from '../utils/headerFunctions';
 
 import STickets from '../../forms/ServiceTickets';
 import Contact1 from '../../screens/Contacts/View/Contacts';
@@ -17,11 +17,11 @@ import NewCompany from '../../forms/NewCompany';
 import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
 import NewTicket from '../../forms/NewTicket';
 import CreatePost from '../../forms/CreatePost';
-import {userStore} from '../../stores/userStore';
-import {checkValidations, dataFormatter} from '../../utils/helperFunctions';
-import {Post} from '../../screens';
+import { userStore } from '../../stores/userStore';
+import { checkValidations, dataFormatter } from '../../utils/helperFunctions';
+import { Post } from '../../screens';
 import NewTeam from '../../forms/NewTeam';
-import {addTeam, updateTeam} from '../../screens/Teams/utils/functions';
+import { addTeam, updateTeam } from '../../screens/Teams/utils/functions';
 import NewSlaPlans from '../../forms/NewSlaPlans';
 import {
   addSlaPlans,
@@ -32,6 +32,7 @@ import NewTicketPriorities from '../../forms/NewTicketPriorities';
 import DepartmentDetails from '../../screens/Departments/View/Department/index';
 import LocationDetails from '../../screens/Locations/View/Location/index';
 import HelpTopicDetails from '../../screens/HelpTopic/View/HelpTopic/index';
+import CannedResponseDetails from '../../screens/CannedResponse/View/CannedResponse/index';
 import {
   addTicketPriorities,
   updateTicketPriorities,
@@ -52,44 +53,54 @@ import {
   updateHelpTopic,
 } from '../../screens/HelpTopic/utils/functions';
 import moment from 'moment';
-import {addTicket, updateTicket} from '../../screens/Agenda/utils/functions';
+import { addTicket, updateTicket } from '../../screens/Agenda/utils/functions';
 import {
   addOrganization,
   updateOrganization,
 } from '../../screens/Companies/utils/functions';
 import NewContact from '../../forms/NewUser';
-import {addUser, updateUser} from '../../screens/Contacts/utils/functions';
+import { addUser, updateUser } from '../../screens/Contacts/utils/functions';
+import {
+  addCannedResponse,
+  updateCannedResponse,
+} from '../../screens/CannedResponse/utils/functions';
+import NewCannedResponse from '../../forms/NewCannedResponse';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
-  MyStatus: {status: boolean};
-  STickets: {title: string};
-  Company: {title: string};
-  NewCompany: {title: string};
-  NewUser: {title: string};
+  MyStatus: { status: boolean };
+  STickets: { title: string };
+  Company: { title: string };
+  NewCompany: { title: string };
+  NewUser: { title: string };
   Contact1: undefined;
   Activities: undefined;
   NewTicket: undefined;
   CreatePost: undefined;
-  Post: {id: string};
+  Post: { id: string };
   TeamDetails: undefined;
   SlaPlanDetails: undefined;
   TicketPriorityDetails: undefined;
   DepartmentDetails: undefined;
   LocationDetails: undefined;
   HelpTopicDetails: undefined;
-  NewTeam: {title: string};
-  NewSlaPlans: {title: string};
-  NewTicketPriorities: {title: string};
-  NewDepartment: {title: string};
-  NewLocation: {title: string};
-  NewHelpTopic: {title: string};
+  CannedResponseDetails: undefined;
+  NewTeam: { title: string };
+  NewSlaPlans: { title: string };
+  NewTicketPriorities: { title: string };
+  NewDepartment: { title: string };
+  NewLocation: { title: string };
+  NewHelpTopic: { title: string };
+  NewCannedResponse: { title: string };
 };
 
-const StackLvl1 = ({route, navigation}: any) => {
-  const {colors}: Theme = useTheme();
+const StackLvl1 = ({ route, navigation }: any) => {
+  const { colors }: Theme = useTheme();
   const globalStates: State<any> = useHookstate(userStore);
+  const userDetails: any = useHookstate(userStore.userDetails).get();
+
+  
   return (
     <Stack.Navigator
       screenOptions={{
@@ -102,16 +113,16 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="MyStatus"
         component={MyStatus}
-        initialParams={{status: false}}
-        options={({navigation, route}) => ({
+        initialParams={{ status: false }}
+        options={({ navigation, route }) => ({
           title: 'My Status',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => {
             return (
               <II
                 size={30}
                 name="close"
-                style={{right: 6}}
+                style={{ right: 6 }}
                 color={'#fff'}
                 onPress={() => goBack(navigation)}
               />
@@ -130,21 +141,21 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="STickets"
         component={STickets}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: route?.params?.title,
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
           ),
           headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <View style={{width: 15}} />
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ width: 15 }} />
               <FA
                 onPress={() => {
                   const data = dataFormatter(route?.params?.data, '_');
@@ -220,14 +231,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="Company"
         component={Company}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'Organization',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -277,14 +288,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewCompany"
         component={NewCompany}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New Organization',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation?.goBack()}
             />
@@ -333,14 +344,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewUser"
         component={NewContact}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New User',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation?.goBack()}
             />
@@ -384,14 +395,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="Contact1"
         component={Contact1}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'User',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -436,14 +447,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewTicket"
         component={NewTicket}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New Ticket',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -520,14 +531,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="CreatePost"
         component={CreatePost}
-        options={({route, navigation}) => ({
+        options={({ route, navigation }) => ({
           title: 'Create Post',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -537,14 +548,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="TeamDetails"
         component={TeamDetails}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'Teams Details',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -591,14 +602,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="SlaPlanDetails"
         component={SlaPlanDetails}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'SlaPlan Details',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -620,9 +631,7 @@ const StackLvl1 = ({route, navigation}: any) => {
                         attributes: {
                           name: data?.name,
                           status: data?.Status,
-                          grace_period: `${
-                            Number(data?.grace_period) * 6
-                          } Hours`,
+                          grace_period: data?.grace_period?.name,
                           admin_note: data?.admin_note,
                         },
                       },
@@ -645,14 +654,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="TicketPriorityDetails"
         component={TicketPriorityDetails}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'Ticket Priority Details',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -698,14 +707,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="DepartmentDetails"
         component={DepartmentDetails}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'Department Details',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -763,14 +772,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="LocationDetails"
         component={LocationDetails}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'Location Details',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -818,14 +827,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="HelpTopicDetails"
         component={HelpTopicDetails}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'HelpTopic Details',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -898,16 +907,73 @@ const StackLvl1 = ({route, navigation}: any) => {
         })}
       />
       <Stack.Screen
-        name="Post"
-        component={Post}
-        options={({route, navigation}) => ({
-          title: 'View Post',
-          headerStyle: {backgroundColor: colors.primary},
+        name="CannedResponseDetails"
+        component={CannedResponseDetails}
+        options={({ route, navigation }: any) => ({
+          title: 'CannedResponse Details',
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="close"
-              style={{right: 6}}
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => {
+            return (
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    console.log(
+                      'data',
+                      data,
+                      'route?.params?.data',
+                      route?.params?.data,
+                    );
+
+                    const obj = {
+                      data: {
+                        id: '1',
+                        type: 'cannedresponses',
+                        attributes: {
+                          title: data?.title,
+                          message: data?.message,
+                        },
+                      },
+                    };
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateCannedResponse,
+                      obj,
+                      'CannedResponse updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="Post"
+        component={Post}
+        options={({ route, navigation }) => ({
+          title: 'View Post',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -917,14 +983,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewTeam"
         component={NewTeam}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New Team',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -963,14 +1029,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewSlaPlans"
         component={NewSlaPlans}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New Sla Plans',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -988,7 +1054,7 @@ const StackLvl1 = ({route, navigation}: any) => {
                     attributes: {
                       name: data?.name,
                       status: data?.Status,
-                      grace_period: `${Number(data?.grace_period) * 6} Hours`,
+                      grace_period: data?.grace_period?.name,
                       admin_note: data?.admin_note,
                     },
                   },
@@ -1008,14 +1074,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewTicketPriorities"
         component={NewTicketPriorities}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New Ticket Priorities',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -1054,14 +1120,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewDepartment"
         component={NewDepartment}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New Department',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -1112,14 +1178,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewLocation"
         component={NewLocation}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New Location',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -1160,14 +1226,14 @@ const StackLvl1 = ({route, navigation}: any) => {
       <Stack.Screen
         name="NewHelpTopic"
         component={NewHelpTopic}
-        options={({route, navigation}: any) => ({
+        options={({ route, navigation }: any) => ({
           title: 'New HelpTopic',
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II
               size={30}
               name="chevron-back"
-              style={{right: 6}}
+              style={{ right: 6 }}
               color={'#fff'}
               onPress={() => navigation.goBack()}
             />
@@ -1225,6 +1291,58 @@ const StackLvl1 = ({route, navigation}: any) => {
                   route,
                   globalStates,
                   addHelpTopic,
+                  obj,
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewCannedResponse"
+        component={NewCannedResponse}
+        options={({ route, navigation }: any) => ({
+          title: 'New Canned Response',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj = {
+                  data: {
+                    type: 'cannedresponses',
+                    attributes: {
+                      title: data?.title,
+                      message: data?.message,
+                    },
+                    relationships: {
+                      staff: {
+                        data: {
+                          type: 'users',
+                          id: userDetails.id,
+                        },
+                      },
+                    },
+                  },
+                };
+
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addCannedResponse,
                   obj,
                 );
               }}

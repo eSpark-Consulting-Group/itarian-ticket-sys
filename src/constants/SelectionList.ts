@@ -1,4 +1,4 @@
-import {SelectFields} from '../types';
+import { SelectFields } from '../types';
 
 //? ------------------------------ Tickets Selector Fields
 
@@ -62,5 +62,32 @@ export const stNotesList: SelectFields[] = [
   {
     id: 2,
     name: 'Hi',
+  },
+];
+
+export const GracePeriodList: SelectFields[] = [
+  {
+    id: 1,
+    name: '6 Hours',
+  },
+  {
+    id: 2,
+    name: '12 Hours',
+  },
+  {
+    id: 3,
+    name: '18 Hours',
+  },
+  {
+    id: 4,
+    name: '24 Hours',
+  },
+  {
+    id: 5,
+    name: '36 Hours',
+  },
+  {
+    id: 6,
+    name: '48 Hours',
   },
 ];

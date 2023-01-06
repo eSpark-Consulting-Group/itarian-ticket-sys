@@ -47,6 +47,7 @@ import {
   Departments,
   Locations,
   HelpTopics,
+  CannedResponse,
 } from '../../screens';
 import {ParamList} from '../../types';
 import {BUILD_VERSION} from '../../constants';
@@ -443,6 +444,20 @@ const Draw = () => {
           ),
           drawerIcon: ({color, size, focused}) => (
             <Ionicons name="newspaper-outline" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />
+      <Drawer.Screen
+        name="CannedResponse"
+        component={CannedResponse}
+        options={{
+          headerTitle: () => <CstmHeader title="Canned Response" />,
+          drawerLabel: ({color, focused}) => (
+            <Text style={{right: 20, color}}>Canned Response</Text>
+          ),
+          drawerIcon: ({color, size, focused}) => (
+            <FA name="certificate" size={size} color={color} />
           ),
           headerRight: noHeader,
         }}

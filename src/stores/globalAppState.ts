@@ -86,4 +86,5 @@ export const globalState = hookstate({
   departments: [],
   locations: [],
   helpTopics: [],
+  cannedResponse: []
 });

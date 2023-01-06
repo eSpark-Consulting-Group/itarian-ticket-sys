@@ -9,6 +9,7 @@ export interface UserInfo {
 }
 
 export type User = {
+  userDetails: any;
   currentStatus: boolean;
   currentGoneTo: {
     id: number;

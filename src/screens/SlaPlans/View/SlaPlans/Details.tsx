@@ -22,6 +22,7 @@ import {
 import {SelectFields, DataItem as Item} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
 import { deleteSlaPlan } from '../../utils/functions';
+import { GracePeriodList } from '../../../../constants/SelectionList';
 
 export default function Details() {
   const {colors, dark}: Theme = useTheme();
@@ -44,13 +45,14 @@ export default function Details() {
       isRequired: true,
     },
     {
-      title: ((teamDetails?.attributes?.grace_period?.split(' ')[0])/6).toLocaleString() ?? '',
-      subTitle: 'grace period (multiple of 6)',
-      inputable: true,
-      enable: false,
-      isRequired: true,
-      keyboardType: 'number-pad',
-      key: 'grace period',
+      title: teamDetails?.attributes?.grace_period ?? 'Please Select',
+      subTitle: 'Grace Period',
+      list: GracePeriodList || [],
+      selectedItem: GracePeriodList?.filter(value => value?.name == teamDetails?.attributes?.grace_period)[0],
+      headerTitle: 'Parent Topic',
+      rightIcon: 'chevron-right',
+      isRequired: false,
+      key: 'grace_period',
     },
     {
       title: teamDetails?.attributes?.admin_note ?? '',
@@ -92,7 +94,7 @@ export default function Details() {
         keyboardType={item?.keyboardType}
         mode={item?.mode}
         onPress={() =>
-          SelectItems(item, index, navigation, routes, 'TeamDetails', 'Stack1')
+          SelectItems(item, index, navigation, routes, 'SlaPlanDetails', 'Stack1')
         }
       />
     );
@@ -146,6 +148,8 @@ export default function Details() {
     });
   }, [dataSource]);
 
+  console.log("grace_period grace_period", teamDetails?.attributes);
+  
   return (
     <View style={{flex: 1}}>
       <Loader isShow={loader} />

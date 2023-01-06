@@ -14,6 +14,7 @@ import SlaPlans from './SlaPlans';
 import Departments from './Departments';
 import Locations from './Locations';
 import HelpTopics from './HelpTopic';
+import CannedResponse from './CannedResponse';
 
 export {
   Login,
@@ -32,5 +33,6 @@ export {
   SlaPlans,
   Departments,
   Locations,
-  HelpTopics
+  HelpTopics,
+  CannedResponse
 };

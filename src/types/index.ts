@@ -85,6 +85,7 @@ export type ParamList = {
   Locations: undefined;
   HelpTopics: undefined;
   CannedResponse: undefined;
+  Groups: undefined;
 };
 
 export type Stopwatch = {

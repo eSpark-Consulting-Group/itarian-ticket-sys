@@ -21,4 +21,7 @@ export type User = {
   user: State<UserInfo>;
   pinCode: string | null;
   users: State<any[]>;
+  locationToken: string | null;
+  countries: State<any[]>;
+  states: State<any[]>;
 };

@@ -33,6 +33,8 @@ import DepartmentDetails from '../../screens/Departments/View/Department/index';
 import LocationDetails from '../../screens/Locations/View/Location/index';
 import HelpTopicDetails from '../../screens/HelpTopic/View/HelpTopic/index';
 import CannedResponseDetails from '../../screens/CannedResponse/View/CannedResponse/index';
+import GroupDetails from '../../screens/Groups/View/Group/index';
+
 import {
   addTicketPriorities,
   updateTicketPriorities,
@@ -65,6 +67,8 @@ import {
   updateCannedResponse,
 } from '../../screens/CannedResponse/utils/functions';
 import NewCannedResponse from '../../forms/NewCannedResponse';
+import NewGroup from '../../forms/NewGroup';
+import { addGroup, updateGroup } from '../../screens/Groups/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -86,6 +90,7 @@ export type RootStackParamList = {
   LocationDetails: undefined;
   HelpTopicDetails: undefined;
   CannedResponseDetails: undefined;
+  GroupDetails: undefined;
   NewTeam: { title: string };
   NewSlaPlans: { title: string };
   NewTicketPriorities: { title: string };
@@ -93,6 +98,7 @@ export type RootStackParamList = {
   NewLocation: { title: string };
   NewHelpTopic: { title: string };
   NewCannedResponse: { title: string };
+  NewGroup: { title: string };
 };
 
 const StackLvl1 = ({ route, navigation }: any) => {
@@ -100,7 +106,6 @@ const StackLvl1 = ({ route, navigation }: any) => {
   const globalStates: State<any> = useHookstate(userStore);
   const userDetails: any = useHookstate(userStore.userDetails).get();
 
-  
   return (
     <Stack.Navigator
       screenOptions={{
@@ -931,16 +936,9 @@ const StackLvl1 = ({ route, navigation }: any) => {
                   color={'#fff'}
                   onPress={() => {
                     const data = dataFormatter(route?.params?.data, '_');
-                    console.log(
-                      'data',
-                      data,
-                      'route?.params?.data',
-                      route?.params?.data,
-                    );
-
                     const obj = {
                       data: {
-                        id: '1',
+                        id: data?.id,
                         type: 'cannedresponses',
                         attributes: {
                           title: data?.title,
@@ -955,6 +953,63 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       updateCannedResponse,
                       obj,
                       'CannedResponse updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="GroupDetails"
+        component={GroupDetails}
+        options={({ route, navigation }: any) => ({
+          title: 'Group Details',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => {
+            return (
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'groups',
+                        attributes: {
+                          name: data?.name,
+                          status: data?.status,
+                          can_create_ticket: data?.can_create_ticket,
+                          can_edit_ticket: data?.can_edit_ticket,
+                          can_post_ticket: data?.can_post_ticket,
+                          can_close_ticket: data?.can_close_ticket,
+                          can_assign_ticket: data?.can_assign_ticket,
+                          can_delete_ticket: data?.can_delete_ticket,
+                          can_ban_email: data?.can_ban_email,
+                        },
+                      },
+                    };
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateGroup,
+                      obj,
+                      'Group updated successfully',
                     );
                   }}
                 />
@@ -1343,6 +1398,57 @@ const StackLvl1 = ({ route, navigation }: any) => {
                   route,
                   globalStates,
                   addCannedResponse,
+                  obj,
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewGroup"
+        component={NewGroup}
+        options={({ route, navigation }: any) => ({
+          title: 'New Group',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                const obj = {
+                  data: {
+                    type: 'groups',
+                    attributes: {
+                      name: data?.name,
+                      status: data?.status,
+                      can_create_ticket: data?.can_create_ticket,
+                      can_edit_ticket: data?.can_edit_ticket,
+                      can_post_ticket: data?.can_post_ticket,
+                      can_close_ticket: data?.can_close_ticket,
+                      can_assign_ticket: data?.can_assign_ticket,
+                      can_delete_ticket: data?.can_delete_ticket,
+                      can_ban_email: data?.can_ban_email,
+                    },
+                  },
+                };
+
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addGroup,
                   obj,
                 );
               }}

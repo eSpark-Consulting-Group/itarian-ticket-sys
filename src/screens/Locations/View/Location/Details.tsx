@@ -15,7 +15,9 @@ import {
 } from '../../../../components';
 import {DataItem as Item} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
-import {deleteLocation} from '../../utils/functions';
+import {deleteLocation, getStates} from '../../utils/functions';
+import { useHookstate } from '@hookstate/core';
+import { globalState } from '../../../../stores/globalAppState';
 
 export default function Details() {
   const {colors, dark}: Theme = useTheme();
@@ -23,6 +25,10 @@ export default function Details() {
   const navigation: any = useNavigation();
   const locationDetails = routes?.params?.locationDetails;
   const [loader, setLoader] = useState(false);
+
+  const countries: any = useHookstate(globalState?.countries).get();
+  const states: any = useHookstate(globalState?.states)?.get();
+
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       subTitle: 'title',
@@ -33,19 +39,25 @@ export default function Details() {
       key: 'title',
     },
     {
-      subTitle: 'country',
-      title: locationDetails?.attributes?.country,
-      inputable: true,
-      enable: false,
+      title: locationDetails?.attributes?.country ?? 'Please Select',
+      subTitle: 'Country',
+      list: countries || [],
+      selectedItem: countries?.find((value: any) => value?.name == locationDetails?.attributes?.country),
+      enable: true,
       isRequired: true,
+      searchable: true,
+      headerTitle: 'Countries',
       key: 'country',
     },
     {
-      subTitle: 'state',
-      title: locationDetails?.attributes?.state,
-      inputable: true,
-      enable: false,
+      title: locationDetails?.attributes?.state ?? "Please Select",
+      subTitle: 'State',
+      list: states || [],
+      selectedItem: undefined,
+      enable: true,
       isRequired: true,
+      searchable: true,
+      headerTitle: 'States',
       key: 'state',
     },
     {
@@ -146,7 +158,19 @@ export default function Details() {
       var obj: any = [...dataSource];
       obj[routes?.params?.item].title = routes?.params?.selected?.name;
       obj[routes?.params?.item].selectedItem = routes?.params?.selected;
-      setDataSource([...obj]);
+      
+      if (routes?.params?.item == 1) {
+        setLoader(true);
+        getStates(routes?.params?.selected?.name).then((res: any) => {
+          obj[routes?.params?.item + 1].selectedItem = undefined;
+          obj[routes?.params?.item + 1].title = 'Please Select';
+          obj[routes?.params?.item + 1].list = res;
+          setDataSource([...obj]);
+          setLoader(false);
+        });
+      } else {
+        setDataSource([...obj]);
+      }
     }
   }, [routes?.params?.selected]);
 
@@ -159,6 +183,7 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
+        key: item?.key
       }),
     );
     Data[Data?.length] = {
@@ -170,6 +195,18 @@ export default function Details() {
       data: Data,
     });
   }, [dataSource]);
+
+  useEffect(() => {
+    const obj: any = [...dataSource]
+    getStates(locationDetails?.attributes?.country).then((res: any) => {
+      const selected = res?.find((value: any) => value?.name == locationDetails?.attributes?.state)
+      obj[2].selectedItem = selected;
+      obj[2].title = selected?.name ?? "Please Select";
+      obj[2].list = res;
+      setDataSource([...obj]);
+      setLoader(false);
+    });
+  }, [locationDetails])
 
   return (
     <View style={{flex: 1}}>

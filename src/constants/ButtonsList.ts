@@ -1,9 +1,9 @@
-import {AdditionalButtons} from '../types';
+import { AdditionalButtons } from '../types';
 
 const AdditionalButtonStyle = {
   color: '#fff',
   labelTextColor: '#000000c2',
-  labelStyle: {backgroundColor: '#fff'},
+  labelStyle: { backgroundColor: '#fff' },
   style: {
     backgroundColor: '#28648f',
     borderRadius: 1000,

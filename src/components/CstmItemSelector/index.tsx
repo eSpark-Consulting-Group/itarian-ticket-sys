@@ -59,7 +59,7 @@ const CstmItemSelector = ({route, navigation}: any) => {
 
   useEffect(() => {
     const selectedInd = route?.params?.data?.findIndex(
-      (val: any) => val.id == route?.params?.selected?.id,
+      (val: any) => val?.id == route?.params?.selected?.id,
     );
     if (selectedInd != -1) setCurrChkInd(route?.params?.data[selectedInd]?.id);
 
@@ -70,7 +70,7 @@ const CstmItemSelector = ({route, navigation}: any) => {
 
   const selectItem = (ind: number) => {
     const selectedInd = route?.params?.data?.findIndex(
-      (val: any) => val.id == ind,
+      (val: any) => val?.id == ind,
     );
     navigation?.setParams({
       ...route?.params,
@@ -100,8 +100,8 @@ const CstmItemSelector = ({route, navigation}: any) => {
           renderItem={({item, index}) => {
             return (
               <SingleLineField
-                key={item.name}
-                title={item.name}
+                key={item?.name}
+                title={item?.name}
                 onPress={() => selectItem(item?.id)}
                 leftChild={
                   <Checkbox

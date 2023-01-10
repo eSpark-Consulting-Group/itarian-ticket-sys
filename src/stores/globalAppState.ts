@@ -88,4 +88,7 @@ export const globalState = hookstate({
   helpTopics: [],
   cannedResponse: [],
   groups: [],
+  locationToken: null,
+  countries: null,
+  states: null
 });

@@ -1,13 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
-import {ModalView, SingleLineField} from '../../components';
-import {DataItem as Item} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
+import { Loader, ModalView, SingleLineField } from '../../components';
+import { DataItem as Item } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { State, useHookstate } from '@hookstate/core';
+import { globalState } from '../../stores/globalAppState';
+import { getStates } from '../../screens/Locations/utils/functions';
 
-const NewLocation = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewLocation = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
+  const countries: any = useHookstate(globalState?.countries).get();
+  const states: any = useHookstate(globalState?.states)?.get();
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       subTitle: 'title',
@@ -18,19 +23,25 @@ const NewLocation = ({route, navigation}: any) => {
       key: 'title',
     },
     {
-      subTitle: 'country',
-      title: '',
-      inputable: true,
-      enable: false,
+      title: 'Please Select',
+      subTitle: 'Country',
+      list: countries || [],
+      selectedItem: undefined,
+      enable: true,
       isRequired: true,
+      searchable: true,
+      headerTitle: 'Countries',
       key: 'country',
     },
     {
-      subTitle: 'state',
-      title: '',
-      inputable: true,
-      enable: false,
+      title: 'Please Select',
+      subTitle: 'State',
+      list: states || [],
+      selectedItem: undefined,
+      enable: true,
       isRequired: true,
+      searchable: true,
+      headerTitle: 'States',
       key: 'state',
     },
     {
@@ -66,7 +77,7 @@ const NewLocation = ({route, navigation}: any) => {
       key: 'address',
     },
   ]);
-
+  const [loader, setLoader] = useState(false);
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -79,7 +90,20 @@ const NewLocation = ({route, navigation}: any) => {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
-      setDataSource([...obj]);
+
+      if (route?.params?.item == 1) {
+        setLoader(true);
+        getStates(route?.params?.selected?.name).then((res: any) => {
+          console.log('res res res', res);
+          obj[route?.params?.item + 1].selectedItem = undefined;
+          obj[route?.params?.item + 1].title = 'Please Select';
+          obj[route?.params?.item + 1].list = res;
+          setDataSource([...obj]);
+          setLoader(false);
+        });
+      } else {
+        setDataSource([...obj]);
+      }
     }
   }, [route?.params?.selected]);
 
@@ -92,6 +116,7 @@ const NewLocation = ({route, navigation}: any) => {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
+        key: item?.key
       }),
     );
     navigation?.setParams({
@@ -108,8 +133,9 @@ const NewLocation = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
+      <Loader isShow={loader} />
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -132,7 +158,7 @@ const NewLocation = ({route, navigation}: any) => {
                   index,
                   navigation,
                   route,
-                  'NewDepartment',
+                  'NewLocation',
                   'Stack1',
                 )
               }

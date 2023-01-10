@@ -3,6 +3,7 @@ import {api} from '../api';
 import {getAllUsers} from '../screens/Agenda/utils/functions';
 import {getAllCompanies} from '../screens/Companies/utils/functions';
 import { getAllHelpTopics } from '../screens/HelpTopic/utils/functions';
+import { getCountries, getLocationToken } from '../screens/Locations/utils/functions';
 import { filterUser } from '../screens/Profile/utils';
 import { getAllSlaPlans } from '../screens/SlaPlans/utils/functions';
 import {globalState} from '../stores/globalAppState';
@@ -19,6 +20,10 @@ export const badgeApiCallForGlobalList = () => {
   filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
     userStore?.userDetails?.set(res)
   });
+  getLocationToken()
+  setTimeout(() => {
+    getCountries()
+  }, 2000)
 };
 
 const getTicketStatus = async () => {

@@ -1,7 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Linking, Alert, NavigatorIOSProps} from 'react-native';
-import {NavigationProp, Theme, useNavigation, useTheme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Linking,
+  Alert,
+  NavigatorIOSProps,
+  RefreshControl,
+} from 'react-native';
+import {
+  NavigationProp,
+  Theme,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 import _ from 'lodash';
 
 import styles from './style';
@@ -12,16 +25,16 @@ import {
   CstmPressable,
   FloatButton,
 } from '../../components';
-import {contactsList} from '../../constants/SampleArrays';
-import {Contact} from '../../types';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
+import { contactsList } from '../../constants/SampleArrays';
+import { Contact } from '../../types';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { State, useHookstate } from '@hookstate/core';
 import { getAllGroups } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 
-const Groups = ({navigation}: {navigation: NavigationProp<any,any> }) => {
-  const {colors, dark}: Theme = useTheme();
+const Groups = ({ navigation }: { navigation: NavigationProp<any, any> }) => {
+  const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
@@ -29,18 +42,18 @@ const Groups = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const [filteredContacts, setFilteredContacts] = useState(groups.get());
 
   useEffect(() => {
-    fetchRecords()
-  }, [])
+    fetchRecords();
+  }, []);
 
   const fetchRecords = async () => {
     setLoading(true);
-    await getAllGroups()
+    await getAllGroups();
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
-    setFilteredContacts(groups.get())
-  }, [groups])
+    setFilteredContacts(groups.get());
+  }, [groups]);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -54,7 +67,7 @@ const Groups = ({navigation}: {navigation: NavigationProp<any,any> }) => {
     var result = await searchFromArray({
       text: text,
       list: groups?.get(),
-      keys: ['attributes.title', 'attributes.message'],
+      keys: ['attributes.name'],
     });
     setFilteredContacts(result);
   };
@@ -71,7 +84,6 @@ const Groups = ({navigation}: {navigation: NavigationProp<any,any> }) => {
     }
   }, [clear]);
 
-  console.log('done groups', groups.get());
   return (
     <View style={styles.container}>
       <View
@@ -94,8 +106,8 @@ const Groups = ({navigation}: {navigation: NavigationProp<any,any> }) => {
       ) : (
         <RenderGroups listData={filteredContacts} />
       )}
-      <FloatButton 
-       onPress={() => navigation.navigate('Stack1', {screen: 'NewGroup'})}
+      <FloatButton
+        onPress={() => navigation.navigate('Stack1', { screen: 'NewGroup' })}
       />
     </View>
   );
@@ -106,20 +118,27 @@ export const RenderGroups = ({
 }: {
   listData?: Contact[];
 }) => {
-  const {colors, dark}: Theme = useTheme();
-  const navigation: NavigationProp<any,any> = useNavigation();
+  const { colors, dark }: Theme = useTheme();
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const [isFetching, setIsFetching] = useState(false);
 
-  const renderList = ({item, index}: {item: any; index: number}) => {
-     return (
+  const onRefresh = async () => {
+    setIsFetching(true);
+    await getAllGroups();
+    setIsFetching(false);
+  };
+
+  const renderList = ({ item, index }: { item: any; index: number }) => {
+    return (
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'GroupDetails',
-              params: {groupDetails: item},
+              params: { groupDetails: item },
             })
           }
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
           <View style={styles.listItemContainer}>
             <View>
               <Text
@@ -146,7 +165,13 @@ export const RenderGroups = ({
   return (
     <>
       {listData.length !== 0 ? (
-        <FlatList data={listData} renderItem={renderList} />
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
+          data={listData}
+          renderItem={renderList}
+        />
       ) : (
         <NotFound />
       )}

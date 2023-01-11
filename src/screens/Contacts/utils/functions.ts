@@ -23,7 +23,7 @@ const getAllUsers = async () => {
           ...val?.attributes,
         };
       });
-      userStore?.users?.set(data);
+      userStore?.users?.set(data?.filter((user: any) => user.is_active != 0));
     }
   } catch (error) {
     console.log('error getAllUsers', error);

@@ -1,24 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, RefreshControl} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, RefreshControl } from 'react-native';
 
-import {State, useHookstate} from '@hookstate/core';
-import {Theme, useTheme} from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
+import { Theme, useTheme } from '@react-navigation/native';
 
 import styles from './styles';
-import {NotFound} from '../../components';
-import {scheduledList, ticketsList} from '../../constants/SampleArrays';
-import {ScheduledList, Ticket} from '../../types';
-import {globalState} from '../../stores/globalAppState';
+import { NotFound } from '../../components';
+import { scheduledList, ticketsList } from '../../constants/SampleArrays';
+import { ScheduledList, Ticket } from '../../types';
+import { globalState } from '../../stores/globalAppState';
 import ListItem from '../../screens/Agenda/ListItem';
 import FloatButton from '../FloatButton';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {useUpdateEffect} from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { useUpdateEffect } from '../../utils/hooks';
 import SearchBar from '../SearchBar';
-import {Loader} from '../Loader';
+import { Loader } from '../Loader';
 
-const Resources = ({route, navigation}: any) => {
+const Resources = ({ route, navigation }: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -34,7 +34,7 @@ const Resources = ({route, navigation}: any) => {
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
       scheduledList.map(item => {
-        let data = {id: item.id, date: item.date, data: filTickets};
+        let data = { id: item.id, date: item.date, data: filTickets };
         aRR.push(data);
       });
     }
@@ -100,17 +100,17 @@ const Resources = ({route, navigation}: any) => {
       </View>
       <Loader isShow={loader} />
       <FlatList
-        contentContainerStyle={{flex: 1}}
+        contentContainerStyle={{ flex: 1 }}
         data={filArr}
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
         }
         ListEmptyComponent={
-          <View style={{alignSelf: 'center'}}>
+          <View style={{ alignSelf: 'center' }}>
             <NotFound label="Tickets" />
           </View>
         }
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           console.log('bta item', item);
           return <ListItem dataSource={item} isResource />;
         }}

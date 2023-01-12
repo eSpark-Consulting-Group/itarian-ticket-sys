@@ -1,6 +1,6 @@
-import React, {ReactNode} from 'react';
-import {View} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { ReactNode } from 'react';
+import { View } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 const ModalView = ({
   children,
@@ -9,7 +9,7 @@ const ModalView = ({
   children?: ReactNode;
   bgColor?: string;
 }) => {
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
 
   return (
     <View

@@ -1,8 +1,8 @@
-import {showMessage} from 'react-native-flash-message';
-import {api} from '../../../api';
-import {alert_Dur} from '../../../constants';
+import { showMessage } from 'react-native-flash-message';
+import { api } from '../../../api';
+import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
-import {userStore} from '../../../stores/userStore';
+import { userStore } from '../../../stores/userStore';
 
 const getAllGroups = async () => {
   const user: any = userStore.user.get();
@@ -31,13 +31,13 @@ const addGroup = async (data: any) => {
     console.log('result addgroups', result);
     if (result?.ok) {
       getAllGroups();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error groups', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -56,13 +56,13 @@ const deleteGroup = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error deleteSlaPlan', error);
-    return {status: false};
+    return { status: false };
   }
 };
 
@@ -77,14 +77,14 @@ const updateGroup = async (data: any) => {
     console.log('result updateSlaPlan', result);
     if (result?.ok) {
       getAllGroups();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error updateSlaPlan', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
-export {getAllGroups, addGroup, deleteGroup, updateGroup};
+export { getAllGroups, addGroup, deleteGroup, updateGroup };

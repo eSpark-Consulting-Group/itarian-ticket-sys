@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
-import {State, useHookstate} from '@hookstate/core';
-import {Switch} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useTheme, Theme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
+import { Switch } from 'react-native-paper';
 import DatePicker from '@react-native-community/datetimepicker';
 
-import {GapView, ModalView, SingleLineField} from '../../../../components';
-import {GoneToFormArray} from '../../../../constants/SampleArrays';
-import {userStore} from '../../../../stores/userStore';
+import { GapView, ModalView, SingleLineField } from '../../../../components';
+import { GoneToFormArray } from '../../../../constants/SampleArrays';
+import { userStore } from '../../../../stores/userStore';
 
-const MyStatus = ({route, navigation}: any) => {
+const MyStatus = ({ route, navigation }: any) => {
   const currStatus: State<boolean> = useHookstate(userStore.currentStatus);
   const currGonTo: State<any> = useHookstate(userStore.currentGoneTo);
   const addInf: State<string> = useHookstate(userStore.additionalInfo);
   const backDate: State<string> = useHookstate(userStore.dateBack);
   const backTime: State<string> = useHookstate(userStore.timeBack);
 
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
 
   const [goneTo, setGoneTo] = useState<any>(null);
   const [goneToStatus, setGoneToStatus] = useState<any>(currStatus.get());
@@ -94,11 +94,11 @@ const MyStatus = ({route, navigation}: any) => {
         rightChild={
           <Switch
             value={goneToStatus}
-            style={{marginRight: 5}}
+            style={{ marginRight: 5 }}
             color={colors.primary}
             thumbColor={colors.primary}
             onValueChange={changeSwitch}
-            trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+            trackColor={{ true: '#5b57578f', false: '#5b57578f' }}
           />
         }
       />
@@ -133,7 +133,7 @@ const MyStatus = ({route, navigation}: any) => {
             onChangeText={e => setAddInfo(e)}
           />
           <GapView />
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <SingleLineField
               leftIcon="calendar-month"
               title={currDate}

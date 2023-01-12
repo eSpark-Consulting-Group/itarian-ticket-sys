@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
 
-import {SingleLineField} from '../../components';
-import {Filter} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
+import { SingleLineField } from '../../components';
+import { Filter } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
 
-export default function App({
+export default function Filters({
   route,
   navigation,
 }: {
   route: any;
   navigation: any;
 }) {
-  var {dataSource: dSource, title} = route?.params;
+  var { dataSource: dSource, title } = route?.params;
   const [dataSource, setDataSource] = useState(dSource);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function App({
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={{alignItems: 'center'}}>
+      contentContainerStyle={{ alignItems: 'center' }}>
       {dataSource.map((item: Filter, index: number) => (
         <SingleLineField
           key={index}
@@ -67,7 +67,7 @@ export default function App({
           rightSwitchVal={item.rightSwitchVal}
           onChangeSwitch={() => updateSwitch(index)}
           leftIcon={item.leftIcon}
-          leftIconStyles={{opacity: 1}}
+          leftIconStyles={{ opacity: 1 }}
           onPress={() =>
             SelectItems(item, index, navigation, route, 'Filters', 'Stack1')
           }

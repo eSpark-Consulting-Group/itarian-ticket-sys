@@ -1,8 +1,9 @@
-import {showMessage} from 'react-native-flash-message';
-import {api} from '../../../api';
-import {alert_Dur} from '../../../constants';
-import {globalState} from '../../../stores/globalAppState';
-import {userStore} from '../../../stores/userStore';
+import { showMessage } from 'react-native-flash-message';
+
+import { api } from '../../../api';
+import { alert_Dur } from '../../../constants';
+import { globalState } from '../../../stores/globalAppState';
+import { userStore } from '../../../stores/userStore';
 
 const getAllSlaPlans = async () => {
   const user: any = userStore?.user?.get();
@@ -31,13 +32,13 @@ const addSlaPlans = async (data: any) => {
     console.log('result addSlaPlans', result);
     if (result?.ok) {
       getAllSlaPlans();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error addSlaPlans', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -56,13 +57,13 @@ const deleteSlaPlan = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error deleteSlaPlan', error);
-    return {status: false};
+    return { status: false };
   }
 };
 
@@ -77,14 +78,14 @@ const updateSlaPlan = async (data: any) => {
     console.log('result updateSlaPlan', result);
     if (result?.ok) {
       getAllSlaPlans();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error updateSlaPlan', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
-export {getAllSlaPlans, addSlaPlans, deleteSlaPlan, updateSlaPlan};
+export { getAllSlaPlans, addSlaPlans, deleteSlaPlan, updateSlaPlan };

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Alert, Platform} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, Platform } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 const BiometricVerification = ({
@@ -25,7 +25,7 @@ const BiometricVerification = ({
   };
 
   const authCurrent = () => {
-    FingerprintScanner.authenticate({title: 'Log in with Biometrics'})
+    FingerprintScanner.authenticate({ title: 'Log in with Biometrics' })
       .then(() => {
         onAuthenticate();
         FingerprintScanner.release();

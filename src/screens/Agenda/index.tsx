@@ -1,7 +1,7 @@
 import React from 'react';
 import ScheduledTab from './Scheduled';
 
-const AgendaScreen = ({route}: any) => {
+const AgendaScreen = ({ route }: any) => {
   return <ScheduledTab />;
 };
 

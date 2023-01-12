@@ -1,8 +1,8 @@
 import { showMessage } from 'react-native-flash-message';
-import {api} from '../../../api';
+import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
-import {companyStore} from '../../../stores/companyStore';
-import {userStore} from '../../../stores/userStore';
+import { companyStore } from '../../../stores/companyStore';
+import { userStore } from '../../../stores/userStore';
 
 let companiesCache: any;
 
@@ -45,13 +45,13 @@ export const addOrganization = async (data: any) => {
     console.log('result addOrganization', result);
     if (result?.ok) {
       getAllCompanies(false);
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error addOrganization', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -62,17 +62,20 @@ export const updateOrganization = async (data: any) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.patch(`/organizations/${data?.data?.id}`, data);
+    const result: any = await api.patch(
+      `/organizations/${data?.data?.id}`,
+      data,
+    );
     console.log('result updateOrganization', result);
     if (result?.ok) {
       getAllCompanies(false);
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error updateOrganization', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -91,13 +94,12 @@ export const deleteOrganization = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error Organization', error);
-    return {status: false};
+    return { status: false };
   }
 };
-

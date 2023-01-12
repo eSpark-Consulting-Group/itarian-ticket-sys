@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
-
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useHookstate } from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
-import {SingleLineField} from '../../components';
-import {DataItem as Item} from '../../types/index';
-import {useHookstate} from '@hookstate/core';
-import {globalState} from '../../stores/globalAppState';
-import {userStore} from '../../stores/userStore';
-import {SelectItems} from '../../utils/helperFunctions';
 
-const Overview = ({ticketDetails}: any) => {
+import { SingleLineField } from '../../components';
+import { DataItem as Item } from '../../types/index';
+import { globalState } from '../../stores/globalAppState';
+import { userStore } from '../../stores/userStore';
+import { SelectItems } from '../../utils/helperFunctions';
+
+const Overview = ({ ticketDetails }: any) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const ticketPriorities: any = useHookstate(globalState?.ticketPriorities);
@@ -18,8 +18,8 @@ const Overview = ({ticketDetails}: any) => {
   const helpTopics: any = useHookstate(globalState?.helpTopics);
   const users: any = useHookstate(userStore?.users);
   const [showDate, setShowDate] = useState(false);
-  console.log("ticketDetails ticketDetails", ticketDetails);
-  
+  console.log('ticketDetails ticketDetails', ticketDetails);
+
   const [Ds, setDs] = useState<Item[]>([
     {
       title: ticketDetails?.attributes?.subject,
@@ -48,14 +48,14 @@ const Overview = ({ticketDetails}: any) => {
       key: 'duedate',
     },
     {
-      title: ticketDetails?.attributes?.user?.user_name ??  'Please Select',
+      title: ticketDetails?.attributes?.user?.user_name ?? 'Please Select',
       subTitle: 'User',
       list: users?.get() ?? [],
       selectedItem: users
-      .get()
-      ?.filter(
-        (value: any) => value?.id == ticketDetails?.attributes?.user?.id,
-      )[0],
+        .get()
+        ?.filter(
+          (value: any) => value?.id == ticketDetails?.attributes?.user?.id,
+        )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -72,10 +72,10 @@ const Overview = ({ticketDetails}: any) => {
           };
         }) || [],
       selectedItem: helpTopics
-      .get()
-      ?.filter(
-        (value: any) => value?.id == ticketDetails?.attributes?.helptopic?.id,
-      )[0],
+        .get()
+        ?.filter(
+          (value: any) => value?.id == ticketDetails?.attributes?.helptopic?.id,
+        )[0],
       headerTitle: 'Parent Topic',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -86,10 +86,10 @@ const Overview = ({ticketDetails}: any) => {
       subTitle: 'Staff',
       list: users.get() || [],
       selectedItem: users
-      .get()
-      ?.filter(
-        (value: any) => value?.id == ticketDetails?.attributes?.staff?.id,
-      )[0],
+        .get()
+        ?.filter(
+          (value: any) => value?.id == ticketDetails?.attributes?.staff?.id,
+        )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: false,
@@ -106,10 +106,10 @@ const Overview = ({ticketDetails}: any) => {
           };
         }) || [],
       selectedItem: slaPlans
-      .get()
-      ?.filter(
-        (value: any) => value?.id == ticketDetails?.attributes?.slaplan?.id,
-      )[0],
+        .get()
+        ?.filter(
+          (value: any) => value?.id == ticketDetails?.attributes?.slaplan?.id,
+        )[0],
       headerTitle: 'SLA Plan',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -120,10 +120,11 @@ const Overview = ({ticketDetails}: any) => {
       subTitle: 'Ticket Priority',
       list: ticketPriorities.get() || [],
       selectedItem: ticketPriorities
-      .get()
-      ?.filter(
-        (value: any) => value?.id == ticketDetails?.attributes?.ticketpriority?.id,
-      )[0],
+        .get()
+        ?.filter(
+          (value: any) =>
+            value?.id == ticketDetails?.attributes?.ticketpriority?.id,
+        )[0],
       headerTitle: 'Ticket Priority',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -158,13 +159,13 @@ const Overview = ({ticketDetails}: any) => {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item.key
+        key: item.key,
       }),
     );
     Data[Data?.length] = {
       title: ticketDetails?.id,
-      subTitle: "id",
-    }
+      subTitle: 'id',
+    };
     navigation?.setParams({
       ...route?.params,
       data: Data,
@@ -180,7 +181,7 @@ const Overview = ({ticketDetails}: any) => {
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={{alignItems: 'center'}}>
+      contentContainerStyle={{ alignItems: 'center' }}>
       {showDate && (
         <DatePicker
           mode={'date'}

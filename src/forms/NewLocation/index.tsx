@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
 
 import { Loader, ModalView, SingleLineField } from '../../components';
 import { DataItem as Item } from '../../types';
 import { SelectItems } from '../../utils/helperFunctions';
-import { State, useHookstate } from '@hookstate/core';
 import { globalState } from '../../stores/globalAppState';
 import { getStates } from '../../screens/Locations/utils/functions';
 
@@ -116,7 +116,7 @@ const NewLocation = ({ route, navigation }: any) => {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     navigation?.setParams({

@@ -1,23 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { useHookstate } from '@hookstate/core';
 
-import {ModalView, SingleLineField} from '../../components';
-import {DataItem as Item} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
-import {userStore} from '../../stores/userStore';
-import {useHookstate} from '@hookstate/core';
+import { ModalView, SingleLineField } from '../../components';
+import { DataItem as Item } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
 
-const NewUser = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewUser = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const users: any = useHookstate(userStore?.users);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: "Is Active",
+      title: 'Is Active',
       enable: true,
       rightSwitchVal: true,
       showRightSwitch: true,
-      key: 'is_active'
+      key: 'is_active',
     },
     {
       title: '',
@@ -115,8 +115,8 @@ const NewUser = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -134,14 +134,7 @@ const NewUser = ({route, navigation}: any) => {
               mode={item?.mode}
               onChangeSwitch={() => updateSwitch(index)}
               onPress={() =>
-                SelectItems(
-                  item,
-                  index,
-                  navigation,
-                  route,
-                  'NewUser',
-                  'Stack1',
-                )
+                SelectItems(item, index, navigation, route, 'NewUser', 'Stack1')
               }
             />
           ))}

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,8 +6,8 @@ import {
   ViewStyle,
   KeyboardTypeOptions,
 } from 'react-native';
-import {Switch} from 'react-native-paper';
-import {Theme, useTheme} from '@react-navigation/native';
+import { Switch } from 'react-native-paper';
+import { Theme, useTheme } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -77,7 +77,7 @@ const SingleLineField = ({
   inputWidth = undefined,
   roundIconStyle = {},
 }: Props) => {
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
   return (
     <ModalField
       pressEnable={enable}
@@ -95,7 +95,12 @@ const SingleLineField = ({
         <View>
           {subTitle ? (
             <>
-              <Text style={{...styles.subTitle, color: colors.text, textTransform: 'capitalize'}}>
+              <Text
+                style={{
+                  ...styles.subTitle,
+                  color: colors.text,
+                  textTransform: 'capitalize',
+                }}>
                 {subTitle}
               </Text>
               <GapView mode="vertical" length={4} />
@@ -166,7 +171,7 @@ const SingleLineField = ({
             name={rightIcon}
             size={30}
             color={colors.text}
-            style={{...styles.subTitle}}
+            style={{ ...styles.subTitle }}
           />
         )}
         {showRightSwitch && (
@@ -174,7 +179,7 @@ const SingleLineField = ({
             value={rightSwitchVal}
             onValueChange={onChangeSwitch}
             color={colors.primary}
-            trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+            trackColor={{ true: '#5b57578f', false: '#5b57578f' }}
           />
         )}
         {rightIconRound && (

@@ -1,8 +1,9 @@
-import {showMessage} from 'react-native-flash-message';
-import {api} from '../../../api';
-import {alert_Dur} from '../../../constants';
-import {globalState} from '../../../stores/globalAppState';
-import {userStore} from '../../../stores/userStore';
+import { showMessage } from 'react-native-flash-message';
+
+import { api } from '../../../api';
+import { alert_Dur } from '../../../constants';
+import { globalState } from '../../../stores/globalAppState';
+import { userStore } from '../../../stores/userStore';
 
 const getAllTeams = async () => {
   const user: any = userStore?.user?.get();
@@ -31,13 +32,13 @@ const addTeam = async (data: any) => {
     console.log('result addTeam', result);
     if (result?.ok) {
       getAllTeams();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error addTeam', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -56,13 +57,13 @@ const deleteTeams = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error getAllUsers', error);
-    return {status: false};
+    return { status: false };
   }
 };
 
@@ -74,17 +75,22 @@ const updateTeam = async (data: any) => {
   });
   try {
     const result: any = await api.patch(`/teams/${data?.data?.id}`, data);
-    console.log('result updateTeam', data?.data?.relationships?.teamlead, '\n', result);
+    console.log(
+      'result updateTeam',
+      data?.data?.relationships?.teamlead,
+      '\n',
+      result,
+    );
     if (result?.ok) {
       getAllTeams();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error updateTeam', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
-export {getAllTeams, addTeam, deleteTeams, updateTeam};
+export { getAllTeams, addTeam, deleteTeams, updateTeam };

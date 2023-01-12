@@ -17,8 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import 'react-native-get-random-values';
 // @ts-ignore
 import { v4 as uuid } from 'uuid';
-//@ts-ignore
-import sign from 'jwt-encode';
+import { showMessage } from 'react-native-flash-message';
 
 import styles from '../../screens/SendFeedback/style';
 import {
@@ -32,7 +31,6 @@ import {
 } from '../../components';
 import { createPost, getCategories } from '../../screens/SendFeedback/utils';
 import { Canny_CreatePost } from '../../types';
-import { showMessage } from 'react-native-flash-message';
 
 interface ImageType {
   id: number;

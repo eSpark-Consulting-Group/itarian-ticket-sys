@@ -1,11 +1,11 @@
-import React, {ReactNode} from 'react';
-import {View, ViewStyle} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { ReactNode } from 'react';
+import { View, ViewStyle } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 import styles from './style';
 import GapView from '../GapView';
-import {CstmPressable} from '../CstmPressable';
-import {WINDOW_WIDTH} from '../../constants';
+import { CstmPressable } from '../CstmPressable';
+import { WINDOW_WIDTH } from '../../constants';
 
 const ModalField = ({
   pressEnable = true,
@@ -28,7 +28,7 @@ const ModalField = ({
   halfWidth?: boolean;
   listMode?: boolean;
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const pressColor = dark ? '#ffffff1a' : '#0000001a';
 
   return (
@@ -55,7 +55,7 @@ const ModalField = ({
           </View>
         ) : (
           <CstmPressable
-            android_ripple={{color: pressColor}}
+            android_ripple={{ color: pressColor }}
             disabled={!pressEnable}
             style={{
               ...styles.emptyFieldStyle,

@@ -1,10 +1,9 @@
-import {KeyboardTypeOptions, Text, View} from 'react-native';
 import React from 'react';
-import {TextInput} from 'react-native-paper';
-import PropTypes from 'prop-types';
+import { KeyboardTypeOptions, Text, View } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { Theme, useTheme } from '@react-navigation/native';
 
 import styles from './style';
-import {Theme, useTheme} from '@react-navigation/native';
 
 const CstmInput = ({
   title,
@@ -25,18 +24,18 @@ const CstmInput = ({
   keyType?: KeyboardTypeOptions | undefined;
   textHidden?: boolean;
 }) => {
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
   return (
     <View style={styles.container}>
       <View style={styles.adjuster} />
       <View style={styles.center}>
-        <Text style={{fontWeight: '700', color: colors.text}}>{title}</Text>
+        <Text style={{ fontWeight: '700', color: colors.text }}>{title}</Text>
         <TextInput
           value={value}
           style={{
             ...styles.input,
           }}
-          theme={{colors: {text: colors.text}}}
+          theme={{ colors: { text: colors.text } }}
           placeholder={placeholder}
           activeUnderlineColor={'#bbb'}
           placeholderTextColor={'#aaa'}
@@ -53,11 +52,6 @@ const CstmInput = ({
       <View style={styles.adjuster} />
     </View>
   );
-};
-
-CstmInput.propTypes = {
-  title: PropTypes.string,
-  placeholder: PropTypes.string,
 };
 
 export default CstmInput;

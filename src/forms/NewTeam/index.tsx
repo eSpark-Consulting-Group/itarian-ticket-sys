@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
 
-import {GapView, ModalView, SingleLineField} from '../../components';
-import {SelectFields, DataItem as Item} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
-import {userStore} from '../../stores/userStore';
+import { GapView, ModalView, SingleLineField } from '../../components';
+import { SelectFields, DataItem as Item } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
 
-const NewTeam = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewTeam = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -88,7 +88,7 @@ const NewTeam = ({route, navigation}: any) => {
 
   return (
     <ModalView>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{ flex: 1 }}>
         {dataSource.map((item, index) => (
           <SingleLineField
             key={index}

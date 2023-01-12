@@ -28,4 +28,4 @@ function formatTimeString(time: number, showMsecs: boolean) {
   return formatted;
 }
 
-export {formatTimeString};
+export { formatTimeString };

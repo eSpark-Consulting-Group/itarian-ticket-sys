@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {WINDOW_WIDTH} from '../../constants';
+import { StyleSheet } from 'react-native';
+
+import { WINDOW_WIDTH } from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   divider: {
-    transform: [{scaleY: 3}],
+    transform: [{ scaleY: 3 }],
   },
   centerContent: {
     paddingHorizontal: 15,

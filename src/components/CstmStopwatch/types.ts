@@ -1,4 +1,4 @@
-import {TextStyle, ViewStyle} from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 
 export interface Style {
   container?: ViewStyle;

@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Linking, ScrollView, StyleSheet, Text, Alert } from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useRoute,
-  useNavigation,
-} from '@react-navigation/native';
+import { ScrollView, StyleSheet, Alert } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { showMessage } from 'react-native-flash-message';
 
 import { FloatButton, Loader, SingleLineField } from '../../../../components';
 import { DataItem as Item } from '../../../../types';
 import _ from 'lodash';
 import { SelectItems } from '../../../../utils/helperFunctions';
 import { deleteUser } from '../../utils/functions';
-import { showMessage } from 'react-native-flash-message';
-import { alert_Dur } from '../../../../constants';
 
 export default function Communications() {
-  const { colors }: Theme = useTheme();
   const route: any = useRoute();
   const navigation: any = useNavigation();
   const contactDetails = route?.params?.contactDetails;

@@ -7,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 export const CstmPressable = ({
   android_disableSound = false,
@@ -26,13 +26,13 @@ export const CstmPressable = ({
   android_ripple?: null | PressableAndroidRippleConfig;
   otherProps?: PressableProps;
 }) => {
-  const {dark}: Theme = useTheme();
+  const { dark }: Theme = useTheme();
   const rippleColor = dark ? '#ffffff1a' : '#0000000e';
 
   return disabled ? (
     <View>
       <TouchableWithoutFeedback>
-        <View style={{...style}}>{children}</View>
+        <View style={{ ...style }}>{children}</View>
       </TouchableWithoutFeedback>
     </View>
   ) : (

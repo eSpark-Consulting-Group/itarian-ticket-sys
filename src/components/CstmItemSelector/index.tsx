@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
-import {Checkbox} from 'react-native-paper';
-import {useHookstate, State} from '@hookstate/core';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { FlatList } from 'react-native';
+import { Checkbox } from 'react-native-paper';
+import { useHookstate, State } from '@hookstate/core';
+import { Theme, useTheme } from '@react-navigation/native';
 
-import {DarkTheme, LightTheme} from '../../theme/colors';
-import {SelectFields} from '../../types';
-import {globalState} from '../../stores/globalAppState';
-import {useUpdateEffect} from '../../utils/hooks';
-import {SingleLineField} from '../FormFields';
+import { DarkTheme, LightTheme } from '../../theme/colors';
+import { SelectFields } from '../../types';
+import { globalState } from '../../stores/globalAppState';
+import { useUpdateEffect } from '../../utils/hooks';
+import { SingleLineField } from '../FormFields';
 import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
 import SimpleLoader from '../SimpleLoader';
-import {searchFromArray} from '../../utils/helperFunctions';
+import { searchFromArray } from '../../utils/helperFunctions';
 
-const CstmItemSelector = ({route, navigation}: any) => {
-  const {colors}: Theme = useTheme();
+const CstmItemSelector = ({ route, navigation }: any) => {
+  const { colors }: Theme = useTheme();
   const themeValue: State<string> = useHookstate(globalState.theme);
   const [currChkInd, setCurrChkInd] = useState<number | any>(null);
   const [loader, setLoader] = useState<boolean>(true);
@@ -97,7 +97,7 @@ const CstmItemSelector = ({route, navigation}: any) => {
       {list?.length > 0 && (
         <FlatList
           data={list}
-          renderItem={({item, index}) => {
+          renderItem={({ item, index }) => {
             return (
               <SingleLineField
                 key={item?.name}

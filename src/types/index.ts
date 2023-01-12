@@ -1,5 +1,5 @@
-import {KeyboardTypeOptions, ViewStyle} from 'react-native';
-import {User} from './globalState';
+import { KeyboardTypeOptions } from 'react-native';
+import { User, UserInfo } from './globalState';
 
 /*
 //* Types for all list Data
@@ -265,4 +265,4 @@ export interface DataItem {
   contacts?: ContactList[] | null | undefined;
 }
 
-export type {User};
+export type { User, UserInfo };

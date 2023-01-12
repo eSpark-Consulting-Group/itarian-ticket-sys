@@ -1,5 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
+
 import EmptyListMsg from '../EmptyListMsg';
 
 const NotFound = ({
@@ -12,7 +13,7 @@ const NotFound = ({
   display?: 'flex' | 'none';
 }): JSX.Element => {
   return (
-    <View style={{...styles.content, display}}>
+    <View style={{ ...styles.content, display }}>
       <EmptyListMsg iconName={iconName} label={label} />
     </View>
   );

@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
-import {ModalView, SingleLineField} from '../../components';
-import {DataItem as Item} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
+import { ModalView, SingleLineField } from '../../components';
+import { DataItem as Item } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
 
-const NewGroup = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewGroup = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: '',
@@ -22,56 +22,56 @@ const NewGroup = ({route, navigation}: any) => {
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'status'
+      key: 'status',
     },
     {
       title: 'Can Create Ticket',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'can_create_ticket'
+      key: 'can_create_ticket',
     },
     {
       title: 'Can Edit Ticket',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'can_edit_ticket'
+      key: 'can_edit_ticket',
     },
     {
       title: 'Can Post Ticket',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'can_post_ticket'
+      key: 'can_post_ticket',
     },
     {
       title: 'Can Close Ticket',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'can_close_ticket'
+      key: 'can_close_ticket',
     },
     {
       title: 'Can Assign Ticket',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'can_assign_ticket'
+      key: 'can_assign_ticket',
     },
     {
       title: 'Can Delete Ticket',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'can_delete_ticket'
+      key: 'can_delete_ticket',
     },
     {
       title: 'Can Ban Email',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,
-      key: 'can_ban_email'
+      key: 'can_ban_email',
     },
   ]);
 
@@ -100,7 +100,7 @@ const NewGroup = ({route, navigation}: any) => {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     navigation?.setParams({
@@ -117,8 +117,8 @@ const NewGroup = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}

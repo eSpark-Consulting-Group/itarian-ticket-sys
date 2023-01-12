@@ -7,8 +7,8 @@ import * as ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker, { types } from 'react-native-document-picker';
 import { ShortcutItem } from 'react-native-quick-actions';
 import { showMessage } from 'react-native-flash-message';
-import { NoteTypes, SelectFields } from '../types';
 import { Buffer } from 'buffer';
+
 import { alert_Dur } from '../constants';
 
 export const getNavigtionApps = async () => {

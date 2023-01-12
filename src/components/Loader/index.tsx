@@ -1,6 +1,6 @@
-import { Theme, useTheme } from '@react-navigation/native';
 import React from 'react';
 import { View, Modal, ActivityIndicator } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 export const Loader = ({ isShow = false }: { isShow: boolean }) => {
   const { colors }: Theme = useTheme();

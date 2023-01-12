@@ -1,20 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
 
-import {ModalView, SingleLineField} from '../../components';
-import {SelectFields, DataItem as Item} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
-import {userStore} from '../../stores/userStore';
+import { ModalView, SingleLineField } from '../../components';
+import { SelectFields, DataItem as Item } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
 import { globalState } from '../../stores/globalAppState';
 
-const NewHelpTopic = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewHelpTopic = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
   const slaplans: State<any> = useHookstate(globalState.slaPlans);
   const departments: State<any> = useHookstate(globalState.departments);
-  const ticketPriorities: State<any> = useHookstate(globalState.ticketPriorities);
+  const ticketPriorities: State<any> = useHookstate(
+    globalState.ticketPriorities,
+  );
   const helpTopics: State<any> = useHookstate(globalState.helpTopics);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -37,17 +39,18 @@ const NewHelpTopic = ({route, navigation}: any) => {
       inputable: true,
       enable: false,
       isRequired: true,
-      key: 'name'
+      key: 'name',
     },
     {
       title: 'Please Select',
       subTitle: 'Parent Topic',
-      list: helpTopics.get().map((value: any) => {
-        return {
-          ...value?.attributes,
-          id: value?.id,
-        };
-      }) || [],
+      list:
+        helpTopics.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
       selectedItem: undefined,
       headerTitle: 'Parent Topic',
       rightIcon: 'chevron-right',
@@ -78,13 +81,13 @@ const NewHelpTopic = ({route, navigation}: any) => {
       headerTitle: 'SLA Plan',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'slaplan'
+      key: 'slaplan',
     },
     {
       title: 'Please Select',
       subTitle: 'Department',
       list:
-      departments.get().map((value: any) => {
+        departments.get().map((value: any) => {
           return {
             ...value?.attributes,
             id: value?.id,
@@ -94,17 +97,17 @@ const NewHelpTopic = ({route, navigation}: any) => {
       headerTitle: 'Departments',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'helptopicdepartment'
+      key: 'helptopicdepartment',
     },
     {
       title: 'Please Select',
       subTitle: 'Ticket Priority',
-      list: ticketPriorities.get()|| [],
+      list: ticketPriorities.get() || [],
       selectedItem: undefined,
       headerTitle: 'Ticket Priority',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'ticketpriority'
+      key: 'ticketpriority',
     },
     {
       subTitle: 'Internal Notes',
@@ -113,7 +116,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
       enable: false,
       isRequired: false,
       key: 'internal_notes',
-      mode: 'multiline'
+      mode: 'multiline',
     },
   ]);
 
@@ -142,7 +145,7 @@ const NewHelpTopic = ({route, navigation}: any) => {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     navigation?.setParams({
@@ -159,8 +162,8 @@ const NewHelpTopic = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -178,7 +181,14 @@ const NewHelpTopic = ({route, navigation}: any) => {
               keyboardType={item?.keyboardType}
               mode={item?.mode}
               onPress={() =>
-                SelectItems(item, index, navigation, route, 'NewHelpTopic', 'Stack1')
+                SelectItems(
+                  item,
+                  index,
+                  navigation,
+                  route,
+                  'NewHelpTopic',
+                  'Stack1',
+                )
               }
             />
           ))}

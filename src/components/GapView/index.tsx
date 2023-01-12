@@ -1,5 +1,5 @@
-import {View} from 'react-native';
 import React from 'react';
+import { View } from 'react-native';
 
 const GapView = ({
   mode = 'vertical',
@@ -9,9 +9,9 @@ const GapView = ({
   mode?: 'vertical' | 'horizontal';
 }) => {
   if (mode == 'horizontal') {
-    return <View style={{width: length}} />;
+    return <View style={{ width: length }} />;
   } else {
-    return <View style={{height: length}} />;
+    return <View style={{ height: length }} />;
   }
 };
 

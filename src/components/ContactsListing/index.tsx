@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {View, Text, FlatList, Linking} from 'react-native';
-import {Theme, useNavigation, useTheme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, Text, FlatList, Linking } from 'react-native';
+import { Theme, useNavigation, useTheme } from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import _ from 'lodash';
 
@@ -13,13 +13,13 @@ import {
   EmptyListMsg,
   CstmPressable,
 } from '../../components';
-import {contactsList} from '../../constants/SampleArrays';
-import {Contact} from '../../types';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
+import { contactsList } from '../../constants/SampleArrays';
+import { Contact } from '../../types';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
 
 const ContactListing = () => {
-  const {dark}: Theme = useTheme();
+  const { dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
@@ -87,10 +87,10 @@ export const RenderContacts = ({
 }: {
   listData?: Contact[];
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const navigation: any = useNavigation();
 
-  const renderList = ({item, index}: {item: Contact; index: number}) => {
+  const renderList = ({ item, index }: { item: Contact; index: number }) => {
     return (
       <View style={styles.listContainer}>
         <CstmPressable
@@ -99,7 +99,7 @@ export const RenderContacts = ({
               screen: 'Contact1',
             })
           }
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
           <View style={styles.listItemContainer}>
             <View>
               <Text
@@ -108,12 +108,12 @@ export const RenderContacts = ({
                 }}>
                 {item.name}
               </Text>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <MCI
                   name="office-building-marker-outline"
                   size={15}
                   color={colors.text}
-                  style={{opacity: 0.5}}
+                  style={{ opacity: 0.5 }}
                 />
                 <Text
                   style={{

@@ -10,12 +10,12 @@ import {
 } from 'react-native';
 import _ from 'lodash';
 import moment from 'moment';
-import React, {createRef} from 'react';
+import React, { createRef } from 'react';
 import DatePicker from '@react-native-community/datetimepicker';
 
 import styleConstructor from './style';
 
-import DayView, {MyProps} from './DayView';
+import DayView, { MyProps } from './DayView';
 
 export default class EventCalendar extends React.Component<MyProps, any> {
   calendar: React.RefObject<VirtualizedListProps<null>> | any;
@@ -38,19 +38,19 @@ export default class EventCalendar extends React.Component<MyProps, any> {
   };
 
   onChangeDate = (event: any, date: any) => {
-    this.setState({showDate: false});
+    this.setState({ showDate: false });
     console.log('Received Date', date);
 
     if (event?.type == 'set') {
       const currdate = moment(date);
-      this.setState({date: currdate});
-      this.setState({currDate: date});
+      this.setState({ date: currdate });
+      this.setState({ currDate: date });
     }
   };
 
   _getItemLayout(data: any, index: number) {
-    const {width} = this.props;
-    return {length: width, offset: width * index, index};
+    const { width } = this.props;
+    return { length: width, offset: width * index, index };
   }
 
   _getItem(events: any, index: number) {
@@ -64,8 +64,8 @@ export default class EventCalendar extends React.Component<MyProps, any> {
     });
   }
 
-  _renderItem({index, item}: any) {
-    const {width, format24h, initDate, scrollToFirst} = this.props;
+  _renderItem({ index, item }: any) {
+    const { width, format24h, initDate, scrollToFirst } = this.props;
     const date = moment(this.state.date).add(index - this.props.size, 'days');
     return (
       <DayView
@@ -95,7 +95,7 @@ export default class EventCalendar extends React.Component<MyProps, any> {
     var tomorrow = new Date(this.state.date);
     tomorrow.setDate(tomorrow.getDate() + index);
     // const date = moment(this.state.date).add(index - this.props.size, 'days');
-    this.setState({currDate: tomorrow});
+    this.setState({ currDate: tomorrow });
 
     const date = moment(tomorrow);
     console.log('State Date', this.state.date);
@@ -103,14 +103,14 @@ export default class EventCalendar extends React.Component<MyProps, any> {
     // this.calendar.scrollToIndex({index, animated: false});
     console.log('Date', date);
     // this.setState({index, date});
-    this.setState({date});
+    this.setState({ date });
   }
 
   render() {
-    const {width, virtualizedListProps, events, initDate, formatHeader} =
+    const { width, virtualizedListProps, events, initDate, formatHeader } =
       this.props;
     return (
-      <View style={[styleConstructor(this.props.styles).container, {width}]}>
+      <View style={[styleConstructor(this.props.styles).container, { width }]}>
         <View style={styleConstructor(this.props.styles).header}>
           <TouchableOpacity onPress={() => this._goToPage(-1)}>
             <Image
@@ -118,7 +118,7 @@ export default class EventCalendar extends React.Component<MyProps, any> {
               style={styleConstructor(this.props.styles).arrow}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.setState({showDate: true})}>
+          <TouchableOpacity onPress={() => this.setState({ showDate: true })}>
             <Text style={styleConstructor(this.props.styles).headerText}>
               {this.state.date.format(formatHeader || 'DD MMMM YYYY')}
             </Text>
@@ -144,7 +144,7 @@ export default class EventCalendar extends React.Component<MyProps, any> {
           scrollEnabled={false}
           pagingEnabled
           renderItem={this._renderItem.bind(this)}
-          style={{width: width}}
+          style={{ width: width }}
           {...virtualizedListProps}
         />
         {this.state.showDate && (

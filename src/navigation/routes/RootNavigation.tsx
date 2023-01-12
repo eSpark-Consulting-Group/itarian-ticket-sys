@@ -1,28 +1,28 @@
-import React, {useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {useHookstate, State} from '@hookstate/core';
-import QuickActions, {ShortcutItem} from 'react-native-quick-actions';
+import React, { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useHookstate, State } from '@hookstate/core';
+import QuickActions, { ShortcutItem } from 'react-native-quick-actions';
 
 //@ts-ignore
 import store from 'react-native-simple-store';
 
-import {Login, OTPScreen, PinScreen} from '../../screens/index';
-import {DarkTheme, LightTheme} from '../../theme/colors';
+import { Login, OTPScreen, PinScreen } from '../../screens/index';
+import { DarkTheme, LightTheme } from '../../theme/colors';
 import Drawer from './Drawer';
-import {globalState} from '../../stores/globalAppState';
+import { globalState } from '../../stores/globalAppState';
 import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import StackLvl3 from './StackLvl3';
-import {userStore} from '../../stores/userStore';
+import { userStore } from '../../stores/userStore';
 import AppStatusBar from '../../components/AppStatusBar';
 
 export type RootStackParamList = {
   Login: undefined;
   Draw: undefined;
   Stack1: undefined;
-  Stack2: {screen: string; params?: object};
+  Stack2: { screen: string; params?: object };
   Stack3: undefined;
   OTPScreen: undefined;
   Pin: undefined;
@@ -93,29 +93,31 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <AppStatusBar backgroundColor={LightTheme?.colors.primary} barStyle="light-content" />
+      <AppStatusBar
+        backgroundColor={LightTheme?.colors.primary}
+        barStyle="light-content"
+      />
       <NavigationContainer
         linking={{
           prefixes: ['app://'],
         }}
-        // fallback={<Splash />}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
         <Stack.Navigator initialRouteName={pinWiseInitial}>
           <>
             <Stack.Screen
               name="Login"
               component={Login}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Pin"
               component={PinScreen}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="OTPScreen"
               component={OTPScreen}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
           </>
           <Stack.Group
@@ -126,22 +128,22 @@ const App = () => {
             <Stack.Screen
               name="Draw"
               component={Drawer}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Stack1"
               component={StackLvl1}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Stack2"
               component={StackLvl2}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Stack3"
               component={StackLvl3}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
           </Stack.Group>
         </Stack.Navigator>

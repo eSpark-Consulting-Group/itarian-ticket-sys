@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, KeyboardTypeOptions} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, KeyboardTypeOptions } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 import GapView from '../GapView';
 import styles from './style';
@@ -20,15 +20,15 @@ const CstmTitleInput = ({
   keyboardType?: KeyboardTypeOptions | undefined;
   placeholder?: string;
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const [val, setVal] = useState();
 
   return (
-    <View style={{width: width}}>
+    <View style={{ width: width }}>
       {title && (
         <>
           <GapView mode="vertical" />
-          <Text style={{color: colors.text, opacity: 0.8}}>{title}</Text>
+          <Text style={{ color: colors.text, opacity: 0.8 }}>{title}</Text>
         </>
       )}
       <GapView mode="vertical" length={5} />

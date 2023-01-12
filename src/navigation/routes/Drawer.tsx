@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -26,13 +26,14 @@ import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AD from 'react-native-vector-icons/AntDesign';
 import OI from 'react-native-vector-icons/Octicons';
 import EI from 'react-native-vector-icons/Entypo';
-import {State, useHookstate} from '@hookstate/core';
-import {moderateVerticalScale} from 'react-native-size-matters';
-import {Avatar} from 'react-native-paper';
+import { State, useHookstate } from '@hookstate/core';
+import { moderateVerticalScale } from 'react-native-size-matters';
+import { Avatar } from 'react-native-paper';
+
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-import {globalState} from '../../stores/globalAppState';
+import { globalState } from '../../stores/globalAppState';
 import {
   Agenda,
   Companies,
@@ -50,13 +51,12 @@ import {
   CannedResponse,
   Groups,
 } from '../../screens';
-import {ParamList} from '../../types';
-import {BUILD_VERSION} from '../../constants';
-import {contactsList} from '../../constants/SampleArrays';
+import { ParamList } from '../../types';
+import { BUILD_VERSION } from '../../constants';
 import Images from '../../assets/Images';
-import {userStore} from '../../stores/userStore';
-import {badgeApiCallForGlobalList} from '../../utils/apiCalls';
-import {ticketStore} from '../../stores/ticketStore';
+import { userStore } from '../../stores/userStore';
+import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
+import { ticketStore } from '../../stores/ticketStore';
 import { filterUser } from '../../screens/Profile/utils';
 
 const Drawer = createDrawerNavigator<ParamList>();
@@ -72,18 +72,18 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   const tickets: State<any> = useHookstate(ticketStore.tickets);
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
 
-  const {colors}: Theme = useTheme();
-  const {index} = props.state;
+  const { colors }: Theme = useTheme();
+  const { index } = props.state;
 
   return (
     <SafeAreaView
-      style={{...styles.container, backgroundColor: colors.primary}}>
+      style={{ ...styles.container, backgroundColor: colors.primary }}>
       <TouchableOpacity
         style={styles.header}
         onPress={() =>
           props.navigation.navigate({
             name: 'Profile',
-            params: {prevScreen: 'Agenda'},
+            params: { prevScreen: 'Agenda' },
           })
         }>
         <View style={styles.avatarContainer}>
@@ -94,8 +94,8 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             />
           </View>
         </View>
-        <View style={{flex: 0.7}}>
-          <View style={{flex: 1, justifyContent: 'center'}}>
+        <View style={{ flex: 0.7 }}>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
             <Text style={styles.drawerTitleStyle}>
               {user.get()?.user_name ?? 'N/A'}
             </Text>
@@ -107,7 +107,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </View>
       </TouchableOpacity>
       <View style={styles.content}>
-        <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           <DrawerItemList {...props} />
         </ScrollView>
       </View>
@@ -119,7 +119,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             activeTintColor={'#fff'}
             label={'Settings'}
             inactiveTintColor={'#fff'}
-            icon={({color, size, focused}) => (
+            icon={({ color, size, focused }) => (
               <Ionicons name="settings-outline" size={size} color={color} />
             )}
             labelStyle={styles.footerDrawerStyle}
@@ -134,7 +134,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             label={'Feedback'}
             inactiveTintColor={'#fff'}
             labelStyle={styles.footerDrawerStyle}
-            icon={({color, size, focused}) => (
+            icon={({ color, size, focused }) => (
               <MCI name="message-text" size={size} color={color} />
             )}
             onPress={() => {
@@ -145,7 +145,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
             label={'Logout'}
             inactiveTintColor={'#fff'}
             labelStyle={styles.footerDrawerStyle}
-            icon={({color, size, focused}) => (
+            icon={({ color, size, focused }) => (
               <MCI name="logout" size={size} color={color} />
             )}
             onPress={() => {
@@ -185,14 +185,14 @@ const Draw = () => {
   const [calCurrMember, setCalCurrMember] = useState<any>(null);
   const [filterCount, setFilterCount] = useState<any>('0');
 
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
 
   const noHeader = (): null => null;
 
   useEffect(() => {
     var filterVariables = route?.params?.params?.filter?.filter((val: any) => {
       if (val?.key && val?.value != null)
-        return {key: val.key, value: val?.value};
+        return { key: val.key, value: val?.value };
     });
     setFilterCount(filterVariables?.length || '0');
     if (route?.params?.item) {
@@ -204,7 +204,7 @@ const Draw = () => {
       }
     }
   }, [route?.params]);
-  
+
   useEffect(() => {
     if (route?.params?.selected) {
       setcurrMember(route?.params?.selected);
@@ -212,7 +212,7 @@ const Draw = () => {
     } else {
       filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
         setcurrMember(currMember ?? res?.attributes);
-        !currMember && activeMember?.set(res?.attributes)
+        !currMember && activeMember?.set(res?.attributes);
       });
       setCalCurrMember(calCurrMember);
     }
@@ -248,7 +248,7 @@ const Draw = () => {
             name="menu"
             color={'#fff'}
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            style={{left: 10}}
+            style={{ left: 10 }}
           />
         ),
       }}>
@@ -256,10 +256,10 @@ const Draw = () => {
         name="Search"
         component={Search}
         options={{
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Search</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Search</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <Ionicons name="search" size={size} color={color} />
           ),
         }}
@@ -271,17 +271,13 @@ const Draw = () => {
           headerTitle: () => (
             <CstmHeader
               title="Tickets"
-              subTitle={
-                !currMember
-                  ? 'Select Member'
-                  : currMember?.name
-              }
+              subTitle={!currMember ? 'Select Member' : currMember?.name}
             />
           ),
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Tickets</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Tickets</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <MCI name="calendar" size={size} color={color} />
           ),
           headerRight: () => (
@@ -303,7 +299,7 @@ const Draw = () => {
                   },
                 })
               }
-              style={{right: 10}}
+              style={{ right: 10 }}
             />
           ),
         }}
@@ -314,10 +310,10 @@ const Draw = () => {
         options={{
           headerRight: noHeader,
           headerTitle: () => <CstmHeader title="Organizations" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Organizations</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Organizations</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <MCI
               name="office-building-marker-outline"
               size={size}
@@ -331,10 +327,10 @@ const Draw = () => {
         component={Contacts}
         options={{
           headerTitle: () => <CstmHeader title="Users" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Users</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Users</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <AD name="contacts" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -345,10 +341,10 @@ const Draw = () => {
         component={Teams}
         options={{
           headerTitle: () => <CstmHeader title="Teams" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Teams</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Teams</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <FA name="group" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -359,10 +355,10 @@ const Draw = () => {
         component={SlaPlans}
         options={{
           headerTitle: () => <CstmHeader title="Sla Plan" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Sla Plan</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Sla Plan</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <MCI name="clock" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -371,10 +367,10 @@ const Draw = () => {
       <Drawer.Screen
         name="Profile"
         component={Profile}
-        initialParams={{status: false}}
+        initialParams={{ status: false }}
         options={{
           headerRight: noHeader,
-          drawerItemStyle: {display: 'none'},
+          drawerItemStyle: { display: 'none' },
         }}
       />
       <Drawer.Screen
@@ -382,7 +378,7 @@ const Draw = () => {
         component={Settings}
         options={{
           headerRight: noHeader,
-          drawerItemStyle: {display: 'none'},
+          drawerItemStyle: { display: 'none' },
         }}
       />
       <Drawer.Screen
@@ -390,7 +386,7 @@ const Draw = () => {
         component={SendFeedback}
         options={{
           headerRight: noHeader,
-          drawerItemStyle: {display: 'none'},
+          drawerItemStyle: { display: 'none' },
         }}
       />
       <Drawer.Screen
@@ -398,10 +394,10 @@ const Draw = () => {
         component={TicketPriorities}
         options={{
           headerTitle: () => <CstmHeader title="Ticket Priorities" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Ticket Priorities</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Ticket Priorities</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <OI name="north-star" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -412,10 +408,10 @@ const Draw = () => {
         component={Departments}
         options={{
           headerTitle: () => <CstmHeader title="Departments" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Departments</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Departments</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <MCI name="home-group" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -426,10 +422,10 @@ const Draw = () => {
         component={Locations}
         options={{
           headerTitle: () => <CstmHeader title="Locations" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Locations</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Locations</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <EI name="location" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -440,10 +436,10 @@ const Draw = () => {
         component={HelpTopics}
         options={{
           headerTitle: () => <CstmHeader title="Help Topics" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Help Topics</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Help Topics</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <Ionicons name="newspaper-outline" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -454,10 +450,10 @@ const Draw = () => {
         component={CannedResponse}
         options={{
           headerTitle: () => <CstmHeader title="Canned Response" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Canned Response</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Canned Response</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <FA name="certificate" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -468,10 +464,10 @@ const Draw = () => {
         component={Groups}
         options={{
           headerTitle: () => <CstmHeader title="Groups" />,
-          drawerLabel: ({color, focused}) => (
-            <Text style={{right: 20, color}}>Groups</Text>
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Groups</Text>
           ),
-          drawerIcon: ({color, size, focused}) => (
+          drawerIcon: ({ color, size, focused }) => (
             <MCI name="group" size={size} color={color} />
           ),
           headerRight: noHeader,
@@ -481,7 +477,13 @@ const Draw = () => {
   );
 };
 
-const CstmHeader = ({title, subTitle}: {title: string; subTitle?: string}) => {
+const CstmHeader = ({
+  title,
+  subTitle,
+}: {
+  title: string;
+  subTitle?: string;
+}) => {
   return (
     <View>
       <Text
@@ -494,7 +496,7 @@ const CstmHeader = ({title, subTitle}: {title: string; subTitle?: string}) => {
         {title}
       </Text>
       {subTitle && (
-        <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
+        <Text style={{ textAlign: 'center', color: '#fff', fontSize: 14 }}>
           {subTitle}
         </Text>
       )}

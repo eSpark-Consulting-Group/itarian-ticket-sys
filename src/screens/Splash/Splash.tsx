@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, ActivityIndicator} from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
+
 import styles from './style';
-import {LightTheme, DarkTheme} from '../../theme/colors';
+import { LightTheme } from '../../theme/colors';
 
 const Splash: React.FC<{}> = () => {
-  const {colors} = LightTheme;
+  const { colors } = LightTheme;
 
   return (
     <View style={styles.container}>

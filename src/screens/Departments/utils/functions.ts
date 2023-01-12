@@ -1,8 +1,8 @@
-import {showMessage} from 'react-native-flash-message';
-import {api} from '../../../api';
-import {alert_Dur} from '../../../constants';
+import { showMessage } from 'react-native-flash-message';
+import { api } from '../../../api';
+import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
-import {userStore} from '../../../stores/userStore';
+import { userStore } from '../../../stores/userStore';
 
 const getAlldepartments = async () => {
   const user: any = userStore.user.get();
@@ -31,13 +31,13 @@ const addDepartment = async (data: any) => {
     console.log('result departments', result);
     if (result?.ok) {
       getAlldepartments();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error departments', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -56,13 +56,13 @@ const deleteDepartment = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error departments', error);
-    return {status: false};
+    return { status: false };
   }
 };
 
@@ -77,14 +77,14 @@ const updateDepartment = async (data: any) => {
     console.log('result departments', result);
     if (result?.ok) {
       getAlldepartments();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error departments', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
-export {getAlldepartments, addDepartment, deleteDepartment, updateDepartment};
+export { getAlldepartments, addDepartment, deleteDepartment, updateDepartment };

@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
-import {useHookstate, State} from '@hookstate/core';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { useHookstate, State } from '@hookstate/core';
 
 import {
   NotFound,
@@ -10,24 +10,20 @@ import {
   TicketComponent,
 } from '../../components';
 import styles from './style';
-import {globalState} from '../../stores/globalAppState';
+import { globalState } from '../../stores/globalAppState';
 
-import {RenderContacts} from '../Contacts';
-import {RenderCompanies} from '../Companies';
-import {RenderTickets} from '../Agenda/ListItem';
-import {
-  companiesList,
-  contactsList,
-} from '../../constants/SampleArrays';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {userStore} from '../../stores/userStore';
-import {companyStore} from '../../stores/companyStore';
-import {ticketStore} from '../../stores/ticketStore';
+import { RenderContacts } from '../Contacts';
+import { RenderCompanies } from '../Companies';
+import { companiesList, contactsList } from '../../constants/SampleArrays';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
+import { companyStore } from '../../stores/companyStore';
+import { ticketStore } from '../../stores/ticketStore';
 import { getAllTickets, getTicketsByUserId } from '../Agenda/utils/functions';
 
-const Search = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const Search = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [type, setType] = useState('');
   const [loading, setLoading] = useState(false);
@@ -45,10 +41,10 @@ const Search = ({route, navigation}: any) => {
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
 
   useEffect(() => {
-    getTicketsByUserId('4')
-    setFilteredTickets(tickets?.get())
-    getAllTickets()
-  }, [])
+    getTicketsByUserId('4');
+    setFilteredTickets(tickets?.get());
+    getAllTickets();
+  }, []);
 
   useEffect(() => {
     if (route.params) {
@@ -141,13 +137,13 @@ const Search = ({route, navigation}: any) => {
         return (
           <FlatList
             data={filteredTickets || []}
-            contentContainerStyle={{flex: 1}}
+            contentContainerStyle={{ flex: 1 }}
             ListEmptyComponent={
-              <View style={{alignSelf: 'center'}}>
+              <View style={{ alignSelf: 'center' }}>
                 <NotFound label="Tickets" />
               </View>
             }
-            renderItem={({item, index}: any) => {
+            renderItem={({ item, index }: any) => {
               return (
                 <TicketComponent
                   item2={item}

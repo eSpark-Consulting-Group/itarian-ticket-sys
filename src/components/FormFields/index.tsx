@@ -1,3 +1,3 @@
 import SingleLineField from './SingleLineField';
 
-export {SingleLineField};
+export { SingleLineField };

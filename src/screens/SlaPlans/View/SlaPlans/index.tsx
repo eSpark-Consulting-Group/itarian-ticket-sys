@@ -1,8 +1,8 @@
-import {useRoute} from '@react-navigation/native';
 import React from 'react';
-import {Platform, UIManager} from 'react-native';
+import { Platform, UIManager } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
-import {ModalView} from '../../../../components';
+import { ModalView } from '../../../../components';
 import Details from './Details';
 
 if (

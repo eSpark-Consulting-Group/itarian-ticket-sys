@@ -1,22 +1,27 @@
-import React, {useEffect, useState, useReducer} from 'react';
-import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import React, { useEffect, useState, useReducer } from 'react';
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { useTheme, Theme } from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 import FD from 'react-native-vector-icons/Foundation';
 import FT from 'react-native-vector-icons/Fontisto';
 import Ions from 'react-native-vector-icons/Ionicons';
-import {State, useHookstate} from '@hookstate/core';
+import { State, useHookstate } from '@hookstate/core';
 
 //@ts-ignore
 import store from 'react-native-simple-store';
 
 import styles from './style';
-import {Stopwatch} from '../../types';
-import {EmptyListMsg, SimpleLoader, StopWatch} from '../../components';
-import {globalState} from '../../stores/globalAppState';
+import { Stopwatch } from '../../types';
+import {
+  EmptyListMsg,
+  NotFound,
+  SimpleLoader,
+  StopWatch,
+} from '../../components';
+import { globalState } from '../../stores/globalAppState';
 
-const StopWatchScreen = ({navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const StopWatchScreen = ({ navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
@@ -43,7 +48,7 @@ const StopWatchScreen = ({navigation}: any) => {
     };
   }, [stopwatchs]);
 
-  const RenderList = ({item, index}: {item: Stopwatch; index: number}) => {
+  const RenderList = ({ item, index }: { item: Stopwatch; index: number }) => {
     const handlePlayPause = () => {
       if (item?.isPlaying === true) {
         const temp = stopwatchs; //* Force Copy Method
@@ -86,13 +91,13 @@ const StopWatchScreen = ({navigation}: any) => {
     return (
       <View
         key={item.ticket_no}
-        style={{...styles.listContainer, backgroundColor: solidColor}}>
+        style={{ ...styles.listContainer, backgroundColor: solidColor }}>
         <View>
           <View
             style={{
               ...styles.listInner,
             }}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <View
                 style={{
                   backgroundColor: colors.primary,
@@ -108,12 +113,12 @@ const StopWatchScreen = ({navigation}: any) => {
                   style={{
                     ...styles.horizontalItemStyles,
                   }}>
-                  <Text style={{...styles.title, color: colors.text}}>
+                  <Text style={{ ...styles.title, color: colors.text }}>
                     Ticket {item.ticket_no}
                   </Text>
                 </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{...styles.title, color: colors.text}}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={{ ...styles.title, color: colors.text }}>
                     {item.summary}
                   </Text>
                 </View>
@@ -129,11 +134,11 @@ const StopWatchScreen = ({navigation}: any) => {
                       padding: 8,
                     }}>
                     <TouchableOpacity
-                      style={{paddingHorizontal: 8}}
+                      style={{ paddingHorizontal: 8 }}
                       onPress={() => handleDelete(index)}>
                       <FD name="trash" size={20} color={colors.primary} />
                     </TouchableOpacity>
-                    <View style={{width: 8}} />
+                    <View style={{ width: 8 }} />
                     <TouchableOpacity
                       style={{
                         paddingHorizontal: 8,
@@ -146,7 +151,7 @@ const StopWatchScreen = ({navigation}: any) => {
                       />
                     </TouchableOpacity>
                   </View>
-                  <View style={{flex: 1}}>
+                  <View style={{ flex: 1 }}>
                     <View
                       style={{
                         ...styles.horizontalItemStyles,
@@ -156,7 +161,7 @@ const StopWatchScreen = ({navigation}: any) => {
                         name="stopwatch"
                         size={18}
                         color={colors.primary}
-                        style={{alignSelf: 'center', marginRight: 5}}
+                        style={{ alignSelf: 'center', marginRight: 5 }}
                       />
                       <StopWatch
                         key={parseInt(item.ticket_no.replace('#', ''))}
@@ -201,29 +206,21 @@ const StopWatchScreen = ({navigation}: any) => {
         </View>
         {index !== stopWatchDataList.get()?.length - 1 && (
           <Divider
-            style={{backgroundColor: colors.text, ...styles.dividerStyle}}
+            style={{ backgroundColor: colors.text, ...styles.dividerStyle }}
           />
         )}
       </View>
     );
   };
   return (
-    <View style={{...styles.container, backgroundColor: colors.background}}>
+    <View style={{ ...styles.container, backgroundColor: colors.background }}>
       {isLoading ? (
         <SimpleLoader />
       ) : stopwatchs?.length !== 0 ? (
         <FlatList data={stopwatchs} renderItem={RenderList} />
       ) : (
-        <NotFound />
+        <NotFound label="Timers" />
       )}
-    </View>
-  );
-};
-
-const NotFound = (): JSX.Element => {
-  return (
-    <View style={styles.content}>
-      <EmptyListMsg label="Timers" />
     </View>
   );
 };

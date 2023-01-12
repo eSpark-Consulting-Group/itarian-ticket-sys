@@ -1,22 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Image,
   KeyboardAvoidingView,
   ScrollView,
   Keyboard,
-  TouchableOpacity,
-  Alert,
   Text,
 } from 'react-native';
 
-import AndroidOpenSettings from 'react-native-android-open-settings';
-import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {Formik} from 'formik';
+import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {State, useHookstate} from '@hookstate/core';
-// @ts-ignore
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import { State, useHookstate } from '@hookstate/core';
 
 import styles from './style';
 import {
@@ -24,35 +19,28 @@ import {
   CstmInput,
   CstmErrorText,
   BiometricVerification,
-  Separator,
-  GapView,
   Loader,
 } from '../../../components';
-import QuickActions from 'react-native-quick-actions';
-import {WINDOW_HEIGHT} from '../../../constants';
+import { WINDOW_HEIGHT } from '../../../constants';
 
 import Images from '../../../assets/Images';
-import {userStore} from '../../../stores/userStore';
-import {handleLoginUser} from '../utils/functions';
-import {globalState} from '../../../stores/globalAppState';
-import {handleColdBoot} from '../../../utils/helperFunctions';
-import {Theme, useTheme} from '@react-navigation/native';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
-import {Checkbox} from 'react-native-paper';
+import { userStore } from '../../../stores/userStore';
+import { handleLoginUser } from '../utils/functions';
+import { globalState } from '../../../stores/globalAppState';
+import { Theme, useTheme } from '@react-navigation/native';
+import { Checkbox } from 'react-native-paper';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),
   password: Yup.string().required().min(6).label('Password'),
 });
 
-const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
-  const user: State<any> = useHookstate(userStore.user);
+const LoginScreen = ({ navigation }: NativeStackHeaderProps) => {
   const loadingState: State<boolean> = useHookstate(globalState.loader);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
-  const [showScanner, setShowScanners] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -105,14 +93,8 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
   //   }
   // };
 
-  // QuickActions.popInitialAction()
-  //   .then(data => {
-  //     if (data != null) handleColdBoot(data);
-  //   })
-  //   .catch(err => console.log('err', err));
-
   return (
-    <View style={{height: WINDOW_HEIGHT}}>
+    <View style={{ height: WINDOW_HEIGHT }}>
       <View style={styles.imageContainer}>
         <Image
           source={Images.Logo}
@@ -129,8 +111,8 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
               email: 'abc@test.com',
               password: '12345678',
             }}
-            onSubmit={async (values, {resetForm}) => {
-              const {email, password} = values;
+            onSubmit={async (values, { resetForm }) => {
+              const { email, password } = values;
               try {
                 await handleLoginUser(email, password, rememberMe, navigation);
                 setRememberMe(false);
@@ -180,18 +162,18 @@ const LoginScreen = ({navigation}: NativeStackHeaderProps) => {
                   ) : (
                     <View />
                   )}
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={{flex: 0.1}} />
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flex: 0.1 }} />
                     <Checkbox
                       color={colors.primary}
                       uncheckedColor={'#949494'}
                       status={rememberMe ? 'checked' : 'unchecked'}
                       onPress={() => setRememberMe(!rememberMe)}
                     />
-                    <Text style={{color: colors.text}}>Remember Me</Text>
-                    <View style={{flex: 0.1}} />
+                    <Text style={{ color: colors.text }}>Remember Me</Text>
+                    <View style={{ flex: 0.1 }} />
                   </View>
-                  <View style={{marginVertical: 10}}>
+                  <View style={{ marginVertical: 10 }}>
                     <CstmButton
                       title="Sign In"
                       loader={false}

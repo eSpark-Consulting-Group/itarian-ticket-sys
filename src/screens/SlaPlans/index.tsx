@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Linking,
-  Alert,
-  NavigatorIOSProps,
-  RefreshControl,
-} from 'react-native';
+import { View, Text, FlatList, RefreshControl } from 'react-native';
 import {
   NavigationProp,
   Theme,
@@ -15,12 +7,11 @@ import {
   useTheme,
 } from '@react-navigation/native';
 import { Divider } from 'react-native-paper';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import _ from 'lodash';
+import { useHookstate } from '@hookstate/core';
 
 import styles from './style';
 import {
-  RoundedIcon,
   SearchBar,
   SimpleLoader,
   EmptyListMsg,
@@ -31,8 +22,6 @@ import { contactsList } from '../../constants/SampleArrays';
 import { Contact } from '../../types';
 import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
-import { userStore } from '../../stores/userStore';
-import { State, useHookstate } from '@hookstate/core';
 import { getAllSlaPlans } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 

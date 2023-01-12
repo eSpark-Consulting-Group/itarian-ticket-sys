@@ -1,7 +1,7 @@
-import {hookstate} from '@hookstate/core';
+import { hookstate } from '@hookstate/core';
 
 export const ticketStore = hookstate({
-    //   Companies list
-    tickets: [],
-    AllTickets: []
+  //   Companies list
+  tickets: [],
+  AllTickets: [],
 });

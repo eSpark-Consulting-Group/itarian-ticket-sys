@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
-
 import { State, useHookstate } from '@hookstate/core';
+import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
-import ListItem from '../ListItem';
 import { FloatButton, NotFound, TicketComponent } from '../../../components';
 import { scheduledList, ticketsList } from '../../../constants/SampleArrays';
 import { SchAdditionalButtons } from '../../../constants/ButtonsList';
-import { AdditionalButtons, ScheduledList, Ticket } from '../../../types';
+import { AdditionalButtons, ScheduledList } from '../../../types';
 import { globalState } from '../../../stores/globalAppState';
 import { ticketStore } from '../../../stores/ticketStore';
-import { useNavigation } from '@react-navigation/native';
 import { getTicketsByUserId } from '../utils/functions';
-import { userStore } from '../../../stores/userStore';
 
 const ScheduledTab = ({ route }: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const tickets: any = useHookstate(ticketStore.tickets).get();
-  const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const navigation = useNavigation<any>();
   const [actionButtons, setActionButtons] =
     useState<AdditionalButtons[]>(SchAdditionalButtons);
-  const user: any = useHookstate(userStore.user).get();
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
@@ -48,7 +43,6 @@ const ScheduledTab = ({ route }: any) => {
         aRR.push(data);
       });
     }
-    setFilArr(aRR);
     setIsFetching(false);
   };
   useEffect(() => {

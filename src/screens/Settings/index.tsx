@@ -1,19 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList, Alert} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
-import {List, Divider, Switch, Menu} from 'react-native-paper';
-import {useHookstate, State} from '@hookstate/core';
-import {moderateScale} from 'react-native-size-matters';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
-import AndroidOpenSettings from 'react-native-android-open-settings';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { List, Divider, Switch, Menu } from 'react-native-paper';
+import { useHookstate, State } from '@hookstate/core';
+import { moderateScale } from 'react-native-size-matters';
 // @ts-ignore
 import store from 'react-native-simple-store';
 
-import {globalState} from '../../stores/globalAppState';
-import {useUpdateEffect} from '../../utils/hooks';
-import {screenItemList} from '../../constants/SampleArrays';
-import {getNavigtionApps} from '../../utils/helperFunctions';
-import {BiometricVerification, CstmPressable} from '../../components';
+import { globalState } from '../../stores/globalAppState';
+import { useUpdateEffect } from '../../utils/hooks';
+import { screenItemList } from '../../constants/SampleArrays';
+import { getNavigtionApps } from '../../utils/helperFunctions';
+import { BiometricVerification, CstmPressable } from '../../components';
 const SettingsScreen = () => {
   const themeValue: State<string> = useHookstate(globalState.theme);
   const biometricState: State<boolean> = useHookstate(globalState.useBiometric);
@@ -135,29 +133,29 @@ const SettingsScreen = () => {
         console.log('err', err);
       });
   }, []);
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   return (
     <View>
       <List.Section>
-        <List.Subheader style={{color: colors.text, opacity: 0.6}}>
+        <List.Subheader style={{ color: colors.text, opacity: 0.6 }}>
           Theme
         </List.Subheader>
         <List.Item
           title="Current Theme"
-          titleStyle={{color: colors.text, opacity: 0.75}}
+          titleStyle={{ color: colors.text, opacity: 0.75 }}
           right={() => (
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <List.Icon
                 icon="weather-sunny"
                 color={colors.primary}
-                style={{opacity: 1}}
+                style={{ opacity: 1 }}
               />
               <Switch
                 value={isSwitchOn}
                 onValueChange={onToggleSwitch}
                 thumbColor={colors.primary}
                 color={colors.primary}
-                trackColor={{true: '#5b57578f', false: '#5b57578f'}}
+                trackColor={{ true: '#5b57578f', false: '#5b57578f' }}
               />
               <List.Icon icon="weather-night" color={colors.primary} />
             </View>
@@ -167,18 +165,18 @@ const SettingsScreen = () => {
           style={{
             backgroundColor: colors.text,
             opacity: 0.25,
-            transform: [{scale: 2}],
+            transform: [{ scale: 2 }],
           }}
         />
-        <List.Subheader style={{color: colors.text, opacity: 0.6}}>
+        <List.Subheader style={{ color: colors.text, opacity: 0.6 }}>
           Default Home Screen
         </List.Subheader>
         <TouchableOpacity onPress={openMenu}>
           <List.Item
             title={defaultScreen}
-            titleStyle={{color: colors.text, opacity: 0.75}}
+            titleStyle={{ color: colors.text, opacity: 0.75 }}
             right={() => (
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <Menu
                   visible={visible}
                   onDismiss={hideMenu}
@@ -186,17 +184,17 @@ const SettingsScreen = () => {
                     width: moderateScale(170),
                     height: moderateScale(200),
                   }}
-                  contentStyle={{backgroundColor: colors.background}}
+                  contentStyle={{ backgroundColor: colors.background }}
                   anchor={
                     <List.Icon
                       icon="chevron-right"
                       color={colors.primary}
-                      style={{opacity: 1}}
+                      style={{ opacity: 1 }}
                     />
                   }>
                   <FlatList
                     data={screenItemList}
-                    renderItem={({item, index}) => {
+                    renderItem={({ item, index }) => {
                       return (
                         <MenuItem
                           itemName={item.name}
@@ -220,18 +218,18 @@ const SettingsScreen = () => {
           style={{
             backgroundColor: colors.text,
             opacity: 0.25,
-            transform: [{scale: 2}],
+            transform: [{ scale: 2 }],
           }}
         />
-        <List.Subheader style={{color: colors.text, opacity: 0.6}}>
+        <List.Subheader style={{ color: colors.text, opacity: 0.6 }}>
           Default Navigation App
         </List.Subheader>
         <TouchableOpacity onPress={openNavMenu}>
           <List.Item
             title={defaultNav || 'Select default navigation'}
-            titleStyle={{color: colors.text, opacity: 0.75}}
+            titleStyle={{ color: colors.text, opacity: 0.75 }}
             right={() => (
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <Menu
                   visible={navigationVisible}
                   onDismiss={hideNavMenu}
@@ -239,17 +237,17 @@ const SettingsScreen = () => {
                     width: moderateScale(170),
                     height: moderateScale(200),
                   }}
-                  contentStyle={{backgroundColor: colors.background}}
+                  contentStyle={{ backgroundColor: colors.background }}
                   anchor={
                     <List.Icon
                       icon="chevron-right"
                       color={colors.primary}
-                      style={{opacity: 1}}
+                      style={{ opacity: 1 }}
                     />
                   }>
                   <FlatList
                     data={defaultNavigitonList}
-                    renderItem={({item, index}: any) => {
+                    renderItem={({ item, index }: any) => {
                       return (
                         <MenuItem
                           itemName={item.name}
@@ -324,16 +322,16 @@ const MenuItem = ({
   const rippleColor = dark ? '#ffffff1a' : '#0000000e';
 
   return (
-    <CstmPressable onPress={onPress} android_ripple={{color: rippleColor}}>
+    <CstmPressable onPress={onPress} android_ripple={{ color: rippleColor }}>
       <View
         style={{
           flexDirection: 'row',
           padding: 10,
           justifyContent: 'space-between',
         }}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           {leftIcon}
-          <Text style={{color: textColor, marginHorizontal: 5}}>
+          <Text style={{ color: textColor, marginHorizontal: 5 }}>
             {itemName}
           </Text>
         </View>

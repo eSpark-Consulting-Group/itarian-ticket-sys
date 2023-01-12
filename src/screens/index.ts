@@ -1,4 +1,4 @@
-import {Login, PinScreen} from './Auth';
+import { Login, PinScreen } from './Auth';
 import Agenda from './Agenda';
 import Search from './Search';
 import Companies from './Companies';
@@ -36,5 +36,5 @@ export {
   Locations,
   HelpTopics,
   CannedResponse,
-  Groups
+  Groups,
 };

@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, RefreshControl} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, RefreshControl } from 'react-native';
 
-import {State, useHookstate} from '@hookstate/core';
+import { State, useHookstate } from '@hookstate/core';
 
-import {NotFound} from '../../components';
-import {scheduledList, ticketsList} from '../../constants/SampleArrays';
-import {ScheduledList, Ticket} from '../../types';
-import {globalState} from '../../stores/globalAppState';
+import { NotFound } from '../../components';
+import { scheduledList, ticketsList } from '../../constants/SampleArrays';
+import { ScheduledList, Ticket } from '../../types';
+import { globalState } from '../../stores/globalAppState';
 import ListItem from '../../screens/Agenda/ListItem';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {useUpdateEffect} from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { useUpdateEffect } from '../../utils/hooks';
 import ModalHeader from '../ModalHeader';
 import ModalView from '../ModalView';
 import SearchBar from '../SearchBar';
-import {Loader} from '../Loader';
+import { Loader } from '../Loader';
 
-const TicketListing = ({route, navigation}: any) => {
+const TicketListing = ({ route, navigation }: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -35,7 +35,7 @@ const TicketListing = ({route, navigation}: any) => {
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
       scheduledList.map(item => {
-        let data = {id: item.id, date: item.date, data: filTickets};
+        let data = { id: item.id, date: item.date, data: filTickets };
         aRR.push(data);
       });
     }
@@ -93,16 +93,16 @@ const TicketListing = ({route, navigation}: any) => {
 
       <FlatList
         data={filArr}
-        contentContainerStyle={{flex: 1}}
+        contentContainerStyle={{ flex: 1 }}
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
         }
         ListEmptyComponent={
-          <View style={{alignSelf: 'center'}}>
+          <View style={{ alignSelf: 'center' }}>
             <NotFound label="Tickets" />
           </View>
         }
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <ListItem
               dataSource={item}

@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, RefreshControl} from 'react-native';
-
-import {State, useHookstate} from '@hookstate/core';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, RefreshControl } from 'react-native';
+import { State, useHookstate } from '@hookstate/core';
 
 import styles from './style';
 import ListItem from '../ListItem';
-import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
-import {UnschAdditionalButtons} from '../../../constants/ButtonsList';
-import {FloatButton, NotFound} from '../../../components';
-import {AdditionalButtons, ScheduledList} from '../../../types';
-import {globalState} from '../../../stores/globalAppState';
+import { scheduledList, ticketsList } from '../../../constants/SampleArrays';
+import { UnschAdditionalButtons } from '../../../constants/ButtonsList';
+import { FloatButton, NotFound } from '../../../components';
+import { AdditionalButtons, ScheduledList } from '../../../types';
+import { globalState } from '../../../stores/globalAppState';
 
-const UnscheduledTab = ({navigation}: any) => {
+const UnscheduledTab = ({ navigation }: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -37,7 +36,7 @@ const UnscheduledTab = ({navigation}: any) => {
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
       scheduledList.map(item => {
-        let data = {id: item.id, date: item.date, data: filTickets};
+        let data = { id: item.id, date: item.date, data: filTickets };
         aRR.push(data);
       });
     }
@@ -63,11 +62,11 @@ const UnscheduledTab = ({navigation}: any) => {
           <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
         }
         ListEmptyComponent={
-          <View style={{marginTop: 50}}>
+          <View style={{ marginTop: 50 }}>
             <NotFound label="Tickets" />
           </View>
         }
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <ListItem
             dataSource={item}
             onPress={iValue =>

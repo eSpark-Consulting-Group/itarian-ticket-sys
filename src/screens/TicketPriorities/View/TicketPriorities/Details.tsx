@@ -1,20 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  FlatList,
-  KeyboardTypeOptions,
-  Alert,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, KeyboardTypeOptions, Alert } from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
-import {FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
-import {SelectFields} from '../../../../types';
-import {SelectItems} from '../../../../utils/helperFunctions';
+import { Divider } from 'react-native-paper';
+
+import {
+  FloatButton,
+  GapView,
+  Loader,
+  SingleLineField,
+} from '../../../../components';
+import { SelectFields } from '../../../../types';
+import { SelectItems } from '../../../../utils/helperFunctions';
 import { deletePriorities } from '../../utils/functions';
 
 interface Item {
@@ -40,20 +41,20 @@ interface Item {
 }
 
 export default function Details() {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const ticketPriorityDetails = routes?.params?.ticketPriorityDetails;
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: "Status",
+      title: 'Status',
       enable: true,
       rightSwitchVal: Boolean(ticketPriorityDetails?.attributes?.status),
       showRightSwitch: true,
     },
     {
-      title: "IsPublic",
+      title: 'IsPublic',
       enable: true,
       rightSwitchVal: Boolean(ticketPriorityDetails?.attributes?.is_public),
       showRightSwitch: true,
@@ -93,7 +94,7 @@ export default function Details() {
     setDataSource(tempArr);
   };
 
-  const renderList = ({item, index}: {item: Item; index: number}) => {
+  const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
       <SingleLineField
         key={index}
@@ -118,20 +119,19 @@ export default function Details() {
   };
 
   const deleteFunc = (id: number) => {
-    setLoader(true)
+    setLoader(true);
     deletePriorities(id)
-    .then(res => {
-      setLoader(false)
-      if(res?.status) {
-        navigation?.goBack()
-      }
-    })
-    .catch((err) => {
-      console.log("delete teams failed", err)
-      setLoader(false)
-    })
-  
-  }
+      .then(res => {
+        setLoader(false);
+        if (res?.status) {
+          navigation?.goBack();
+        }
+      })
+      .catch(err => {
+        console.log('delete teams failed', err);
+        setLoader(false);
+      });
+  };
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
@@ -151,13 +151,13 @@ export default function Details() {
         subTitle: item.subTitle,
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
-        rightSwitchVal: item.rightSwitchVal
+        rightSwitchVal: item.rightSwitchVal,
       }),
     );
     Data[Data?.length] = {
       title: ticketPriorityDetails?.id,
-      subTitle: "id",
-    }
+      subTitle: 'id',
+    };
     navigation?.setParams({
       ...routes?.params,
       data: Data,
@@ -165,35 +165,41 @@ export default function Details() {
   }, [dataSource]);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
       <FlatList
         data={dataSource}
         renderItem={renderList}
         ItemSeparatorComponent={() => (
-          <Divider style={{backgroundColor: colors.background, height: 1.5}} />
+          <Divider
+            style={{ backgroundColor: colors.background, height: 1.5 }}
+          />
         )}
       />
-      {dataSource[1].title != "Default" &&
-      <FloatButton icon='delete' onPress={() => {
-          Alert.alert(
-            'Delete Sla Plan?',
-            'Are you sure you want to delete this Sla Plan permanently?',
-            [
-              {
-                text: 'Yes',
-                style: 'default',
-                onPress: () => deleteFunc(ticketPriorityDetails?.id),
-              },
-              {
-                text: 'No',
-                style: 'cancel',
-                onPress: () => console.log('Pressed Cancel on Delete'),
-              },
-            ],
-          );
-      }}/> }
+      {dataSource[1].title != 'Default' && (
+        <FloatButton
+          icon="delete"
+          onPress={() => {
+            Alert.alert(
+              'Delete Sla Plan?',
+              'Are you sure you want to delete this Sla Plan permanently?',
+              [
+                {
+                  text: 'Yes',
+                  style: 'default',
+                  onPress: () => deleteFunc(ticketPriorityDetails?.id),
+                },
+                {
+                  text: 'No',
+                  style: 'cancel',
+                  onPress: () => console.log('Pressed Cancel on Delete'),
+                },
+              ],
+            );
+          }}
+        />
+      )}
     </View>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, TextInput} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import { View, Text, TextInput } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 import styles from './style';
 import GapView from '../GapView';
@@ -18,10 +18,10 @@ const CstmMultiLine = ({
   placeholder?: string;
   onChangeText?: (text: string) => void;
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
 
   return (
-    <View style={{width: width}}>
+    <View style={{ width: width }}>
       {title && (
         <>
           <Text
@@ -31,7 +31,6 @@ const CstmMultiLine = ({
             }}>
             {title}
           </Text>
-          {/* <GapView mode="vertical" /> */}
         </>
       )}
       <TextInput

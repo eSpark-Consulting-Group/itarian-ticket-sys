@@ -17,6 +17,7 @@ import {
   EmptyListMsg,
   CstmPressable,
   FloatButton,
+  NotFound,
 } from '../../components';
 import { contactsList } from '../../constants/SampleArrays';
 import { Contact } from '../../types';
@@ -165,17 +166,9 @@ export const RenderSlaPLans = ({
           renderItem={renderList}
         />
       ) : (
-        <NotFound />
+        <NotFound label="Sla Plans" />
       )}
     </>
-  );
-};
-
-const NotFound = (): JSX.Element => {
-  return (
-    <View style={styles.content}>
-      <EmptyListMsg label="Sla Plans" />
-    </View>
   );
 };
 

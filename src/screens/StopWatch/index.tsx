@@ -12,12 +12,7 @@ import store from 'react-native-simple-store';
 
 import styles from './style';
 import { Stopwatch } from '../../types';
-import {
-  EmptyListMsg,
-  NotFound,
-  SimpleLoader,
-  StopWatch,
-} from '../../components';
+import { NotFound, SimpleLoader, StopWatch } from '../../components';
 import { globalState } from '../../stores/globalAppState';
 
 const StopWatchScreen = ({ navigation }: any) => {
@@ -212,6 +207,7 @@ const StopWatchScreen = ({ navigation }: any) => {
       </View>
     );
   };
+
   return (
     <View style={{ ...styles.container, backgroundColor: colors.background }}>
       {isLoading ? (

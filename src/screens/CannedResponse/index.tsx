@@ -17,6 +17,7 @@ import {
   EmptyListMsg,
   CstmPressable,
   FloatButton,
+  NotFound,
 } from '../../components';
 import { contactsList } from '../../constants/SampleArrays';
 import { Contact } from '../../types';
@@ -174,17 +175,9 @@ export const RenderCannedResponse = ({
           renderItem={renderList}
         />
       ) : (
-        <NotFound />
+        <NotFound label="Canned Response" />
       )}
     </>
-  );
-};
-
-const NotFound = (): JSX.Element => {
-  return (
-    <View style={styles.content}>
-      <EmptyListMsg label="Canned Response" />
-    </View>
   );
 };
 

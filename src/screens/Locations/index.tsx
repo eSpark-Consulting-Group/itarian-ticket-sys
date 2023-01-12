@@ -1,7 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Linking, Alert, NavigatorIOSProps} from 'react-native';
-import {NavigationProp, Theme, useNavigation, useTheme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Linking,
+  Alert,
+  NavigatorIOSProps,
+  RefreshControl,
+} from 'react-native';
+import {
+  NavigationProp,
+  Theme,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 import _ from 'lodash';
 
 import styles from './style';
@@ -12,16 +25,20 @@ import {
   CstmPressable,
   FloatButton,
 } from '../../components';
-import {contactsList} from '../../constants/SampleArrays';
-import {Contact} from '../../types';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
+import { contactsList } from '../../constants/SampleArrays';
+import { Contact } from '../../types';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { State, useHookstate } from '@hookstate/core';
 import { getAllLocations } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 
-const Locations = ({navigation}: {navigation: NavigationProp<any,any> }) => {
-  const {colors, dark}: Theme = useTheme();
+const Locations = ({
+  navigation,
+}: {
+  navigation: NavigationProp<any, any>;
+}) => {
+  const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
@@ -29,18 +46,18 @@ const Locations = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const [filteredData, setfilteredData] = useState(locations.get());
 
   useEffect(() => {
-    fetchRecords()
-  }, [])
+    fetchRecords();
+  }, []);
 
   const fetchRecords = async () => {
     setLoading(true);
-    await getAllLocations()
+    await getAllLocations();
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
-    setfilteredData(locations.get())
-  }, [locations])
+    setfilteredData(locations.get());
+  }, [locations]);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -54,7 +71,7 @@ const Locations = ({navigation}: {navigation: NavigationProp<any,any> }) => {
     var result = await searchFromArray({
       text: text,
       list: locations?.get(),
-      keys: ['attributes.name'],
+      keys: ['attributes.title'],
     });
     setfilteredData(result);
   };
@@ -89,13 +106,9 @@ const Locations = ({navigation}: {navigation: NavigationProp<any,any> }) => {
           onClear={handleClear}
         />
       </View>
-      {loading ? (
-        <SimpleLoader />
-      ) : (
-        <RenderLocation listData={filteredData} />
-      )}
-      <FloatButton 
-       onPress={() => navigation.navigate('Stack1', {screen: 'NewLocation'})}
+      {loading ? <SimpleLoader /> : <RenderLocation listData={filteredData} />}
+      <FloatButton
+        onPress={() => navigation.navigate('Stack1', { screen: 'NewLocation' })}
       />
     </View>
   );
@@ -106,20 +119,27 @@ export const RenderLocation = ({
 }: {
   listData?: Contact[];
 }) => {
-  const {colors, dark}: Theme = useTheme();
-  const navigation: NavigationProp<any,any> = useNavigation();
+  const { colors, dark }: Theme = useTheme();
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const [isFetching, setIsFetching] = useState(false);
 
-  const renderList = ({item, index}: {item: any; index: number}) => {
-     return (
+  const onRefresh = async () => {
+    setIsFetching(true);
+    await getAllLocations();
+    setIsFetching(false);
+  };
+
+  const renderList = ({ item, index }: { item: any; index: number }) => {
+    return (
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'LocationDetails',
-              params: {locationDetails: item},
+              params: { locationDetails: item },
             })
           }
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
           <View style={styles.listItemContainer}>
             <View>
               <Text
@@ -146,7 +166,13 @@ export const RenderLocation = ({
   return (
     <>
       {listData.length !== 0 ? (
-        <FlatList data={listData} renderItem={renderList} />
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
+          data={listData}
+          renderItem={renderList}
+        />
       ) : (
         <NotFound />
       )}

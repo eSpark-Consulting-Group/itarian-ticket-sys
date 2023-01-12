@@ -1,7 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Linking, Alert, NavigatorIOSProps} from 'react-native';
-import {NavigationProp, Theme, useNavigation, useTheme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Linking,
+  Alert,
+  NavigatorIOSProps,
+  RefreshControl,
+} from 'react-native';
+import {
+  NavigationProp,
+  Theme,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 import _ from 'lodash';
 
 import styles from './style';
@@ -12,18 +25,22 @@ import {
   CstmPressable,
   FloatButton,
 } from '../../components';
-import {contactsList} from '../../constants/SampleArrays';
-import {Contact} from '../../types';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
+import { contactsList } from '../../constants/SampleArrays';
+import { Contact } from '../../types';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { State, useHookstate } from '@hookstate/core';
 import { getAlldepartments } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 import { getAllSlaPlans } from '../SlaPlans/utils/functions';
 import { getAllUsers } from '../Agenda/utils/functions';
 
-const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
-  const {colors, dark}: Theme = useTheme();
+const Departments = ({
+  navigation,
+}: {
+  navigation: NavigationProp<any, any>;
+}) => {
+  const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
@@ -31,20 +48,20 @@ const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
   const [filteredData, setFilteredData] = useState(departments.get());
 
   useEffect(() => {
-    fetchRecords()
-  }, [])
+    fetchRecords();
+  }, []);
 
   const fetchRecords = async () => {
     setLoading(true);
-    await getAlldepartments()
-    await getAllSlaPlans()
-    await getAllUsers()
+    await getAlldepartments();
+    await getAllSlaPlans();
+    await getAllUsers();
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
-    setFilteredData(departments.get())
-  }, [departments])
+    setFilteredData(departments.get());
+  }, [departments]);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -98,8 +115,10 @@ const Departments = ({navigation}: {navigation: NavigationProp<any,any> }) => {
       ) : (
         <RenderDepartment listData={filteredData} />
       )}
-      <FloatButton 
-       onPress={() => navigation.navigate('Stack1', {screen: 'NewDepartment'})}
+      <FloatButton
+        onPress={() =>
+          navigation.navigate('Stack1', { screen: 'NewDepartment' })
+        }
       />
     </View>
   );
@@ -110,20 +129,27 @@ export const RenderDepartment = ({
 }: {
   listData?: Contact[];
 }) => {
-  const {colors, dark}: Theme = useTheme();
-  const navigation: NavigationProp<any,any> = useNavigation();
+  const { colors, dark }: Theme = useTheme();
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const [isFetching, setIsFetching] = useState(false);
 
-  const renderList = ({item, index}: {item: any; index: number}) => {
-     return (
+  const onRefresh = async () => {
+    setIsFetching(true);
+    await getAlldepartments();
+    setIsFetching(false);
+  };
+
+  const renderList = ({ item, index }: { item: any; index: number }) => {
+    return (
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'DepartmentDetails',
-              params: {departmentDetails: item},
+              params: { departmentDetails: item },
             })
           }
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
           <View style={styles.listItemContainer}>
             <View>
               <Text
@@ -150,7 +176,13 @@ export const RenderDepartment = ({
   return (
     <>
       {listData.length !== 0 ? (
-        <FlatList data={listData} renderItem={renderList} />
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
+          data={listData}
+          renderItem={renderList}
+        />
       ) : (
         <NotFound />
       )}

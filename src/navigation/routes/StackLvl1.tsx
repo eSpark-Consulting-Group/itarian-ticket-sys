@@ -805,8 +805,8 @@ const StackLvl1 = ({ route, navigation }: any) => {
                         type: 'locations',
                         attributes: {
                           title: data?.title,
-                          country: data?.country,
-                          state: data?.state,
+                          country: data?.country?.name,
+                          state: data?.state?.name,
                           phone: data?.phone,
                           city: data?.city,
                           pin_code: data?.pin_code,

@@ -136,8 +136,6 @@ export const searchFromArray = async ({
       ?.filter((item: any) => {
         const itemData = keys
           ?.map((value: any) => {
-            console.log("item[value]", item[value]);
-            
             return `${item[value]?.toString()?.toUpperCase()}`
           })
           ?.join(' ');
@@ -145,14 +143,6 @@ export const searchFromArray = async ({
         const textData = text?.toString()?.toUpperCase();
         return itemData?.indexOf(textData) > -1;
       });
-    console.log(
-      'newData',
-      newData,
-      newData?.map((value: object) => {
-        return expandFlatten(value, '.');
-      }),
-    );
-
     return newData?.map((value: object) => {
       return expandFlatten(value, '.');
     });

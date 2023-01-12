@@ -1,7 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Linking, Alert, NavigatorIOSProps} from 'react-native';
-import {NavigationProp, Theme, useNavigation, useTheme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Linking,
+  Alert,
+  NavigatorIOSProps,
+  RefreshControl,
+} from 'react-native';
+import {
+  NavigationProp,
+  Theme,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 import _ from 'lodash';
 
 import styles from './style';
@@ -12,35 +25,41 @@ import {
   CstmPressable,
   FloatButton,
 } from '../../components';
-import {contactsList} from '../../constants/SampleArrays';
-import {Contact} from '../../types';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
+import { contactsList } from '../../constants/SampleArrays';
+import { Contact } from '../../types';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { State, useHookstate } from '@hookstate/core';
 import { getAllCannedResponse } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 
-const CannedResponse = ({navigation}: {navigation: NavigationProp<any,any> }) => {
-  const {colors, dark}: Theme = useTheme();
+const CannedResponse = ({
+  navigation,
+}: {
+  navigation: NavigationProp<any, any>;
+}) => {
+  const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
   const cannedResponse = useHookstate(globalState.cannedResponse);
-  const [filteredContacts, setFilteredContacts] = useState(cannedResponse.get());
+  const [filteredContacts, setFilteredContacts] = useState(
+    cannedResponse.get(),
+  );
 
   useEffect(() => {
-    fetchRecords()
-  }, [])
+    fetchRecords();
+  }, []);
 
   const fetchRecords = async () => {
     setLoading(true);
-    await getAllCannedResponse()
+    await getAllCannedResponse();
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
-    setFilteredContacts(cannedResponse.get())
-  }, [cannedResponse])
+    setFilteredContacts(cannedResponse.get());
+  }, [cannedResponse]);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -94,8 +113,10 @@ const CannedResponse = ({navigation}: {navigation: NavigationProp<any,any> }) =>
       ) : (
         <RenderCannedResponse listData={filteredContacts} />
       )}
-      <FloatButton 
-       onPress={() => navigation.navigate('Stack1', {screen: 'NewCannedResponse'})}
+      <FloatButton
+        onPress={() =>
+          navigation.navigate('Stack1', { screen: 'NewCannedResponse' })
+        }
       />
     </View>
   );
@@ -106,20 +127,27 @@ export const RenderCannedResponse = ({
 }: {
   listData?: Contact[];
 }) => {
-  const {colors, dark}: Theme = useTheme();
-  const navigation: NavigationProp<any,any> = useNavigation();
+  const { colors, dark }: Theme = useTheme();
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const [isFetching, setIsFetching] = useState(false);
 
-  const renderList = ({item, index}: {item: any; index: number}) => {
-     return (
+  const onRefresh = async () => {
+    setIsFetching(true);
+    await getAllCannedResponse();
+    setIsFetching(false);
+  };
+
+  const renderList = ({ item, index }: { item: any; index: number }) => {
+    return (
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'CannedResponseDetails',
-              params: {cannedResponseDetails: item},
+              params: { cannedResponseDetails: item },
             })
           }
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
           <View style={styles.listItemContainer}>
             <View>
               <Text
@@ -146,7 +174,13 @@ export const RenderCannedResponse = ({
   return (
     <>
       {listData.length !== 0 ? (
-        <FlatList data={listData} renderItem={renderList} />
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
+          data={listData}
+          renderItem={renderList}
+        />
       ) : (
         <NotFound />
       )}

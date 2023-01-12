@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, RefreshControl } from 'react-native';
 import {
   Theme,
   useIsFocused,
   useNavigation,
   useTheme,
 } from '@react-navigation/native';
-import {moderateScale} from 'react-native-size-matters';
-import {Divider} from 'react-native-paper';
+import { moderateScale } from 'react-native-size-matters';
+import { Divider } from 'react-native-paper';
 
 import {
   FloatButton,
@@ -17,15 +17,15 @@ import {
   CstmPressable,
 } from '../../components';
 import styles from './style';
-import {Company} from '../../types';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {getAllCompanies} from './utils/functions';
-import {State, useHookstate} from '@hookstate/core';
-import {companyStore} from '../../stores/companyStore';
+import { Company } from '../../types';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { getAllCompanies } from './utils/functions';
+import { State, useHookstate } from '@hookstate/core';
+import { companyStore } from '../../stores/companyStore';
 
 const Companies = () => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
@@ -95,22 +95,27 @@ const Companies = () => {
     </View>
   );
 };
-export const RenderCompanies = ({listData = []}: {listData?: Company[]}) => {
-  const {colors, dark}: Theme = useTheme();
+export const RenderCompanies = ({
+  listData = [],
+}: {
+  listData?: Company[];
+}) => {
+  const { colors, dark }: Theme = useTheme();
   const navigation: any = useNavigation();
+  const [isFetching, setIsFetching] = useState(false);
 
-  const renderList = ({item, index}: {item: Company; index: number}) => {
+  const renderList = ({ item, index }: { item: Company; index: number }) => {
     return (
       <View key={`company-details-${index}`} style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'Company',
-              params: {companyDetails: item},
+              params: { companyDetails: item },
             })
           }
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
-          <View style={{padding: moderateScale(15)}}>
+          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
+          <View style={{ padding: moderateScale(15) }}>
             <Text
               style={{
                 color: colors.text,
@@ -121,22 +126,36 @@ export const RenderCompanies = ({listData = []}: {listData?: Company[]}) => {
         </CstmPressable>
         {index !== listData.length - 1 && (
           <Divider
-            style={{backgroundColor: colors.text, ...styles.dividerStyle}}
+            style={{ backgroundColor: colors.text, ...styles.dividerStyle }}
           />
         )}
       </View>
     );
   };
 
+  const onRefresh = () => {
+    setIsFetching(true);
+    getAllCompanies(false)
+    .then(() => {
+      setIsFetching(false);
+    })
+  };
+
   return (
     <>
       {listData.length !== 0 ? (
-        <FlatList data={listData} renderItem={renderList} />
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
+          data={listData}
+          renderItem={renderList}
+        />
       ) : (
         <NotFound />
       )}
       <FloatButton
-        onPress={() => navigation.navigate('Stack1', {screen: 'NewCompany'})}
+        onPress={() => navigation.navigate('Stack1', { screen: 'NewCompany' })}
       />
     </>
   );

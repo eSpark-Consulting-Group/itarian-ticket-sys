@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, RefreshControl} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, RefreshControl } from 'react-native';
 
-import {State, useHookstate} from '@hookstate/core';
+import { State, useHookstate } from '@hookstate/core';
 
 import styles from './style';
 import ListItem from '../ListItem';
-import {FloatButton, NotFound, TicketComponent} from '../../../components';
-import {scheduledList, ticketsList} from '../../../constants/SampleArrays';
-import {SchAdditionalButtons} from '../../../constants/ButtonsList';
-import {AdditionalButtons, ScheduledList, Ticket} from '../../../types';
-import {globalState} from '../../../stores/globalAppState';
-import {ticketStore} from '../../../stores/ticketStore';
-import {useNavigation} from '@react-navigation/native';
-import {getTicketsByUserId} from '../utils/functions';
-import {userStore} from '../../../stores/userStore';
+import { FloatButton, NotFound, TicketComponent } from '../../../components';
+import { scheduledList, ticketsList } from '../../../constants/SampleArrays';
+import { SchAdditionalButtons } from '../../../constants/ButtonsList';
+import { AdditionalButtons, ScheduledList, Ticket } from '../../../types';
+import { globalState } from '../../../stores/globalAppState';
+import { ticketStore } from '../../../stores/ticketStore';
+import { useNavigation } from '@react-navigation/native';
+import { getTicketsByUserId } from '../utils/functions';
+import { userStore } from '../../../stores/userStore';
 
-const ScheduledTab = ({route}: any) => {
+const ScheduledTab = ({ route }: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const tickets: any = useHookstate(ticketStore.tickets).get();
   const [filArr, setFilArr] = useState<ScheduledList[]>([]);
@@ -34,9 +34,8 @@ const ScheduledTab = ({route}: any) => {
     };
     setActionButtons(tempArr);
   };
-  
-  useEffect(() => {
-    console.log("activeMember.get()?.id ??", activeMember.get()?.id);
+
+  const fetchRecord = () => {
     const schTicks = ticketsList.filter(val => val?.time_dur);
     getTicketsByUserId(activeMember.get()?.id);
     const filTickets = schTicks.filter(
@@ -45,11 +44,15 @@ const ScheduledTab = ({route}: any) => {
     let aRR: ScheduledList[] = [];
     if (filTickets.length > 0) {
       scheduledList.map(item => {
-        let data = {id: item.id, date: item.date, data: filTickets};
+        let data = { id: item.id, date: item.date, data: filTickets };
         aRR.push(data);
       });
     }
     setFilArr(aRR);
+    setIsFetching(false);
+  };
+  useEffect(() => {
+    fetchRecord();
   }, [activeMember.get()?.name]);
 
   useEffect(() => {
@@ -67,16 +70,16 @@ const ScheduledTab = ({route}: any) => {
     <View style={styles.container}>
       <FlatList
         data={tickets || []}
-        contentContainerStyle={{flex: 1}}
+        contentContainerStyle={{ flex: 1 }}
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
         }
         ListEmptyComponent={
-          <View style={{alignSelf: 'center'}}>
+          <View style={{ alignSelf: 'center' }}>
             <NotFound label="Tickets" />
           </View>
         }
-        renderItem={({item, index}) => {
+        renderItem={({ item, index }) => {
           return (
             <TicketComponent
               item2={item}
@@ -89,7 +92,7 @@ const ScheduledTab = ({route}: any) => {
                     ticket_info: {
                       id: item.id?.toString(),
                       summary: item?.attributes?.detail,
-                      data: item
+                      data: item,
                     },
                   },
                 });

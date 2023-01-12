@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Linking} from 'react-native';
-import {Theme, useNavigation, useTheme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, Linking, RefreshControl } from 'react-native';
+import { Theme, useNavigation, useTheme } from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import _ from 'lodash';
 
@@ -14,25 +14,26 @@ import {
   CstmPressable,
   FloatButton,
 } from '../../components';
-import {contactsList} from '../../constants/SampleArrays';
-import {Contact} from '../../types';
-import {useUpdateEffect} from '../../utils/hooks';
-import {searchFromArray} from '../../utils/helperFunctions';
-import {userStore} from '../../stores/userStore';
-import {State, useHookstate} from '@hookstate/core';
+import { contactsList } from '../../constants/SampleArrays';
+import { Contact } from '../../types';
+import { useUpdateEffect } from '../../utils/hooks';
+import { searchFromArray } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
+import { State, useHookstate } from '@hookstate/core';
+import { getAllUsers } from './utils/functions';
 
 const Contacts = () => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
-  const users = useHookstate(userStore.users)
+  const users = useHookstate(userStore.users);
 
   const [filteredContacts, setFilteredContacts] = useState(users.get());
 
   useEffect(() => {
     setFilteredContacts(users.get());
-  }, [users]);
+  }, [userStore.users]);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -95,20 +96,28 @@ export const RenderContacts = ({
 }: {
   listData?: Contact[];
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const navigation: any = useNavigation();
+  const [isFetching, setIsFetching] = useState(false);
 
-  const renderList = ({item, index}: {item: any; index: number}) => {
+  const onRefresh = () => {
+    setIsFetching(true);
+    getAllUsers().then(() => {
+      setIsFetching(false);
+    });
+  };
+
+  const renderList = ({ item, index }: { item: any; index: number }) => {
     return (
       <View style={styles.listContainer}>
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'Contact1',
-              params: {contactDetails: item},
+              params: { contactDetails: item },
             })
           }
-          android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
           <View style={styles.listItemContainer}>
             <View>
               <Text
@@ -117,12 +126,12 @@ export const RenderContacts = ({
                 }}>
                 {item?.name}
               </Text>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <MCI
                   name="office-building-marker-outline"
                   size={15}
                   color={colors.text}
-                  style={{opacity: 0.5}}
+                  style={{ opacity: 0.5 }}
                 />
                 <Text
                   style={{
@@ -163,12 +172,18 @@ export const RenderContacts = ({
   return (
     <>
       {listData.length !== 0 ? (
-        <FlatList data={listData} renderItem={renderList} />
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
+          data={listData}
+          renderItem={renderList}
+        />
       ) : (
         <NotFound />
       )}
       <FloatButton
-        onPress={() => navigation.navigate('Stack1', {screen: 'NewUser'})}
+        onPress={() => navigation.navigate('Stack1', { screen: 'NewUser' })}
       />
     </>
   );

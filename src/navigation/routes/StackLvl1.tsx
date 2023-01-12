@@ -23,7 +23,7 @@ import {
   NewCannedResponse,
   NewGroup,
 } from '../../forms';
-
+import { RootStackParamList } from '../../types';
 import Contact1 from '../../screens/Contacts/View/Contacts';
 import TeamDetails from '../../screens/Teams/View/Teams';
 import SlaPlanDetails from '../../screens/SlaPlans/View/SlaPlans/Details';
@@ -73,35 +73,6 @@ import {
 import { addGroup, updateGroup } from '../../screens/Groups/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
-export type RootStackParamList = {
-  MyStatus: { status: boolean };
-  STickets: { title: string };
-  Company: { title: string };
-  NewCompany: { title: string };
-  NewUser: { title: string };
-  Contact1: undefined;
-  Activities: undefined;
-  NewTicket: undefined;
-  CreatePost: undefined;
-  Post: { id: string };
-  TeamDetails: undefined;
-  SlaPlanDetails: undefined;
-  TicketPriorityDetails: undefined;
-  DepartmentDetails: undefined;
-  LocationDetails: undefined;
-  HelpTopicDetails: undefined;
-  CannedResponseDetails: undefined;
-  GroupDetails: undefined;
-  NewTeam: { title: string };
-  NewSlaPlans: { title: string };
-  NewTicketPriorities: { title: string };
-  NewDepartment: { title: string };
-  NewLocation: { title: string };
-  NewHelpTopic: { title: string };
-  NewCannedResponse: { title: string };
-  NewGroup: { title: string };
-};
 
 const StackLvl1 = ({ route, navigation }: any) => {
   const { colors }: Theme = useTheme();

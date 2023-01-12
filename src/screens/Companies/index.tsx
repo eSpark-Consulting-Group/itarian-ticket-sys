@@ -3,6 +3,7 @@ import { View, Text, FlatList, RefreshControl } from 'react-native';
 import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 import { moderateScale } from 'react-native-size-matters';
 import { Divider } from 'react-native-paper';
+import { State, useHookstate } from '@hookstate/core';
 
 import {
   FloatButton,
@@ -16,7 +17,6 @@ import { Company } from '../../types';
 import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
 import { getAllCompanies } from './utils/functions';
-import { State, useHookstate } from '@hookstate/core';
 import { companyStore } from '../../stores/companyStore';
 
 const Companies = () => {

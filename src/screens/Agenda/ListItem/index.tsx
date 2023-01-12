@@ -8,7 +8,6 @@ import { Divider } from 'react-native-paper';
 import styles from './style';
 import {
   DateSeparator,
-  EmptyListMsg,
   GapView,
   CstmPressable,
   NotFound,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
 

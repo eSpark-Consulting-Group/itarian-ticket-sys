@@ -8,12 +8,7 @@ import { State, useHookstate } from '@hookstate/core';
 import { onSave, goBack } from '../utils/headerFunctions';
 import { globalState } from '../../stores/globalAppState';
 import { EditTicket, AddResource, CreateComment } from '../../forms';
-import {
-  CstmItemSelector,
-  TicketListing,
-  ContactListing,
-  Resources,
-} from '../../components';
+import { CstmItemSelector, Resources } from '../../components';
 import { checkValidations } from '../../utils/helperFunctions';
 
 const Stack = createNativeStackNavigator();
@@ -106,40 +101,7 @@ const StackLvl2 = ({ navigation, route }: any) => {
           ),
         })}
       />
-      <Stack.Screen
-        name="TicketListing"
-        component={TicketListing}
-        options={({ route, navigation }: any) => ({
-          title: 'Tickets',
-          headerStyle: { backgroundColor: colors.primary },
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{ right: 6 }}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="ContactListing"
-        component={ContactListing}
-        options={({ route, navigation }: any) => ({
-          title: 'Users',
-          headerStyle: { backgroundColor: colors.primary },
-          headerLeft: () => (
-            <II
-              size={30}
-              name="chevron-back"
-              style={{ right: 6 }}
-              color={'#fff'}
-              onPress={() => goBack(navigation)}
-            />
-          ),
-        })}
-      />
+
       <Stack.Screen
         name="Resources"
         component={Resources}

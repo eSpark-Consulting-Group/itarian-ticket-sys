@@ -27,9 +27,8 @@ import { Loader } from './Loader';
 import EventCalendar from './react-native-events-calendar/src/EventCalendar';
 import { CstmMenu } from './CstmMenu';
 import TicketComponent from './TicketComponent';
-import TicketListing from './Ticketlisting';
-import ContactListing from './ContactsListing';
 import Resources from './Resources';
+import AppStatusBar from './AppStatusBar';
 
 export {
   CstmButton,
@@ -62,7 +61,6 @@ export {
   Loader,
   CstmMenu,
   TicketComponent,
-  TicketListing,
-  ContactListing,
   Resources,
+  AppStatusBar,
 };

@@ -88,6 +88,35 @@ export type ParamList = {
   Groups: undefined;
 };
 
+export type RootStackParamList = {
+  MyStatus: { status: boolean };
+  STickets: { title: string };
+  Company: { title: string };
+  NewCompany: { title: string };
+  NewUser: { title: string };
+  Contact1: undefined;
+  Activities: undefined;
+  NewTicket: undefined;
+  CreatePost: undefined;
+  Post: { id: string };
+  TeamDetails: undefined;
+  SlaPlanDetails: undefined;
+  TicketPriorityDetails: undefined;
+  DepartmentDetails: undefined;
+  LocationDetails: undefined;
+  HelpTopicDetails: undefined;
+  CannedResponseDetails: undefined;
+  GroupDetails: undefined;
+  NewTeam: { title: string };
+  NewSlaPlans: { title: string };
+  NewTicketPriorities: { title: string };
+  NewDepartment: { title: string };
+  NewLocation: { title: string };
+  NewHelpTopic: { title: string };
+  NewCannedResponse: { title: string };
+  NewGroup: { title: string };
+};
+
 export type Stopwatch = {
   ticket_no: string;
   summary: string;

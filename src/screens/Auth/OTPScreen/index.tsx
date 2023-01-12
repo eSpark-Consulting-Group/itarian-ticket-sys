@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
-import Images from '../../../assets/Images';
-import {SCREEN_HEIGHT, WINDOW_HEIGHT} from '../../../constants';
-import styles from './style';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import {Theme, useTheme} from '@react-navigation/native';
-import {CstmButton} from '../../../components';
-import {handleVerifyOTP, requestSmsOtp} from '../utils/functions';
+import { Theme, useTheme } from '@react-navigation/native';
 // @ts-ignore
 import CountDown from 'react-native-countdown-component';
 
-const OTPScreen = ({navigation, route}: any) => {
+import Images from '../../../assets/Images';
+import { SCREEN_HEIGHT, WINDOW_HEIGHT } from '../../../constants';
+import styles from './style';
+import { CstmButton } from '../../../components';
+import { handleVerifyOTP, requestSmsOtp } from '../utils/functions';
+
+const OTPScreen = ({ navigation, route }: any) => {
   const paramsData = route?.params?.data;
 
   const [otp, setOtp] = useState('');
@@ -18,7 +19,7 @@ const OTPScreen = ({navigation, route}: any) => {
   const [expired, setExpired] = useState(false);
   const [showResend, setshowResend] = useState(false);
 
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
 
   useEffect(() => {
     setTimeout(() => {
@@ -50,7 +51,7 @@ const OTPScreen = ({navigation, route}: any) => {
   };
 
   return (
-    <View style={{backgroundColor: colors.background}}>
+    <View style={{ backgroundColor: colors.background }}>
       <View style={styles.imageContainer}>
         <Image
           source={Images.Logo}
@@ -59,18 +60,18 @@ const OTPScreen = ({navigation, route}: any) => {
         />
       </View>
       <View style={styles.imageContainer}>
-        <Text style={{fontWeight: 'bold', color: colors.text, fontSize: 25}}>
+        <Text style={{ fontWeight: 'bold', color: colors.text, fontSize: 25 }}>
           OTP Verification
         </Text>
-        <Text style={{color: colors.text}}>
+        <Text style={{ color: colors.text }}>
           We sent your code to your{' '}
           {paramsData?.otpType == 'sms'
             ? 'Phone Number'
             : '2 Factor Authenticator App'}
         </Text>
         {!expired && paramsData?.otpType == 'sms' && (
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{marginVertical: 5, color: colors.text}}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={{ marginVertical: 5, color: colors.text }}>
               OTP will expires in
             </Text>
             <CountDown
@@ -79,25 +80,25 @@ const OTPScreen = ({navigation, route}: any) => {
                 setExpired(!expired);
               }}
               timeToShow={['M', 'S']}
-              timeLabels={{m: 'MM', s: 'SS'}}
-              style={{width: '15%'}}
-              digitStyle={{backgroundColor: 'none'}}
+              timeLabels={{ m: 'MM', s: 'SS' }}
+              style={{ width: '15%' }}
+              digitStyle={{ backgroundColor: 'none' }}
               separatorStyle={{
                 color: colors.primary,
                 marginBottom: 16,
                 marginHorizontal: -15,
               }}
-              digitTxtStyle={{color: colors.primary}}
-              timeLabelStyle={{color: 'transparent'}}
+              digitTxtStyle={{ color: colors.primary }}
+              timeLabelStyle={{ color: 'transparent' }}
               showSeparator
               size={12}
             />
           </View>
         )}
       </View>
-      <View style={{marginTop: SCREEN_HEIGHT * 0.15}}>
+      <View style={{ marginTop: SCREEN_HEIGHT * 0.15 }}>
         <OTPInputView
-          style={{width: '80%', height: 100, alignSelf: 'center'}}
+          style={{ width: '80%', height: 100, alignSelf: 'center' }}
           pinCount={6}
           code={otp} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
           onCodeChanged={code => setOtp(code)}

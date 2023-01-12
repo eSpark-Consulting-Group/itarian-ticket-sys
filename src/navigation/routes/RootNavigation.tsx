@@ -16,7 +16,7 @@ import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import StackLvl3 from './StackLvl3';
 import { userStore } from '../../stores/userStore';
-import AppStatusBar from '../../components/AppStatusBar';
+import { AppStatusBar } from '../../components';
 
 export type RootStackParamList = {
   Login: undefined;

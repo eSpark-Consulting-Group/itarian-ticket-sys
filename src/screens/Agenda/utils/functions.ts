@@ -1,10 +1,10 @@
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
-import {api} from '../../../api';
+import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
-import {globalState} from '../../../stores/globalAppState';
-import {ticketStore} from '../../../stores/ticketStore';
-import {userStore} from '../../../stores/userStore';
+import { globalState } from '../../../stores/globalAppState';
+import { ticketStore } from '../../../stores/ticketStore';
+import { userStore } from '../../../stores/userStore';
 
 const getAllUsers = async () => {
   const user: any = userStore?.user?.get();
@@ -48,7 +48,7 @@ const getAllTickets = async () => {
   } catch (error) {
     console.log('error getAllTickets', error);
   }
-}
+};
 
 const getTicketsByUserId = async (userId: string) => {
   const user: any = userStore?.user?.get();
@@ -80,13 +80,13 @@ const addTicket = async (data: any) => {
     console.log('result addTicket', result);
     if (result?.ok) {
       getTicketsByUserId(activeMember?.id);
-      return {status: true};
+      return { status: true };
     } else {
-      return {status: false, message: result};
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error addTicket', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -106,13 +106,13 @@ const deleteTicket = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error deleteTickets', error);
-    return {status: false};
+    return { status: false };
   }
 };
 
@@ -128,14 +128,21 @@ const updateTicket = async (data: any) => {
     console.log('result updatetickets', result);
     if (result?.ok) {
       getTicketsByUserId(activeMember?.id);
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error updatetickets', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
-export {getAllUsers, getTicketsByUserId, addTicket, updateTicket, deleteTicket, getAllTickets};
+export {
+  getAllUsers,
+  getTicketsByUserId,
+  addTicket,
+  updateTicket,
+  deleteTicket,
+  getAllTickets,
+};

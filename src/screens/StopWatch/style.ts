@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {moderateScale} from 'react-native-size-matters';
-import {WINDOW_WIDTH} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
+
+import { WINDOW_WIDTH } from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
   dividerStyle: {
     opacity: 0.2,
-    transform: [{scale: 2}],
+    transform: [{ scale: 2 }],
   },
   title: {
     fontWeight: 'bold',

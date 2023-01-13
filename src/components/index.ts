@@ -15,18 +15,21 @@ import CstmTitleInput from './CstmTitleInput';
 import ModalHeader from './ModalHeader';
 import RoundedIcon from './roundedIcon';
 import CstmTabBar from './CstmTabBar';
-import {CstmPressable} from './CstmPressable';
+import { CstmPressable } from './CstmPressable';
 import GapView from './GapView';
-import {SingleLineField} from './FormFields';
-import {StopWatch, Timer} from './CstmStopwatch';
+import { SingleLineField } from './FormFields';
+import { StopWatch, Timer } from './CstmStopwatch';
 import NotFound from './NotFound';
 import BiometricVerification from './BiometricVerification';
 import Separator from './Separator';
 import CstmItemSelector from './CstmItemSelector';
-import {Loader} from './Loader';
+import { Loader } from './Loader';
 import EventCalendar from './react-native-events-calendar/src/EventCalendar';
-import {CstmMenu} from './CstmMenu';
+import { CstmMenu } from './CstmMenu';
 import TicketComponent from './TicketComponent';
+import Resources from './Resources';
+import AppStatusBar from './AppStatusBar';
+
 export {
   CstmButton,
   CstmInput,
@@ -51,11 +54,13 @@ export {
   NotFound,
   StopWatch,
   Timer,
+  EventCalendar,
   BiometricVerification,
   Separator,
   CstmItemSelector,
   Loader,
-  EventCalendar,
   CstmMenu,
   TicketComponent,
+  Resources,
+  AppStatusBar,
 };

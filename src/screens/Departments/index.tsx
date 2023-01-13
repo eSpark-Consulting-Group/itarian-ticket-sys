@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Linking,
-  Alert,
-  NavigatorIOSProps,
-  RefreshControl,
-} from 'react-native';
+import { View, Text, FlatList, RefreshControl } from 'react-native';
 import {
   NavigationProp,
   Theme,
@@ -21,15 +13,15 @@ import styles from './style';
 import {
   SearchBar,
   SimpleLoader,
-  EmptyListMsg,
   CstmPressable,
   FloatButton,
+  NotFound,
 } from '../../components';
 import { contactsList } from '../../constants/SampleArrays';
 import { Contact } from '../../types';
 import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
-import { State, useHookstate } from '@hookstate/core';
+import { useHookstate } from '@hookstate/core';
 import { getAlldepartments } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 import { getAllSlaPlans } from '../SlaPlans/utils/functions';
@@ -184,17 +176,9 @@ export const RenderDepartment = ({
           renderItem={renderList}
         />
       ) : (
-        <NotFound />
+        <NotFound label="Departments" />
       )}
     </>
-  );
-};
-
-const NotFound = (): JSX.Element => {
-  return (
-    <View style={styles.content}>
-      <EmptyListMsg label="Departments" />
-    </View>
   );
 };
 

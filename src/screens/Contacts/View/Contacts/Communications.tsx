@@ -1,22 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {Linking, ScrollView, StyleSheet, Text, Alert} from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useRoute,
-  useNavigation,
-} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Alert } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { showMessage } from 'react-native-flash-message';
 
-import {FloatButton, Loader, SingleLineField} from '../../../../components';
-import {DataItem as Item} from '../../../../types';
+import { FloatButton, Loader, SingleLineField } from '../../../../components';
+import { DataItem as Item } from '../../../../types';
 import _ from 'lodash';
-import {SelectItems} from '../../../../utils/helperFunctions';
-import {deleteUser} from '../../utils/functions';
-import {showMessage} from 'react-native-flash-message';
-import {alert_Dur} from '../../../../constants';
+import { SelectItems } from '../../../../utils/helperFunctions';
+import { deleteUser } from '../../utils/functions';
 
 export default function Communications() {
-  const {colors}: Theme = useTheme();
   const route: any = useRoute();
   const navigation: any = useNavigation();
   const contactDetails = route?.params?.contactDetails;
@@ -31,7 +24,7 @@ export default function Communications() {
     {
       title: contactDetails?.email ?? '',
       subTitle: 'Email',
-      inputable:  contactDetails?.email ? false : true,
+      inputable: contactDetails?.email ? false : true,
       enable: false,
       isRequired: true,
       key: 'email',
@@ -137,7 +130,7 @@ export default function Communications() {
               'Something went wrong',
             type: 'danger',
             icon: 'auto',
-            duration: alert_Dur,
+            duration: 2000,
           });
         }
       })
@@ -152,7 +145,7 @@ export default function Communications() {
       <Loader isShow={loader} />
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{alignItems: 'center'}}>
+        contentContainerStyle={{ alignItems: 'center' }}>
         {dataSource?.map((item, index) => (
           <SingleLineField
             key={index}

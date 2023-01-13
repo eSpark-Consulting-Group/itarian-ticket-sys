@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {moderateScale} from 'react-native-size-matters';
-import {WINDOW_WIDTH} from '../../../constants';
+import { StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
+
+import { WINDOW_WIDTH } from '../../../constants';
 
 const styles = StyleSheet.create({
   itemContainer: {
@@ -21,12 +22,12 @@ const styles = StyleSheet.create({
     height: moderateScale(40, 0),
     backgroundColor: '#28648f',
   },
-  descContentContainer: {marginTop: 5},
+  descContentContainer: { marginTop: 5 },
   rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  margin_5: {marginRight: 5},
+  margin_5: { marginRight: 5 },
   schedule_dur: {
     backgroundColor: 'black',
     color: 'white',
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     width: WINDOW_WIDTH,
-    transform: [{scaleY: 1}],
+    transform: [{ scaleY: 1 }],
     opacity: 0.5,
     backgroundColor: '#999',
   },

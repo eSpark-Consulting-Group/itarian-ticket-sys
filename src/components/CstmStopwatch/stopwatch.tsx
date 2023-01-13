@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 const StopWatch = ({
   start = false,
@@ -9,7 +9,7 @@ const StopWatch = ({
   id = 0,
 }) => {
   const [voiceDuration, setvoiceDuration] = useState('00:00:00');
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   var duration = useRef<NodeJS.Timer>();
 
   useEffect(() => {
@@ -84,10 +84,14 @@ const StopWatch = ({
 
   return (
     <>
-      <View style={[styles.searchSection, {backgroundColor: dark ? '#000' : '#fff'}]}>
+      <View
+        style={[
+          styles.searchSection,
+          { backgroundColor: dark ? '#000' : '#fff' },
+        ]}>
         <View>
           <Text
-            style={{color: colors.primary, fontWeight: 'bold', fontSize: 16}}>
+            style={{ color: colors.primary, fontWeight: 'bold', fontSize: 16 }}>
             {voiceDuration}
           </Text>
         </View>

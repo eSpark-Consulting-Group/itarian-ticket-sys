@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
 
-import {ModalView, SingleLineField} from '../../components';
-import {DataItem as Item, SelectFields} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
-import {userStore} from '../../stores/userStore';
+import { ModalView, SingleLineField } from '../../components';
+import { DataItem as Item, SelectFields } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
 import { GracePeriodList } from '../../constants/SelectionList';
 
-const NewSlaPlans = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewSlaPlans = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -71,7 +71,7 @@ const NewSlaPlans = ({route, navigation}: any) => {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item.key
+        key: item.key,
       }),
     );
     navigation?.setParams({
@@ -88,8 +88,8 @@ const NewSlaPlans = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -107,7 +107,14 @@ const NewSlaPlans = ({route, navigation}: any) => {
               keyboardType={item?.keyboardType}
               mode={item?.mode}
               onPress={() =>
-                SelectItems(item, index, navigation, route, 'NewSlaPlans', 'Stack1')
+                SelectItems(
+                  item,
+                  index,
+                  navigation,
+                  route,
+                  'NewSlaPlans',
+                  'Stack1',
+                )
               }
             />
           ))}

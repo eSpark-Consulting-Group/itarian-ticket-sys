@@ -1,4 +1,4 @@
-import {State} from '@hookstate/core';
+import { State } from '@hookstate/core';
 
 export interface UserInfo {
   email?: string;

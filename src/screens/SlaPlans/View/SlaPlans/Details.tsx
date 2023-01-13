@@ -1,35 +1,29 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  FlatList,
-  KeyboardTypeOptions,
-  Alert,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, Alert } from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 import {
-  CstmButton,
   FloatButton,
   GapView,
   Loader,
   SingleLineField,
 } from '../../../../components';
-import {SelectFields, DataItem as Item} from '../../../../types';
-import {SelectItems} from '../../../../utils/helperFunctions';
+import { DataItem as Item } from '../../../../types';
+import { SelectItems } from '../../../../utils/helperFunctions';
 import { deleteSlaPlan } from '../../utils/functions';
 import { GracePeriodList } from '../../../../constants/SelectionList';
 
 export default function Details() {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const teamDetails = routes?.params?.teamDetails;
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'Status',
@@ -48,7 +42,9 @@ export default function Details() {
       title: teamDetails?.attributes?.grace_period ?? 'Please Select',
       subTitle: 'Grace Period',
       list: GracePeriodList || [],
-      selectedItem: GracePeriodList?.filter(value => value?.name == teamDetails?.attributes?.grace_period)[0],
+      selectedItem: GracePeriodList?.filter(
+        value => value?.name == teamDetails?.attributes?.grace_period,
+      )[0],
       headerTitle: 'Parent Topic',
       rightIcon: 'chevron-right',
       isRequired: false,
@@ -63,7 +59,7 @@ export default function Details() {
       mode: 'multiline',
     },
   ]);
-  
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -76,7 +72,7 @@ export default function Details() {
     setDataSource(tempArr);
   };
 
-  const renderList = ({item, index}: {item: Item; index: number}) => {
+  const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
       <SingleLineField
         key={index}
@@ -94,27 +90,33 @@ export default function Details() {
         keyboardType={item?.keyboardType}
         mode={item?.mode}
         onPress={() =>
-          SelectItems(item, index, navigation, routes, 'SlaPlanDetails', 'Stack1')
+          SelectItems(
+            item,
+            index,
+            navigation,
+            routes,
+            'SlaPlanDetails',
+            'Stack1',
+          )
         }
       />
     );
   };
 
   const deleteTeamFunc = (id: number) => {
-    setLoader(true)
+    setLoader(true);
     deleteSlaPlan(id)
-    .then(res => {
-      setLoader(false)
-      if(res?.status) {
-        navigation?.goBack()
-      }
-    })
-    .catch((err) => {
-      console.log("delete teams failed", err)
-      setLoader(false)
-    })
-  
-  }
+      .then(res => {
+        setLoader(false);
+        if (res?.status) {
+          navigation?.goBack();
+        }
+      })
+      .catch(err => {
+        console.log('delete teams failed', err);
+        setLoader(false);
+      });
+  };
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
@@ -135,7 +137,7 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     Data[Data?.length] = {
@@ -148,38 +150,44 @@ export default function Details() {
     });
   }, [dataSource]);
 
-  console.log("grace_period grace_period", teamDetails?.attributes);
-  
+  console.log('grace_period grace_period', teamDetails?.attributes);
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
       <FlatList
         data={dataSource}
         renderItem={renderList}
         ItemSeparatorComponent={() => (
-          <Divider style={{backgroundColor: colors.background, height: 1.5}} />
+          <Divider
+            style={{ backgroundColor: colors.background, height: 1.5 }}
+          />
         )}
       />
-      {dataSource[1].title != "Default" &&
-      <FloatButton icon='delete' onPress={() => {
-          Alert.alert(
-            'Delete Sla Plan?',
-            'Are you sure you want to delete this Sla Plan permanently?',
-            [
-              {
-                text: 'Yes',
-                style: 'default',
-                onPress: () => deleteTeamFunc(teamDetails?.id),
-              },
-              {
-                text: 'No',
-                style: 'cancel',
-                onPress: () => console.log('Pressed Cancel on Delete'),
-              },
-            ],
-          );
-      }}/> }
+      {dataSource[1].title != 'Default' && (
+        <FloatButton
+          icon="delete"
+          onPress={() => {
+            Alert.alert(
+              'Delete Sla Plan?',
+              'Are you sure you want to delete this Sla Plan permanently?',
+              [
+                {
+                  text: 'Yes',
+                  style: 'default',
+                  onPress: () => deleteTeamFunc(teamDetails?.id),
+                },
+                {
+                  text: 'No',
+                  style: 'cancel',
+                  onPress: () => console.log('Pressed Cancel on Delete'),
+                },
+              ],
+            );
+          }}
+        />
+      )}
     </View>
   );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, ActivityIndicator, StyleSheet} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 const SimpleLoader = () => {
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
   return (
     <View style={styles.container}>
       <ActivityIndicator size={'large'} color={colors.primary} />

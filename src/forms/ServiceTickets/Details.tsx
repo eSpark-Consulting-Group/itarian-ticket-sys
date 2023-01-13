@@ -1,14 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 
-import {GapView, SingleLineField} from '../../components';
+import { GapView, SingleLineField } from '../../components';
 
 type Item = {
   title: string;
@@ -16,7 +16,7 @@ type Item = {
 };
 
 const Details = () => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const dataSource: Item[] = [
@@ -33,7 +33,7 @@ const Details = () => {
     },
   ];
 
-  const renderList = ({item, index}: {item: Item; index: number}) => {
+  const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
       <SingleLineField
         onPress={item.onPress}
@@ -51,9 +51,11 @@ const Details = () => {
         data={dataSource}
         renderItem={renderList}
         ListFooterComponent={<View />}
-        ListFooterComponentStyle={{height: 8}}
+        ListFooterComponentStyle={{ height: 8 }}
         ItemSeparatorComponent={() => (
-          <Divider style={{backgroundColor: colors.background, height: 1.5}} />
+          <Divider
+            style={{ backgroundColor: colors.background, height: 1.5 }}
+          />
         )}
       />
     </View>

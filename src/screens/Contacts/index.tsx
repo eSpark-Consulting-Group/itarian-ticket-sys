@@ -4,22 +4,22 @@ import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 import { Divider } from 'react-native-paper';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import _ from 'lodash';
+import { useHookstate } from '@hookstate/core';
 
 import styles from './style';
 import {
   RoundedIcon,
   SearchBar,
   SimpleLoader,
-  EmptyListMsg,
   CstmPressable,
   FloatButton,
+  NotFound,
 } from '../../components';
 import { contactsList } from '../../constants/SampleArrays';
 import { Contact } from '../../types';
 import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
-import { State, useHookstate } from '@hookstate/core';
 import { getAllUsers } from './utils/functions';
 
 const Contacts = () => {
@@ -180,20 +180,12 @@ export const RenderContacts = ({
           renderItem={renderList}
         />
       ) : (
-        <NotFound />
+        <NotFound label="Users" />
       )}
       <FloatButton
         onPress={() => navigation.navigate('Stack1', { screen: 'NewUser' })}
       />
     </>
-  );
-};
-
-const NotFound = (): JSX.Element => {
-  return (
-    <View style={styles.content}>
-      <EmptyListMsg label="Users" />
-    </View>
   );
 };
 

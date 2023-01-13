@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import PropTypes from 'prop-types';
-import {Theme, useTheme} from '@react-navigation/native';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 
 import styles from './style';
 
@@ -16,7 +15,7 @@ const CstmButton = ({
   onPress: () => void;
   disabled?: boolean;
 }) => {
-  const {colors}: Theme = useTheme();
+  const { colors }: Theme = useTheme();
   return (
     <View>
       <View style={styles.container}>
@@ -43,11 +42,6 @@ const CstmButton = ({
       </View>
     </View>
   );
-};
-
-CstmButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
 };
 
 export default CstmButton;

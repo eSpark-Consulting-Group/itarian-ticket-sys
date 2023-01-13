@@ -1,13 +1,13 @@
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
-export const BUILD_VERSION = '0.11.0';
+export const BUILD_VERSION = '0.25.0';
 
 export const alert_Dur = 1000;
 
-export const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} =
+export const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } =
   Dimensions.get('window');
 
-export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
+export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
   Dimensions.get('screen');
 
 export const fileIcons: any = {

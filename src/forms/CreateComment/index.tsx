@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
   Keyboard,
@@ -10,13 +10,14 @@ import {
   Platform,
   UIManager,
 } from 'react-native';
-import {useNavigation, useTheme, useRoute} from '@react-navigation/native';
+import { useNavigation, useTheme, useRoute } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
-import {moderateVerticalScale} from 'react-native-size-matters';
+import { moderateVerticalScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import 'react-native-get-random-values';
 // @ts-ignore
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
+import { showMessage } from 'react-native-flash-message';
 
 import styles from '../../screens/SendFeedback/style';
 import {
@@ -26,9 +27,8 @@ import {
   GapView,
   Loader,
 } from '../../components';
-import {createComment} from '../../screens/SendFeedback/utils';
-import {Canny_CreateComment} from '../../types';
-import {showMessage} from 'react-native-flash-message';
+import { createComment } from '../../screens/SendFeedback/utils';
+import { Canny_CreateComment } from '../../types';
 
 interface ImageType {
   id: number;
@@ -41,10 +41,12 @@ if (Platform.OS === 'android') {
   }
 }
 
+const duration = 2000;
+
 export const CreateComment = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
-  const {colors, dark} = useTheme();
+  const { colors, dark } = useTheme();
   const [loading, setLoading] = useState(false);
   const [imageData, setImageData] = useState<ImageType[]>([]);
   const [commentData, setCommentData] = useState<Canny_CreateComment>({
@@ -55,7 +57,7 @@ export const CreateComment = () => {
     imageURLs: [],
   });
   const iskeyboardShown = useRef(false);
-  const {id, userInfo, parentID} = route?.params;
+  const { id, userInfo, parentID } = route?.params;
 
   useEffect(() => {
     // setLoading(false);
@@ -89,7 +91,7 @@ export const CreateComment = () => {
     ImagePicker.openPicker({})
       .then(image => {
         const field = image.path;
-        console.log({uri: field});
+        console.log({ uri: field });
 
         //? function to upload image to Canny.io (returns Canny.io image url)
         (function (field: string) {
@@ -116,13 +118,13 @@ export const CreateComment = () => {
           };
           fetch('https://feedback.itarian.com/api/images/upload', config)
             .then(response => response.json())
-            .then((result: {imageURL: string; error: string}) => {
+            .then((result: { imageURL: string; error: string }) => {
               setLoading(false);
               console.log('upload hoa image', result);
               if (result.imageURL) {
                 console.log('upload hoa image', result.imageURL);
                 setImageData((state: ImageType[]) => {
-                  return [...state, {uri: result?.imageURL, id: uuid()}];
+                  return [...state, { uri: result?.imageURL, id: uuid() }];
                 });
               }
               if (result.error) {
@@ -131,6 +133,7 @@ export const CreateComment = () => {
                   message: result.error,
                   type: 'danger',
                   icon: 'auto',
+                  duration,
                 });
               }
             })
@@ -141,6 +144,7 @@ export const CreateComment = () => {
                 message: error[0],
                 type: 'danger',
                 icon: 'auto',
+                duration,
               });
             });
         })(field);
@@ -161,7 +165,7 @@ export const CreateComment = () => {
     // setLoading(true);
     const tempArr = [...imageData];
     const finalArr: string[] = tempArr.reduce(
-      (accumulator: string[], {uri}) => [...accumulator, uri],
+      (accumulator: string[], { uri }) => [...accumulator, uri],
       [],
     );
     commentData.imageURLs = finalArr;
@@ -202,13 +206,14 @@ export const CreateComment = () => {
           message: err,
           type: 'danger',
           icon: 'auto',
+          duration,
         });
       });
   };
 
   const ImageContainer = () => {
     return (
-      <View style={{marginTop: 10}}>
+      <View style={{ marginTop: 10 }}>
         <Text
           style={{
             color: colors.text,
@@ -256,7 +261,7 @@ export const CreateComment = () => {
           <FlatList
             data={imageData}
             horizontal
-            contentContainerStyle={{padding: 10}}
+            contentContainerStyle={{ padding: 10 }}
             ItemSeparatorComponent={() => (
               <GapView mode="horizontal" length={15} />
             )}
@@ -268,7 +273,7 @@ export const CreateComment = () => {
     );
   };
 
-  const renderImages = ({item, index}: {item: any; index: number}) => {
+  const renderImages = ({ item, index }: { item: any; index: number }) => {
     return (
       <View
         style={{
@@ -319,7 +324,7 @@ export const CreateComment = () => {
           placeholder="Leave a Comment..."
           onChangeText={text =>
             setCommentData((state: any) => {
-              return {...state, value: text};
+              return { ...state, value: text };
             })
           }
         />
@@ -331,7 +336,7 @@ export const CreateComment = () => {
           loader={false}
           title="Create Comment"
           onPress={() =>
-            handleCreateComment({postID: id, authorID: userInfo.id, parentID})
+            handleCreateComment({ postID: id, authorID: userInfo.id, parentID })
           }
         />
       </View>

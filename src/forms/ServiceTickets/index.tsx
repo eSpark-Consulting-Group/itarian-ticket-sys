@@ -1,28 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Platform,
-  UIManager,
-  Linking,
-  Alert,
-} from 'react-native';
-import {State, useHookstate} from '@hookstate/core';
+import React, { useEffect, useState } from 'react';
+import { Platform, UIManager, Alert } from 'react-native';
+import { State, useHookstate } from '@hookstate/core';
 
-import {
-  ModalHeader,
-  ModalView,
-  RoundedIcon,
-  FloatButton,
-  Loader,
-} from '../../components';
-import {STicketsAdditionalButtons} from '../../constants/ButtonsList';
-import {contactNameList} from '../../constants/SelectionList';
-import {AdditionalButtons} from '../../types';
-import {companyStore} from '../../stores/companyStore';
+import { ModalView, FloatButton, Loader } from '../../components';
+import { STicketsAdditionalButtons } from '../../constants/ButtonsList';
+import { contactNameList } from '../../constants/SelectionList';
+import { AdditionalButtons } from '../../types';
+import { companyStore } from '../../stores/companyStore';
 import Overview from './Overview';
-import {deleteTicket} from '../../screens/Agenda/utils/functions';
-import {globalState} from '../../stores/globalAppState';
+import { deleteTicket } from '../../screens/Agenda/utils/functions';
+import { globalState } from '../../stores/globalAppState';
 
 if (
   Platform.OS === 'android' &&
@@ -31,7 +18,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const App = ({navigation, route}: any) => {
+const ServiceTickets = ({ navigation, route }: any) => {
   const companies: any = useHookstate(companyStore.companies)?.get();
   const [actionButtons, setActionButtons] = useState<AdditionalButtons[]>(
     STicketsAdditionalButtons,
@@ -58,7 +45,7 @@ const App = ({navigation, route}: any) => {
 
   useEffect(() => {
     if (route?.params?.companyContact) {
-      setCompanyContact({...route.params?.companyContact});
+      setCompanyContact({ ...route.params?.companyContact });
     }
   }, [route?.params]);
 
@@ -115,4 +102,4 @@ const App = ({navigation, route}: any) => {
   );
 };
 
-export default App;
+export default ServiceTickets;

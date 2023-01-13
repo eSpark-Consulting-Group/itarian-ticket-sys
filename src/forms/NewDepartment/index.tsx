@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
 
-import {ModalView, SingleLineField} from '../../components';
-import {DataItem as Item} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
-import {userStore} from '../../stores/userStore';
-import {globalState} from '../../stores/globalAppState';
+import { ModalView, SingleLineField } from '../../components';
+import { DataItem as Item } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
+import { globalState } from '../../stores/globalAppState';
 
-const NewDepartment = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewDepartment = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
   const slaplans: State<any> = useHookstate(globalState.slaPlans);
   const [dataSource, setDataSource] = useState<Item[]>([
@@ -100,8 +100,8 @@ const NewDepartment = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}

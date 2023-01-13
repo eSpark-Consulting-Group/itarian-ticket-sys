@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
 import DatePicker from '@react-native-community/datetimepicker';
 
-import {SingleLineField} from '../../components';
-import {contactsList} from '../../constants/SampleArrays';
-import {whereList} from '../../constants/SelectionList';
-import {SelectFields} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
+import { SingleLineField } from '../../components';
+import { contactsList } from '../../constants/SampleArrays';
+import { whereList } from '../../constants/SelectionList';
+import { SelectFields } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
 
 interface Item {
   headerTitle?: string;
@@ -28,12 +28,12 @@ interface Item {
 type Mode = 'date' | 'time';
 type PickerType = 'sd' | 'ed' | 'st' | 'et';
 
-export const AddResource = ({navigation, route}: any) => {
+export const AddResource = ({ navigation, route }: any) => {
   const [showDate, setShowDate] = useState(false);
   const [mode, setMode] = useState<Mode>('date');
   const [pickerType, setpickerType] = useState<PickerType>('sd');
   const [dataSource, setDataSource] = useState<Item[]>([
-    {title: 'Mark as Done', showRightSwitch: true, rightSwitchVal: true},
+    { title: 'Mark as Done', showRightSwitch: true, rightSwitchVal: true },
     {
       title: contactsList[0].name,
       subTitle: 'Member',
@@ -150,8 +150,8 @@ export const AddResource = ({navigation, route}: any) => {
 
   return (
     <ScrollView
-      style={{flex: 1}}
-      contentContainerStyle={{alignItems: 'center'}}>
+      style={{ flex: 1 }}
+      contentContainerStyle={{ alignItems: 'center' }}>
       {showDate && (
         <DatePicker
           mode={mode}

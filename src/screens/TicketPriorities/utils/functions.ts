@@ -1,8 +1,9 @@
-import {showMessage} from 'react-native-flash-message';
-import {api} from '../../../api';
-import {alert_Dur} from '../../../constants';
+import { showMessage } from 'react-native-flash-message';
+
+import { api } from '../../../api';
+import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
-import {userStore} from '../../../stores/userStore';
+import { userStore } from '../../../stores/userStore';
 
 const getAllTicketPriorities = async () => {
   const user: any = userStore.user.get();
@@ -31,13 +32,13 @@ const addTicketPriorities = async (data: any) => {
     console.log('result addSlaPlans', result);
     if (result?.ok) {
       getAllTicketPriorities();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error addSlaPlans', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -56,13 +57,13 @@ const deletePriorities = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error deleteSlaPlan', error);
-    return {status: false};
+    return { status: false };
   }
 };
 
@@ -73,18 +74,26 @@ const updateTicketPriorities = async (data: any) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.patch(`/ticketpriorities/${data?.data?.id}`, data);
+    const result: any = await api.patch(
+      `/ticketpriorities/${data?.data?.id}`,
+      data,
+    );
     console.log('result updateSlaPlan', result);
     if (result?.ok) {
       getAllTicketPriorities();
-      return {status: true};
-    }else {
-      return {status: false, message: result};
+      return { status: true };
+    } else {
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error updateSlaPlan', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
-export {getAllTicketPriorities, addTicketPriorities, deletePriorities, updateTicketPriorities};
+export {
+  getAllTicketPriorities,
+  addTicketPriorities,
+  deletePriorities,
+  updateTicketPriorities,
+};

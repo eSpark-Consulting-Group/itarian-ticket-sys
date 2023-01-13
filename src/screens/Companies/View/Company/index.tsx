@@ -1,17 +1,14 @@
-import {useRoute, useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {Platform, UIManager, Alert} from 'react-native';
-import {TabView, SceneMap} from 'react-native-tab-view';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Platform, UIManager, Alert } from 'react-native';
 
 import {
   ModalHeader,
   ModalView,
-  CstmTabBar,
   FloatButton,
   Loader,
 } from '../../../../components';
-import {deleteOrganization, updateOrganization} from '../../utils/functions';
-import Details from './Details';
+import { deleteOrganization } from '../../utils/functions';
 import Overview from './Overview';
 
 if (
@@ -77,25 +74,3 @@ const Company = () => {
 };
 
 export default Company;
-
-const renderScene = SceneMap({
-  first: Overview,
-  second: Details,
-});
-
-function TabComp() {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    {key: 'first', title: 'Overview'},
-    {key: 'second', title: 'Details'},
-  ]);
-
-  return (
-    <TabView
-      navigationState={{index, routes}}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      renderTabBar={props => <CstmTabBar {...props} />}
-    />
-  );
-}

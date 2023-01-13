@@ -4,7 +4,7 @@
  * @returns response
  */
 
-import { cannyApi, cannyApiKey } from '../../../api';
+import { cannyApi } from '../../../api';
 import {
   CannyBoards,
   CannyCategory,
@@ -15,11 +15,12 @@ import {
   Vote,
   Vote_CD,
 } from '../../../types';
+import { REACT_APP_CANNY_SECERT_KEY } from '@env';
 
 const getCategories = async (req?: CannyCategory) => {
   const data: { apiKey: string & CannyCategory } = {
     ...req,
-    apiKey: cannyApiKey,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
   };
   try {
     const res = await cannyApi.post('/categories/list', data);
@@ -31,7 +32,7 @@ const getCategories = async (req?: CannyCategory) => {
 };
 
 const getBoards = async () => {
-  const data: { apiKey: string } = { apiKey: cannyApiKey };
+  const data: { apiKey: string } = { apiKey: REACT_APP_CANNY_SECERT_KEY };
   try {
     const res = await cannyApi.post<{ boards: CannyBoards[] }>(
       '/boards/list',
@@ -45,7 +46,10 @@ const getBoards = async () => {
 };
 
 const getPosts = async (req?: CannyPosts) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   console.log('request body for fetch posts??', data);
   try {
     const res = await cannyApi.post('/posts/list', data);
@@ -57,7 +61,10 @@ const getPosts = async (req?: CannyPosts) => {
 };
 
 const getPostbyId = async (req?: { id?: string }) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post('/posts/retrieve', data);
     return res;
@@ -68,7 +75,10 @@ const getPostbyId = async (req?: { id?: string }) => {
 };
 
 const getCommentsByPostId = async (req?: { postID?: string }) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post('/comments/list', data);
     return res;
@@ -79,7 +89,10 @@ const getCommentsByPostId = async (req?: { postID?: string }) => {
 };
 
 const createPost = async (req?: Canny_CreatePost) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post('/posts/create', data);
     return res;
@@ -90,7 +103,10 @@ const createPost = async (req?: Canny_CreatePost) => {
 };
 
 const getUserByEmail = async (req?: { email?: string }) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post<Canny_CreateUser & { error: string }>(
       '/users/retrieve',
@@ -104,7 +120,10 @@ const getUserByEmail = async (req?: { email?: string }) => {
 };
 
 const createUser = async (req?: Canny_CreateUser) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post<Canny_CreateUser & { error: string }>(
       '/users/create_or_update',
@@ -118,7 +137,10 @@ const createUser = async (req?: Canny_CreateUser) => {
 };
 
 const fetchVotes = async (req?: Vote) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post<{ hasMore: boolean; votes: any[] }>(
       '/votes/list',
@@ -132,7 +154,10 @@ const fetchVotes = async (req?: Vote) => {
 };
 
 const createVote = async (req?: Vote_CD) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post('/votes/create', data);
     return res;
@@ -143,7 +168,10 @@ const createVote = async (req?: Vote_CD) => {
 };
 
 const deleteVote = async (req?: Vote_CD) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post('/votes/delete', data);
     return res;
@@ -154,7 +182,10 @@ const deleteVote = async (req?: Vote_CD) => {
 };
 
 const createComment = async (req?: Canny_CreateComment) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post('/comments/create', data);
     return res;
@@ -165,7 +196,10 @@ const createComment = async (req?: Canny_CreateComment) => {
 };
 
 const deleteComment = async (req?: { commentID: string }) => {
-  const data: { apiKey: string } = { ...req, apiKey: cannyApiKey };
+  const data: { apiKey: string } = {
+    ...req,
+    apiKey: REACT_APP_CANNY_SECERT_KEY,
+  };
   try {
     const res = await cannyApi.post('/comments/delete', data);
     return res;

@@ -1,51 +1,51 @@
-import React, {useEffect, useState} from 'react';
-import {View, ScrollView, KeyboardTypeOptions} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
 
-import {ModalView, SingleLineField} from '../../components';
-import {SelectFields} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
-import {State, useHookstate} from '@hookstate/core';
-import {userStore} from '../../stores/userStore';
+import { ModalView, SingleLineField } from '../../components';
+import { SelectFields } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
 
-const NewTicketPriorities = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const NewTicketPriorities = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-        title: "Status",
-        enable: true,
-        rightSwitchVal: true,
-        showRightSwitch: true,
-      },
-      {
-        title: "IsPublic",
-        enable: true,
-        rightSwitchVal: true,
-        showRightSwitch: true,
-      },
-      {
-        subTitle: 'name',
-        title: '',
-        inputable: true,
-        enable: false,
-        isRequired: true,
-      },
-      {
-        title: '',
-        subTitle: 'color',
-        inputable: true,
-        enable: false,
-        isRequired: false,
-      },
-      {
-        title: '',
-        subTitle: 'description',
-        inputable: true,
-        enable: false,
-        isRequired: true,
-        mode: 'multiline',
-      },
+      title: 'Status',
+      enable: true,
+      rightSwitchVal: true,
+      showRightSwitch: true,
+    },
+    {
+      title: 'IsPublic',
+      enable: true,
+      rightSwitchVal: true,
+      showRightSwitch: true,
+    },
+    {
+      subTitle: 'name',
+      title: '',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+    },
+    {
+      title: '',
+      subTitle: 'color',
+      inputable: true,
+      enable: false,
+      isRequired: false,
+    },
+    {
+      title: '',
+      subTitle: 'description',
+      inputable: true,
+      enable: false,
+      isRequired: true,
+      mode: 'multiline',
+    },
   ]);
 
   interface Item {
@@ -110,8 +110,8 @@ const NewTicketPriorities = ({route, navigation}: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{backgroundColor: colors.background}}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -129,7 +129,14 @@ const NewTicketPriorities = ({route, navigation}: any) => {
               keyboardType={item?.keyboardType}
               mode={item?.mode}
               onPress={() =>
-                SelectItems(item, index, navigation, route, 'NewSlaPlans', 'Stack1')
+                SelectItems(
+                  item,
+                  index,
+                  navigation,
+                  route,
+                  'NewSlaPlans',
+                  'Stack1',
+                )
               }
             />
           ))}

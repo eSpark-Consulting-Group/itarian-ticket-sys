@@ -1,5 +1,5 @@
 // @flow
-import {ImageStyle, StyleSheet, TextStyle, ViewStyle} from 'react-native';
+import { ImageStyle, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 const calendarHeight = 2400;
 // const eventPaddingLeft = 4

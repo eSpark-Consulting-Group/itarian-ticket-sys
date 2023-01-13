@@ -20,6 +20,7 @@ import MatIcons from 'react-native-vector-icons/MaterialIcons';
 import { useHookstate, State } from '@hookstate/core';
 import moment from 'moment';
 import { Divider } from 'react-native-paper';
+import { showMessage } from 'react-native-flash-message';
 
 import { userStore } from '../../stores/userStore';
 import { CannyBoards, Canny_CreateUser, User } from '../../types';
@@ -33,9 +34,7 @@ import {
 import { getPosts, getUserByEmail, createUser, getBoards } from './utils';
 import { CannyPosts } from '../../types';
 import { SCREEN_HEIGHT, WINDOW_HEIGHT, WINDOW_WIDTH } from '../../constants';
-import { useUpdateEffect } from '../../utils/hooks';
 import { removeDuplicates } from '../../utils/helperFunctions';
-import { showMessage } from 'react-native-flash-message';
 
 const SendFeedbackScreen = () => {
   const { dark, colors } = useTheme();

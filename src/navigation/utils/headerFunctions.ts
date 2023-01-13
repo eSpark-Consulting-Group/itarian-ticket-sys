@@ -1,9 +1,10 @@
 //Function for My Status screen header's right button
+import { showMessage, hideMessage } from 'react-native-flash-message';
+
 import Images from '../../assets/Images';
-import {noteList, stopWatchList} from '../../constants/SampleArrays';
-import {showMessage, hideMessage} from 'react-native-flash-message';
-import {globalState} from '../../stores/globalAppState';
-import {alert_Dur} from '../../constants';
+import { noteList, stopWatchList } from '../../constants/SampleArrays';
+import { globalState } from '../../stores/globalAppState';
+import { alert_Dur } from '../../constants';
 
 const saveStatus = (navigation: any, route: any, globalStates: any) => {
   console.log('route.params', route?.params);
@@ -22,13 +23,13 @@ const saveStatus = (navigation: any, route: any, globalStates: any) => {
       duration: alert_Dur,
     });
     globalStates?.currentStatus.set(route.params?.status);
-    globalStates?.currentGoneTo.set({...route.params?.goneTo});
+    globalStates?.currentGoneTo.set({ ...route.params?.goneTo });
     globalStates?.additionalInfo.set(route.params?.addInfo);
     globalStates?.dateBack.set(route.params?.backDate);
     globalStates?.timeBack.set(route.params?.backTime);
     navigation.navigate({
       name: 'Profile',
-      params: {status: route.params.status},
+      params: { status: route.params.status },
       merge: true,
     });
   }
@@ -68,7 +69,6 @@ const onSave = (navigation: any, route: any, globalStates?: any) => {
       duration: alert_Dur,
     });
   }
-
   if (
     route?.params?.stack == 'Draw' &&
     route?.params?.from != 'SBoard' &&
@@ -79,7 +79,6 @@ const onSave = (navigation: any, route: any, globalStates?: any) => {
         JSON.parse(JSON.stringify(route.params?.selected)),
       );
     }
-
     navigation.navigate(route?.params?.stack, {
       title: route?.params?.title,
       selected: route?.params?.selected,
@@ -110,8 +109,9 @@ const clearFunc = (navigation: any, route: any) => {
     },
   });
 };
+
 const handleStopwatch = (params: any) => {
-  const {ticket_info} = params;
+  const { ticket_info } = params;
   const date = new Date();
   let tempArr: any = [...stopWatchList];
   tempArr.push({
@@ -126,4 +126,4 @@ const handleStopwatch = (params: any) => {
   console.log('hoa ==========>>', tempArr);
 };
 
-export {saveStatus, goBack, onSave, handleStopwatch, clearFunc};
+export { saveStatus, goBack, onSave, handleStopwatch, clearFunc };

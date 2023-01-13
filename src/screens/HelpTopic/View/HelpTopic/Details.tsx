@@ -1,27 +1,28 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, KeyboardTypeOptions, Alert} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, Alert } from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import { Divider } from 'react-native-paper';
+import { State, useHookstate } from '@hookstate/core';
+
 import {
   FloatButton,
   GapView,
   Loader,
   SingleLineField,
 } from '../../../../components';
-import {DataItem as Item} from '../../../../types';
-import {SelectItems} from '../../../../utils/helperFunctions';
-import {deleteHelpTopic} from '../../utils/functions';
-import {State, useHookstate} from '@hookstate/core';
-import {userStore} from '../../../../stores/userStore';
-import {globalState} from '../../../../stores/globalAppState';
+import { DataItem as Item } from '../../../../types';
+import { SelectItems } from '../../../../utils/helperFunctions';
+import { deleteHelpTopic } from '../../utils/functions';
+import { userStore } from '../../../../stores/userStore';
+import { globalState } from '../../../../stores/globalAppState';
 
 export default function Details() {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const helpTopicDetails = routes?.params?.helpTopicDetails;
@@ -68,12 +69,13 @@ export default function Details() {
       selectedItem: helpTopics
         .get()
         ?.filter(
-          (value: any) => value?.id == helpTopicDetails?.attributes?.parent_name?.id,
+          (value: any) =>
+            value?.id == helpTopicDetails?.attributes?.parent_name?.id,
         )[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: false,
-      key: 'parent_name'
+      key: 'parent_name',
     },
     {
       title: helpTopicDetails?.attributes?.staff?.user_name ?? 'Please Select',
@@ -87,7 +89,7 @@ export default function Details() {
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'staff'
+      key: 'staff',
     },
     {
       title: helpTopicDetails?.attributes?.slaplan?.name ?? 'Please Select',
@@ -108,7 +110,7 @@ export default function Details() {
       headerTitle: 'SLA Plan',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'slaplan'
+      key: 'slaplan',
     },
     {
       title:
@@ -131,7 +133,7 @@ export default function Details() {
       headerTitle: 'Departments',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'helptopicdepartment'
+      key: 'helptopicdepartment',
     },
     {
       title:
@@ -147,7 +149,7 @@ export default function Details() {
       headerTitle: 'Ticket Priority',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'ticketpriority'
+      key: 'ticketpriority',
     },
     {
       subTitle: 'Internal Notes',
@@ -172,7 +174,7 @@ export default function Details() {
     setDataSource(tempArr);
   };
 
-  const renderList = ({item, index}: {item: Item; index: number}) => {
+  const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
       <SingleLineField
         key={index}
@@ -237,7 +239,7 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     Data[Data?.length] = {
@@ -251,14 +253,16 @@ export default function Details() {
   }, [dataSource]);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
       <FlatList
         data={dataSource}
         renderItem={renderList}
         ItemSeparatorComponent={() => (
-          <Divider style={{backgroundColor: colors.background, height: 1.5}} />
+          <Divider
+            style={{ backgroundColor: colors.background, height: 1.5 }}
+          />
         )}
       />
       {dataSource[1].title != 'Default' && (

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {Style} from './types';
-import {formatTimeString} from './utils';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { Style } from './types';
+import { formatTimeString } from './utils';
 
 interface TimerProps {
   start?: boolean;
@@ -74,12 +74,12 @@ class Timer extends Component<TimerProps, TimerStates> {
     this.interval = setInterval(() => {
       const remaining = endTime - new Date().getTime();
       if (remaining <= 1000) {
-        this.setState({remainingTime: 0});
+        this.setState({ remainingTime: 0 });
         this.stop();
         handleFinish();
         return;
       }
-      this.setState({remainingTime: remaining});
+      this.setState({ remainingTime: remaining });
     }, 1);
   }
 
@@ -97,7 +97,7 @@ class Timer extends Component<TimerProps, TimerStates> {
   }
 
   formatTime() {
-    const {getTime, getMsecs, msecs} = this.props;
+    const { getTime, getMsecs, msecs } = this.props;
     const now = this.state.remainingTime;
     const formatted = formatTimeString(now, msecs);
     if (typeof getTime === 'function') {

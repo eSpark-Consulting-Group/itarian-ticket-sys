@@ -1,10 +1,10 @@
-import React, {ReactNode} from 'react';
-import {Text, View} from 'react-native';
-import {useTheme, Theme} from '@react-navigation/native';
+import React, { ReactNode } from 'react';
+import { Text, View } from 'react-native';
+import { useTheme, Theme } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
-import {CstmPressable} from '../CstmPressable';
+import { CstmPressable } from '../CstmPressable';
 import GapView from '../GapView';
 
 const ModalHeader = ({
@@ -30,7 +30,7 @@ const ModalHeader = ({
   disabled?: boolean;
   searchHeader?: boolean;
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
 
   const solidColor = dark ? '#000000' : '#ffffff';
 
@@ -49,7 +49,7 @@ const ModalHeader = ({
           justifyContent: 'space-between',
         }}>
         <View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             {empty
               ? children
               : icon && (
@@ -57,26 +57,26 @@ const ModalHeader = ({
                     name={icon as string}
                     size={18}
                     color={colors.text}
-                    style={{alignSelf: 'center'}}
+                    style={{ alignSelf: 'center' }}
                   />
                 )}
             <GapView mode="horizontal" length={5} />
             {!icon && <GapView mode="horizontal" length={14} />}
-            <Text style={{...styles.title, color: colors.text}}>{title}</Text>
+            <Text style={{ ...styles.title, color: colors.text }}>{title}</Text>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             {subIcon && (
               <MCI
                 name={subIcon as string}
                 size={14}
                 color={colors.text}
-                style={{alignSelf: 'center', opacity: 0.5}}
+                style={{ alignSelf: 'center', opacity: 0.5 }}
               />
             )}
             {icon && <GapView mode="horizontal" length={18} />}
             <GapView mode="horizontal" length={5} />
             {subTitle && (
-              <Text style={{...styles.subTitle, color: colors.text}}>
+              <Text style={{ ...styles.subTitle, color: colors.text }}>
                 {subTitle}
               </Text>
             )}

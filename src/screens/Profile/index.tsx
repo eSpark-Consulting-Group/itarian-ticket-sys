@@ -1,16 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
-import styles from './style';
-import {useTheme, Theme} from '@react-navigation/native';
-import {AvatarContainer, FloatButton, SingleLineField} from '../../components';
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import { useTheme, Theme } from '@react-navigation/native';
+import { State, useHookstate } from '@hookstate/core';
+import { FlatList } from 'react-native-gesture-handler';
 
-import {State, useHookstate} from '@hookstate/core';
+import styles from './style';
+import {
+  AvatarContainer,
+  FloatButton,
+  SingleLineField,
+} from '../../components';
 import Images from '../../assets/Images';
-import {userStore} from '../../stores/userStore';
-import {filterUser, updateUser} from './utils';
-import {FlatList} from 'react-native-gesture-handler';
-import {SelectFields} from '../../types';
-import {dataFormatter, SelectItems} from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
+import { filterUser, updateUser } from './utils';
+import { SelectFields } from '../../types';
+import { dataFormatter } from '../../utils/helperFunctions';
 interface Item {
   headerTitle?: string;
   title: string | null | undefined;
@@ -28,8 +32,8 @@ interface Item {
   selectedItem?: SelectFields;
 }
 
-const Profile = ({route, navigation}: any) => {
-  const {colors, dark}: Theme = useTheme();
+const Profile = ({ route, navigation }: any) => {
+  const { colors, dark }: Theme = useTheme();
   const currStatus: State<boolean> = useHookstate(userStore.currentStatus);
   const user: State<any> = useHookstate(userStore.user);
   const [userObj, setUserObj] = useState<any>(null);
@@ -78,10 +82,10 @@ const Profile = ({route, navigation}: any) => {
       setUserObj(res);
       setUserData(dataSource);
     });
-  }
+  };
 
   useEffect(() => {
-    fetchUserDetails()
+    fetchUserDetails();
   }, [user]);
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
@@ -112,13 +116,13 @@ const Profile = ({route, navigation}: any) => {
           backgroundColor: dark ? '#0000008a' : '#ffffff8a',
         }}>
         <AvatarContainer source={Images.Avatar} />
-        <Text style={{fontWeight: 'bold', color: colors.text}}>
+        <Text style={{ fontWeight: 'bold', color: colors.text }}>
           {user.get()?.email ?? 'N/A'}
         </Text>
       </View>
       <FlatList
         data={userData || []}
-        renderItem={({item: user, index}: {item: Item; index: number}) => {
+        renderItem={({ item: user, index }: { item: Item; index: number }) => {
           return (
             <SingleLineField
               key={index}
@@ -134,8 +138,8 @@ const Profile = ({route, navigation}: any) => {
         icon="content-save-outline"
         onPress={async () => {
           const data = dataFormatter(userData, '_');
-          console.log("data data data", data);
-          
+          console.log('data data data', data);
+
           const dataObj = {
             data: {
               id: userObj?.id,
@@ -145,7 +149,7 @@ const Profile = ({route, navigation}: any) => {
                 user_name: userObj?.attributes?.user_name,
                 last_name: data?.last_name,
                 first_name: data?.first_name,
-                password: "admin1",
+                password: 'admin1',
                 company: userObj?.attributes?.user_name,
                 is_active: Boolean(userObj?.attributes?.is_active),
                 ext: data?.ext,
@@ -157,7 +161,7 @@ const Profile = ({route, navigation}: any) => {
             },
           };
           await updateUser(userObj?.id, dataObj);
-          fetchUserDetails()
+          fetchUserDetails();
         }}
       />
     </View>

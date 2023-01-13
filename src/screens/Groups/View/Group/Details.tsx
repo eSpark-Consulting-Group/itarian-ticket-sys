@@ -1,28 +1,29 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  FlatList,
-  KeyboardTypeOptions,
-  Alert,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, Alert } from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
-import {FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
-import {DataItem as Item} from '../../../../types';
-import {SelectItems} from '../../../../utils/helperFunctions';
+import { Divider } from 'react-native-paper';
+
+import {
+  FloatButton,
+  GapView,
+  Loader,
+  SingleLineField,
+} from '../../../../components';
+import { DataItem as Item } from '../../../../types';
+import { SelectItems } from '../../../../utils/helperFunctions';
 import { deleteGroup } from '../../utils/functions';
 
 export default function Details() {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const groupDetails = routes?.params?.groupDetails;
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: groupDetails?.attributes?.name ?? '',
@@ -37,59 +38,58 @@ export default function Details() {
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.status),
       showRightSwitch: true,
-      key: 'status'
+      key: 'status',
     },
     {
       title: 'Can Create Ticket',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_create_ticket),
       showRightSwitch: true,
-      key: 'can_create_ticket'
+      key: 'can_create_ticket',
     },
     {
       title: 'Can Edit Ticket',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_edit_ticket),
       showRightSwitch: true,
-      key: 'can_edit_ticket'
+      key: 'can_edit_ticket',
     },
     {
       title: 'Can Post Ticket',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_post_ticket),
       showRightSwitch: true,
-      key: 'can_post_ticket'
+      key: 'can_post_ticket',
     },
     {
       title: 'Can Close Ticket',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_close_ticket),
       showRightSwitch: true,
-      key: 'can_close_ticket'
+      key: 'can_close_ticket',
     },
     {
       title: 'Can Assign Ticket',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_assign_ticket),
       showRightSwitch: true,
-      key: 'can_assign_ticket'
+      key: 'can_assign_ticket',
     },
     {
       title: 'Can Delete Ticket',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_delete_ticket),
       showRightSwitch: true,
-      key: 'can_delete_ticket'
+      key: 'can_delete_ticket',
     },
     {
       title: 'Can Ban Email',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_ban_email),
       showRightSwitch: true,
-      key: 'can_ban_email'
+      key: 'can_ban_email',
     },
   ]);
-  
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
@@ -103,7 +103,7 @@ export default function Details() {
     setDataSource(tempArr);
   };
 
-  const renderList = ({item, index}: {item: Item; index: number}) => {
+  const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
       <SingleLineField
         key={index}
@@ -128,19 +128,18 @@ export default function Details() {
   };
 
   const deleteFunc = (id: number) => {
-    setLoader(true)
+    setLoader(true);
     deleteGroup(id)
-    .then(res => {
-      setLoader(false)
-      if(res?.status) {
-        navigation?.goBack()
-      }
-    })
-    .catch((err) => {
-      setLoader(false)
-    })
-  
-  }
+      .then(res => {
+        setLoader(false);
+        if (res?.status) {
+          navigation?.goBack();
+        }
+      })
+      .catch(err => {
+        setLoader(false);
+      });
+  };
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
@@ -161,13 +160,13 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     Data[Data?.length] = {
       title: groupDetails?.id,
-      subTitle: "id",
-    }
+      subTitle: 'id',
+    };
     navigation?.setParams({
       ...routes?.params,
       data: Data,
@@ -175,35 +174,41 @@ export default function Details() {
   }, [dataSource]);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
       <FlatList
         data={dataSource}
         renderItem={renderList}
         ItemSeparatorComponent={() => (
-          <Divider style={{backgroundColor: colors.background, height: 1.5}} />
+          <Divider
+            style={{ backgroundColor: colors.background, height: 1.5 }}
+          />
         )}
       />
-      {dataSource[1].title != "Default" &&
-      <FloatButton icon='delete' onPress={() => {
-          Alert.alert(
-            'Delete Group?',
-            'Are you sure you want to delete this Group permanently?',
-            [
-              {
-                text: 'Yes',
-                style: 'default',
-                onPress: () => deleteFunc(groupDetails?.id),
-              },
-              {
-                text: 'No',
-                style: 'cancel',
-                onPress: () => console.log('Pressed Cancel on Delete'),
-              },
-            ],
-          );
-      }}/> }
+      {dataSource[1].title != 'Default' && (
+        <FloatButton
+          icon="delete"
+          onPress={() => {
+            Alert.alert(
+              'Delete Group?',
+              'Are you sure you want to delete this Group permanently?',
+              [
+                {
+                  text: 'Yes',
+                  style: 'default',
+                  onPress: () => deleteFunc(groupDetails?.id),
+                },
+                {
+                  text: 'No',
+                  style: 'cancel',
+                  onPress: () => console.log('Pressed Cancel on Delete'),
+                },
+              ],
+            );
+          }}
+        />
+      )}
     </View>
   );
 }

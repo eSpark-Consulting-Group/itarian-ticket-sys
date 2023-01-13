@@ -1,5 +1,6 @@
-import {hookstate} from '@hookstate/core';
-import {User} from '../types';
+import { hookstate } from '@hookstate/core';
+
+import { User } from '../types';
 
 export const userStore: User = hookstate({
   // Current Status indicates the user Office Check-in Status
@@ -22,5 +23,5 @@ export const userStore: User = hookstate({
   },
   pinCode: null,
   users: [],
-  userDetails: null
+  userDetails: null,
 });

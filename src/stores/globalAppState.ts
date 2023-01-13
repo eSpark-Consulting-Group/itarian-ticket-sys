@@ -1,4 +1,4 @@
-import {hookstate} from '@hookstate/core';
+import { hookstate } from '@hookstate/core';
 
 export const globalState = hookstate({
   theme: 'light',
@@ -76,13 +76,14 @@ export const globalState = hookstate({
   defaultScreenName: 'Tickets',
   defaultnNavigationName: '',
   shortCutScreen: null,
-  agendaMember: {name: 'Select Member'},
+  agendaMember: { name: 'Select Member' },
   calendarMember: 'Select Member',
   ticketStatus: [],
   ticketPriorities: [],
   teams: [],
   slaPlans: [],
   ticketpriorities: [],
+  ticketstatus: [],
   departments: [],
   locations: [],
   helpTopics: [],
@@ -90,5 +91,5 @@ export const globalState = hookstate({
   groups: [],
   locationToken: null,
   countries: null,
-  states: null
+  states: null,
 });

@@ -1,20 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
-import {useHookstate} from '@hookstate/core';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { useHookstate } from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
 
-import { ModalView, SingleLineField} from '../../components';
-import { DataItem as Item} from '../../types';
-import { SelectItems} from '../../utils/helperFunctions';
-import {globalState} from '../../stores/globalAppState';
+import { ModalView, SingleLineField } from '../../components';
+import { DataItem as Item } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
+import { globalState } from '../../stores/globalAppState';
 import { userStore } from '../../stores/userStore';
 
-export default function NewTicket({route, navigation}: any) {
-  const ticketPriorities: any = useHookstate(globalState?.ticketPriorities)
-  const slaPlans: any = useHookstate(globalState?.slaPlans)
-  const helpTopics: any = useHookstate(globalState?.helpTopics)
-  const users: any = useHookstate(userStore?.users)
-  
+export default function NewTicket({ route, navigation }: any) {
+  const ticketPriorities: any = useHookstate(globalState?.ticketPriorities);
+  const slaPlans: any = useHookstate(globalState?.slaPlans);
+  const helpTopics: any = useHookstate(globalState?.helpTopics);
+  const users: any = useHookstate(userStore?.users);
+
   const [showDate, setShowDate] = useState(false);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
@@ -23,7 +23,7 @@ export default function NewTicket({route, navigation}: any) {
       inputable: true,
       enable: false,
       isRequired: true,
-      key: 'subject'
+      key: 'subject',
     },
     {
       title: '',
@@ -32,7 +32,7 @@ export default function NewTicket({route, navigation}: any) {
       enable: false,
       mode: 'multiline',
       isRequired: true,
-      key: 'detail'
+      key: 'detail',
     },
     {
       title: 'Please Select',
@@ -41,7 +41,7 @@ export default function NewTicket({route, navigation}: any) {
       onPress: () => {
         setShowDate(true);
       },
-      key: 'duedate'
+      key: 'duedate',
     },
     {
       title: 'Please Select',
@@ -51,17 +51,18 @@ export default function NewTicket({route, navigation}: any) {
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'user'
+      key: 'user',
     },
     {
       title: 'Please Select',
       subTitle: 'Help Topic',
-      list: helpTopics.get().map((value: any) => {
-        return {
-          ...value?.attributes,
-          id: value?.id,
-        };
-      }) || [],
+      list:
+        helpTopics.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
       selectedItem: undefined,
       headerTitle: 'Parent Topic',
       rightIcon: 'chevron-right',
@@ -92,17 +93,17 @@ export default function NewTicket({route, navigation}: any) {
       headerTitle: 'SLA Plan',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'slaplan'
+      key: 'slaplan',
     },
     {
       title: 'Please Select',
       subTitle: 'Ticket Priority',
-      list: ticketPriorities.get()|| [],
+      list: ticketPriorities.get() || [],
       selectedItem: undefined,
       headerTitle: 'Ticket Priority',
       rightIcon: 'chevron-right',
       isRequired: true,
-      key: 'ticketpriority'
+      key: 'ticketpriority',
     },
   ]);
 
@@ -125,7 +126,7 @@ export default function NewTicket({route, navigation}: any) {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     navigation?.setParams({

@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import {Theme, useTheme} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
 import MI from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
-import {useUpdateEffect} from '../../utils/hooks';
+import { useUpdateEffect } from '../../utils/hooks';
 
 const CstmDropDown = ({
   dataSource,
@@ -21,28 +21,31 @@ const CstmDropDown = ({
   handleToggle?: (type: string) => void;
   title?: string;
 }) => {
-  const [label, setLabel] = useState<{name?: string; id?: string}>({
+  const [label, setLabel] = useState<{ name?: string; id?: string }>({
     name: '',
     id: '',
   });
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const borderColor = dark ? '#ffffff80' : '#00000080';
 
   useUpdateEffect(() => {
     handleLabel?.(label, type); //? to Send the Selected Label to parent
   }, [label]);
 
-  const renderList = ({item, index}: {item: any; index: number}) => {
+  const renderList = ({ item, index }: { item: any; index: number }) => {
     return (
       <TouchableOpacity
-        style={{backgroundColor: colors.primary}}
+        style={{ backgroundColor: colors.primary }}
         onPress={() => {
           setLabel(item); //? to Change the Label of the Dropdown
           handleToggle?.(type); //? to Toggle the Dropdown
         }}>
         <View
-          style={{backgroundColor: colors.background, ...styles.itemContainer}}>
-          <Text style={{color: colors.text, ...styles.itemText}}>
+          style={{
+            backgroundColor: colors.background,
+            ...styles.itemContainer,
+          }}>
+          <Text style={{ color: colors.text, ...styles.itemText }}>
             {item.name}
           </Text>
         </View>
@@ -66,7 +69,7 @@ const CstmDropDown = ({
             ...styles.dropdownLabelContainer,
           }}>
           <View style={styles.dropdownLabelInner}>
-            <Text style={{color: colors.text, ...styles.dropDownText}}>
+            <Text style={{ color: colors.text, ...styles.dropDownText }}>
               {label.name == '' ? 'Select an Item...' : label.name}
             </Text>
             {toggleValue ? (
@@ -90,7 +93,7 @@ const CstmDropDown = ({
           />
         </View>
       )}
-      <View style={{height: 10}} />
+      <View style={{ height: 10 }} />
     </View>
   );
 };

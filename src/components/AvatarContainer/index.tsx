@@ -1,13 +1,18 @@
-import {View, Image} from 'react-native';
 import React from 'react';
-import {Theme, useTheme} from '@react-navigation/native';
-import PropTypes from 'prop-types';
-import {moderateScale} from 'react-native-size-matters';
+import { View, Image, ImageURISource } from 'react-native';
+import { Theme, useTheme } from '@react-navigation/native';
+import { moderateScale } from 'react-native-size-matters';
 
 import styles from './style';
 
-const AvatarContainer = ({source, size}: {source: any; size: any}) => {
-  const {colors}: Theme = useTheme();
+const AvatarContainer = ({
+  source,
+  size,
+}: {
+  source: ImageURISource;
+  size?: number;
+}) => {
+  const { colors }: Theme = useTheme();
   return (
     <View
       style={{
@@ -27,11 +32,6 @@ const AvatarContainer = ({source, size}: {source: any; size: any}) => {
       />
     </View>
   );
-};
-
-AvatarContainer.propTypes = {
-  source: PropTypes.any,
-  size: PropTypes.any,
 };
 
 export default AvatarContainer;

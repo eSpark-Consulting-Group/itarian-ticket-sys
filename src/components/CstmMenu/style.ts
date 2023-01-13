@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {moderateScale} from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 
 export const styles = StyleSheet.create({
   menuItemButtonStyle: {

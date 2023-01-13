@@ -1,26 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, KeyboardTypeOptions, Alert} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, Alert } from 'react-native';
 import {
   useTheme,
   Theme,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
+import { Divider } from 'react-native-paper';
+import { useHookstate } from '@hookstate/core';
+
 import {
   FloatButton,
   GapView,
   Loader,
   SingleLineField,
 } from '../../../../components';
-import {DataItem as Item} from '../../../../types';
-import {SelectItems} from '../../../../utils/helperFunctions';
-import {deleteLocation, getStates} from '../../utils/functions';
-import { useHookstate } from '@hookstate/core';
+import { DataItem as Item } from '../../../../types';
+import { SelectItems } from '../../../../utils/helperFunctions';
+import { deleteLocation, getStates } from '../../utils/functions';
 import { globalState } from '../../../../stores/globalAppState';
 
 export default function Details() {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const locationDetails = routes?.params?.locationDetails;
@@ -42,7 +43,9 @@ export default function Details() {
       title: locationDetails?.attributes?.country ?? 'Please Select',
       subTitle: 'Country',
       list: countries || [],
-      selectedItem: countries?.find((value: any) => value?.name == locationDetails?.attributes?.country),
+      selectedItem: countries?.find(
+        (value: any) => value?.name == locationDetails?.attributes?.country,
+      ),
       enable: true,
       isRequired: true,
       searchable: true,
@@ -50,7 +53,7 @@ export default function Details() {
       key: 'country',
     },
     {
-      title: locationDetails?.attributes?.state ?? "Please Select",
+      title: locationDetails?.attributes?.state ?? 'Please Select',
       subTitle: 'State',
       list: states || [],
       selectedItem: undefined,
@@ -106,7 +109,7 @@ export default function Details() {
     setDataSource(tempArr);
   };
 
-  const renderList = ({item, index}: {item: Item; index: number}) => {
+  const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
       <SingleLineField
         key={index}
@@ -158,7 +161,7 @@ export default function Details() {
       var obj: any = [...dataSource];
       obj[routes?.params?.item].title = routes?.params?.selected?.name;
       obj[routes?.params?.item].selectedItem = routes?.params?.selected;
-      
+
       if (routes?.params?.item == 1) {
         setLoader(true);
         getStates(routes?.params?.selected?.name).then((res: any) => {
@@ -183,7 +186,7 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
-        key: item?.key
+        key: item?.key,
       }),
     );
     Data[Data?.length] = {
@@ -197,26 +200,30 @@ export default function Details() {
   }, [dataSource]);
 
   useEffect(() => {
-    const obj: any = [...dataSource]
+    const obj: any = [...dataSource];
     getStates(locationDetails?.attributes?.country).then((res: any) => {
-      const selected = res?.find((value: any) => value?.name == locationDetails?.attributes?.state)
+      const selected = res?.find(
+        (value: any) => value?.name == locationDetails?.attributes?.state,
+      );
       obj[2].selectedItem = selected;
-      obj[2].title = selected?.name ?? "Please Select";
+      obj[2].title = selected?.name ?? 'Please Select';
       obj[2].list = res;
       setDataSource([...obj]);
       setLoader(false);
     });
-  }, [locationDetails])
+  }, [locationDetails]);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
       <FlatList
         data={dataSource}
         renderItem={renderList}
         ItemSeparatorComponent={() => (
-          <Divider style={{backgroundColor: colors.background, height: 1.5}} />
+          <Divider
+            style={{ backgroundColor: colors.background, height: 1.5 }}
+          />
         )}
       />
       {dataSource[1].title != 'Default' && (

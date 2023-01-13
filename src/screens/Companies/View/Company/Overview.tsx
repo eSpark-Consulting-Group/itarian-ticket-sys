@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, ScrollView, Linking, View} from 'react-native';
-import {moderateScale} from 'react-native-size-matters';
-import {useHookstate, State} from '@hookstate/core';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
+import { useHookstate, State } from '@hookstate/core';
 
-import {SingleLineField} from '../../../../components';
-import {DataItem as Item} from '../../../../types';
-import {SelectItems} from '../../../../utils/helperFunctions';
-import {globalState} from '../../../../stores/globalAppState';
-import {useRoute, useNavigation} from '@react-navigation/native';
+import { SingleLineField } from '../../../../components';
+import { DataItem as Item } from '../../../../types';
+import { SelectItems } from '../../../../utils/helperFunctions';
+import { globalState } from '../../../../stores/globalAppState';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
-import {userStore} from '../../../../stores/userStore';
+import { userStore } from '../../../../stores/userStore';
 
 const Overview = () => {
   const dNavName: State<string> = useHookstate(
@@ -118,13 +117,12 @@ const Overview = () => {
       ...routes?.params,
       data: Data,
     });
-   
   }, [dataSource]);
 
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={{alignItems: 'center'}}>
+      contentContainerStyle={{ alignItems: 'center' }}>
       {dataSource?.map((item, index) => (
         <SingleLineField
           key={index}

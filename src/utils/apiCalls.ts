@@ -1,13 +1,17 @@
 import { State } from '@hookstate/core';
-import {api} from '../api';
-import {getAllUsers} from '../screens/Agenda/utils/functions';
-import {getAllCompanies} from '../screens/Companies/utils/functions';
+
+import { api } from '../api';
+import { getAllUsers } from '../screens/Agenda/utils/functions';
+import { getAllCompanies } from '../screens/Companies/utils/functions';
 import { getAllHelpTopics } from '../screens/HelpTopic/utils/functions';
-import { getCountries, getLocationToken } from '../screens/Locations/utils/functions';
+import {
+  getCountries,
+  getLocationToken,
+} from '../screens/Locations/utils/functions';
 import { filterUser } from '../screens/Profile/utils';
 import { getAllSlaPlans } from '../screens/SlaPlans/utils/functions';
-import {globalState} from '../stores/globalAppState';
-import {userStore} from '../stores/userStore';
+import { globalState } from '../stores/globalAppState';
+import { userStore } from '../stores/userStore';
 
 export const badgeApiCallForGlobalList = () => {
   const user: State<any> = userStore?.user;
@@ -18,12 +22,12 @@ export const badgeApiCallForGlobalList = () => {
   getAllSlaPlans();
   getAllHelpTopics();
   filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
-    userStore?.userDetails?.set(res)
+    userStore?.userDetails?.set(res);
   });
-  getLocationToken()
+  getLocationToken();
   setTimeout(() => {
-    getCountries()
-  }, 2000)
+    getCountries();
+  }, 2000);
 };
 
 const getTicketStatus = async () => {

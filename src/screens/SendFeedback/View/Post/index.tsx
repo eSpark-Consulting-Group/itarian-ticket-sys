@@ -1,15 +1,13 @@
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   Text,
   View,
   FlatList,
   Image,
   ScrollView,
-  Modal,
   TouchableWithoutFeedback,
   UIManager,
   Platform,
-  LayoutAnimation,
   Animated,
 } from 'react-native';
 import {
@@ -31,9 +29,9 @@ import {
   deleteVote,
   deleteComment,
 } from '../../utils';
-import {CstmPressable, GapView, Loader} from '../../../../components';
-import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../../../constants';
-import {Vote, Vote_CD} from '../../../../types';
+import { CstmPressable, GapView, Loader } from '../../../../components';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../../constants';
+import { Vote, Vote_CD } from '../../../../types';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -42,7 +40,7 @@ if (Platform.OS === 'android') {
 }
 
 export default function Post() {
-  const {colors, dark} = useTheme();
+  const { colors, dark } = useTheme();
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const [loading, setLoading] = useState(false);
@@ -54,14 +52,14 @@ export default function Post() {
   const [selectedCommentId, setSelectedCommentId] = useState<string>('');
   const transAnim = useRef(new Animated.Value(100)).current;
 
-  const {id, userInfo} = route?.params;
+  const { id, userInfo } = route?.params;
 
   useFocusEffect(
     useCallback(() => {
       console.log(id, userInfo);
       fetchPostDetail(id, false);
       fetchPostComments(id);
-      fetchPostVotes({postID: id, userID: userInfo.id});
+      fetchPostVotes({ postID: id, userID: userInfo.id });
       //? will fetch votes for current user for the current post
     }, [route?.params]),
   );
@@ -95,7 +93,7 @@ export default function Post() {
     if (!voteFlag) {
       setLoading(true);
     }
-    getPostDetails({id})
+    getPostDetails({ id })
       .then(res => {
         if (res.ok) {
           handlePostDetails(res?.data);
@@ -111,7 +109,7 @@ export default function Post() {
   const fetchPostComments = (postID: string) => {
     // call the function
     setCommLoad(true);
-    getComments({postID})
+    getComments({ postID })
       .then(res => {
         if (res.ok) {
           hideMenu();
@@ -175,7 +173,7 @@ export default function Post() {
   };
 
   const handleDeleteComment = () => {
-    deleteComment({commentID: selectedCommentId})
+    deleteComment({ commentID: selectedCommentId })
       .then(res => {
         if (res.ok) {
           console.log('Successfully Deleted', res.data);
@@ -216,7 +214,7 @@ export default function Post() {
         }}>
         <Pinchable>
           <Image
-            source={{uri: item}}
+            source={{ uri: item }}
             style={{
               width: '100%',
               height: '100%',
@@ -260,12 +258,14 @@ export default function Post() {
                 height: 30,
                 borderRadius: 30,
               }}>
-              <Text style={{color: '#fff', fontWeight: 'bold'}}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>
                 {postDetail?.author?.name.substring(0, 1).toUpperCase()}
               </Text>
             </View>
             <GapView mode="horizontal" length={5} />
-            <Text style={{color: colors.text}}>{postDetail?.author?.name}</Text>
+            <Text style={{ color: colors.text }}>
+              {postDetail?.author?.name}
+            </Text>
             <View
               style={{
                 width: 4,
@@ -277,13 +277,13 @@ export default function Post() {
                 marginTop: 8,
               }}
             />
-            <Text style={{color: colors.text}}>
+            <Text style={{ color: colors.text }}>
               {moment(postDetail?.created).fromNow()}
             </Text>
           </View>
           <CstmPressable
-            style={{display: 'none'}}
-            android_ripple={{borderless: true}}>
+            style={{ display: 'none' }}
+            android_ripple={{ borderless: true }}>
             <MCI
               name="dots-horizontal"
               size={22}
@@ -295,11 +295,11 @@ export default function Post() {
             />
           </CstmPressable>
         </View>
-        <Text style={{color: colors.text, fontSize: 24}}>
+        <Text style={{ color: colors.text, fontSize: 24 }}>
           {postDetail?.title}
         </Text>
         <GapView mode="vertical" />
-        <Text style={{color: colors.text, opacity: 0.7}}>
+        <Text style={{ color: colors.text, opacity: 0.7 }}>
           {postDetail?.details}
         </Text>
         <FlatList
@@ -317,14 +317,14 @@ export default function Post() {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <CstmPressable
-              style={{flexDirection: 'row'}}
-              android_ripple={{borderless: true}}
+              style={{ flexDirection: 'row' }}
+              android_ripple={{ borderless: true }}
               onPress={() =>
                 navigation.navigate('Stack2', {
                   screen: 'CreateComment',
-                  params: {...route?.params},
+                  params: { ...route?.params },
                 })
               }>
               <MCI
@@ -348,11 +348,11 @@ export default function Post() {
             </CstmPressable>
             <GapView mode="horizontal" length={20} />
             <CstmPressable
-              android_ripple={{borderless: true}}
+              android_ripple={{ borderless: true }}
               onPress={() =>
                 userVoted == true
-                  ? handleDeleteVote({postID: id, voterID: userInfo.id})
-                  : handleCreateVote({postID: id, voterID: userInfo.id})
+                  ? handleDeleteVote({ postID: id, voterID: userInfo.id })
+                  : handleCreateVote({ postID: id, voterID: userInfo.id })
               }>
               <View
                 style={{
@@ -397,7 +397,7 @@ export default function Post() {
         scrollEnabled={false}
         data={commDetail?.comments}
         ListHeaderComponent={<PostBox display={postDetail ? 'flex' : 'none'} />}
-        ListHeaderComponentStyle={{marginBottom: 8}}
+        ListHeaderComponentStyle={{ marginBottom: 8 }}
         renderItem={renderComments}
         ListEmptyComponent={
           <View
@@ -418,7 +418,7 @@ export default function Post() {
         }
         ListFooterComponent={() => <GapView />}
         ItemSeparatorComponent={() => (
-          <View style={{backgroundColor: colors.background}}>
+          <View style={{ backgroundColor: colors.background }}>
             <GapView length={1} />
           </View>
         )}
@@ -426,7 +426,7 @@ export default function Post() {
     );
   };
 
-  const CommentComponent = ({item, index}: {item: any; index?: number}) => {
+  const CommentComponent = ({ item, index }: { item: any; index?: number }) => {
     let replyCount = 0;
     {
       commDetail?.comments?.map((item2: any, index: number) => {
@@ -436,7 +436,7 @@ export default function Post() {
       });
     }
     return (
-      <View style={{paddingHorizontal: 15}}>
+      <View style={{ paddingHorizontal: 15 }}>
         <View
           style={{
             flexDirection: 'row',
@@ -457,12 +457,12 @@ export default function Post() {
                 height: 20,
                 borderRadius: 20,
               }}>
-              <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 10}}>
+              <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 10 }}>
                 {item?.author?.name.substring(0, 1).toUpperCase()}
               </Text>
             </View>
             <GapView mode="horizontal" length={5} />
-            <Text style={{color: colors.text, fontSize: 12}}>
+            <Text style={{ color: colors.text, fontSize: 12 }}>
               {item?.author?.name}
             </Text>
             <View
@@ -476,7 +476,7 @@ export default function Post() {
                 marginTop: 8,
               }}
             />
-            <Text style={{color: colors.text, fontSize: 12}}>
+            <Text style={{ color: colors.text, fontSize: 12 }}>
               {moment(item?.created).fromNow()}
             </Text>
           </View>
@@ -487,7 +487,7 @@ export default function Post() {
                 justifyContent: 'center',
                 display: userInfo.id === item?.author?.id ? 'flex' : 'none',
               }}
-              android_ripple={{borderless: true}}
+              android_ripple={{ borderless: true }}
               onPress={() => {
                 openModal(item, userInfo);
               }}>
@@ -517,19 +517,19 @@ export default function Post() {
             <GapView mode="horizontal" length={10} />
           )}
           data={item?.imageURLs}
-          renderItem={({item, index}) =>
-            renderImageList({item, index, flag: true})
+          renderItem={({ item, index }) =>
+            renderImageList({ item, index, flag: true })
           }
         />
         <GapView />
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={{ flexDirection: 'row' }}>
             <CstmPressable
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              android_ripple={{borderless: true}}
+              android_ripple={{ borderless: true }}
               onPress={() => {
                 console.log('==xx>>>', item);
                 navigation.navigate('Stack2', {
@@ -540,7 +540,7 @@ export default function Post() {
                   },
                 });
               }}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <MCI
                   name="chat"
                   size={16}
@@ -563,7 +563,7 @@ export default function Post() {
             </CstmPressable>
             <GapView mode="horizontal" length={20} />
             <CstmPressable
-              android_ripple={{borderless: true}}
+              android_ripple={{ borderless: true }}
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -571,7 +571,7 @@ export default function Post() {
               onPress={() => {
                 console.log('comment item', item);
               }}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <MCI
                   name="arrow-up-thick"
                   size={16}
@@ -599,7 +599,7 @@ export default function Post() {
     );
   };
 
-  const renderComments = ({item, index}: {item: any; index: number}) => {
+  const renderComments = ({ item, index }: { item: any; index: number }) => {
     return (
       <>
         {item.parentID == null && (
@@ -634,7 +634,7 @@ export default function Post() {
   return (
     <>
       <Loader isShow={loading || commLoad} />
-      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingTop: 10,
@@ -667,7 +667,7 @@ export default function Post() {
           padding: 10,
           justifyContent: 'center',
           width: WINDOW_WIDTH,
-          transform: [{translateY: transAnim}],
+          transform: [{ translateY: transAnim }],
           backgroundColor: dark ? colors.background : colors.card,
         }}>
         <View
@@ -679,8 +679,8 @@ export default function Post() {
             onPress={() => {
               handleDeleteComment();
             }}
-            style={{borderRadius: 10}}
-            android_ripple={{borderless: true}}>
+            style={{ borderRadius: 10 }}
+            android_ripple={{ borderless: true }}>
             <View
               style={{
                 borderRadius: 10,

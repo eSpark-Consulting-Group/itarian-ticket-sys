@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {WINDOW_WIDTH} from '../../constants';
+import { WINDOW_WIDTH } from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   dividerStyle: {
     opacity: 0.2,
-    transform: [{scale: 2}],
+    transform: [{ scale: 2 }],
   },
 });
 

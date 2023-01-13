@@ -1,6 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {moderateVerticalScale} from 'react-native-size-matters';
-import {WINDOW_HEIGHT} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { moderateVerticalScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {

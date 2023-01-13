@@ -1,5 +1,5 @@
-import {KeyboardTypeOptions, ViewStyle} from 'react-native';
-import {User} from './globalState';
+import { KeyboardTypeOptions } from 'react-native';
+import { User, UserInfo } from './globalState';
 
 /*
 //* Types for all list Data
@@ -81,11 +81,42 @@ export type ParamList = {
   Teams: undefined;
   SlaPlan: undefined;
   TicketPriorities: undefined;
+  TicketStatus: undefined;
   Departments: undefined;
   Locations: undefined;
   HelpTopics: undefined;
   CannedResponse: undefined;
   Groups: undefined;
+};
+
+export type RootStackParamList = {
+  MyStatus: { status: boolean };
+  STickets: { title: string };
+  Company: { title: string };
+  NewCompany: { title: string };
+  NewUser: { title: string };
+  Contact1: undefined;
+  Activities: undefined;
+  NewTicket: undefined;
+  CreatePost: undefined;
+  Post: { id: string };
+  TeamDetails: undefined;
+  SlaPlanDetails: undefined;
+  TicketPriorityDetails: undefined;
+  TicketStatusDetails: undefined;
+  DepartmentDetails: undefined;
+  LocationDetails: undefined;
+  HelpTopicDetails: undefined;
+  CannedResponseDetails: undefined;
+  GroupDetails: undefined;
+  NewTeam: { title: string };
+  NewSlaPlans: { title: string };
+  NewTicketPriorities: { title: string };
+  NewDepartment: { title: string };
+  NewLocation: { title: string };
+  NewHelpTopic: { title: string };
+  NewCannedResponse: { title: string };
+  NewGroup: { title: string };
 };
 
 export type Stopwatch = {
@@ -265,4 +296,4 @@ export interface DataItem {
   contacts?: ContactList[] | null | undefined;
 }
 
-export type {User};
+export type { User, UserInfo };

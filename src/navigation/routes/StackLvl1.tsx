@@ -1,34 +1,44 @@
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import II from 'react-native-vector-icons/Ionicons';
 import FA from 'react-native-vector-icons/FontAwesome';
 import { Theme, useTheme } from '@react-navigation/native';
 import { State, useHookstate } from '@hookstate/core';
+import moment from 'moment';
 
 import { goBack, saveStatus } from '../utils/headerFunctions';
-
-import STickets from '../../forms/ServiceTickets';
+import {
+  ServiceTickets as STickets,
+  NewCompany,
+  NewTicket,
+  CreatePost,
+  NewTeam,
+  NewSlaPlans,
+  NewTicketPriorities,
+  NewDepartment,
+  NewLocation,
+  NewHelpTopic,
+  NewUser as NewContact,
+  NewCannedResponse,
+  NewGroup,
+} from '../../forms';
+import { RootStackParamList } from '../../types';
 import Contact1 from '../../screens/Contacts/View/Contacts';
 import TeamDetails from '../../screens/Teams/View/Teams';
 import SlaPlanDetails from '../../screens/SlaPlans/View/SlaPlans/Details';
 import Company from '../../screens/Companies/View/Company';
-import NewCompany from '../../forms/NewCompany';
 import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
-import NewTicket from '../../forms/NewTicket';
-import CreatePost from '../../forms/CreatePost';
 import { userStore } from '../../stores/userStore';
 import { checkValidations, dataFormatter } from '../../utils/helperFunctions';
 import { Post } from '../../screens';
-import NewTeam from '../../forms/NewTeam';
 import { addTeam, updateTeam } from '../../screens/Teams/utils/functions';
-import NewSlaPlans from '../../forms/NewSlaPlans';
 import {
   addSlaPlans,
   updateSlaPlan,
 } from '../../screens/SlaPlans/utils/functions';
 import TicketPriorityDetails from '../../screens/TicketPriorities/View/TicketPriorities/index';
-import NewTicketPriorities from '../../forms/NewTicketPriorities';
+import TicketStatusDetails from '../../screens/TicketStatus/View';
 import DepartmentDetails from '../../screens/Departments/View/Department/index';
 import LocationDetails from '../../screens/Locations/View/Location/index';
 import HelpTopicDetails from '../../screens/HelpTopic/View/HelpTopic/index';
@@ -43,63 +53,27 @@ import {
   addDepartment,
   updateDepartment,
 } from '../../screens/Departments/utils/functions';
-import NewDepartment from '../../forms/NewDepartment';
-import NewLocation from '../../forms/NewLocation';
 import {
   addLocation,
   updateLocation,
 } from '../../screens/Locations/utils/functions';
-import NewHelpTopic from '../../forms/NewHelpTopic';
 import {
   addHelpTopic,
   updateHelpTopic,
 } from '../../screens/HelpTopic/utils/functions';
-import moment from 'moment';
 import { addTicket, updateTicket } from '../../screens/Agenda/utils/functions';
 import {
   addOrganization,
   updateOrganization,
 } from '../../screens/Companies/utils/functions';
-import NewContact from '../../forms/NewUser';
 import { addUser, updateUser } from '../../screens/Contacts/utils/functions';
 import {
   addCannedResponse,
   updateCannedResponse,
 } from '../../screens/CannedResponse/utils/functions';
-import NewCannedResponse from '../../forms/NewCannedResponse';
-import NewGroup from '../../forms/NewGroup';
 import { addGroup, updateGroup } from '../../screens/Groups/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
-export type RootStackParamList = {
-  MyStatus: { status: boolean };
-  STickets: { title: string };
-  Company: { title: string };
-  NewCompany: { title: string };
-  NewUser: { title: string };
-  Contact1: undefined;
-  Activities: undefined;
-  NewTicket: undefined;
-  CreatePost: undefined;
-  Post: { id: string };
-  TeamDetails: undefined;
-  SlaPlanDetails: undefined;
-  TicketPriorityDetails: undefined;
-  DepartmentDetails: undefined;
-  LocationDetails: undefined;
-  HelpTopicDetails: undefined;
-  CannedResponseDetails: undefined;
-  GroupDetails: undefined;
-  NewTeam: { title: string };
-  NewSlaPlans: { title: string };
-  NewTicketPriorities: { title: string };
-  NewDepartment: { title: string };
-  NewLocation: { title: string };
-  NewHelpTopic: { title: string };
-  NewCannedResponse: { title: string };
-  NewGroup: { title: string };
-};
 
 const StackLvl1 = ({ route, navigation }: any) => {
   const { colors }: Theme = useTheme();
@@ -661,6 +635,59 @@ const StackLvl1 = ({ route, navigation }: any) => {
         component={TicketPriorityDetails}
         options={({ route, navigation }: any) => ({
           title: 'Ticket Priority Details',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => {
+            return (
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'ticketpriorities',
+                        attributes: {
+                          name: data?.name,
+                          description: data?.description,
+                          status: data?.Status,
+                          color: data?.color,
+                          is_public: data?.IsPublic,
+                        },
+                      },
+                    };
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateTicketPriorities,
+                      obj,
+                      'Ticket Priority updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="TicketStatusDetails"
+        component={TicketStatusDetails}
+        options={({ route, navigation }: any) => ({
+          title: 'Ticket Status Details',
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II

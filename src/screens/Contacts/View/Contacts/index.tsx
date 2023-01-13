@@ -1,9 +1,8 @@
-import { useRoute } from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View, Platform, UIManager} from 'react-native';
-import {TabView, SceneMap} from 'react-native-tab-view';
+import { Platform, UIManager } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
-import {ModalHeader, ModalView, CstmTabBar} from '../../../../components';
+import { ModalHeader, ModalView } from '../../../../components';
 import Communications from './Communications';
 
 if (
@@ -14,22 +13,16 @@ if (
 }
 
 export default function App() {
-  const routes: any = useRoute()
-  const contactDetails = routes?.params?.contactDetails
+  const routes: any = useRoute();
+  const contactDetails = routes?.params?.contactDetails;
   return (
     <ModalView>
       <ModalHeader
         title={contactDetails?.user_name}
-        subTitle={contactDetails?.company_name || "N/A"}
+        subTitle={contactDetails?.company_name || 'N/A'}
         subIcon="office-building-marker-outline"
       />
       <Communications />
     </ModalView>
   );
 }
-
-const styles = StyleSheet.create({
-  adjuster: {
-    width: 18,
-  },
-});

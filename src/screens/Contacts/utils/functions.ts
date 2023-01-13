@@ -1,8 +1,8 @@
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
-import {api} from '../../../api';
-import {alert_Dur} from '../../../constants';
-import {userStore} from '../../../stores/userStore';
+import { api } from '../../../api';
+import { alert_Dur } from '../../../constants';
+import { userStore } from '../../../stores/userStore';
 
 const getAllUsers = async () => {
   const user: any = userStore?.user?.get();
@@ -41,13 +41,13 @@ const addUser = async (data: any) => {
     console.log('result addUser', result);
     if (result?.ok) {
       getAllUsers();
-      return {status: true};
+      return { status: true };
     } else {
-      return {status: false, message: result};
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error addUser', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
@@ -66,13 +66,13 @@ const deleteUser = async (id: number) => {
         type: 'success',
         duration: alert_Dur,
       });
-      return {status: true};
+      return { status: true };
     } else {
-      return {status: false, message: result};
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error deleteUser', error);
-    return {status: false};
+    return { status: false };
   }
 };
 
@@ -87,14 +87,14 @@ const updateUser = async (data: any) => {
     console.log('result updateUser', result);
     if (result?.ok) {
       getAllUsers();
-      return {status: true};
+      return { status: true };
     } else {
-      return {status: false, message: result};
+      return { status: false, message: result };
     }
   } catch (error) {
     console.log('error updateUser', error);
-    return {status: true, message: error};
+    return { status: true, message: error };
   }
 };
 
-export {getAllUsers, addUser, deleteUser, updateUser};
+export { getAllUsers, addUser, deleteUser, updateUser };

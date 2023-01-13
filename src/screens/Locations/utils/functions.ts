@@ -1,9 +1,11 @@
+import axios from 'axios';
 import { showMessage } from 'react-native-flash-message';
+
 import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
-import axios from 'axios';
+
 const getAllLocations = async () => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;

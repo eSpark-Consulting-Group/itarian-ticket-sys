@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {moderateVerticalScale} from 'react-native-size-matters';
-import {WINDOW_HEIGHT} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { moderateVerticalScale } from 'react-native-size-matters';
+import { WINDOW_HEIGHT } from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: 'transparent',
   },
-  center: {flex: 0.8},
-  adjuster: {flex: 0.1},
+  center: { flex: 0.8 },
+  adjuster: { flex: 0.1 },
 });
 
 export default styles;

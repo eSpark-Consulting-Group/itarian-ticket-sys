@@ -1,19 +1,18 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
-
-import {Theme, useNavigation, useTheme} from '@react-navigation/native';
+import { View, Text, FlatList } from 'react-native';
+import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Divider} from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 
 import styles from './style';
 import {
   DateSeparator,
-  EmptyListMsg,
   GapView,
   CstmPressable,
+  NotFound,
 } from '../../../components';
-import {Ticket} from '../../../types';
+import { Ticket } from '../../../types';
 
 const ListItem = ({
   dataSource,
@@ -28,18 +27,18 @@ const ListItem = ({
   onPress?: (item: Ticket) => void;
   isResource?: boolean;
 }) => {
-  const {colors, dark}: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const navigation: any = useNavigation();
 
   const renderData = (item2: any, ind: number) => {
     return (
       <CstmPressable
-        style={{paddingHorizontal: 20}}
+        style={{ paddingHorizontal: 20 }}
         key={item2.id}
         onPress={() => {
           onPress?.(item2);
         }}
-        android_ripple={{color: dark ? '#ffffff0e' : '#0000000e'}}>
+        android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
         <View style={styles.itemContentContainer}>
           <View style={styles.itemContentIconContainer}>
             <View
@@ -55,18 +54,18 @@ const ListItem = ({
               )}
             </View>
           </View>
-          <View style={{width: '75%'}}>
+          <View style={{ width: '75%' }}>
             {item2?.assigned_to && isResource && (
-              <Text style={{fontWeight: 'bold', color: colors.text}}>
+              <Text style={{ fontWeight: 'bold', color: colors.text }}>
                 Assigned to: {item2.assigned_to}
               </Text>
             )}
             {item2.type == 'Ticket' && (
-              <Text style={{fontWeight: 'bold', color: colors.text}}>
+              <Text style={{ fontWeight: 'bold', color: colors.text }}>
                 Ticket {item2.ticket_no}
               </Text>
             )}
-            <Text style={{fontWeight: 'bold', color: colors.text}}>
+            <Text style={{ fontWeight: 'bold', color: colors.text }}>
               {item2.summary}
             </Text>
             <View style={styles.descContentContainer}>
@@ -77,8 +76,8 @@ const ListItem = ({
                     justifyContent: 'space-between',
                     width: '110%',
                   }}>
-                  <Text style={{color: colors.text}}>{item2.expType}</Text>
-                  <Text style={{...styles.schedule_dur}}>{item2.totExp}</Text>
+                  <Text style={{ color: colors.text }}>{item2.expType}</Text>
+                  <Text style={{ ...styles.schedule_dur }}>{item2.totExp}</Text>
                 </View>
               )}
               {item2.time_dur && (
@@ -88,10 +87,10 @@ const ListItem = ({
                     color={colors.text}
                     style={styles.margin_5}
                   />
-                  <Text style={{...styles.margin_5, color: colors.text}}>
+                  <Text style={{ ...styles.margin_5, color: colors.text }}>
                     {item2.start_time + '-' + item2.end_time}
                   </Text>
-                  <Text style={{...styles.schedule_dur, color: '#fff'}}>
+                  <Text style={{ ...styles.schedule_dur, color: '#fff' }}>
                     {item2.time_dur}
                   </Text>
                 </View>
@@ -103,7 +102,9 @@ const ListItem = ({
                     color={colors.text}
                     style={styles.margin_5}
                   />
-                  <Text style={{color: colors.text}}>{item2.company_name}</Text>
+                  <Text style={{ color: colors.text }}>
+                    {item2.company_name}
+                  </Text>
                 </View>
               )}
               {item2.site && (
@@ -113,7 +114,7 @@ const ListItem = ({
                     color={colors.text}
                     style={styles.margin_5}
                   />
-                  <Text style={{color: colors.text}}>{item2.site}</Text>
+                  <Text style={{ color: colors.text }}>{item2.site}</Text>
                 </View>
               )}
             </View>
@@ -136,19 +137,19 @@ const ListItem = ({
         onPress={() => {
           navigation.navigate('Stack1', {
             screen: 'NewTimeSheet',
-            params: {date: date.toDateString()},
+            params: { date: date.toDateString() },
           });
         }}>
-        <View style={[styles.itemContentContainer, {paddingHorizontal: 20}]}>
+        <View style={[styles.itemContentContainer, { paddingHorizontal: 20 }]}>
           <View style={styles.itemContentIconContainer}>
             <View
-              style={[styles.itemContentIcon, {backgroundColor: '#bdbdbd'}]}>
+              style={[styles.itemContentIcon, { backgroundColor: '#bdbdbd' }]}>
               <MCI name="clock-outline" size={22} color="#fff" />
             </View>
           </View>
-          <View style={{width: '75%'}}>
-            <Text style={{color: colors.text}}>No time recorded yet</Text>
-            <Text style={{fontWeight: 'bold', color: colors.text}}>
+          <View style={{ width: '75%' }}>
+            <Text style={{ color: colors.text }}>No time recorded yet</Text>
+            <Text style={{ fontWeight: 'bold', color: colors.text }}>
               Tap to add time
             </Text>
           </View>
@@ -166,7 +167,7 @@ const ListItem = ({
       {dataSource.data ? (
         <FlatList
           data={renderDate ? dataSource.data : dataSource}
-          renderItem={({item, index}) => renderData(item, index)}
+          renderItem={({ item, index }) => renderData(item, index)}
         />
       ) : (
         !flag && renderAddTime(dataSource?.date)
@@ -174,14 +175,14 @@ const ListItem = ({
       {flag && (
         <FlatList
           data={renderDate ? dataSource.data : dataSource}
-          renderItem={({item, index}) => renderData(item, index)}
+          renderItem={({ item, index }) => renderData(item, index)}
         />
       )}
     </View>
   );
 };
 
-export const RenderTickets = ({listData}: {listData: Ticket[]}) => {
+export const RenderTickets = ({ listData }: { listData: Ticket[] }) => {
   const navigation: any = useNavigation();
   return (
     <>
@@ -206,17 +207,9 @@ export const RenderTickets = ({listData}: {listData: Ticket[]}) => {
           />
         </View>
       ) : (
-        <NotFound />
+        <NotFound label="Tickets" />
       )}
     </>
-  );
-};
-
-const NotFound = (): JSX.Element => {
-  return (
-    <View style={styles.renderNotFound}>
-      <EmptyListMsg label="Tickets" />
-    </View>
   );
 };
 

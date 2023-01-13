@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {FAB} from 'react-native-paper';
+import React, { useState } from 'react';
+import { FAB } from 'react-native-paper';
 
 import styles from './style';
 
@@ -21,7 +21,7 @@ const FloatButton = ({
     <>
       {AdditionalButtons ? (
         <FAB.Group
-          theme={{colors: {background: '#111'}}}
+          theme={{ colors: { background: '#111' } }}
           fabStyle={styles.floatGroup}
           open={showBtns}
           icon={showBtns ? 'close' : 'plus'}
@@ -33,7 +33,7 @@ const FloatButton = ({
         />
       ) : (
         <FAB
-          theme={{colors: {background: '#111'}}}
+          theme={{ colors: { background: '#111' } }}
           style={styles.floatButton}
           icon={icon}
           color="#fff"

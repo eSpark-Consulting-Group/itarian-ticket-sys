@@ -1,12 +1,18 @@
-import {Theme, useTheme} from '@react-navigation/native';
+import { Theme, useTheme } from '@react-navigation/native';
 import React from 'react';
-import {View, Text} from 'react-native';
-import {Divider} from 'react-native-paper';
+import { View, Text } from 'react-native';
+import { Divider } from 'react-native-paper';
 
 import styles from './style';
 
-const Separator = ({text, width}: {text?: string; width?: number | string}) => {
-  const {colors}: Theme = useTheme();
+const Separator = ({
+  text,
+  width,
+}: {
+  text?: string;
+  width?: number | string;
+}) => {
+  const { colors }: Theme = useTheme();
 
   const length = width ?? 100;
 
@@ -20,7 +26,9 @@ const Separator = ({text, width}: {text?: string; width?: number | string}) => {
           width: length,
         }}
       />
-      <Text style={{...styles.centerContent, color: colors.text}}>{text}</Text>
+      <Text style={{ ...styles.centerContent, color: colors.text }}>
+        {text}
+      </Text>
       <Divider
         style={{
           ...styles.divider,

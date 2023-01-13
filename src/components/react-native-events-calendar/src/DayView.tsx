@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import moment, {Moment} from 'moment';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import moment, { Moment } from 'moment';
 import _ from 'lodash';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import populateEvents from './Packer';
-import {ThemeStyle} from './style';
+import { ThemeStyle } from './style';
 const LEFT_MARGIN = 60 - 1;
 const CALENDER_HEIGHT = 2400;
 const TEXT_LINE_HEIGHT = 17;
@@ -89,8 +89,8 @@ export default class DayView extends React.PureComponent<MyProps, any> {
 
   _renderRedLine() {
     const offset = CALENDER_HEIGHT / 24;
-    const {format24h} = this.props;
-    const {width, styles}: any = this.props;
+    const { format24h } = this.props;
+    const { width, styles }: any = this.props;
     const timeNowHour = moment().hour();
     const timeNowMin = moment().minutes();
     const timeNow = moment().format('hh:mm A');
@@ -106,7 +106,7 @@ export default class DayView extends React.PureComponent<MyProps, any> {
             width: width - 20,
           },
         ]}>
-        <View style={{flexDirection: 'row', position: 'absolute', zIndex: 1}}>
+        <View style={{ flexDirection: 'row', position: 'absolute', zIndex: 1 }}>
           <Text
             style={{
               color: 'red',
@@ -123,7 +123,7 @@ export default class DayView extends React.PureComponent<MyProps, any> {
 
   _renderLines() {
     const offset = CALENDER_HEIGHT / 24;
-    const {format24h} = this.props;
+    const { format24h } = this.props;
 
     return range(0, 25).map((item, i) => {
       let timeText;
@@ -138,32 +138,34 @@ export default class DayView extends React.PureComponent<MyProps, any> {
       } else {
         timeText = !format24h ? `${i - 12} PM` : i;
       }
-      const {width, styles} = this.props;
+      const { width, styles } = this.props;
       return [
         <Text
           key={`timeLabel${i}`}
-          style={[styles.timeLabel, {top: offset * i - 6}]}>
+          style={[styles.timeLabel, { top: offset * i - 6 }]}>
           {timeText}
         </Text>,
         i === 0 ? null : (
           <View
             key={`line${i}`}
-            style={[styles.line, {top: offset * i, width: width - 20}]}
+            style={[styles.line, { top: offset * i, width: width - 20 }]}
           />
         ),
         <View
           key={`lineHalf${i}`}
-          style={[styles.line, {top: offset * (i + 0.5), width: width - 20}]}
+          style={[styles.line, { top: offset * (i + 0.5), width: width - 20 }]}
         />,
       ];
     });
   }
 
   _renderTimeLabels() {
-    const {styles} = this.props;
+    const { styles } = this.props;
     const offset = CALENDER_HEIGHT / 24;
     return range(0, 24).map((item, i) => {
-      return <View key={`line${i}`} style={[styles.line, {top: offset * i}]} />;
+      return (
+        <View key={`line${i}`} style={[styles.line, { top: offset * i }]} />
+      );
     });
   }
 
@@ -172,8 +174,8 @@ export default class DayView extends React.PureComponent<MyProps, any> {
   }
 
   _renderEvents() {
-    const {styles} = this.props;
-    const {packedEvents} = this.state;
+    const { styles } = this.props;
+    const { packedEvents } = this.state;
     let events = packedEvents.map(
       (event: any, i: React.Key | null | undefined) => {
         const eventType = this.props.events[event.index].eventType;
@@ -247,19 +249,19 @@ export default class DayView extends React.PureComponent<MyProps, any> {
 
     return (
       <View>
-        <View style={{marginLeft: LEFT_MARGIN}}>{events}</View>
+        <View style={{ marginLeft: LEFT_MARGIN }}>{events}</View>
       </View>
     );
   }
 
   render() {
-    const {styles} = this.props;
+    const { styles } = this.props;
     return (
       <ScrollView
         ref={ref => (this._scrollView = ref)}
         contentContainerStyle={[
           styles.contentStyle,
-          {width: this.props.width},
+          { width: this.props.width },
         ]}>
         {this._renderLines()}
         {this._renderEvents()}

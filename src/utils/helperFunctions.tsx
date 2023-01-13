@@ -1,20 +1,20 @@
-import {Linking, Platform} from 'react-native';
+import { Linking, Platform } from 'react-native';
 import {
   AppInstalledChecker,
   // @ts-ignore
 } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';
-import DocumentPicker, {types} from 'react-native-document-picker';
-import {ShortcutItem} from 'react-native-quick-actions';
-import {showMessage} from 'react-native-flash-message';
-import {NoteTypes, SelectFields} from '../types';
-import {Buffer} from 'buffer';
-import {alert_Dur} from '../constants';
+import DocumentPicker, { types } from 'react-native-document-picker';
+import { ShortcutItem } from 'react-native-quick-actions';
+import { showMessage } from 'react-native-flash-message';
+import { Buffer } from 'buffer';
+
+import { alert_Dur } from '../constants';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
-    {package: 'com.waze', name: 'Waze'},
-    {package: 'com.google.android.apps.maps', name: 'Google Maps'},
+    { package: 'com.waze', name: 'Waze' },
+    { package: 'com.google.android.apps.maps', name: 'Google Maps' },
   ];
   const arr: any = [];
   for (let index = 0; index < Androidpackages.length; index++) {
@@ -36,7 +36,7 @@ export const redirectToMap = (
 ) => {
   const scheme =
     defaultNav == 'Waze'
-      ? Platform.select({ios: 'maps:0,0?q=', android: 'waze://?ll='})
+      ? Platform.select({ ios: 'maps:0,0?q=', android: 'waze://?ll=' })
       : Platform.select({
           ios: 'maps:0,0?q=',
           android: 'https://www.google.com/maps/search/?api=1&query=',
@@ -102,7 +102,7 @@ export const documentPicker = async () => {
   }
 };
 
-export const cameraPicker = async ({cropping = false}) => {
+export const cameraPicker = async ({ cropping = false }) => {
   try {
     const result = await ImagePicker.openCamera({
       width: 300,
@@ -136,7 +136,9 @@ export const searchFromArray = async ({
       ?.filter((item: any) => {
         const itemData = keys
           ?.map((value: any) => {
-            return `${item[value]?.toString()?.toUpperCase()}`
+            console.log('item[value]', item[value]);
+
+            return `${item[value]?.toString()?.toUpperCase()}`;
           })
           ?.join(' ');
 
@@ -166,7 +168,7 @@ export const getDatesInRange = (startDate: any, endDate: any) => {
 };
 
 export const handleColdBoot = (data: ShortcutItem) => {
-  const {userInfo} = data;
+  const { userInfo } = data;
   Linking.openURL(userInfo?.url);
 };
 
@@ -212,7 +214,7 @@ export const checkValidations = async (
           result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
         type: 'danger',
         icon: 'auto',
-        duration: alert_Dur,
+        duration: 2000,
       });
     }
   } catch (error) {}

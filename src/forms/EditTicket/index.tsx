@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
-
-import {SingleLineField} from '../../components';
-import {contactNameList} from '../../constants/SelectionList';
-import {SelectFields} from '../../types';
-import {SelectItems} from '../../utils/helperFunctions';
+import React, { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
+
+import { SingleLineField } from '../../components';
+import { contactNameList } from '../../constants/SelectionList';
+import { SelectFields } from '../../types';
+import { SelectItems } from '../../utils/helperFunctions';
 import { companyStore } from '../../stores/companyStore';
 
 interface Item {
@@ -22,8 +22,8 @@ interface Item {
   searchable?: boolean;
 }
 
-export const EditTicket = ({navigation, route}: any) => {
-  const companies: any = useHookstate(companyStore.companies)?.get()
+export const EditTicket = ({ navigation, route }: any) => {
+  const companies: any = useHookstate(companyStore.companies)?.get();
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       subTitle: 'Company',
@@ -74,8 +74,8 @@ export const EditTicket = ({navigation, route}: any) => {
 
   return (
     <ScrollView
-      style={{flex: 1}}
-      contentContainerStyle={{alignItems: 'center'}}>
+      style={{ flex: 1 }}
+      contentContainerStyle={{ alignItems: 'center' }}>
       {dataSource.map((item: Item, index: number) => (
         <SingleLineField
           key={index}

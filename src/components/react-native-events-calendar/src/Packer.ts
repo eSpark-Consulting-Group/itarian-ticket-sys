@@ -34,8 +34,8 @@ function buildEvent(
 }
 
 function collision(
-  a: {end: number; start: number},
-  b: {start: number; end: number},
+  a: { end: number; start: number },
+  b: { start: number; end: number },
 ) {
   return a.end > b.start && a.start < b.end;
 }
@@ -79,10 +79,10 @@ function populateEvents(this: any, events: any[], screenWidth: number) {
   let calculatedEvents: any[] = [];
 
   events = events
-    .map((ev: any, index: any) => ({...ev, index: index}))
+    .map((ev: any, index: any) => ({ ...ev, index: index }))
     .sort(function (
-      a: {start: number; end: number},
-      b: {start: number; end: number},
+      a: { start: number; end: number },
+      b: { start: number; end: number },
     ) {
       if (a.start < b.start) return -1;
       if (a.start > b.start) return 1;
@@ -94,7 +94,7 @@ function populateEvents(this: any, events: any[], screenWidth: number) {
   columns = [];
   lastEnd = null;
 
-  events.forEach(function (ev: {start: number; end: number}, index: any) {
+  events.forEach(function (ev: { start: number; end: number }, index: any) {
     if (lastEnd !== null && ev.start >= lastEnd) {
       pack(columns, screenWidth, calculatedEvents);
       columns = [];

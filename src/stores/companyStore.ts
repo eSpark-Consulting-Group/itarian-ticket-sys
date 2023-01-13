@@ -1,3 +1,3 @@
-import {hookstate} from '@hookstate/core';
+import { hookstate } from '@hookstate/core';
 
-export const companyStore = hookstate({companies: []});
+export const companyStore = hookstate({ companies: [] });

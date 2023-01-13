@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
-import {
-  Theme,
-  useIsFocused,
-  useNavigation,
-  useTheme,
-} from '@react-navigation/native';
+import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 import { moderateScale } from 'react-native-size-matters';
 import { Divider } from 'react-native-paper';
+import { State, useHookstate } from '@hookstate/core';
 
 import {
   FloatButton,
   SearchBar,
   SimpleLoader,
-  EmptyListMsg,
   CstmPressable,
+  NotFound,
 } from '../../components';
 import styles from './style';
 import { Company } from '../../types';
 import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
 import { getAllCompanies } from './utils/functions';
-import { State, useHookstate } from '@hookstate/core';
 import { companyStore } from '../../stores/companyStore';
 
 const Companies = () => {
@@ -135,10 +130,9 @@ export const RenderCompanies = ({
 
   const onRefresh = () => {
     setIsFetching(true);
-    getAllCompanies(false)
-    .then(() => {
+    getAllCompanies(false).then(() => {
       setIsFetching(false);
-    })
+    });
   };
 
   return (
@@ -152,20 +146,12 @@ export const RenderCompanies = ({
           renderItem={renderList}
         />
       ) : (
-        <NotFound />
+        <NotFound label="Organizations" />
       )}
       <FloatButton
         onPress={() => navigation.navigate('Stack1', { screen: 'NewCompany' })}
       />
     </>
-  );
-};
-
-const NotFound = (): JSX.Element => {
-  return (
-    <View style={styles.content}>
-      <EmptyListMsg label="Organizations" />
-    </View>
   );
 };
 

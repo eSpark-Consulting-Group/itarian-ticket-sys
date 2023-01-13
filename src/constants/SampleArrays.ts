@@ -512,13 +512,13 @@ export const scheduledList: Array<ScheduledList> = [
 ];
 
 export const GoneToFormArray: SelectFields[] = [
-  {id: 1, name: 'Lunch'},
-  {id: 2, name: 'Appointment'},
-  {id: 3, name: 'Client'},
-  {id: 4, name: 'Gone for the day'},
-  {id: 5, name: 'Other'},
-  {id: 6, name: 'Sick'},
-  {id: 7, name: 'Vacation'},
+  { id: 1, name: 'Lunch' },
+  { id: 2, name: 'Appointment' },
+  { id: 3, name: 'Client' },
+  { id: 4, name: 'Gone for the day' },
+  { id: 5, name: 'Other' },
+  { id: 6, name: 'Sick' },
+  { id: 7, name: 'Vacation' },
 ];
 
 export const NoteTypes_DIR: NoteTypes[] = [

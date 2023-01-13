@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {moderateVerticalScale} from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
+import { moderateVerticalScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
   },
-  adjuster: {flex: 0.1},
-  text: {color: '#F7F7F7', fontWeight: '800', fontSize: 18},
+  adjuster: { flex: 0.1 },
+  text: { color: '#F7F7F7', fontWeight: '800', fontSize: 18 },
 });
 
 export default styles;

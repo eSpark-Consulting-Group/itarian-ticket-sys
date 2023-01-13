@@ -50,6 +50,7 @@ import {
   HelpTopics,
   CannedResponse,
   Groups,
+  TicketStatus,
 } from '../../screens';
 import { ParamList } from '../../types';
 import { BUILD_VERSION } from '../../constants';
@@ -399,6 +400,20 @@ const Draw = () => {
           ),
           drawerIcon: ({ color, size, focused }) => (
             <OI name="north-star" size={size} color={color} />
+          ),
+          headerRight: noHeader,
+        }}
+      />
+      <Drawer.Screen
+        name="TicketStatus"
+        component={TicketStatus}
+        options={{
+          headerTitle: () => <CstmHeader title="Ticket Status" />,
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ right: 20, color }}>Ticket Status</Text>
+          ),
+          drawerIcon: ({ color, size, focused }) => (
+            <EI name="squared-plus" size={size} color={color} />
           ),
           headerRight: noHeader,
         }}

@@ -38,6 +38,7 @@ import {
   updateSlaPlan,
 } from '../../screens/SlaPlans/utils/functions';
 import TicketPriorityDetails from '../../screens/TicketPriorities/View/TicketPriorities/index';
+import TicketStatusDetails from '../../screens/TicketStatus/View';
 import DepartmentDetails from '../../screens/Departments/View/Department/index';
 import LocationDetails from '../../screens/Locations/View/Location/index';
 import HelpTopicDetails from '../../screens/HelpTopic/View/HelpTopic/index';
@@ -634,6 +635,59 @@ const StackLvl1 = ({ route, navigation }: any) => {
         component={TicketPriorityDetails}
         options={({ route, navigation }: any) => ({
           title: 'Ticket Priority Details',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => {
+            return (
+              route?.params?.data?.length > 2 &&
+              route?.params?.data[1]?.title != 'Default' && (
+                <FA
+                  size={27}
+                  name="save"
+                  color={'#fff'}
+                  onPress={() => {
+                    const data = dataFormatter(route?.params?.data, '_');
+                    const obj = {
+                      data: {
+                        id: data?.id,
+                        type: 'ticketpriorities',
+                        attributes: {
+                          name: data?.name,
+                          description: data?.description,
+                          status: data?.Status,
+                          color: data?.color,
+                          is_public: data?.IsPublic,
+                        },
+                      },
+                    };
+                    checkValidations(
+                      navigation,
+                      route,
+                      globalStates,
+                      updateTicketPriorities,
+                      obj,
+                      'Ticket Priority updated successfully',
+                    );
+                  }}
+                />
+              )
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="TicketStatusDetails"
+        component={TicketStatusDetails}
+        options={({ route, navigation }: any) => ({
+          title: 'Ticket Status Details',
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II

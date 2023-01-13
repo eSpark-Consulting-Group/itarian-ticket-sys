@@ -10,6 +10,7 @@ import OTPScreen from './Auth/OTPScreen';
 import Post from './SendFeedback/View/Post';
 import Teams from './Teams';
 import TicketPriorities from './TicketPriorities';
+import TicketStatus from './TicketStatus';
 import SlaPlans from './SlaPlans';
 import Departments from './Departments';
 import Locations from './Locations';
@@ -31,6 +32,7 @@ export {
   Post,
   Teams,
   TicketPriorities,
+  TicketStatus,
   SlaPlans,
   Departments,
   Locations,

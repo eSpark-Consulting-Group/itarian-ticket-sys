@@ -12,6 +12,8 @@ import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { State, useHookstate } from '@hookstate/core';
+import { Checkbox } from 'react-native-paper';
+import { Theme, useTheme } from '@react-navigation/native';
 
 import styles from './style';
 import {
@@ -27,8 +29,6 @@ import Images from '../../../assets/Images';
 import { userStore } from '../../../stores/userStore';
 import { handleLoginUser } from '../utils/functions';
 import { globalState } from '../../../stores/globalAppState';
-import { Theme, useTheme } from '@react-navigation/native';
-import { Checkbox } from 'react-native-paper';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required().label('Email'),

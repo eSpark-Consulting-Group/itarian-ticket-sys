@@ -81,6 +81,7 @@ export type ParamList = {
   Teams: undefined;
   SlaPlan: undefined;
   TicketPriorities: undefined;
+  TicketStatus: undefined;
   Departments: undefined;
   Locations: undefined;
   HelpTopics: undefined;
@@ -102,6 +103,7 @@ export type RootStackParamList = {
   TeamDetails: undefined;
   SlaPlanDetails: undefined;
   TicketPriorityDetails: undefined;
+  TicketStatusDetails: undefined;
   DepartmentDetails: undefined;
   LocationDetails: undefined;
   HelpTopicDetails: undefined;

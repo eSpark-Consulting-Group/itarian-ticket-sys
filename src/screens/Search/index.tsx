@@ -14,7 +14,7 @@ import { globalState } from '../../stores/globalAppState';
 
 import { RenderContacts } from '../Contacts';
 import { RenderCompanies } from '../Companies';
-import { companiesList, contactsList } from '../../constants/SampleArrays';
+import { contactsList } from '../../constants/SampleArrays';
 import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
@@ -31,7 +31,7 @@ const Search = ({ route, navigation }: any) => {
   const [clear, setClear] = useState(false);
   const tickets: any = useHookstate(ticketStore.AllTickets);
 
-  const [filteredCompanies, setFilteredCompanies] = useState(companiesList);
+  const [filteredCompanies, setFilteredCompanies] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState(contactsList);
   const [filteredTickets, setFilteredTickets] = useState(tickets?.get());
 

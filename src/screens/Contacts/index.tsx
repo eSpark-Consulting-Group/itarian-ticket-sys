@@ -14,6 +14,7 @@ import {
   CstmPressable,
   FloatButton,
   NotFound,
+  CstmTabBar,
 } from '../../components';
 import { contactsList } from '../../constants/SampleArrays';
 import { Contact } from '../../types';
@@ -21,172 +22,32 @@ import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
 import { getAllUsers } from './utils/functions';
+import {TabView, SceneMap} from 'react-native-tab-view';
+import Staffs from './Screens/staffs';
+import Users from './Screens/users';
+
+const renderScene = SceneMap({
+  first: Users,
+  second: Staffs,
+});
+
 
 const Contacts = () => {
-  const { colors, dark }: Theme = useTheme();
-  const [searchValue, setSearchValue] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [clear, setClear] = useState(false);
-  const users = useHookstate(userStore.users);
-
-  const [filteredContacts, setFilteredContacts] = useState(users.get());
-
-  useEffect(() => {
-    setFilteredContacts(users.get());
-  }, [userStore.users]);
-
-  const handleSubmit = () => {
-    setLoading(true);
-    searchFilterFunction(searchValue);
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  };
-
-  const searchFilterFunction = async (text: string) => {
-    var result = await searchFromArray({
-      text: text,
-      list: users.get(),
-      keys: ['name', 'company_name'],
-    });
-    setFilteredContacts(result);
-  };
-
-  const handleClear = () => {
-    setSearchValue('');
-    setClear(true);
-  };
-
-  useUpdateEffect(() => {
-    if (clear) {
-      console.log('done');
-      handleSubmit();
-      setClear(false);
-    }
-  }, [clear]);
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    {key: 'first', title: 'Users'},
+    {key: 'second', title: 'Staffs'},
+  ]);
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          backgroundColor: dark ? '#000000' : '#ffffff',
-          ...styles.header,
-        }}>
-        <SearchBar
-          withTag={false}
-          placeholder={'Search Users'}
-          fontSize={'large'}
-          value={searchValue}
-          setChangeText={value => setSearchValue(value)}
-          onSubmit={handleSubmit}
-          onClear={handleClear}
-        />
-      </View>
-      {loading ? (
-        <SimpleLoader />
-      ) : (
-        <RenderContacts listData={filteredContacts} />
-      )}
-    </View>
+    <TabView
+      navigationState={{index, routes}}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      renderTabBar={props => <CstmTabBar {...props} />}
+    />
   );
-};
 
-export const RenderContacts = ({
-  listData = contactsList,
-}: {
-  listData?: Contact[];
-}) => {
-  const { colors, dark }: Theme = useTheme();
-  const navigation: any = useNavigation();
-  const [isFetching, setIsFetching] = useState(false);
-
-  const onRefresh = () => {
-    setIsFetching(true);
-    getAllUsers().then(() => {
-      setIsFetching(false);
-    });
-  };
-
-  const renderList = ({ item, index }: { item: any; index: number }) => {
-    return (
-      <View style={styles.listContainer}>
-        <CstmPressable
-          onPress={() =>
-            navigation.navigate('Stack1', {
-              screen: 'Contact1',
-              params: { contactDetails: item },
-            })
-          }
-          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
-          <View style={styles.listItemContainer}>
-            <View>
-              <Text
-                style={{
-                  color: colors.text,
-                }}>
-                {item?.name}
-              </Text>
-              <View style={{ flexDirection: 'row' }}>
-                <MCI
-                  name="office-building-marker-outline"
-                  size={15}
-                  color={colors.text}
-                  style={{ opacity: 0.5 }}
-                />
-                <Text
-                  style={{
-                    color: colors.text,
-                    ...styles.subtitleStyle,
-                  }}>
-                  {item?.company_name || 'N/A'}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.iconsContainer}>
-              <RoundedIcon
-                enable={!_.isNull(item?.phone_number)}
-                icon={'phone'}
-                onPress={() => Linking.openURL(`tel:${item?.phone_number}`)}
-              />
-              <View style={styles.horizontalAdjuster} />
-              <RoundedIcon
-                enable={!_.isNull(item?.email)}
-                icon={'email-outline'}
-                onPress={() => Linking.openURL(`mailto:${item?.email}`)}
-              />
-            </View>
-          </View>
-        </CstmPressable>
-        {index !== listData.length - 1 && (
-          <Divider
-            style={{
-              backgroundColor: colors.text,
-              ...styles.dividerStyle,
-            }}
-          />
-        )}
-      </View>
-    );
-  };
-
-  return (
-    <>
-      {listData.length !== 0 ? (
-        <FlatList
-          refreshControl={
-            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
-          }
-          data={listData}
-          renderItem={renderList}
-        />
-      ) : (
-        <NotFound label="Users" />
-      )}
-      <FloatButton
-        onPress={() => navigation.navigate('Stack1', { screen: 'NewUser' })}
-      />
-    </>
-  );
 };
 
 export default Contacts;

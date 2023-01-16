@@ -27,7 +27,6 @@ import { Loader } from './Loader';
 import EventCalendar from './react-native-events-calendar/src/EventCalendar';
 import { CstmMenu } from './CstmMenu';
 import TicketComponent from './TicketComponent';
-import Resources from './Resources';
 import AppStatusBar from './AppStatusBar';
 
 export {
@@ -61,6 +60,5 @@ export {
   Loader,
   CstmMenu,
   TicketComponent,
-  Resources,
   AppStatusBar,
 };

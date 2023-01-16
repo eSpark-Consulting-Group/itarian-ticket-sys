@@ -1,9 +1,9 @@
 import React from 'react';
 import { Platform, UIManager } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import { ModalHeader, ModalView } from '../../../../components';
-import Communications from './Communications';
+import Details from './Details';
 
 if (
   Platform.OS === 'android' &&
@@ -11,6 +11,8 @@ if (
 ) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
+const Tab = createMaterialTopTabNavigator();
+
 
 export default function App() {
   const routes: any = useRoute();
@@ -22,7 +24,7 @@ export default function App() {
         subTitle={contactDetails?.company_name || 'N/A'}
         subIcon="office-building-marker-outline"
       />
-      <Communications />
+      <Details />
     </ModalView>
   );
 }

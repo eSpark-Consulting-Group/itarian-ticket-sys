@@ -342,6 +342,8 @@ const StackLvl1 = ({ route, navigation }: any) => {
               color={'#fff'}
               onPress={() => {
                 const data = dataFormatter(route?.params?.data);
+                console.log("data", data);
+                
                 const obj = {
                   data: {
                     type: 'users',
@@ -349,12 +351,12 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       provider_id: null,
                       email: data?.email,
                       user_name: data?.user_name,
-                      last_name: data?.last_name,
+                      last_name: data?.last_name ?? '',
                       first_name: data?.first_name,
-                      role: 'user',
+                      role: data?.role?.name ?? 'user',
                       password: data?.password,
                       is_active: data?.is_active,
-                      phone_number: data?.phone_number,
+                      phone_number: data?.phone_number ?? '',
                     },
                   },
                 };
@@ -403,7 +405,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       user_name: data?.user_name,
                       last_name: data?.last_name,
                       first_name: data?.first_name,
-                      role: 'user',
+                      role: data?.role?.name ?? 'user',
                       password: data?.password,
                       is_active: data?.is_active,
                       phone_number: data?.phone_number,

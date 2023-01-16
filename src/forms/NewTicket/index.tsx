@@ -72,7 +72,7 @@ export default function NewTicket({ route, navigation }: any) {
     {
       title: 'Please Select',
       subTitle: 'Staff',
-      list: users.get() || [],
+      list: users.get()?.filter((val: any) => val?.role != "user") || [],
       selectedItem: undefined,
       headerTitle: 'Member',
       rightIcon: 'chevron-right',

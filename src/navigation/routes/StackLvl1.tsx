@@ -229,7 +229,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
               color={'#fff'}
               onPress={() => {
                 const data = dataFormatter(route?.params?.data);
-                const obj = {
+                const obj: any = {
                   data: {
                     id: data?.id,
                     type: 'organizations',
@@ -250,7 +250,9 @@ const StackLvl1 = ({ route, navigation }: any) => {
                     },
                   },
                 };
-
+                if(!data?.mainuser?.id) {
+                  delete obj?.data?.relationships
+                }
                 checkValidations(
                   navigation,
                   route,
@@ -286,7 +288,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
               color={'#fff'}
               onPress={() => {
                 const data = dataFormatter(route?.params?.data);
-                const obj = {
+                const obj: any = {
                   data: {
                     type: 'organizations',
                     attributes: {
@@ -306,7 +308,9 @@ const StackLvl1 = ({ route, navigation }: any) => {
                     },
                   },
                 };
-
+                if(!data?.mainuser?.id) {
+                  delete obj?.data?.relationships
+                }
                 checkValidations(
                   navigation,
                   route,

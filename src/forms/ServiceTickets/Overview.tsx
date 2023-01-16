@@ -84,7 +84,7 @@ const Overview = ({ ticketDetails }: any) => {
     {
       title: ticketDetails?.attributes?.staff?.user_name ?? 'Please Select',
       subTitle: 'Staff',
-      list: users.get() || [],
+      list: users.get()?.filter((val: any) => val?.role != "user") || [],
       selectedItem: users
         .get()
         ?.filter(

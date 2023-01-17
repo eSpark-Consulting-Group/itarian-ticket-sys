@@ -16,7 +16,8 @@ import {
 } from '../../../components';
 import { SelectFields } from '../../../types';
 import { SelectItems } from '../../../utils/helperFunctions';
-import { deletePriorities } from '../utils/functions';
+import { deleteStatus } from '../utils/functions';
+import { IconClassList, PosList } from '../../../constants/SelectionList';
 
 interface Item {
   title: string;
@@ -38,50 +39,137 @@ interface Item {
   isRequired?: boolean;
   mode?: 'none' | 'multiline';
   onPress?: () => void;
+  key?: string;
+}
+
+interface StatusAttributes {
+  client_selectable: boolean;
+  color: string;
+  comment_required: boolean;
+  created_at: string;
+  icon_class: string;
+  name: string;
+  sort: number;
+  state: string;
+  status_display: string;
+  updated_at: string;
+  visible_to_client: boolean;
+}
+interface StatusProps {
+  attributes: StatusAttributes;
+  id: string;
+  links: {
+    self: string;
+  };
+  type: string;
 }
 
 export default function Details() {
   const { colors, dark }: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
-  const ticketPriorityDetails = routes?.params?.ticketStatusDetails;
+  const { ticketStatusDetails, statusList } = routes?.params;
   const [loader, setLoader] = useState(false);
+
+  const reshapedStatusList = statusList.map(
+    (item: StatusProps): { id: string; name: string } => ({
+      id: item?.id,
+      name: item?.attributes?.name,
+    }),
+  );
+
   const [dataSource, setDataSource] = useState<Item[]>([
     {
-      title: 'Status',
-      enable: true,
-      rightSwitchVal: Boolean(ticketPriorityDetails?.attributes?.status),
-      showRightSwitch: true,
-    },
-    {
-      title: 'IsPublic',
-      enable: true,
-      rightSwitchVal: Boolean(ticketPriorityDetails?.attributes?.is_public),
-      showRightSwitch: true,
-    },
-    {
-      subTitle: 'name',
-      title: ticketPriorityDetails?.attributes?.name ?? '',
-      inputable: true,
+      subTitle: 'Name',
+      title: ticketStatusDetails?.attributes?.name ?? '',
       enable: false,
       isRequired: true,
+      inputable: true,
     },
     {
-      title: ticketPriorityDetails?.attributes?.color ?? '',
+      subTitle: 'Display Order',
+      title: ticketStatusDetails?.attributes?.sort.toString() ?? '',
+      enable: false,
+      isRequired: true,
+      inputable: true,
+      keyboardType: 'decimal-pad',
+    },
+    {
+      subTitle: 'Icon Class',
+      title: ticketStatusDetails?.attributes?.icon_class ?? 'Please Select',
+      list: IconClassList ?? [],
+      selectedItem: IconClassList?.find(
+        value => value?.name == ticketStatusDetails?.attributes?.icon_class,
+      ),
+      headerTitle: 'Icon Class',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'icon_class',
+    },
+    {
       subTitle: 'color',
+      title: ticketStatusDetails?.attributes?.color ?? '',
       inputable: false,
       enable: false,
-      isRequired: false,
+      isRequired: true,
     },
     {
-      title: ticketPriorityDetails?.attributes?.description ?? '',
-      subTitle: 'description',
-      inputable: true,
-      enable: false,
+      title: 'Allow Client',
+      enable: true,
+      rightSwitchVal: Boolean(
+        ticketStatusDetails?.attributes?.client_selectable,
+      ),
+      showRightSwitch: true,
+      // isRequired: true,
+    },
+    {
+      title: 'Comment',
+      enable: true,
+      rightSwitchVal: Boolean(
+        ticketStatusDetails?.attributes?.comment_required,
+      ),
+      showRightSwitch: true,
+      // isRequired: true,
+    },
+    {
+      title: 'Visibility to Client',
+      enable: true,
+      rightSwitchVal: Boolean(
+        ticketStatusDetails?.attributes?.visible_to_client,
+      ),
+      showRightSwitch: true,
+      // isRequired: true,
+      key: 'vtc',
+    },
+    {
+      subTitle: 'Purpose of Status',
+      title: ticketStatusDetails?.attributes?.state ?? 'Please Select',
+      list: PosList ?? [],
+      selectedItem: PosList?.find(
+        value => value?.name == ticketStatusDetails?.attributes?.state,
+      ),
+      headerTitle: 'Purpose of Status',
+      rightIcon: 'chevron-right',
       isRequired: true,
-      mode: 'multiline',
+      key: 'pos',
+    },
+    {
+      subTitle: 'Status to Display',
+      title: ticketStatusDetails?.attributes?.status_display ?? 'Please Select',
+      list: reshapedStatusList ?? [],
+      selectedItem: reshapedStatusList?.find(
+        (value: { name: string; id: string }): boolean =>
+          value?.name == ticketStatusDetails?.attributes?.status_display,
+      ),
+      headerTitle: 'Status to Display',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'std',
     },
   ]);
+
+  console.log('Show me the Data for Ticket Status?', statusList);
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -120,7 +208,7 @@ export default function Details() {
 
   const deleteFunc = (id: number) => {
     setLoader(true);
-    deletePriorities(id)
+    deleteStatus(id)
       .then(res => {
         setLoader(false);
         if (res?.status) {
@@ -143,6 +231,8 @@ export default function Details() {
     }
   }, [routes?.params?.selected]);
 
+  //* This is used to update Params for saving updated item from header functions
+
   useEffect(() => {
     const Data: Item[] = [];
     dataSource.map(item =>
@@ -152,10 +242,11 @@ export default function Details() {
         isRequired: item.isRequired,
         selectedItem: item.selectedItem,
         rightSwitchVal: item.rightSwitchVal,
+        key: item?.key,
       }),
     );
     Data[Data?.length] = {
-      title: ticketPriorityDetails?.id,
+      title: ticketStatusDetails?.id,
       subTitle: 'id',
     };
     navigation?.setParams({
@@ -177,18 +268,18 @@ export default function Details() {
           />
         )}
       />
-      {dataSource[1].title != 'Default' && (
+      {ticketStatusDetails?.id > 8 && (
         <FloatButton
           icon="delete"
           onPress={() => {
             Alert.alert(
-              'Delete Sla Plan?',
-              'Are you sure you want to delete this Sla Plan permanently?',
+              'Delete Ticket Status?',
+              'Are you sure you want to delete this Ticket Status permanently?',
               [
                 {
                   text: 'Yes',
                   style: 'default',
-                  onPress: () => deleteFunc(ticketPriorityDetails?.id),
+                  onPress: () => deleteFunc(ticketStatusDetails?.id),
                 },
                 {
                   text: 'No',

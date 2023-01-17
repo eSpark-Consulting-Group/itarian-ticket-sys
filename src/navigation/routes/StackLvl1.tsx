@@ -72,6 +72,7 @@ import {
   updateCannedResponse,
 } from '../../screens/CannedResponse/utils/functions';
 import { addGroup, updateGroup } from '../../screens/Groups/utils/functions';
+import { updateTicketStatus } from '../../screens/TicketStatus/utils/functions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -250,8 +251,8 @@ const StackLvl1 = ({ route, navigation }: any) => {
                     },
                   },
                 };
-                if(!data?.mainuser?.id) {
-                  delete obj?.data?.relationships
+                if (!data?.mainuser?.id) {
+                  delete obj?.data?.relationships;
                 }
                 checkValidations(
                   navigation,
@@ -308,8 +309,8 @@ const StackLvl1 = ({ route, navigation }: any) => {
                     },
                   },
                 };
-                if(!data?.mainuser?.id) {
-                  delete obj?.data?.relationships
+                if (!data?.mainuser?.id) {
+                  delete obj?.data?.relationships;
                 }
                 checkValidations(
                   navigation,
@@ -712,16 +713,22 @@ const StackLvl1 = ({ route, navigation }: any) => {
                   color={'#fff'}
                   onPress={() => {
                     const data = dataFormatter(route?.params?.data, '_');
+                    console.log('bato', data);
                     const obj = {
                       data: {
                         id: data?.id,
-                        type: 'ticketpriorities',
+                        type: 'ticketstatuses',
                         attributes: {
-                          name: data?.name,
-                          description: data?.description,
-                          status: data?.Status,
+                          name: data?.Name,
+                          sort: data?.Display_Order,
+                          icon_class:
+                            data?.icon_class?.name ?? data?.icon_class,
                           color: data?.color,
-                          is_public: data?.IsPublic,
+                          client_selectable: data?.Allow_Client,
+                          comment_required: data?.Comment,
+                          visible_to_client: data?.vtc,
+                          state: data?.pos?.name,
+                          status_to_display: data?.std?.name,
                         },
                       },
                     };
@@ -729,9 +736,9 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       navigation,
                       route,
                       globalStates,
-                      updateTicketPriorities,
+                      updateTicketStatus,
                       obj,
-                      'Ticket Priority updated successfully',
+                      'Ticket Status updated successfully',
                     );
                   }}
                 />

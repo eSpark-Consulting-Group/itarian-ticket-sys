@@ -21,14 +21,14 @@ const getAllTicketStatus = async () => {
   }
 };
 
-const addTicketPriorities = async (data: any) => {
+const addTicketStatus = async (data: any) => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.post('/ticketpriorities', data);
+    const result: any = await api.post('/ticketstatuses', data);
     console.log('result addSlaPlans', result);
     if (result?.ok) {
       getAllTicketStatus();
@@ -42,18 +42,18 @@ const addTicketPriorities = async (data: any) => {
   }
 };
 
-const deletePriorities = async (id: number) => {
+const deleteStatus = async (id: number) => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.delete(`/ticketpriorities/${id}`);
+    const result: any = await api.delete(`/ticketstatuses/${id}`);
     if (result?.ok) {
       getAllTicketStatus();
       showMessage({
-        message: 'SlaPlan deleted successfully',
+        message: 'Ticket Status deleted successfully',
         type: 'success',
         duration: alert_Dur,
       });
@@ -67,15 +67,16 @@ const deletePriorities = async (id: number) => {
   }
 };
 
-const updateTicketPriorities = async (data: any) => {
+const updateTicketStatus = async (data: any) => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
+    console.log('Data XXX', data?.data.id);
     const result: any = await api.patch(
-      `/ticketpriorities/${data?.data?.id}`,
+      `/ticketstatuses/${data?.data.id}`,
       data,
     );
     console.log('result updateSlaPlan', result);
@@ -93,7 +94,7 @@ const updateTicketPriorities = async (data: any) => {
 
 export {
   getAllTicketStatus,
-  addTicketPriorities,
-  deletePriorities,
-  updateTicketPriorities,
+  addTicketStatus,
+  deleteStatus,
+  updateTicketStatus,
 };

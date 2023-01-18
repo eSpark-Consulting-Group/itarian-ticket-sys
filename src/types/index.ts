@@ -112,6 +112,7 @@ export type RootStackParamList = {
   NewTeam: { title: string };
   NewSlaPlans: { title: string };
   NewTicketPriorities: { title: string };
+  NewTicketStatus: { title: string };
   NewDepartment: { title: string };
   NewLocation: { title: string };
   NewHelpTopic: { title: string };

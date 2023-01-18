@@ -1,3 +1,7 @@
+/**
+ * @file: "Listing All Tickets Statuses for the Given Domain"
+ */
+
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
 import {
@@ -107,7 +111,10 @@ const TicketStatus = ({
       )}
       <FloatButton
         onPress={() =>
-          navigation.navigate('Stack1', { screen: 'NewTicketPriorities' })
+          navigation.navigate('Stack1', {
+            screen: 'NewTicketStatus',
+            params: { statusList: filteredContacts },
+          })
         }
       />
     </View>
@@ -138,7 +145,7 @@ export const RenderTickets = ({
           onPress={() =>
             navigation.navigate('Stack1', {
               screen: 'TicketStatusDetails',
-              params: { ticketStatusDetails: item },
+              params: { ticketStatusDetails: item, statusList: listData },
             })
           }
           android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>

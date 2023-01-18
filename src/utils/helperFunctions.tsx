@@ -196,6 +196,7 @@ export const checkValidations = async (
       return;
     }
   }
+  console.log('Data obje', data);
 
   try {
     const result = await apiCall(data);
@@ -209,6 +210,8 @@ export const checkValidations = async (
       // console.log('Error Not Founded');
       isGoback && navigation.goBack();
     } else {
+      console.log('XXX', result?.message?.data?.errors);
+
       showMessage({
         message:
           result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
@@ -254,9 +257,9 @@ export const dataFormatter = (array: any = [], replacer: string = '') => {
   var dataObj: any = {};
   [...array]?.map(val => {
     dataObj[
-      val?.key?.replace(' ', replacer) ??
-        val?.subTitle?.replace(' ', replacer) ??
-        val?.title.replace(' ', replacer)
+      val?.key?.replace(/ /g, replacer) ??
+        val?.subTitle?.replace(/ /g, replacer) ??
+        val?.title.replace(/ /g, replacer)
     ] = !val?.subTitle
       ? val?.rightSwitchVal
       : val?.selectedItem

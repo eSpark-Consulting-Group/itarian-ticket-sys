@@ -111,7 +111,10 @@ const TicketStatus = ({
       )}
       <FloatButton
         onPress={() =>
-          navigation.navigate('Stack1', { screen: 'NewTicketPriorities' })
+          navigation.navigate('Stack1', {
+            screen: 'NewTicketStatus',
+            params: { statusList: filteredContacts },
+          })
         }
       />
     </View>

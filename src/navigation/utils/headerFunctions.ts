@@ -86,6 +86,9 @@ const onSave = (navigation: any, route: any, globalStates?: any) => {
       ...route?.params,
     });
   } else {
+    console.log('stack', route?.params?.stack);
+    console.log('screen', route?.params?.from);
+
     navigation.navigate(route?.params?.stack, {
       screen: route?.params?.from,
       params: {

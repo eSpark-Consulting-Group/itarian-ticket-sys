@@ -200,7 +200,14 @@ export default function Details() {
         keyboardType={item?.keyboardType}
         mode={item?.mode}
         onPress={() =>
-          SelectItems(item, index, navigation, routes, 'TeamDetails', 'Stack1')
+          SelectItems(
+            item,
+            index,
+            navigation,
+            routes,
+            'TicketStatusDetails',
+            'Stack1',
+          )
         }
       />
     );

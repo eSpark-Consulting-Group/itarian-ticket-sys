@@ -72,7 +72,11 @@ import {
   updateCannedResponse,
 } from '../../screens/CannedResponse/utils/functions';
 import { addGroup, updateGroup } from '../../screens/Groups/utils/functions';
-import { updateTicketStatus } from '../../screens/TicketStatus/utils/functions';
+import {
+  addTicketStatus,
+  updateTicketStatus,
+} from '../../screens/TicketStatus/utils/functions';
+import NewTicketStatus from '../../forms/NewTicketStatus';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -720,7 +724,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
                         type: 'ticketstatuses',
                         attributes: {
                           name: data?.Name,
-                          sort: data?.Display_Order,
+                          sort: parseInt(data?.Display_Order),
                           icon_class:
                             data?.icon_class?.name ?? data?.icon_class,
                           color: data?.color,
@@ -1203,6 +1207,59 @@ const StackLvl1 = ({ route, navigation }: any) => {
                   route,
                   globalStates,
                   addTicketPriorities,
+                  obj,
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewTicketStatus"
+        component={NewTicketStatus}
+        options={({ route, navigation }: any) => ({
+          title: 'New Ticket Status',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data, '_');
+                console.log('ZZZ', data);
+
+                const obj = {
+                  data: {
+                    id: data?.id,
+                    type: 'ticketstatuses',
+                    attributes: {
+                      name: data?.Name,
+                      sort: parseInt(data?.Display_Order),
+                      icon_class: data?.Icon_Class?.name ?? data?.icon_class,
+                      color: data?.color,
+                      client_selectable: data?.Allow_Client,
+                      comment_required: data?.Comment,
+                      visible_to_client: data?.Visibility_to_Client,
+                      state: data?.Purpose_of_Status?.name,
+                      status_to_display: data?.Status_to_Display?.name,
+                    },
+                  },
+                };
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addTicketStatus,
                   obj,
                 );
               }}

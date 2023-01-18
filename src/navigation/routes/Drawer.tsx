@@ -292,7 +292,7 @@ const Draw = () => {
                   params: {
                     from: 'Agenda',
                     item: 'GoneTo',
-                    data: users.get() || [],
+                    data: users.get()?.filter((val: any) => val?.role != 'user') || [],
                     selected: currMember,
                     stack: 'Draw',
                     headerTitle: 'Select Member',

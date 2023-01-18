@@ -178,6 +178,7 @@ export default function Details() {
       <Loader isShow={loader} />
       <GapView />
       <FlatList
+        contentContainerStyle={{ paddingBottom: 80 }}
         data={dataSource}
         renderItem={renderList}
         ItemSeparatorComponent={() => (

@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, KeyboardTypeOptions, Alert } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  View,
+  FlatList,
+  KeyboardTypeOptions,
+  Alert,
+  Modal,
+  Text,
+} from 'react-native';
 import {
   useTheme,
   Theme,
@@ -7,8 +14,11 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import { Divider } from 'react-native-paper';
+import ColorPicker from 'react-native-wheel-color-picker';
+import II from 'react-native-vector-icons/Ionicons';
 
 import {
+  CstmPressable,
   FloatButton,
   GapView,
   Loader,
@@ -36,7 +46,9 @@ interface Item {
   headerTitle?: string;
   keyboardType?: KeyboardTypeOptions | undefined;
   isRequired?: boolean;
+  modal?: boolean;
   mode?: 'none' | 'multiline';
+  key?: string;
   onPress?: () => void;
 }
 
@@ -46,6 +58,8 @@ export default function Details() {
   const navigation: any = useNavigation();
   const ticketPriorityDetails = routes?.params?.ticketPriorityDetails;
   const [loader, setLoader] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const colorRef = useRef('#ffffff');
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'Status',
@@ -70,8 +84,11 @@ export default function Details() {
       title: ticketPriorityDetails?.attributes?.color ?? '',
       subTitle: 'color',
       inputable: false,
-      enable: false,
+      enable: true,
       isRequired: false,
+      modal: true,
+      key: 'color',
+      onPress: (): void => setVisible(true),
     },
     {
       title: ticketPriorityDetails?.attributes?.description ?? '',
@@ -96,25 +113,105 @@ export default function Details() {
 
   const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
-      <SingleLineField
-        key={index}
-        subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
-        title={item.title}
-        inputable={item.inputable}
-        onChangeText={e => updateInput(e, index)}
-        enable={item.enable}
-        rightIconRound={item.rightIconRound}
-        titleWidth={item.titleWidth}
-        rightIcon={item.rightIcon}
-        showRightSwitch={item.showRightSwitch}
-        rightSwitchVal={item.rightSwitchVal}
-        onChangeSwitch={() => updateSwitch(index)}
-        keyboardType={item?.keyboardType}
-        mode={item?.mode}
-        onPress={() =>
-          SelectItems(item, index, navigation, routes, 'TeamDetails', 'Stack1')
-        }
-      />
+      <>
+        <Modal
+          presentationStyle="overFullScreen"
+          visible={visible}
+          transparent
+          statusBarTranslucent>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#00000033',
+            }}>
+            <View
+              style={{
+                width: '90%',
+                height: '50%',
+                backgroundColor: '#fff',
+                borderRadius: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  flex: 1,
+                  height: '70%',
+                  width: '50%',
+                }}>
+                <ColorPicker
+                  color={colorRef.current}
+                  row={false}
+                  sliderHidden={false}
+                  thumbSize={20}
+                  noSnap={false}
+                  swatches={false}
+                  onColorChangeComplete={value => {
+                    colorRef.current = value;
+                    console.log('xx', value, 'Color', colorRef.current);
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  flex: 0.3,
+                  width: '100%',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  paddingHorizontal: 12,
+                }}>
+                <View
+                  style={{
+                    backgroundColor: colors.primary,
+                    borderRadius: 99,
+                    elevation: 5,
+                  }}>
+                  <CstmPressable
+                    style={{ padding: 10 }}
+                    android_ripple={{
+                      color: '#ffffff2e',
+                      borderless: true,
+                    }}
+                    onPress={() => console.log('hello')}>
+                    <II size={30} name="checkmark" color={'#fff'} />
+                  </CstmPressable>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+        <SingleLineField
+          key={index}
+          subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
+          title={item.title}
+          inputable={item.inputable}
+          onChangeText={e => updateInput(e, index)}
+          enable={item.enable}
+          rightIconRound={item.rightIconRound}
+          titleWidth={item.titleWidth}
+          rightIcon={item.rightIcon}
+          showRightSwitch={item.showRightSwitch}
+          rightSwitchVal={item.rightSwitchVal}
+          onChangeSwitch={() => updateSwitch(index)}
+          keyboardType={item?.keyboardType}
+          mode={item?.mode}
+          onPress={(): void => {
+            if (item?.key == 'color') {
+              item.onPress?.();
+            }
+            SelectItems(
+              item,
+              index,
+              navigation,
+              routes,
+              'TeamDetails',
+              'Stack1',
+            );
+          }}
+        />
+      </>
     );
   };
 

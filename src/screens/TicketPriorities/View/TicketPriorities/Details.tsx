@@ -1,12 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import {
-  View,
-  FlatList,
-  KeyboardTypeOptions,
-  Alert,
-  Modal,
-  Text,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, KeyboardTypeOptions, Alert, Text } from 'react-native';
 import {
   useTheme,
   Theme,
@@ -14,11 +7,9 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import { Divider } from 'react-native-paper';
-import ColorPicker from 'react-native-wheel-color-picker';
-import II from 'react-native-vector-icons/Ionicons';
 
 import {
-  CstmPressable,
+  CstmColorPicker,
   FloatButton,
   GapView,
   Loader,
@@ -59,7 +50,7 @@ export default function Details() {
   const ticketPriorityDetails = routes?.params?.ticketPriorityDetails;
   const [loader, setLoader] = useState(false);
   const [visible, setVisible] = useState(false);
-  const colorRef = useRef('#ffffff');
+  const [currIndex, setCurrIndex] = useState<number | undefined>();
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'Status',
@@ -87,6 +78,7 @@ export default function Details() {
       enable: true,
       isRequired: false,
       modal: true,
+      rightIcon: 'chevron-right',
       key: 'color',
       onPress: (): void => setVisible(true),
     },
@@ -99,10 +91,19 @@ export default function Details() {
       mode: 'multiline',
     },
   ]);
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
     setDataSource(newData);
+  };
+
+  const updateColor = (e: string, index?: number) => {
+    console.log('what is index?', index);
+    let newData = [...dataSource];
+    newData[index!!].title = e;
+    setDataSource(newData);
+    setVisible(false);
   };
 
   const updateSwitch = (index: number) => {
@@ -113,105 +114,29 @@ export default function Details() {
 
   const renderList = ({ item, index }: { item: Item; index: number }) => {
     return (
-      <>
-        <Modal
-          presentationStyle="overFullScreen"
-          visible={visible}
-          transparent
-          statusBarTranslucent>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#00000033',
-            }}>
-            <View
-              style={{
-                width: '90%',
-                height: '50%',
-                backgroundColor: '#fff',
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  flex: 1,
-                  height: '70%',
-                  width: '50%',
-                }}>
-                <ColorPicker
-                  color={colorRef.current}
-                  row={false}
-                  sliderHidden={false}
-                  thumbSize={20}
-                  noSnap={false}
-                  swatches={false}
-                  onColorChangeComplete={value => {
-                    colorRef.current = value;
-                    console.log('xx', value, 'Color', colorRef.current);
-                  }}
-                />
-              </View>
-              <View
-                style={{
-                  flex: 0.3,
-                  width: '100%',
-                  alignItems: 'flex-end',
-                  justifyContent: 'center',
-                  paddingHorizontal: 12,
-                }}>
-                <View
-                  style={{
-                    backgroundColor: colors.primary,
-                    borderRadius: 99,
-                    elevation: 5,
-                  }}>
-                  <CstmPressable
-                    style={{ padding: 10 }}
-                    android_ripple={{
-                      color: '#ffffff2e',
-                      borderless: true,
-                    }}
-                    onPress={() => console.log('hello')}>
-                    <II size={30} name="checkmark" color={'#fff'} />
-                  </CstmPressable>
-                </View>
-              </View>
-            </View>
-          </View>
-        </Modal>
-        <SingleLineField
-          key={index}
-          subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
-          title={item.title}
-          inputable={item.inputable}
-          onChangeText={e => updateInput(e, index)}
-          enable={item.enable}
-          rightIconRound={item.rightIconRound}
-          titleWidth={item.titleWidth}
-          rightIcon={item.rightIcon}
-          showRightSwitch={item.showRightSwitch}
-          rightSwitchVal={item.rightSwitchVal}
-          onChangeSwitch={() => updateSwitch(index)}
-          keyboardType={item?.keyboardType}
-          mode={item?.mode}
-          onPress={(): void => {
-            if (item?.key == 'color') {
-              item.onPress?.();
-            }
-            SelectItems(
-              item,
-              index,
-              navigation,
-              routes,
-              'TeamDetails',
-              'Stack1',
-            );
-          }}
-        />
-      </>
+      <SingleLineField
+        key={index}
+        subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
+        title={item.title}
+        inputable={item.inputable}
+        onChangeText={e => updateInput(e, index)}
+        enable={item.enable}
+        rightIconRound={item.rightIconRound}
+        titleWidth={item.titleWidth}
+        rightIcon={item.rightIcon}
+        showRightSwitch={item.showRightSwitch}
+        rightSwitchVal={item.rightSwitchVal}
+        onChangeSwitch={() => updateSwitch(index)}
+        keyboardType={item?.keyboardType}
+        mode={item?.mode}
+        onPress={(): void => {
+          if (item?.key == 'color') {
+            item.onPress?.();
+            setCurrIndex(index);
+          }
+          SelectItems(item, index, navigation, routes, 'TeamDetails', 'Stack1');
+        }}
+      />
     );
   };
 
@@ -265,6 +190,11 @@ export default function Details() {
     <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
+      <CstmColorPicker
+        color={ticketPriorityDetails?.attributes?.color ?? '#ffffff'}
+        visible={visible}
+        updateColor={color => updateColor(color, currIndex)}
+      />
       <FlatList
         data={dataSource}
         renderItem={renderList}

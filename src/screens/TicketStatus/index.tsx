@@ -36,13 +36,12 @@ const TicketStatus = ({
 }) => {
   const { colors, dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [clear, setClear] = useState(false);
   const ticketstatus = useHookstate(globalState.ticketStatus);
   const [filteredContacts, setFilteredContacts] = useState(ticketstatus.get());
 
   useEffect(() => {
-    // fetchRecords();
     fetchRecords();
   }, []);
 
@@ -137,8 +136,6 @@ export const RenderTickets = ({
   };
 
   const renderList = ({ item, index }: { item: any; index: number }) => {
-    console.log('item', item);
-
     return (
       <View style={styles.listContainer}>
         <CstmPressable

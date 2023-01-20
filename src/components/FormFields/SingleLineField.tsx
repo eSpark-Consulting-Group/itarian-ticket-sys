@@ -37,7 +37,7 @@ interface Props {
   roundedIconEnable?: boolean;
   onRoundedIconPress?: () => void;
   rightChild?: ReactNode;
-  leftChild?: ReactNode;
+  leftChild?: ReactNode | Element;
   border?: boolean;
   mode?: 'none' | 'multiline';
   leftIconStyles?: ViewStyle;
@@ -76,7 +76,7 @@ const SingleLineField = ({
   keyboardType = 'default',
   inputWidth = undefined,
   roundIconStyle = {},
-}: Props) => {
+}: Props): JSX.Element => {
   const { colors }: Theme = useTheme();
   return (
     <ModalField

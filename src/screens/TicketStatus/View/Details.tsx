@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, KeyboardTypeOptions, Alert } from 'react-native';
 import {
   useTheme,
@@ -19,7 +19,6 @@ import { SelectFields } from '../../../types';
 import { SelectItems } from '../../../utils/helperFunctions';
 import { deleteStatus } from '../utils/functions';
 import { IconClassList, PosList } from '../../../constants/SelectionList';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Item {
   title: string;
@@ -135,7 +134,6 @@ export default function Details() {
       rightIcon: 'chevron-right',
       key: 'color',
       onPress: (): void => {
-        console.log('sdadsa', dataSource[3]?.title);
         setVisible(true);
       },
     },
@@ -319,6 +317,7 @@ export default function Details() {
       <Loader isShow={loader} />
       <GapView />
       <CstmColorPicker
+        onClose={() => setVisible(false)}
         color={dataSource[3].title}
         visible={visible}
         updateColor={color => updateColor(color, currIndex)}

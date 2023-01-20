@@ -29,6 +29,7 @@ import { CstmMenu } from './CstmMenu';
 import TicketComponent from './TicketComponent';
 import Resources from './Resources';
 import AppStatusBar from './AppStatusBar';
+import CstmColorPicker from './CstmColorPicker';
 
 export {
   CstmButton,
@@ -63,4 +64,5 @@ export {
   TicketComponent,
   Resources,
   AppStatusBar,
+  CstmColorPicker,
 };

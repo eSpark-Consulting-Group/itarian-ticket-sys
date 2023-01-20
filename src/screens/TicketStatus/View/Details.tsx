@@ -9,6 +9,7 @@ import {
 import { Divider } from 'react-native-paper';
 
 import {
+  CstmColorPicker,
   FloatButton,
   GapView,
   Loader,
@@ -40,6 +41,7 @@ interface Item {
   mode?: 'none' | 'multiline';
   onPress?: () => void;
   key?: string;
+  modal?: boolean;
 }
 
 interface StatusAttributes {
@@ -69,6 +71,8 @@ export default function Details() {
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const { ticketStatusDetails, statusList } = routes?.params;
+  const [visible, setVisible] = useState(false);
+  const [currIndex, setCurrIndex] = useState<number | undefined>();
   const [loader, setLoader] = useState(false);
 
   const reshapedStatusList = statusList.map(
@@ -110,8 +114,12 @@ export default function Details() {
       subTitle: 'color',
       title: ticketStatusDetails?.attributes?.color ?? '',
       inputable: false,
-      enable: false,
+      enable: true,
       isRequired: true,
+      modal: true,
+      rightIcon: 'chevron-right',
+      key: 'color',
+      onPress: (): void => setVisible(true),
     },
     {
       title: 'Allow Client',
@@ -176,6 +184,14 @@ export default function Details() {
     setDataSource(newData);
   };
 
+  const updateColor = (e: string, index?: number) => {
+    console.log('what is index?', index);
+    let newData = [...dataSource];
+    newData[index!!].title = e;
+    setDataSource(newData);
+    setVisible(false);
+  };
+
   const updateSwitch = (index: number) => {
     let tempArr: Item[] = [...dataSource];
     tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
@@ -199,7 +215,11 @@ export default function Details() {
         onChangeSwitch={() => updateSwitch(index)}
         keyboardType={item?.keyboardType}
         mode={item?.mode}
-        onPress={() =>
+        onPress={() => {
+          if (item?.key == 'color') {
+            item.onPress?.();
+            setCurrIndex(index);
+          }
           SelectItems(
             item,
             index,
@@ -207,8 +227,8 @@ export default function Details() {
             routes,
             'TicketStatusDetails',
             'Stack1',
-          )
-        }
+          );
+        }}
       />
     );
   };
@@ -266,6 +286,11 @@ export default function Details() {
     <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
+      <CstmColorPicker
+        color={ticketStatusDetails?.attributes?.color ?? '#ffffff'}
+        visible={visible}
+        updateColor={color => updateColor(color, currIndex)}
+      />
       <FlatList
         data={dataSource}
         renderItem={renderList}

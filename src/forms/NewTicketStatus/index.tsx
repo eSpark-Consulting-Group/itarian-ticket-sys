@@ -3,7 +3,7 @@ import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import { State, useHookstate } from '@hookstate/core';
 
-import { ModalView, SingleLineField } from '../../components';
+import { CstmColorPicker, ModalView, SingleLineField } from '../../components';
 import { SelectFields } from '../../types';
 import { SelectItems } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
@@ -44,6 +44,7 @@ interface Item {
   rightSwitchVal?: boolean;
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
+  onPress?: () => void;
   list?: SelectFields[];
   selectedItem?: SelectFields;
   searchable?: boolean;
@@ -52,12 +53,14 @@ interface Item {
   isRequired?: boolean;
   mode?: 'none' | 'multiline';
   key?: string;
+  modal?: boolean;
 }
 
 const NewTicketStatus = ({ route, navigation }: any) => {
   const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
-
+  const [visible, setVisible] = useState(false);
+  const [currIndex, setCurrIndex] = useState<number | undefined>();
   const reshapedStatusList = route?.params?.statusList.map(
     (item: StatusProps): { id: string; name: string } => ({
       id: item?.id,
@@ -93,10 +96,14 @@ const NewTicketStatus = ({ route, navigation }: any) => {
     },
     {
       subTitle: 'color',
-      title: '',
-      inputable: true,
-      enable: false,
+      title: '#ffffff',
+      inputable: false,
+      enable: true,
       isRequired: true,
+      modal: true,
+      rightIcon: 'chevron-right',
+      key: 'color',
+      onPress: (): void => setVisible(true),
     },
     {
       title: 'Allow Client',
@@ -145,6 +152,14 @@ const NewTicketStatus = ({ route, navigation }: any) => {
     setDataSource(newData);
   };
 
+  const updateColor = (e: string, index?: number) => {
+    console.log('what is index?', index);
+    let newData = [...dataSource];
+    newData[index!!].title = e;
+    setDataSource(newData);
+    setVisible(false);
+  };
+
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
@@ -182,6 +197,11 @@ const NewTicketStatus = ({ route, navigation }: any) => {
     <ModalView bgColor={colors.card}>
       <ScrollView style={{ flex: 1 }}>
         <View style={{ backgroundColor: colors.background }}>
+          <CstmColorPicker
+            color={dataSource[3]?.title}
+            visible={visible}
+            updateColor={color => updateColor(color, currIndex)}
+          />
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -198,7 +218,11 @@ const NewTicketStatus = ({ route, navigation }: any) => {
               onChangeSwitch={() => updateSwitch(index)}
               keyboardType={item?.keyboardType}
               mode={item?.mode}
-              onPress={() =>
+              onPress={() => {
+                if (item?.key == 'color') {
+                  item.onPress?.();
+                  setCurrIndex(index);
+                }
                 SelectItems(
                   item,
                   index,
@@ -206,8 +230,8 @@ const NewTicketStatus = ({ route, navigation }: any) => {
                   route,
                   'NewTicketStatus',
                   'Stack1',
-                )
-              }
+                );
+              }}
             />
           ))}
         </View>

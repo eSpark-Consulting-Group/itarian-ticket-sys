@@ -3,7 +3,7 @@ import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import { State, useHookstate } from '@hookstate/core';
 
-import { ModalView, SingleLineField } from '../../components';
+import { CstmColorPicker, ModalView, SingleLineField } from '../../components';
 import { SelectFields } from '../../types';
 import { SelectItems } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
@@ -11,6 +11,8 @@ import { userStore } from '../../stores/userStore';
 const NewTicketPriorities = ({ route, navigation }: any) => {
   const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
+  const [visible, setVisible] = useState(false);
+  const [currIndex, setCurrIndex] = useState<number | undefined>();
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'Status',
@@ -32,11 +34,15 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
       isRequired: true,
     },
     {
-      title: '',
+      title: '#ffffff',
       subTitle: 'color',
-      inputable: true,
-      enable: false,
+      inputable: false,
+      enable: true,
       isRequired: false,
+      rightIcon: 'chevron-right',
+      key: 'color',
+      onPress: (): void => setVisible(true),
+      modal: true,
     },
     {
       title: '',
@@ -60,12 +66,15 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
     rightSwitchVal?: boolean;
     onChangeSwitch?: (value: boolean) => void;
     onChangeText?: (text: string) => void;
+    onPress?: () => void;
     list?: SelectFields[];
     selectedItem?: SelectFields;
     searchable?: boolean;
     headerTitle?: string;
     keyboardType?: KeyboardTypeOptions | undefined;
     isRequired?: boolean;
+    key?: string;
+    modal?: boolean;
     mode?: 'none' | 'multiline';
   }
 
@@ -73,6 +82,20 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
     let newData = [...dataSource];
     newData[index].title = e;
     setDataSource(newData);
+  };
+
+  const updateColor = (e: string, index?: number) => {
+    console.log('what is index?', index);
+    let newData = [...dataSource];
+    newData[index!!].title = e;
+    setDataSource(newData);
+    setVisible(false);
+  };
+
+  const updateSwitch = (index: number) => {
+    let tempArr: Item[] = [...dataSource];
+    tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
+    setDataSource(tempArr);
   };
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
@@ -102,16 +125,15 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
     });
   }, [dataSource]);
 
-  const updateSwitch = (index: number) => {
-    let tempArr: Item[] = [...dataSource];
-    tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
-    setDataSource(tempArr);
-  };
-
   return (
     <ModalView bgColor={colors.card}>
       <ScrollView style={{ flex: 1 }}>
         <View style={{ backgroundColor: colors.background }}>
+          <CstmColorPicker
+            color={dataSource[3].title}
+            visible={visible}
+            updateColor={color => updateColor(color, currIndex)}
+          />
           {dataSource.map((item, index) => (
             <SingleLineField
               key={index}
@@ -128,7 +150,11 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
               onChangeSwitch={() => updateSwitch(index)}
               keyboardType={item?.keyboardType}
               mode={item?.mode}
-              onPress={() =>
+              onPress={() => {
+                if (item?.key == 'color') {
+                  item.onPress?.();
+                  setCurrIndex(index);
+                }
                 SelectItems(
                   item,
                   index,
@@ -136,8 +162,8 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
                   route,
                   'NewSlaPlans',
                   'Stack1',
-                )
-              }
+                );
+              }}
             />
           ))}
         </View>

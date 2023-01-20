@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, KeyboardTypeOptions, Alert } from 'react-native';
+import { View, FlatList, KeyboardTypeOptions, Alert, Text } from 'react-native';
 import {
   useTheme,
   Theme,
@@ -9,6 +9,7 @@ import {
 import { Divider } from 'react-native-paper';
 
 import {
+  CstmColorPicker,
   FloatButton,
   GapView,
   Loader,
@@ -36,7 +37,9 @@ interface Item {
   headerTitle?: string;
   keyboardType?: KeyboardTypeOptions | undefined;
   isRequired?: boolean;
+  modal?: boolean;
   mode?: 'none' | 'multiline';
+  key?: string;
   onPress?: () => void;
 }
 
@@ -46,6 +49,8 @@ export default function Details() {
   const navigation: any = useNavigation();
   const ticketPriorityDetails = routes?.params?.ticketPriorityDetails;
   const [loader, setLoader] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [currIndex, setCurrIndex] = useState<number | undefined>();
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'Status',
@@ -70,8 +75,12 @@ export default function Details() {
       title: ticketPriorityDetails?.attributes?.color ?? '',
       subTitle: 'color',
       inputable: false,
-      enable: false,
+      enable: true,
       isRequired: false,
+      modal: true,
+      rightIcon: 'chevron-right',
+      key: 'color',
+      onPress: (): void => setVisible(true),
     },
     {
       title: ticketPriorityDetails?.attributes?.description ?? '',
@@ -82,10 +91,19 @@ export default function Details() {
       mode: 'multiline',
     },
   ]);
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
     setDataSource(newData);
+  };
+
+  const updateColor = (e: string, index?: number) => {
+    console.log('what is index?', index);
+    let newData = [...dataSource];
+    newData[index!!].title = e;
+    setDataSource(newData);
+    setVisible(false);
   };
 
   const updateSwitch = (index: number) => {
@@ -111,9 +129,13 @@ export default function Details() {
         onChangeSwitch={() => updateSwitch(index)}
         keyboardType={item?.keyboardType}
         mode={item?.mode}
-        onPress={() =>
-          SelectItems(item, index, navigation, routes, 'TeamDetails', 'Stack1')
-        }
+        onPress={(): void => {
+          if (item?.key == 'color') {
+            item.onPress?.();
+            setCurrIndex(index);
+          }
+          SelectItems(item, index, navigation, routes, 'TeamDetails', 'Stack1');
+        }}
       />
     );
   };
@@ -168,6 +190,11 @@ export default function Details() {
     <View style={{ flex: 1 }}>
       <Loader isShow={loader} />
       <GapView />
+      <CstmColorPicker
+        color={ticketPriorityDetails?.attributes?.color ?? '#ffffff'}
+        visible={visible}
+        updateColor={color => updateColor(color, currIndex)}
+      />
       <FlatList
         data={dataSource}
         renderItem={renderList}

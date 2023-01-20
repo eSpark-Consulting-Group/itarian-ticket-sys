@@ -10,10 +10,12 @@ export default function CstmColorPicker({
   visible,
   updateColor,
   color,
+  onClose,
 }: {
   visible: boolean;
   color: string;
   updateColor: (color: string) => void;
+  onClose?: () => void;
 }): JSX.Element {
   const colorRef = useRef(color);
   const { colors, dark } = useTheme();
@@ -42,6 +44,41 @@ export default function CstmColorPicker({
             borderWidth: 3,
             borderColor: colors.primary,
           }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              width: '100%',
+              paddingVertical: 10,
+              backgroundColor: colors.primary,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <II
+              size={30}
+              style={{
+                flex: 0.2,
+                textAlign: 'center',
+              }}
+              name="close"
+              color={'#fff'}
+              onPress={onClose}
+            />
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 22,
+                color: '#ffffff',
+                fontWeight: '500',
+                textAlign: 'center',
+              }}>
+              Pick Color
+            </Text>
+            <View
+              style={{
+                flex: 0.2,
+              }}
+            />
+          </View>
           <View
             style={{
               flex: 1,

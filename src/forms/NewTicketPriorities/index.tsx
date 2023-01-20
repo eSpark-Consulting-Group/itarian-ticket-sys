@@ -39,6 +39,19 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
       inputable: false,
       enable: true,
       isRequired: false,
+      leftChild: (
+        <View
+          style={{
+            zIndex: 100,
+            backgroundColor: '#ffffff',
+            width: 15,
+            height: 15,
+            borderWidth: 2,
+            borderRadius: 4,
+            borderColor: colors.text + 'aa',
+          }}
+        />
+      ),
       rightIcon: 'chevron-right',
       key: 'color',
       onPress: (): void => setVisible(true),
@@ -76,6 +89,7 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
     key?: string;
     modal?: boolean;
     mode?: 'none' | 'multiline';
+    leftChild?: Element;
   }
 
   const updateInput = (e: string, index: number) => {
@@ -88,6 +102,19 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
     console.log('what is index?', index);
     let newData = [...dataSource];
     newData[index!!].title = e;
+    newData[index!!].leftChild = (
+      <View
+        style={{
+          zIndex: 100,
+          backgroundColor: e,
+          width: 15,
+          height: 15,
+          borderWidth: 2,
+          borderRadius: 4,
+          borderColor: colors.text + 'aa',
+        }}
+      />
+    );
     setDataSource(newData);
     setVisible(false);
   };
@@ -130,6 +157,7 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
       <ScrollView style={{ flex: 1 }}>
         <View style={{ backgroundColor: colors.background }}>
           <CstmColorPicker
+            onClose={() => setVisible(false)}
             color={dataSource[3].title}
             visible={visible}
             updateColor={color => updateColor(color, currIndex)}
@@ -142,6 +170,7 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
               inputable={item.inputable}
               onChangeText={e => updateInput(e, index)}
               enable={item.enable}
+              leftChild={item.leftChild}
               rightIconRound={item.rightIconRound}
               titleWidth={item.titleWidth}
               rightIcon={item.rightIcon}

@@ -54,6 +54,7 @@ interface Item {
   mode?: 'none' | 'multiline';
   key?: string;
   modal?: boolean;
+  leftChild?: Element;
 }
 
 const NewTicketStatus = ({ route, navigation }: any) => {
@@ -101,6 +102,19 @@ const NewTicketStatus = ({ route, navigation }: any) => {
       enable: true,
       isRequired: true,
       modal: true,
+      leftChild: (
+        <View
+          style={{
+            zIndex: 100,
+            backgroundColor: '#ffffff',
+            width: 15,
+            height: 15,
+            borderWidth: 2,
+            borderRadius: 4,
+            borderColor: colors.text + 'aa',
+          }}
+        />
+      ),
       rightIcon: 'chevron-right',
       key: 'color',
       onPress: (): void => setVisible(true),
@@ -156,6 +170,19 @@ const NewTicketStatus = ({ route, navigation }: any) => {
     console.log('what is index?', index);
     let newData = [...dataSource];
     newData[index!!].title = e;
+    newData[index!!].leftChild = (
+      <View
+        style={{
+          zIndex: 100,
+          backgroundColor: e,
+          width: 15,
+          height: 15,
+          borderWidth: 2,
+          borderRadius: 4,
+          borderColor: colors.text + 'aa',
+        }}
+      />
+    );
     setDataSource(newData);
     setVisible(false);
   };
@@ -198,6 +225,7 @@ const NewTicketStatus = ({ route, navigation }: any) => {
       <ScrollView style={{ flex: 1 }}>
         <View style={{ backgroundColor: colors.background }}>
           <CstmColorPicker
+            onClose={() => setVisible(false)}
             color={dataSource[3]?.title}
             visible={visible}
             updateColor={color => updateColor(color, currIndex)}
@@ -213,6 +241,7 @@ const NewTicketStatus = ({ route, navigation }: any) => {
               rightIconRound={item.rightIconRound}
               titleWidth={item.titleWidth}
               rightIcon={item.rightIcon}
+              leftChild={item.leftChild}
               showRightSwitch={item.showRightSwitch}
               rightSwitchVal={item.rightSwitchVal}
               onChangeSwitch={() => updateSwitch(index)}

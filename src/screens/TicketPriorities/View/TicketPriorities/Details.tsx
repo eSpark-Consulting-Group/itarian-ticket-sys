@@ -41,6 +41,7 @@ interface Item {
   mode?: 'none' | 'multiline';
   key?: string;
   onPress?: () => void;
+  leftChild?: Element;
 }
 
 export default function Details() {
@@ -78,6 +79,19 @@ export default function Details() {
       enable: true,
       isRequired: false,
       modal: true,
+      leftChild: (
+        <View
+          style={{
+            zIndex: 100,
+            backgroundColor: ticketPriorityDetails?.attributes?.color ?? '',
+            width: 15,
+            height: 15,
+            borderWidth: 2,
+            borderRadius: 4,
+            borderColor: colors.text + 'aa',
+          }}
+        />
+      ),
       rightIcon: 'chevron-right',
       key: 'color',
       onPress: (): void => setVisible(true),
@@ -102,6 +116,19 @@ export default function Details() {
     console.log('what is index?', index);
     let newData = [...dataSource];
     newData[index!!].title = e;
+    newData[index!!].leftChild = (
+      <View
+        style={{
+          zIndex: 100,
+          backgroundColor: e,
+          width: 15,
+          height: 15,
+          borderWidth: 2,
+          borderRadius: 4,
+          borderColor: colors.text + 'aa',
+        }}
+      />
+    );
     setDataSource(newData);
     setVisible(false);
   };
@@ -123,6 +150,7 @@ export default function Details() {
         enable={item.enable}
         rightIconRound={item.rightIconRound}
         titleWidth={item.titleWidth}
+        leftChild={item.leftChild}
         rightIcon={item.rightIcon}
         showRightSwitch={item.showRightSwitch}
         rightSwitchVal={item.rightSwitchVal}
@@ -191,6 +219,7 @@ export default function Details() {
       <Loader isShow={loader} />
       <GapView />
       <CstmColorPicker
+        onClose={() => setVisible(false)}
         color={ticketPriorityDetails?.attributes?.color ?? '#ffffff'}
         visible={visible}
         updateColor={color => updateColor(color, currIndex)}

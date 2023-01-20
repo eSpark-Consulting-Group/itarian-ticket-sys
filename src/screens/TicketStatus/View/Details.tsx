@@ -42,6 +42,7 @@ interface Item {
   onPress?: () => void;
   key?: string;
   modal?: boolean;
+  leftChild?: Element;
 }
 
 interface StatusAttributes {
@@ -117,9 +118,24 @@ export default function Details() {
       enable: true,
       isRequired: true,
       modal: true,
+      leftChild: (
+        <View
+          style={{
+            zIndex: 100,
+            backgroundColor: ticketStatusDetails?.attributes?.color ?? '',
+            width: 15,
+            height: 15,
+            borderWidth: 2,
+            borderRadius: 4,
+            borderColor: colors.text + 'aa',
+          }}
+        />
+      ),
       rightIcon: 'chevron-right',
       key: 'color',
-      onPress: (): void => setVisible(true),
+      onPress: (): void => {
+        setVisible(true);
+      },
     },
     {
       title: 'Allow Client',
@@ -188,6 +204,19 @@ export default function Details() {
     console.log('what is index?', index);
     let newData = [...dataSource];
     newData[index!!].title = e;
+    newData[index!!].leftChild = (
+      <View
+        style={{
+          zIndex: 100,
+          backgroundColor: e,
+          width: 15,
+          height: 15,
+          borderWidth: 2,
+          borderRadius: 4,
+          borderColor: colors.text + 'aa',
+        }}
+      />
+    );
     setDataSource(newData);
     setVisible(false);
   };
@@ -213,6 +242,7 @@ export default function Details() {
         showRightSwitch={item.showRightSwitch}
         rightSwitchVal={item.rightSwitchVal}
         onChangeSwitch={() => updateSwitch(index)}
+        leftChild={item.leftChild}
         keyboardType={item?.keyboardType}
         mode={item?.mode}
         onPress={() => {
@@ -287,7 +317,8 @@ export default function Details() {
       <Loader isShow={loader} />
       <GapView />
       <CstmColorPicker
-        color={ticketStatusDetails?.attributes?.color ?? '#ffffff'}
+        onClose={() => setVisible(false)}
+        color={dataSource[3].title}
         visible={visible}
         updateColor={color => updateColor(color, currIndex)}
       />

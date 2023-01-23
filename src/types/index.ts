@@ -287,7 +287,7 @@ export interface DataItem {
   headerTitle?: string;
   keyboardType?: KeyboardTypeOptions | undefined;
   isRequired?: boolean;
-  mode?: 'none' | 'multiline';
+  mode?: 'none' | 'multiline' | 'texteditor';
   key?: string;
   onPress?: () => void;
   roundedIconEnable?: boolean;
@@ -295,6 +295,8 @@ export interface DataItem {
   onRoundIconPress?: () => void;
   rightChild?: React.ReactNode;
   contacts?: ContactList[] | null | undefined;
+  modal?: boolean;
+  leftChild?: Element
 }
 
 export type { User, UserInfo };

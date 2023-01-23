@@ -63,7 +63,7 @@ const Overview = () => {
       inputable: true,
       enable: false,
       isRequired: false,
-      mode: 'multiline',
+      mode: 'texteditor',
       key: 'address',
     },
     {
@@ -72,7 +72,7 @@ const Overview = () => {
       inputable: true,
       enable: false,
       isRequired: false,
-      mode: 'multiline',
+      mode: 'texteditor',
       key: 'internal_notes',
     },
   ]);

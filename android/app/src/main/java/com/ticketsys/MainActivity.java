@@ -5,6 +5,7 @@ import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import android.os.Bundle;
 import com.zoontek.rnbootsplash.RNBootSplash; // <- add this necessary import
+import android.view.ActionMode;
 
 public class MainActivity extends ReactActivity {
 
@@ -50,4 +51,8 @@ public class MainActivity extends ReactActivity {
       return reactRootView;
     }
   }
+  
+   public void onActionModeStarted(ActionMode mode) { // <= Add this
+       mode.getMenu().clear();                        // <= Add this
+    }   
 }

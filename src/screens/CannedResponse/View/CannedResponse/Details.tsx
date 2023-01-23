@@ -38,7 +38,7 @@ export default function Details() {
       inputable: true,
       enable: false,
       isRequired: true,
-      mode: 'multiline',
+      mode: 'texteditor',
       key: 'message',
     },
   ]);

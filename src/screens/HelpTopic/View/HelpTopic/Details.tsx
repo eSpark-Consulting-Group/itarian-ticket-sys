@@ -158,7 +158,7 @@ export default function Details() {
       enable: false,
       isRequired: false,
       key: 'internal_notes',
-      mode: 'multiline',
+      mode: 'texteditor',
     },
   ]);
 

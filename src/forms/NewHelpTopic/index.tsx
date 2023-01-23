@@ -116,7 +116,7 @@ const NewHelpTopic = ({ route, navigation }: any) => {
       enable: false,
       isRequired: false,
       key: 'internal_notes',
-      mode: 'multiline',
+      mode: 'texteditor',
     },
   ]);
 
@@ -162,7 +162,8 @@ const NewHelpTopic = ({ route, navigation }: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView
+        style={{ flex: 1 }}>
         <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField

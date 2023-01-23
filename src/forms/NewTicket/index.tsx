@@ -30,7 +30,7 @@ export default function NewTicket({ route, navigation }: any) {
       subTitle: 'Details',
       inputable: true,
       enable: false,
-      mode: 'multiline',
+      mode: 'texteditor',
       isRequired: true,
       key: 'detail',
     },

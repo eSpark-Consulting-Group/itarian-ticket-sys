@@ -23,7 +23,7 @@ const NewCannedResponse = ({ route, navigation }: any) => {
       inputable: true,
       enable: false,
       isRequired: true,
-      mode: 'multiline',
+      mode: 'texteditor',
       key: 'message',
     },
   ]);

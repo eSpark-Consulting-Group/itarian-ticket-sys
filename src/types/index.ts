@@ -295,6 +295,8 @@ export interface DataItem {
   onRoundIconPress?: () => void;
   rightChild?: React.ReactNode;
   contacts?: ContactList[] | null | undefined;
+  modal?: boolean;
+  leftChild?: Element
 }
 
 export type { User, UserInfo };

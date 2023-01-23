@@ -23,15 +23,6 @@ export const TextEditor = ({
 
   return (
     <View>
-      <RichEditor
-        ref={richText}
-        onChange={onChangeText}
-        placeholder={placeholder}
-        initialContentHTML={value}
-        androidHardwareAccelerationDisabled={true}
-        style={styles.richTextEditorStyle}
-        initialHeight={100}
-      />
       <RichToolbar
         editor={richText}
         selectedIconTint={DarkTheme.colors.card}
@@ -47,6 +38,17 @@ export const TextEditor = ({
           actions.setUnderline,
         ]}
         style={styles.richTextToolbarStyle}
+      />
+      <RichEditor
+        ref={richText}
+        onChange={onChangeText}
+        placeholder={placeholder}
+        initialContentHTML={value}
+        androidHardwareAccelerationDisabled={true}
+        style={styles.richTextEditorStyle}
+        initialHeight={100}
+        injectedJavaScript='document.body.style.webkitUserSelect = "none";'
+        injectedJavaScriptBeforeContentLoaded='document.body.style.webkitUserSelect = "none";'
       />
     </View>
   );

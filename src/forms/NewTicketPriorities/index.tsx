@@ -4,7 +4,7 @@ import { Theme, useTheme } from '@react-navigation/native';
 import { State, useHookstate } from '@hookstate/core';
 
 import { CstmColorPicker, ModalView, SingleLineField } from '../../components';
-import { SelectFields } from '../../types';
+import { SelectFields, DataItem as Item } from '../../types';
 import { SelectItems } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
 
@@ -63,34 +63,9 @@ const NewTicketPriorities = ({ route, navigation }: any) => {
       inputable: true,
       enable: false,
       isRequired: true,
-      mode: 'multiline',
+      mode: 'texteditor',
     },
   ]);
-
-  interface Item {
-    title: string;
-    subTitle?: string;
-    inputable?: boolean;
-    enable?: boolean;
-    rightIcon?: string;
-    rightIconRound?: string;
-    titleWidth?: number;
-    showRightSwitch?: boolean;
-    rightSwitchVal?: boolean;
-    onChangeSwitch?: (value: boolean) => void;
-    onChangeText?: (text: string) => void;
-    onPress?: () => void;
-    list?: SelectFields[];
-    selectedItem?: SelectFields;
-    searchable?: boolean;
-    headerTitle?: string;
-    keyboardType?: KeyboardTypeOptions | undefined;
-    isRequired?: boolean;
-    key?: string;
-    modal?: boolean;
-    mode?: 'none' | 'multiline';
-    leftChild?: Element;
-  }
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];

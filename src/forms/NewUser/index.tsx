@@ -69,6 +69,15 @@ const NewUser = ({ route, navigation }: any) => {
       isRequired: true,
       key: 'password',
     },
+    // {
+    //   title: '',
+    //   subTitle: 'Internal Notes',
+    //   inputable: true,
+    //   enable: false,
+    //   isRequired: false,
+    //   mode: 'texteditor',
+    //   key: 'internal_notes',
+    // },
   ]);
 
   const updateInput = (e: string, index: number) => {

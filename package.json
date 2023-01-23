@@ -52,6 +52,7 @@
     "react-native-image-crop-picker": "^0.37.3",
     "react-native-pager-view": "^5.4.24",
     "react-native-paper": "4.12.4",
+    "react-native-pell-rich-editor": "^1.8.8",
     "react-native-pinchable": "^0.2.1",
     "react-native-qrcode-scanner": "^1.5.5",
     "react-native-quick-actions": "^0.3.13",

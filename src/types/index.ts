@@ -287,7 +287,7 @@ export interface DataItem {
   headerTitle?: string;
   keyboardType?: KeyboardTypeOptions | undefined;
   isRequired?: boolean;
-  mode?: 'none' | 'multiline';
+  mode?: 'none' | 'multiline' | 'texteditor';
   key?: string;
   onPress?: () => void;
   roundedIconEnable?: boolean;

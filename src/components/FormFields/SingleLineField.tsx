@@ -17,6 +17,7 @@ import {
   RoundedIcon,
   CstmMultiLine,
 } from '..';
+import { TextEditor } from '../TextEditor';
 
 interface Props {
   leftIcon?: string;
@@ -39,7 +40,7 @@ interface Props {
   rightChild?: ReactNode;
   leftChild?: ReactNode | Element;
   border?: boolean;
-  mode?: 'none' | 'multiline';
+  mode?: 'none' | 'multiline' | 'texteditor';
   leftIconStyles?: ViewStyle;
   fieldPadding?: number;
   halfWidth?: boolean;
@@ -138,8 +139,14 @@ const SingleLineField = ({
                     onChangeText={onChangeText}
                     keyboardType={keyboardType}
                   />
-                ) : (
+                ) : mode == 'multiline' ? (
                   <CstmMultiLine
+                    value={title}
+                    placeholder={placeholder}
+                    onChangeText={onChangeText}
+                  />
+                ) : (
+                  <TextEditor
                     value={title}
                     placeholder={placeholder}
                     onChangeText={onChangeText}

@@ -34,7 +34,7 @@ const Overview = ({ ticketDetails }: any) => {
       subTitle: 'Details',
       inputable: true,
       enable: false,
-      mode: 'multiline',
+      mode: 'texteditor',
       isRequired: true,
       key: 'detail',
     },

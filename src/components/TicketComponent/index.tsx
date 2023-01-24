@@ -47,7 +47,7 @@ const TicketComponent = ({
           <Text style={{ fontWeight: 'bold', color: colors.text }}>
             {item2?.attributes?.subject}
           </Text>
-          <Text style={{ color: colors.text, fontWeight: 'bold', }}>
+          <Text style={{ color: colors.text }}>
             Status: {item2?.attributes?.ticketstatus?.name}
           </Text>
           {/* <HTMLView

@@ -20,6 +20,8 @@ const TicketComponent = ({
   onPress: (e: any) => void;
 }) => {
   const { dark, colors }: Theme = useTheme();
+  console.log("item2?.attributes", item2?.attributes);
+  
   return (
     <CstmPressable
       style={{ paddingHorizontal: 20, width: SCREEN_WIDTH }}
@@ -45,17 +47,17 @@ const TicketComponent = ({
           <Text style={{ fontWeight: 'bold', color: colors.text }}>
             {item2?.attributes?.subject}
           </Text>
-          {/* <Text style={{ color: colors.text }}>
-            {item2?.attributes?.detail}
-          </Text> */}
-          <HTMLView
+          <Text style={{ color: colors.text, fontWeight: 'bold', }}>
+            Status: {item2?.attributes?.ticketstatus?.name}
+          </Text>
+          {/* <HTMLView
             value={item2?.attributes?.detail}
             stylesheet={{
               div: {
-                color: '#000', // make text coloured pink
+                color: colors.text,
               },
             }}
-          />
+          /> */}
           <View style={styles.descContentContainer}>
             {item2?.attributes?.company && (
               <View style={styles.rowContainer}>

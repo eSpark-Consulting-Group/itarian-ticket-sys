@@ -137,7 +137,6 @@ const Search = ({ route, navigation }: any) => {
         return (
           <FlatList
             data={filteredTickets || []}
-            contentContainerStyle={{ flex: 1 }}
             ListEmptyComponent={
               <View style={{ alignSelf: 'center' }}>
                 <NotFound label="Tickets" />

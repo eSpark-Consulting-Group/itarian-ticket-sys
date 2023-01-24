@@ -6,7 +6,6 @@ import {
   RichEditor,
   RichToolbar,
 } from 'react-native-pell-rich-editor';
-import { DarkTheme, LightTheme } from '../../theme/colors';
 import styles from './styles';
 
 export const TextEditor = ({
@@ -21,7 +20,7 @@ export const TextEditor = ({
   onChangeText?: (text: string) => void;
 }) => {
   const richText = useRef<any>();
-  const { colors }: Theme = useTheme()
+  const { colors }: Theme = useTheme();
   return (
     <View>
       <RichToolbar
@@ -71,7 +70,7 @@ export const TextEditor = ({
         initialContentHTML={value}
         androidHardwareAccelerationDisabled={true}
         style={styles.richTextEditorStyle}
-        editorStyle={{backgroundColor: colors.background, color: colors.text}}
+        editorStyle={{ backgroundColor: colors.background, color: colors.text }}
         initialHeight={100}
         injectedJavaScript='document.body.style.webkitUserSelect = "none";'
         injectedJavaScriptBeforeContentLoaded='document.body.style.webkitUserSelect = "none";'

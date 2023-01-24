@@ -7,8 +7,6 @@ import { Divider } from 'react-native-paper';
 import { CstmPressable } from '../CstmPressable';
 import styles from './styles';
 import { SCREEN_WIDTH } from '../../constants';
-// @ts-ignore
-import HTMLView from 'react-native-htmlview';
 
 const TicketComponent = ({
   item2,
@@ -41,23 +39,17 @@ const TicketComponent = ({
           </View>
         </View>
         <View style={{ width: '75%' }}>
-          <Text style={{ fontWeight: 'bold', color: colors.text }}>
-            Ticket# {item2?.id}
+          <Text
+            style={{ fontWeight: 'bold', color: colors.text, fontSize: 22 }}>
+            Ticket #{item2?.id}
           </Text>
-          <Text style={{ fontWeight: 'bold', color: colors.text }}>
-            {item2?.attributes?.subject}
+          <Text style={{ fontWeight: '500', color: colors.text, fontSize: 16 }}>
+            Subject: {item2?.attributes?.subject}
           </Text>
-          <Text style={{ color: colors.text }}>
+          <Text
+            style={{ color: colors.primary, fontSize: 12, fontWeight: '400' }}>
             Status: {item2?.attributes?.ticketstatus?.name}
           </Text>
-          {/* <HTMLView
-            value={item2?.attributes?.detail}
-            stylesheet={{
-              div: {
-                color: colors.text,
-              },
-            }}
-          /> */}
           <View style={styles.descContentContainer}>
             {item2?.attributes?.company && (
               <View style={styles.rowContainer}>

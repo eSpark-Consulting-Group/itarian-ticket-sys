@@ -54,23 +54,14 @@ export const TextEditor = ({
           actions.redo,
         ]}
         iconMap={{
-          [actions.heading1]: ({ tintColor }) => (
-            <Text style={[{ color: tintColor }]}>H1</Text>
-          ),
-          [actions.heading2]: ({ tintColor }) => (
-            <Text style={[{ color: tintColor }]}>H2</Text>
-          ),
-          [actions.heading3]: ({ tintColor }) => (
-            <Text style={[{ color: tintColor }]}>H3</Text>
-          ),
-          [actions.heading4]: ({ tintColor }) => (
-            <Text style={[{ color: tintColor }]}>H4</Text>
-          ),
-          [actions.setParagraph]: ({ tintColor }) => (
-            <Text style={[{ color: tintColor }]}>P</Text>
-          ),
+          [actions.heading1]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H1</Text>),
+          [actions.heading2]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H2</Text>),
+          [actions.heading3]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H3</Text>),
+          [actions.heading4]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H4</Text>),
+          [actions.setParagraph]: ({tintColor}) => (<Text style={[{color: tintColor}]}>P</Text>),
+
         }}
-        style={{ backgroundColor: colors.primary }}
+        style={{backgroundColor: colors.primary}}
       />
       <RichEditor
         ref={richText}

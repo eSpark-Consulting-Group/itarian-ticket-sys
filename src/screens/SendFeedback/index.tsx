@@ -39,7 +39,7 @@ import { removeDuplicates } from '../../utils/helperFunctions';
 const SendFeedbackScreen = () => {
   const { dark, colors } = useTheme();
   const navigation: any = useNavigation();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showPosts, setShowPosts] = useState<boolean>(false);
   const [postsData, setPostsData] = useState<any>([]);
   const [boardsData, setBoardsData] = useState<CannyBoards[]>([]);

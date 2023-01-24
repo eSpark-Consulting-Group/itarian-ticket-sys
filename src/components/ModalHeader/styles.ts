@@ -5,6 +5,8 @@ const styles = StyleSheet.create({
     width: '100%',
     elevation: 1.5,
     justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: '#00000030',
   },
   title: {
     fontSize: 16,

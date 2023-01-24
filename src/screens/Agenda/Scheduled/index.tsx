@@ -64,7 +64,6 @@ const ScheduledTab = ({ route }: any) => {
     <View style={styles.container}>
       <FlatList
         data={tickets || []}
-        contentContainerStyle={{ flex: 1 }}
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
         }

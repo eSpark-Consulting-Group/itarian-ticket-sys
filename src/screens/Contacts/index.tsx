@@ -173,6 +173,7 @@ export const RenderContacts = ({
     <>
       {listData.length !== 0 ? (
         <FlatList
+          contentContainerStyle={{paddingBottom: 60}}
           refreshControl={
             <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
           }

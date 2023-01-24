@@ -91,7 +91,7 @@ const CreatePost = () => {
         }
       })
       // make sure to catch any error
-      .catch(console.error);
+      .catch(err => setLoading(false));
   }, []);
 
   const handleCategories = (data: any[]) => {
@@ -190,7 +190,6 @@ const CreatePost = () => {
       .then(image => {
         const field = image.path;
         console.log({ uri: field });
-
         //? function to upload image to Canny.io (returns Canny.io image url)
         (function (field: string) {
           const imageType =
@@ -249,7 +248,10 @@ const CreatePost = () => {
 
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       })
-      .catch(err => console.log('err', err));
+      .catch(err => {
+        console.log('err', err);
+        setLoading(false);
+      });
   };
 
   const ImageContainer = () => {

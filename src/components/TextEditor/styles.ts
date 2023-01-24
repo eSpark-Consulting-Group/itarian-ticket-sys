@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     //   shadowRadius: 2.62,
       elevation: 4,
       fontSize: 20,
-      width: SCREEN_WIDTH - 30
+      width: SCREEN_WIDTH - 30,
     },
     richTextToolbarStyle: {
       backgroundColor: LightTheme.colors.primary,

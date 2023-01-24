@@ -198,7 +198,7 @@ export const companiesList: Array<Company> = [
     name: 'Google LLC',
     address:
       'Cupidatat sint ea ullamco cillum ea ipsum voluptate fugiat est incididunt',
-    employees: 10_000,
+    employees: 10000,
   },
   {
     id: 'C07',
@@ -211,7 +211,7 @@ export const companiesList: Array<Company> = [
     name: 'Oscorp Industries',
     address:
       'Cupidatat sint ea ullamco cillum ea ipsum voluptate fugiat est incididunt',
-    employees: 10_000_000,
+    employees: 1000000,
   },
   {
     id: 'C09',
@@ -223,13 +223,13 @@ export const companiesList: Array<Company> = [
     id: 'C10',
     name: 'Tesla LLC',
     address: 'Cupidatat tempor nulla sunt nostrud sit voluptate sunt pariatur',
-    employees: 50_000,
+    employees: 50000,
   },
   {
     id: 'C11',
     name: 'Walt Disney Productions',
     address: 'Dolore consequat esse aute Lorem sint elit',
-    employees: 25_000,
+    employees: 25000,
   },
   {
     id: 'C12',

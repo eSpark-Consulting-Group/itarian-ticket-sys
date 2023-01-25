@@ -11,6 +11,7 @@ import { AdditionalButtons, ScheduledList } from '../../../types';
 import { globalState } from '../../../stores/globalAppState';
 import { ticketStore } from '../../../stores/ticketStore';
 import { getTicketsByUserId } from '../utils/functions';
+import { Divider } from 'react-native-paper';
 
 const ScheduledTab = ({ route }: any) => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
@@ -72,6 +73,7 @@ const ScheduledTab = ({ route }: any) => {
             <NotFound label="Tickets" />
           </View>
         }
+        ItemSeparatorComponent={() => <Divider />}
         renderItem={({ item, index }) => {
           return (
             <TicketComponent

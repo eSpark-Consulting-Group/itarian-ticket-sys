@@ -63,15 +63,15 @@ export default function Communications() {
       keyboardType: 'number-pad',
       key: 'phone_number',
     },
-    // {
-    //   title: contactDetails?.internal_note ?? '',
-    //   subTitle: 'Internal Notes',
-    //   inputable: true,
-    //   enable: false,
-    //   isRequired: false,
-    //   mode: 'texteditor',
-    //   key: 'internal_notes',
-    // },
+    {
+      title: contactDetails?.internal_note ?? '',
+      subTitle: 'Internal Notes',
+      inputable: true,
+      enable: false,
+      isRequired: false,
+      mode: 'texteditor',
+      key: 'internal_notes',
+    },
   ]);
   const [loader, setLoader] = useState(false);
   // console.log("contactDetails contactDetails", contactDetails);

@@ -364,7 +364,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       password: data?.password,
                       is_active: data?.is_active,
                       phone_number: data?.phone_number,
-                      internal_notes: data?.internal_notes
+                      internal_note: data?.internal_notes
                     },
                   },
                 };

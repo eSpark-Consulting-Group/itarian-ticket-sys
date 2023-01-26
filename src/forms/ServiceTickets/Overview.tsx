@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
 
@@ -9,17 +9,18 @@ import { DataItem as Item } from '../../types/index';
 import { globalState } from '../../stores/globalAppState';
 import { userStore } from '../../stores/userStore';
 import { SelectItems } from '../../utils/helperFunctions';
+import { getTicketThreads } from '../../screens/Agenda/utils/functions';
 
-const Overview = ({ ticketDetails }: any) => {
+const Overview = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
+  const isFocused: boolean = useIsFocused();
   const ticketPriorities: any = useHookstate(globalState?.ticketPriorities);
   const slaPlans: any = useHookstate(globalState?.slaPlans);
   const helpTopics: any = useHookstate(globalState?.helpTopics);
   const users: any = useHookstate(userStore?.users);
   const [showDate, setShowDate] = useState(false);
-  console.log('ticketDetails ticketDetails', ticketDetails);
-
+  const ticketDetails = route?.params?.ticket_info?.data
   const [Ds, setDs] = useState<Item[]>([
     {
       title: ticketDetails?.attributes?.subject,
@@ -132,6 +133,12 @@ const Overview = ({ ticketDetails }: any) => {
     },
   ]);
 
+  useEffect(() => {
+    if(ticketDetails) {
+      getTicketThreads(ticketDetails?.id)
+    }
+  }, [isFocused])
+  
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...Ds];

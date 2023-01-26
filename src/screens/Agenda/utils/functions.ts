@@ -138,6 +138,44 @@ const updateTicket = async (data: any) => {
   }
 };
 
+const getTicketThreads = async (ticketId: string) => {
+  const user: any = userStore?.user?.get();
+  const USER_TOKEN = user?.token;
+  console.log(`Basic ${USER_TOKEN}`);
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.get(`/ticketthreads?filter[id][]=${ticketId}`);
+    if (result?.ok) {
+      const data = result?.data;
+      ticketStore?.ticketThreads?.set(data || []);
+    }
+  } catch (error) {
+    console.log('error getTicketsByUserId', error);
+  }
+};
+
+const createTicketThread = async (data: any, ticketId: any) => {
+  const user: any = userStore?.user?.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.post('/ticketthreads', data);
+    console.log('result addTicket', result);
+    if (result?.ok) {
+      getTicketThreads(ticketId);
+      return { status: true };
+    } else {
+      return { status: false, message: result };
+    }
+  } catch (error) {
+    console.log('error createaTicketThread', error);
+    return { status: true, message: error };
+  }
+};
 export {
   getAllUsers,
   getTicketsByUserId,
@@ -145,4 +183,6 @@ export {
   updateTicket,
   deleteTicket,
   getAllTickets,
+  getTicketThreads,
+  createTicketThread
 };

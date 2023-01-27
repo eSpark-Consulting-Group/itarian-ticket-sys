@@ -10,6 +10,7 @@ import { globalState } from '../../stores/globalAppState';
 import { EditTicket, AddResource, CreateComment } from '../../forms';
 import { CstmItemSelector, Resources } from '../../components';
 import { checkValidations } from '../../utils/helperFunctions';
+import { CreateThread } from '../../forms/ServiceTickets/AddComment';
 
 const Stack = createNativeStackNavigator();
 
@@ -124,6 +125,23 @@ const StackLvl2 = ({ navigation, route }: any) => {
         component={CreateComment}
         options={({ route, navigation }) => ({
           title: 'Create Comment',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="CreateThread"
+        component={CreateThread}
+        options={({ route, navigation }) => ({
+          title: 'Create Thread',
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II

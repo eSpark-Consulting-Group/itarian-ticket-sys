@@ -23,7 +23,7 @@ const TicketComponent = ({
   return (
     <CstmPressable
       style={{ paddingHorizontal: 20, width: SCREEN_WIDTH }}
-      key={`${item2.id}-${ind}`}
+      key={`${item2?.id}-${ind}`}
       onPress={() => {
         onPress(item2);
       }}

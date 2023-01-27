@@ -31,10 +31,10 @@ const Threads = () => {
   const ticketThreads: any = useHookstate(ticketStore?.ticketThreads).get();
 
   const ticketDetails = route?.params?.ticket_info?.data;
-
+  
   const renderList = ({ item, index }: { item: any; index: number }) => {
     return (
-      <View key={index} style={{ paddingHorizontal: 15 }}>
+      <View key={index} style={{ borderBottomWidth: .2, padding: 5 }}>
         <View
           style={{
             flexDirection: 'row',
@@ -56,13 +56,12 @@ const Threads = () => {
                 borderRadius: 20,
               }}>
               <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 10 }}>
-                {/* {item?.author?.name.substring(0, 1).toUpperCase()} */}M
+                {item?.attributes?.user?.user_name?.substring(0, 1).toUpperCase()}
               </Text>
             </View>
             <GapView mode="horizontal" length={5} />
             <Text style={{ color: colors.text, fontSize: 12 }}>
-              {/* {item?.author?.name} */}
-              Name
+              {item?.attributes?.user?.user_name}
             </Text>
             <View
               style={{
@@ -76,7 +75,7 @@ const Threads = () => {
               }}
             />
             <Text style={{ color: colors.text, fontSize: 12 }}>
-              {moment(new Date()).fromNow()}
+              {moment(item?.attributes?.created_at).fromNow()}
             </Text>
           </View>
           <View>
@@ -118,7 +117,8 @@ const Threads = () => {
       <GapView />
 
       <FlatList
-        data={ticketThreads?.data ?? []}
+        data={ticketThreads ?? []}
+        contentContainerStyle={{paddingHorizontal: 15}}
         renderItem={renderList}
         ListFooterComponent={<View />}
         ListFooterComponentStyle={{ height: 8 }}

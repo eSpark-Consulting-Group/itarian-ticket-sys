@@ -18,12 +18,10 @@ const TicketComponent = ({
   onPress: (e: any) => void;
 }) => {
   const { dark, colors }: Theme = useTheme();
-  console.log("item2?.attributes", item2?.attributes);
-  
   return (
     <CstmPressable
       style={{ paddingHorizontal: 20, width: SCREEN_WIDTH }}
-      key={`${item2.id}-${ind}`}
+      key={`${item2?.id}-${ind}`}
       onPress={() => {
         onPress(item2);
       }}

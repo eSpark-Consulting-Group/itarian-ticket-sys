@@ -6,6 +6,7 @@ import {
   RichEditor,
   RichToolbar,
 } from 'react-native-pell-rich-editor';
+import { SCREEN_WIDTH } from '../../constants';
 import styles from './styles';
 
 export const TextEditor = ({
@@ -61,7 +62,7 @@ export const TextEditor = ({
           [actions.setParagraph]: ({tintColor}) => (<Text style={[{color: tintColor}]}>P</Text>),
 
         }}
-        style={{backgroundColor: colors.primary}}
+        style={{backgroundColor: colors.primary, width: SCREEN_WIDTH - 30,}}
       />
       <RichEditor
         ref={richText}

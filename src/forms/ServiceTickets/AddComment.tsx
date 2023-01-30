@@ -1,5 +1,10 @@
 import { useHookstate } from '@hookstate/core';
-import { Theme, useNavigation, useRoute, useTheme } from '@react-navigation/native';
+import {
+  Theme,
+  useNavigation,
+  useRoute,
+  useTheme,
+} from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -60,7 +65,7 @@ export const CreateThread = () => {
         },
         route?.params?.ticketDetails?.id,
       );
-      console.log("result result result", result);
+      console.log('result result result', result);
       if (result?.status) {
         showMessage({
           message: 'Thread added Successfully',
@@ -88,8 +93,7 @@ export const CreateThread = () => {
       <ScrollView
         style={{
           flex: 1,
-          marginTop: 10,
-          paddingHorizontal: 8,
+          // paddingHorizontal: 8,
         }}>
         <SingleLineField
           title="is Internal"
@@ -97,20 +101,28 @@ export const CreateThread = () => {
           rightSwitchVal={isInternal}
           onChangeSwitch={setIsInternal}
         />
-        <CstmTitleInput title="Subject" onChangeText={setTitle} />
-        <>
-          <GapView mode="vertical" />
-          <Text style={{ color: colors.text, opacity: 0.8 }}>Details</Text>
-          <GapView mode="vertical" length={5} />
-        </>
-        <TextEditor onChangeText={setBody} />
+        <SingleLineField
+          enable={false}
+          subTitle="Title *"
+          title={title}
+          inputable
+          onChangeText={setTitle}
+        />
+        <SingleLineField
+          enable={false}
+          mode="texteditor"
+          subTitle="Details *"
+          title={body}
+          inputable
+          onChangeText={setBody}
+        />
       </ScrollView>
       <View>
         <CstmButton
           loader={false}
           title="Create Thread"
           onPress={() => {
-            onCreate()
+            onCreate();
           }}
         />
       </View>

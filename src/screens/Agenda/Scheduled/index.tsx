@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
 import { State, useHookstate } from '@hookstate/core';
-import { useNavigation } from '@react-navigation/native';
+import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 
 import styles from './style';
 import { FloatButton, NotFound, TicketComponent } from '../../../components';
@@ -14,6 +14,7 @@ import { getTicketsByUserId } from '../utils/functions';
 import { Divider } from 'react-native-paper';
 
 const ScheduledTab = ({ route }: any) => {
+  const { colors }: Theme =  useTheme()
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const tickets: any = useHookstate(ticketStore.tickets).get();
   const [isFetching, setIsFetching] = useState(false);
@@ -95,6 +96,15 @@ const ScheduledTab = ({ route }: any) => {
             />
           );
         }}
+        ItemSeparatorComponent={() => (
+          <Divider
+            style={{
+              backgroundColor: colors.text,
+              height: 1.5,
+              opacity: 0.2,
+            }}
+          />
+        )}
       />
       <FloatButton AdditionalButtons={actionButtons} />
     </View>

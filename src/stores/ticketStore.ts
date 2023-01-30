@@ -4,5 +4,6 @@ export const ticketStore = hookstate({
   //   Companies list
   tickets: [],
   AllTickets: [],
-  ticketThreads: []
+  ticketThreads: [],
+  ticketCollaborators: []
 });

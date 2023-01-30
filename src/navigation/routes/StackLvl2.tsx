@@ -10,7 +10,7 @@ import { globalState } from '../../stores/globalAppState';
 import { EditTicket, AddResource, CreateComment } from '../../forms';
 import { CstmItemSelector, Resources } from '../../components';
 import { checkValidations } from '../../utils/helperFunctions';
-import { CreateThread } from '../../forms/ServiceTickets/AddComment';
+import { CreateThread } from '../../forms/CreateThread';
 
 const Stack = createNativeStackNavigator();
 

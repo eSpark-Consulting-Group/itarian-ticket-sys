@@ -66,13 +66,13 @@ const TicketComponent = ({
           </View>
         </View>
       </View>
-      <View
+      {/* <View
         style={{
           width: SCREEN_WIDTH,
           height: 0.5,
           backgroundColor: colors.text + '78',
         }}
-      />
+      /> */}
     </CstmPressable>
   );
 };

@@ -136,44 +136,48 @@ const Search = ({ route, navigation }: any) => {
     switch (searchTagValue.get()) {
       case 'tickets':
         return (
-          <FlatList
-            data={filteredTickets || []}
-            ListEmptyComponent={
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {filteredTickets.length > 0 ? (
+              <FlatList
+                data={filteredTickets || []}
+                ItemSeparatorComponent={() => (
+                  <Divider
+                    style={{
+                      backgroundColor: colors.text,
+                      height: 1.5,
+                      opacity: 0.2,
+                    }}
+                  />
+                )}
+                renderItem={({ item, index }: any) => {
+                  return (
+                    <TicketComponent
+                      item2={item}
+                      ind={index}
+                      onPress={() => {
+                        navigation.navigate('Stack1', {
+                          screen: 'STickets',
+                          params: {
+                            title: `Ticket# ${item?.id?.toString()}`,
+                            ticket_info: {
+                              id: item.id?.toString(),
+                              summary: item?.attributes?.detail,
+                              data: item,
+                            },
+                          },
+                        });
+                      }}
+                    />
+                  );
+                }}
+              />
+            ) : (
               <View style={{ alignSelf: 'center' }}>
                 <NotFound label="Tickets" />
               </View>
-            }
-            ItemSeparatorComponent={() => (
-              <Divider
-                style={{
-                  backgroundColor: colors.text,
-                  height: 1.5,
-                  opacity: 0.2,
-                }}
-              />
             )}
-            renderItem={({ item, index }: any) => {
-              return (
-                <TicketComponent
-                  item2={item}
-                  ind={index}
-                  onPress={() => {
-                    navigation.navigate('Stack1', {
-                      screen: 'STickets',
-                      params: {
-                        title: `Ticket# ${item?.id?.toString()}`,
-                        ticket_info: {
-                          id: item.id?.toString(),
-                          summary: item?.attributes?.detail,
-                          data: item,
-                        },
-                      },
-                    });
-                  }}
-                />
-              );
-            }}
-          />
+          </View>
         );
       case 'users':
         return <RenderContacts listData={filteredContacts} />;

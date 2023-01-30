@@ -149,12 +149,31 @@ const getTicketThreads = async (ticketId: string) => {
     const result: any = await api.get(`/tickets/${ticketId}/ticketthreads`);
     if (result?.ok) {
       const data = result?.data?.data;
-      console.log("ticketThreads getTicketThreads", data);
-      
-      ticketStore?.ticketThreads?.set(data || []);
+      data.sort((a: any, b: any) => {
+        return new Date(a.attributes.created_at).valueOf() - new Date(b.attributes.created_at).valueOf();
+      });
+      ticketStore?.ticketThreads?.set(data?.reverse() || []);
     }
   } catch (error) {
-    console.log('error getTicketsByUserId', error);
+    console.log('error getTicketThreads', error);
+  }
+};
+
+const getTicketCollaborators = async (ticketId: string) => {
+  const user: any = userStore?.user?.get();
+  const USER_TOKEN = user?.token;
+  console.log(`Basic ${USER_TOKEN}`);
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.get(`/tickets/${ticketId}/ticketcollaborators`);
+    if (result?.ok) {
+      const data = result?.data?.data;
+      ticketStore?.ticketCollaborators?.set(data || []);
+    }
+  } catch (error) {
+    console.log('error getTicketCollaborators', error);
   }
 };
 
@@ -187,5 +206,6 @@ export {
   deleteTicket,
   getAllTickets,
   getTicketThreads,
-  createTicketThread
+  createTicketThread,
+  getTicketCollaborators
 };

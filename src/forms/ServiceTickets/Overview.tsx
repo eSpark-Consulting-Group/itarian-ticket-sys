@@ -9,7 +9,7 @@ import { DataItem as Item } from '../../types/index';
 import { globalState } from '../../stores/globalAppState';
 import { userStore } from '../../stores/userStore';
 import { SelectItems } from '../../utils/helperFunctions';
-import { getTicketThreads } from '../../screens/Agenda/utils/functions';
+import { getTicketCollaborators, getTicketThreads } from '../../screens/Agenda/utils/functions';
 
 const Overview = () => {
   const navigation: any = useNavigation();
@@ -136,6 +136,7 @@ const Overview = () => {
   useEffect(() => {
     if(ticketDetails) {
       getTicketThreads(ticketDetails?.id)
+      getTicketCollaborators(ticketDetails?.id)
     }
   }, [isFocused])
   

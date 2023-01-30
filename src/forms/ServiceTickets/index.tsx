@@ -12,6 +12,7 @@ import { deleteTicket } from '../../screens/Agenda/utils/functions';
 import { globalState } from '../../stores/globalAppState';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Threads from './Threads';
+import Collaborators from './Collaborators';
 
 if (
   Platform.OS === 'android' &&
@@ -122,6 +123,7 @@ const ServiceTickets = ({ navigation, route }: any) => {
 const renderScene = SceneMap({
   first: Overview,
   second: Threads,
+  third: Collaborators,
 });
 
 function TabComp({ onChangeCurrentIndex = (e: number) => {} }) {
@@ -129,6 +131,7 @@ function TabComp({ onChangeCurrentIndex = (e: number) => {} }) {
   const [routes] = React.useState([
     { key: 'first', title: 'Overview' },
     { key: 'second', title: 'Threads' },
+    { key: 'third', title: 'Collaborators' },
   ]);
 
   useEffect(() => {

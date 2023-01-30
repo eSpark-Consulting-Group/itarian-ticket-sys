@@ -9,20 +9,14 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Text } from 'react-native-paper';
 import {
   CstmButton,
-  CstmMultiLine,
-  CstmTitleInput,
-  GapView,
   Loader,
   SingleLineField,
 } from '../../components';
-import { TextEditor } from '../../components/TextEditor';
 import { alert_Dur } from '../../constants';
 import { createTicketThread } from '../../screens/Agenda/utils/functions';
 import { userStore } from '../../stores/userStore';
-import styles from '../CreateComment/styles';
 
 export const CreateThread = () => {
   const { colors }: Theme = useTheme();

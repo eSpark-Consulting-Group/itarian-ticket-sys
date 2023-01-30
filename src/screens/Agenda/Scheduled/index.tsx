@@ -14,7 +14,7 @@ import { getTicketsByUserId } from '../utils/functions';
 import { Divider } from 'react-native-paper';
 
 const ScheduledTab = ({ route }: any) => {
-  const { colors }: Theme =  useTheme()
+  const { colors }: Theme = useTheme();
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const tickets: any = useHookstate(ticketStore.tickets).get();
   const [isFetching, setIsFetching] = useState(false);

@@ -149,7 +149,10 @@ const getTicketThreads = async (ticketId: string) => {
     const result: any = await api.get(`/tickets/${ticketId}/ticketthreads`);
     if (result?.ok) {
       const data = result?.data?.data;
-      ticketStore?.ticketThreads?.set(data || []);
+      data.sort((a: any, b: any) => {
+        return new Date(a.attributes.created_at).valueOf() - new Date(b.attributes.created_at).valueOf();
+      });
+      ticketStore?.ticketThreads?.set(data?.reverse() || []);
     }
   } catch (error) {
     console.log('error getTicketThreads', error);

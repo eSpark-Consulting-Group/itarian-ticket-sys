@@ -125,21 +125,19 @@ const Threads = () => {
 
   return (
     <View>
-      <TicketComponent item2={ticketDetails} ind={1} onPress={() => {}} />
-      <GapView />
       <FlatList
         data={ticketThreads ?? []}
-        contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 5, paddingBottom: 120 }}
+        contentContainerStyle={{
+          paddingHorizontal: 15,
+          paddingVertical: 5,
+        }}
         renderItem={renderList}
-        ListFooterComponent={<View />}
-        ListFooterComponentStyle={{ height: 8 }}
         ItemSeparatorComponent={() => (
           <Divider
             style={{
               backgroundColor: colors.text,
               height: 1.5,
               opacity: 0.2,
-              // transform: [{ scale: 2 }],
             }}
           />
         )}

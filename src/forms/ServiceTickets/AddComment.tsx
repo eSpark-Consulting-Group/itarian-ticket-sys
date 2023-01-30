@@ -88,8 +88,7 @@ export const CreateThread = () => {
       <ScrollView
         style={{
           flex: 1,
-          marginTop: 10,
-          paddingHorizontal: 8,
+          // paddingHorizontal: 8,
         }}>
         <SingleLineField
           title="is Internal"
@@ -97,13 +96,8 @@ export const CreateThread = () => {
           rightSwitchVal={isInternal}
           onChangeSwitch={setIsInternal}
         />
-        <CstmTitleInput title="Subject" onChangeText={setTitle} />
-        <>
-          <GapView mode="vertical" />
-          <Text style={{ color: colors.text, opacity: 0.8 }}>Details</Text>
-          <GapView mode="vertical" length={5} />
-        </>
-        <TextEditor onChangeText={setBody} />
+        <SingleLineField enable={false} subTitle='Title *' title='Please enter title' inputable onChangeText={setTitle} />
+        <SingleLineField enable={false} mode='texteditor' subTitle='Details *' title='Please enter detail' inputable onChangeText={setBody} />
       </ScrollView>
       <View>
         <CstmButton

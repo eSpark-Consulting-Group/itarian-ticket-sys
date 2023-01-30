@@ -31,10 +31,18 @@ const Threads = () => {
   const ticketThreads: any = useHookstate(ticketStore?.ticketThreads).get();
 
   const ticketDetails = route?.params?.ticket_info?.data;
-  
+
   const renderList = ({ item, index }: { item: any; index: number }) => {
+    console.log("item?.attributes?.body", item?.attributes?.body);
+    
     return (
-      <View key={index} style={{ borderBottomWidth: .2, padding: 5 }}>
+      <View
+        key={index}
+        style={{
+          borderBottomWidth: 0.2,
+          padding: 5,
+          borderBottomColor: colors.background,
+        }}>
         <View
           style={{
             flexDirection: 'row',
@@ -56,7 +64,9 @@ const Threads = () => {
                 borderRadius: 20,
               }}>
               <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 10 }}>
-                {item?.attributes?.user?.user_name?.substring(0, 1).toUpperCase()}
+                {item?.attributes?.user?.user_name
+                  ?.substring(0, 1)
+                  .toUpperCase()}
               </Text>
             </View>
             <GapView mode="horizontal" length={5} />
@@ -83,12 +93,9 @@ const Threads = () => {
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
-                // display: userInfo.id === item?.author?.id ? 'flex' : 'none',
               }}
               android_ripple={{ borderless: true }}
-              onPress={() => {
-                // openModal(item, userInfo);
-              }}></CstmPressable>
+              onPress={() => {}}></CstmPressable>
           </View>
         </View>
         <GapView />
@@ -105,7 +112,14 @@ const Threads = () => {
           style={{
             paddingHorizontal: 10,
           }}>
-          <HTMLView value={item?.attributes?.body} />
+          <HTMLView
+            value={`<div>${item?.attributes?.body}</div>`}
+            stylesheet={StyleSheet.create({
+              div: {
+                color: colors.text, // make links coloured pink
+              },
+            })}
+          />
         </View>
       </View>
     );
@@ -118,7 +132,7 @@ const Threads = () => {
 
       <FlatList
         data={ticketThreads ?? []}
-        contentContainerStyle={{paddingHorizontal: 15}}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
         renderItem={renderList}
         ListFooterComponent={<View />}
         ListFooterComponentStyle={{ height: 8 }}
@@ -131,5 +145,4 @@ const Threads = () => {
     </View>
   );
 };
-
 export default Threads;

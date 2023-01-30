@@ -33,8 +33,6 @@ const Threads = () => {
   const ticketDetails = route?.params?.ticket_info?.data;
 
   const renderList = ({ item, index }: { item: any; index: number }) => {
-    console.log("item?.attributes?.body", item?.attributes?.body);
-    
     return (
       <View
         key={index}
@@ -129,16 +127,20 @@ const Threads = () => {
     <View>
       <TicketComponent item2={ticketDetails} ind={1} onPress={() => {}} />
       <GapView />
-
       <FlatList
         data={ticketThreads ?? []}
-        contentContainerStyle={{ paddingHorizontal: 15 }}
+        contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 5, paddingBottom: 120 }}
         renderItem={renderList}
         ListFooterComponent={<View />}
         ListFooterComponentStyle={{ height: 8 }}
         ItemSeparatorComponent={() => (
           <Divider
-            style={{ backgroundColor: colors.background, height: 1.5 }}
+            style={{
+              backgroundColor: colors.text,
+              height: 1.5,
+              opacity: 0.2,
+              // transform: [{ scale: 2 }],
+            }}
           />
         )}
       />

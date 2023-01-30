@@ -21,6 +21,7 @@ import { userStore } from '../../stores/userStore';
 import { companyStore } from '../../stores/companyStore';
 import { ticketStore } from '../../stores/ticketStore';
 import { getAllTickets, getTicketsByUserId } from '../Agenda/utils/functions';
+import { Divider } from 'react-native-paper';
 
 const Search = ({ route, navigation }: any) => {
   const { colors, dark }: Theme = useTheme();
@@ -142,6 +143,15 @@ const Search = ({ route, navigation }: any) => {
                 <NotFound label="Tickets" />
               </View>
             }
+            ItemSeparatorComponent={() => (
+              <Divider
+                style={{
+                  backgroundColor: colors.text,
+                  height: 1.5,
+                  opacity: 0.2,
+                }}
+              />
+            )}
             renderItem={({ item, index }: any) => {
               return (
                 <TicketComponent

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import { useHookstate, State } from '@hookstate/core';
+import { Divider } from 'react-native-paper';
 
 import {
   NotFound,
@@ -11,7 +12,6 @@ import {
 } from '../../components';
 import styles from './style';
 import { globalState } from '../../stores/globalAppState';
-
 import { RenderContacts } from '../Contacts';
 import { RenderCompanies } from '../Companies';
 import { companiesList, contactsList } from '../../constants/SampleArrays';
@@ -21,7 +21,6 @@ import { userStore } from '../../stores/userStore';
 import { companyStore } from '../../stores/companyStore';
 import { ticketStore } from '../../stores/ticketStore';
 import { getAllTickets, getTicketsByUserId } from '../Agenda/utils/functions';
-import { Divider } from 'react-native-paper';
 
 const Search = ({ route, navigation }: any) => {
   const { colors, dark }: Theme = useTheme();

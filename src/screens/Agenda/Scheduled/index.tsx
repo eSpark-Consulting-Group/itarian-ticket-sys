@@ -64,47 +64,46 @@ const ScheduledTab = ({ route }: any) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={tickets || []}
-        refreshControl={
-          <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
-        }
-        ListEmptyComponent={
-          <View style={{ alignSelf: 'center' }}>
-            <NotFound label="Tickets" />
-          </View>
-        }
-        renderItem={({ item, index }) => {
-          return (
-            <TicketComponent
-              item2={item}
-              ind={index}
-              onPress={() => {
-                navigation.navigate('Stack1', {
-                  screen: 'STickets',
-                  params: {
-                    title: `Ticket# ${item?.id?.toString()}`,
-                    ticket_info: {
-                      id: item.id?.toString(),
-                      summary: item?.attributes?.detail,
-                      data: item,
+      {tickets.length > 0 ? (
+        <FlatList
+          data={tickets || []}
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
+          renderItem={({ item, index }) => {
+            return (
+              <TicketComponent
+                item2={item}
+                ind={index}
+                onPress={() => {
+                  navigation.navigate('Stack1', {
+                    screen: 'STickets',
+                    params: {
+                      title: `Ticket# ${item?.id?.toString()}`,
+                      ticket_info: {
+                        id: item.id?.toString(),
+                        summary: item?.attributes?.detail,
+                        data: item,
+                      },
                     },
-                  },
-                });
+                  });
+                }}
+              />
+            );
+          }}
+          ItemSeparatorComponent={() => (
+            <Divider
+              style={{
+                backgroundColor: colors.text,
+                height: 1.5,
+                opacity: 0.2,
               }}
             />
-          );
-        }}
-        ItemSeparatorComponent={() => (
-          <Divider
-            style={{
-              backgroundColor: colors.text,
-              height: 1.5,
-              opacity: 0.2,
-            }}
-          />
-        )}
-      />
+          )}
+        />
+      ) : (
+        <NotFound label="Tickets" />
+      )}
       <FloatButton AdditionalButtons={actionButtons} />
     </View>
   );

@@ -20,7 +20,7 @@ import MatIcons from 'react-native-vector-icons/MaterialIcons';
 import { useHookstate, State } from '@hookstate/core';
 import moment from 'moment';
 import { Divider } from 'react-native-paper';
-import { showMessage } from 'react-native-flash-message';
+// import { showMessage } from 'react-native-flash-message';
 
 import { userStore } from '../../stores/userStore';
 import { CannyBoards, Canny_CreateUser, User } from '../../types';
@@ -83,22 +83,22 @@ const SendFeedbackScreen = () => {
             console.log('User already created!', res?.data);
             setCannyUser(res?.data);
             fetchBoards();
-            showMessage({
-              message: 'User Found',
-              autoHide: true,
-              type: 'info',
-            });
+            // showMessage({
+            //   message: 'User Found',
+            //   autoHide: true,
+            //   type: 'info',
+            // });
             //* User found
             //todo: Show post and store in state userId of User
           } else {
             if (res?.data?.error === 'invalid email') {
               setPostsData([]);
               handleCreateUser();
-              showMessage({
-                message: 'User Not Found, Creating...',
-                autoHide: true,
-                type: 'info',
-              });
+              // showMessage({
+              //   message: 'User Not Found, Creating...',
+              //   autoHide: true,
+              //   type: 'info',
+              // });
               //! No User Found
               //todo: Create User then show posts
             }
@@ -212,11 +212,6 @@ const SendFeedbackScreen = () => {
     searchRef.current?.clear();
     setSearchPosts('');
   };
-
-  // useUpdateEffect(() => {
-  //   console.log('-----------------------------------------------------');
-  //   fetchPosts({limit: 10, skip: skip}, true);
-  // }, [skip]);
 
   const renderPostList = (item: any, index: number) => {
     console.log('....????????', item.author);

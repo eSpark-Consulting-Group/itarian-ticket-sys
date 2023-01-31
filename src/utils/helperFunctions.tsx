@@ -141,7 +141,6 @@ export const searchFromArray = async ({
             return `${item[value]?.toString()?.toUpperCase()}`;
           })
           ?.join(' ');
-
         const textData = text?.toString()?.toUpperCase();
         return itemData?.indexOf(textData) > -1;
       });

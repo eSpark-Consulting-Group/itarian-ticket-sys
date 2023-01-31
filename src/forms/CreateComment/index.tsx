@@ -92,7 +92,6 @@ export const CreateComment = () => {
       .then(image => {
         const field = image.path;
         console.log({ uri: field });
-
         //? function to upload image to Canny.io (returns Canny.io image url)
         (function (field: string) {
           const imageType =
@@ -150,7 +149,16 @@ export const CreateComment = () => {
         })(field);
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       })
-      .catch(err => console.log('err', err));
+      .catch(err => {
+        console.log('err', err);
+        setLoading(false);
+        showMessage({
+          message: err.message,
+          type: 'danger',
+          icon: 'auto',
+          duration,
+        });
+      });
   };
 
   const handleCreateComment = ({

@@ -30,7 +30,7 @@ import TicketComponent from './TicketComponent';
 import Resources from './Resources';
 import AppStatusBar from './AppStatusBar';
 import CstmColorPicker from './CstmColorPicker';
-
+import NoInternetModal from './NoInternetModal';
 export {
   CstmButton,
   CstmInput,
@@ -65,4 +65,5 @@ export {
   Resources,
   AppStatusBar,
   CstmColorPicker,
+  NoInternetModal
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -16,7 +16,10 @@ import StackLvl1 from './StackLvl1';
 import StackLvl2 from './StackLvl2';
 import StackLvl3 from './StackLvl3';
 import { userStore } from '../../stores/userStore';
-import { AppStatusBar } from '../../components';
+import { AppStatusBar, NoInternetModal } from '../../components';
+import NetInfo from '@react-native-community/netinfo';
+import { showMessage } from 'react-native-flash-message';
+import { alert_Dur } from '../../constants';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -40,6 +43,8 @@ const App = () => {
   const dNavName: State<string> = useHookstate(
     globalState.defaultnNavigationName,
   );
+
+  const [isConnected, setIsConnected] = useState<any>(false)
   //! ----------------------------------------------------
 
   //! ---------------------------------------------------
@@ -69,6 +74,14 @@ const App = () => {
         biometricState.set(res?.bioMetric);
       }
     });
+
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('Is internet Reachable?', state.isConnected);
+      setIsConnected(state.isInternetReachable);
+    });
+    return () => {
+      unsubscribe();
+    };
   }, [themeValue.get()]);
 
   useEffect(() => {
@@ -91,12 +104,22 @@ const App = () => {
 
   const pinWiseInitial = pinCode.get() ? 'Pin' : 'Login';
 
+  console.log('isConnected?', isConnected);
   return (
     <SafeAreaProvider>
       <AppStatusBar
         backgroundColor={LightTheme?.colors.primary}
         barStyle="light-content"
       />
+      <>
+        <NoInternetModal
+          visible={!isConnected}
+          colors={
+            themeValue.get() === 'light' ? LightTheme.colors : DarkTheme.colors
+          }
+        />
+      </>
+
       <NavigationContainer
         linking={{
           prefixes: ['app://'],

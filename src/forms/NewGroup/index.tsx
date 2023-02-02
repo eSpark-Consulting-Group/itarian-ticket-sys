@@ -73,6 +73,13 @@ const NewGroup = ({ route, navigation }: any) => {
       showRightSwitch: true,
       key: 'can_ban_email',
     },
+    {
+      title: 'Can Fork Email',
+      enable: false,
+      rightSwitchVal: false,
+      showRightSwitch: true,
+      key: 'can_fork_ticket',
+    },
   ]);
 
   const updateInput = (e: string, index: number) => {

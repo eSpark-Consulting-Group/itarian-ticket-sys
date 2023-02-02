@@ -1044,6 +1044,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
                           can_assign_ticket: data?.can_assign_ticket,
                           can_delete_ticket: data?.can_delete_ticket,
                           can_ban_email: data?.can_ban_email,
+                          can_fork_ticket: data?.can_fork_ticket,
                         },
                       },
                     };
@@ -1537,6 +1538,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       can_assign_ticket: data?.can_assign_ticket,
                       can_delete_ticket: data?.can_delete_ticket,
                       can_ban_email: data?.can_ban_email,
+                      can_fork_ticket: data?.can_fork_ticket,
                     },
                   },
                 };

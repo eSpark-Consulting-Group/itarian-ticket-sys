@@ -89,6 +89,13 @@ export default function Details() {
       showRightSwitch: true,
       key: 'can_ban_email',
     },
+    {
+      title: 'Can Fork Ticket',
+      enable: false,
+      rightSwitchVal: Boolean(groupDetails?.attributes?.can_fork_ticket),
+      showRightSwitch: true,
+      key: 'can_fork_ticket',
+    },
   ]);
 
   const updateInput = (e: string, index: number) => {

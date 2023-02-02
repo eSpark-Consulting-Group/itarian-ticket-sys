@@ -90,7 +90,7 @@ export default function Details() {
       key: 'can_ban_email',
     },
     {
-      title: 'Can Fork Email',
+      title: 'Can Fork Ticket',
       enable: false,
       rightSwitchVal: Boolean(groupDetails?.attributes?.can_fork_ticket),
       showRightSwitch: true,

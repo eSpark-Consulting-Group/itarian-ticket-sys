@@ -74,7 +74,7 @@ const NewGroup = ({ route, navigation }: any) => {
       key: 'can_ban_email',
     },
     {
-      title: 'Can Fork Email',
+      title: 'Can Fork Ticket',
       enable: false,
       rightSwitchVal: false,
       showRightSwitch: true,

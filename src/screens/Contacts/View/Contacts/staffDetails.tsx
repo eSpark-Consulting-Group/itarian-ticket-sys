@@ -8,11 +8,19 @@ import { DataItem as Item } from '../../../../types';
 import _ from 'lodash';
 import { SelectItems } from '../../../../utils/helperFunctions';
 import { deleteUser } from '../../utils/functions';
+import { StaffRole } from '../../../../constants/SampleArrays';
+import { State, useHookstate } from '@hookstate/core';
+import { globalState } from '../../../../stores/globalAppState';
 
-export default function Communications() {
+export default function StaffDetails() {
   const route: any = useRoute();
   const navigation: any = useNavigation();
   const contactDetails = route?.params?.contactDetails;
+  const departments: State<any> = useHookstate(globalState.departments);
+  const groups: State<any> = useHookstate(globalState.groups);
+  const locations: State<any> = useHookstate(globalState.locations);
+  const teams: State<any> = useHookstate(globalState.teams);
+  const timezones: State<any> = useHookstate(globalState.timezones);
   const [dataSource, setDataSource] = useState<Item[]>([
     {
       title: 'Is Active',
@@ -22,19 +30,116 @@ export default function Communications() {
       key: 'is_active',
     },
     {
-      title: contactDetails?.email ?? '',
+      title: contactDetails?.email,
       subTitle: 'Email',
-      inputable: contactDetails?.email ? false : true,
+      inputable: true,
       enable: false,
       isRequired: true,
       key: 'email',
+    },
+    {
+      title: contactDetails?.group?.name ?? 'Please Select',
+      subTitle: 'Group',
+      list:
+        groups.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: groups
+        .get()
+        ?.filter((value: any) => value?.id == contactDetails?.group?.id)[0],
+      headerTitle: 'Groups',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'group',
+    },
+    {
+      title: contactDetails?.department?.name ?? 'Please Select',
+      subTitle: 'Department',
+      list:
+        departments.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: departments
+        .get()
+        ?.filter(
+          (value: any) => value?.id == contactDetails?.department?.id,
+        )[0],
+      headerTitle: 'Departments',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'department',
+    },
+    {
+      title: contactDetails?.location?.name ?? 'Please Select',
+      subTitle: 'Location',
+      list:
+        locations.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+            name: value?.attributes?.title,
+          };
+        }) || [],
+      selectedItem: locations
+        .get()
+        ?.filter((value: any) => value?.id == contactDetails?.location?.id)[0],
+      headerTitle: 'Locations',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'location',
+    },
+    {
+      title: contactDetails?.teams[0]?.name ?? 'Please Select',
+      subTitle: 'Team',
+      list:
+        teams.get().map((value: any) => {
+          return {
+            ...value?.attributes,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: teams
+        .get()
+        ?.filter(
+          (value: any) => value?.id == contactDetails?.teams[0]?.id,
+        )[0],
+      headerTitle: 'Teams',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'teams',
+    },
+    {
+      title: contactDetails?.timezone?.name ?? 'Please Select',
+      subTitle: 'Timezones',
+      list:
+        timezones.get().map((value: any) => {
+          return {
+            ...value,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: timezones
+        .get()
+        ?.filter(
+          (value: any) => value?.id == contactDetails?.timezone?.id,
+        )[0],
+      headerTitle: 'Teams',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'timezone',
+      searchable: true,
     },
     {
       title: contactDetails?.user_name ?? '',
       subTitle: 'User Name',
       inputable: true,
       enable: false,
-      keyboardType: 'number-pad',
       isRequired: true,
       key: 'user_name',
     },
@@ -51,7 +156,7 @@ export default function Communications() {
       subTitle: 'Last Name',
       inputable: true,
       enable: false,
-      isRequired: true,
+      isRequired: false,
       key: 'last_name',
     },
     {
@@ -59,12 +164,12 @@ export default function Communications() {
       subTitle: 'Phone Number',
       inputable: true,
       enable: false,
-      isRequired: true,
+      isRequired: false,
       keyboardType: 'number-pad',
       key: 'phone_number',
     },
     {
-      title: contactDetails?.internal_note ?? '',
+      title: contactDetails?.internal_notes ?? '',
       subTitle: 'Internal Notes',
       inputable: true,
       enable: false,
@@ -73,9 +178,10 @@ export default function Communications() {
       key: 'internal_notes',
     },
   ]);
+
   const [loader, setLoader] = useState(false);
   // console.log("contactDetails contactDetails", contactDetails);
-  
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -116,11 +222,35 @@ export default function Communications() {
       subTitle: 'id',
     };
 
+    Data[Data?.length + 1] = {
+      title: contactDetails?.provider_id,
+      subTitle: 'provider_id',
+    };
+
     navigation?.setParams({
       ...route?.params,
       data: Data,
     });
   }, [dataSource]);
+
+  useEffect(() => {
+    const obj = [...dataSource];
+    if (obj[2]?.subTitle != 'Role' && route?.params?.from == 'staff') {
+      obj.splice(2, 0, {
+        title: contactDetails?.role ?? 'Please Select',
+        subTitle: 'Role',
+        list: StaffRole || [],
+        selectedItem: StaffRole?.filter(
+          role => role.name == contactDetails?.role,
+        )[0],
+        headerTitle: 'Roles',
+        rightIcon: 'chevron-right',
+        isRequired: true,
+        key: 'role',
+      });
+    }
+    setDataSource(obj);
+  }, []);
 
   const deleteUserFunc = (id: number) => {
     setLoader(true);

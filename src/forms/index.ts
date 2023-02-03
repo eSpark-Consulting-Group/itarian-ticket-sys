@@ -10,12 +10,12 @@ import NewGroup from './NewGroup';
 import NewHelpTopic from './NewHelpTopic';
 import NewLocation from './NewLocation';
 import NewSlaPlans from './NewSlaPlans';
+import NewStaff from './NewStaff';
 import NewTeam from './NewTeam';
 import NewTicket from './NewTicket';
 import NewTicketPriorities from './NewTicketPriorities';
 import NewUser from './NewUser';
 import ServiceTickets from './ServiceTickets';
-
 export {
   AddResource,
   CreateComment,
@@ -34,4 +34,5 @@ export {
   NewTicketPriorities,
   NewUser,
   ServiceTickets,
+  NewStaff
 };

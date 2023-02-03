@@ -22,48 +22,66 @@ export const TextEditor = ({
 }) => {
   const richText = useRef<any>();
   const { colors }: Theme = useTheme();
+  const [isEditorRegistered, setisEditorRegistered] = useState(false);
+
+  const editorInitializedCallback = () => {
+    console.log('registerToolbar');
+    setisEditorRegistered(true);
+  };
+
   return (
     <View>
-      <RichToolbar
-        editor={richText}
-        selectedIconTint={colors.text}
-        iconTint={colors.card}
-        actions={[
-          actions.setBold,
-          actions.setItalic,
-          actions.insertBulletsList,
-          actions.insertOrderedList,
-          actions.insertLink,
-          actions.setSubscript,
-          actions.setSuperscript,
-          actions.alignLeft,
-          actions.alignCenter,
-          actions.alignRight,
-          actions.blockquote,
-          actions.setParagraph,
-          actions.heading1,
-          actions.heading2,
-          actions.heading3,
-          actions.heading4,
-          // actions.table,
-          actions.outdent,
-          actions.indent,
-          actions.setStrikethrough,
-          actions.setUnderline,
-          actions.checkboxList,
-          actions.undo,
-          actions.redo,
-        ]}
-        iconMap={{
-          [actions.heading1]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H1</Text>),
-          [actions.heading2]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H2</Text>),
-          [actions.heading3]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H3</Text>),
-          [actions.heading4]: ({tintColor}) => (<Text style={[{color: tintColor}]}>H4</Text>),
-          [actions.setParagraph]: ({tintColor}) => (<Text style={[{color: tintColor}]}>P</Text>),
-
-        }}
-        style={{backgroundColor: colors.primary, width: SCREEN_WIDTH - 30,}}
-      />
+      {isEditorRegistered && (
+        <RichToolbar
+          editor={richText}
+          selectedIconTint={colors.text}
+          iconTint={colors.card}
+          actions={[
+            actions.setBold,
+            actions.setItalic,
+            actions.insertBulletsList,
+            actions.insertOrderedList,
+            actions.insertLink,
+            actions.setSubscript,
+            actions.setSuperscript,
+            actions.alignLeft,
+            actions.alignCenter,
+            actions.alignRight,
+            actions.blockquote,
+            actions.setParagraph,
+            actions.heading1,
+            actions.heading2,
+            actions.heading3,
+            actions.heading4,
+            // actions.table,
+            actions.outdent,
+            actions.indent,
+            actions.setStrikethrough,
+            actions.setUnderline,
+            actions.checkboxList,
+            actions.undo,
+            actions.redo,
+          ]}
+          iconMap={{
+            [actions.heading1]: ({ tintColor }) => (
+              <Text style={[{ color: tintColor }]}>H1</Text>
+            ),
+            [actions.heading2]: ({ tintColor }) => (
+              <Text style={[{ color: tintColor }]}>H2</Text>
+            ),
+            [actions.heading3]: ({ tintColor }) => (
+              <Text style={[{ color: tintColor }]}>H3</Text>
+            ),
+            [actions.heading4]: ({ tintColor }) => (
+              <Text style={[{ color: tintColor }]}>H4</Text>
+            ),
+            [actions.setParagraph]: ({ tintColor }) => (
+              <Text style={[{ color: tintColor }]}>P</Text>
+            ),
+          }}
+          style={{ backgroundColor: colors.primary, width: SCREEN_WIDTH - 30 }}
+        />
+      )}
       <RichEditor
         ref={richText}
         onChange={onChangeText}
@@ -75,6 +93,7 @@ export const TextEditor = ({
         initialHeight={100}
         injectedJavaScript='document.body.style.webkitUserSelect = "none";'
         injectedJavaScriptBeforeContentLoaded='document.body.style.webkitUserSelect = "none";'
+        editorInitializedCallback={editorInitializedCallback}
       />
     </View>
   );

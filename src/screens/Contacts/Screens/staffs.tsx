@@ -23,7 +23,7 @@ import { userStore } from '../../../stores/userStore';
 import { getAllUsers } from '../utils/functions';
 
 const Staffs = () => {
-  const { colors, dark }: Theme = useTheme();
+  const { dark }: Theme = useTheme();
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [clear, setClear] = useState(false);
@@ -44,7 +44,7 @@ const Staffs = () => {
   };
 
   const searchFilterFunction = async (text: string) => {
-    var result = await searchFromArray({
+    let result = await searchFromArray({
       text: text,
       list: users.get()?.filter(value => value?.role != 'user'),
       keys: ['name', 'company_name'],
@@ -65,7 +65,7 @@ const Staffs = () => {
     }
   }, [clear]);
 
-  // console.log("filteredContacts filteredContacts", filteredContacts);
+  
   
   return (
     <View style={styles.container}>

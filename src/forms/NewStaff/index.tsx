@@ -36,6 +36,16 @@ const NewStaff = ({ route, navigation }: any) => {
       key: 'email',
     },
     {
+      title:'Please Select',
+      subTitle: 'Role',
+      list: StaffRole || [],
+      selectedItem: undefined,
+      headerTitle: 'Roles',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'role',
+    },
+    {
       title: 'Please Select',
       subTitle: 'Group',
       list:
@@ -99,6 +109,7 @@ const NewStaff = ({ route, navigation }: any) => {
       rightIcon: 'chevron-right',
       isRequired: true,
       key: 'teams',
+      SelectMode: 'checkbox'
     },
     {
         title: 'Please Select',
@@ -168,6 +179,7 @@ const NewStaff = ({ route, navigation }: any) => {
       key: 'internal_notes',
     },
   ]);
+
   const isFocused = useIsFocused();
   const updateInput = (e: string, index: number) => {
     console.log('Text Index', e, index);
@@ -179,9 +191,9 @@ const NewStaff = ({ route, navigation }: any) => {
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
-      console.log('updateObj');
-      var obj: any = [...dataSource];
-      obj[route?.params?.item].title = route?.params?.selected?.name;
+      let obj: any = [...dataSource];
+      obj[route?.params?.item].title =
+      route?.params?.selected?.name ?? route?.params?.selected?.length;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
@@ -195,7 +207,7 @@ const NewStaff = ({ route, navigation }: any) => {
 
   useEffect(() => {
     const Data: Item[] = [];
-    dataSource.map(item =>
+    dataSource.forEach(item =>
       Data.push({
         title: item.title,
         subTitle: item.subTitle,
@@ -213,18 +225,6 @@ const NewStaff = ({ route, navigation }: any) => {
 
   useEffect(() => {
     const obj = [...dataSource];
-    if (obj[2]?.subTitle != 'Role' && route?.params?.from == 'staff') {
-      obj.splice(2, 0, {
-        title: 'Please Select',
-        subTitle: 'Role',
-        list: StaffRole || [],
-        selectedItem: undefined,
-        headerTitle: 'Roles',
-        rightIcon: 'chevron-right',
-        isRequired: true,
-        key: 'role',
-      });
-    }
     setDataSource(obj);
   }, [isFocused]);
 

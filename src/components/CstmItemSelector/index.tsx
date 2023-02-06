@@ -19,6 +19,7 @@ const CstmItemSelector = ({ route, navigation }: any) => {
   const { colors }: Theme = useTheme();
   const themeValue: State<string> = useHookstate(globalState.theme);
   const [currChkInd, setCurrChkInd] = useState<number | any>(null);
+  const [selectedIndexes, setSelectedIndexes] = useState<number[] | any>([]);
   const [loader, setLoader] = useState<boolean>(true);
   const [list, setList] = useState<SelectFields[] | []>([]);
   const [searchValue, setSearchValue] = useState('');
@@ -30,7 +31,7 @@ const CstmItemSelector = ({ route, navigation }: any) => {
   };
 
   const searchFilterFunction = async (text: string) => {
-    var result = await searchFromArray({
+    let result = await searchFromArray({
       text: text || '',
       list: route?.params?.data,
       keys: ['name'],
@@ -58,26 +59,58 @@ const CstmItemSelector = ({ route, navigation }: any) => {
   }, [route?.params]);
 
   useEffect(() => {
-    const selectedInd = route?.params?.data?.findIndex(
-      (val: any) => val?.id == route?.params?.selected?.id,
-    );
-    if (selectedInd != -1) setCurrChkInd(route?.params?.data[selectedInd]?.id);
+    if (route?.params?.SelectMode == 'checkbox') {
+      const selectedInds = route?.params?.data?.map((val: any) => {
+        const isFind = route?.params?.selected?.findIndex(
+          (selected: any) => selected.id == val?.id,
+        );
+        return (isFind != -1 && Boolean(isFind == 0 ? true : isFind)) ? val?.id : null
+      });
+      setSelectedIndexes(selectedInds?.filter((val: any) => Boolean(val)));
+    } else {
+      const selectedInd = route?.params?.data?.findIndex(
+        (val: any) => val?.id == route?.params?.selected?.id,
+      );
+      if (selectedInd != -1)
+        setCurrChkInd(route?.params?.data[selectedInd]?.id);
 
-    return () => {
-      setCurrChkInd(0); // This worked for me
-    };
+      return () => {
+        setCurrChkInd(0); // This worked for me
+      };
+    }
   }, []);
 
-  const selectItem = (ind: number) => {
-    const selectedInd = route?.params?.data?.findIndex(
-      (val: any) => val?.id == ind,
-    );
-    navigation?.setParams({
-      ...route?.params,
-      selected: route?.params?.data[selectedInd],
-    });
-    setCurrChkInd(ind);
+  const selectItem = (ind: number, index?: number) => {
+    if (route?.params?.SelectMode == 'checkbox') {
+      let selectedIds = [...selectedIndexes];
+      let isChecked = selectedIndexes?.findIndex((value: any) => value == ind);
+      console.log("selectedIds selectedIds IN FUNCTION", selectedIds, isChecked, ind, index);
+      if (isChecked != -1) {
+        selectedIds?.splice(isChecked, 1);
+      } else {
+        const selectedInd = route?.params?.data?.findIndex(
+          (val: any) => val?.id == ind,
+        );
+        selectedIds.push(route?.params?.data[selectedInd]?.id)
+      }
+      setSelectedIndexes(selectedIds)
+      navigation?.setParams({
+        ...route?.params,
+        selected: route?.params?.data?.filter((val: any) => selectedIds?.includes(val?.id)),
+      });
+    } else {
+      const selectedInd = route?.params?.data?.findIndex(
+        (val: any) => val?.id == ind,
+      );
+      navigation?.setParams({
+        ...route?.params,
+        selected: route?.params?.data[selectedInd],
+      });
+      setCurrChkInd(ind);
+    }
   };
+
+  console.log("selectedIds selectedIds OUT FUNCTION", selectedIndexes);
 
   return (
     <ModalView>
@@ -98,6 +131,11 @@ const CstmItemSelector = ({ route, navigation }: any) => {
         <FlatList
           data={list}
           renderItem={({ item, index }) => {
+            const isChecked =
+              route?.params?.SelectMode == 'checkbox'
+                ? selectedIndexes?.includes(item?.id)
+                : currChkInd == item?.id;
+            
             return (
               <SingleLineField
                 key={item?.name}
@@ -105,12 +143,12 @@ const CstmItemSelector = ({ route, navigation }: any) => {
                 onPress={() => selectItem(item?.id)}
                 leftChild={
                   <Checkbox
-                    status={currChkInd == item?.id ? 'checked' : 'unchecked'}
+                    status={isChecked ? 'checked' : 'unchecked'}
                     color={colors.primary}
                     theme={
                       themeValue.get() === 'light' ? LightTheme : DarkTheme
                     }
-                    onPress={() => selectItem(item?.id)}
+                    onPress={() => selectItem(item?.id, index)}
                   />
                 }
               />

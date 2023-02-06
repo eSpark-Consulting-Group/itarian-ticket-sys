@@ -1581,8 +1581,6 @@ const StackLvl1 = ({ route, navigation }: any) => {
               color={'#fff'}
               onPress={() => {
                 const data = dataFormatter(route?.params?.data);
-                console.log('data', data);
-
                 const obj = {
                   data: {
                     type: 'users',
@@ -1624,17 +1622,16 @@ const StackLvl1 = ({ route, navigation }: any) => {
                         },
                       },
                       teams: {
-                        data: [
-                          {
-                            id: data?.teams?.id,
+                        data: data?.teams?.map((val: any) => {
+                          return {
+                            id: val?.id,
                             type: 'teams',
-                          },
-                        ],
+                          }
+                        }),
                       },
                     },
                   },
                 };
-                console.log("obj", obj, obj.data.relationships.teams);
                 
                 checkValidations(
                   navigation,
@@ -1713,12 +1710,12 @@ const StackLvl1 = ({ route, navigation }: any) => {
                         },
                       },
                       teams: {
-                        data: [
-                          {
-                            id: data?.teams?.id,
+                        data: data?.teams?.map((val: any) => {
+                          return {
+                            id: val?.id,
                             type: 'teams',
-                          },
-                        ],
+                          }
+                        }),
                       },
                     },
                   },

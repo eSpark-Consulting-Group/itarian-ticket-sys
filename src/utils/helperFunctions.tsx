@@ -242,6 +242,7 @@ export const SelectItems = (
         title: route?.params?.title,
         headerTitle: item.headerTitle,
         searchable: item.searchable,
+        SelectMode: item?.SelectMode,
       },
     });
   }
@@ -252,12 +253,12 @@ export const encodedUserDataToken = (subDomain: string, apiKey: string) => {
 };
 
 export const dataFormatter = (array: any = [], replacer: string = '') => {
-  var dataObj: any = {};
+  let dataObj: any = {};
   [...array]?.map(val => {
     dataObj[
       val?.key?.replace(/ /g, replacer) ??
         val?.subTitle?.replace(/ /g, replacer) ??
-        val?.title.replace(/ /g, replacer)
+        val?.title?.replace(/ /g, replacer)
     ] = !val?.subTitle
       ? val?.rightSwitchVal
       : val?.selectedItem

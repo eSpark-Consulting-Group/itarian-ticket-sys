@@ -284,7 +284,7 @@ export interface DataItem {
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
   list?: SelectFields[];
-  selectedItem?: SelectFields;
+  selectedItem?: SelectFields | SelectFields[];
   searchable?: boolean;
   headerTitle?: string;
   keyboardType?: KeyboardTypeOptions | undefined;
@@ -298,7 +298,8 @@ export interface DataItem {
   rightChild?: React.ReactNode;
   contacts?: ContactList[] | null | undefined;
   modal?: boolean;
-  leftChild?: Element
+  leftChild?: Element;
+  SelectMode?: 'checkbox' | 'radio'
 }
 
 export type { User, UserInfo };

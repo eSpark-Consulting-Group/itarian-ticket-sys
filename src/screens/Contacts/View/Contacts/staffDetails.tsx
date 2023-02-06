@@ -11,6 +11,7 @@ import { deleteUser } from '../../utils/functions';
 import { StaffRole } from '../../../../constants/SampleArrays';
 import { State, useHookstate } from '@hookstate/core';
 import { globalState } from '../../../../stores/globalAppState';
+import { create_UUID } from '../../../../utils/helperFunctions';
 
 export default function StaffDetails() {
   const route: any = useRoute();
@@ -36,6 +37,18 @@ export default function StaffDetails() {
       enable: false,
       isRequired: true,
       key: 'email',
+    },
+    {
+      title: contactDetails?.role ?? 'Please Select',
+      subTitle: 'Role',
+      list: StaffRole || [],
+      selectedItem: StaffRole?.filter(
+        role => role.name == contactDetails?.role,
+      )[0],
+      headerTitle: 'Roles',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'role',
     },
     {
       title: contactDetails?.group?.name ?? 'Please Select',
@@ -95,7 +108,10 @@ export default function StaffDetails() {
       key: 'location',
     },
     {
-      title: contactDetails?.teams[0]?.name ?? 'Please Select',
+      title:
+        contactDetails?.teams?.name ??
+        contactDetails?.teams?.length ??
+        'Please Select',
       subTitle: 'Team',
       list:
         teams.get().map((value: any) => {
@@ -106,13 +122,16 @@ export default function StaffDetails() {
         }) || [],
       selectedItem: teams
         .get()
-        ?.filter(
-          (value: any) => value?.id == contactDetails?.teams[0]?.id,
-        )[0],
+        ?.filter((value: any) =>
+          Boolean(
+            contactDetails?.teams?.find((val: any) => value?.id == val?.id),
+          ),
+        ),
       headerTitle: 'Teams',
       rightIcon: 'chevron-right',
       isRequired: true,
       key: 'teams',
+      SelectMode: 'checkbox',
     },
     {
       title: contactDetails?.timezone?.name ?? 'Please Select',
@@ -126,9 +145,7 @@ export default function StaffDetails() {
         }) || [],
       selectedItem: timezones
         .get()
-        ?.filter(
-          (value: any) => value?.id == contactDetails?.timezone?.id,
-        )[0],
+        ?.filter((value: any) => value?.id == contactDetails?.timezone?.id)[0],
       headerTitle: 'Teams',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -180,7 +197,6 @@ export default function StaffDetails() {
   ]);
 
   const [loader, setLoader] = useState(false);
-  // console.log("contactDetails contactDetails", contactDetails);
 
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
@@ -192,7 +208,8 @@ export default function StaffDetails() {
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
-      obj[route?.params?.item].title = route?.params?.selected?.name;
+      obj[route?.params?.item].title =
+        route?.params?.selected?.name ?? route?.params?.selected?.length;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
@@ -206,7 +223,7 @@ export default function StaffDetails() {
 
   useEffect(() => {
     const Data: Item[] = [];
-    dataSource.map(item =>
+    dataSource.forEach(item =>
       Data.push({
         title: item.title,
         subTitle: item.subTitle,
@@ -235,20 +252,6 @@ export default function StaffDetails() {
 
   useEffect(() => {
     const obj = [...dataSource];
-    if (obj[2]?.subTitle != 'Role' && route?.params?.from == 'staff') {
-      obj.splice(2, 0, {
-        title: contactDetails?.role ?? 'Please Select',
-        subTitle: 'Role',
-        list: StaffRole || [],
-        selectedItem: StaffRole?.filter(
-          role => role.name == contactDetails?.role,
-        )[0],
-        headerTitle: 'Roles',
-        rightIcon: 'chevron-right',
-        isRequired: true,
-        key: 'role',
-      });
-    }
     setDataSource(obj);
   }, []);
 
@@ -288,7 +291,7 @@ export default function StaffDetails() {
         contentContainerStyle={{ alignItems: 'center' }}>
         {dataSource?.map((item, index) => (
           <SingleLineField
-            key={index}
+            key={`${create_UUID()}`}
             subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
             title={item.title}
             inputable={item.inputable}
@@ -303,7 +306,14 @@ export default function StaffDetails() {
             mode={item?.mode}
             onChangeSwitch={() => updateSwitch(index)}
             onPress={() =>
-              SelectItems(item, index, navigation, route, 'NewUser', 'Stack1')
+              SelectItems(
+                item,
+                index,
+                navigation,
+                route,
+                'StaffDetails',
+                'Stack1',
+              )
             }
           />
         ))}

@@ -75,12 +75,6 @@ const CreatePost = () => {
   };
 
   useEffect(() => {
-    // call the function
-    // const data = {
-    //   name: 'chilli milli',
-    // };
-    // const jwt = sign(data, 'secret');
-    // console.log('kia aaya', jwt);
     setLoading(true);
     getCategories()
       .then(res => {
@@ -251,6 +245,12 @@ const CreatePost = () => {
       .catch(err => {
         console.log('err', err);
         setLoading(false);
+        showMessage({
+          message: err.message,
+          type: 'danger',
+          icon: 'auto',
+          duration,
+        });
       });
   };
 

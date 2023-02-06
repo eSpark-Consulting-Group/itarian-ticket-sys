@@ -74,7 +74,13 @@ const Search = ({ route, navigation }: any) => {
         var result = await searchFromArray({
           text: text || '',
           list: tickets?.get(),
-          keys: ['attributes.detail', 'attributes.subject', 'attributes.id'],
+          keys: [
+            'attributes.detail',
+            'attributes.subject',
+            'attributes.id',
+            'attributes.ticketstatus.name',
+            'attributes.user.user_name',
+          ],
         });
         setFilteredTickets(result);
       case 'users':
@@ -130,6 +136,8 @@ const Search = ({ route, navigation }: any) => {
   useEffect(() => {
     setIsSearching(false);
   }, [searchTagValue.get()]);
+
+  console.log('XXX', JSON.stringify(filteredTickets));
 
   const handleRenderList = () => {
     switch (searchTagValue.get()) {

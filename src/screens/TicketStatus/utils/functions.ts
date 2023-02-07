@@ -74,7 +74,6 @@ const updateTicketStatus = async (data: any) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    console.log('Data XXX', data?.data.id);
     const result: any = await api.patch(
       `/ticketstatuses/${data?.data.id}`,
       data,

@@ -22,6 +22,7 @@ import {
   NewUser as NewContact,
   NewCannedResponse,
   NewGroup,
+  NewStaff,
 } from '../../forms';
 import { RootStackParamList } from '../../types';
 import Contact1 from '../../screens/Contacts/View/Contacts';
@@ -30,7 +31,7 @@ import SlaPlanDetails from '../../screens/SlaPlans/View/SlaPlans/Details';
 import Company from '../../screens/Companies/View/Company';
 import MyStatus from '../../screens/Profile/View/Profile/MyStatus';
 import { userStore } from '../../stores/userStore';
-import { checkValidations, dataFormatter } from '../../utils/helperFunctions';
+import { checkValidations, create_UUID, dataFormatter } from '../../utils/helperFunctions';
 import { Post } from '../../screens';
 import { addTeam, updateTeam } from '../../screens/Teams/utils/functions';
 import {
@@ -77,6 +78,7 @@ import {
   updateTicketStatus,
 } from '../../screens/TicketStatus/utils/functions';
 import NewTicketStatus from '../../forms/NewTicketStatus';
+import StaffDetails from '../../screens/Contacts/View/Contacts/staffDetails';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -351,6 +353,8 @@ const StackLvl1 = ({ route, navigation }: any) => {
               color={'#fff'}
               onPress={() => {
                 const data = dataFormatter(route?.params?.data);
+                console.log('data', data);
+
                 const obj = {
                   data: {
                     type: 'users',
@@ -358,13 +362,13 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       provider_id: null,
                       email: data?.email,
                       user_name: data?.user_name,
-                      last_name: data?.last_name,
+                      last_name: data?.last_name ?? '',
                       first_name: data?.first_name,
-                      role: 'user',
+                      role: data?.role?.name ?? 'user',
                       password: data?.password,
                       is_active: data?.is_active,
-                      phone_number: data?.phone_number,
-                      internal_note: data?.internal_notes
+                      phone_number: data?.phone_number ?? '',
+                      internal_note: data?.internal_notes,
                     },
                   },
                 };
@@ -413,11 +417,11 @@ const StackLvl1 = ({ route, navigation }: any) => {
                       user_name: data?.user_name,
                       last_name: data?.last_name,
                       first_name: data?.first_name,
-                      role: 'user',
+                      role: data?.role?.name ?? 'user',
                       password: data?.password,
                       is_active: data?.is_active,
                       phone_number: data?.phone_number,
-                      internal_note: data?.internal_notes
+                      internal_note: data?.internal_notes,
                     },
                   },
                 };
@@ -1549,6 +1553,181 @@ const StackLvl1 = ({ route, navigation }: any) => {
                   globalStates,
                   addGroup,
                   obj,
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="NewStaff"
+        component={NewStaff}
+        options={({ route, navigation }: any) => ({
+          title: 'New Staff',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation?.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    type: 'users',
+                    attributes: {
+                      provider_id: create_UUID(),
+                      email: data?.email,
+                      user_name: data?.user_name,
+                      last_name: data?.last_name ?? '',
+                      first_name: data?.first_name,
+                      role: data?.role?.name ?? 'user',
+                      password: data?.password,
+                      is_active: data?.is_active,
+                      phone_number: data?.phone_number ?? '',
+                      internal_note: data?.internal_notes,
+                    },
+                    relationships: {
+                      group: {
+                        data: {
+                          type: 'groups',
+                          id: data?.group?.id,
+                        },
+                      },
+                      department: {
+                        data: {
+                          type: 'departments',
+                          id: data?.department?.id,
+                        },
+                      },
+                      timezone: {
+                        data: {
+                          type: 'timezones',
+                          id: data?.timezone?.id?.toString(),
+                        },
+                      },
+                      location: {
+                        data: {
+                          type: 'locations',
+                          id: data?.location?.id,
+                        },
+                      },
+                      teams: {
+                        data: data?.teams?.map((val: any) => {
+                          return {
+                            id: val?.id,
+                            type: 'teams',
+                          }
+                        }),
+                      },
+                    },
+                  },
+                };
+                
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  addUser,
+                  obj,
+                  'Staff added successfully',
+                );
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="StaffDetails"
+        component={StaffDetails}
+        options={({ route, navigation }: any) => ({
+          title: 'Staff Details',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="chevron-back"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation?.goBack()}
+            />
+          ),
+          headerRight: () => (
+            <FA
+              size={27}
+              name="save"
+              color={'#fff'}
+              onPress={() => {
+                const data = dataFormatter(route?.params?.data);
+                const obj = {
+                  data: {
+                    id: data.id,
+                    type: 'users',
+                    attributes: {
+                      provider_id: data?.provider_id,
+                      email: data?.email,
+                      user_name: data?.user_name,
+                      last_name: data?.last_name ?? '',
+                      first_name: data?.first_name,
+                      role: data?.role?.name ?? 'user',
+                      password: data?.password,
+                      is_active: data?.is_active,
+                      phone_number: data?.phone_number ?? '',
+                      internal_note: data?.internal_notes,
+                    },
+                    relationships: {
+                      group: {
+                        data: {
+                          type: 'groups',
+                          id: data?.group?.id,
+                        },
+                      },
+                      department: {
+                        data: {
+                          type: 'departments',
+                          id: data?.department?.id,
+                        },
+                      },
+                      timezone: {
+                        data: {
+                          type: 'timezones',
+                          id: data?.timezone?.id?.toString(),
+                        },
+                      },
+                      location: {
+                        data: {
+                          type: 'locations',
+                          id: data?.location?.id,
+                        },
+                      },
+                      teams: {
+                        data: data?.teams?.map((val: any) => {
+                          return {
+                            id: val?.id,
+                            type: 'teams',
+                          }
+                        }),
+                      },
+                    },
+                  },
+                };
+                
+                checkValidations(
+                  navigation,
+                  route,
+                  globalStates,
+                  updateUser,
+                  obj,
+                  'Staff Updated successfully',
                 );
               }}
             />

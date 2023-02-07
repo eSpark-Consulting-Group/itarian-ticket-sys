@@ -108,6 +108,7 @@ export type RootStackParamList = {
   LocationDetails: undefined;
   HelpTopicDetails: undefined;
   CannedResponseDetails: undefined;
+  StaffDetails: undefined;
   GroupDetails: undefined;
   NewTeam: { title: string };
   NewSlaPlans: { title: string };
@@ -118,6 +119,7 @@ export type RootStackParamList = {
   NewHelpTopic: { title: string };
   NewCannedResponse: { title: string };
   NewGroup: { title: string };
+  NewStaff: { title: string };
 };
 
 export type Stopwatch = {
@@ -282,7 +284,7 @@ export interface DataItem {
   onChangeSwitch?: (value: boolean) => void;
   onChangeText?: (text: string) => void;
   list?: SelectFields[];
-  selectedItem?: SelectFields;
+  selectedItem?: SelectFields | SelectFields[];
   searchable?: boolean;
   headerTitle?: string;
   keyboardType?: KeyboardTypeOptions | undefined;
@@ -296,7 +298,8 @@ export interface DataItem {
   rightChild?: React.ReactNode;
   contacts?: ContactList[] | null | undefined;
   modal?: boolean;
-  leftChild?: Element
+  leftChild?: Element;
+  SelectMode?: 'checkbox' | 'radio'
 }
 
 export type { User, UserInfo };

@@ -183,7 +183,7 @@ export const checkValidations = async (
   const Info = [...(route?.params?.data ?? [])];
   for (let i = 0; i < Info.length; i++) {
     if (
-      Info[i].isRequired &&
+      Info[i]?.isRequired &&
       (Info[i].title == 'Please Select' || Info[i].title == '')
     ) {
       showMessage({
@@ -195,7 +195,6 @@ export const checkValidations = async (
       return;
     }
   }
-  console.log('Data obje', data);
 
   try {
     const result = await apiCall(data);
@@ -243,6 +242,7 @@ export const SelectItems = (
         title: route?.params?.title,
         headerTitle: item.headerTitle,
         searchable: item.searchable,
+        SelectMode: item?.SelectMode,
       },
     });
   }
@@ -253,12 +253,12 @@ export const encodedUserDataToken = (subDomain: string, apiKey: string) => {
 };
 
 export const dataFormatter = (array: any = [], replacer: string = '') => {
-  var dataObj: any = {};
+  let dataObj: any = {};
   [...array]?.map(val => {
     dataObj[
       val?.key?.replace(/ /g, replacer) ??
         val?.subTitle?.replace(/ /g, replacer) ??
-        val?.title.replace(/ /g, replacer)
+        val?.title?.replace(/ /g, replacer)
     ] = !val?.subTitle
       ? val?.rightSwitchVal
       : val?.selectedItem
@@ -337,4 +337,14 @@ export function expandFlatten(target: any, keySeparator: any) {
     }
   }
   return result;
+}
+
+export function create_UUID(){
+  var dt = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (dt + Math.random()*16)%16 | 0;
+      dt = Math.floor(dt/16);
+      return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+  });
+  return uuid;
 }

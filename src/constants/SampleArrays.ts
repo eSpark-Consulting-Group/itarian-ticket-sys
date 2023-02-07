@@ -1,15 +1,12 @@
 import Images from '../assets/Images';
 import {
-  Company,
   Contact,
   Item,
   ScheduledList,
   ScreenItems,
   SelectFields,
   NotesType,
-  Stopwatch,
   Ticket,
-  NoteTypes,
   CompanySites,
 } from '../types';
 
@@ -159,83 +156,6 @@ export const ticketsList: Ticket[] = [
     project: 'Server Migration',
     site: 'Remote',
     assigned_to: 'John Doe',
-  },
-];
-
-export const companiesList: Array<Company> = [
-  {
-    id: 'C01',
-    name: 'Lorem Ipsum Company Ltd',
-    address: 'Street no 23, State California, USA',
-    employees: 25,
-  },
-  {
-    id: 'C02',
-    name: 'ACME Company',
-    address: 'In incididunt occaecat adipisicing est velit deserunt',
-    employees: 5,
-  },
-  {
-    id: 'C03',
-    name: "Steeler's Incorporated",
-    address: 'Nulla aute laborum reprehenderit cupidatat ad minim',
-    employees: null,
-  },
-  {
-    id: 'C04',
-    name: 'eSpark Consulting Group',
-    address: 'Occaecat consequat aute ipsum aliquip nostrud reprehenderit',
-    employees: 50,
-  },
-  {
-    id: 'C05',
-    name: 'Ezlo Innovation',
-    address: 'Adipisicing occaecat id eiusmod occaecat fugiat sint',
-    employees: 200,
-  },
-  {
-    id: 'C06',
-    name: 'Google LLC',
-    address:
-      'Cupidatat sint ea ullamco cillum ea ipsum voluptate fugiat est incididunt',
-    employees: 10000,
-  },
-  {
-    id: 'C07',
-    name: '2K Industries',
-    address: 'Occaecat culpa deserunt officia consequat ipsum',
-    employees: 5000,
-  },
-  {
-    id: 'C08',
-    name: 'Oscorp Industries',
-    address:
-      'Cupidatat sint ea ullamco cillum ea ipsum voluptate fugiat est incididunt',
-    employees: 1000000,
-  },
-  {
-    id: 'C09',
-    name: 'Fauji Fertilizers',
-    address: 'Dolor dolore nostrud anim ea eu velit voluptate',
-    employees: 2500,
-  },
-  {
-    id: 'C10',
-    name: 'Tesla LLC',
-    address: 'Cupidatat tempor nulla sunt nostrud sit voluptate sunt pariatur',
-    employees: 50000,
-  },
-  {
-    id: 'C11',
-    name: 'Walt Disney Productions',
-    address: 'Dolore consequat esse aute Lorem sint elit',
-    employees: 25000,
-  },
-  {
-    id: 'C12',
-    name: 'Besthesda Studios',
-    address: 'Consequat adipisicing aliqua ut officia ipsum nisi dolor',
-    employees: 2000,
   },
 ];
 
@@ -498,130 +418,6 @@ export const contactsList: Contact[] = [
   },
 ];
 
-export const scheduledList: Array<ScheduledList> = [
-  {
-    id: 1,
-    date: new Date(2022, 10, 12),
-    data: ticketsList.filter(val => val?.time_dur),
-  },
-  {
-    id: 2,
-    date: new Date(2022, 10, 14),
-    data: ticketsList.filter(val => val?.time_dur),
-  },
-];
-
-export const GoneToFormArray: SelectFields[] = [
-  { id: 1, name: 'Lunch' },
-  { id: 2, name: 'Appointment' },
-  { id: 3, name: 'Client' },
-  { id: 4, name: 'Gone for the day' },
-  { id: 5, name: 'Other' },
-  { id: 6, name: 'Sick' },
-  { id: 7, name: 'Vacation' },
-];
-
-export const NoteTypes_DIR: NoteTypes[] = [
-  {
-    text: NotesType.Discussion,
-    highlight: true,
-  },
-  {
-    text: NotesType.Internal,
-    highlight: false,
-  },
-  {
-    text: NotesType.Resolution,
-    highlight: false,
-  },
-];
-
-export const NoteTypes_ACIT: NoteTypes[] = [
-  {
-    text: NotesType.Accounting,
-    highlight: true,
-  },
-  {
-    text: NotesType.Comment,
-    highlight: false,
-  },
-  {
-    text: NotesType.Informational,
-    highlight: false,
-  },
-  {
-    text: NotesType.Technical,
-    highlight: false,
-  },
-];
-
-export const stopWatchList: Stopwatch[] = [
-  {
-    ticket_no: '#12348',
-    summary: 'Checking for Mantaince',
-    created_at: '20, June 2021',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-  {
-    ticket_no: '#56231',
-    summary: 'Team Prep Authorization',
-    created_at: '26, August 2019',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-  {
-    ticket_no: '#56232',
-    summary: 'Team Prep Authorization',
-    created_at: '26, August 2019',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-  {
-    ticket_no: '#56233',
-    summary: 'Team Prep Authorization',
-    created_at: '26, August 2019',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-  {
-    ticket_no: '#56234',
-    summary: 'Team Prep Authorization',
-    created_at: '26, August 2019',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-  {
-    ticket_no: '#56235',
-    summary: 'Team Prep Authorization',
-    created_at: '26, August 2019',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-  {
-    ticket_no: '#56236',
-    summary: 'Team Prep Authorization',
-    created_at: '26, August 2019',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-  {
-    ticket_no: '#56237',
-    summary: 'Team Prep Authorization',
-    created_at: '26, August 2019',
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  },
-];
-
 export const screenItemList: ScreenItems[] = [
   {
     id: 'Agenda',
@@ -721,15 +517,13 @@ export const noteList: Item[] = [
   },
 ];
 
-export const ComapanySites: CompanySites[] = [
+export const StaffRole: SelectFields[] = [
   {
     id: 1,
-    type: 'Main',
-    company_name: 'ACME Industries',
+    name: 'staff',
   },
   {
     id: 2,
-    type: 'Site',
-    company_name: 'ACME Industries',
+    name: 'admin',
   },
 ];

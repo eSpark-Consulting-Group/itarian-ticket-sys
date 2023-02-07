@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Theme, useTheme } from '@react-navigation/native';
+import { Theme, useIsFocused, useTheme } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
 
 import { ModalView, SingleLineField } from '../../components';
 import { DataItem as Item } from '../../types';
 import { SelectItems } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
+import { StaffRole } from '../../constants/SampleArrays';
 
 const NewUser = ({ route, navigation }: any) => {
   const { colors, dark }: Theme = useTheme();
@@ -32,7 +33,6 @@ const NewUser = ({ route, navigation }: any) => {
       subTitle: 'User Name',
       inputable: true,
       enable: false,
-      keyboardType: 'number-pad',
       isRequired: true,
       key: 'user_name',
     },
@@ -49,7 +49,7 @@ const NewUser = ({ route, navigation }: any) => {
       subTitle: 'Last Name',
       inputable: true,
       enable: false,
-      isRequired: true,
+      isRequired: false,
       key: 'last_name',
     },
     {
@@ -57,7 +57,7 @@ const NewUser = ({ route, navigation }: any) => {
       subTitle: 'Phone Number',
       inputable: true,
       enable: false,
-      isRequired: true,
+      isRequired: false,
       keyboardType: 'number-pad',
       key: 'phone_number',
     },
@@ -79,7 +79,7 @@ const NewUser = ({ route, navigation }: any) => {
       key: 'internal_notes',
     },
   ]);
-
+  const isFocused =  useIsFocused()
   const updateInput = (e: string, index: number) => {
     console.log('Text Index', e, index);
     let newData = [...dataSource];
@@ -121,6 +121,25 @@ const NewUser = ({ route, navigation }: any) => {
       data: Data,
     });
   }, [dataSource]);
+
+  useEffect(() => {
+    const obj = [...dataSource];
+    console.log("route?.params?.from", route?.params, obj[2]?.subTitle);
+    
+    if(obj[2]?.subTitle != "Role" && route?.params?.from == 'staff') {
+      obj.splice(2, 0, {   
+        title: 'Please Select',
+        subTitle: 'Role',
+        list: StaffRole || [],
+        selectedItem: undefined,
+        headerTitle: 'Roles',
+        rightIcon: 'chevron-right',
+        isRequired: true,
+        key: 'role',
+      });
+    }
+    setDataSource(obj)
+  }, [isFocused]);
 
   return (
     <ModalView bgColor={colors.card}>

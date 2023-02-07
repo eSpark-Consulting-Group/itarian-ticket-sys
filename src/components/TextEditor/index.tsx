@@ -88,7 +88,7 @@ export const TextEditor = ({
         placeholder={placeholder}
         initialContentHTML={value}
         androidHardwareAccelerationDisabled={true}
-        style={styles.richTextEditorStyle}
+        style={{...styles.richTextEditorStyle, opacity: 0.99}}
         editorStyle={{ backgroundColor: colors.background, color: colors.text }}
         initialHeight={100}
         injectedJavaScript='document.body.style.webkitUserSelect = "none";'

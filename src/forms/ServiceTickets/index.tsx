@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, UIManager, Alert } from 'react-native';
 import { State, useHookstate } from '@hookstate/core';
+import { TabView, SceneMap } from 'react-native-tab-view';
 
 import { ModalView, FloatButton, Loader, CstmTabBar } from '../../components';
 import { STicketsAdditionalButtons } from '../../constants/ButtonsList';
@@ -10,7 +11,6 @@ import { companyStore } from '../../stores/companyStore';
 import Overview from './Overview';
 import { deleteTicket } from '../../screens/Agenda/utils/functions';
 import { globalState } from '../../stores/globalAppState';
-import { TabView, SceneMap } from 'react-native-tab-view';
 import Threads from './Threads';
 import Collaborators from './Collaborators';
 
@@ -87,7 +87,7 @@ const ServiceTickets = ({ navigation, route }: any) => {
           onPress={() => {
             Alert.alert(
               'Delete Ticket?',
-              'Are you sure you want to delete this ticket permanently',
+              'Are you sure you want to delete this Ticket permanently',
               [
                 {
                   text: 'Yes',
@@ -106,14 +106,14 @@ const ServiceTickets = ({ navigation, route }: any) => {
         />
       ) : (
         <FloatButton
-            onPress={() => {
-              navigation.navigate('Stack2', {
-                screen: 'CreateThread',
-                params: {
-                  ticketDetails: route?.params?.ticket_info?.data
-                },
-              });
-            }}
+          onPress={() => {
+            navigation.navigate('Stack2', {
+              screen: 'CreateThread',
+              params: {
+                ticketDetails: route?.params?.ticket_info?.data,
+              },
+            });
+          }}
         />
       )}
     </ModalView>

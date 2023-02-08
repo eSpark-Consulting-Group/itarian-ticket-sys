@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
 import { State, useHookstate } from '@hookstate/core';
 import { Theme, useNavigation, useTheme } from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 
 import styles from './style';
-import { FloatButton, NotFound, TicketComponent } from '../../../components';
-import { ticketsList } from '../../../constants/SampleArrays';
+import {
+  FloatButton,
+  Loader,
+  NotFound,
+  TicketComponent,
+} from '../../../components';
 import { SchAdditionalButtons } from '../../../constants/ButtonsList';
 import { AdditionalButtons } from '../../../types';
 import { globalState } from '../../../stores/globalAppState';
 import { ticketStore } from '../../../stores/ticketStore';
 import { getTicketsByUserId } from '../utils/functions';
-import { Divider } from 'react-native-paper';
 
 const ScheduledTab = ({ route }: any) => {
   const { colors }: Theme = useTheme();
@@ -32,12 +36,12 @@ const ScheduledTab = ({ route }: any) => {
     setActionButtons(tempArr);
   };
 
-  const fetchRecord = () => {
-    const schTicks = ticketsList.filter(val => val?.time_dur);
-    getTicketsByUserId(activeMember.get()?.id);
+  const fetchRecord = async () => {
+    await getTicketsByUserId(activeMember.get()?.id);
     setIsFetching(false);
   };
   useEffect(() => {
+    setIsFetching(true);
     fetchRecord();
   }, [activeMember.get()?.name]);
 
@@ -52,8 +56,21 @@ const ScheduledTab = ({ route }: any) => {
     });
   };
 
+  const DividerComp = () => {
+    return (
+      <Divider
+        style={{
+          backgroundColor: colors.text,
+          height: 1.5,
+          opacity: 0.2,
+        }}
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <Loader isShow={isFetching} hideLoader={true} />
       {tickets.length > 0 ? (
         <FlatList
           data={tickets || []}
@@ -81,15 +98,7 @@ const ScheduledTab = ({ route }: any) => {
               />
             );
           }}
-          ItemSeparatorComponent={() => (
-            <Divider
-              style={{
-                backgroundColor: colors.text,
-                height: 1.5,
-                opacity: 0.2,
-              }}
-            />
-          )}
+          ItemSeparatorComponent={() => <DividerComp />}
         />
       ) : (
         <NotFound label="Tickets" />

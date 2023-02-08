@@ -170,7 +170,7 @@ export default function Details() {
         onPress={() => {
           Alert.alert(
             'Delete Team?',
-            'Are you sure you want to delete this team permanently',
+            'Are you sure you want to delete this Team permanently',
             [
               {
                 text: 'Yes',

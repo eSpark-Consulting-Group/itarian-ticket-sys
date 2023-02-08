@@ -1,45 +1,28 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
-import { Divider } from 'react-native-paper';
-
-import {
-  CstmPressable,
-  GapView,
-  SingleLineField,
-  TicketComponent,
-} from '../../components';
+import { useTheme, Theme } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
-import { ticketStore } from '../../stores/ticketStore';
 import moment from 'moment';
 // @ts-ignore
 import HTMLView from 'react-native-htmlview';
 
-type Item = {
-  title: string;
-  onPress?: () => void;
-};
+import { CstmPressable, GapView } from '../../components';
+import { ticketStore } from '../../stores/ticketStore';
 
 const Threads = () => {
-  const { colors, dark }: Theme = useTheme();
-  const route: any = useRoute();
+  const { colors }: Theme = useTheme();
   const ticketThreads: any = useHookstate(ticketStore?.ticketThreads).get();
-
-  const ticketDetails = route?.params?.ticket_info?.data;
 
   const renderList = ({ item, index }: { item: any; index: number }) => {
     return (
       <View
         key={index}
         style={{
-          borderBottomWidth: 0.2,
-          padding: 5,
-          borderBottomColor: colors.background,
+          padding: 10,
+          marginVertical: 5,
+          backgroundColor: colors.card,
+          borderRadius: 8,
+          elevation: 1,
         }}>
         <View
           style={{
@@ -61,7 +44,12 @@ const Threads = () => {
                 height: 20,
                 borderRadius: 20,
               }}>
-              <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 10 }}>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  fontSize: 10,
+                }}>
                 {item?.attributes?.user?.user_name
                   ?.substring(0, 1)
                   .toUpperCase()}
@@ -100,21 +88,22 @@ const Threads = () => {
         <Text
           style={{
             color: colors.text,
-            fontSize: 17,
+            fontSize: 22,
             fontWeight: 'bold',
-            // borderBottomWidth: .2
+            fontFamily: 'sans-serif-medium',
+            letterSpacing: 0.5,
           }}>
           {item?.attributes?.title}
         </Text>
         <View
           style={{
-            paddingHorizontal: 10,
+            marginTop: 10,
           }}>
           <HTMLView
             value={`<div>${item?.attributes?.body}</div>`}
             stylesheet={StyleSheet.create({
               div: {
-                color: colors.text, // make links coloured pink
+                color: colors.text + 'cc', // make links coloured pink
               },
             })}
           />
@@ -128,19 +117,10 @@ const Threads = () => {
       <FlatList
         data={ticketThreads ?? []}
         contentContainerStyle={{
-          paddingHorizontal: 15,
+          paddingHorizontal: 8,
           paddingVertical: 5,
         }}
         renderItem={renderList}
-        ItemSeparatorComponent={() => (
-          <Divider
-            style={{
-              backgroundColor: colors.text,
-              height: 1.5,
-              opacity: 0.2,
-            }}
-          />
-        )}
       />
     </View>
   );

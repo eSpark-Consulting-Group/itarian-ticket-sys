@@ -322,8 +322,8 @@ export default function StaffDetails() {
         icon="delete"
         onPress={() => {
           Alert.alert(
-            'Delete Organization?',
-            'Are you sure you want to delete this Organization permanently',
+            'Delete Contact?',
+            'Are you sure you want to delete this Contact permanently',
             [
               {
                 text: 'Yes',

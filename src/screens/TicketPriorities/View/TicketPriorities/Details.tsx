@@ -213,8 +213,8 @@ export default function Details() {
           icon="delete"
           onPress={() => {
             Alert.alert(
-              'Delete Sla Plan?',
-              'Are you sure you want to delete this Sla Plan permanently?',
+              'Delete Ticket Priority?',
+              'Are you sure you want to delete this Ticket Priority permanently?',
               [
                 {
                   text: 'Yes',

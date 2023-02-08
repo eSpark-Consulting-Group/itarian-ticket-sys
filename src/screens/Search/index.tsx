@@ -37,15 +37,17 @@ const Search = ({ route, navigation }: any) => {
   const [filteredContacts, setFilteredContacts] = useState(users);
   const [filteredTickets, setFilteredTickets] = useState(tickets?.get());
 
-  
-
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
 
   useEffect(() => {
     getTicketsByUserId('4');
     setFilteredTickets(tickets?.get());
-    getAllTickets();
+    fetchTickets();
   }, []);
+
+  const fetchTickets = async () => {
+    await getAllTickets();
+  };
 
   useEffect(() => {
     if (route.params) {

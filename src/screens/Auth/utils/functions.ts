@@ -65,7 +65,7 @@ const handleLoginUser = async (
         autoHide: true,
         duration: alert_Dur,
       });
-      navigation.navigate('Draw');
+      // navigation.navigate('Draw');
     } else {
       showMessage({
         message: 'Incorrect Email or Password',
@@ -100,7 +100,7 @@ const handleLoginUser = async (
           autoHide: true,
           duration: 100,
         });
-        navigation.navigate('Draw');
+        // navigation.navigate('Draw');
       }
       console.log('userObj', userObj);
 

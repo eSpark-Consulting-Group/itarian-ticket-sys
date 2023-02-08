@@ -11,7 +11,6 @@ export const getAllCompanies = async (cacheEnabled: boolean = true) => {
     companyStore?.companies?.set(companiesCache);
     return;
   }
-
   const user: any = userStore?.user?.get();
   const USER_TOKEN = user?.token;
   api.setHeaders({

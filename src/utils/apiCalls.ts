@@ -1,7 +1,10 @@
 import { State } from '@hookstate/core';
 
 import { api } from '../api';
-import { getAllTimezones, getAllUsers } from '../screens/Agenda/utils/functions';
+import {
+  getAllTimezones,
+  getAllUsers,
+} from '../screens/Agenda/utils/functions';
 import { getAllCompanies } from '../screens/Companies/utils/functions';
 import { getAlldepartments } from '../screens/Departments/utils/functions';
 import { getAllGroups } from '../screens/Groups/utils/functions';
@@ -17,25 +20,25 @@ import { getAllTeams } from '../screens/Teams/utils/functions';
 import { globalState } from '../stores/globalAppState';
 import { userStore } from '../stores/userStore';
 
-export const badgeApiCallForGlobalList = () => {
+export const badgeApiCallForGlobalList = async () => {
   const user: State<any> = userStore?.user;
-  getAllUsers();
-  getAllCompanies();
-  getTicketStatus();
-  getTicketPriorities();
-  getAllSlaPlans();
-  getAllHelpTopics();
-  getAllGroups()
-  getAllLocations()
-  getAlldepartments()
-  getAllTeams()
-  getAllTimezones()
+  await getAllUsers();
+  await getAllCompanies();
+  await getTicketStatus();
+  await getTicketPriorities();
+  await getAllSlaPlans();
+  await getAllHelpTopics();
+  await getAllGroups();
+  await getAllLocations();
+  await getAlldepartments();
+  await getAllTeams();
+  await getAllTimezones();
   filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
     userStore?.userDetails?.set(res);
   });
-  getLocationToken();
-  setTimeout(() => {
-    getCountries();
+  await getLocationToken();
+  setTimeout(async () => {
+    await getCountries();
   }, 2000);
 };
 

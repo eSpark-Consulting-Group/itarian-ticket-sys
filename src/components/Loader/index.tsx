@@ -2,7 +2,13 @@ import React from 'react';
 import { View, Modal, ActivityIndicator } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 
-export const Loader = ({ isShow = false }: { isShow: boolean }) => {
+export const Loader = ({
+  isShow = false,
+  hideLoader = false,
+}: {
+  isShow: boolean;
+  hideLoader?: boolean;
+}) => {
   const { colors }: Theme = useTheme();
   return (
     <View
@@ -22,7 +28,9 @@ export const Loader = ({ isShow = false }: { isShow: boolean }) => {
             alignItems: 'center',
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
           }}>
-          <ActivityIndicator size={'large'} color={colors.primary} />
+          {!hideLoader && (
+            <ActivityIndicator size={'large'} color={colors.primary} />
+          )}
         </View>
       </Modal>
     </View>

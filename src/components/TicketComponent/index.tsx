@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
-import { Divider } from 'react-native-paper';
 
 import { CstmPressable } from '../CstmPressable';
 import styles from './styles';
@@ -66,13 +65,6 @@ const TicketComponent = ({
           </View>
         </View>
       </View>
-      {/* <View
-        style={{
-          width: SCREEN_WIDTH,
-          height: 0.5,
-          backgroundColor: colors.text + '78',
-        }}
-      /> */}
     </CstmPressable>
   );
 };

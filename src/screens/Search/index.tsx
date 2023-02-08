@@ -12,7 +12,6 @@ import {
 } from '../../components';
 import styles from './style';
 import { globalState } from '../../stores/globalAppState';
-import { RenderContacts } from '../Contacts';
 import { RenderCompanies } from '../Companies';
 import { contactsList } from '../../constants/SampleArrays';
 import { useUpdateEffect } from '../../utils/hooks';
@@ -21,6 +20,7 @@ import { userStore } from '../../stores/userStore';
 import { companyStore } from '../../stores/companyStore';
 import { ticketStore } from '../../stores/ticketStore';
 import { getAllTickets, getTicketsByUserId } from '../Agenda/utils/functions';
+import { RenderContacts } from '../Contacts/Screens/users';
 
 const Search = ({ route, navigation }: any) => {
   const { colors, dark }: Theme = useTheme();
@@ -30,13 +30,14 @@ const Search = ({ route, navigation }: any) => {
   const [isSearching, setIsSearching] = useState(false);
   const [clear, setClear] = useState(false);
   const tickets: any = useHookstate(ticketStore.AllTickets);
-
-  const [filteredCompanies, setFilteredCompanies] = useState([]);
-  const [filteredContacts, setFilteredContacts] = useState(contactsList);
-  const [filteredTickets, setFilteredTickets] = useState(tickets?.get());
-
   const users = useHookstate(userStore.users).get();
   const companies = useHookstate(companyStore.companies).get();
+
+  const [filteredCompanies, setFilteredCompanies] = useState([]);
+  const [filteredContacts, setFilteredContacts] = useState(users);
+  const [filteredTickets, setFilteredTickets] = useState(tickets?.get());
+
+  
 
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
 
@@ -136,8 +137,6 @@ const Search = ({ route, navigation }: any) => {
   useEffect(() => {
     setIsSearching(false);
   }, [searchTagValue.get()]);
-
-  console.log('XXX', JSON.stringify(filteredTickets));
 
   const handleRenderList = () => {
     switch (searchTagValue.get()) {

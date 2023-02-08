@@ -329,7 +329,7 @@ const Draw = () => {
         options={{
           headerTitle: () => <CstmHeader title="Users" />,
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Users</Text>
+            <Text style={{ right: 20, color }}>Users & Staffs</Text>
           ),
           drawerIcon: ({ color, size, focused }) => (
             <AD name="contacts" size={size} color={color} />

@@ -6,7 +6,6 @@ import { Switch } from 'react-native-paper';
 import DatePicker from '@react-native-community/datetimepicker';
 
 import { GapView, ModalView, SingleLineField } from '../../../../components';
-import { GoneToFormArray } from '../../../../constants/SampleArrays';
 import { userStore } from '../../../../stores/userStore';
 
 const MyStatus = ({ route, navigation }: any) => {
@@ -62,7 +61,6 @@ const MyStatus = ({ route, navigation }: any) => {
 
   const changeSwitch = () => {
     setGoneToStatus(!goneToStatus);
-    setGoneTo(GoneToFormArray[0]);
     setAddInfo('');
     setCurrDate('-');
     setCurrTime('-');
@@ -102,63 +100,7 @@ const MyStatus = ({ route, navigation }: any) => {
           />
         }
       />
-      {goneToStatus && (
-        <>
-          <SingleLineField
-            title={goneTo?.name}
-            onPress={() =>
-              navigation.navigate('Stack2', {
-                screen: 'CstmItemSelector',
-                params: {
-                  from: 'MyStatus',
-                  item: 'GoneTo',
-                  data: GoneToFormArray,
-                  selected: goneTo,
-                  stack: 'Stack1',
-                  title: route?.params?.title,
-                  headerTitle: 'Gone To',
-                  status: route?.params?.status,
-                },
-              })
-            }
-            rightIcon="chevron-right"
-            subTitle="Gone To"
-          />
-          <SingleLineField
-            title={addInfo}
-            enable={false}
-            subTitle="Additional Info"
-            mode="multiline"
-            inputable
-            onChangeText={e => setAddInfo(e)}
-          />
-          <GapView />
-          <View style={{ flexDirection: 'row' }}>
-            <SingleLineField
-              leftIcon="calendar-month"
-              title={currDate}
-              subTitle="Date Back"
-              halfWidth={true}
-              onPress={() => {
-                setMode('date');
-                setpickerType('db');
-                setShowDate(true);
-              }}
-            />
-            <SingleLineField
-              leftIcon="timer-outline"
-              title={currTime}
-              subTitle="Time Back"
-              halfWidth={true}
-              onPress={() => {
-                setMode('time');
-                setpickerType('tb');
-                setShowDate(true);
-              }}
-            />
-          </View>
-        </>
-      )}
+      
       {showDate && (
         <DatePicker
           mode={mode}

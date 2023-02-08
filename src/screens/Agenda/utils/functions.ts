@@ -198,6 +198,29 @@ const createTicketThread = async (data: any, ticketId: any) => {
   }
 };
 
+const getAllTimezones = async () => {
+  const user: any = userStore?.user?.get();
+  const USER_TOKEN = user?.token;
+  console.log(`Basic ${USER_TOKEN}`);
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.get('/timezones');
+    if (result?.ok) {
+      const data = result?.data?.data?.map((val: any) => {
+        return {
+          id: val?.id,
+          ...val?.attributes,
+        };
+      });
+      globalState?.timezones?.set(data);
+    }
+  } catch (error) {
+    console.log('error getAllTimezones', error);
+  }
+};
+
 export {
   getAllUsers,
   getTicketsByUserId,
@@ -207,5 +230,6 @@ export {
   getAllTickets,
   getTicketThreads,
   createTicketThread,
-  getTicketCollaborators
+  getTicketCollaborators,
+  getAllTimezones
 };

@@ -2,7 +2,7 @@
 import { showMessage, hideMessage } from 'react-native-flash-message';
 
 import Images from '../../assets/Images';
-import { noteList, stopWatchList } from '../../constants/SampleArrays';
+import { noteList } from '../../constants/SampleArrays';
 import { globalState } from '../../stores/globalAppState';
 import { alert_Dur } from '../../constants';
 
@@ -116,15 +116,7 @@ const clearFunc = (navigation: any, route: any) => {
 const handleStopwatch = (params: any) => {
   const { ticket_info } = params;
   const date = new Date();
-  let tempArr: any = [...stopWatchList];
-  tempArr.push({
-    ticket_no: ticket_info.id,
-    summary: ticket_info.summary,
-    created_at: date.toDateString(),
-    timer: 0,
-    isPlaying: false,
-    show: true,
-  });
+  let tempArr: any = [];
   globalState.stopwatch.set(tempArr);
   console.log('hoa ==========>>', tempArr);
 };

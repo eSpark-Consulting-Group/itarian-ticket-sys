@@ -5,9 +5,9 @@ import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 
 import styles from './style';
 import { FloatButton, NotFound, TicketComponent } from '../../../components';
-import { scheduledList, ticketsList } from '../../../constants/SampleArrays';
+import { ticketsList } from '../../../constants/SampleArrays';
 import { SchAdditionalButtons } from '../../../constants/ButtonsList';
-import { AdditionalButtons, ScheduledList } from '../../../types';
+import { AdditionalButtons } from '../../../types';
 import { globalState } from '../../../stores/globalAppState';
 import { ticketStore } from '../../../stores/ticketStore';
 import { getTicketsByUserId } from '../utils/functions';
@@ -35,16 +35,6 @@ const ScheduledTab = ({ route }: any) => {
   const fetchRecord = () => {
     const schTicks = ticketsList.filter(val => val?.time_dur);
     getTicketsByUserId(activeMember.get()?.id);
-    const filTickets = schTicks.filter(
-      val => val?.assigned_to == activeMember.get()?.name,
-    );
-    let aRR: ScheduledList[] = [];
-    if (filTickets.length > 0) {
-      scheduledList.map(item => {
-        let data = { id: item.id, date: item.date, data: filTickets };
-        aRR.push(data);
-      });
-    }
     setIsFetching(false);
   };
   useEffect(() => {

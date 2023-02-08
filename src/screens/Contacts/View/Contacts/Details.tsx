@@ -8,8 +8,9 @@ import { DataItem as Item } from '../../../../types';
 import _ from 'lodash';
 import { SelectItems } from '../../../../utils/helperFunctions';
 import { deleteUser } from '../../utils/functions';
+import { StaffRole } from '../../../../constants/SampleArrays';
 
-export default function Communications() {
+export default function Details() {
   const route: any = useRoute();
   const navigation: any = useNavigation();
   const contactDetails = route?.params?.contactDetails;
@@ -122,6 +123,22 @@ export default function Communications() {
     });
   }, [dataSource]);
 
+  useEffect(() => {
+    const obj = [...dataSource];
+    if(obj[2]?.subTitle != "Role" && route?.params?.from == 'staff') {
+      obj.splice(2, 0, {   
+        title: 'Please Select',
+        subTitle: 'Role',
+        list: StaffRole || [],
+        selectedItem: undefined,
+        headerTitle: 'Roles',
+        rightIcon: 'chevron-right',
+        isRequired: true,
+        key: 'role',
+      });
+    }
+    setDataSource(obj)
+  }, []);
   const deleteUserFunc = (id: number) => {
     setLoader(true);
     console.log('companyDetails', id);

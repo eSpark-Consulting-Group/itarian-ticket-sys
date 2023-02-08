@@ -35,7 +35,7 @@ const ServiceTickets = ({ navigation, route }: any) => {
   const dNavName: State<string> = useHookstate(
     globalState.defaultnNavigationName,
   );
-  const [defaultNav, setdefaultNav] = useState(dNavName.get());
+  
   const [loader, setLoader] = useState(false);
 
   const updatePress = () => {

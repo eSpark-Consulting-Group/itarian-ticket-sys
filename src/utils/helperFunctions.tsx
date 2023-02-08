@@ -208,8 +208,6 @@ export const checkValidations = async (
       // console.log('Error Not Founded');
       isGoback && navigation.goBack();
     } else {
-      console.log('XXX', result?.message?.data?.errors);
-
       showMessage({
         message:
           result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
@@ -326,9 +324,14 @@ export function expandFlatten(target: any, keySeparator: any) {
       var currentTarget: any = result;
       for (var i = 0; i < branch.length; i += 1) {
         var subKey = nestedKeys[i];
+        // console.log("subKey subKey", Number(subKey))
         // If this is the first time visiting this branch, we need to instantiate it
         if (currentTarget[subKey] === undefined) {
-          currentTarget[subKey] = {};
+          if(Number.isNaN(subKey)) {
+            currentTarget[subKey] = {};
+          }else {
+            currentTarget[subKey] = [];
+          }
         }
         // Visit the branch
         currentTarget = currentTarget[subKey];

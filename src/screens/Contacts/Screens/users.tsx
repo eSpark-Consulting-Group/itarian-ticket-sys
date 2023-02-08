@@ -113,7 +113,7 @@ export const RenderContacts = ({
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
-              screen: 'Contact1',
+              screen: item?.role == "user" ? 'Contact1': 'StaffDetails',
               params: { contactDetails: item },
             })
           }

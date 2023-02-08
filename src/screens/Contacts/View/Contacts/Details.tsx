@@ -6,7 +6,7 @@ import { showMessage } from 'react-native-flash-message';
 import { FloatButton, Loader, SingleLineField } from '../../../../components';
 import { DataItem as Item } from '../../../../types';
 import _ from 'lodash';
-import { SelectItems } from '../../../../utils/helperFunctions';
+import { create_UUID, SelectItems } from '../../../../utils/helperFunctions';
 import { deleteUser } from '../../utils/functions';
 import { StaffRole } from '../../../../constants/SampleArrays';
 
@@ -75,8 +75,7 @@ export default function Details() {
     },
   ]);
   const [loader, setLoader] = useState(false);
-  // console.log("contactDetails contactDetails", contactDetails);
-  
+
   const updateInput = (e: string, index: number) => {
     let newData = [...dataSource];
     newData[index].title = e;
@@ -86,7 +85,7 @@ export default function Details() {
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
-      var obj: any = [...dataSource];
+      let obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
@@ -101,7 +100,7 @@ export default function Details() {
 
   useEffect(() => {
     const Data: Item[] = [];
-    dataSource.map(item =>
+    dataSource.forEach(item =>
       Data.push({
         title: item.title,
         subTitle: item.subTitle,
@@ -125,8 +124,8 @@ export default function Details() {
 
   useEffect(() => {
     const obj = [...dataSource];
-    if(obj[2]?.subTitle != "Role" && route?.params?.from == 'staff') {
-      obj.splice(2, 0, {   
+    if (obj[2]?.subTitle != 'Role' && route?.params?.from == 'staff') {
+      obj.splice(2, 0, {
         title: 'Please Select',
         subTitle: 'Role',
         list: StaffRole || [],
@@ -137,7 +136,7 @@ export default function Details() {
         key: 'role',
       });
     }
-    setDataSource(obj)
+    setDataSource(obj);
   }, []);
   const deleteUserFunc = (id: number) => {
     setLoader(true);
@@ -175,7 +174,7 @@ export default function Details() {
         contentContainerStyle={{ alignItems: 'center' }}>
         {dataSource?.map((item, index) => (
           <SingleLineField
-            key={index}
+            key={`${create_UUID()}`}
             subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
             title={item.title}
             inputable={item.inputable}
@@ -199,8 +198,8 @@ export default function Details() {
         icon="delete"
         onPress={() => {
           Alert.alert(
-            'Delete Organization?',
-            'Are you sure you want to delete this Organization permanently',
+            'Delete Contact?',
+            'Are you sure you want to delete this Contact permanently',
             [
               {
                 text: 'Yes',

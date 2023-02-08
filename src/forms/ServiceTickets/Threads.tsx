@@ -1,36 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import { useTheme, Theme } from '@react-navigation/native';
 import { Divider } from 'react-native-paper';
-
-import {
-  CstmPressable,
-  GapView,
-  SingleLineField,
-  TicketComponent,
-} from '../../components';
 import { useHookstate } from '@hookstate/core';
-import { ticketStore } from '../../stores/ticketStore';
 import moment from 'moment';
 // @ts-ignore
 import HTMLView from 'react-native-htmlview';
 
-type Item = {
-  title: string;
-  onPress?: () => void;
-};
+import { CstmPressable, GapView } from '../../components';
+import { ticketStore } from '../../stores/ticketStore';
 
 const Threads = () => {
   const { colors, dark }: Theme = useTheme();
-  const route: any = useRoute();
   const ticketThreads: any = useHookstate(ticketStore?.ticketThreads).get();
-
-  const ticketDetails = route?.params?.ticket_info?.data;
 
   const renderList = ({ item, index }: { item: any; index: number }) => {
     return (
@@ -102,7 +84,6 @@ const Threads = () => {
             color: colors.text,
             fontSize: 17,
             fontWeight: 'bold',
-            // borderBottomWidth: .2
           }}>
           {item?.attributes?.title}
         </Text>

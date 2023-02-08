@@ -40,11 +40,12 @@ const App = () => {
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
+  const user: State<any> = useHookstate(userStore.user);
   const dNavName: State<string> = useHookstate(
     globalState.defaultnNavigationName,
   );
 
-  const [isConnected, setIsConnected] = useState<any>(false)
+  const [isConnected, setIsConnected] = useState<any>(true);
   //! ----------------------------------------------------
 
   //! ---------------------------------------------------
@@ -56,7 +57,8 @@ const App = () => {
       }
     });
     store.get('user').then((res: any) => {
-      // if (res) user.set(res);
+      // console.log("res res user user", res)
+      if (res) user.set(res);
     });
     store.get('dSName').then((res: any) => {
       if (res) {
@@ -76,7 +78,6 @@ const App = () => {
     });
 
     const unsubscribe = NetInfo.addEventListener(state => {
-      console.log('Is internet Reachable?', state.isConnected);
       setIsConnected(state.isInternetReachable);
     });
     return () => {
@@ -126,49 +127,52 @@ const App = () => {
         }}
         theme={themeValue.get() === 'light' ? LightTheme : DarkTheme}>
         <Stack.Navigator initialRouteName={pinWiseInitial}>
-          <>
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Pin"
-              component={PinScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="OTPScreen"
-              component={OTPScreen}
-              options={{ headerShown: false }}
-            />
-          </>
-          <Stack.Group
-            screenOptions={{
-              presentation: 'modal',
-              animation: 'slide_from_bottom',
-            }}>
-            <Stack.Screen
-              name="Draw"
-              component={Drawer}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Stack1"
-              component={StackLvl1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Stack2"
-              component={StackLvl2}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Stack3"
-              component={StackLvl3}
-              options={{ headerShown: false }}
-            />
-          </Stack.Group>
+          {!user.get()?.email ? (
+            <>
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Pin"
+                component={PinScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="OTPScreen"
+                component={OTPScreen}
+                options={{ headerShown: false }}
+              />
+            </>
+          ) : (
+            <Stack.Group
+              screenOptions={{
+                presentation: 'modal',
+                animation: 'slide_from_bottom',
+              }}>
+              <Stack.Screen
+                name="Draw"
+                component={Drawer}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Stack1"
+                component={StackLvl1}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Stack2"
+                component={StackLvl2}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Stack3"
+                component={StackLvl3}
+                options={{ headerShown: false }}
+              />
+            </Stack.Group>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

@@ -299,7 +299,8 @@ export interface DataItem {
   contacts?: ContactList[] | null | undefined;
   modal?: boolean;
   leftChild?: Element;
-  SelectMode?: 'checkbox' | 'radio'
+  SelectMode?: 'checkbox' | 'radio';
+  listTitle?: boolean;
 }
 
 export type { User, UserInfo };

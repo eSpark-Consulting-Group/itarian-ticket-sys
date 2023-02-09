@@ -110,7 +110,18 @@ export default function StaffDetails() {
     {
       title:
         contactDetails?.teams?.name ??
-        contactDetails?.teams?.length ??
+        teams
+          .get()
+          ?.map((value: any) => {
+            const boolVal = Boolean(
+              contactDetails?.teams?.find((val: any) => value?.id == val?.id),
+            );
+            if (boolVal) {
+              return value?.attributes?.name;
+            }
+          })
+          ?.filter((val: any) => val != undefined)
+          ?.toString() ??
         'Please Select',
       subTitle: 'Team',
       list:
@@ -132,6 +143,7 @@ export default function StaffDetails() {
       isRequired: true,
       key: 'teams',
       SelectMode: 'checkbox',
+      listTitle: true,
     },
     {
       title: contactDetails?.timezone?.name ?? 'Please Select',
@@ -146,7 +158,7 @@ export default function StaffDetails() {
       selectedItem: timezones
         .get()
         ?.filter((value: any) => value?.id == contactDetails?.timezone?.id)[0],
-      headerTitle: 'Teams',
+      headerTitle: 'Timezones',
       rightIcon: 'chevron-right',
       isRequired: true,
       key: 'timezone',
@@ -209,7 +221,19 @@ export default function StaffDetails() {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title =
-        route?.params?.selected?.name ?? route?.params?.selected?.length;
+        route?.params?.selected?.name ??
+        teams
+          .get()
+          ?.map((value: any) => {
+            const boolVal = Boolean(
+              route?.params?.selected?.find((val: any) => value?.id == val?.id),
+            );
+            if (boolVal) {
+              return value?.attributes?.name;
+            }
+          })
+          ?.filter((val: any) => val != undefined)
+          ?.toString();
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
@@ -315,6 +339,7 @@ export default function StaffDetails() {
                 'Stack1',
               )
             }
+            listTitle={item?.listTitle}
           />
         ))}
       </ScrollView>

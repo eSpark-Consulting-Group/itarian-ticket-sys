@@ -18,6 +18,7 @@ import {
   CstmMultiLine,
 } from '..';
 import { TextEditor } from '../TextEditor';
+import { WINDOW_WIDTH } from '../../constants';
 
 interface Props {
   leftIcon?: string;
@@ -47,6 +48,7 @@ interface Props {
   keyboardType?: KeyboardTypeOptions | undefined;
   inputWidth?: number | undefined;
   roundIconStyle?: ViewStyle;
+  listTitle?: boolean;
 }
 
 const SingleLineField = ({
@@ -77,6 +79,7 @@ const SingleLineField = ({
   keyboardType = 'default',
   inputWidth = undefined,
   roundIconStyle = {},
+  listTitle = false,
 }: Props): JSX.Element => {
   const { colors }: Theme = useTheme();
   return (
@@ -160,14 +163,36 @@ const SingleLineField = ({
                       <GapView mode="horizontal" />
                     </>
                   )}
-                  <Text
-                    style={{
-                      color: colors.text,
-                      ...styles.title,
-                      width: titleWidth,
-                    }}>
-                    {title}
-                  </Text>
+                  {(!listTitle || title == "Please Select" || !Boolean(title)) ? (
+                    <Text
+                      style={{
+                        color: colors.text,
+                        ...styles.title,
+                        width: titleWidth,
+                      }}>
+                      {!Boolean(title) ? "Please Select" : title}
+                    </Text>
+                  ) : (
+                    <View style={{flexDirection: 'row', flexWrap: 'wrap', width: WINDOW_WIDTH - 60}}>
+                      {title?.split(',').map((titleVal: string, index: number) => {
+                        return (
+                          <Text
+                            key={`${titleVal}-${index}`}
+                            style={{
+                              color: colors.text,
+                              ...styles.title,
+                              width: titleWidth,
+                              borderWidth: 1,
+                              borderColor: colors.primary,
+                              padding: 5,
+                              margin: 2
+                            }}>
+                            {titleVal}
+                          </Text>
+                        );
+                      })}
+                    </View>
+                  )}
                 </>
               )}
             </View>

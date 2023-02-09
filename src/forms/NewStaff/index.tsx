@@ -36,7 +36,7 @@ const NewStaff = ({ route, navigation }: any) => {
       key: 'email',
     },
     {
-      title:'Please Select',
+      title: 'Please Select',
       subTitle: 'Role',
       list: StaffRole || [],
       selectedItem: undefined,
@@ -109,25 +109,26 @@ const NewStaff = ({ route, navigation }: any) => {
       rightIcon: 'chevron-right',
       isRequired: true,
       key: 'teams',
-      SelectMode: 'checkbox'
+      SelectMode: 'checkbox',
+      listTitle: true,
     },
     {
-        title: 'Please Select',
-        subTitle: 'Timezones',
-        list:
-          timezones.get().map((value: any) => {
-            return {
-              ...value,
-              id: value?.id,
-            };
-          }) || [],
-        selectedItem: undefined,
-        headerTitle: 'Teams',
-        rightIcon: 'chevron-right',
-        isRequired: true,
-        key: 'timezone',
-        searchable: true,
-      },
+      title: 'Please Select',
+      subTitle: 'Timezones',
+      list:
+        timezones.get().map((value: any) => {
+          return {
+            ...value,
+            id: value?.id,
+          };
+        }) || [],
+      selectedItem: undefined,
+      headerTitle: 'Timezones',
+      rightIcon: 'chevron-right',
+      isRequired: true,
+      key: 'timezone',
+      searchable: true,
+    },
     {
       title: '',
       subTitle: 'User Name',
@@ -193,7 +194,19 @@ const NewStaff = ({ route, navigation }: any) => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
       let obj: any = [...dataSource];
       obj[route?.params?.item].title =
-      route?.params?.selected?.name ?? route?.params?.selected?.length;
+        route?.params?.selected?.name ??
+        teams
+          .get()
+          ?.map((value: any) => {
+            const boolVal = Boolean(
+              route?.params?.selected?.find((val: any) => value?.id == val?.id),
+            );
+            if (boolVal) {
+              return value?.attributes?.name;
+            }
+          })
+          ?.filter((val: any) => val != undefined)
+          ?.toString();
       obj[route?.params?.item].selectedItem = route?.params?.selected;
       setDataSource([...obj]);
     }
@@ -249,8 +262,16 @@ const NewStaff = ({ route, navigation }: any) => {
               mode={item?.mode}
               onChangeSwitch={() => updateSwitch(index)}
               onPress={() =>
-                SelectItems(item, index, navigation, route, 'NewStaff', 'Stack1')
+                SelectItems(
+                  item,
+                  index,
+                  navigation,
+                  route,
+                  'NewStaff',
+                  'Stack1',
+                )
               }
+              listTitle={item?.listTitle}
             />
           ))}
         </View>

@@ -343,27 +343,6 @@ export default function StaffDetails() {
           />
         ))}
       </ScrollView>
-      <FloatButton
-        icon="delete"
-        onPress={() => {
-          Alert.alert(
-            'Delete Contact?',
-            'Are you sure you want to delete this Contact permanently',
-            [
-              {
-                text: 'Yes',
-                style: 'default',
-                onPress: () => deleteUserFunc(contactDetails?.id),
-              },
-              {
-                text: 'No',
-                style: 'cancel',
-                onPress: () => console.log('Pressed Cancel on Delete'),
-              },
-            ],
-          );
-        }}
-      />
     </>
   );
 }

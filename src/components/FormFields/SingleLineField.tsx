@@ -163,34 +163,45 @@ const SingleLineField = ({
                       <GapView mode="horizontal" />
                     </>
                   )}
-                  {(!listTitle || title == "Please Select" || !Boolean(title)) ? (
+                  {!listTitle || title == 'Please Select' || !Boolean(title) ? (
                     <Text
                       style={{
                         color: colors.text,
                         ...styles.title,
                         width: titleWidth,
                       }}>
-                      {!Boolean(title) ? "Please Select" : title}
+                      {!Boolean(title) ? 'Please Select' : title}
                     </Text>
                   ) : (
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap', width: WINDOW_WIDTH - 60}}>
-                      {title?.split(',').map((titleVal: string, index: number) => {
-                        return (
-                          <Text
-                            key={`${titleVal}-${index}`}
-                            style={{
-                              color: colors.text,
-                              ...styles.title,
-                              width: titleWidth,
-                              borderWidth: 1,
-                              borderColor: colors.primary,
-                              padding: 5,
-                              margin: 2
-                            }}>
-                            {titleVal}
-                          </Text>
-                        );
-                      })}
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                        width: WINDOW_WIDTH - 60,
+                      }}>
+                      {title
+                        ?.split(',')
+                        .map((titleVal: string, index: number) => {
+                          return (
+                            <Text
+                              key={`${titleVal}-${index}`}
+                              style={{
+                                color: '#ffffff',
+                                ...styles.title,
+                                fontFamily: 'sans-serif-medium',
+                                width: titleWidth,
+                                backgroundColor: colors.primary,
+                                borderRadius: 5,
+                                padding: 2,
+                                paddingHorizontal: 4,
+                                margin: 2,
+                                fontSize: 14,
+                                opacity: 0.9,
+                              }}>
+                              {titleVal}
+                            </Text>
+                          );
+                        })}
                     </View>
                   )}
                 </>

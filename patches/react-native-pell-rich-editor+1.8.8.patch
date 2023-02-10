@@ -1,0 +1,14 @@
+diff --git a/node_modules/react-native-pell-rich-editor/src/RichToolbar.js b/node_modules/react-native-pell-rich-editor/src/RichToolbar.js
+index 6882aa8..ee964a9 100644
+--- a/node_modules/react-native-pell-rich-editor/src/RichToolbar.js
++++ b/node_modules/react-native-pell-rich-editor/src/RichToolbar.js
+@@ -112,7 +112,8 @@ export default class RichToolbar extends Component {
+     _mount = () => {
+         const {editor: {current: editor} = {current: this.props.getEditor?.()}} = this.props;
+         if (!editor) {
+-            throw new Error('Toolbar has no editor!');
++            // throw new Error('Toolbar has no editor!');
++            console.log('Toolbar has no editor!');
+         } else {
+             editor.registerToolbar((selectedItems) => this.setSelectedItems(selectedItems));
+             this.editor = editor;

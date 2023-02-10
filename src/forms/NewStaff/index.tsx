@@ -104,7 +104,7 @@ const NewStaff = ({ route, navigation }: any) => {
             id: value?.id,
           };
         }) || [],
-      selectedItem: undefined,
+      selectedItem: [],
       headerTitle: 'Teams',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -150,7 +150,7 @@ const NewStaff = ({ route, navigation }: any) => {
       subTitle: 'Last Name',
       inputable: true,
       enable: false,
-      isRequired: false,
+      isRequired: true,
       key: 'last_name',
     },
     {

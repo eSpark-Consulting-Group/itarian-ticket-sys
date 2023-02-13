@@ -9,6 +9,7 @@ import {
 import { Divider } from 'react-native-paper';
 
 import {
+  DividerComponent,
   FloatButton,
   GapView,
   Loader,
@@ -188,11 +189,7 @@ export default function Details() {
         contentContainerStyle={{ paddingBottom: 80 }}
         data={dataSource}
         renderItem={renderList}
-        ItemSeparatorComponent={() => (
-          <Divider
-            style={{ backgroundColor: colors.background, height: 1.5 }}
-          />
-        )}
+        ItemSeparatorComponent={DividerComponent}
       />
       {dataSource[1].title != 'Default' && (
         <FloatButton

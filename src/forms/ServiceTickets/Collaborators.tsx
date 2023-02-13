@@ -1,80 +1,67 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import {
-  useTheme,
-  Theme,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
-import { Divider } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
 
-import {
-  CstmPressable,
-  GapView,
-  NotFound,
-  SingleLineField,
-  TicketComponent,
-} from '../../components';
+import { DividerComponent, Loader, NotFound, SingleLineField } from '../../components';
 import { useHookstate } from '@hookstate/core';
 import { ticketStore } from '../../stores/ticketStore';
-import moment from 'moment';
 // @ts-ignore
-import HTMLView from 'react-native-htmlview';
-import { Company } from '../../types';
-import { moderateScale } from 'react-native-size-matters';
 import { WINDOW_WIDTH } from '../../constants';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import { deleteCollaborator } from '../../screens/Agenda/utils/functions';
+
 
 const Collaborators = () => {
-  const { colors, dark }: Theme = useTheme();
-  const route: any = useRoute();
   const ticketCollaborators: any = useHookstate(
     ticketStore?.ticketCollaborators,
   ).get();
+  const [loader, setLoader] = useState(false);
 
-  const renderList = ({ item, index }: { item: Company; index: number }) => {
+  const renderList = ({ item, index }: { item: any; index: number }) => {
     return (
-      <View key={`company-details-${index}`} style={styles.listContainer}>
-        <CstmPressable
-          android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
-          <View style={{ padding: moderateScale(15) }}>
-            <Text
-              style={{
-                color: colors.text,
-              }}>
-              {item?.name}
-            </Text>
-          </View>
-        </CstmPressable>
-        {/* <Divider
-          style={{ backgroundColor: colors.text, ...styles.dividerStyle }}
-        /> */}
-      </View>
+      <SingleLineField
+        title={item?.attributes?.user?.user_name}
+        subTitle={item?.attributes?.user?.email}
+        enable={false}
+        leftIcon="account-circle"
+        rightChild={
+          <MCI
+            name="window-close"
+            size={25}
+            onPress={() => {
+              deleteCollaboratorFunc(item?.id, item?.attributes?.ticket?.id);
+            }}
+          />
+        }
+      />
     );
   };
 
-  console.log("ticketCollaborators?.length", ticketCollaborators?.length);
+  const deleteCollaboratorFunc = (collaboratorId: string, ticketId: string) => {
+    setLoader(true);
+    deleteCollaborator(collaboratorId, ticketId)
+      .then(res => {
+        setLoader(false);
+      })
+      .catch(err => {
+        console.log('delete Tickets failed', err);
+        setLoader(false);
+      });
+  };
+
   return (
     <>
+      <Loader isShow={loader} />
       {ticketCollaborators?.length > 0 ? (
         <FlatList
           data={ticketCollaborators ?? []}
           contentContainerStyle={{
-            paddingHorizontal: 15,
             paddingVertical: 5,
+            paddingBottom: 80,
           }}
           renderItem={renderList}
           ListFooterComponent={<View />}
           ListFooterComponentStyle={{ height: 8 }}
-          ItemSeparatorComponent={() => (
-            <Divider
-              style={{
-                backgroundColor: colors.text,
-                height: 1.5,
-                opacity: 0.2,
-                // transform: [{ scale: 2 }],
-              }}
-            />
-          )}
+          ItemSeparatorComponent={DividerComponent}
         />
       ) : (
         <NotFound label="Collaborators" />

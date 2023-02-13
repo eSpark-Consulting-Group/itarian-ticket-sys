@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   FlatList,
-  KeyboardTypeOptions,
   Alert,
 } from 'react-native';
 import {
@@ -11,14 +10,12 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
-import {FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
+import {DividerComponent, FloatButton, GapView, Loader, SingleLineField} from '../../../../components';
 import {DataItem as Item} from '../../../../types';
 import {SelectItems} from '../../../../utils/helperFunctions';
 import { deleteCannedResponse } from '../../utils/functions';
 
 export default function Details() {
-  const {colors, dark}: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const cannedResponseDetails = routes?.params?.cannedResponseDetails;
@@ -133,9 +130,7 @@ export default function Details() {
       <FlatList
         data={dataSource}
         renderItem={renderList}
-        ItemSeparatorComponent={() => (
-          <Divider style={{backgroundColor: colors.background, height: 1.5}} />
-        )}
+        ItemSeparatorComponent={DividerComponent}
       />
       {dataSource[1].title != "Default" &&
       <FloatButton icon='delete' onPress={() => {

@@ -96,7 +96,6 @@ const NewLocation = ({ route, navigation }: any) => {
       if (route?.params?.item == 1) {
         setLoader(true);
         getStates(route?.params?.selected?.name).then((res: any) => {
-          console.log('res res res', res);
           obj[route?.params?.item + 1].selectedItem = undefined;
           obj[route?.params?.item + 1].title = 'Please Select';
           obj[route?.params?.item + 1].list = res;
@@ -132,6 +131,7 @@ const NewLocation = ({ route, navigation }: any) => {
     tempArr[index].rightSwitchVal = !tempArr[index].rightSwitchVal;
     setDataSource(tempArr);
   };
+
 
   return (
     <ModalView bgColor={colors.card}>

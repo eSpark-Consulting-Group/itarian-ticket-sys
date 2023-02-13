@@ -6,10 +6,10 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import { Divider } from 'react-native-paper';
 import { useHookstate } from '@hookstate/core';
 
 import {
+  DividerComponent,
   FloatButton,
   GapView,
   Loader,
@@ -21,7 +21,6 @@ import { deleteLocation, getStates } from '../../utils/functions';
 import { globalState } from '../../../../stores/globalAppState';
 
 export default function Details() {
-  const { colors, dark }: Theme = useTheme();
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const locationDetails = routes?.params?.locationDetails;
@@ -222,11 +221,7 @@ export default function Details() {
       <FlatList
         data={dataSource}
         renderItem={renderList}
-        ItemSeparatorComponent={() => (
-          <Divider
-            style={{ backgroundColor: colors.background, height: 1.5 }}
-          />
-        )}
+        ItemSeparatorComponent={DividerComponent}
       />
       {dataSource[1].title != 'Default' && (
         <FloatButton

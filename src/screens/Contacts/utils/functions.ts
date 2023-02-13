@@ -41,7 +41,7 @@ const addUser = async (data: any) => {
     console.log('result addUser', result);
     if (result?.ok) {
       getAllUsers();
-      return { status: true };
+      return { status: true, data: result?.data };
     } else {
       return { status: false, message: result };
     }

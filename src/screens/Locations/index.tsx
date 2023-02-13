@@ -80,7 +80,6 @@ const Locations = ({
     }
   }, [clear]);
 
-  console.log('done locations', locations.get());
   return (
     <View style={styles.container}>
       <View

@@ -9,8 +9,8 @@ import {
 import { SCREEN_WIDTH } from '../../constants';
 import CstmColorPicker from '../CstmColorPicker';
 import styles from './styles';
-import MI from 'react-native-vector-icons/MaterialIcons'
-import FA5 from 'react-native-vector-icons/FontAwesome5'
+import MI from 'react-native-vector-icons/MaterialIcons';
+import FA5 from 'react-native-vector-icons/FontAwesome5';
 
 export const TextEditor = ({
   value = '',
@@ -24,7 +24,7 @@ export const TextEditor = ({
   onChangeText?: (text: string) => void;
 }) => {
   const richText = useRef<any>();
-  const { colors }: Theme = useTheme();
+  const { colors, dark }: Theme = useTheme();
   const [isEditorRegistered, setisEditorRegistered] = useState(false);
   const [showColorPicker, setColorPicker] = useState(false);
   const [ColorPickerType, setColorPickerType] = useState('textColor');
@@ -49,7 +49,11 @@ export const TextEditor = ({
         color="#fff"
         updateColor={fontColor}
         visible={showColorPicker}
-        onErase={() => {fontColor(ColorPickerType == "textColor" ? "#000" : "#fff")}}
+        onErase={() => {
+          fontColor(
+            ColorPickerType == 'textColor' ? colors.text : colors.background,
+          );
+        }}
       />
       {isEditorRegistered && (
         <RichToolbar
@@ -73,7 +77,6 @@ export const TextEditor = ({
             actions.heading2,
             actions.heading3,
             actions.heading4,
-            // actions.table,
             actions.outdent,
             actions.indent,
             actions.setStrikethrough,
@@ -82,7 +85,7 @@ export const TextEditor = ({
             actions.undo,
             actions.redo,
             actions.hiliteColor,
-            actions.setBackgroundColor
+            actions.setBackgroundColor,
           ]}
           iconMap={{
             [actions.heading1]: ({ tintColor }) => (
@@ -100,16 +103,20 @@ export const TextEditor = ({
             [actions.setParagraph]: ({ tintColor }) => (
               <Text style={[{ color: tintColor }]}>P</Text>
             ),
-            [actions.hiliteColor]: (params) => {
+            [actions.hiliteColor]: params => {
               return (
                 <TouchableOpacity
                   onPress={() => {
                     setColorPicker(true);
                     setColorPickerType('textColor');
                   }}>
-                  <MI name='format-color-text' size={20} color={params?.tintColor} />
+                  <MI
+                    name="format-color-text"
+                    size={20}
+                    color={params?.tintColor}
+                  />
                 </TouchableOpacity>
-              )
+              );
             },
             [actions.setBackgroundColor]: ({ tintColor }) => (
               <TouchableOpacity
@@ -117,7 +124,7 @@ export const TextEditor = ({
                   setColorPicker(true);
                   setColorPickerType('bgColor');
                 }}>
-                <FA5 name='highlighter' size={20} color={tintColor} />
+                <FA5 name="highlighter" size={20} color={tintColor} />
               </TouchableOpacity>
             ),
           }}

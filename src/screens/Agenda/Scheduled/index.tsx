@@ -6,6 +6,7 @@ import { Divider } from 'react-native-paper';
 
 import styles from './style';
 import {
+  DividerComponent,
   FloatButton,
   Loader,
   NotFound,
@@ -56,17 +57,6 @@ const ScheduledTab = ({ route }: any) => {
     });
   };
 
-  const DividerComp = () => {
-    return (
-      <Divider
-        style={{
-          backgroundColor: colors.text,
-          height: 1.5,
-          opacity: 0.2,
-        }}
-      />
-    );
-  };
 
   return (
     <View style={styles.container}>
@@ -98,7 +88,7 @@ const ScheduledTab = ({ route }: any) => {
               />
             );
           }}
-          ItemSeparatorComponent={() => <DividerComp />}
+          ItemSeparatorComponent={DividerComponent}
         />
       ) : (
         <NotFound label="Tickets" />

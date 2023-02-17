@@ -10,6 +10,7 @@ import { Divider } from 'react-native-paper';
 
 import {
   CstmColorPicker,
+  DividerComponent,
   FloatButton,
   GapView,
   Loader,
@@ -325,11 +326,7 @@ export default function Details() {
       <FlatList
         data={dataSource}
         renderItem={renderList}
-        ItemSeparatorComponent={() => (
-          <Divider
-            style={{ backgroundColor: colors.background, height: 1.5 }}
-          />
-        )}
+        ItemSeparatorComponent={DividerComponent}
       />
       {ticketStatusDetails?.id > 8 && (
         <FloatButton

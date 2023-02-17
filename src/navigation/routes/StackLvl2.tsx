@@ -11,6 +11,7 @@ import { EditTicket, AddResource, CreateComment } from '../../forms';
 import { CstmItemSelector } from '../../components';
 import { checkValidations } from '../../utils/helperFunctions';
 import { CreateThread } from '../../forms/CreateThread';
+import { CreateUser } from '../../forms/CreateUser';
 
 const Stack = createNativeStackNavigator();
 
@@ -125,6 +126,23 @@ const StackLvl2 = ({ navigation, route }: any) => {
         component={CreateThread}
         options={({ route, navigation }) => ({
           title: 'Create Thread',
+          headerStyle: { backgroundColor: colors.primary },
+          headerLeft: () => (
+            <II
+              size={30}
+              name="close"
+              style={{ right: 6 }}
+              color={'#fff'}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="CreateUser"
+        component={CreateUser}
+        options={({ route, navigation }) => ({
+          title: 'Create User',
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
             <II

@@ -4,15 +4,25 @@ import { State, useHookstate } from '@hookstate/core';
 import { TabView, SceneMap } from 'react-native-tab-view';
 
 import { ModalView, FloatButton, Loader, CstmTabBar } from '../../components';
-import { STicketsAdditionalButtons } from '../../constants/ButtonsList';
+import {
+  CollaboratorAdditionalButtons,
+  STicketsAdditionalButtons,
+} from '../../constants/ButtonsList';
 import { contactNameList } from '../../constants/SelectionList';
 import { AdditionalButtons } from '../../types';
 import { companyStore } from '../../stores/companyStore';
 import Overview from './Overview';
-import { deleteTicket } from '../../screens/Agenda/utils/functions';
+import {
+  addCollaborator,
+  deleteTicket,
+} from '../../screens/Agenda/utils/functions';
 import { globalState } from '../../stores/globalAppState';
 import Threads from './Threads';
 import Collaborators from './Collaborators';
+import { SelectItems } from '../../utils/helperFunctions';
+import { userStore } from '../../stores/userStore';
+import { alert_Dur } from '../../constants';
+import { showMessage } from 'react-native-flash-message';
 
 if (
   Platform.OS === 'android' &&
@@ -32,11 +42,11 @@ const ServiceTickets = ({ navigation, route }: any) => {
     contact: contactNameList[0],
     company: companies[0],
   });
-  const dNavName: State<string> = useHookstate(
-    globalState.defaultnNavigationName,
-  );
-  
+  const users: State<any> = useHookstate(userStore.users);
   const [loader, setLoader] = useState(false);
+  const [CollaboratorActionButtons, setCollaboratorActionButtons] = useState<
+    AdditionalButtons[]
+  >(CollaboratorAdditionalButtons);
 
   const updatePress = () => {
     let tempArr = [...actionButtons];
@@ -46,6 +56,36 @@ const ServiceTickets = ({ navigation, route }: any) => {
       });
     };
     setActionButtons(tempArr);
+
+    const arr = [...CollaboratorAdditionalButtons];
+    arr[0].onPress = () =>
+      SelectItems(
+        {
+          from: 'STickets',
+          index: 0,
+          list: users?.get()?.filter((value: any) => value?.role == 'user'),
+          selectedItem: undefined,
+          stack: 'Stack1',
+          title: route?.params?.title,
+          headerTitle: 'Users',
+          searchable: true,
+        },
+        0,
+        navigation,
+        route,
+        'STickets',
+        'Stack1',
+      );
+    arr[1].onPress = () => {
+      navigation.navigate('Stack2', {
+        screen: 'CreateUser',
+        params: {
+          ticketDetails: route?.params?.ticket_info?.data,
+        },
+      });
+    };
+
+    setCollaboratorActionButtons(arr);
   };
 
   useEffect(() => {
@@ -77,6 +117,54 @@ const ServiceTickets = ({ navigation, route }: any) => {
       });
   };
 
+  // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
+  useEffect(() => {
+    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      const obj = {
+        data: {
+          type: 'ticketcollaborators',
+          relationships: {
+            user: {
+              data: {
+                type: 'users',
+                id: route?.params?.selected?.id,
+              },
+            },
+            ticket: {
+              data: {
+                type: 'tickets',
+                id: route?.params?.ticket_info?.data?.id,
+              },
+            },
+          },
+        },
+      };
+      addCollaboratorFunc(obj);
+    }
+  }, [route?.params?.selected]);
+
+  const addCollaboratorFunc = async (obj: any) => {
+    try {
+      const result = await addCollaborator(obj);
+      if (result?.status) {
+        showMessage({
+          message: 'Collaborator added Successfully',
+          type: 'success',
+          icon: 'auto',
+          duration: alert_Dur,
+        });
+      } else {
+        showMessage({
+          message:
+            result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
+          type: 'danger',
+          icon: 'auto',
+          duration: 2000,
+        });
+      }
+    } catch (error) {}
+  };
+
   return (
     <ModalView>
       <Loader isShow={loader} />
@@ -105,16 +193,22 @@ const ServiceTickets = ({ navigation, route }: any) => {
           }}
         />
       ) : (
-        <FloatButton
-          onPress={() => {
-            navigation.navigate('Stack2', {
-              screen: 'CreateThread',
-              params: {
-                ticketDetails: route?.params?.ticket_info?.data,
-              },
-            });
-          }}
-        />
+        <>
+          {index == 1 ? (
+            <FloatButton
+              onPress={() => {
+                navigation.navigate('Stack2', {
+                  screen: 'CreateThread',
+                  params: {
+                    ticketDetails: route?.params?.ticket_info?.data,
+                  },
+                });
+              }}
+            />
+          ) : (
+            <FloatButton AdditionalButtons={CollaboratorActionButtons} />
+          )}
+        </>
       )}
     </ModalView>
   );

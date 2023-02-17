@@ -150,7 +150,10 @@ const getTicketThreads = async (ticketId: string) => {
     if (result?.ok) {
       const data = result?.data?.data;
       data.sort((a: any, b: any) => {
-        return new Date(a.attributes.created_at).valueOf() - new Date(b.attributes.created_at).valueOf();
+        return (
+          new Date(a.attributes.created_at).valueOf() -
+          new Date(b.attributes.created_at).valueOf()
+        );
       });
       ticketStore?.ticketThreads?.set(data?.reverse() || []);
     }
@@ -167,7 +170,9 @@ const getTicketCollaborators = async (ticketId: string) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.get(`/tickets/${ticketId}/ticketcollaborators`);
+    const result: any = await api.get(
+      `/tickets/${ticketId}/ticketcollaborators`,
+    );
     if (result?.ok) {
       const data = result?.data?.data;
       ticketStore?.ticketCollaborators?.set(data || []);
@@ -221,6 +226,53 @@ const getAllTimezones = async () => {
   }
 };
 
+const addCollaborator = async (data: any) => {
+  const user: any = userStore?.user?.get();
+  const activeMember: any = globalState?.agendaMember?.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.post('/ticketcollaborators', data);
+    console.log('result ticketcollaborators', result);
+    if (result?.ok) {
+      getTicketCollaborators(data?.data?.relationships?.ticket?.data?.id);
+      return { status: true };
+    } else {
+      return { status: false, message: result };
+    }
+  } catch (error: any) {
+    console.log('error ticketcollaborators', error);
+    return { status: false, message: error?.message };
+  }
+};
+
+const deleteCollaborator = async (collaboratorId: string, ticketId: string) => {
+  const user: any = userStore?.user?.get();
+  const USER_TOKEN = user?.token;
+  console.log(`Basic ${USER_TOKEN}`);
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.delete(`/ticketcollaborators/${collaboratorId}`);
+    if (result?.ok) {
+      getTicketCollaborators(ticketId);
+      showMessage({
+        message: 'Collaborator deleted successfully',
+        type: 'success',
+        duration: alert_Dur,
+      });
+      return { status: true };
+    } else {
+      return { status: false, message: result };
+    }
+  } catch (error) {
+    console.log('error deleteCollaborator', error);
+  }
+};
+
 export {
   getAllUsers,
   getTicketsByUserId,
@@ -231,5 +283,7 @@ export {
   getTicketThreads,
   createTicketThread,
   getTicketCollaborators,
-  getAllTimezones
+  getAllTimezones,
+  addCollaborator,
+  deleteCollaborator
 };

@@ -74,3 +74,18 @@ export const AttachmentAdditionalButtons: Array<AdditionalButtons> = [
     ...AdditionalButtonStyle,
   },
 ];
+
+export const CollaboratorAdditionalButtons: Array<AdditionalButtons> = [
+  {
+    icon: 'account-search',
+    label: 'Search Existing User',
+    onPress: () => {},
+    ...AdditionalButtonStyle,
+  },
+  {
+    icon: 'account-plus',
+    label: 'Add New User',
+    onPress: () => {},
+    ...AdditionalButtonStyle,
+  },
+];

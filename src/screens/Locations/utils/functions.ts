@@ -110,52 +110,45 @@ const getLocationToken = async () => {
 };
 
 const getCountries = async () => {
-  axios
-    .get('https://www.universal-tutorial.com/api/countries/', {
-      headers: {
-        Authorization: `Bearer ${globalState?.locationToken?.get()}`,
-        Accept: 'application/json',
-      },
-    })
-    .then(response => {
-      if (response.data) {
-        const countries = response?.data?.map((res: any, index: number) => {
-          return {
-            ...res,
-            name: res?.country_name,
-            id: index + 1,
-          };
-        });
-        globalState?.countries.set(countries);
-      }
-    })
-    .catch(err => console.log(err));
+  const user: any = userStore.user.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.get('/countries');
+    if (result?.ok) {
+      const countriesArray: any = Object.entries(result?.data?.data).map(([id, name], index) => ({
+        id: index + 1,
+        name
+      }));
+      globalState?.countries.set(countriesArray);
+    }
+  } catch (error) {
+    console.log('error getAllUsers', error);
+  }
 };
 
 const getStates = async (country: string) => {
+  const user: any = userStore.user.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
   try {
-    const response = await axios.get(
-      `https://www.universal-tutorial.com/api/states/${country}`,
-      {
-        headers: {
-          Authorization: `Bearer ${globalState?.locationToken?.get()}`,
-          Accept: 'application/json',
-        },
-      },
-    );
-    const states = response?.data
-      ?.map((res: any, index: number) => {
-        return {
-          ...res,
-          name: res?.state_name,
-          id: index + 1,
-        };
-      })
-      ?.filter((val: any) => val != undefined);
-    globalState?.states.set(states);
-    console.log('states IN API', states);
-    return states;
-  } catch (error) {}
+    const result: any = await api.get(`/countries/${country}/states`);
+    if (result?.ok) {
+      const statesArray: any = Object.entries(result?.data?.data).map(([id, name], index) => ({
+        id: index + 1,
+        name
+      }));
+      console.log("Endpoint", `/countries/${country}/states`, "statesArray", statesArray);
+      globalState?.states.set(statesArray);
+      return statesArray
+    }
+  } catch (error) {
+    console.log('error getAllStates', error);
+  }
 };
 
 export {

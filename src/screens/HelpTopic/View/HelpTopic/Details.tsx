@@ -10,6 +10,7 @@ import { Divider } from 'react-native-paper';
 import { State, useHookstate } from '@hookstate/core';
 
 import {
+  DividerComponent,
   FloatButton,
   GapView,
   Loader,
@@ -259,11 +260,7 @@ export default function Details() {
       <FlatList
         data={dataSource}
         renderItem={renderList}
-        ItemSeparatorComponent={() => (
-          <Divider
-            style={{ backgroundColor: colors.background, height: 1.5 }}
-          />
-        )}
+        ItemSeparatorComponent={DividerComponent}
       />
       {dataSource[1].title != 'Default' && (
         <FloatButton

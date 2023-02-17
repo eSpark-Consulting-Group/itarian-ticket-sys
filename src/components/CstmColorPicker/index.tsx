@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Modal } from 'react-native';
 import ColorPicker from 'react-native-wheel-color-picker';
 import { useTheme } from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+
 
 import { CstmPressable } from '../CstmPressable';
 
@@ -11,11 +13,13 @@ export default function CstmColorPicker({
   updateColor,
   color,
   onClose,
+  onErase = () => {},
 }: {
   visible: boolean;
   color: string;
   updateColor: (color: string) => void;
   onClose?: () => void;
+  onErase?: (color: string) => void;
 }): JSX.Element {
   const colorRef = useRef(color);
   const { colors, dark } = useTheme();
@@ -94,7 +98,6 @@ export default function CstmColorPicker({
               swatches={false}
               onColorChangeComplete={value => {
                 colorRef.current = value;
-                console.log('xx', value, 'Color', colorRef.current);
               }}
             />
           </View>
@@ -105,6 +108,7 @@ export default function CstmColorPicker({
               alignItems: 'flex-end',
               justifyContent: 'center',
               paddingHorizontal: 12,
+              top: 55
             }}>
             <View
               style={{
@@ -124,6 +128,35 @@ export default function CstmColorPicker({
                 }}
                 onPress={(): void => updateColor(colorRef.current)}>
                 <II size={30} name="checkmark" color={'#fff'} />
+              </CstmPressable>
+            </View>
+          </View>
+
+          <View
+            style={{
+              flex: 0.4,
+              width: '100%',
+              justifyContent: 'center',
+              paddingHorizontal: 12,
+            }}>
+            <View
+              style={{
+                backgroundColor: colors.primary,
+                borderRadius: 99,
+                elevation: 5,
+                width: 50,
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <CstmPressable
+                style={{ padding: 10 }}
+                android_ripple={{
+                  color: '#ffffff2e',
+                  borderless: true,
+                }}
+                onPress={(): void => onErase('#000')}>
+                <Fontisto size={25} name="eraser" color={'#fff'} />
               </CstmPressable>
             </View>
           </View>

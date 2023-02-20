@@ -22,6 +22,7 @@ const ScheduledTab = ({ route }: any) => {
   const { colors }: Theme = useTheme();
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const tickets: any = useHookstate(ticketStore.tickets).get();
+  const loader = useHookstate(globalState.loader).get()
   const [isFetching, setIsFetching] = useState(false);
   const navigation = useNavigation<any>();
   const [actionButtons, setActionButtons] =
@@ -60,12 +61,12 @@ const ScheduledTab = ({ route }: any) => {
 
   return (
     <View style={styles.container}>
-      <Loader isShow={isFetching} hideLoader={true} />
+      <Loader isShow={isFetching || loader} hideLoader={true} />
       {tickets.length > 0 ? (
         <FlatList
           data={tickets || []}
           refreshControl={
-            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+            <RefreshControl refreshing={isFetching || loader} onRefresh={onRefresh} />
           }
           renderItem={({ item, index }) => {
             return (

@@ -14,6 +14,7 @@ import {
   CstmPressable,
   FloatButton,
   NotFound,
+  GapView,
 } from '../../../components';
 import { contactsList } from '../../../constants/SampleArrays';
 import { Contact } from '../../../types';
@@ -65,8 +66,6 @@ const Staffs = () => {
     }
   }, [clear]);
 
-  
-  
   return (
     <View style={styles.container}>
       <View
@@ -182,6 +181,7 @@ export const RenderContacts = ({
           }
           data={listData}
           renderItem={renderList}
+          ListFooterComponent={<GapView length={60} />}
         />
       ) : (
         <NotFound label="Users" />

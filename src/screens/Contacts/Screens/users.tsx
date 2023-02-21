@@ -14,6 +14,7 @@ import {
   CstmPressable,
   FloatButton,
   NotFound,
+  GapView,
 } from '../../../components';
 import { contactsList } from '../../../constants/SampleArrays';
 import { Contact } from '../../../types';
@@ -85,7 +86,9 @@ const Users = () => {
       {loading ? (
         <SimpleLoader />
       ) : (
-        <RenderContacts listData={filteredContacts?.filter((value => value?.role == "user"))} />
+        <RenderContacts
+          listData={filteredContacts?.filter(value => value?.role == 'user')}
+        />
       )}
     </View>
   );
@@ -113,7 +116,7 @@ export const RenderContacts = ({
         <CstmPressable
           onPress={() =>
             navigation.navigate('Stack1', {
-              screen: item?.role == "user" ? 'Contact1': 'StaffDetails',
+              screen: item?.role == 'user' ? 'Contact1' : 'StaffDetails',
               params: { contactDetails: item },
             })
           }
@@ -178,6 +181,7 @@ export const RenderContacts = ({
           }
           data={listData}
           renderItem={renderList}
+          ListFooterComponent={<GapView length={60} />}
         />
       ) : (
         <NotFound label="Users" />

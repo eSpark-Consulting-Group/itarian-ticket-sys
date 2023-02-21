@@ -17,6 +17,7 @@ const TicketComponent = ({
   ind: number;
   onPress: (e: any) => void;
 }) => {
+  const checkDueDate = (value: Date): boolean => moment(value).isBefore();
   const { dark, colors }: Theme = useTheme();
 
   return (
@@ -64,7 +65,7 @@ const TicketComponent = ({
             )}
           </View>
         </View>
-        {!moment(item2?.duedate).isAfter() && (
+        {checkDueDate(item2?.attributes?.duedate) && (
           <View
             style={{
               alignItems: 'center',

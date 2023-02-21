@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
 
 import { CstmPressable } from '../CstmPressable';
-import styles from './styles';
 import { SCREEN_WIDTH } from '../../constants';
-import moment from 'moment';
+import styles from './styles';
 
 const TicketComponent = ({
   item2,

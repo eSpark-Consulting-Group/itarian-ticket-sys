@@ -74,7 +74,8 @@ const TicketComponent = ({
             <View
               style={{
                 backgroundColor: '#dc3545',
-                padding: 2,
+                padding: 1,
+                paddingHorizontal: 4,
                 borderRadius: 3,
                 opacity: 0.65,
               }}>

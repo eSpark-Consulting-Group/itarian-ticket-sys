@@ -60,6 +60,7 @@ import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
 import { ticketStore } from '../../stores/ticketStore';
 import { filterUser } from '../../screens/Profile/utils';
 
+import { getAllUsers } from '../../screens/Agenda/utils/functions'
 const Drawer = createDrawerNavigator<ParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
@@ -286,20 +287,23 @@ const Draw = () => {
               size={30}
               name="user"
               color={'#fff'}
-              onPress={() =>
+              onPress={async () => {
+                await getAllUsers();
                 navigation.navigate('Stack2', {
                   screen: 'CstmItemSelector',
                   params: {
                     from: 'Agenda',
                     item: 'GoneTo',
-                    data: users.get()?.filter((val: any) => val?.role != 'user') || [],
+                    data:
+                      users.get()?.filter((val: any) => val?.role != 'user') ||
+                      [],
                     selected: currMember,
                     stack: 'Draw',
                     headerTitle: 'Select Member',
                     searchable: true,
                   },
-                })
-              }
+                });
+              }}
               style={{ right: 10 }}
             />
           ),

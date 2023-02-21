@@ -58,13 +58,13 @@ const TicketComponent = ({
                   style={styles.margin_5}
                 />
                 <Text style={{ color: colors.text }}>
-                  {item2?.attributes?.company?.toString()}
+                  {item2?.attributes?.company?.name?.toString()}
                 </Text>
               </View>
             )}
           </View>
         </View>
-        {moment(item2.duedate).isBefore() && (
+        {!moment(item2?.duedate).isAfter() && (
           <View
             style={{
               alignItems: 'center',

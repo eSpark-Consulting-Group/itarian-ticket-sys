@@ -256,7 +256,9 @@ const deleteCollaborator = async (collaboratorId: string, ticketId: string) => {
     Authorization: `Basic ${USER_TOKEN}`,
   });
   try {
-    const result: any = await api.delete(`/ticketcollaborators/${collaboratorId}`);
+    const result: any = await api.delete(
+      `/ticketcollaborators/${collaboratorId}`,
+    );
     if (result?.ok) {
       getTicketCollaborators(ticketId);
       showMessage({
@@ -285,5 +287,5 @@ export {
   getTicketCollaborators,
   getAllTimezones,
   addCollaborator,
-  deleteCollaborator
+  deleteCollaborator,
 };

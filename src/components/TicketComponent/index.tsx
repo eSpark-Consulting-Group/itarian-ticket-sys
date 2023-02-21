@@ -6,6 +6,7 @@ import II from 'react-native-vector-icons/Ionicons';
 import { CstmPressable } from '../CstmPressable';
 import styles from './styles';
 import { SCREEN_WIDTH } from '../../constants';
+import moment from 'moment';
 
 const TicketComponent = ({
   item2,
@@ -16,6 +17,7 @@ const TicketComponent = ({
   ind: number;
   onPress: (e: any) => void;
 }) => {
+  const checkDueDate = (value: Date): boolean => moment(value).isBefore();
   const { dark, colors }: Theme = useTheme();
 
   return (
@@ -57,12 +59,34 @@ const TicketComponent = ({
                   style={styles.margin_5}
                 />
                 <Text style={{ color: colors.text }}>
-                  {item2?.attributes?.company?.toString()}
+                  {item2?.attributes?.company?.name?.toString()}
                 </Text>
               </View>
             )}
           </View>
         </View>
+        {checkDueDate(item2?.attributes?.duedate) && (
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              right: 5,
+            }}>
+            <View
+              style={{
+                backgroundColor: '#dc3545',
+                padding: 1,
+                paddingHorizontal: 4,
+                borderRadius: 3,
+                opacity: 0.65,
+              }}>
+              <Text
+                style={{ color: '#ffffff', fontFamily: 'sans-serif-medium' }}>
+                Overdue
+              </Text>
+            </View>
+          </View>
+        )}
       </View>
     </CstmPressable>
   );

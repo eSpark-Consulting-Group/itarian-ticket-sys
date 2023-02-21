@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
+import { State, useHookstate } from '@hookstate/core';
 
 import { FloatButton, Loader, SingleLineField } from '../../../../components';
 import { DataItem as Item } from '../../../../types';
-import _ from 'lodash';
 import { SelectItems } from '../../../../utils/helperFunctions';
 import { deleteUser } from '../../utils/functions';
 import { StaffRole } from '../../../../constants/SampleArrays';
-import { State, useHookstate } from '@hookstate/core';
 import { globalState } from '../../../../stores/globalAppState';
 import { create_UUID } from '../../../../utils/helperFunctions';
 

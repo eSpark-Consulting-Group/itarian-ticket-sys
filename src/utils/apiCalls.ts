@@ -21,6 +21,7 @@ import { globalState } from '../stores/globalAppState';
 import { userStore } from '../stores/userStore';
 
 export const badgeApiCallForGlobalList = async () => {
+  globalState.loader.set(true);
   const user: State<any> = userStore?.user;
   await getAllUsers();
   await getAllCompanies();
@@ -33,13 +34,15 @@ export const badgeApiCallForGlobalList = async () => {
   await getAlldepartments();
   await getAllTeams();
   await getAllTimezones();
+  await getLocationToken();
   filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
     userStore?.userDetails?.set(res);
   });
-  await getLocationToken();
   setTimeout(async () => {
     await getCountries();
   }, 2000);
+
+  globalState.loader.set(false);
 };
 
 const getTicketStatus = async () => {

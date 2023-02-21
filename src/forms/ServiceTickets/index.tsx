@@ -67,7 +67,7 @@ const ServiceTickets = ({ navigation, route }: any) => {
           selectedItem: undefined,
           stack: 'Stack1',
           title: route?.params?.title,
-          headerTitle: 'Users',
+          headerTitle: 'Select Collaborator',
           searchable: true,
         },
         0,
@@ -119,7 +119,11 @@ const ServiceTickets = ({ navigation, route }: any) => {
 
   // FUNTIONS FOR SELECTING ITEM DATA_SOURCE
   useEffect(() => {
-    if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+    if (
+      route?.params?.item?.toString() &&
+      route?.params?.item != 'GoneTo' &&
+      route?.params?.headerTitle == "Select Collaborator"
+    ) {
       const obj = {
         data: {
           type: 'ticketcollaborators',

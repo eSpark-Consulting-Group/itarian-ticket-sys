@@ -204,6 +204,7 @@ const StackLvl1 = ({ route, navigation }: any) => {
                     globalStates,
                     updateTicket,
                     obj,
+                    "Ticket Updated Successfully",
                   );
                 }}
                 size={30}

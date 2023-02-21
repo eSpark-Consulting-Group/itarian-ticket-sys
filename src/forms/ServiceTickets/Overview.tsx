@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
 
@@ -9,7 +13,10 @@ import { DataItem as Item } from '../../types/index';
 import { globalState } from '../../stores/globalAppState';
 import { userStore } from '../../stores/userStore';
 import { SelectItems } from '../../utils/helperFunctions';
-import { getTicketCollaborators, getTicketThreads } from '../../screens/Agenda/utils/functions';
+import {
+  getTicketCollaborators,
+  getTicketThreads,
+} from '../../screens/Agenda/utils/functions';
 
 const Overview = () => {
   const navigation: any = useNavigation();
@@ -20,7 +27,7 @@ const Overview = () => {
   const helpTopics: any = useHookstate(globalState?.helpTopics);
   const users: any = useHookstate(userStore?.users);
   const [showDate, setShowDate] = useState(false);
-  const ticketDetails = route?.params?.ticket_info?.data
+  const ticketDetails = route?.params?.ticket_info?.data;
   const [Ds, setDs] = useState<Item[]>([
     {
       title: ticketDetails?.attributes?.subject,
@@ -85,7 +92,7 @@ const Overview = () => {
     {
       title: ticketDetails?.attributes?.staff?.user_name ?? 'Please Select',
       subTitle: 'Staff',
-      list: users.get()?.filter((val: any) => val?.role != "user") || [],
+      list: users.get()?.filter((val: any) => val?.role != 'user') || [],
       selectedItem: users
         .get()
         ?.filter(
@@ -134,17 +141,20 @@ const Overview = () => {
   ]);
 
   useEffect(() => {
-    if(ticketDetails) {
-      getTicketThreads(ticketDetails?.id)
-      getTicketCollaborators(ticketDetails?.id)
+    if (ticketDetails) {
+      getTicketThreads(ticketDetails?.id);
+      getTicketCollaborators(ticketDetails?.id);
     }
-  }, [isFocused])
-  
+  }, [isFocused]);
+
   useEffect(() => {
     if (route?.params?.item?.toString() && route?.params?.item != 'GoneTo') {
+      var isCollaborator = route?.params?.headerTitle == 'Select Collaborator';
       var obj: any = [...Ds];
-      obj[route?.params?.item].title = route?.params?.selected?.name;
-      obj[route?.params?.item].selectedItem = route?.params?.selected;
+      if (!isCollaborator) {
+        obj[route?.params?.item].title = route?.params?.selected?.name;
+        obj[route?.params?.item].selectedItem = route?.params?.selected;
+      }
       setDs([...obj]);
     }
   }, [route?.params?.selected]);

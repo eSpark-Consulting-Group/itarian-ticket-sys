@@ -87,8 +87,7 @@ export default function CstmColorPicker({
           </View>
           <View
             style={{
-              // flex: 1,
-              height: '70%',
+              flex: 1,
               width: '50%',
             }}>
             <ColorPicker

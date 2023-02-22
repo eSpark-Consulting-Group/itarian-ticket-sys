@@ -5,20 +5,22 @@ import { useTheme } from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
-
 import { CstmPressable } from '../CstmPressable';
+import GapView from '../GapView';
 
 export default function CstmColorPicker({
   visible,
   updateColor,
   color,
   onClose,
+  erasable = false,
   onErase = () => {},
 }: {
   visible: boolean;
   color: string;
   updateColor: (color: string) => void;
   onClose?: () => void;
+  erasable?: boolean;
   onErase?: (color: string) => void;
 }): JSX.Element {
   const colorRef = useRef(color);
@@ -85,7 +87,7 @@ export default function CstmColorPicker({
           </View>
           <View
             style={{
-              flex: 1,
+              // flex: 1,
               height: '70%',
               width: '50%',
             }}>
@@ -103,13 +105,33 @@ export default function CstmColorPicker({
           </View>
           <View
             style={{
-              flex: 0.3,
+              flexDirection: 'row',
               width: '100%',
-              alignItems: 'flex-end',
-              justifyContent: 'center',
+              justifyContent: erasable ? 'space-between' : 'flex-end',
               paddingHorizontal: 12,
-              top: 55
             }}>
+            {erasable && (
+              <View
+                style={{
+                  backgroundColor: colors.primary,
+                  borderRadius: 99,
+                  elevation: 5,
+                  width: 50,
+                  height: 50,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <CstmPressable
+                  style={{ padding: 10 }}
+                  android_ripple={{
+                    color: '#ffffff2e',
+                    borderless: true,
+                  }}
+                  onPress={(): void => onErase('#000')}>
+                  <Fontisto size={25} name="eraser" color={'#fff'} />
+                </CstmPressable>
+              </View>
+            )}
             <View
               style={{
                 backgroundColor: colors.primary,
@@ -131,35 +153,7 @@ export default function CstmColorPicker({
               </CstmPressable>
             </View>
           </View>
-
-          <View
-            style={{
-              flex: 0.4,
-              width: '100%',
-              justifyContent: 'center',
-              paddingHorizontal: 12,
-            }}>
-            <View
-              style={{
-                backgroundColor: colors.primary,
-                borderRadius: 99,
-                elevation: 5,
-                width: 50,
-                height: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <CstmPressable
-                style={{ padding: 10 }}
-                android_ripple={{
-                  color: '#ffffff2e',
-                  borderless: true,
-                }}
-                onPress={(): void => onErase('#000')}>
-                <Fontisto size={25} name="eraser" color={'#fff'} />
-              </CstmPressable>
-            </View>
-          </View>
+          <GapView />
         </View>
       </View>
     </Modal>

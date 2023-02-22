@@ -53,9 +53,7 @@ const ScheduledTab = ({ route }: any) => {
 
   const onRefresh = () => {
     setIsFetching(true);
-    setImmediate(() => {
-      setIsFetching(false);
-    });
+    fetchRecord();
   };
 
 

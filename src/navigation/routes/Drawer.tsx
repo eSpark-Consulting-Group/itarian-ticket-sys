@@ -59,8 +59,8 @@ import { userStore } from '../../stores/userStore';
 import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
 import { ticketStore } from '../../stores/ticketStore';
 import { filterUser } from '../../screens/Profile/utils';
+import { getAllUsers } from '../../screens/Agenda/utils/functions';
 
-import { getAllUsers } from '../../screens/Agenda/utils/functions'
 const Drawer = createDrawerNavigator<ParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {

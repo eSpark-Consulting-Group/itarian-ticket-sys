@@ -40,7 +40,6 @@ const Search = ({ route, navigation }: any) => {
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
 
   useEffect(() => {
-    getTicketsByUserId('4');
     setFilteredTickets(tickets?.get());
     fetchTickets();
   }, []);

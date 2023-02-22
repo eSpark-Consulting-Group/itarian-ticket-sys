@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-
-import { DividerComponent, Loader, NotFound, SingleLineField } from '../../components';
 import { useHookstate } from '@hookstate/core';
+import { useTheme } from '@react-navigation/native';
+import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { ticketStore } from '../../stores/ticketStore';
+import {
+  DividerComponent,
+  Loader,
+  NotFound,
+  SingleLineField,
+} from '../../components';
 // @ts-ignore
 import { WINDOW_WIDTH } from '../../constants';
-import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import { deleteCollaborator } from '../../screens/Agenda/utils/functions';
 
-
 const Collaborators = () => {
+  const { colors } = useTheme();
   const ticketCollaborators: any = useHookstate(
     ticketStore?.ticketCollaborators,
   ).get();
@@ -27,6 +33,7 @@ const Collaborators = () => {
           <MCI
             name="window-close"
             size={25}
+            color={colors.text + '55'}
             onPress={() => {
               deleteCollaboratorFunc(item?.id, item?.attributes?.ticket?.id);
             }}

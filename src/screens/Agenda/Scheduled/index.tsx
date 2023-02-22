@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
 import { State, useHookstate } from '@hookstate/core';
 import { Theme, useNavigation, useTheme } from '@react-navigation/native';
-import { Divider } from 'react-native-paper';
 
 import styles from './style';
 import {
   DividerComponent,
   FloatButton,
+  GapView,
   Loader,
   NotFound,
   TicketComponent,
@@ -22,7 +22,7 @@ const ScheduledTab = ({ route }: any) => {
   const { colors }: Theme = useTheme();
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const tickets: any = useHookstate(ticketStore.tickets).get();
-  const loader = useHookstate(globalState.loader).get()
+  const loader = useHookstate(globalState.loader).get();
   const [isFetching, setIsFetching] = useState(false);
   const navigation = useNavigation<any>();
   const [actionButtons, setActionButtons] =
@@ -42,6 +42,7 @@ const ScheduledTab = ({ route }: any) => {
     await getTicketsByUserId(activeMember.get()?.id);
     setIsFetching(false);
   };
+
   useEffect(() => {
     setIsFetching(true);
     fetchRecord();
@@ -56,7 +57,6 @@ const ScheduledTab = ({ route }: any) => {
     fetchRecord();
   };
 
-
   return (
     <View style={styles.container}>
       <Loader isShow={isFetching || loader} hideLoader={true} />
@@ -64,7 +64,10 @@ const ScheduledTab = ({ route }: any) => {
         <FlatList
           data={tickets || []}
           refreshControl={
-            <RefreshControl refreshing={isFetching || loader} onRefresh={onRefresh} />
+            <RefreshControl
+              refreshing={isFetching || loader}
+              onRefresh={onRefresh}
+            />
           }
           renderItem={({ item, index }) => {
             return (
@@ -87,6 +90,7 @@ const ScheduledTab = ({ route }: any) => {
               />
             );
           }}
+          ListFooterComponent={<GapView length={50} />}
           ItemSeparatorComponent={DividerComponent}
         />
       ) : (

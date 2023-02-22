@@ -17,6 +17,7 @@ import {
   useFocusEffect,
 } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
+
 // @ts-ignore
 import Pinchable from 'react-native-pinchable';
 import moment from 'moment';
@@ -178,6 +179,7 @@ export default function Post() {
         if (res.ok) {
           console.log('Successfully Deleted', res.data);
           fetchPostComments(id);
+          fetchPostDetail(id, true);
         }
       })
       .catch(err => {

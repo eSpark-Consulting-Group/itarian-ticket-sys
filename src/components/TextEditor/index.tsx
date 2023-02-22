@@ -50,6 +50,7 @@ export const TextEditor = ({
         updateColor={fontColor}
         visible={showColorPicker}
         onClose={() => setColorPicker(false)}
+        erasable={true}
         onErase={() => {
           fontColor(
             ColorPickerType == 'textColor' ? colors.text : colors.background,

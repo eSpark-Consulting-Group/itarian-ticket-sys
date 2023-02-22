@@ -28,4 +28,5 @@ export const globalState = hookstate({
   locationToken: null,
   countries: null,
   states: null,
+  posts: [],
 });

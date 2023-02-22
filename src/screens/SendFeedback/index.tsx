@@ -20,7 +20,6 @@ import MatIcons from 'react-native-vector-icons/MaterialIcons';
 import { useHookstate, State } from '@hookstate/core';
 import moment from 'moment';
 import { Divider } from 'react-native-paper';
-// import { showMessage } from 'react-native-flash-message';
 
 import { userStore } from '../../stores/userStore';
 import { CannyBoards, Canny_CreateUser, User } from '../../types';
@@ -49,6 +48,7 @@ const SendFeedbackScreen = () => {
   const [cannyUser, setCannyUser] = useState<Canny_CreateUser>();
   const [showSearch, setShowSearch] = useState<boolean>();
   const userObj: State<User> = useHookstate(userStore);
+  const postsGlobal: State<any> = useHookstate([]);
   const searchRef = useRef<TextInput>(null);
 
   const { email, user_name, userId }: any = userObj?.user.get();
@@ -64,11 +64,11 @@ const SendFeedbackScreen = () => {
   useFocusEffect(
     useCallback(() => {
       setSkip(0);
-      if (showPosts) {
+      if (showPosts && postsData.length > 0) {
         fetchPosts();
       }
       return () => {
-        setPostsData([]);
+        // setPostsData([]);
       };
     }, [showPosts]),
   );
@@ -83,22 +83,12 @@ const SendFeedbackScreen = () => {
             console.log('User already created!', res?.data);
             setCannyUser(res?.data);
             fetchBoards();
-            // showMessage({
-            //   message: 'User Found',
-            //   autoHide: true,
-            //   type: 'info',
-            // });
             //* User found
             //todo: Show post and store in state userId of User
           } else {
             if (res?.data?.error === 'invalid email') {
               setPostsData([]);
               handleCreateUser();
-              // showMessage({
-              //   message: 'User Not Found, Creating...',
-              //   autoHide: true,
-              //   type: 'info',
-              // });
               //! No User Found
               //todo: Create User then show posts
             }
@@ -188,24 +178,31 @@ const SendFeedbackScreen = () => {
   };
 
   const handlePosts = (data: any[], flag: boolean = false) => {
-    console.log(postsData, 'posts 00000000000000000000000000');
-    console.log(data, 'data xxxxxxxxxxxxxxxxxxxxxxxxx');
+    console.log(postsData.length, 'posts 00000000000000000000000000');
+    console.log(data.length, 'data xxxxxxxxxxxxxxxxxxxxxxxxx');
     if (flag) {
       setPostsData(data);
+      postsGlobal.set(data);
       setLoading(false);
       setItemsLoader(false);
     } else {
       const listData = removeDuplicates(postsData, data);
       setPostsData(listData);
+      postsGlobal.set(listData);
       setLoading(false);
       setItemsLoader(false);
     }
   };
 
-  const resetLoad = () => {
+  useEffect(() => {
+    if (postsData.length == 0) {
+      fetchPosts({ limit: 10, skip: 0 }, false);
+    }
+  }, [postsData]);
+
+  const resetLoad = async () => {
     setPostsData([]);
     setSkip(0);
-    fetchPosts({ limit: 10, skip: 0 }, false);
   };
 
   const clearPostSearch = () => {
@@ -214,7 +211,6 @@ const SendFeedbackScreen = () => {
   };
 
   const renderPostList = (item: any, index: number) => {
-    console.log('....????????', item.author);
     return (
       <CstmPressable
         style={{

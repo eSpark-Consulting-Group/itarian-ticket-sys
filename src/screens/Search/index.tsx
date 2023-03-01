@@ -30,11 +30,17 @@ const Search = ({ route, navigation }: any) => {
   const [isSearching, setIsSearching] = useState(false);
   const [clear, setClear] = useState(false);
   const tickets: any = useHookstate(ticketStore.AllTickets);
-  const users = useHookstate(userStore.users).get();
+  const users = useHookstate(userStore.users)
+    .get()
+    ?.filter(value => value?.role == 'user');
+  const staffs = useHookstate(userStore.users)
+    .get()
+    ?.filter(value => value?.role != 'user');
   const companies = useHookstate(companyStore.companies).get();
 
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState(users);
+  const [filteredStaffs, setFilteredStaffs] = useState(staffs);
   const [filteredTickets, setFilteredTickets] = useState(tickets?.get());
 
   const searchTagValue: State<string> = useHookstate(globalState.searchTag);
@@ -66,6 +72,11 @@ const Search = ({ route, navigation }: any) => {
     }, 3000);
   };
 
+  console.log(
+    "users?.filter(value => value?.role != 'user')",
+    users?.filter(value => value?.role != 'user'),
+  );
+
   const searchFilterFunction = async (
     text: string,
     domain: string = 'tickets',
@@ -92,6 +103,13 @@ const Search = ({ route, navigation }: any) => {
           keys: ['name', 'company_name'],
         });
         setFilteredContacts(result);
+      case 'staff':
+        var result = await searchFromArray({
+          text: text,
+          list: staffs,
+          keys: ['name', 'company_name'],
+        });
+        setFilteredStaffs(result);
       case 'organizations':
         var result = await searchFromArray({
           text: text,
@@ -188,6 +206,8 @@ const Search = ({ route, navigation }: any) => {
         );
       case 'users':
         return <RenderContacts listData={filteredContacts} />;
+      case 'staff':
+        return <RenderContacts listData={filteredStaffs} />;
       case 'organizations':
         return <RenderCompanies listData={filteredCompanies} />;
       default:

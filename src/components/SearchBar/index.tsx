@@ -68,6 +68,11 @@ const SearchBar = ({
         setVisible(false);
         searchTagValue.set(value);
         return;
+      case 'staff':
+        setCheckValue(value);
+        setVisible(false);
+        searchTagValue.set(value);
+        return;
       default:
         return;
     }
@@ -85,6 +90,8 @@ const SearchBar = ({
         );
       case 'users':
         return <AD name="contacts" size={22} color={colors.primary} />;
+      case 'staff':
+        return <MCI name="account-supervisor-outline" size={22} color={colors.primary} />;
       default:
         return (
           <Ionicons name="pricetags-outline" color={colors.primary} size={22} />
@@ -100,6 +107,8 @@ const SearchBar = ({
         return 'Search Organizations';
       case 'users':
         return 'Search Users';
+      case 'staff':
+        return 'Search Staff';
       default:
         return 'Search Tickets';
     }
@@ -188,6 +197,16 @@ const SearchBar = ({
               onPress={() => setCheck('users')}
               leftIcon={<AD name="contacts" size={22} color={colors.primary} />}
               checkVisible={check == 'users'}
+              rightIcon={
+                <Feather name="check" color={colors.primary} size={20} />
+              }
+            />
+            <MenuItem
+              itemName="Staffs"
+              textColor={colors.text}
+              onPress={() => setCheck('staff')}
+              leftIcon={<MCI name="account-supervisor-outline" size={22} color={colors.primary} />}
+              checkVisible={check == 'staff'}
               rightIcon={
                 <Feather name="check" color={colors.primary} size={20} />
               }

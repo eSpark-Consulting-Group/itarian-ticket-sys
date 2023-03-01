@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
   itemContentContainer: {
     flexDirection: 'row',
     marginVertical: 15,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   itemContentIconContainer: {
     marginRight: 10,

@@ -112,7 +112,7 @@ export default function CstmTabBar(props: any) {
                   ...styles.itemStyle,
                   backgroundColor: highlight,
                   height: '100%',
-                  bottom: WINDOW_WIDTH > 600 ? 20 : 17,
+                  bottom: WINDOW_WIDTH > 600 ? 18 : 17,
                 }}>
                 <Text style={{ ...styles.textStyle, color: colors.text }}>
                   {props?.navigationState?.routes[currentIndex].title}

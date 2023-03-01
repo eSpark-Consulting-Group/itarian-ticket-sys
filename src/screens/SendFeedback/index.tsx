@@ -418,6 +418,12 @@ const SendFeedbackScreen = () => {
                   flexDirection: 'row',
                   display: showSearch ? 'flex' : 'none',
                   alignItems: 'center',
+                  width: WINDOW_WIDTH * 0.9,
+                  justifyContent: 'space-between',
+                  borderWidth: .5,
+                  padding: 10,
+                  borderRadius: 10,
+                  borderColor: colors.primary
                 }}>
                 <TextInput
                   ref={searchRef}
@@ -429,7 +435,6 @@ const SendFeedbackScreen = () => {
                   selectionColor={colors.primary}
                   style={{
                     height: '100%',
-                    width: WINDOW_WIDTH * 0.75,
                     fontSize: 18,
                     color: colors.text,
                     textDecorationLine: 'none',

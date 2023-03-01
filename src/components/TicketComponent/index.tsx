@@ -45,7 +45,13 @@ const TicketComponent = ({
               Ticket #{item2?.id}
             </Text>
             <Text
-              style={{ fontWeight: '500', color: colors.text, fontSize: 16 }}>
+              numberOfLines={1}
+              style={{
+                fontWeight: '500',
+                color: colors.text,
+                fontSize: 16,
+                width: SCREEN_WIDTH * 0.5,
+              }}>
               Subject: {item2?.attributes?.subject}
             </Text>
             <Text

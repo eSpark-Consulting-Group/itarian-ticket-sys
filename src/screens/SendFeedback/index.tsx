@@ -418,12 +418,13 @@ const SendFeedbackScreen = () => {
                   flexDirection: 'row',
                   display: showSearch ? 'flex' : 'none',
                   alignItems: 'center',
-                  width: WINDOW_WIDTH * 0.9,
+                  width: WINDOW_WIDTH * 0.85,
                   justifyContent: 'space-between',
                   borderWidth: .5,
-                  padding: 10,
+                  paddingHorizontal: 10,
                   borderRadius: 10,
-                  borderColor: colors.primary
+                  borderColor: colors.primary,
+                  marginRight: 15
                 }}>
                 <TextInput
                   ref={searchRef}

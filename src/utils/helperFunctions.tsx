@@ -208,9 +208,15 @@ export const checkValidations = async (
       // console.log('Error Not Founded');
       isGoback && navigation.goBack();
     } else {
+      console.log('Request Body:', JSON.stringify(data));
+
       showMessage({
         message:
-          result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
+          result?.message?.data?.errors[0]?.detail ??
+          result?.message?.data?.errors[0]?.title +
+            ' ' +
+            result?.message?.data?.errors[0]?.status ??
+          'Something went wrong',
         type: 'danger',
         icon: 'auto',
         duration: 2000,
@@ -327,9 +333,9 @@ export function expandFlatten(target: any, keySeparator: any) {
         // console.log("subKey subKey", Number(subKey))
         // If this is the first time visiting this branch, we need to instantiate it
         if (currentTarget[subKey] === undefined) {
-          if(Number.isNaN(subKey)) {
+          if (Number.isNaN(subKey)) {
             currentTarget[subKey] = {};
-          }else {
+          } else {
             currentTarget[subKey] = [];
           }
         }
@@ -342,12 +348,15 @@ export function expandFlatten(target: any, keySeparator: any) {
   return result;
 }
 
-export function create_UUID(){
+export function create_UUID() {
   var dt = new Date().getTime();
-  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = (dt + Math.random()*16)%16 | 0;
-      dt = Math.floor(dt/16);
-      return (c=='x' ? r :(r&0x3|0x8)).toString(16);
-  });
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+    /[xy]/g,
+    function (c) {
+      var r = (dt + Math.random() * 16) % 16 | 0;
+      dt = Math.floor(dt / 16);
+      return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+    },
+  );
   return uuid;
 }

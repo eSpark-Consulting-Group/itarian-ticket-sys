@@ -8,8 +8,8 @@ const DividerComponent = () => {
     <Divider
       style={{
         backgroundColor: colors.text,
-        height: 1.5,
-        opacity: 0.2,
+        // height: 1.5,
+        opacity: 0,
       }}
     />
   );

@@ -31,9 +31,9 @@ export const CstmPressable = ({
 
   return disabled ? (
     <View>
-      <TouchableWithoutFeedback>
+      {/* <TouchableWithoutFeedback> */}
         <View style={{ ...style }}>{children}</View>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </View>
   ) : (
     <Pressable

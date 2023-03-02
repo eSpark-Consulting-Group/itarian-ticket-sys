@@ -31,7 +31,7 @@ import AppStatusBar from './AppStatusBar';
 import CstmColorPicker from './CstmColorPicker';
 import NoInternetModal from './NoInternetModal';
 import DividerComponent from './DividerComponent';
-
+export { default as PreviewImage } from './PreviewImage'
 export {
   CstmButton,
   CstmInput,

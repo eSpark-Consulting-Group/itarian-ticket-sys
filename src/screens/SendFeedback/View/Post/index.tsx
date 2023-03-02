@@ -9,6 +9,7 @@ import {
   UIManager,
   Platform,
   Animated,
+  TouchableOpacity,
 } from 'react-native';
 import {
   useRoute,
@@ -30,7 +31,12 @@ import {
   deleteVote,
   deleteComment,
 } from '../../utils';
-import { CstmPressable, GapView, Loader } from '../../../../components';
+import {
+  CstmPressable,
+  GapView,
+  Loader,
+  PreviewImage,
+} from '../../../../components';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../../constants';
 import { Vote, Vote_CD } from '../../../../types';
 
@@ -52,7 +58,7 @@ export default function Post() {
   const [userVoted, setuserVoted] = useState<boolean>(false);
   const [selectedCommentId, setSelectedCommentId] = useState<string>('');
   const transAnim = useRef(new Animated.Value(100)).current;
-
+  const [selectedImage, setSelectedImage] = useState<any>(null);
   const { id, userInfo } = route?.params;
 
   useFocusEffect(
@@ -208,23 +214,25 @@ export default function Post() {
     flag?: boolean;
   }) => {
     return (
-      <View
+      <TouchableOpacity
+        onPress={() => {
+          setSelectedImage(item);
+        }}
+        activeOpacity={0.9}
         style={{
           marginTop: 10,
           height: flag ? WINDOW_HEIGHT * 0.15 : WINDOW_HEIGHT * 0.2,
           width: flag ? WINDOW_HEIGHT * 0.15 : WINDOW_HEIGHT * 0.2,
         }}>
-        <Pinchable>
-          <Image
-            source={{ uri: item }}
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            resizeMode="cover"
-          />
-        </Pinchable>
-      </View>
+        <Image
+          source={{ uri: item }}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          resizeMode="cover"
+        />
+      </TouchableOpacity>
     );
   };
 
@@ -635,6 +643,11 @@ export default function Post() {
 
   return (
     <>
+      <PreviewImage
+        image={selectedImage}
+        visible={Boolean(selectedImage)}
+        onClose={() => setSelectedImage(null)}
+      />
       <Loader isShow={loading || commLoad} />
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View

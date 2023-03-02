@@ -145,6 +145,11 @@ export const TextEditor = ({
         injectedJavaScript='document.body.style.webkitUserSelect = "none";'
         injectedJavaScriptBeforeContentLoaded='document.body.style.webkitUserSelect = "none";'
         editorInitializedCallback={editorInitializedCallback}
+        // scrollEnabled={false}
+        // mixedContentMode={'never'} // security
+        // startInLoadingState={true} // when starting this component
+        // javaScriptEnabled={true} 
+        // focusable
       />
     </View>
   );

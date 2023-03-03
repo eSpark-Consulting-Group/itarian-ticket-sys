@@ -24,7 +24,7 @@ const AvatarContainer = ({
         visible={visible}
         onImageSelect={(file: any) => {
           setVisible(false);
-          onChange(file);
+          file && onChange(file);
         }}
       />
       <View

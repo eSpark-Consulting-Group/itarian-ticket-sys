@@ -45,7 +45,7 @@ const handleLoginUser = async (
     const resData: any = response.data;
     console.log('User Response? ', response.data);
     globalState.loader.set(false);
-    const { status, apiKey, subDomain, companyName }: any = response?.data;
+    const { status, apiKey, subDomain, companyName, userId }: any = response?.data;
     if (status == 'success') {
       const userObj: any = {
         user_name: companyName,
@@ -53,6 +53,7 @@ const handleLoginUser = async (
         userId: apiKey,
         token: encodedUserDataToken(subDomain, apiKey),
         email: credentialsObj.email,
+        id: userId
       };
       console.log('use', userObj);
 

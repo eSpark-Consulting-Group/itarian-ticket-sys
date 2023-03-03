@@ -14,7 +14,7 @@ import {
   getCountries,
   getLocationToken,
 } from '../screens/Locations/utils/functions';
-import { filterUser } from '../screens/Profile/utils';
+import { getUserById } from '../screens/Profile/utils';
 import { getAllSlaPlans } from '../screens/SlaPlans/utils/functions';
 import { getAllTeams } from '../screens/Teams/utils/functions';
 import { globalState } from '../stores/globalAppState';
@@ -35,15 +35,18 @@ export const badgeApiCallForGlobalList = async () => {
   await getAllTeams();
   await getAllTimezones();
   await getLocationToken();
-  filterUser(`filter[email][]=${user?.get()?.email}`).then((res: any) => {
-    userStore?.userDetails?.set(res);
-  });
+  await getCurrentUser()
   setTimeout(async () => {
     await getCountries();
   }, 2000);
-
   globalState.loader.set(false);
 };
+
+export const getCurrentUser = async () => {
+  const user: State<any> = userStore?.user;
+  const userData = await getUserById(user?.get()?.id);
+  userStore?.userDetails?.set(userData)
+}
 
 const getTicketStatus = async () => {
   const user: any = userStore?.user?.get();

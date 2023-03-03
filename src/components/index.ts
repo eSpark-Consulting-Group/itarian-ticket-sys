@@ -32,6 +32,7 @@ import CstmColorPicker from './CstmColorPicker';
 import NoInternetModal from './NoInternetModal';
 import DividerComponent from './DividerComponent';
 export { default as PreviewImage } from './PreviewImage'
+export { default as ImageUploadOptions } from './ImageUploadOptions'
 export {
   CstmButton,
   CstmInput,

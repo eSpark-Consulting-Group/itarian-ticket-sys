@@ -48,4 +48,19 @@ const updateUser = async (id: number, data: any) => {
   }
 };
 
-export { filterUser, updateUser };
+const getUserById = async (userId: string) => {
+  const user: any = userStore?.user?.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.get(`/users/${userId?.toString()}`);
+    if (result?.ok) {
+      return result?.data?.data;
+    }
+  } catch (error) {
+    console.log('error getAllUsers', error);
+  }
+};
+export { filterUser, updateUser, getUserById };

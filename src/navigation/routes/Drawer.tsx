@@ -66,6 +66,7 @@ const Drawer = createDrawerNavigator<ParamList>();
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const currStatus: State<boolean> = useHookstate(userStore.currentStatus);
   const user: State<any> = useHookstate(userStore.user);
+  const userDetails: any = useHookstate(userStore.userDetails)?.get();
   const dScreen: State<string> = useHookstate(globalState.defaultScreenId);
   const dSName: State<string> = useHookstate(globalState.defaultScreenName);
   const dNavName: State<string> = useHookstate(
@@ -92,7 +93,13 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
           <View style={styles.avatar}>
             <Avatar.Image
               size={moderateVerticalScale(65, 0.5)}
-              source={Images.Avatar}
+              source={
+                userDetails?.attributes?.profile_picture
+                  ? {
+                      uri: `data:image/jpeg;base64,${userDetails?.attributes?.profile_picture}`,
+                    }
+                  : Images.Avatar
+              }
             />
           </View>
         </View>

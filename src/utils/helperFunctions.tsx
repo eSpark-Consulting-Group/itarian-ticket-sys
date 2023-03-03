@@ -74,6 +74,7 @@ export const imagePicker = async ({
       compressImageQuality: 0.5,
       maxFiles,
       mediaType: 'photo',
+      includeBase64: true,
     });
     return result;
   } catch (error) {
@@ -109,6 +110,7 @@ export const cameraPicker = async ({ cropping = false }) => {
       height: 400,
       cropping: cropping,
       compressImageQuality: 0.5,
+      includeBase64: true,
     });
     return result;
   } catch (error) {

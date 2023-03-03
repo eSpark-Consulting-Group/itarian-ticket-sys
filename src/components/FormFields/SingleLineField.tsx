@@ -169,6 +169,7 @@ const SingleLineField = ({
                         color: colors.text,
                         ...styles.title,
                         width: titleWidth,
+                        textTransform: 'capitalize'
                       }}>
                       {!Boolean(title) ? 'Please Select' : title}
                     </Text>

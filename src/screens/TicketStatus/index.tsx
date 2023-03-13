@@ -26,7 +26,7 @@ import { contactsList } from '../../constants/SampleArrays';
 import { Contact } from '../../types';
 import { useUpdateEffect } from '../../utils/hooks';
 import { searchFromArray } from '../../utils/helperFunctions';
-import { getAllTicketStatus } from './utils/functions';
+import { getAllTicketStatus, getAllTicketStatusIcons } from './utils/functions';
 import { globalState } from '../../stores/globalAppState';
 
 const TicketStatus = ({
@@ -48,6 +48,7 @@ const TicketStatus = ({
   const fetchRecords = async () => {
     setLoading(true);
     await getAllTicketStatus();
+    await getAllTicketStatusIcons();
     setLoading(false);
   };
 
@@ -132,6 +133,7 @@ export const RenderTickets = ({
   const onRefresh = async () => {
     setIsFetching(true);
     await getAllTicketStatus();
+    await getAllTicketStatusIcons();
     setIsFetching(false);
   };
 

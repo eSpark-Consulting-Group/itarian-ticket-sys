@@ -64,7 +64,9 @@ const CstmItemSelector = ({ route, navigation }: any) => {
         const isFind = route?.params?.selected?.findIndex(
           (selected: any) => selected.id == val?.id,
         );
-        return (isFind != -1 && Boolean(isFind == 0 ? true : isFind)) ? val?.id : null
+        return isFind != -1 && Boolean(isFind == 0 ? true : isFind)
+          ? val?.id
+          : null;
       });
       setSelectedIndexes(selectedInds?.filter((val: any) => Boolean(val)));
     } else {
@@ -84,19 +86,27 @@ const CstmItemSelector = ({ route, navigation }: any) => {
     if (route?.params?.SelectMode == 'checkbox') {
       let selectedIds = [...selectedIndexes];
       let isChecked = selectedIndexes?.findIndex((value: any) => value == ind);
-      console.log("selectedIds selectedIds IN FUNCTION", selectedIds, isChecked, ind, index);
+      console.log(
+        'selectedIds selectedIds IN FUNCTION',
+        selectedIds,
+        isChecked,
+        ind,
+        index,
+      );
       if (isChecked != -1) {
         selectedIds?.splice(isChecked, 1);
       } else {
         const selectedInd = route?.params?.data?.findIndex(
           (val: any) => val?.id == ind,
         );
-        selectedIds.push(route?.params?.data[selectedInd]?.id)
+        selectedIds.push(route?.params?.data[selectedInd]?.id);
       }
-      setSelectedIndexes(selectedIds)
+      setSelectedIndexes(selectedIds);
       navigation?.setParams({
         ...route?.params,
-        selected: route?.params?.data?.filter((val: any) => selectedIds?.includes(val?.id)),
+        selected: route?.params?.data?.filter((val: any) =>
+          selectedIds?.includes(val?.id),
+        ),
       });
     } else {
       const selectedInd = route?.params?.data?.findIndex(
@@ -110,7 +120,7 @@ const CstmItemSelector = ({ route, navigation }: any) => {
     }
   };
 
-  console.log("selectedIds selectedIds OUT FUNCTION", selectedIndexes);
+  console.log('selectedIds selectedIds OUT FUNCTION', selectedIndexes);
 
   return (
     <ModalView>
@@ -135,7 +145,7 @@ const CstmItemSelector = ({ route, navigation }: any) => {
               route?.params?.SelectMode == 'checkbox'
                 ? selectedIndexes?.includes(item?.id)
                 : currChkInd == item?.id;
-            
+
             return (
               <SingleLineField
                 key={item?.name}

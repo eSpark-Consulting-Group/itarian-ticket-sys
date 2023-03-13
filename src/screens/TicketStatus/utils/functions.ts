@@ -21,6 +21,22 @@ const getAllTicketStatus = async () => {
   }
 };
 
+const getAllTicketStatusIcons = async () => {
+  const user: any = userStore.user.get();
+  const USER_TOKEN = user?.token;
+  api.setHeaders({
+    Authorization: `Basic ${USER_TOKEN}`,
+  });
+  try {
+    const result: any = await api.get('/ticketstatuses/icons');
+    if (result?.ok) {
+      globalState?.ticketstatusicons?.set(result?.data?.data);
+    }
+  } catch (error) {
+    console.log('error getAllUsers', error);
+  }
+};
+
 const addTicketStatus = async (data: any) => {
   const user: any = userStore.user.get();
   const USER_TOKEN = user?.token;
@@ -93,6 +109,7 @@ const updateTicketStatus = async (data: any) => {
 
 export {
   getAllTicketStatus,
+  getAllTicketStatusIcons,
   addTicketStatus,
   deleteStatus,
   updateTicketStatus,

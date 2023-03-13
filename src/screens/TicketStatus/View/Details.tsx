@@ -6,7 +6,7 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import { Divider } from 'react-native-paper';
+import { useHookstate } from '@hookstate/core';
 
 import {
   CstmColorPicker,
@@ -19,7 +19,8 @@ import {
 import { SelectFields } from '../../../types';
 import { SelectItems } from '../../../utils/helperFunctions';
 import { deleteStatus } from '../utils/functions';
-import { IconClassList, PosList } from '../../../constants/SelectionList';
+import { PosList } from '../../../constants/SelectionList';
+import { globalState } from '../../../stores/globalAppState';
 
 interface Item {
   title: string;
@@ -73,6 +74,14 @@ export default function Details() {
   const routes: any = useRoute();
   const navigation: any = useNavigation();
   const { ticketStatusDetails, statusList } = routes?.params;
+  const ticketstatusicons: any = useHookstate(globalState.ticketstatusicons);
+  const transformedIcons: any = ticketstatusicons
+    .get()
+    .map(({ code, name }: { code: string; name: string }, index: number) => ({
+      id: index + 1,
+      name: code,
+      code: name,
+    }));
   const [visible, setVisible] = useState(false);
   const [currIndex, setCurrIndex] = useState<number | undefined>();
   const [loader, setLoader] = useState(false);
@@ -103,9 +112,10 @@ export default function Details() {
     {
       subTitle: 'Icon Class',
       title: ticketStatusDetails?.attributes?.icon_class ?? 'Please Select',
-      list: IconClassList ?? [],
-      selectedItem: IconClassList?.find(
-        value => value?.name == ticketStatusDetails?.attributes?.icon_class,
+      list: transformedIcons ?? [],
+      selectedItem: transformedIcons?.find(
+        (value: any) =>
+          value?.name == ticketStatusDetails?.attributes?.icon_class,
       ),
       headerTitle: 'Icon Class',
       rightIcon: 'chevron-right',
@@ -251,6 +261,7 @@ export default function Details() {
             item.onPress?.();
             setCurrIndex(index);
           }
+          console.log('item.list', item.list, routes);
           SelectItems(
             item,
             index,

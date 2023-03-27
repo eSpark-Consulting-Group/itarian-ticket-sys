@@ -77,6 +77,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 
   const { colors }: Theme = useTheme();
   const { index } = props.state;
+  console.log('All the user info', userDetails);
 
   return (
     <SafeAreaView
@@ -106,11 +107,16 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <View style={{ flex: 0.7 }}>
           <View style={{ flex: 1, justifyContent: 'center' }}>
             <Text style={styles.drawerTitleStyle}>
-              {user.get()?.user_name ?? 'N/A'}
+              {userDetails?.attributes?.first_name +
+                ' ' +
+                userDetails?.attributes?.last_name ?? 'N/A'}
             </Text>
-            <Text style={styles.drawerTitleStyle}>iTarian LLC</Text>
             <Text style={styles.drawerTitleStyle}>
-              {currStatus.get() ? 'Out of the Office' : 'In Office'}
+              {user?.get()?.user_name}
+            </Text>
+            <Text style={{ ...styles.drawerTitleStyle, opacity: 0.7 }}>
+              {userDetails?.attributes?.role?.charAt(0).toUpperCase() +
+                userDetails?.attributes?.role?.slice(1)}
             </Text>
           </View>
         </View>

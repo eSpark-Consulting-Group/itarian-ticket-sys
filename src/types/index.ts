@@ -139,6 +139,7 @@ export type ScreenItems = {
 export type SelectFields = {
   id: number;
   name: string;
+  code?: string;
 };
 
 export type NoteTypes = {

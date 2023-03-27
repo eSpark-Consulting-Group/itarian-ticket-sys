@@ -93,7 +93,7 @@ export default function Details() {
   const [visible, setVisible] = useState(false);
   const [currIndex, setCurrIndex] = useState<number | undefined>();
   const [loader, setLoader] = useState(false);
-  console.log('aha', String.fromCharCode(parseInt(extractFont, 16)));
+  console.log('aha', ticketStatusDetails?.attributes);
   const reshapedStatusList = statusList.map(
     (item: StatusProps): { id: string; name: string } => ({
       id: item?.id,
@@ -317,6 +317,26 @@ export default function Details() {
       var obj: any = [...dataSource];
       obj[routes?.params?.item].title = routes?.params?.selected?.name;
       obj[routes?.params?.item].selectedItem = routes?.params?.selected;
+      obj[routes?.params?.item].leftChild = (
+        <View>
+          <Text
+            style={{
+              fontFamily: 'fontyawesome',
+              color: colors.text,
+              fontSize: 18,
+              textAlignVertical: 'center',
+            }}>
+            {String.fromCharCode(
+              parseInt(
+                routes?.params?.selected?.code
+                  .replace('&#x', '')
+                  .replace(';', ''),
+                16,
+              ),
+            )}
+          </Text>
+        </View>
+      );
       setDataSource([...obj]);
     }
   }, [routes?.params?.selected]);

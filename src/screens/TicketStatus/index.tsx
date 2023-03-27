@@ -141,12 +141,12 @@ export const RenderTickets = ({
     return (
       <View style={styles.listContainer}>
         <CstmPressable
-          onPress={() =>
+          onPress={() => {
             navigation.navigate('Stack1', {
               screen: 'TicketStatusDetails',
               params: { ticketStatusDetails: item, statusList: listData },
-            })
-          }
+            });
+          }}
           android_ripple={{ color: dark ? '#ffffff0e' : '#0000000e' }}>
           <View style={styles.listItemContainer}>
             <View>

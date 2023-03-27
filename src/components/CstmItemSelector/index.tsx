@@ -86,13 +86,7 @@ const CstmItemSelector = ({ route, navigation }: any) => {
     if (route?.params?.SelectMode == 'checkbox') {
       let selectedIds = [...selectedIndexes];
       let isChecked = selectedIndexes?.findIndex((value: any) => value == ind);
-      console.log(
-        'selectedIds selectedIds IN FUNCTION',
-        selectedIds,
-        isChecked,
-        ind,
-        index,
-      );
+      console.log('hohoho', selectedIds, isChecked, ind, index);
       if (isChecked != -1) {
         selectedIds?.splice(isChecked, 1);
       } else {

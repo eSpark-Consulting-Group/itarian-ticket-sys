@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, KeyboardTypeOptions } from 'react-native';
+import { View, ScrollView, KeyboardTypeOptions, Text } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import { State, useHookstate } from '@hookstate/core';
 
@@ -7,7 +7,8 @@ import { CstmColorPicker, ModalView, SingleLineField } from '../../components';
 import { SelectFields } from '../../types';
 import { SelectItems } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
-import { IconClassList, PosList } from '../../constants/SelectionList';
+import { PosList } from '../../constants/SelectionList';
+import { globalState } from '../../stores/globalAppState';
 
 interface StatusProps {
   attributes: StatusAttributes;
@@ -61,6 +62,14 @@ const NewTicketStatus = ({ route, navigation }: any) => {
   const { colors, dark }: Theme = useTheme();
   const users: State<any> = useHookstate(userStore.users);
   const [visible, setVisible] = useState(false);
+  const ticketstatusicons: any = useHookstate(globalState.ticketstatusicons);
+  const transformedIcons: any = ticketstatusicons
+    .get()
+    .map(({ code, name }: { code: string; name: string }, index: number) => ({
+      id: index + 1,
+      name: code,
+      code: name,
+    }));
   const [currIndex, setCurrIndex] = useState<number | undefined>();
   const reshapedStatusList = route?.params?.statusList.map(
     (item: StatusProps): { id: string; name: string } => ({
@@ -88,8 +97,9 @@ const NewTicketStatus = ({ route, navigation }: any) => {
     {
       subTitle: 'Icon Class',
       title: 'Please Select',
-      list: IconClassList ?? [],
+      list: transformedIcons ?? [],
       selectedItem: undefined,
+      leftChild: undefined,
       headerTitle: 'Icon Class',
       rightIcon: 'chevron-right',
       isRequired: true,
@@ -193,7 +203,31 @@ const NewTicketStatus = ({ route, navigation }: any) => {
       var obj: any = [...dataSource];
       obj[route?.params?.item].title = route?.params?.selected?.name;
       obj[route?.params?.item].selectedItem = route?.params?.selected;
+      obj[route?.params?.item].leftChild = (
+        <View>
+          <Text
+            style={{
+              fontFamily: 'fontyawesome',
+              color: colors.text,
+              fontSize: 18,
+              textAlignVertical: 'center',
+            }}>
+            {String.fromCharCode(
+              parseInt(
+                route?.params?.selected?.code
+                  .replace('&#x', '')
+                  .replace(';', ''),
+                16,
+              ),
+            )}
+          </Text>
+        </View>
+      );
       setDataSource([...obj]);
+      console.log(
+        'objxxx',
+        (obj[route?.params?.item].selectedItem = route?.params?.selected),
+      );
     }
   }, [route?.params?.selected]);
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import { useHookstate, State } from '@hookstate/core';
 import { Theme, useTheme } from '@react-navigation/native';
@@ -120,7 +120,7 @@ const CstmItemSelector = ({ route, navigation }: any) => {
     }
   };
 
-  console.log('selectedIds selectedIds OUT FUNCTION', selectedIndexes);
+  console.log('selectedIds selectedIds OUT FUNCTION', route.params.data);
 
   return (
     <ModalView>
@@ -152,14 +152,32 @@ const CstmItemSelector = ({ route, navigation }: any) => {
                 title={item?.name}
                 onPress={() => selectItem(item?.id)}
                 leftChild={
-                  <Checkbox
-                    status={isChecked ? 'checked' : 'unchecked'}
-                    color={colors.primary}
-                    theme={
-                      themeValue.get() === 'light' ? LightTheme : DarkTheme
-                    }
-                    onPress={() => selectItem(item?.id, index)}
-                  />
+                  <View style={{ flexDirection: 'row' }}>
+                    <Checkbox
+                      status={isChecked ? 'checked' : 'unchecked'}
+                      color={colors.primary}
+                      theme={
+                        themeValue.get() === 'light' ? LightTheme : DarkTheme
+                      }
+                      onPress={() => selectItem(item?.id, index)}
+                    />
+                    {item.code && (
+                      <Text
+                        style={{
+                          fontFamily: 'fontyawesome',
+                          color: colors.text,
+                          fontSize: 18,
+                          textAlignVertical: 'center',
+                        }}>
+                        {String.fromCharCode(
+                          parseInt(
+                            item.code.replace('&#x', '').replace(';', ''),
+                            16,
+                          ),
+                        )}
+                      </Text>
+                    )}
+                  </View>
                 }
               />
             );

@@ -32,6 +32,9 @@
 		682B442775BA41998ADF6119 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1D7E4A362D44461B3AB6DC7 /* Zocial.ttf */; };
 		EDF7BB80FBFF41C39A0848B2 /* Chalkduster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD20F0D371DC4F68960E26B1 /* Chalkduster.ttf */; };
 		48D2C51DDC11478FBFB7A043 /* OpenSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A369B35EE8047189FF3345F /* OpenSans-Medium.ttf */; };
+		D25FA1E35F97436086B42EFF /* Arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F7070CED4CB476CB8BD85B5 /* Arial.ttf */; };
+		A9603636D01E4F869942CDC6 /* fontyawesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF7693FF22194EA9B0D8DE02 /* fontyawesome.ttf */; };
+		EEB380BF7AEC4080A3EF7536 /* Palatino-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E32CF192B3874FEF81158045 /* Palatino-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +83,9 @@
 		D1D7E4A362D44461B3AB6DC7 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FD20F0D371DC4F68960E26B1 /* Chalkduster.ttf */ = {isa = PBXFileReference; name = "Chalkduster.ttf"; path = "../src/assets/fonts/Chalkduster.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		4A369B35EE8047189FF3345F /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; name = "OpenSans-Medium.ttf"; path = "../src/assets/fonts/OpenSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3F7070CED4CB476CB8BD85B5 /* Arial.ttf */ = {isa = PBXFileReference; name = "Arial.ttf"; path = "../src/assets/fonts/Arial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CF7693FF22194EA9B0D8DE02 /* fontyawesome.ttf */ = {isa = PBXFileReference; name = "fontyawesome.ttf"; path = "../src/assets/fonts/fontyawesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E32CF192B3874FEF81158045 /* Palatino-Bold.ttf */ = {isa = PBXFileReference; name = "Palatino-Bold.ttf"; path = "../src/assets/fonts/Palatino-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +212,9 @@
 				D1D7E4A362D44461B3AB6DC7 /* Zocial.ttf */,
 				FD20F0D371DC4F68960E26B1 /* Chalkduster.ttf */,
 				4A369B35EE8047189FF3345F /* OpenSans-Medium.ttf */,
+				3F7070CED4CB476CB8BD85B5 /* Arial.ttf */,
+				CF7693FF22194EA9B0D8DE02 /* fontyawesome.ttf */,
+				E32CF192B3874FEF81158045 /* Palatino-Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -325,6 +334,9 @@
 				682B442775BA41998ADF6119 /* Zocial.ttf in Resources */,
 				EDF7BB80FBFF41C39A0848B2 /* Chalkduster.ttf in Resources */,
 				48D2C51DDC11478FBFB7A043 /* OpenSans-Medium.ttf in Resources */,
+				D25FA1E35F97436086B42EFF /* Arial.ttf in Resources */,
+				A9603636D01E4F869942CDC6 /* fontyawesome.ttf in Resources */,
+				EEB380BF7AEC4080A3EF7536 /* Palatino-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, KeyboardTypeOptions, Alert } from 'react-native';
+import { View, FlatList, KeyboardTypeOptions, Alert, Text } from 'react-native';
 import {
   useTheme,
   Theme,
@@ -7,6 +7,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
+import FA from 'react-native-vector-icons/FontAwesome';
 
 import {
   CstmColorPicker,
@@ -82,10 +83,17 @@ export default function Details() {
       name: code,
       code: name,
     }));
+  const extractFont: string = transformedIcons
+    ?.find(
+      (value: any) =>
+        value?.name == ticketStatusDetails?.attributes?.icon_class,
+    )
+    .code.replace('&#x', '')
+    .replace(';', '');
   const [visible, setVisible] = useState(false);
   const [currIndex, setCurrIndex] = useState<number | undefined>();
   const [loader, setLoader] = useState(false);
-
+  console.log('aha', String.fromCharCode(parseInt(extractFont, 16)));
   const reshapedStatusList = statusList.map(
     (item: StatusProps): { id: string; name: string } => ({
       id: item?.id,
@@ -116,6 +124,19 @@ export default function Details() {
       selectedItem: transformedIcons?.find(
         (value: any) =>
           value?.name == ticketStatusDetails?.attributes?.icon_class,
+      ),
+      leftChild: (
+        <View>
+          <Text
+            style={{
+              fontFamily: 'fontyawesome',
+              color: colors.text,
+              fontSize: 18,
+              textAlignVertical: 'center',
+            }}>
+            {String.fromCharCode(parseInt(extractFont, 16))}
+          </Text>
+        </View>
       ),
       headerTitle: 'Icon Class',
       rightIcon: 'chevron-right',

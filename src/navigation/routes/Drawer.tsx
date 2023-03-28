@@ -77,7 +77,6 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
 
   const { colors }: Theme = useTheme();
   const { index } = props.state;
-  console.log('All the user info', userDetails);
 
   return (
     <SafeAreaView
@@ -194,6 +193,7 @@ const Draw = () => {
   const activeMember: State<any> = useHookstate(globalState.agendaMember);
   const dScreen: State<any> = useHookstate(globalState.defaultScreenId);
   const shortCutScreen: State<any> = useHookstate(globalState.shortCutScreen);
+  const userDetails: any = useHookstate(userStore.userDetails)?.get();
   const users: State<any> = useHookstate(userStore.users);
   const user: State<any> = useHookstate(userStore.user);
   const [currMember, setcurrMember] = useState<any>(null);
@@ -402,6 +402,7 @@ const Draw = () => {
       <Drawer.Screen
         name="Feedback"
         component={SendFeedback}
+        initialParams={{ userData: userDetails }}
         options={{
           headerRight: noHeader,
           drawerItemStyle: { display: 'none' },

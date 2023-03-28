@@ -77,7 +77,7 @@ export type ParamList = {
   Companies: undefined;
   Contacts: undefined;
   Settings: undefined;
-  Feedback: undefined;
+  Feedback: { userData: object };
   Teams: undefined;
   SlaPlan: undefined;
   TicketPriorities: undefined;

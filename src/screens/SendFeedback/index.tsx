@@ -13,6 +13,7 @@ import {
   useTheme,
   useNavigation,
   useFocusEffect,
+  useRoute,
 } from '@react-navigation/native';
 import MCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -34,10 +35,12 @@ import { getPosts, getUserByEmail, createUser, getBoards } from './utils';
 import { CannyPosts } from '../../types';
 import { SCREEN_HEIGHT, WINDOW_HEIGHT, WINDOW_WIDTH } from '../../constants';
 import { removeDuplicates } from '../../utils/helperFunctions';
+import { useUpdateEffect } from '../../utils/hooks';
 
 const SendFeedbackScreen = () => {
   const { dark, colors } = useTheme();
   const navigation: any = useNavigation();
+  const route: any = useRoute();
   const [loading, setLoading] = useState(true);
   const [showPosts, setShowPosts] = useState<boolean>(false);
   const [postsData, setPostsData] = useState<any>([]);
@@ -45,13 +48,16 @@ const SendFeedbackScreen = () => {
   const [skip, setSkip] = useState<number>(0);
   const [itemsLoader, setItemsLoader] = useState(false);
   const [searchPosts, setSearchPosts] = useState('');
-  const [cannyUser, setCannyUser] = useState<Canny_CreateUser>();
+  const [cannyUser, setCannyUser] = useState<any>();
   const [showSearch, setShowSearch] = useState<boolean>();
   const userObj: State<User> = useHookstate(userStore);
   const postsGlobal: State<any> = useHookstate([]);
   const searchRef = useRef<TextInput>(null);
 
   const { email, user_name, userId }: any = userObj?.user.get();
+  const { first_name, last_name, profile_picture } =
+    route?.params?.userData?.attributes;
+  // console.log('wohahasodasdxxx', route?.params);
 
   useEffect(() => {
     setShowPosts(false);
@@ -60,6 +66,13 @@ const SendFeedbackScreen = () => {
     console.log('user_name of logged in user:?', user_name);
     console.log('userId of logged in user:?', userId);
   }, []);
+
+  useUpdateEffect(() => {
+    setShowPosts(false);
+    console.log('userId of logged in user:?', userId);
+    //todo: updating user here!
+    handleCreateUser(first_name + last_name);
+  }, [route?.params]);
 
   useFocusEffect(
     useCallback(() => {
@@ -88,7 +101,7 @@ const SendFeedbackScreen = () => {
           } else {
             if (res?.data?.error === 'invalid email') {
               setPostsData([]);
-              handleCreateUser();
+              handleCreateUser(first_name + last_name);
               //! No User Found
               //todo: Create User then show posts
             }
@@ -102,17 +115,17 @@ const SendFeedbackScreen = () => {
     }
   };
 
-  const handleCreateUser = async () => {
+  const handleCreateUser = async (userName: string) => {
     const data: Canny_CreateUser = {
       email: email,
-      name: user_name,
+      name: userName,
       userID: userId,
     };
-    // console.log(data);
+    console.log('chala update');
     createUser(data)
       .then(res => {
         if (res?.ok) {
-          console.log('User Created Sucessfully', res?.data);
+          console.log('User Created/Updated Sucessfully', res?.data);
           setCannyUser(res?.data);
           fetchBoards();
           //* User Created Sucessfully
@@ -211,6 +224,8 @@ const SendFeedbackScreen = () => {
   };
 
   const renderPostList = (item: any, index: number) => {
+    console.log('item ka bta', item);
+    console.log('canny user', cannyUser?.id === item?.author?.id);
     return (
       <CstmPressable
         style={{
@@ -226,7 +241,7 @@ const SendFeedbackScreen = () => {
         onPress={() => {
           navigation.navigate('Stack1', {
             screen: 'Post',
-            params: { id: item.id, userInfo: cannyUser },
+            params: { id: item.id, userInfo: cannyUser, profile_picture },
           });
         }}>
         <View
@@ -237,7 +252,23 @@ const SendFeedbackScreen = () => {
           }}>
           {item?.author?.avatarURL ? (
             <Image
-              source={{ uri: item?.author?.avatarURL }}
+              source={{
+                uri: item?.author?.avatarURL,
+              }}
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: colors.primary,
+              }}
+            />
+          ) : cannyUser?.id === item?.author?.id ? (
+            <Image
+              source={{
+                uri: `data:image/jpeg;base64,${profile_picture}`,
+              }}
               style={{
                 width: 50,
                 height: 50,

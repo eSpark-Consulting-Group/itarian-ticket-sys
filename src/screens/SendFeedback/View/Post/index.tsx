@@ -59,11 +59,11 @@ export default function Post() {
   const [selectedCommentId, setSelectedCommentId] = useState<string>('');
   const transAnim = useRef(new Animated.Value(100)).current;
   const [selectedImage, setSelectedImage] = useState<any>(null);
-  const { id, userInfo } = route?.params;
+  const { id, userInfo, profile_picture } = route?.params;
 
   useFocusEffect(
     useCallback(() => {
-      console.log(id, userInfo);
+      console.log('ahahahah', id, userInfo);
       fetchPostDetail(id, false);
       fetchPostComments(id);
       fetchPostVotes({ postID: id, userID: userInfo.id });
@@ -259,19 +259,49 @@ export default function Post() {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <View
-              style={{
-                backgroundColor: colors.primary,
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 30,
-                height: 30,
-                borderRadius: 30,
-              }}>
-              <Text style={{ color: '#fff', fontWeight: 'bold' }}>
-                {postDetail?.author?.name.substring(0, 1).toUpperCase()}
-              </Text>
-            </View>
+            {postDetail?.author?.avatarURL ? (
+              <Image
+                source={{
+                  uri: postDetail?.author?.avatarURL,
+                }}
+                style={{
+                  backgroundColor: colors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 30,
+                  height: 30,
+                  borderRadius: 30,
+                }}
+              />
+            ) : userInfo.id === postDetail?.author?.id ? (
+              <Image
+                source={{
+                  uri: `data:image/jpeg;base64,${profile_picture}`,
+                }}
+                style={{
+                  backgroundColor: colors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 30,
+                  height: 30,
+                  borderRadius: 30,
+                }}
+              />
+            ) : (
+              <View
+                style={{
+                  backgroundColor: colors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 30,
+                  height: 30,
+                  borderRadius: 30,
+                }}>
+                <Text style={{ color: '#fff', fontWeight: 'bold' }}>
+                  {postDetail?.author?.name.substring(0, 1).toUpperCase()}
+                </Text>
+              </View>
+            )}
             <GapView mode="horizontal" length={5} />
             <Text style={{ color: colors.text }}>
               {postDetail?.author?.name}
@@ -458,19 +488,50 @@ export default function Post() {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <View
-              style={{
-                backgroundColor: colors.primary,
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 20,
-                height: 20,
-                borderRadius: 20,
-              }}>
-              <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 10 }}>
-                {item?.author?.name.substring(0, 1).toUpperCase()}
-              </Text>
-            </View>
+            {item?.author?.avatarURL ? (
+              <Image
+                source={{
+                  uri: item?.author?.avatarURL,
+                }}
+                style={{
+                  backgroundColor: colors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 20,
+                  height: 20,
+                  borderRadius: 20,
+                }}
+              />
+            ) : userInfo.id === item?.author?.id ? (
+              <Image
+                source={{
+                  uri: `data:image/jpeg;base64,${profile_picture}`,
+                }}
+                style={{
+                  backgroundColor: colors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 20,
+                  height: 20,
+                  borderRadius: 20,
+                }}
+              />
+            ) : (
+              <View
+                style={{
+                  backgroundColor: colors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 20,
+                  height: 20,
+                  borderRadius: 20,
+                }}>
+                <Text
+                  style={{ color: '#fff', fontWeight: 'bold', fontSize: 10 }}>
+                  {item?.author?.name.substring(0, 1).toUpperCase()}
+                </Text>
+              </View>
+            )}
             <GapView mode="horizontal" length={5} />
             <Text style={{ color: colors.text, fontSize: 12 }}>
               {item?.author?.name}

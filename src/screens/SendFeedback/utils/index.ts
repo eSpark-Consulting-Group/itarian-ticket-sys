@@ -125,7 +125,7 @@ const createUser = async (req?: Canny_CreateUser) => {
     apiKey: REACT_APP_CANNY_SECERT_KEY,
   };
   try {
-    const res = await cannyApi.post<Canny_CreateUser & { error: string }>(
+    const res = await cannyApi.post<{id:string} & { error: string }>(
       '/users/create_or_update',
       data,
     );

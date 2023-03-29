@@ -5,11 +5,10 @@ import II from 'react-native-vector-icons/Ionicons';
 import CstmButton from '../CstmButton';
 import { cameraPicker, imagePicker } from '../../utils/helperFunctions';
 
-
 export default function ImageUploadOptions({
   visible,
   onClose,
-  onImageSelect = (file: any) => {}
+  onImageSelect = (file: any) => {},
 }: {
   visible: boolean;
   onClose?: () => void;
@@ -76,16 +75,16 @@ export default function ImageUploadOptions({
             }}>
             <CstmButton
               title="Upload an image"
-              onPress={async() => {
-                const res = await cameraPicker({ cropping: false })
-                onImageSelect(res)
+              onPress={async () => {
+                const res = await cameraPicker({ cropping: false });
+                onImageSelect(res);
               }}
             />
             <CstmButton
               title="Choose image from gallery"
-              onPress={async() => {
-                const res = await imagePicker({})
-                onImageSelect(res)
+              onPress={async () => {
+                const res = await imagePicker({});
+                onImageSelect(res);
               }}
             />
           </View>

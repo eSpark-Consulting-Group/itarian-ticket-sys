@@ -10,6 +10,7 @@ import { showMessage } from 'react-native-flash-message';
 import { Buffer } from 'buffer';
 
 import { alert_Dur } from '../constants';
+import { createUser } from '../screens/SendFeedback/utils';
 
 export const getNavigtionApps = async () => {
   const Androidpackages = [
@@ -27,6 +28,72 @@ export const getNavigtionApps = async () => {
     }
   }
   return arr;
+};
+
+export const uploadProfilePicToCanny = async (
+  path: string,
+  userInfo: { userId: string; fname: string; lname: string },
+) => {
+  try {
+    (async function (field: string) {
+      const imageType =
+        'image/' + field.split('.')[field.split('.').length - 1];
+      const imageName = field.split('/')[field.split('/').length - 1];
+      console.log('chala ha', field.split('.')[field.split('.').length - 1]);
+      const formData = new FormData();
+      formData.append('imageFile', {
+        uri: field,
+        type: imageType === 'png' ? 'image/png' : 'image/jpeg',
+        name: imageName,
+      });
+      formData.append(
+        'imageType',
+        imageType === 'png' ? 'image/png' : 'image/jpeg',
+      );
+      var config = {
+        method: 'POST',
+        body: formData,
+      };
+      fetch('https://feedback.itarian.com/api/images/upload', config)
+        .then(response => response.json())
+        .then((result: { imageURL: string; error: string }) => {
+          console.log('upload hoa image', result);
+          if (result.imageURL) {
+            console.log('upload hoa image Result', result.imageURL);
+            createUser({
+              userID: userInfo.userId,
+              name: userInfo.fname + ' ' + userInfo.lname,
+              avatarURL: result.imageURL,
+            }).then(res => {
+              if (res?.ok) {
+                console.log('Updated Sucessfully', res?.data);
+                //* User Created Sucessfully
+              } else {
+                //! User not Created Sucessfully
+                console.log('Updated Sucessfully');
+              }
+            });
+          }
+          if (result.error) {
+            showMessage({
+              message: result.error,
+              type: 'danger',
+              icon: 'auto',
+            });
+          }
+        })
+        .catch(error => {
+          console.log('Image not uploaded successfully', error);
+          showMessage({
+            message: error[0],
+            type: 'danger',
+            icon: 'auto',
+          });
+        });
+    })(path);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const redirectToMap = (

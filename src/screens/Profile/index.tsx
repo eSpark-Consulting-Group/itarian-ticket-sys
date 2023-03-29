@@ -15,7 +15,11 @@ import Images from '../../assets/Images';
 import { userStore } from '../../stores/userStore';
 import { updateUser } from './utils';
 import { DataItem as Item } from '../../types';
-import { dataFormatter, SelectItems } from '../../utils/helperFunctions';
+import {
+  dataFormatter,
+  SelectItems,
+  uploadProfilePicToCanny,
+} from '../../utils/helperFunctions';
 import { getCurrentUser } from '../../utils/apiCalls';
 
 const genders = [
@@ -30,7 +34,8 @@ const Profile = ({ navigation }: any) => {
   const user: State<any> = useHookstate(userStore.user);
   const userDetails: any = useHookstate(userStore.userDetails).get();
   const [userObj, setUserObj] = useState<any>(null);
-  const [loader, setLoader] = useState(false)
+  const [imgPath, setImgPath] = useState<any>(null);
+  const [loader, setLoader] = useState(false);
   const [userData, setUserData] = useState<Item[]>([
     {
       title: '',
@@ -168,7 +173,7 @@ const Profile = ({ navigation }: any) => {
         ...styles.container,
         backgroundColor: colors.background,
       }}>
-        <Loader isShow={loader}  />
+      <Loader isShow={loader} />
       <View
         style={{
           ...styles.infoHolder,
@@ -186,6 +191,7 @@ const Profile = ({ navigation }: any) => {
             const data = { ...userObj };
             data['attributes']['profile_picture'] = img?.data;
             setUserObj(data);
+            setImgPath(img.path);
           }}
         />
         <Text style={{ fontWeight: 'bold', color: colors.text }}>
@@ -238,8 +244,8 @@ const Profile = ({ navigation }: any) => {
               attributes: {
                 email: user.get()?.email ?? '',
                 user_name: userObj?.attributes?.user_name,
-                last_name: data?.last_name,
                 first_name: data?.first_name,
+                last_name: data?.last_name,
                 company: userObj?.attributes?.user_name,
                 is_active: Boolean(userObj?.attributes?.is_active),
                 ext: data?.ext,
@@ -289,6 +295,11 @@ const Profile = ({ navigation }: any) => {
             },
           };
           await updateUser(userObj?.id, dataObj);
+          await uploadProfilePicToCanny(imgPath, {
+            fname: data?.first_name,
+            lname: data?.last_name,
+            userId: user.get().userId,
+          });
           setLoader(false);
           await getCurrentUser();
           fetchUserDetails();

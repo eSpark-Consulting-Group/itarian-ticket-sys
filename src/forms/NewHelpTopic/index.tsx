@@ -60,7 +60,10 @@ const NewHelpTopic = ({ route, navigation }: any) => {
     {
       title: 'Please Select',
       subTitle: 'Staff',
-      list: users.get() || [],
+      list:
+        users.get()?.filter((value: any) => {
+          return value?.role != 'user';
+        }) || [],
       selectedItem: undefined,
       headerTitle: 'Member',
       rightIcon: 'chevron-right',
@@ -162,8 +165,7 @@ const NewHelpTopic = ({ route, navigation }: any) => {
 
   return (
     <ModalView bgColor={colors.card}>
-      <ScrollView
-        style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         <View style={{ backgroundColor: colors.background }}>
           {dataSource.map((item, index) => (
             <SingleLineField

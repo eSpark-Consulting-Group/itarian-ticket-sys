@@ -36,7 +36,10 @@ const NewDepartment = ({ route, navigation }: any) => {
     {
       title: 'Please Select',
       subTitle: 'Manager',
-      list: users.get() || [],
+      list:
+        users.get()?.filter((value: any) => {
+          return value?.role != 'user';
+        }) || [],
       selectedItem: users.get()[0],
       headerTitle: 'Member',
       rightIcon: 'chevron-right',

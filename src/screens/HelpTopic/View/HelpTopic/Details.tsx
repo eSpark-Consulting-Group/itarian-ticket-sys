@@ -81,7 +81,10 @@ export default function Details() {
     {
       title: helpTopicDetails?.attributes?.staff?.user_name ?? 'Please Select',
       subTitle: 'Staff',
-      list: users.get() || [],
+      list:
+        users.get()?.filter((value: any) => {
+          return value?.role != 'user';
+        }) || [],
       selectedItem: users
         .get()
         ?.filter(

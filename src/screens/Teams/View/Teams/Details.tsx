@@ -51,7 +51,10 @@ export default function Details() {
     {
       title: teamDetails?.attributes?.teamlead?.user_name ?? 'Please Select',
       subTitle: 'Team Lead',
-      list: users.get() || [],
+      list:
+        users.get()?.filter((value: any) => {
+          return value?.role != 'user';
+        }) || [],
       selectedItem: users
         .get()
         ?.filter(

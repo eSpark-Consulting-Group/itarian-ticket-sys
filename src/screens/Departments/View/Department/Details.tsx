@@ -54,7 +54,10 @@ export default function Details() {
       title:
         departmentDetails?.attributes?.mainstaff?.user_name ?? 'Please Select',
       subTitle: 'Manager',
-      list: users.get() || [],
+      list:
+        users.get()?.filter((value: any) => {
+          return value?.role != 'user';
+        }) || [],
       selectedItem: users
         .get()
         ?.filter(

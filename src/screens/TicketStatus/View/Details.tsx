@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, KeyboardTypeOptions, Alert, Text } from 'react-native';
+import { View, FlatList, KeyboardTypeOptions, Alert, Text, Platform } from 'react-native';
 import {
   useTheme,
   Theme,
@@ -129,7 +129,7 @@ export default function Details() {
         <View>
           <Text
             style={{
-              fontFamily: 'fontyawesome',
+              fontFamily: Platform.OS == "android" ? 'fontyawesome' : 'FontAwesome',
               color: colors.text,
               fontSize: 18,
               textAlignVertical: 'center',
@@ -321,7 +321,7 @@ export default function Details() {
         <View>
           <Text
             style={{
-              fontFamily: 'fontyawesome',
+              fontFamily: Platform.OS === 'android' ? 'fontyawesome' : 'FontAwesome',
               color: colors.text,
               fontSize: 18,
               textAlignVertical: 'center',

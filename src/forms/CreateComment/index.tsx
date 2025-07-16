@@ -102,28 +102,29 @@ export const CreateComment = () => {
             field.split('.')[field.split('.').length - 1],
           );
           const formData = new FormData();
-          formData.append('imageFile', {
+          formData.append('file', {
             uri: field,
             type: imageType === 'png' ? 'image/png' : 'image/jpeg',
             name: imageName,
           });
           formData.append(
-            'imageType',
+            'fileType',
             imageType === 'png' ? 'image/png' : 'image/jpeg',
           );
+          formData.append('csrfToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjc3JmSUQiOiI2MzkzMWMzY2JhN2RmMzczNTUyMWIwYjEiLCJpYXQiOjE3NTIxNDU0MzcsImV4cCI6MTc1OTkyMTQzN30.40KbttGFJXVykkvLAL8S4rIK9U6eaNZsZn9WJrjq26k');
           var config = {
             method: 'POST',
             body: formData,
           };
-          fetch('https://feedback.itarian.com/api/images/upload', config)
+          fetch('https://feedback.itarian.com/api/files/upload', config)
             .then(response => response.json())
-            .then((result: { imageURL: string; error: string }) => {
+            .then((result: { fileURL: string; error: string }) => {
               setLoading(false);
-              console.log('upload hoa image', result);
-              if (result.imageURL) {
-                console.log('upload hoa image', result.imageURL);
+              console.log('upload hoa image', result, JSON.stringify(config?.body));
+              if (result.fileURL) {
+                console.log('upload hoa image', result.fileURL);
                 setImageData((state: ImageType[]) => {
-                  return [...state, { uri: result?.imageURL, id: uuid() }];
+                  return [...state, { uri: result?.fileURL, id: uuid() }];
                 });
               }
               if (result.error) {
@@ -228,7 +229,7 @@ export const CreateComment = () => {
             height: moderateVerticalScale(25, 0),
             opacity: 0.7,
             fontSize: 14,
-            fontFamily: 'sans-serif-medium',
+            fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
           }}>
           Add Image/s
         </Text>
@@ -257,7 +258,7 @@ export const CreateComment = () => {
                   height: moderateVerticalScale(25, 0),
                   opacity: 0.7,
                   fontSize: 14,
-                  fontFamily: 'sans-serif-medium',
+                  fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
                 }}>
                 Upload Image
               </Text>

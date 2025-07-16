@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Platform, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import { useHookstate, State } from '@hookstate/core';
 import { Theme, useTheme } from '@react-navigation/native';
@@ -158,7 +158,7 @@ const CstmItemSelector = ({ route, navigation }: any) => {
                     {item.code && (
                       <Text
                         style={{
-                          fontFamily: 'fontyawesome',
+                          fontFamily: Platform.OS === 'android' ? 'fontyawesome' : 'FontAwesome',
                           color: colors.text,
                           fontSize: 18,
                           textAlignVertical: 'center',

@@ -450,7 +450,7 @@ export default function Post() {
               style={{
                 color: colors.text + '88',
                 fontSize: 20,
-                fontFamily: 'sans-serif-medium',
+                fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
               }}>
               No Comments Yet!
             </Text>
@@ -769,7 +769,7 @@ export default function Post() {
                 style={{
                   color: colors.text,
                   fontSize: 16,
-                  fontFamily: 'sans-serif-medium',
+                  fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
                 }}>
                 Delete Comment
               </Text>

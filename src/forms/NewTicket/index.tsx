@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { Platform, ScrollView, StyleSheet } from 'react-native';
 import { useHookstate } from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { ModalView, SingleLineField } from '../../components';
 import { DataItem as Item } from '../../types';
@@ -153,15 +154,28 @@ export default function NewTicket({ route, navigation }: any) {
 
   return (
     <ModalView>
-      {showDate && (
-        <DatePicker
-          mode={'date'}
-          value={new Date()}
-          minimumDate={new Date()}
-          onChange={onChangeDate}
-          positiveButtonLabel={'Set Due Date'}
-        />
-      )}
+      {showDate &&
+        (Platform.OS == 'android' ? (
+          <DatePicker
+            mode={'date'}
+            display="calendar"
+            value={new Date()}
+            minimumDate={new Date()}
+            onChange={onChangeDate}
+            positiveButtonLabel={'Set Due Date'}
+          />
+        ) : (
+          <DateTimePickerModal
+            isVisible={showDate}
+            mode="date"
+            onConfirm={date => {
+              dataSource[2].title = date?.toDateString();
+              setDataSource([...dataSource]);
+              setShowDate(false);
+            }}
+            onCancel={() => setShowDate(false)}
+          />
+        ))}
       <ScrollView>
         {dataSource?.map((value: Item, index: number) => (
           <SingleLineField

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Platform, SafeAreaView } from 'react-native';
 import {
   View,
   Image,
@@ -94,7 +95,8 @@ const LoginScreen = ({ navigation }: NativeStackHeaderProps) => {
   // };
 
   return (
-    <View style={{ height: WINDOW_HEIGHT }}>
+  <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <View style={{ flex: 1, height: WINDOW_HEIGHT }}>
       <View style={styles.imageContainer}>
         <Image
           source={Images.Logo}
@@ -207,9 +209,7 @@ const LoginScreen = ({ navigation }: NativeStackHeaderProps) => {
           </View> */}
         </KeyboardAvoidingView>
       </ScrollView>
-
-      <Loader isShow={loadingState.get()} />
-
+      {loadingState.get() && <Loader isShow={loadingState.get()} />}
       {/* {showScanner && (
         <BiometricVerification
           onAuthenticate={() => {
@@ -220,6 +220,7 @@ const LoginScreen = ({ navigation }: NativeStackHeaderProps) => {
         />
       )} */}
     </View>
+  </SafeAreaView>
   );
 };
 

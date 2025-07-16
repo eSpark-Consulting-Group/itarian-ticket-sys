@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Platform } from 'react-native';
 import {
   useIsFocused,
   useNavigation,
@@ -7,6 +7,7 @@ import {
 } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
 import DatePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { SingleLineField } from '../../components';
 import { DataItem as Item } from '../../types/index';
@@ -200,15 +201,29 @@ const Overview = () => {
     <ScrollView
       style={styles.container}
       contentContainerStyle={{ alignItems: 'center' }}>
-      {showDate && (
-        <DatePicker
-          mode={'date'}
-          value={new Date()}
-          minimumDate={new Date()}
-          onChange={onChangeDate}
-          positiveButtonLabel={'Set Due Date'}
-        />
-      )}
+      {showDate &&
+        (Platform.OS == 'android' ? (
+          <DatePicker
+            mode={'date'}
+            display="calendar"
+            value={new Date()}
+            minimumDate={new Date()}
+            onChange={onChangeDate}
+            positiveButtonLabel={'Set Due Date'}
+          />
+        ) : (
+          <DateTimePickerModal
+            isVisible={showDate}
+            mode="date"
+            onConfirm={date => {
+              console.log('Selected date:', date);
+              Ds[2].title = date?.toDateString();
+              setDs([...Ds]);
+              setShowDate(false);
+            }}
+            onCancel={() => setShowDate(false)}
+          />
+        ))}
       {Ds.map((item: Item, index: number) => (
         <SingleLineField
           key={index}

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -177,7 +178,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         <Text
           style={{
             fontSize: 12,
-            fontFamily: 'sans-serif-medium',
+            fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
             color: '#ffffff',
           }}>
           Build version ({BUILD_VERSION})
@@ -523,7 +524,7 @@ const CstmHeader = ({
         style={{
           color: '#fff',
           fontSize: 20,
-          fontFamily: 'sans-serif-medium',
+          fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
           textAlign: 'center',
         }}>
         {title}

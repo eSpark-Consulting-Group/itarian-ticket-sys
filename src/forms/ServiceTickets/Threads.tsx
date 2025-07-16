@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Platform } from 'react-native';
 import { useTheme, Theme } from '@react-navigation/native';
 import { useHookstate } from '@hookstate/core';
 import moment from 'moment';
@@ -90,7 +90,7 @@ const Threads = () => {
             color: colors.text,
             fontSize: 22,
             fontWeight: 'bold',
-            fontFamily: 'sans-serif-medium',
+            fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
             letterSpacing: 0.5,
           }}>
           {item?.attributes?.title}

@@ -5,6 +5,7 @@ import {
   View,
   ViewStyle,
   KeyboardTypeOptions,
+  Platform,
 } from 'react-native';
 import { Switch } from 'react-native-paper';
 import { Theme, useTheme } from '@react-navigation/native';
@@ -189,7 +190,7 @@ const SingleLineField = ({
                               style={{
                                 color: '#ffffff',
                                 ...styles.title,
-                                fontFamily: 'sans-serif-medium',
+                                fontFamily: Platform.OS === 'android' ? 'sans-serif-medium': 'OpenSans-Medium',
                                 width: titleWidth,
                                 backgroundColor: colors.primary,
                                 borderRadius: 5,

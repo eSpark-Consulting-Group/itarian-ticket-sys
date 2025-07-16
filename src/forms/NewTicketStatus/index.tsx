@@ -207,7 +207,7 @@ const NewTicketStatus = ({ route, navigation }: any) => {
         <View>
           <Text
             style={{
-              fontFamily: 'fontyawesome',
+              fontFamily: 'FontAwesome',
               color: colors.text,
               fontSize: 18,
               textAlignVertical: 'center',

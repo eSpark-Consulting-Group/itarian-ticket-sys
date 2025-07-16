@@ -8,6 +8,7 @@ import {
   Image,
   LayoutAnimation,
   TextInput,
+  Platform,
 } from 'react-native';
 import {
   useTheme,
@@ -334,7 +335,7 @@ const SendFeedbackScreen = () => {
               {moment(item?.created).format('MMM DD')}
             </Text>
           </View>
-          <Text style={{ color: colors.text, fontFamily: 'sans-serif-medium' }}>
+          <Text style={{ color: colors.text, fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium' }}>
             Status: {item?.status?.toUpperCase()}
           </Text>
         </View>
@@ -423,7 +424,7 @@ const SendFeedbackScreen = () => {
             numberOfLines={2}>
             {item.name}
           </Text>
-          <Text style={{ color: colors.text, fontFamily: 'sans-serif-medium' }}>
+          <Text style={{ color: colors.text, fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium' }}>
             Posts: {item.postCount}
           </Text>
         </View>

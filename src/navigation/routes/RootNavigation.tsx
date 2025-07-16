@@ -78,7 +78,7 @@ const App = () => {
     });
 
     const unsubscribe = NetInfo.addEventListener(state => {
-      setIsConnected(state.isInternetReachable);
+      setIsConnected(state.isConnected);
     });
     return () => {
       unsubscribe();

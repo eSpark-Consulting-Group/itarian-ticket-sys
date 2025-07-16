@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -94,7 +94,7 @@ const TicketComponent = ({
                   opacity: 0.65,
                 }}>
                 <Text
-                  style={{ color: '#ffffff', fontFamily: 'sans-serif-medium' }}>
+                  style={{ color: '#ffffff', fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium' }}>
                   Overdue
                 </Text>
               </View>

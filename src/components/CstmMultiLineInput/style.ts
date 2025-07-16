@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { moderateVerticalScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     height: moderateVerticalScale(25, 0),
     opacity: 0.7,
     fontSize: 14,
-    fontFamily: 'sans-serif-medium',
+    fontFamily: Platform.OS === 'android' ?  'sans-serif-medium' : 'OpenSans-Medium',
   },
   multilineDisplay: {
     height: moderateVerticalScale(105, 0),

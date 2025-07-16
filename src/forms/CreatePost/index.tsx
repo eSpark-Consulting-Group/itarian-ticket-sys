@@ -29,8 +29,10 @@ import {
   GapView,
   Loader,
 } from '../../components';
-import { createPost, getCategories } from '../../screens/SendFeedback/utils';
-import { Canny_CreatePost } from '../../types';
+import { createPost, getCategories, getUserByEmail } from '../../screens/SendFeedback/utils';
+import { Canny_CreatePost, User } from '../../types';
+import { State, useHookstate } from '@hookstate/core';
+import { userStore } from '../../stores/userStore';
 
 interface ImageType {
   id: number;
@@ -46,6 +48,9 @@ if (Platform.OS === 'android') {
 const duration = 2000;
 
 const CreatePost = () => {
+  const userObj: State<User> = useHookstate(userStore);
+  const { email, user_name, userId }: any = userObj?.user.get();
+
   const navigation: any = useNavigation();
   const { colors, dark } = useTheme();
   const [loading, setLoading] = useState(false);
@@ -63,6 +68,8 @@ const CreatePost = () => {
     details: '',
     imageURLs: [],
   });
+  const [cannyUser, setCannyUser] = useState<any>();
+  
   const iskeyboardShown = useRef(false);
 
   const handleLabel = (value: { id?: string; name?: string }, type: string) => {
@@ -86,7 +93,35 @@ const CreatePost = () => {
       })
       // make sure to catch any error
       .catch(err => setLoading(false));
+      fetchUser(email);
   }, []);
+
+    const fetchUser = async (email?: string) => {
+      console.log(email);
+      if (email) {
+        setLoading(true);
+        getUserByEmail({ email: email })
+          .then(res => {
+            if (res?.ok) {
+              console.log('User already created!', res?.data);
+              setCannyUser(res?.data);
+              //* User found
+              //todo: Show post and store in state userId of User
+            } else {
+              if (res?.data?.error === 'invalid email') {
+                // handleCreateUser(first_name + last_name);
+                //! No User Found
+                //todo: Create User then show posts
+              }
+              console.log('No User Found', res?.data);
+            }
+          })
+          .catch(err => {
+            console.log('user', err);
+            setLoading(false);
+          });
+      }
+    };
 
   const handleCategories = (data: any[]) => {
     const tempArr = data.map(item => {
@@ -207,7 +242,7 @@ const CreatePost = () => {
             method: 'POST',
             body: formData,
           };
-          fetch('https://feedback.itarian.com/api/images/upload', config)
+          fetch('https://feedback.itarian.com/api/files/upload', config)
             .then(response => response.json())
             .then((result: { imageURL: string; error: string }) => {
               setLoading(false);
@@ -263,7 +298,7 @@ const CreatePost = () => {
             height: moderateVerticalScale(25, 0),
             opacity: 0.7,
             fontSize: 14,
-            fontFamily: 'sans-serif-medium',
+            fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
           }}>
           Select Image
         </Text>
@@ -292,7 +327,7 @@ const CreatePost = () => {
                   height: moderateVerticalScale(25, 0),
                   opacity: 0.7,
                   fontSize: 14,
-                  fontFamily: 'sans-serif-medium',
+                  fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
                 }}>
                 Upload Image
               </Text>
@@ -327,11 +362,12 @@ const CreatePost = () => {
     const req: Canny_CreatePost = {
       ...postData,
       boardID: '63185908b6e18a2a54582097',
-      authorID: '6391eb3af8764e24a1536991',
+      authorID:  cannyUser?.id //'6391eb3af8764e24a1536991',
     };
     console.log('Sending Request Body', req);
     createPost(req)
       .then(res => {
+        console.log("Response:", res);
         if (res.ok) {
           console.log(res?.data);
           setLoading(false);
@@ -355,6 +391,8 @@ const CreatePost = () => {
       });
   };
 
+  console.log("fetchUser", cannyUser?.id, cannyUser?.userID);
+  
   return (
     <>
       <Loader isShow={loading} />

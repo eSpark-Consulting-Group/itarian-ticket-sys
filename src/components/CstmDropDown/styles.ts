@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { moderateVerticalScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   labelText: {
-    fontFamily: 'sans-serif-medium',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
     fontSize: 14,
     opacity: 0.7,
     height: 25,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   dropDownText: {
-    fontFamily: 'sans-serif-medium',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
     fontSize: 14,
   },
   dropDownContainer: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   itemText: {
-    fontFamily: 'sans-serif-medium',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'OpenSans-Medium',
     fontSize: 14,
   },
 });

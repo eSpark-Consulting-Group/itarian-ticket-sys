@@ -1,8 +1,8 @@
 import { Linking, Platform } from 'react-native';
-import {
-  AppInstalledChecker,
-  // @ts-ignore
-} from 'react-native-check-app-install';
+// import {
+//   AppInstalledChecker,
+//   // @ts-ignore
+// } from 'react-native-check-app-install';
 import * as ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker, { types } from 'react-native-document-picker';
 import { ShortcutItem } from 'react-native-quick-actions';
@@ -12,22 +12,42 @@ import { Buffer } from 'buffer';
 import { alert_Dur } from '../constants';
 import { createUser } from '../screens/SendFeedback/utils';
 
-export const getNavigtionApps = async () => {
-  const Androidpackages = [
-    { package: 'com.waze', name: 'Waze' },
+// export const getNavigtionApps = async () => {
+//   const Androidpackages = [
+//     { package: 'com.waze', name: 'Waze' },
+//     { package: 'com.google.android.apps.maps', name: 'Google Maps' },
+//   ];
+//   const arr: any = [];
+//   for (let index = 0; index < Androidpackages.length; index++) {
+//     const element: any = Androidpackages[index];
+//     const isInstalled = await AppInstalledChecker.checkPackageName(
+//       element.package,
+//     );
+//     if (isInstalled) {
+//       arr.push(element);
+//     }
+//   }
+//   return arr;
+// };
+
+import DeviceInfo from 'react-native-device-info';
+
+export const getNavigationApps = async () => {
+  const deviceInfoAny = DeviceInfo as any;
+
+  const installedApps: string[] =
+    await deviceInfoAny.getInstalledApplications?.();
+
+  const targetPackages = [
     { package: 'com.google.android.apps.maps', name: 'Google Maps' },
+    { package: 'com.waze', name: 'Waze' },
   ];
-  const arr: any = [];
-  for (let index = 0; index < Androidpackages.length; index++) {
-    const element: any = Androidpackages[index];
-    const isInstalled = await AppInstalledChecker.checkPackageName(
-      element.package,
-    );
-    if (isInstalled) {
-      arr.push(element);
-    }
-  }
-  return arr;
+
+  const availableApps = targetPackages.filter(app =>
+    installedApps.includes(app.package),
+  );
+
+  return availableApps;
 };
 
 export const uploadProfilePicToCanny = async (

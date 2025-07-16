@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Alert, Platform } from 'react-native';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
+import ReactNativeBiometrics from 'react-native-biometrics';
 
 const BiometricVerification = ({
   onAuthenticate,
@@ -9,49 +9,34 @@ const BiometricVerification = ({
   onCancel: () => void;
   onAuthenticate: () => void;
 }) => {
-  const [errorMessageLegacy, setErrorMessageLegacy] = useState(undefined);
-  const [biometricLegacy, setBiometricLegacy] = useState(undefined);
-
   useEffect(() => {
-    if (requiresLegacyAuthentication()) {
-      authLegacy();
-    } else {
-      authCurrent();
-    }
+    authenticateUser();
   }, []);
 
-  const requiresLegacyAuthentication = () => {
-    return Platform.Version < 23;
-  };
+  const authenticateUser = async () => {
+    const rnBiometrics = new ReactNativeBiometrics();
 
-  const authCurrent = () => {
-    FingerprintScanner.authenticate({ title: 'Log in with Biometrics' })
-      .then(() => {
-        onAuthenticate();
-        FingerprintScanner.release();
+    const { available, biometryType } = await rnBiometrics.isSensorAvailable();
+    if (!available) {
+      Alert.alert('Biometric not available');
+      onCancel();
+      return;
+    }
+
+    rnBiometrics
+      .simplePrompt({ promptMessage: 'Log in with Biometrics' })
+      .then(resultObject => {
+        const { success } = resultObject;
+        if (success) {
+          onAuthenticate();
+        } else {
+          onCancel();
+        }
       })
-      .catch(error => {
-        console.log('Authentication error is => ', error);
+      .catch(() => {
+        Alert.alert('Authentication failed or cancelled');
         onCancel();
-        FingerprintScanner.release();
       });
-  };
-
-  const authLegacy = () => {
-    FingerprintScanner.authenticate({
-      onAttempt: handleAuthenticationAttemptedLegacy,
-    })
-      .then(() => {
-        Alert.alert('Fingerprint Authentication', 'Authenticated successfully');
-      })
-      .catch(error => {
-        setBiometricLegacy(error.message);
-        setErrorMessageLegacy(error.biometric);
-      });
-  };
-
-  const handleAuthenticationAttemptedLegacy = (error: any) => {
-    setErrorMessageLegacy(error.message);
   };
 
   return null;

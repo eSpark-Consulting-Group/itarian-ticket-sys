@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, Image, Alert } from 'react-native';
 import { Theme, useTheme } from '@react-navigation/native';
 import II from 'react-native-vector-icons/Ionicons';
 import AndroidOpenSettings from 'react-native-android-open-settings';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
+import ReactNativeBiometrics from 'react-native-biometrics';
 import { State, useHookstate } from '@hookstate/core';
 // @ts-ignore
 import store from 'react-native-simple-store';
@@ -61,15 +61,19 @@ const PinScreen = ({ route, navigation }: any) => {
   }, [pin]);
 
   const handleScanner = () => {
-    //! do not remove
-    FingerprintScanner.isSensorAvailable()
-      .then(biometryType => {
-        console.log('Biometric', biometryType);
-        setShowScanners(true);
+    const rnBiometrics = new ReactNativeBiometrics();
+    rnBiometrics
+      .isSensorAvailable()
+      .then(({ available, biometryType }) => {
+        if (available) {
+          console.log('Biometric type:', biometryType);
+          setShowScanners(true);
+        } else {
+          Alert.alert('Biometric authentication not available');
+        }
       })
       .catch(error => {
-        setShowScanners(false);
-        Alert.alert(error.name, error.message, [
+        Alert.alert('Error', error.message, [
           {
             text: 'Open Security',
             style: 'default',

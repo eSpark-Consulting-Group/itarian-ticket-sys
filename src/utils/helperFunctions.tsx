@@ -435,7 +435,7 @@ export function create_UUID() {
 
 export const showMessageSafe = (options: MessageOptions) => {
   flashShowMessage({
-    statusBarHeight: initialWindowMetrics?.insets.top || 0,
+    statusBarHeight: Platform.OS == "ios" ? initialWindowMetrics?.insets.top || 0 : undefined,
     ...options,
   });
 };

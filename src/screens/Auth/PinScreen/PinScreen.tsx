@@ -17,6 +17,7 @@ import { useUpdateEffect } from '../../../utils/hooks';
 import { userStore } from '../../../stores/userStore';
 import { alert_Dur } from '../../../constants';
 import { User } from '../../../types';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const PinScreen = ({ route, navigation }: any) => {
   const user: State<User> = useHookstate(userStore);
@@ -49,7 +50,7 @@ const PinScreen = ({ route, navigation }: any) => {
         });
         setConfirmPin(false);
       } else {
-        showMessage({
+        showMessageSafe({
           message: 'Incorrect PIN Entered',
           type: 'danger',
           icon: 'auto',

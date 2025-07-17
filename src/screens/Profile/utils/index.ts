@@ -2,6 +2,7 @@ import { showMessage } from 'react-native-flash-message';
 import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const filterUser = async (params: string = '') => {
   const user: any = userStore?.user?.get();
@@ -37,7 +38,7 @@ const updateUser = async (id: number, data: any) => {
   try {
     const result: any = await api.patch(`/users/${id}`, data);
     if (result?.ok) {
-      showMessage({
+      showMessageSafe({
         message: 'profile updated successfully',
         type: 'success',
         duration: alert_Dur,

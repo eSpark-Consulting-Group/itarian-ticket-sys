@@ -9,7 +9,7 @@ import { alert_Dur } from '../../constants';
 import { addCollaborator } from '../../screens/Agenda/utils/functions';
 import { addUser } from '../../screens/Contacts/utils/functions';
 import { userStore } from '../../stores/userStore';
-import { create_UUID } from '../../utils/helperFunctions';
+import { create_UUID, showMessageSafe } from '../../utils/helperFunctions';
 
 export const CreateUser = () => {
   const route: any = useRoute();
@@ -20,7 +20,7 @@ export const CreateUser = () => {
 
   const onCreate = async () => {
     if (!Boolean(name) || !Boolean(email)) {
-      showMessage({
+      showMessageSafe({
         message: 'Please fill required fields',
         type: 'warning',
         icon: 'auto',
@@ -65,7 +65,7 @@ export const CreateUser = () => {
         },
       });
       if (response?.status) {
-        showMessage({
+        showMessageSafe({
           message: 'Collaborator added Successfully',
           type: 'success',
           icon: 'auto',
@@ -73,7 +73,7 @@ export const CreateUser = () => {
         });
         navigation.goBack();
       } else {
-        showMessage({
+        showMessageSafe({
           message:
             result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
           type: 'danger',

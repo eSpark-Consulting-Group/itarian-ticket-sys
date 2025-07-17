@@ -200,7 +200,7 @@ const Overview = () => {
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={{ alignItems: 'center' }}>
+      contentContainerStyle={{ alignItems: 'center', paddingBottom: 50 }}>
       {showDate &&
         (Platform.OS == 'android' ? (
           <DatePicker
@@ -226,7 +226,7 @@ const Overview = () => {
         ))}
       {Ds.map((item: Item, index: number) => (
         <SingleLineField
-          key={index}
+          key={item.key ?? item.title + index}
           title={item.title}
           subTitle={item.isRequired ? item.subTitle + '*' : item.subTitle}
           onPress={

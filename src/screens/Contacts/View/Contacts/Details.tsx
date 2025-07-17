@@ -6,7 +6,7 @@ import { showMessage } from 'react-native-flash-message';
 import { FloatButton, Loader, SingleLineField } from '../../../../components';
 import { DataItem as Item } from '../../../../types';
 import _ from 'lodash';
-import { create_UUID, SelectItems } from '../../../../utils/helperFunctions';
+import { create_UUID, SelectItems, showMessageSafe } from '../../../../utils/helperFunctions';
 import { deleteUser } from '../../utils/functions';
 import { StaffRole } from '../../../../constants/SampleArrays';
 
@@ -149,7 +149,7 @@ export default function Details() {
         if (res?.status) {
           navigation?.goBack();
         } else {
-          showMessage({
+           showMessageSafe({
             message:
               res?.message?.data?.errors[0]?.detail ??
               res?.message?.data?.errors[0]?.title ??

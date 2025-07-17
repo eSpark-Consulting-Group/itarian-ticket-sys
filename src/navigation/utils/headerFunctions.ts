@@ -5,18 +5,19 @@ import Images from '../../assets/Images';
 import { noteList } from '../../constants/SampleArrays';
 import { globalState } from '../../stores/globalAppState';
 import { alert_Dur } from '../../constants';
+import { showMessageSafe } from '../../utils/helperFunctions';
 
 const saveStatus = (navigation: any, route: any, globalStates: any) => {
   console.log('route.params', route?.params);
   if (route.params?.status && route.params?.backDate == '-') {
-    showMessage({
+    showMessageSafe({
       message: 'Please select Date Back',
       type: 'warning',
       icon: 'warning',
       duration: alert_Dur,
     });
   } else {
-    showMessage({
+    showMessageSafe({
       message: 'Status Updated Successfully',
       type: 'success',
       icon: 'auto',
@@ -62,7 +63,7 @@ const onSave = (navigation: any, route: any, globalStates?: any) => {
       note: route?.params?.notes,
       type: route?.params?.type,
     });
-    showMessage({
+    showMessageSafe({
       message: 'Note added Successfully',
       type: 'success',
       icon: 'auto',

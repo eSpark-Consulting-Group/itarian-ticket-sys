@@ -6,7 +6,7 @@ import { State, useHookstate } from '@hookstate/core';
 
 import { FloatButton, Loader, SingleLineField } from '../../../../components';
 import { DataItem as Item } from '../../../../types';
-import { SelectItems } from '../../../../utils/helperFunctions';
+import { SelectItems, showMessageSafe } from '../../../../utils/helperFunctions';
 import { deleteUser } from '../../utils/functions';
 import { StaffRole } from '../../../../constants/SampleArrays';
 import { globalState } from '../../../../stores/globalAppState';
@@ -289,7 +289,7 @@ export default function StaffDetails() {
         if (res?.status) {
           navigation?.goBack();
         } else {
-          showMessage({
+          showMessageSafe({
             message:
               res?.message?.data?.errors[0]?.detail ??
               res?.message?.data?.errors[0]?.title ??

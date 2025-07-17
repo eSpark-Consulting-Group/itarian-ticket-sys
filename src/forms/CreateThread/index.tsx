@@ -17,6 +17,7 @@ import {
 import { alert_Dur } from '../../constants';
 import { createTicketThread } from '../../screens/Agenda/utils/functions';
 import { userStore } from '../../stores/userStore';
+import { showMessageSafe } from '../../utils/helperFunctions';
 
 export const CreateThread = () => {
   const { colors }: Theme = useTheme();
@@ -61,7 +62,7 @@ export const CreateThread = () => {
       );
       console.log('result result result', result);
       if (result?.status) {
-        showMessage({
+        showMessageSafe({
           message: 'Thread added Successfully',
           type: 'success',
           icon: 'auto',
@@ -69,7 +70,7 @@ export const CreateThread = () => {
         });
         navigation.goBack();
       } else {
-        showMessage({
+        showMessageSafe({
           message:
             result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
           type: 'danger',

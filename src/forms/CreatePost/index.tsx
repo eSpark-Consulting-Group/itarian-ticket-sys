@@ -33,6 +33,7 @@ import { createPost, getCategories, getUserByEmail } from '../../screens/SendFee
 import { Canny_CreatePost, User } from '../../types';
 import { State, useHookstate } from '@hookstate/core';
 import { userStore } from '../../stores/userStore';
+import { showMessageSafe } from '../../utils/helperFunctions';
 
 interface ImageType {
   id: number;
@@ -255,7 +256,7 @@ const CreatePost = () => {
               }
               if (result.error) {
                 setLoading(false);
-                showMessage({
+                showMessageSafe({
                   message: result.error,
                   type: 'danger',
                   icon: 'auto',
@@ -266,7 +267,7 @@ const CreatePost = () => {
             .catch(error => {
               setLoading(false);
               console.log('error', error);
-              showMessage({
+              showMessageSafe({
                 message: error[0],
                 type: 'danger',
                 icon: 'auto',
@@ -280,7 +281,7 @@ const CreatePost = () => {
       .catch(err => {
         console.log('err', err);
         setLoading(false);
-        showMessage({
+        showMessageSafe({
           message: err.message,
           type: 'danger',
           icon: 'auto',
@@ -372,7 +373,7 @@ const CreatePost = () => {
           console.log(res?.data);
           setLoading(false);
           navigation.goBack();
-          showMessage({
+          showMessageSafe({
             message: 'Succesfully Created Post',
             type: 'success',
             icon: 'auto',
@@ -382,7 +383,7 @@ const CreatePost = () => {
       .catch(err => {
         console.log('err', err);
         setLoading(false);
-        showMessage({
+        showMessageSafe({
           message: err,
           type: 'danger',
           icon: 'auto',

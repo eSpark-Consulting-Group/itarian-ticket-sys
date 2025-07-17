@@ -6,7 +6,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
-import { encodedUserDataToken } from '../../../utils/helperFunctions';
+import { encodedUserDataToken, showMessageSafe } from '../../../utils/helperFunctions';
 
 const credentialsObj = {
   email: 'heroadmin@yopmail.com',
@@ -59,7 +59,7 @@ const handleLoginUser = async (
 
       store.update('user', userObj);
       userStore?.user?.set(userObj);
-      showMessage({
+      showMessageSafe({
         message: 'Authentication Successful',
         type: 'success',
         icon: 'auto',
@@ -68,14 +68,14 @@ const handleLoginUser = async (
       });
       // navigation.navigate('Draw');
     } else {
-      showMessage({
+      showMessageSafe({
         message: 'Incorrect Email or Password',
         type: 'danger',
         icon: 'auto',
       });
     }
     if (resData.code == 'ERR_USER_NOT_FOUND') {
-      showMessage({
+      showMessageSafe({
         message: 'Incorrect Email or Password',
         type: 'danger',
         icon: 'auto',
@@ -94,7 +94,7 @@ const handleLoginUser = async (
         navigation.navigate('Pin', { newPin: true });
         userObj['sessionId'] = camSessionId;
       } else {
-        showMessage({
+        showMessageSafe({
           message: 'Authentication Successful',
           type: 'success',
           icon: 'auto',
@@ -124,7 +124,7 @@ const handleLoginUser = async (
     }
   } else {
     globalState.loader.set(false);
-    showMessage({
+    showMessageSafe({
       message: 'Incorrect Email or Password',
       type: 'danger',
       icon: 'auto',
@@ -144,7 +144,7 @@ const requestSmsOtp = async (data: any, navigation: any) => {
     globalState.loader.set(false);
     console.log('requestSmsOtp', response.data, data);
     if (resData?.code == 'ERR_OTP_VERIFICATION_CODE_ATTEMPT_LIMIT_REACHED') {
-      showMessage({
+      showMessageSafe({
         message: 'Too many login attempts try again after 1 hour',
         type: 'danger',
         icon: 'auto',
@@ -152,7 +152,7 @@ const requestSmsOtp = async (data: any, navigation: any) => {
       });
     }
     if (resData?.code == 'ERR_OTP_KEY_INVALID') {
-      showMessage({
+      showMessageSafe({
         message: 'OTP key is invalid',
         type: 'danger',
         icon: 'auto',
@@ -183,7 +183,7 @@ const handleVerifyOTP = async (data: any) => {
     const resData: any = response.data;
     globalState.loader.set(false);
     if (resData?.code == 'ERR_OTP_INVALID') {
-      showMessage({
+      showMessageSafe({
         message: 'You enter invalid OTP!',
         type: 'danger',
         icon: 'auto',
@@ -194,7 +194,7 @@ const handleVerifyOTP = async (data: any) => {
     if (resData.code == 'SUCCESS_AUTHENTICATION') {
       const { data } = resData;
       const { displayName, email, userId } = data?.sessionData;
-      showMessage({
+      showMessageSafe({
         message: 'Authentication Successful',
         type: 'success',
         icon: 'auto',

@@ -4,6 +4,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllTeams = async () => {
   const user: any = userStore?.user?.get();
@@ -52,7 +53,7 @@ const deleteTeams = async (id: number) => {
     const result: any = await api.delete(`/teams/${id}`);
     if (result?.ok) {
       getAllTeams();
-      showMessage({
+      showMessageSafe({
         message: 'Teams deleted successfully',
         type: 'success',
         duration: alert_Dur,

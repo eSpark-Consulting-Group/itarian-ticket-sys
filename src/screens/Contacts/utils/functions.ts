@@ -3,6 +3,7 @@ import { showMessage } from 'react-native-flash-message';
 import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllUsers = async () => {
   const user: any = userStore?.user?.get();
@@ -61,7 +62,7 @@ const deleteUser = async (id: number) => {
     const result: any = await api.delete(`/users/${id}`);
     if (result?.ok) {
       getAllUsers();
-      showMessage({
+      showMessageSafe({
         message: 'User deleted successfully',
         type: 'success',
         duration: alert_Dur,

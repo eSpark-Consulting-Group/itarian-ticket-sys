@@ -144,7 +144,7 @@ const SettingsScreen = () => {
           title="Current Theme"
           titleStyle={{ color: colors.text, opacity: 0.75 }}
           right={() => (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <List.Icon
                 icon="weather-sunny"
                 color={colors.primary}

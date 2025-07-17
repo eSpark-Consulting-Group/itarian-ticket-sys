@@ -3,6 +3,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAlldepartments = async () => {
   const user: any = userStore.user.get();
@@ -51,7 +52,7 @@ const deleteDepartment = async (id: number) => {
     const result: any = await api.delete(`/departments/${id}`);
     if (result?.ok) {
       getAlldepartments();
-      showMessage({
+      showMessageSafe({
         message: 'Department deleted successfully',
         type: 'success',
         duration: alert_Dur,

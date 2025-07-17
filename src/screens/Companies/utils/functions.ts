@@ -3,6 +3,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { companyStore } from '../../../stores/companyStore';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 let companiesCache: any;
 
@@ -88,7 +89,7 @@ export const deleteOrganization = async (id: number) => {
     const result: any = await api.delete(`/organizations/${id}`);
     if (result?.ok) {
       getAllCompanies(false);
-      showMessage({
+      showMessageSafe({
         message: 'Organization deleted successfully',
         type: 'success',
         duration: alert_Dur,

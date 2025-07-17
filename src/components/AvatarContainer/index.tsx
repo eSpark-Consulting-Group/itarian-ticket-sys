@@ -48,7 +48,7 @@ const AvatarContainer = ({
           onPress={() => {
             setVisible(true);
           }}
-          style={{ position: 'absolute', right: 0, bottom: 0 }}>
+          style={{ position: 'absolute', right: 0, bottom: 0, borderRadius: 1000, overflow: 'hidden' }}>
           <II
             name="camera-outline"
             color={'#fff'}

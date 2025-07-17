@@ -4,6 +4,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllTicketPriorities = async () => {
   const user: any = userStore.user.get();
@@ -52,7 +53,7 @@ const deletePriorities = async (id: number) => {
     const result: any = await api.delete(`/ticketpriorities/${id}`);
     if (result?.ok) {
       getAllTicketPriorities();
-      showMessage({
+      showMessageSafe({
         message: 'SlaPlan deleted successfully',
         type: 'success',
         duration: alert_Dur,

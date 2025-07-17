@@ -4,6 +4,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllSlaPlans = async () => {
   const user: any = userStore?.user?.get();
@@ -52,7 +53,7 @@ const deleteSlaPlan = async (id: number) => {
     const result: any = await api.delete(`/slaplans/${id}`);
     if (result?.ok) {
       getAllSlaPlans();
-      showMessage({
+      showMessageSafe({
         message: 'SlaPlan deleted successfully',
         type: 'success',
         duration: alert_Dur,

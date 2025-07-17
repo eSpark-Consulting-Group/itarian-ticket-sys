@@ -4,6 +4,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllHelpTopics = async () => {
   const user: any = userStore.user.get();
@@ -53,7 +54,7 @@ const deleteHelpTopic = async (id: number) => {
     const result: any = await api.delete(`/helptopics/${id}`);
     if (result?.ok) {
       getAllHelpTopics();
-      showMessage({
+      showMessageSafe({
         message: 'HelpTopic deleted successfully',
         type: 'success',
         duration: alert_Dur,

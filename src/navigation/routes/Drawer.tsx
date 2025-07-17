@@ -61,6 +61,8 @@ import { badgeApiCallForGlobalList } from '../../utils/apiCalls';
 import { ticketStore } from '../../stores/ticketStore';
 import { filterUser } from '../../screens/Profile/utils';
 import { getAllUsers } from '../../screens/Agenda/utils/functions';
+import { Loader } from '../../components';
+import { set } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator<ParamList>();
 
@@ -200,7 +202,7 @@ const Draw = () => {
   const [currMember, setcurrMember] = useState<any>(null);
   const [calCurrMember, setCalCurrMember] = useState<any>(null);
   const [filterCount, setFilterCount] = useState<any>('0');
-
+  const [isFetching, setIsFetching] = useState(false);
   const { colors }: Theme = useTheme();
 
   const noHeader = (): null => null;
@@ -236,278 +238,290 @@ const Draw = () => {
   }, []);
 
   return (
-    <Drawer.Navigator
-      initialRouteName={shortCutScreen?.get() || dScreen.get()}
-      useLegacyImplementation={true}
-      backBehavior="history"
-      drawerContent={props => <DrawerContent {...props} />}
-      screenOptions={{
-        drawerType: 'slide',
-        headerTitleAlign: 'center',
-        headerStyle: {
-          backgroundColor: colors.primary,
-          borderBottomWidth: 1,
-          elevation: 1,
-        },
-        headerTitleStyle: {
-          color: '#ffffff',
-        },
-        drawerActiveTintColor: '#fff',
-        drawerInactiveTintColor: '#fff',
-        drawerItemStyle: {
-          opacity: 0.8,
-        },
+    <>
+      <Drawer.Navigator
+        initialRouteName={shortCutScreen?.get() || dScreen.get()}
+        useLegacyImplementation={true}
+        backBehavior="history"
+        drawerContent={props => <DrawerContent {...props} />}
+        screenOptions={{
+          drawerType: 'slide',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colors.primary,
+            borderBottomWidth: 1,
+            elevation: 1,
+          },
+          headerTitleStyle: {
+            color: '#ffffff',
+          },
+          drawerActiveTintColor: '#fff',
+          drawerInactiveTintColor: '#fff',
+          drawerItemStyle: {
+            opacity: 0.8,
+          },
 
-        headerLeft: () => (
-          <Ionicons
-            size={30}
-            name="menu"
-            color={'#fff'}
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            style={{ left: 10 }}
-          />
-        ),
-      }}>
-      <Drawer.Screen
-        name="Search"
-        component={Search}
-        options={{
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Search</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <Ionicons name="search" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Agenda"
-        component={Agenda}
-        options={{
-          headerTitle: () => (
-            <CstmHeader
-              title="Tickets"
-              subTitle={!currMember ? 'Select Member' : currMember?.name}
-            />
-          ),
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Tickets</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <MCI name="calendar" size={size} color={color} />
-          ),
-          headerRight: () => (
-            <FA
+          headerLeft: () => (
+            <Ionicons
               size={30}
-              name="user"
+              name="menu"
               color={'#fff'}
-              onPress={async () => {
-                await getAllUsers();
-                navigation.navigate('Stack2', {
-                  screen: 'CstmItemSelector',
-                  params: {
-                    from: 'Agenda',
-                    item: 'GoneTo',
-                    data:
-                      users.get()?.filter((val: any) => val?.role != 'user') ||
-                      [],
-                    selected: currMember,
-                    stack: 'Draw',
-                    headerTitle: 'Select Member',
-                    searchable: true,
-                  },
-                });
-              }}
-              style={{ right: 10 }}
+              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              style={{ left: 10 }}
             />
           ),
-        }}
-      />
-      <Drawer.Screen
-        name="Companies"
-        component={Companies}
-        options={{
-          headerRight: noHeader,
-          headerTitle: () => <CstmHeader title="Organizations" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Organizations</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <MCI
-              name="office-building-marker-outline"
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Contacts"
-        component={Contacts}
-        options={{
-          headerTitle: () => <CstmHeader title="Users" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Users & Staffs</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <AD name="contacts" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="Teams"
-        component={Teams}
-        options={{
-          headerTitle: () => <CstmHeader title="Teams" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Teams</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <FA name="group" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="SlaPlan"
-        component={SlaPlans}
-        options={{
-          headerTitle: () => <CstmHeader title="Sla Plan" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Sla Plan</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <MCI name="clock" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="Profile"
-        component={Profile}
-        initialParams={{ status: false }}
-        options={{
-          headerRight: noHeader,
-          drawerItemStyle: { display: 'none' },
-        }}
-      />
-      <Drawer.Screen
-        name="Settings"
-        component={Settings}
-        options={{
-          headerRight: noHeader,
-          drawerItemStyle: { display: 'none' },
-        }}
-      />
-      <Drawer.Screen
-        name="Feedback"
-        component={SendFeedback}
-        initialParams={{ userData: userDetails }}
-        options={{
-          headerRight: noHeader,
-          drawerItemStyle: { display: 'none' },
-        }}
-      />
-      <Drawer.Screen
-        name="TicketPriorities"
-        component={TicketPriorities}
-        options={{
-          headerTitle: () => <CstmHeader title="Ticket Priorities" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Ticket Priorities</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <OI name="north-star" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="TicketStatus"
-        component={TicketStatus}
-        options={{
-          headerTitle: () => <CstmHeader title="Ticket Status" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Ticket Status</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <EI name="squared-plus" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="Departments"
-        component={Departments}
-        options={{
-          headerTitle: () => <CstmHeader title="Departments" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Departments</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <MCI name="home-group" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="Locations"
-        component={Locations}
-        options={{
-          headerTitle: () => <CstmHeader title="Locations" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Locations</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <EI name="location" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="HelpTopics"
-        component={HelpTopics}
-        options={{
-          headerTitle: () => <CstmHeader title="Help Topics" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Help Topics</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <Ionicons name="newspaper-outline" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="CannedResponse"
-        component={CannedResponse}
-        options={{
-          headerTitle: () => <CstmHeader title="Canned Response" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Canned Response</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <FA name="certificate" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-      <Drawer.Screen
-        name="Groups"
-        component={Groups}
-        options={{
-          headerTitle: () => <CstmHeader title="Groups" />,
-          drawerLabel: ({ color, focused }) => (
-            <Text style={{ right: 20, color }}>Groups</Text>
-          ),
-          drawerIcon: ({ color, size, focused }) => (
-            <MCI name="group" size={size} color={color} />
-          ),
-          headerRight: noHeader,
-        }}
-      />
-    </Drawer.Navigator>
+        }}>
+        <Drawer.Screen
+          name="Search"
+          component={Search}
+          options={{
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Search</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <Ionicons name="search" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Agenda"
+          component={Agenda}
+          options={{
+            headerTitle: () => (
+              <CstmHeader
+                title="Tickets"
+                subTitle={!currMember ? 'Select Member' : currMember?.name}
+              />
+            ),
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Tickets</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <MCI name="calendar" size={size} color={color} />
+            ),
+            headerRight: () => (
+              <FA
+                size={30}
+                name="user"
+                color={'#fff'}
+                onPress={async () => {
+                  console.log("awda");
+                  
+                  try {
+                    setIsFetching(true);
+                    await getAllUsers();
+                    setIsFetching(false);
+                    navigation.navigate('Stack2', {
+                      screen: 'CstmItemSelector',
+                      params: {
+                        from: 'Agenda',
+                        item: 'GoneTo',
+                        data:
+                          users
+                            .get()
+                            ?.filter((val: any) => val?.role != 'user') || [],
+                        selected: currMember,
+                        stack: 'Draw',
+                        headerTitle: 'Select Member',
+                        searchable: true,
+                      },
+                    });
+                  } catch (error) {
+                    setIsFetching(false);
+                  }
+                }}
+                style={{ right: 10 }}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Companies"
+          component={Companies}
+          options={{
+            headerRight: noHeader,
+            headerTitle: () => <CstmHeader title="Organizations" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Organizations</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <MCI
+                name="office-building-marker-outline"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Contacts"
+          component={Contacts}
+          options={{
+            headerTitle: () => <CstmHeader title="Users" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Users & Staffs</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <AD name="contacts" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="Teams"
+          component={Teams}
+          options={{
+            headerTitle: () => <CstmHeader title="Teams" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Teams</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <FA name="group" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="SlaPlan"
+          component={SlaPlans}
+          options={{
+            headerTitle: () => <CstmHeader title="Sla Plan" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Sla Plan</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <MCI name="clock" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="Profile"
+          component={Profile}
+          initialParams={{ status: false }}
+          options={{
+            headerRight: noHeader,
+            drawerItemStyle: { display: 'none' },
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            headerRight: noHeader,
+            drawerItemStyle: { display: 'none' },
+          }}
+        />
+        <Drawer.Screen
+          name="Feedback"
+          component={SendFeedback}
+          initialParams={{ userData: userDetails }}
+          options={{
+            headerRight: noHeader,
+            drawerItemStyle: { display: 'none' },
+          }}
+        />
+        <Drawer.Screen
+          name="TicketPriorities"
+          component={TicketPriorities}
+          options={{
+            headerTitle: () => <CstmHeader title="Ticket Priorities" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Ticket Priorities</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <OI name="north-star" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="TicketStatus"
+          component={TicketStatus}
+          options={{
+            headerTitle: () => <CstmHeader title="Ticket Status" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Ticket Status</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <EI name="squared-plus" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="Departments"
+          component={Departments}
+          options={{
+            headerTitle: () => <CstmHeader title="Departments" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Departments</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <MCI name="home-group" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="Locations"
+          component={Locations}
+          options={{
+            headerTitle: () => <CstmHeader title="Locations" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Locations</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <EI name="location" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="HelpTopics"
+          component={HelpTopics}
+          options={{
+            headerTitle: () => <CstmHeader title="Help Topics" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Help Topics</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <Ionicons name="newspaper-outline" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="CannedResponse"
+          component={CannedResponse}
+          options={{
+            headerTitle: () => <CstmHeader title="Canned Response" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Canned Response</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <FA name="certificate" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+        <Drawer.Screen
+          name="Groups"
+          component={Groups}
+          options={{
+            headerTitle: () => <CstmHeader title="Groups" />,
+            drawerLabel: ({ color, focused }) => (
+              <Text style={{ right: 20, color }}>Groups</Text>
+            ),
+            drawerIcon: ({ color, size, focused }) => (
+              <MCI name="group" size={size} color={color} />
+            ),
+            headerRight: noHeader,
+          }}
+        />
+      </Drawer.Navigator>
+      {isFetching && <Loader isShow={isFetching} />}
+    </>
   );
 };
 

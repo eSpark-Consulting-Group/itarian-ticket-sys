@@ -5,6 +5,7 @@ import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { ticketStore } from '../../../stores/ticketStore';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllUsers = async () => {
   const user: any = userStore?.user?.get();
@@ -101,7 +102,7 @@ const deleteTicket = async (id: number) => {
     const result: any = await api.delete(`/tickets/${id}`);
     if (result?.ok) {
       getTicketsByUserId(activeMember?.id);
-      showMessage({
+      showMessageSafe({
         message: 'Ticket deleted successfully',
         type: 'success',
         duration: alert_Dur,
@@ -261,7 +262,7 @@ const deleteCollaborator = async (collaboratorId: string, ticketId: string) => {
     );
     if (result?.ok) {
       getTicketCollaborators(ticketId);
-      showMessage({
+      showMessageSafe({
         message: 'Collaborator deleted successfully',
         type: 'success',
         duration: alert_Dur,

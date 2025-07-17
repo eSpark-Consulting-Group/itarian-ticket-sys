@@ -12,6 +12,9 @@ import { Buffer } from 'buffer';
 import { alert_Dur } from '../constants';
 import { createUser } from '../screens/SendFeedback/utils';
 
+import { showMessage as flashShowMessage, MessageOptions } from 'react-native-flash-message';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
+
 export const getNavigtionApps = async () => {
   const Androidpackages = [
     { package: 'com.waze', name: 'Waze' },
@@ -75,7 +78,7 @@ export const uploadProfilePicToCanny = async (
             });
           }
           if (result.error) {
-            showMessage({
+            showMessageSafe({
               message: result.error,
               type: 'danger',
               icon: 'auto',
@@ -84,7 +87,7 @@ export const uploadProfilePicToCanny = async (
         })
         .catch(error => {
           console.log('Image not uploaded successfully', error);
-          showMessage({
+          showMessageSafe({
             message: error[0],
             type: 'danger',
             icon: 'auto',
@@ -255,7 +258,7 @@ export const checkValidations = async (
       Info[i]?.isRequired &&
       (Info[i].title == 'Please Select' || Info[i].title == '')
     ) {
-      showMessage({
+      showMessageSafe({
         message: 'Please fill required fields',
         type: 'warning',
         icon: 'auto',
@@ -268,7 +271,7 @@ export const checkValidations = async (
   try {
     const result = await apiCall(data);
     if (result?.status) {
-      showMessage({
+      showMessageSafe({
         message: message ?? 'Item added Successfully',
         type: 'success',
         icon: 'auto',
@@ -279,7 +282,7 @@ export const checkValidations = async (
     } else {
       console.log('Request Body:', JSON.stringify(data));
 
-      showMessage({
+      showMessageSafe({
         message:
           result?.message?.data?.errors[0]?.detail ??
           result?.message?.data?.errors[0]?.title +
@@ -429,3 +432,10 @@ export function create_UUID() {
   );
   return uuid;
 }
+
+export const showMessageSafe = (options: MessageOptions) => {
+  flashShowMessage({
+    statusBarHeight: initialWindowMetrics?.insets.top || 0,
+    ...options,
+  });
+};

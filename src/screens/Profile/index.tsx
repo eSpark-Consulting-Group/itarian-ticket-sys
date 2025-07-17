@@ -194,7 +194,7 @@ const Profile = ({ navigation }: any) => {
             setImgPath(img.path);
           }}
         />
-        <Text style={{ fontWeight: 'bold', color: colors.text }}>
+        <Text style={{ fontWeight: 'bold', color: colors.text, marginTop: 10 }}>
           {user.get()?.email ?? 'N/A'}
         </Text>
       </View>

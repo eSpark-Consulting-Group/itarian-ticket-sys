@@ -5,6 +5,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllLocations = async () => {
   const user: any = userStore.user.get();
@@ -53,7 +54,7 @@ const deleteLocation = async (id: number) => {
     const result: any = await api.delete(`/locations/${id}`);
     if (result?.ok) {
       getAllLocations();
-      showMessage({
+      showMessageSafe({
         message: 'Location deleted successfully',
         type: 'success',
         duration: alert_Dur,

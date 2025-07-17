@@ -3,6 +3,7 @@ import { api } from '../../../api';
 import { alert_Dur } from '../../../constants';
 import { globalState } from '../../../stores/globalAppState';
 import { userStore } from '../../../stores/userStore';
+import { showMessageSafe } from '../../../utils/helperFunctions';
 
 const getAllGroups = async () => {
   const user: any = userStore.user.get();
@@ -51,7 +52,7 @@ const deleteGroup = async (id: number) => {
     const result: any = await api.delete(`/groups/${id}`);
     if (result?.ok) {
       getAllGroups();
-      showMessage({
+      showMessageSafe({
         message: 'SlaPlan deleted successfully',
         type: 'success',
         duration: alert_Dur,

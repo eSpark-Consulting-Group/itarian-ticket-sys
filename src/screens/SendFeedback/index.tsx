@@ -300,7 +300,7 @@ const SendFeedbackScreen = () => {
           <Text
             style={{
               color: colors.text,
-              fontFamily: 'sans-serif',
+              fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'OpenSans-Medium',
               fontSize: 16,
               fontWeight: 'bold',
             }}
@@ -311,7 +311,7 @@ const SendFeedbackScreen = () => {
             <Text
               style={{
                 color: colors.text,
-                fontFamily: 'sans-serif',
+                fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'OpenSans-Medium',
               }}>
               {item?.author?.name}
             </Text>
@@ -417,7 +417,7 @@ const SendFeedbackScreen = () => {
           <Text
             style={{
               color: colors.text,
-              fontFamily: 'sans-serif',
+              fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'OpenSans-Medium',
               fontSize: 16,
               fontWeight: 'bold',
             }}
@@ -530,7 +530,7 @@ const SendFeedbackScreen = () => {
                 <Text
                   style={{
                     color: colors.text,
-                    fontFamily: 'sans-serif',
+                    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'OpenSans-Medium',
                     fontSize: 20,
                   }}>
                   Posts
@@ -617,7 +617,7 @@ const SendFeedbackScreen = () => {
             <Text
               style={{
                 color: colors.text,
-                fontFamily: 'sans-serif',
+                fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'OpenSans-Medium',
                 fontSize: 20,
               }}>
               Boards

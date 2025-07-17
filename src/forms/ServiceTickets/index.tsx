@@ -19,7 +19,7 @@ import {
 import { globalState } from '../../stores/globalAppState';
 import Threads from './Threads';
 import Collaborators from './Collaborators';
-import { SelectItems } from '../../utils/helperFunctions';
+import { SelectItems, showMessageSafe } from '../../utils/helperFunctions';
 import { userStore } from '../../stores/userStore';
 import { alert_Dur } from '../../constants';
 import { showMessage } from 'react-native-flash-message';
@@ -151,14 +151,14 @@ const ServiceTickets = ({ navigation, route }: any) => {
     try {
       const result = await addCollaborator(obj);
       if (result?.status) {
-        showMessage({
+        showMessageSafe({
           message: 'Collaborator added Successfully',
           type: 'success',
           icon: 'auto',
           duration: alert_Dur,
         });
       } else {
-        showMessage({
+        showMessageSafe({
           message:
             result?.message?.data?.errors[0]?.detail ?? 'Something went wrong',
           type: 'danger',

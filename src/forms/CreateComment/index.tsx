@@ -129,7 +129,7 @@ export const CreateComment = () => {
               }
               if (result.error) {
                 setLoading(false);
-                showMessage({
+                showMessageSafe({
                   message: result.error,
                   type: 'danger',
                   icon: 'auto',
@@ -140,7 +140,7 @@ export const CreateComment = () => {
             .catch(error => {
               setLoading(false);
               console.log('error', error);
-              showMessage({
+              showMessageSafe({
                 message: error[0],
                 type: 'danger',
                 icon: 'auto',
@@ -153,7 +153,7 @@ export const CreateComment = () => {
       .catch(err => {
         console.log('err', err);
         setLoading(false);
-        showMessage({
+        showMessageSafe({
           message: err.message,
           type: 'danger',
           icon: 'auto',
@@ -188,7 +188,7 @@ export const CreateComment = () => {
       delete req.parentID;
     }
     if (req.value === null) {
-      showMessage({
+      showMessageSafe({
         message: 'Comment cannot be empty',
         type: 'warning',
         icon: 'auto',
@@ -201,7 +201,7 @@ export const CreateComment = () => {
           console.log('Comment Created', res?.data);
           setLoading(false);
           navigation.goBack();
-          showMessage({
+          showMessageSafe({
             message: 'Succesfully Created Comment',
             type: 'success',
             icon: 'auto',
@@ -211,7 +211,7 @@ export const CreateComment = () => {
       .catch(err => {
         console.log('err', err);
         setLoading(false);
-        showMessage({
+        showMessageSafe({
           message: err,
           type: 'danger',
           icon: 'auto',

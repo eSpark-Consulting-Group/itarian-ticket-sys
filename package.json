@@ -21,6 +21,7 @@
     "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-native-community/datetimepicker": "^7.6.3",
     "@react-native-community/netinfo": "^9.3.7",
+    "@react-native/metro-config": "^0.80.1",
     "@react-navigation/drawer": "^6.4.1",
     "@react-navigation/material-top-tabs": "^6.2.1",
     "@react-navigation/native": "^6.1.16",

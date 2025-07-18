@@ -110,8 +110,8 @@ const LoginScreen = ({ navigation }: NativeStackHeaderProps) => {
           behavior="padding">
           <Formik
             initialValues={{
-              email: 'abc@test.com',
-              password: '12345678',
+              email: '',
+              password: '',
             }}
             onSubmit={async (values, { resetForm }) => {
               const { email, password } = values;

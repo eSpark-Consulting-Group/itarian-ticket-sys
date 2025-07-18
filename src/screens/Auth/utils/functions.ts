@@ -9,8 +9,10 @@ import { userStore } from '../../../stores/userStore';
 import { encodedUserDataToken, showMessageSafe } from '../../../utils/helperFunctions';
 
 const credentialsObj = {
-  email: 'heroadmin@yopmail.com',
-  password: 'admin1',
+  email: '',
+  password: '',
+  // email: 'heroadmin@yopmail.com',
+  // password: 'admin1',
   // email: 'faraz.espark@gmail.com',
   // email: 'tcomp4@yopmail.com',
   // password: 'admin123',
@@ -31,13 +33,14 @@ const handleLoginUser = async (
     Authorization: tenant_Auth,
   });
   const response = await api.post('/tenant/login', {
-    email: credentialsObj.email, //?: faveo
+    // email: credentialsObj.email, //?: faveo
     // testwiz@yopmail.com //?: simple
     // test2fa2@yopmail.com //?: authenticator 2fa
     // otptester@yopmail.com //?: sms 2fa
     // test9@yopmail.com
-    // email,
-    password: credentialsObj.password,
+    email,
+    password,
+    // password: credentialsObj.password,
     nameSpace: 'ServiceDesk',
   });
 
@@ -52,7 +55,8 @@ const handleLoginUser = async (
         subDomain: subDomain,
         userId: apiKey,
         token: encodedUserDataToken(subDomain, apiKey),
-        email: credentialsObj.email,
+        email: email,
+        // email: credentialsObj.email,
         id: userId
       };
       console.log('use', userObj);

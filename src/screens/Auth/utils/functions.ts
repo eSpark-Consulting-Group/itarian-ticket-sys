@@ -44,6 +44,7 @@ const handleLoginUser = async (
     nameSpace: 'ServiceDesk',
   });
 
+  console.log('User Response? ', response.data, response.config?.baseURL);
   if (response.ok) {
     const resData: any = response.data;
     console.log('User Response? ', response.data);
